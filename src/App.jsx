@@ -1,9 +1,13 @@
 import ObservationStep from "./ObservationStep";
+import "./App.css";
+import NvcWizard from "./NVCWizard";
 
 function App() {
 	return (
-		<div className="min-h-screen bg-[#F7F7F5] p-8">
-			<ObservationStep />
+		<div className="app-container">
+			<div className="app-wrapper">
+				<NvcWizard />
+			</div>
 		</div>
 	);
 }
