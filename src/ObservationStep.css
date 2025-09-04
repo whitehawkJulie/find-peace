@@ -1,0 +1,127 @@
+/* Container for the full component */
+.observation-container {
+	max-width: 600px;
+	margin: 2rem auto;
+	padding: 1.5rem;
+	background-color: #fdf8f2; /* warm beige for essential sections */
+	border-radius: 12px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+	font-family: sans-serif;
+	position: relative;
+	z-index: 1;
+}
+
+/* Header row: title + help icon */
+.header-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+/* Help icon (💡) */
+.help-icon {
+	font-size: 1.5rem;
+	background: none;
+	border: none;
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.help-icon:hover {
+	opacity: 1;
+}
+
+/* Label above the textarea */
+label {
+	display: block;
+	margin-top: 1rem;
+	margin-bottom: 0.5rem;
+	font-weight: 600;
+}
+
+/* Main input box */
+.observation-input {
+	width: 100%;
+	padding: 0.75rem;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-size: 1rem;
+	line-height: 1.4;
+	resize: vertical;
+}
+
+/* Clear button */
+.clear-button {
+	margin-top: 1rem;
+	background-color: #f4e3e3;
+	color: #660000;
+	padding: 0.5rem 1rem;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 0.95rem;
+}
+
+.clear-button:hover {
+	background-color: #f1cfcf;
+}
+
+/* --- Slide-in Help Panel --- */
+
+.help-panel {
+	position: fixed;
+	top: 0;
+	right: -400px; /* off-screen */
+	width: 320px;
+	height: 100vh;
+	padding: 1.5rem;
+	background-color: #ffffff;
+	border-left: 2px solid #b2d6c5; /* sage green border */
+	box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+	transition: right 0.3s ease-in-out;
+	z-index: 999; /* above rest of UI */
+	overflow-y: auto;
+}
+
+/* When shown */
+.help-panel.show {
+	right: 0;
+}
+
+/* Help panel header (title + X button) */
+.help-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* Close \"×\" button */
+.close-help {
+	background: none;
+	border: none;
+	font-size: 1.5rem;
+	cursor: pointer;
+	opacity: 0.6;
+	line-height: 1;
+}
+
+.close-help:hover {
+	opacity: 1;
+}
+
+/* Help panel content */
+.help-panel p {
+	margin-top: 1rem;
+	font-size: 0.95rem;
+	line-height: 1.4;
+}
+
+.help-panel ul {
+	margin-top: 0.75rem;
+	padding-left: 1.25rem;
+}
+
+.help-panel li {
+	margin-bottom: 0.5rem;
+	font-size: 0.95rem;
+}
