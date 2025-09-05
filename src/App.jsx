@@ -1,15 +1,9 @@
-import ObservationStep from "./ObservationStep";
+import React from "react";
 import "./App.css";
-import NvcWizard from "./NVCWizard";
+import NvcWizard from "./components/NvcWizard";
 
 function App() {
-	return (
-		<div className="app-container">
-			<div className="app-wrapper">
-				<NvcWizard />
-			</div>
-		</div>
-	);
+	return <NvcWizard />;
 }
 
 export default App;

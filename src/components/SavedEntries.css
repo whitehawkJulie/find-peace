@@ -1,0 +1,12 @@
+.saved-entries {
+  margin-top: 2em;
+  text-align: left;
+}
+
+.saved-card {
+  background-color: #f9fafb;
+  border-left: 4px solid #10b981;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 4px;
+}
