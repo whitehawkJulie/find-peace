@@ -4,6 +4,7 @@ import StepFeelings from "./StepFeelings";
 import StepNeeds from "./StepNeeds";
 import StepRequest from "./StepRequest";
 import SavedEntries from "./SavedEntries";
+import { TopMenuBar, BottomMenuBar } from "./MenuBarComponents";
 
 export default function NvcWizard() {
 	const [step, setStep] = useState(0);
@@ -45,10 +46,7 @@ export default function NvcWizard() {
 
 	return (
 		<div className="nvc-wizard">
-			<div className="menu-bar top">
-				<button onClick={startNew}>New</button>
-				<button onClick={() => setViewingPast(true)}>Past</button>
-			</div>
+			<TopMenuBar onNew={startNew} onViewPast={() => setViewingPast(true)} />
 
 			{!viewingPast ? (
 				<>
@@ -76,17 +74,14 @@ export default function NvcWizard() {
 						/>
 					)}
 
-					<div className="menu-bar bottom">
-						<button onClick={() => goToStep(-1)} disabled={step === 0}>
-							Previous
-						</button>
-						<button onClick={() => goToStep(1)} disabled={step === 3}>
-							Next
-						</button>
-						<button onClick={saveEntry} disabled={step !== 3}>
-							Save
-						</button>
-					</div>
+					<BottomMenuBar
+						onPrevious={() => goToStep(-1)}
+						onNext={() => goToStep(1)}
+						onSave={saveEntry}
+						disablePrevious={step === 0}
+						disableNext={step === 3}
+						disableSave={step !== 3}
+					/>
 				</>
 			) : (
 				<SavedEntries entries={savedEntries} />
