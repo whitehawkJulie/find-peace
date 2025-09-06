@@ -1,0 +1,10 @@
+.selected-needs {
+	margin-top: 1rem;
+	font-size: 0.95rem;
+	line-height: 1.4;
+}
+.selected-needs strong {
+	color: #4b9c8e;
+	display: inline-block;
+	margin-bottom: 0.25rem;
+}
