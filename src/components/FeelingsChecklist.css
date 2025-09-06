@@ -1,30 +1,75 @@
+/* Base container */
 .feelings-checklist {
-	margin-top: 1rem;
+	border: 2px dashed #c3d7c0;
+	border-radius: 16px;
+	padding: 1.5rem;
+	margin: 1rem 0 2rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-.feelings-category-heading {
-	font-weight: bold;
-	margin: 1rem 0 0.5rem;
-	color: #444;
+/* Background for Met Feelings list */
+.feelings-checklist.met {
+	background-color: #f4f9f5; /* pale green */
 }
 
-.pill-container {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
+/* Background for Unmet Feelings list */
+.feelings-checklist.unmet {
+	background-color: #f4f8fa; /* pale blue */
+}
+
+/* Feelings Category Box */
+.feelings-checklist .feelings-category {
+	border-radius: 12px;
+	padding: 1rem;
 	margin-bottom: 1rem;
 }
 
+/* Slightly darker background per list type */
+.feelings-checklist.met .feelings-category {
+	background-color: #dceee0; /* darker green */
+}
+
+.feelings-checklist.unmet .feelings-category {
+	background-color: #dae7ef; /* darker blue */
+}
+
+/* Category Heading */
+.feelings-category-heading {
+	font-weight: 600;
+	font-size: 1rem;
+	margin-bottom: 0.5rem;
+	margin-top: 0;
+	color: #344e41;
+}
+
+/* Pills */
 .pill {
-	padding: 0.4rem 0.75rem;
-	border-radius: 20px;
-	background-color: #eee;
+	display: inline-block;
+	padding: 0.4rem 0.8rem;
+	margin: 0.3rem;
+	border-radius: 999px;
+	border: 1px solid #d1dcd4;
+	background-color: #f2f4f1;
 	cursor: pointer;
-	transition: all 0.2s;
-	border: 1px solid #ccc;
+	transition: all 0.2s ease-in-out;
+	font-size: 0.9rem;
+	color: #444;
+}
+
+.pill:hover {
+	background-color: #e1eae2;
 }
 
 .pill.selected {
-	background-color: #cce5ff;
-	border-color: #66b0ff;
+	background-color: #c4d9c6;
+	border-color: #8fb99b;
+	color: #2e4b2e;
+}
+
+/* Optional: slight spacing between sections */
+.feelings-checklist h2 {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	font-size: 1.2rem;
+	font-weight: 600;
 }

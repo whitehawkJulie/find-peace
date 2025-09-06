@@ -1,13 +1,16 @@
 import React from "react";
 import "./FeelingsChecklist.css"; // You can reuse your pill styles here
 
-const FeelingsChecklist = ({ data, selected, setSelected }) => {
+const FeelingsChecklist = ({ data, selected, setSelected, className }) => {
 	const toggleFeeling = (feeling) => {
 		setSelected((prev) => (prev.includes(feeling) ? prev.filter((f) => f !== feeling) : [...prev, feeling]));
 	};
 
+	const titleText = className === "met" ? "Feelings when needs are met" : "Feelings when needs are not met";
+
 	return (
-		<div className="feelings-checklist">
+		<div className={`feelings-checklist ${className || ""}`}>
+			<h2>{titleText}</h2>
 			{Object.entries(data).map(([category, feelings]) => (
 				<div key={category} className="feelings-category">
 					<h4 className="feelings-category-heading">{category}</h4>
