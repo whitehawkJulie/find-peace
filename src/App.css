@@ -60,6 +60,12 @@ textarea {
 	cursor: pointer;
 	color: #555;
 	padding: 0;
+	width: 1.8rem;
+	height: 1.8rem;
+	border-radius: 50%;
+	border: 1px solid #ccc;
+	text-align: center;
+	line-height: 1.5rem;
 }
 
 /* Bottom menu bar */
@@ -101,66 +107,4 @@ button:disabled {
 
 .menu-bar button:hover:not(:disabled) {
 	background-color: #3367d6;
-}
-
-/* Need pills */
-.need-pill {
-	display: inline-block;
-	padding: 6px 12px;
-	margin: 4px;
-	font-size: 0.9rem;
-	border-radius: 20px;
-	border: 1px solid #bbb;
-	cursor: pointer;
-	transition: all 0.2s ease-in-out;
-	user-select: none;
-}
-.need-pill.unmet {
-	background-color: #f8d7da;
-	color: #721c24;
-	border-color: #f5c6cb;
-}
-.need-pill.met {
-	background-color: #d4edda;
-	color: #155724;
-	border-color: #c3e6cb;
-}
-.need-pill:hover {
-	transform: scale(1.05);
-}
-
-/* Needs grid */
-.needs-grid {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 6px;
-}
-
-/* Category and subcategory styling */
-.category-heading {
-	font-size: 1.2rem;
-	font-weight: bold;
-	margin-top: 0.1rem;
-	padding: 0.25rem 0;
-	border-bottom: 1px solid black;
-}
-
-.category-connection {
-	background-color: #e8f5e9;
-}
-.category-subsistence {
-	background-color: #fffde7;
-}
-.category-meaning {
-	background-color: #e3f2fd;
-}
-.category-freedom {
-	background-color: #f3e5f5;
-}
-
-.subcategory-title {
-	font-weight: bold;
-	margin-top: 0.5rem;
-	margin-bottom: 0.25rem;
-	padding-left: 0.25rem;
 }

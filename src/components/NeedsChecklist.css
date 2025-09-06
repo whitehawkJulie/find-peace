@@ -6,13 +6,6 @@
 	margin-bottom: 2rem;
 }
 
-.subcategory-title {
-	font-size: 0.9rem;
-	font-weight: bold;
-	margin-bottom: 0.5rem;
-	color: #444;
-}
-
 .needs-grid {
 	display: flex;
 	flex-wrap: wrap;
@@ -45,40 +38,6 @@
 
 .need-pill:hover {
 	transform: scale(1.05);
-}
-
-.needs-checklist-header {
-	display: flex;
-	align-items: flex-start;
-	justify-content: flex-end;
-	position: relative;
-	margin-bottom: 0.5rem;
-}
-
-.help-icon {
-	background: none;
-	border: none;
-	font-size: 1.1rem;
-	cursor: pointer;
-	color: #555;
-	width: 1.8rem;
-	height: 1.8rem;
-	border-radius: 50%;
-	border: 1px solid #ccc;
-	text-align: center;
-	line-height: 1.5rem;
-	padding: 0;
-}
-
-.checklist-help-text {
-	background: #fdf5cc;
-	border: 1px solid #f0e68c;
-	padding: 0.75rem;
-	font-size: 0.9rem;
-	border-radius: 8px;
-	color: #333;
-	margin-top: 0.5rem;
-	line-height: 1.3;
 }
 
 /* Base category card style */
@@ -133,7 +92,6 @@
 
 /* Subcategory Heading */
 .subcategory-title {
-	margin: 0.5rem 0 0.25rem;
 	margin: 1rem 0 0.75rem 0.5rem;
 	font-size: 0.95rem;
 	font-weight: bold;
