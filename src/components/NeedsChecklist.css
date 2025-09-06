@@ -80,3 +80,77 @@
 	margin-top: 0.5rem;
 	line-height: 1.3;
 }
+
+/* Base category card style */
+.needs-category {
+	padding: 1rem;
+	border-radius: 10px;
+	margin-bottom: 1rem;
+}
+
+/* Softer background tints per category */
+.category-subsistence-and-security {
+	background-color: #f9f6f1; /* warm neutral */
+}
+
+.category-connection {
+	background-color: #f1f7fa; /* pale blue-grey */
+}
+
+.category-meaning {
+	background-color: #f6f4f9; /* very pale lilac */
+}
+
+.category-freedom {
+	background-color: #f3f9f3; /* soft minty green */
+}
+
+/* Category Heading */
+.category-heading {
+	margin-bottom: 0.5rem;
+	font-size: 1.1rem;
+	font-weight: bold;
+	margin-top: 0.1rem;
+	border-bottom: 1px solid #ccc; /* softer grey */
+}
+
+/* Optional: Matching heading text colours */
+.category-subsistence-and-security .category-heading {
+	color: #5e4e3f; /* warm taupe */
+}
+
+.category-connection .category-heading {
+	color: #3a5f6c; /* desaturated blue-green */
+}
+
+.category-meaning .category-heading {
+	color: #574f6b; /* soft plum */
+}
+
+.category-freedom .category-heading {
+	color: #47664d; /* dusty green */
+}
+
+/* Subcategory Heading */
+.subcategory-title {
+	margin: 0.5rem 0 0.25rem;
+	margin: 1rem 0 0.75rem 0.5rem;
+	font-size: 0.95rem;
+	font-weight: bold;
+}
+
+.category-subsistence-and-security .subcategory-title {
+	color: #5a4736; /* deeper warm taupe */
+}
+
+.category-connection .subcategory-title {
+	color: #355b66; /* deeper blue-green */
+}
+
+.category-meaning .subcategory-title {
+	color: #4e4466; /* rich plum */
+}
+
+.category-freedom .subcategory-title {
+	color: #3c5d41; /* forest green */
+}
