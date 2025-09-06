@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NeedsChecklist.css";
 import needsData from "./NeedsData";
 
 const NeedsChecklist = ({ selectedNeeds, setSelectedNeeds }) => {
+	const [showHelp, setShowHelp] = useState(false);
+
 	const handleClick = (need) => {
 		setSelectedNeeds((prev) => {
 			if (prev[need] === "unmet") {
@@ -23,6 +25,18 @@ const NeedsChecklist = ({ selectedNeeds, setSelectedNeeds }) => {
 
 	return (
 		<div className="needs-checklist">
+			<div className="needs-checklist-header">
+				<button className="help-icon" onClick={() => setShowHelp((prev) => !prev)} title="Help">
+					?
+				</button>
+				{showHelp && (
+					<div className="checklist-help-text">
+						Click once to select an <strong>unmet</strong> need.
+						<br />
+						Double-click to mark it as <strong>met</strong>.
+					</div>
+				)}
+			</div>
 			{Object.entries(needsData).map(([category, subcategories]) => (
 				<div key={category} className="needs-category">
 					{Object.entries(subcategories).map(([sub, needs]) => (

@@ -67,8 +67,6 @@ export default function NvcWizard() {
 						/>
 					)}
 					{step === 2 && (
-						// <StepNeeds needs={formData.needs} onChange={(value) => saveFieldData("needs", value)} />
-
 						<Needs
 							needs={needs}
 							setNeeds={setNeeds}
