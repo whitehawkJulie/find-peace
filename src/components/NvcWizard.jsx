@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import StepObservation from "./StepObservation";
 import StepFeelings from "./StepFeelings";
 import StepNeeds from "./StepNeeds";
+import Needs from "./Needs";
 import StepRequest from "./StepRequest";
 import SavedEntries from "./SavedEntries";
 import { TopMenuBar, BottomMenuBar } from "./MenuBarComponents";
@@ -14,6 +15,8 @@ export default function NvcWizard() {
 		needs: [],
 		request: "",
 	});
+	const [needs, setNeeds] = useState([]);
+	const [showNeedsDrawer, setShowNeedsDrawer] = useState(false);
 
 	const [savedEntries, setSavedEntries] = useState(() => {
 		const stored = localStorage.getItem("nvcEntries");
@@ -65,7 +68,14 @@ export default function NvcWizard() {
 						/>
 					)}
 					{step === 2 && (
-						<StepNeeds needs={formData.needs} onChange={(value) => saveFieldData("needs", value)} />
+						// <StepNeeds needs={formData.needs} onChange={(value) => saveFieldData("needs", value)} />
+
+						<Needs
+							needs={needs}
+							setNeeds={setNeeds}
+							showDrawer={showNeedsDrawer}
+							setShowDrawer={setShowNeedsDrawer}
+						/>
 					)}
 					{step === 3 && (
 						<StepRequest request={formData.request} onChange={(value) => saveFieldData("request", value)} />
