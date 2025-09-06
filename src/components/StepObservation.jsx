@@ -1,42 +1,39 @@
-import React from "react";
-import "./StepObservation.css";
+import React, { useState } from "react";
+import SlideDrawer from "./SlideDrawer";
 
-export default function StepObservation({ observation, onChange, showHelp, toggleHelp }) {
+const Observation = ({ observation, setObservation }) => {
+	const [showHelp, setShowHelp] = useState(false);
+
 	return (
-		<div className="card">
+		<div className="step-observation">
 			<div className="card-header">
 				<h2>Observation</h2>
-				<button className="help-icon" onClick={toggleHelp}>
+				<button className="help-icon" onClick={() => setShowHelp(true)}>
 					?
 				</button>
 			</div>
 
 			<textarea
 				value={observation}
-				onChange={(e) => onChange(e.target.value)}
+				onChange={(e) => setObservation(e.target.value)}
 				placeholder="What did you see or hear?"
 			/>
 
-			{showHelp && (
-				<div className="slide-panel">
-					<div className="slide-panel-header">
-						<h3>How to write an Observation</h3>
-						<button className="close-button" onClick={toggleHelp}>
-							×
-						</button>
-					</div>
-					<p>
-						An observation is what you actually saw or heard — something a video camera could record. Avoid
-						opinions, interpretations, or assumptions.
-					</p>
-					<ul>
-						<li>✅ “He said, ‘You’re hopeless.’”</li>
-						<li>❌ “He was being mean.”</li>
-						<li>✅ “The kids ran across the floor at 8 am.”</li>
-						<li>❌ “The kids were being disrespectful.”</li>
-					</ul>
-				</div>
-			)}
+			<SlideDrawer isOpen={showHelp} onClose={() => setShowHelp(false)} title="Observation Help">
+				<p>
+					In NVC, an observation is something you could record with a video camera — something factual,
+					without evaluation or interpretation.
+				</p>
+				<ul>
+					<li>✔ “He walked out and slammed the door.”</li>
+					<li>✖ “He was being rude.”</li>
+					<li>✔ “She didn’t return my call.”</li>
+					<li>✖ “She ignored me.”</li>
+				</ul>
+				<p>Stick to what you saw or heard. That gives clarity — and helps avoid blame or argument.</p>
+			</SlideDrawer>
 		</div>
 	);
-}
+};
+
+export default Observation;

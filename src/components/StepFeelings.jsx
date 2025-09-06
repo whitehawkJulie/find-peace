@@ -1,5 +1,4 @@
 import React from "react";
-import "./StepFeelings.css";
 
 export default function StepFeelings({ feelings, onChange, openDrawer }) {
 	return (

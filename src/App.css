@@ -82,39 +82,5 @@ textarea {
 	cursor: pointer;
 	color: #888;
 	padding: 0.25rem 0.5rem;
-}
-
-/* Slide-in panel */
-.slide-panel {
-	position: fixed;
-	top: 0;
-	right: 0;
-	width: 320px;
-	height: 100%;
-	background-color: #fffbe6;
-	border-left: 2px solid #f0e68c;
-	box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
-	padding: 1rem;
-	z-index: 1000;
-	overflow-y: auto;
-	transition: transform 0.3s ease-in-out;
-	transform: translateX(100%);
-}
-
-.slide-panel.show {
-	transform: translateX(0);
-}
-
-.slide-panel-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.slide-panel .close-button {
-	background: none;
-	border: none;
-	font-size: 1.5rem;
-	color: #444;
-	cursor: pointer;
+	float: right;
 }
