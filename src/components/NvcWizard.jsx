@@ -11,7 +11,8 @@ const NVCWizard = () => {
 	const [stepIndex, setStepIndex] = useState(0);
 
 	const [observation, setObservation] = useState("");
-	const [feelings, setFeelings] = useState([]);
+	const [upFeelings, setUpFeelings] = useState([]);
+	const [downFeelings, setDownFeelings] = useState([]);
 	const [needs, setNeeds] = useState({});
 	const [request, setRequest] = useState("");
 
@@ -19,7 +20,12 @@ const NVCWizard = () => {
 
 	const steps = [
 		<Observation observation={observation} setObservation={setObservation} />,
-		<Feelings feelings={feelings} setFeelings={setFeelings} />,
+		<Feelings
+			selectedUpFeelings={upFeelings}
+			setSelectedUpFeelings={setUpFeelings}
+			selectedDownFeelings={downFeelings}
+			setSelectedDownFeelings={setDownFeelings}
+		/>,
 		<Needs needs={needs} setNeeds={setNeeds} />,
 		...(hasMetNeeds ? [<NeedsMet needs={needs} />] : []),
 		<NeedsUnmet needs={needs} />,
