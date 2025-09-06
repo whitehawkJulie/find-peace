@@ -23,7 +23,7 @@ export default function NvcWizard() {
 	const [viewingPast, setViewingPast] = useState(false);
 	const [showObservationHelp, setShowObservationHelp] = useState(false);
 
-	const handleFieldChange = (field, value) => {
+	const saveFieldData = (field, value) => {
 		setFormData({ ...formData, [field]: value });
 	};
 
@@ -46,14 +46,14 @@ export default function NvcWizard() {
 
 	return (
 		<div className="nvc-wizard">
-			<TopMenuBar onNew={startNew} onViewPast={() => setViewingPast(true)} />
+			{/* <TopMenuBar onNew={startNew} onViewPast={() => setViewingPast(true)} /> */}
 
 			{!viewingPast ? (
 				<>
 					{step === 0 && (
 						<StepObservation
 							observation={formData.observation}
-							onChange={(value) => handleFieldChange("observation", value)}
+							onChange={(value) => saveFieldData("observation", value)}
 							showHelp={showObservationHelp}
 							toggleHelp={() => setShowObservationHelp(!showObservationHelp)}
 						/>
@@ -61,17 +61,14 @@ export default function NvcWizard() {
 					{step === 1 && (
 						<StepFeelings
 							feelings={formData.feelings}
-							onChange={(value) => handleFieldChange("feelings", value)}
+							onChange={(value) => saveFieldData("feelings", value)}
 						/>
 					)}
 					{step === 2 && (
-						<StepNeeds needs={formData.needs} onChange={(value) => handleFieldChange("needs", value)} />
+						<StepNeeds needs={formData.needs} onChange={(value) => saveFieldData("needs", value)} />
 					)}
 					{step === 3 && (
-						<StepRequest
-							request={formData.request}
-							onChange={(value) => handleFieldChange("request", value)}
-						/>
+						<StepRequest request={formData.request} onChange={(value) => saveFieldData("request", value)} />
 					)}
 
 					<BottomMenuBar

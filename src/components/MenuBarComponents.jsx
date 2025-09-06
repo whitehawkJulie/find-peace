@@ -1,4 +1,5 @@
 import React from "react";
+import "./MenuBars.css";
 
 export function TopMenuBar({ onNew, onViewPast }) {
 	return (
@@ -18,9 +19,9 @@ export function BottomMenuBar({ onPrevious, onNext, onSave, disablePrevious, dis
 			<button onClick={onNext} disabled={disableNext}>
 				Next
 			</button>
-			<button onClick={onSave} disabled={disableSave}>
+			{/* 			<button onClick={onSave} disabled={disableSave}>
 				Save
-			</button>
+			</button> */}
 		</div>
 	);
 }
