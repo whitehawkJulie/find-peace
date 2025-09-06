@@ -8,27 +8,16 @@ import needsData from "./NeedsData";
 const Needs = ({ needs: selectedNeeds, setNeeds }) => {
 	const [showDrawer, setShowDrawer] = useState(false);
 
-	const renderOrganizedNeeds = () => {
+	const renderOrganizedNeeds = (selectedNeeds) => {
 		const output = [];
 
-		Object.entries(needsData).forEach(([category, subcategories]) => {
-			const categoryNeeds = [];
-
-			Object.entries(subcategories).forEach(([sub, items]) => {
-				items.forEach((need) => {
-					if (selectedNeeds.includes(need)) {
-						categoryNeeds.push(need);
-					}
-				});
+		Object.values(needsData).forEach((subcategories) => {
+			Object.values(subcategories).forEach((needsList) => {
+				const matching = needsList.filter((need) => need in selectedNeeds);
+				if (matching.length > 0) {
+					output.push(<div key={matching.join("-")}>{matching.join(", ")}</div>);
+				}
 			});
-
-			if (categoryNeeds.length > 0) {
-				output.push(
-					<div key={category}>
-						<strong>{category}:</strong> {categoryNeeds.join(", ")}
-					</div>
-				);
-			}
 		});
 
 		return output;
@@ -46,7 +35,11 @@ const Needs = ({ needs: selectedNeeds, setNeeds }) => {
 			<p>
 				<strong>Selected:</strong>
 				<br />
-				{selectedNeeds.length > 0 ? <div className="selected-needs">{renderOrganizedNeeds()}</div> : "None yet"}
+				{Object.keys(selectedNeeds).length > 0 ? (
+					<div className="selected-needs">{renderOrganizedNeeds(selectedNeeds)}</div>
+				) : (
+					"None yet"
+				)}{" "}
 			</p>
 
 			<SlideDrawer isOpen={showDrawer} onClose={() => setShowDrawer(false)} title="Pick Your Needs">

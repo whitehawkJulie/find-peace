@@ -1,61 +1,48 @@
 .needs-checklist {
 	padding: 1rem;
-	max-height: calc(100vh - 100px);
-	overflow-y: auto;
-	box-sizing: border-box;
 }
 
 .needs-category {
 	margin-bottom: 2rem;
 }
 
-.category-title {
-	font-size: 1.2rem;
-	font-weight: bold;
-	color: #4b9c8e;
-	margin-bottom: 0.5rem;
-}
-
-.needs-subcategory {
-	margin-bottom: 1rem;
-}
-
 .subcategory-title {
-	font-size: 1rem;
-	font-weight: 500;
-	color: #333;
+	font-size: 0.9rem;
+	font-weight: bold;
 	margin-bottom: 0.5rem;
+	color: #444;
 }
 
-/* FLEXBOX layout for the needs */
-.pill-container {
+.needs-grid {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.5rem;
-	padding: 0 0.5rem;
-	box-sizing: border-box;
 }
 
-/* PILL style */
-.pill {
-	padding: 0.4rem 0.8rem;
-	border: 1px solid #ccc;
+.need-pill {
+	padding: 6px 12px;
 	border-radius: 20px;
-	background-color: #f9f9f9;
-	color: #333;
-	cursor: pointer;
-	transition: background-color 0.3s ease, color 0.3s ease, transform 0.15s ease;
-	font-size: 0.85rem;
-	font-weight: 500;
-}
-
-.pill:hover {
+	border: 1px solid #ccc;
 	background-color: #eee;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	font-size: 0.85rem;
+	user-select: none;
 }
 
-.pill.selected {
-	background-color: #4b9c8e;
-	color: white;
-	border-color: #4b9c8e;
+.need-pill.unmet {
+	background-color: #fff0f0;
+	border-color: #e06666;
+	color: #c00;
+}
+
+.need-pill.met {
+	background-color: #d1f0d1;
+	border-color: #4caf50;
+	color: #205820;
+	font-weight: bold;
+}
+
+.need-pill:hover {
 	transform: scale(1.05);
 }

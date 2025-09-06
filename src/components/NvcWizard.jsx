@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import StepObservation from "./StepObservation";
 import StepFeelings from "./StepFeelings";
-import StepNeeds from "./StepNeeds";
 import Needs from "./Needs";
 import StepRequest from "./StepRequest";
 import SavedEntries from "./SavedEntries";

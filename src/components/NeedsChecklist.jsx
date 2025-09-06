@@ -1,32 +1,54 @@
 import React from "react";
-import needsData from "./NeedsData"; // make sure this file exports the structured needs object
 import "./NeedsChecklist.css";
+import needsData from "./NeedsData";
 
 const NeedsChecklist = ({ selectedNeeds, setSelectedNeeds }) => {
-	const toggleNeed = (need) => {
-		setSelectedNeeds((prev) => (prev.includes(need) ? prev.filter((n) => n !== need) : [...prev, need]));
+	const handleClick = (need) => {
+		setSelectedNeeds((prev) => {
+			if (prev[need] === "unmet") {
+				const newState = { ...prev };
+				delete newState[need];
+				return newState;
+			}
+			return { ...prev, [need]: "unmet" };
+		});
+	};
+
+	const handleDoubleClick = (need) => {
+		setSelectedNeeds((prev) => ({
+			...prev,
+			[need]: "met",
+		}));
 	};
 
 	return (
 		<div className="needs-checklist">
 			{Object.entries(needsData).map(([category, subcategories]) => (
 				<div key={category} className="needs-category">
-					<h2 className="category-title">{category}</h2>
-
 					{Object.entries(subcategories).map(([sub, needs]) => (
 						<div key={sub} className="needs-subcategory">
-							<h3 className="subcategory-title">{sub}</h3>
+							<h4 className="subcategory-title">{sub}</h4>
+							<div className="needs-grid">
+								{needs.map((need) => {
+									const status = selectedNeeds[need];
+									let className = "need-pill";
+									if (status === "unmet") className += " unmet";
+									if (status === "met") className += " met";
 
-							<div className="pill-container">
-								{needs.map((need) => (
-									<button
-										key={need}
-										type="button"
-										className={`pill ${selectedNeeds.includes(need) ? "selected" : ""}`}
-										onClick={() => toggleNeed(need)}>
-										{need}
-									</button>
-								))}
+									return (
+										<div
+											key={need}
+											className={className}
+											onClick={() => handleClick(need)}
+											onDoubleClick={() => handleDoubleClick(need)}
+											tabIndex={0}
+											title={
+												status === "met" ? "Met" : status === "unmet" ? "Unmet" : "Unselected"
+											}>
+											{need}
+										</div>
+									);
+								})}
 							</div>
 						</div>
 					))}
