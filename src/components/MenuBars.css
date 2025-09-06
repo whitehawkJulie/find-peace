@@ -25,23 +25,3 @@
 .menu-bar.bottom button:last-child {
 	margin-left: auto;
 }
-
-.menu-bar button {
-	background: #f0f0f0;
-	border: 1px solid #ccc;
-	padding: 0.5rem 1rem;
-	margin: 0 0.5rem;
-	border-radius: 4px;
-	font-size: 1rem;
-	cursor: pointer;
-	transition: background 0.2s;
-}
-
-.menu-bar button:hover:not(:disabled) {
-	background: #e0e0e0;
-}
-
-.menu-bar button:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
