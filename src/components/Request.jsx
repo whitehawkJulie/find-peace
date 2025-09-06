@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function StepRequest({ request, onChange }) {
+export default function Request({ request, onChange }) {
 	return (
 		<>
 			<div className="card">

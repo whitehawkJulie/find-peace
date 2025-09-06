@@ -1,95 +1,49 @@
 import React, { useState } from "react";
-import StepObservation from "./StepObservation";
-import StepFeelings from "./StepFeelings";
+import Observation from "./Observation";
+import Feelings from "./Feelings";
 import Needs from "./Needs";
-import StepRequest from "./StepRequest";
-import SavedEntries from "./SavedEntries";
-import { TopMenuBar, BottomMenuBar } from "./MenuBarComponents";
+import NeedsMet from "./NeedsMet";
+import NeedsUnmet from "./NeedsUnmet";
+import Request from "./Request";
+import "./NvcWizard.css";
 
-export default function NvcWizard() {
-	const [step, setStep] = useState(0);
-	const [formData, setFormData] = useState({
-		observation: "",
-		feelings: [],
-		needs: [],
-		request: "",
-	});
-	const [needs, setNeeds] = useState([]);
-	const [showNeedsDrawer, setShowNeedsDrawer] = useState(false);
+const NVCWizard = () => {
+	const [stepIndex, setStepIndex] = useState(0);
 
-	const [savedEntries, setSavedEntries] = useState(() => {
-		const stored = localStorage.getItem("nvcEntries");
-		return stored ? JSON.parse(stored) : [];
-	});
+	const [observation, setObservation] = useState("");
+	const [feelings, setFeelings] = useState([]);
+	const [needs, setNeeds] = useState({});
+	const [request, setRequest] = useState("");
 
-	const [viewingPast, setViewingPast] = useState(false);
-	const [showObservationHelp, setShowObservationHelp] = useState(false);
+	const hasMetNeeds = Object.values(needs).includes("met");
 
-	const saveFieldData = (field, value) => {
-		setFormData({ ...formData, [field]: value });
-	};
+	const steps = [
+		<Observation observation={observation} setObservation={setObservation} />,
+		<Feelings feelings={feelings} setFeelings={setFeelings} />,
+		<Needs needs={needs} setNeeds={setNeeds} />,
+		...(hasMetNeeds ? [<NeedsMet needs={needs} />] : []),
+		<NeedsUnmet needs={needs} />,
+		<Request request={request} setRequest={setRequest} />,
+	];
 
-	const saveEntry = () => {
-		const newEntry = { ...formData, timestamp: new Date().toISOString() };
-		const updated = [...savedEntries, newEntry];
-		setSavedEntries(updated);
-		localStorage.setItem("nvcEntries", JSON.stringify(updated));
-	};
-
-	const goToStep = (n) => {
-		setStep((prev) => Math.max(0, Math.min(3, prev + n)));
-	};
-
-	const startNew = () => {
-		setFormData({ observation: "", feelings: [], needs: [], request: "" });
-		setStep(0);
-		setViewingPast(false);
-	};
+	const currentStep = steps[stepIndex];
 
 	return (
 		<div className="nvc-wizard">
-			{/* <TopMenuBar onNew={startNew} onViewPast={() => setViewingPast(true)} /> */}
+			<div className="card">{currentStep}</div>
 
-			{!viewingPast ? (
-				<>
-					{step === 0 && (
-						<StepObservation
-							observation={formData.observation}
-							onChange={(value) => saveFieldData("observation", value)}
-							showHelp={showObservationHelp}
-							toggleHelp={() => setShowObservationHelp(!showObservationHelp)}
-						/>
-					)}
-					{step === 1 && (
-						<StepFeelings
-							feelings={formData.feelings}
-							onChange={(value) => saveFieldData("feelings", value)}
-						/>
-					)}
-					{step === 2 && (
-						<Needs
-							needs={needs}
-							setNeeds={setNeeds}
-							showDrawer={showNeedsDrawer}
-							setShowDrawer={setShowNeedsDrawer}
-						/>
-					)}
-					{step === 3 && (
-						<StepRequest request={formData.request} onChange={(value) => saveFieldData("request", value)} />
-					)}
-
-					<BottomMenuBar
-						onPrevious={() => goToStep(-1)}
-						onNext={() => goToStep(1)}
-						onSave={saveEntry}
-						disablePrevious={step === 0}
-						disableNext={step === 3}
-						disableSave={step !== 3}
-					/>
-				</>
-			) : (
-				<SavedEntries entries={savedEntries} />
-			)}
+			<div className="menu-bar">
+				<button onClick={() => setStepIndex((i) => Math.max(i - 1, 0))} disabled={stepIndex === 0}>
+					Previous
+				</button>
+				<button
+					onClick={() => setStepIndex((i) => Math.min(i + 1, steps.length - 1))}
+					disabled={stepIndex === steps.length - 1}>
+					Next
+				</button>
+			</div>
 		</div>
 	);
-}
+};
+
+export default NVCWizard;

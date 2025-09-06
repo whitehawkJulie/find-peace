@@ -1,5 +1,5 @@
 import React from "react";
-import "./MenuBars.css";
+// import "./MenuBars.css";
 
 export function TopMenuBar({ onNew, onViewPast }) {
 	return (

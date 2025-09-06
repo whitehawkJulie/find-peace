@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function StepFeelings({ feelings, onChange, openDrawer }) {
+export default function Feelings({ feelings, onChange, openDrawer }) {
 	return (
 		<>
 			<div className="card">
