@@ -39,21 +39,14 @@ const Needs = ({ needs, setNeeds, feelings }) => {
 
 			<SlideDrawer isOpen={showHelp} onClose={() => setShowHelp(false)} title="Help: Selecting Needs">
 				<p>
-					This list includes universal human needs. Choose the ones you were trying to meet during the
-					situation.
+					Read all the way through the list of universal, shared human needs, to uncover ALL your needs that
+					are relevant to this particular situation. The needs you come up with here are likely to be
+					associated with the painful feeling words you chose above.{" "}
 				</p>
-				<ul>
-					<li>
-						Click once to mark a need as <strong>unmet</strong>.
-					</li>
-					<li>
-						Double-click to mark a need as <strong>met</strong>.
-					</li>
-					<li>You can select as many as you like.</li>
-					<li>
-						When you’re ready, click <em>Done</em> to continue.
-					</li>
-				</ul>
+				<p>
+					You may notice that many of the needs in the list WERE actually met at the time - if you'd like, you
+					can note those too by double-clicking on them to mark them as "met needs".
+				</p>
 			</SlideDrawer>
 		</div>
 	);

@@ -94,17 +94,14 @@
 	background-color: #d3d3d3;
 }
 
-.pill.selected {
+.pill.met {
 	background-color: #c6e6c3;
 	border: 1px solid #96cb92;
 }
 
-.pill.met {
-	background-color: #c5edc2;
-}
-
 .pill.unmet {
-	background-color: #f7d1a8;
+	background-color: #fff2f2;
+	border: 2px dotted red;
 }
 
 /* ========== COLLAPSIBLE HEADERS ========== */
