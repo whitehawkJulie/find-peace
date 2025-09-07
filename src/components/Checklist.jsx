@@ -1,83 +1,81 @@
 import React, { useState } from "react";
 import "./Checklist.css";
 
-const Checklist = ({
-	data,
-	selectedItems,
-	setSelectedItems,
-	type, // optional: used for background coloring ('needs', 'feelings-met', 'feelings-unmet')
-	initiallyOpen = true,
-	allowDoubleClick = true,
-}) => {
-	const [isCollapsed, setIsCollapsed] = useState(!initiallyOpen);
+const Checklist = ({ data, selectedItems, setSelectedItems, doubleClickEnabled = true }) => {
+	const [collapsedCategories, setCollapsedCategories] = useState({});
 
-	const handleClick = (item) => {
+	const toggleItem = (itemKey) => {
 		setSelectedItems((prev) => {
-			if (prev[item] === "unmet") {
-				// toggle off
+			if (prev[itemKey]) {
 				const newState = { ...prev };
-				delete newState[item];
+				delete newState[itemKey];
 				return newState;
 			}
-			return { ...prev, [item]: "unmet" };
+			return { ...prev, [itemKey]: "unmet" };
 		});
 	};
 
-	const handleDoubleClick = (item) => {
-		if (!allowDoubleClick) return;
+	const markAsMet = (itemKey) => {
 		setSelectedItems((prev) => ({
 			...prev,
-			[item]: "met",
+			[itemKey]: "met",
+		}));
+	};
+
+	const toggleCategoryCollapse = (category) => {
+		setCollapsedCategories((prev) => ({
+			...prev,
+			[category]: !prev[category],
 		}));
 	};
 
 	return (
-		<div className={`checklist-container ${type}`}>
-			{Object.entries(data).map(([mainCategory, subcategories], index) => (
-				<div key={mainCategory} className="checklist-section">
-					<div className="checklist-section-header" onClick={() => setIsCollapsed((prev) => !prev)}>
-						<h2>{mainCategory}</h2>
-						<span className="collapse-icon">{isCollapsed ? "▼" : "▲"}</span>
-					</div>
+		<div className="checklist-container">
+			{Object.entries(data).map(([mainCategory, subcategories], index) => {
+				const isCollapsed = collapsedCategories[mainCategory];
 
-					{!isCollapsed && (
-						<div className="checklist-section-body">
-							{Object.entries(subcategories).map(([subcategory, items]) => (
-								<div key={subcategory} className="checklist-subcategory">
-									<div className="subcategory-title">{subcategory}</div>
-									<div className="checklist-grid">
-										{items.map((item) => {
-											const status = selectedItems[item.item];
+				return (
+					<div key={mainCategory} className={`category-container category-${index % 8}`}>
+						<div className="category-header" onClick={() => toggleCategoryCollapse(mainCategory)}>
+							<h3 className="category-title">
+								{mainCategory}
+								<span className="collapse-icon" title={isCollapsed ? "Open section" : "Close section"}>
+									{isCollapsed ? "▶" : "▼"}
+								</span>{" "}
+							</h3>
+						</div>
+
+						{!isCollapsed &&
+							Object.entries(subcategories).map(([sub, items]) => (
+								<div key={sub} className="subcategory">
+									<h4 className="subcategory-title">{sub}</h4>
+									<div className="pill-grid">
+										{items.map(({ item, meaning }) => {
+											const status = selectedItems[item];
 											let className = "pill";
 											if (status === "unmet") className += " unmet";
 											if (status === "met") className += " met";
 
 											return (
 												<div
-													key={item.item}
+													key={item}
 													className={className}
-													onClick={() => handleClick(item.item)}
-													onDoubleClick={() => handleDoubleClick(item.item)}
+													onClick={() => toggleItem(item)}
+													onDoubleClick={
+														doubleClickEnabled ? () => markAsMet(item) : undefined
+													}
 													tabIndex={0}
-													title={
-														item.meaning +
-														(status === "met"
-															? " (Met)"
-															: status === "unmet"
-															? " (Unmet)"
-															: "")
-													}>
-													{item.item}
+													title={meaning}>
+													{item}
 												</div>
 											);
 										})}
 									</div>
 								</div>
 							))}
-						</div>
-					)}
-				</div>
-			))}
+					</div>
+				);
+			})}
 		</div>
 	);
 };

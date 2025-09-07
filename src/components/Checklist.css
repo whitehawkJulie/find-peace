@@ -1,68 +1,134 @@
-/* Container for the whole checklist */
-.checklist-container {
-	margin-bottom: 2rem;
-	padding: 1rem;
+/* =====================
+   Checklist Component Styling (Generic)
+   ===================== */
+
+/* ========== CATEGORY STYLING ========== */
+
+.category {
 	border-radius: 8px;
-	background-color: #f9f9f9;
+	overflow: hidden;
+	margin-bottom: 1.5rem;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* Title and collapse icon */
-.checklist-section-header {
+.category-title {
+	font-size: 1rem;
+	font-weight: 600;
+	margin: 0;
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
+	width: 100%;
+}
+
+.category-container {
+	border-radius: 8px;
+	overflow: hidden;
+	margin-bottom: 1.5rem;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+	/* 🔥 No padding here */
+}
+
+/* Ensure full width header */
+.category-header {
+	width: 100%;
+	padding: 0.6rem 1rem;
+	background-color: #e6f2ff;
+	display: flex;
 	align-items: center;
 	cursor: pointer;
 }
 
-.checklist-section-header h2 {
-	font-size: 1rem;
-	margin: 0;
+/* Alternate category background colors */
+
+.category-container:nth-child(1) {
+	background-color: #f6f7fb;
+}
+.category-container:nth-child(2) {
+	background-color: #f3f6f3;
 }
 
-.collapse-icon {
-	font-size: 1rem;
+/* Color variations */
+.category-0 .category-header {
+	background-color: #e6f2ff;
+}
+.category-1 .category-header {
+	background-color: #e8f5e9;
+}
+.category-2 .category-header {
+	background-color: #fff3e0;
+}
+.category-3 .category-header {
+	background-color: #f3e5f5;
 }
 
-/* Subcategory box */
-.checklist-subcategory {
-	background-color: #f0f0f0;
-	border-radius: 6px;
-	margin: 1rem 0;
-	padding: 0.5rem;
+/* ========== SUBCATEGORY STYLING ========== */
+.subcategory {
+	padding: 1rem; /* ✅ Padding only here */
+	background-color: #fafafa;
+
+	margin: 1rem;
+	border-radius: 10px;
 }
 
 .subcategory-title {
 	font-weight: bold;
-	margin-bottom: 0.5rem;
+	margin-bottom: 1rem;
+	margin-top: 0;
 }
 
-/* Grid for items */
-.checklist-grid {
+/* ========== ITEM PILL STYLING ========== */
+.pill-grid {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.5rem;
 }
 
-/* Individual item pill */
 .pill {
-	padding: 6px 12px;
-	border-radius: 20px;
-	border: 1px solid #ccc;
-	background-color: #eee;
+	padding: 0.4rem 0.8rem;
+	border-radius: 999px;
+	background-color: #e0e0e0;
+	font-size: 0.85rem;
 	cursor: pointer;
 	transition: all 0.2s ease;
-	font-size: 0.85rem;
-	user-select: none;
 }
 
 .pill:hover {
-	background-color: #d0d0d0;
+	background-color: #d3d3d3;
 }
 
-.pill.unmet {
-	background-color: #ffe0b2;
+.pill.selected {
+	background-color: #c6e6c3;
+	border: 1px solid #96cb92;
 }
 
 .pill.met {
-	background-color: #c8e6c9;
+	background-color: #c5edc2;
+}
+
+.pill.unmet {
+	background-color: #f7d1a8;
+}
+
+/* ========== COLLAPSIBLE HEADERS ========== */
+.section-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	padding: 0.5rem 1rem;
+	margin-bottom: 0.5rem;
+	font-weight: 600;
+	background-color: #f6f6f6;
+	border-radius: 10px;
+}
+
+.collapse-icon {
+	margin-left: 0.5rem;
+	font-size: 1rem;
+	user-select: none;
+}
+
+.collapse-icon:hover {
+	color: #cc2424;
 }
