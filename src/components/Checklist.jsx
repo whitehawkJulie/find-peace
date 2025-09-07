@@ -5,6 +5,8 @@ const Checklist = ({ data, selectedItems, setSelectedItems, doubleClickEnabled =
 	const [collapsedCategories, setCollapsedCategories] = useState({});
 
 	const toggleItem = (itemKey) => {
+		console.log("Adding item " + itemKey + " to feelings list");
+
 		setSelectedItems((prev) => {
 			if (prev[itemKey]) {
 				const newState = { ...prev };

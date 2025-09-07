@@ -20,7 +20,7 @@ const NVCWizard = () => {
 	const steps = [
 		<Observation observation={observation} setObservation={setObservation} />,
 		<Feelings feelings={feelings} setFeelings={setFeelings} />,
-		<Needs needs={needs} setNeeds={setNeeds} />,
+		<Needs needs={needs} setNeeds={setNeeds} feelings={feelings} />,
 		...(hasMetNeeds ? [<NeedsMet needs={needs} />] : []),
 		<NeedsUnmet needs={needs} />,
 		<Request request={request} setRequest={setRequest} />,

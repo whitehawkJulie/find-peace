@@ -5,8 +5,11 @@ import needsData from "./NeedsData";
 import SlideDrawer from "./SlideDrawer";
 import Checklist from "./Checklist";
 
-const Needs = ({ needs, setNeeds, onNext }) => {
+const Needs = ({ needs, setNeeds, feelings }) => {
 	const [showHelp, setShowHelp] = useState(false);
+
+	const feelingWords = Object.keys(feelings).filter((key) => feelings[key] === "unmet");
+	console.log("Got: " + feelings);
 
 	return (
 		<div className="step-needs">
@@ -19,9 +22,11 @@ const Needs = ({ needs, setNeeds, onNext }) => {
 				</div>
 			</div>
 
-			<p>
-				<strong>What needs are alive for you here?</strong>
-			</p>
+			{feelingWords.length > 0 && (
+				<p className="feeling-prompt">
+					So, you're feeling <strong>{feelingWords.join(", ")}</strong>. What needs might be underneath these?
+				</p>
+			)}
 
 			<Checklist
 				data={needsData}
