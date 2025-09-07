@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./Needs.css";
+import needsData from "./NeedsData";
 
 import SlideDrawer from "./SlideDrawer";
-import NeedsChecklist from "./NeedsChecklist";
+import Checklist from "./Checklist";
 
 const Needs = ({ needs, setNeeds, onNext }) => {
 	const [showHelp, setShowHelp] = useState(false);
@@ -22,7 +23,14 @@ const Needs = ({ needs, setNeeds, onNext }) => {
 				<strong>What needs are alive for you here?</strong>
 			</p>
 
-			<NeedsChecklist selectedNeeds={needs} setSelectedNeeds={setNeeds} />
+			<Checklist
+				data={needsData}
+				selectedItems={needs}
+				setSelectedItems={setNeeds}
+				type="needs"
+				initiallyOpen={true}
+				allowDoubleClick={true}
+			/>
 
 			<SlideDrawer isOpen={showHelp} onClose={() => setShowHelp(false)} title="Help: Selecting Needs">
 				<p>

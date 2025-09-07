@@ -1,27 +1,17 @@
 import React from "react";
-import FeelingsChecklist from "./FeelingsChecklist";
+import Checklist from "./Checklist";
 
-import { metNeedsFeelingsData, unmetNeedsFeelingsData } from "./FeelingsData";
+import { feelingsData } from "./FeelingsData";
 
-const Feelings = ({ upFeelings, setUpFeelings, downFeelings, setDownFeelings }) => {
+const Feelings = ({ feelings, setFeelings }) => {
 	return (
 		<div className="step-feelings">
-			<FeelingsChecklist
-				title="Feelings when needs are unmet"
-				type="unmet"
-				feelingsData={unmetNeedsFeelingsData}
-				selectedFeelings={downFeelings}
-				setSelectedFeelings={setDownFeelings}
-				initiallyOpen={true}
-			/>
-
-			<FeelingsChecklist
-				title="Feelings when needs are met"
-				type="met"
-				feelingsData={metNeedsFeelingsData}
-				selectedFeelings={upFeelings}
-				setSelectedFeelings={setUpFeelings}
-				initiallyOpen={false}
+			<Checklist
+				data={{ Feelings: feelingsData }}
+				selectedItems={feelings}
+				setSelectedItems={setFeelings}
+				allowDoubleClick={false}
+				showMeanings={true}
 			/>
 		</div>
 	);
