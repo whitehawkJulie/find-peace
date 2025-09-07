@@ -1,33 +1,52 @@
-import React from "react";
-import "./FeelingsChecklist.css"; // You can reuse your pill styles here
+import React, { useState } from "react";
+import "./FeelingsChecklist.css";
 
-const FeelingsChecklist = ({ data, selected, setSelected, className }) => {
+const FeelingsChecklist = ({
+	title,
+	type, // 'met' or 'unmet'
+	feelingsData,
+	selectedFeelings = [],
+	setSelectedFeelings,
+	initiallyOpen = true,
+}) => {
+	const [isCollapsed, setIsCollapsed] = useState(!initiallyOpen);
+
 	const toggleFeeling = (feeling) => {
-		setSelected((prev) => (prev.includes(feeling) ? prev.filter((f) => f !== feeling) : [...prev, feeling]));
+		setSelectedFeelings((prev = []) =>
+			prev.includes(feeling) ? prev.filter((f) => f !== feeling) : [...prev, feeling]
+		);
 	};
 
-	const titleText = className === "met" ? "Feelings when needs are met" : "Feelings when needs are not met";
-
 	return (
-		<div className={`feelings-checklist ${className || ""}`}>
-			<h2>{titleText}</h2>
-			{Object.entries(data).map(([category, feelings]) => (
-				<div key={category} className="feelings-category">
-					<h4 className="feelings-category-heading">{category}</h4>
-					<div className="pill-container">
-						{feelings.map((feeling) => (
-							<span
-								key={feeling}
-								className={`pill ${selected.includes(feeling) ? "selected" : ""}`}
-								onClick={() => toggleFeeling(feeling)}
-								tabIndex={0}
-								title={selected.includes(feeling) ? "Selected" : "Click to select"}>
-								{feeling}
-							</span>
-						))}
-					</div>
+		<div className={`feelings-list-container ${type}`}>
+			<div className="feelings-list-header" onClick={() => setIsCollapsed((prev) => !prev)}>
+				<h2>{title}</h2>
+				<span className="collapse-icon">{isCollapsed ? "▶" : "▼"}</span>
+			</div>
+
+			{!isCollapsed && (
+				<div className="feelings-list-body">
+					{Object.entries(feelingsData).map(([category, feelings]) => (
+						<div key={category} className="feelings-category">
+							<div className="category-heading">{category}</div>
+							<div className="feelings-grid">
+								{feelings.map((feeling) => (
+									<div
+										key={feeling}
+										className={`feeling-pill ${
+											selectedFeelings.includes(feeling) ? "selected" : ""
+										}`}
+										onClick={() => toggleFeeling(feeling)}
+										tabIndex={0}
+										title={selectedFeelings.includes(feeling) ? "Selected" : "Click to select"}>
+										{feeling}
+									</div>
+								))}
+							</div>
+						</div>
+					))}
 				</div>
-			))}
+			)}
 		</div>
 	);
 };

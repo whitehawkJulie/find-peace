@@ -1,36 +1,26 @@
-import React, { useState } from "react";
-// import "./Feelings.css";
+import React from "react";
+import FeelingsChecklist from "./FeelingsChecklist";
 import { metNeedsFeelings, unmetNeedsFeelings } from "./FeelingsData";
 
-import FeelingsChecklist from "./FeelingsChecklist";
-
-const Feelings = ({ selectedUpFeelings, setSelectedUpFeelings, selectedDownFeelings, setSelectedDownFeelings }) => {
-	const [showMet, setShowMet] = useState(false);
-
+const Feelings = ({ selectedMetFeelings, setSelectedMetFeelings, selectedUnmetFeelings, setSelectedUnmetFeelings }) => {
 	return (
-		<div className="feelings">
-			<div className="feelings-section">
-				<button onClick={() => setShowMet((prev) => !prev)} className="toggle-button">
-					{showMet ? "Hide" : "Also show"} positive feelings
-				</button>
-				{showMet && (
-					<FeelingsChecklist
-						data={metNeedsFeelings}
-						selected={selectedUpFeelings}
-						setSelected={setSelectedUpFeelings}
-						className="met"
-					/>
-				)}
-			</div>
-
-			<div className="feelings-section">
-				<FeelingsChecklist
-					data={unmetNeedsFeelings}
-					selected={selectedDownFeelings}
-					setSelected={setSelectedDownFeelings}
-					className="unmet"
-				/>
-			</div>
+		<div className="step-feelings">
+			<FeelingsChecklist
+				title="Feelings when needs are met"
+				feelingsData={metNeedsFeelings}
+				selectedFeelings={selectedMetFeelings}
+				setSelectedFeelings={setSelectedMetFeelings}
+				type="met"
+				initiallyOpen={false}
+			/>
+			<FeelingsChecklist
+				title="Feelings when needs are not met"
+				feelingsData={unmetNeedsFeelings}
+				selectedFeelings={selectedUnmetFeelings}
+				setSelectedFeelings={setSelectedUnmetFeelings}
+				type="unmet"
+				initiallyOpen={true}
+			/>
 		</div>
 	);
 };

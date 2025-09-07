@@ -21,10 +21,10 @@ const NVCWizard = () => {
 	const steps = [
 		<Observation observation={observation} setObservation={setObservation} />,
 		<Feelings
-			selectedUpFeelings={upFeelings}
-			setSelectedUpFeelings={setUpFeelings}
-			selectedDownFeelings={downFeelings}
-			setSelectedDownFeelings={setDownFeelings}
+			selectedMetFeelings={upFeelings}
+			setSelectedMetFeelings={setUpFeelings}
+			selectedUnmetFeelings={downFeelings}
+			setSelectedUnmetFeelings={setDownFeelings}
 		/>,
 		<Needs needs={needs} setNeeds={setNeeds} />,
 		...(hasMetNeeds ? [<NeedsMet needs={needs} />] : []),
