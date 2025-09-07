@@ -23,8 +23,8 @@ const NVCWizard = () => {
 		<Feelings
 			selectedMetFeelings={upFeelings}
 			setSelectedMetFeelings={setUpFeelings}
-			selectedUnmetFeelings={downFeelings}
-			setSelectedUnmetFeelings={setDownFeelings}
+			downFeelings={downFeelings}
+			setDownFeelings={setDownFeelings}
 		/>,
 		<Needs needs={needs} setNeeds={setNeeds} />,
 		...(hasMetNeeds ? [<NeedsMet needs={needs} />] : []),
