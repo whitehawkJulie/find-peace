@@ -7,11 +7,10 @@ const Feelings = ({ feelings, setFeelings }) => {
 	return (
 		<div className="step-feelings">
 			<Checklist
-				data={{ Feelings: feelingsData }}
+				data={feelingsData}
 				selectedItems={feelings}
 				setSelectedItems={setFeelings}
-				allowDoubleClick={false}
-				showMeanings={true}
+				doubleClickEnabled={false}
 			/>
 		</div>
 	);

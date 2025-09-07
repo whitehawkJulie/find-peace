@@ -61,9 +61,9 @@ const Checklist = ({ data, selectedItems, setSelectedItems, doubleClickEnabled =
 													key={item}
 													className={className}
 													onClick={() => toggleItem(item)}
-													onDoubleClick={
-														doubleClickEnabled ? () => markAsMet(item) : undefined
-													}
+													{...(doubleClickEnabled
+														? { onDoubleClick: () => markAsMet(item) }
+														: {})}
 													tabIndex={0}
 													title={meaning}>
 													{item}
