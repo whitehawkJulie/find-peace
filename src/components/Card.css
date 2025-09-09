@@ -1,0 +1,58 @@
+.card {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+
+	min-height: calc(100vh - 100px);
+	max-height: 100vh;
+
+	padding: 2rem;
+	margin: 2rem auto;
+	width: 100%;
+	max-width: 640px;
+
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	border-radius: 12px;
+	box-sizing: border-box;
+	background-color: white;
+}
+
+/* Main content area */
+.card-content {
+	flex-grow: 1;
+	padding: 1rem 2rem 2rem 2rem;
+	overflow-y: auto;
+}
+
+/* Header area */
+.card-header {
+	padding: 1.5rem 2rem 0 2rem;
+	border-bottom: none;
+	background-color: white;
+}
+
+.card-title-with-icon {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.card-title-with-icon h2 {
+	margin: 0;
+	font-size: 1.5rem;
+}
+
+/* Help icon styling */
+.help-icon {
+	background: none;
+	border: 1px solid #ccc;
+	font-size: 1rem;
+	cursor: pointer;
+	color: #555;
+	width: 1.8rem;
+	height: 1.8rem;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 1.6rem;
+	padding: 0;
+}

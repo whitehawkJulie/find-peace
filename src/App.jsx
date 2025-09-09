@@ -1,9 +1,14 @@
 import React from "react";
-import "./App.css";
 import NvcWizard from "./components/NvcWizard";
+import { WizardProvider } from "./components/WizardContext";
+import "./App.css";
 
-function App() {
-	return <NvcWizard />;
-}
+const App = () => {
+	return (
+		<WizardProvider>
+			<NvcWizard />
+		</WizardProvider>
+	);
+};
 
 export default App;

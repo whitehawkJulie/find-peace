@@ -88,6 +88,7 @@ export const feelingsData = {
 		Confused: [
 			{ item: "Confused", meaning: "Unable to think clearly or understand" },
 			{ item: "Unclear", meaning: "Lacking clarity or understanding" },
+			{ item: "Bewildered", meaning: "Stunned at everyone else's incomptence" },
 			{ item: "Puzzled", meaning: "Baffled or uncertain" },
 			{ item: "Perplexed", meaning: "Completely baffled" },
 			{ item: "Disoriented", meaning: "Lost or confused about surroundings or thoughts" },

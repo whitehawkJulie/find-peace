@@ -2,6 +2,11 @@
    Checklist Component Styling (Generic)
    ===================== */
 
+.checklist-container {
+	min-height: calc(100vh - 100px);
+	overflow-y: auto;
+}
+
 /* Color variations */
 .category-0 {
 	--header-bg: #e6f2ff;

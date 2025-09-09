@@ -1,50 +1,25 @@
-import React, { useState } from "react";
-import Observation from "./Observation";
-import Feelings from "./Feelings";
-import Needs from "./Needs";
-import NeedsMet from "./NeedsMet";
-import NeedsUnmet from "./NeedsUnmet";
-import Request from "./Request";
-import "./NvcWizard.css";
+// NvcWizard.jsx
+import React from "react";
+import Card from "./Card";
+import { useWizard } from "./WizardContext";
 
-const NVCWizard = () => {
-	const [stepIndex, setStepIndex] = useState(0);
+const NvcWizard = () => {
+	const { stepIndex, setStepIndex, visibleSteps } = useWizard();
 
-	const [observation, setObservation] = useState("");
-	const [feelings, setFeelings] = useState({});
-	const [needs, setNeeds] = useState({});
-	const [request, setRequest] = useState("");
+	if (!visibleSteps || visibleSteps.length === 0) return null;
 
-	const hasMetNeeds = Object.values(needs).includes("met");
+	const CurrentStepComponent = visibleSteps[stepIndex].component;
 
-	const steps = [
-		<Observation observation={observation} setObservation={setObservation} />,
-		<Feelings feelings={feelings} setFeelings={setFeelings} />,
-
-		<Needs needs={needs} setNeeds={setNeeds} feelings={feelings} />,
-		...(hasMetNeeds ? [<NeedsMet needs={needs} />] : []),
-		<NeedsUnmet needs={needs} />,
-		<Request request={request} setRequest={setRequest} />,
-	];
-
-	const currentStep = steps[stepIndex];
+	const title = CurrentStepComponent.title || "";
+	const helpContent = CurrentStepComponent.helpContent || null;
 
 	return (
 		<div className="nvc-wizard">
-			<div className="card">{currentStep}</div>
-
-			<div className="menu-bar">
-				<button onClick={() => setStepIndex((i) => Math.max(i - 1, 0))} disabled={stepIndex === 0}>
-					Previous
-				</button>
-				<button
-					onClick={() => setStepIndex((i) => Math.min(i + 1, steps.length - 1))}
-					disabled={stepIndex === steps.length - 1}>
-					Next
-				</button>
-			</div>
+			<Card title={title} helpContent={helpContent} showHelp={!!helpContent}>
+				<CurrentStepComponent />
+			</Card>
 		</div>
 	);
 };
 
-export default NVCWizard;
+export default NvcWizard;

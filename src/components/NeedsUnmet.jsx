@@ -6,6 +6,8 @@ const NeedsUnmet = ({ needs }) => {
 	return (
 		<div className="step-met-needs">
 			<h2>Needs that were not met</h2>
+			{/* if unmetNeeds.length > 0? show "No needs selected" */}
+
 			<div className="pill-grid">
 				{unmetNeeds.map((need) => (
 					<div key={need} className="pill unmet">
