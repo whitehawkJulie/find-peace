@@ -39,6 +39,8 @@ const NeedsUnmet = () => {
 	);
 };
 
+NeedsUnmet.title = "Needs that are NOT met";
+
 NeedsUnmet.showHelp = true;
 NeedsUnmet.helpContent = (
 	<>

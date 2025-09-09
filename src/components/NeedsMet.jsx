@@ -34,6 +34,7 @@ const NeedsMet = () => {
 	);
 };
 
+NeedsMet.title = "Needs that ARE met";
 NeedsMet.showHelp = true;
 NeedsMet.helpContent = (
 	<>

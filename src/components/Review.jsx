@@ -1,64 +1,58 @@
 import React from "react";
 import { useWizard } from "./WizardContext";
+import {
+	getClickedItems,
+	getDoubleClickedItems,
+	renderPills,
+	renderTextList,
+	renderMarkdownList,
+} from "../utils/renderHelpers";
 
 const Review = () => {
 	const { observation, feelings, needs } = useWizard();
 
-	const clickedFeelings = Object.entries(feelings)
-		.filter(([, status]) => status === "click" || status === "double")
-		.map(([feeling]) => feeling);
+	const handleCopy = () => {
+		const markdown = `**Observation**\n${observation}\n\n**Feelings (strong)**\n${renderMarkdownList(
+			feelings,
+			"double"
+		)}\n\n**Feelings (felt)**\n${renderMarkdownList(feelings, "click")}\n\n**Needs (strong)**\n${renderMarkdownList(
+			needs,
+			"double"
+		)}\n\n**Needs (met)**\n${renderMarkdownList(needs, "click")}`;
 
-	const strongFeelings = Object.entries(feelings)
-		.filter(([, status]) => status === "double")
-		.map(([feeling]) => feeling);
-
-	const metNeeds = Object.entries(needs)
-		.filter(([, status]) => status === "click")
-		.map(([need]) => need);
-
-	const unmetNeeds = Object.entries(needs)
-		.filter(([, status]) => status === "double")
-		.map(([need]) => need);
+		navigator.clipboard.writeText(markdown).then(() => {
+			alert("Summary copied to clipboard!");
+		});
+	};
 
 	return (
-		<div className="review">
+		<div>
+			<h2>Review</h2>
+
 			<h3>Observation</h3>
-			<p>{observation || "No observation entered."}</p>
+			<p>{observation}</p>
 
 			<h3>Feelings</h3>
-			{clickedFeelings.length === 0 ? (
-				<p>No feelings selected.</p>
-			) : (
-				<p>
-					You’re feeling{" "}
-					{clickedFeelings.map((feeling, index) => {
-						const isStrong = strongFeelings.includes(feeling);
-						return (
-							<span key={feeling}>
-								{isStrong ? <strong>{feeling}</strong> : feeling}
-								{index < clickedFeelings.length - 1 ? ", " : ""}
-							</span>
-						);
-					})}
-				</p>
-			)}
+			<p>
+				<strong>Strong:</strong>
+			</p>
+			{renderPills(feelings, "double")}
+			<p>
+				<strong>Felt:</strong>
+			</p>
+			{renderPills(feelings, "click")}
 
 			<h3>Needs</h3>
-			{metNeeds.length > 0 && (
-				<>
-					<p>
-						<strong>Met needs:</strong> {metNeeds.join(", ")}
-					</p>
-				</>
-			)}
-			{unmetNeeds.length > 0 && (
-				<>
-					<p>
-						<strong>Unmet needs:</strong> {unmetNeeds.join(", ")}
-					</p>
-				</>
-			)}
-			{metNeeds.length === 0 && unmetNeeds.length === 0 && <p>No needs selected.</p>}
+			<p>
+				<strong>Strong:</strong>
+			</p>
+			{renderPills(needs, "double")}
+			<p>
+				<strong>Met:</strong>
+			</p>
+			{renderPills(needs, "click")}
+
+			<button onClick={handleCopy}>Copy to Clipboard</button>
 		</div>
 	);
 };
