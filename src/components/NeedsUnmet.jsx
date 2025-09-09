@@ -6,7 +6,7 @@ const NeedsUnmet = () => {
 
 	// Filter for unmet needs
 	const unmetNeeds = Object.entries(needs)
-		.filter(([_, status]) => status === "unmet")
+		.filter(([_, status]) => status === "click")
 		.map(([need]) => need);
 
 	return (

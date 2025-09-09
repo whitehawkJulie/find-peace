@@ -20,7 +20,7 @@ const allSteps = [
 	{ component: Needs },
 	{
 		component: NeedsMet,
-		condition: (state) => Object.values(state.needs || {}).includes("met"),
+		condition: (state) => Object.values(state.needs || {}).includes("double"),
 	},
 	{ component: NeedsUnmet },
 ];

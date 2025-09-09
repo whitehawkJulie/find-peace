@@ -6,7 +6,7 @@ const NeedsMet = () => {
 
 	// Filter for met needs
 	const metNeeds = Object.entries(needs)
-		.filter(([_, status]) => status === "met")
+		.filter(([_, status]) => status === "double") /* double click means met need */
 		.map(([need]) => need);
 
 	return (

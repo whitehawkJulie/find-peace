@@ -6,17 +6,28 @@ const Checklist = ({ data, selectedItems, setSelectedItems, showMeanings = true 
 
 	// Toggle between click and double-click states
 	const handleClick = (item) => {
-		setSelectedItems((prev) => ({
-			...prev,
-			[item]: prev[item] === "click" ? undefined : "click",
-		}));
+		const newState = { ...selectedItems };
+
+		// If item was "double", change to "click"
+		if (newState[item] === "double") {
+			newState[item] = "click";
+		}
+		// If item was "click", remove it (toggle off)
+		else if (newState[item] === "click") {
+			delete newState[item];
+		}
+		// If item wasn't selected yet, add as "click"
+		else {
+			newState[item] = "click";
+		}
+
+		setSelectedItems(newState);
 	};
 
 	const handleDoubleClick = (item) => {
-		setSelectedItems((prev) => ({
-			...prev,
-			[item]: prev[item] === "double" ? undefined : "double",
-		}));
+		const newState = { ...selectedItems };
+		newState[item] = "double";
+		setSelectedItems(newState);
 	};
 
 	const toggleCategory = (category) => {
