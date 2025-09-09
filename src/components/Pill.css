@@ -1,0 +1,74 @@
+/* ========== ITEM PILL STYLING ========== */
+.pill-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.pill {
+	padding: 0.4rem 0.8rem;
+	border-radius: 999px;
+	background-color: #e0e0e0;
+	font-size: 0.85rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	user-select: none; /* so we don't accidentally select the text when double clicking */
+	position: relative;
+}
+
+.pill:hover {
+	background-color: #d3d3d3;
+}
+
+/* Feelings which were single-clicked */
+.pill.click.feeling,
+.step-feelings .pill.click {
+	background-color: #fff2f2;
+	border: 1px dotted red;
+}
+
+/* Strongly felt feelings */
+.pill.double.feeling,
+.step-feelings .pill.double {
+	background-color: #fdd6d6;
+	border: 2px dotted red;
+}
+
+/* met needs */
+.pill.double.need,
+.step-needs .pill.double {
+	background-color: #c6e6c3;
+	border: 1px solid #96cb92;
+}
+
+/* unmet needs */
+.pill.click.need,
+.step-needs .pill.click {
+	background-color: #fff2f2;
+	border: 2px dotted red;
+}
+
+/* Tooltip styling */
+.pill[data-tooltip]::after {
+	content: attr(data-tooltip);
+	position: absolute;
+	bottom: 120%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #ffffff;
+	color: #626262;
+	padding: 6px 10px;
+	border-radius: 6px;
+	font-size: 0.8rem;
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.4s ease;
+	z-index: 999;
+}
+
+/* Show tooltip on hover with delay */
+.pill[data-tooltip]:hover::after {
+	opacity: 1;
+	transition-delay: 0.8s; /* delay before showing */
+}

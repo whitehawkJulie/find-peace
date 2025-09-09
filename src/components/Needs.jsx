@@ -30,7 +30,7 @@ const Needs = () => {
 		<div className="step-needs">
 			{renderOrderedFeelings(feelings)}
 
-			<Checklist data={needsData} selectedItems={needs} setSelectedItems={setNeeds} showMeanings={true} />
+			<Checklist data={needsData} selectedItems={needs} setSelectedItems={setNeeds} type="needs" />
 		</div>
 	);
 };

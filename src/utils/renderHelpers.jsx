@@ -13,16 +13,31 @@ export const getDoubleClickedItems = (selectedItems) =>
 
 export const getAllSelectedItems = (selectedItems) => Object.keys(selectedItems);
 
-// Renders pills for either "click" or "double" items
-export const renderPills = (selectedItems, type) => {
-	if (!["click", "double"].includes(type)) return null;
+/* in case I want to render just one pill
+	params eg happy, click, feeling
+*/
+export const renderPill = (item, type = "click", category = "feeling") => {
+	if (!["click", "double"].includes(type)) return "Error, called with type=" + type;
+	if (!["feeling", "need"].includes(category)) return "Error, called with category=" + category;
 
 	return (
-		<div className="pill-list">
+		<div key={item} className={`pill ${category} ${type}`}>
+			{item}
+		</div>
+	);
+};
+
+// Renders pills for either "click" or "double" items
+export const renderPills = (selectedItems, type = "click", category = "feeling") => {
+	if (!["click", "double"].includes(type)) return "Error, called with type=" + type;
+	if (!["feeling", "need"].includes(category)) return "Error, called with type=" + type;
+
+	return (
+		<div className="pill-grid">
 			{Object.entries(selectedItems)
 				.filter(([_, value]) => value === type)
 				.map(([item]) => (
-					<div key={item} className={`pill ${type}`}>
+					<div key={item} className={`pill ${category} ${type}`}>
 						{item}
 					</div>
 				))}
@@ -30,8 +45,10 @@ export const renderPills = (selectedItems, type) => {
 	);
 };
 
+// TO DO: add categories here, to style the words with bold or whatever, if feelings or needs?
+
 // Renders plain English list of selected items
-export const renderTextList = (selectedItems, type) => {
+export const renderTextList = (selectedItems, type = "click") => {
 	if (!["click", "double"].includes(type)) return "";
 
 	const items = Object.entries(selectedItems)

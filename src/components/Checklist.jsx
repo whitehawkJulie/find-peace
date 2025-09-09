@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import Pill from "./Pill";
 import "./Checklist.css";
 
-const Checklist = ({ data, selectedItems, setSelectedItems, showMeanings = true }) => {
+const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings" }) => {
 	const [collapsedCategories, setCollapsedCategories] = useState({});
 
 	// Toggle between click and double-click states
@@ -56,17 +57,15 @@ const Checklist = ({ data, selectedItems, setSelectedItems, showMeanings = true 
 									<h4 className="subcategory-title">{subcategory}</h4>
 									<div className="pill-grid">
 										{items.map(({ item, meaning }) => (
-											<div
+											<Pill
 												key={item}
-												className={`pill ${selectedItems[item] || ""}`}
+												item={item}
+												type={type}
+												state={selectedItems[item] || ""}
+												meaning={meaning}
 												onClick={() => handleClick(item)}
-												onDoubleClick={(e) => {
-													e.preventDefault();
-													handleDoubleClick(item);
-												}}
-												{...(showMeanings ? { "data-tooltip": meaning } : {})}>
-												{item}
-											</div>
+												onDoubleClick={() => handleDoubleClick(item)}
+											/>
 										))}
 									</div>
 								</div>

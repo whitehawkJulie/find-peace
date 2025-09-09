@@ -1,11 +1,6 @@
 /* =====================
-   Checklist Component Styling (Generic)
+   Colours for different categories
    ===================== */
-
-.checklist {
-	min-height: calc(100vh - 100px);
-	overflow-y: auto;
-}
 
 /* Color variations */
 .category-0 {
@@ -26,6 +21,13 @@
 .category-3 {
 	--header-bg: #f3e5f5;
 	--body-bg: #faf2fb;
+}
+
+/* ========== CheckList STYLING ========== */
+
+.checklist {
+	min-height: calc(100vh - 100px);
+	overflow-y: auto;
 }
 
 /* ========== CATEGORY STYLING ========== */
@@ -79,50 +81,6 @@
 	margin-top: 0;
 }
 
-/* ========== ITEM PILL STYLING ========== */
-.pill-grid {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-}
-
-.pill {
-	padding: 0.4rem 0.8rem;
-	border-radius: 999px;
-	background-color: #e0e0e0;
-	font-size: 0.85rem;
-	cursor: pointer;
-	transition: all 0.2s ease;
-	user-select: none; /* so we don't accidentally select the text when double clicking */
-	position: relative;
-}
-
-.pill:hover {
-	background-color: #d3d3d3;
-}
-
-.step-feelings .pill.click {
-	background-color: #fff2f2;
-	border: 1px dotted red;
-}
-
-.step-feelings .pill.double {
-	background-color: #fdd6d6;
-	border: 2px dotted red;
-}
-
-/* met needs */
-.step-needs .pill.double {
-	background-color: #c6e6c3;
-	border: 1px solid #96cb92;
-}
-
-/* unmet needs */
-.step-needs .pill.click {
-	background-color: #fff2f2;
-	border: 2px dotted red;
-}
-
 /* ========== COLLAPSIBLE HEADERS ========== */
 
 .collapse-icon {
@@ -133,29 +91,4 @@
 
 .collapse-icon:hover {
 	color: #cc2424;
-}
-
-/* Tooltip styling */
-.pill[data-tooltip]::after {
-	content: attr(data-tooltip);
-	position: absolute;
-	bottom: 120%;
-	left: 50%;
-	transform: translateX(-50%);
-	background-color: #ffffff;
-	color: #626262;
-	padding: 6px 10px;
-	border-radius: 6px;
-	font-size: 0.8rem;
-	white-space: nowrap;
-	pointer-events: none;
-	opacity: 0;
-	transition: opacity 0.4s ease;
-	z-index: 999;
-}
-
-/* Show tooltip on hover with delay */
-.pill[data-tooltip]:hover::after {
-	opacity: 1;
-	transition-delay: 0.8s; /* delay before showing */
 }

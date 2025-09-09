@@ -12,12 +12,7 @@ const Feelings = () => {
 				How are you feeling now about <strong>{observation || "what happened"}</strong>?
 			</p>
 
-			<Checklist
-				data={feelingsData}
-				selectedItems={feelings}
-				setSelectedItems={setFeelings}
-				showMeanings={true}
-			/>
+			<Checklist data={feelingsData} selectedItems={feelings} setSelectedItems={setFeelings} type="feelings" />
 		</div>
 	);
 };
