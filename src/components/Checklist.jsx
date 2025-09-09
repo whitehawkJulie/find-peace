@@ -53,7 +53,7 @@ const Checklist = ({ data, selectedItems, setSelectedItems, showMeanings = true 
 													e.preventDefault();
 													handleDoubleClick(item);
 												}}
-												title={showMeanings ? meaning : undefined}>
+												{...(showMeanings ? { "data-tooltip": meaning } : {})}>
 												{item}
 											</div>
 										))}

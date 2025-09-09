@@ -80,7 +80,7 @@ const needsData = {
 			{ item: "Self-care", meaning: "Tending to my own needs" },
 			{ item: "Self-connection", meaning: "Awareness of inner experience" },
 			{ item: "Self-knowledge", meaning: "Understanding myself" },
-			{ item: "Self-realizatioin", meaning: "Becoming who I am meant to be" },
+			{ item: "Self-realization", meaning: "Becoming who I am meant to be" },
 			{ item: "Mattering to myself", meaning: "Recognizing my own value" },
 		],
 		Understanding: [
