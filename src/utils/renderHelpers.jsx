@@ -3,21 +3,21 @@ import React from "react";
 // Utility functions to extract selected items by type
 export const getClickedItems = (selectedItems) =>
 	Object.entries(selectedItems)
-		.filter(([_, value]) => value === "click")
+		.filter(([_, value]) => value === "clicked")
 		.map(([item]) => item);
 
 export const getDoubleClickedItems = (selectedItems) =>
 	Object.entries(selectedItems)
-		.filter(([_, value]) => value === "double")
+		.filter(([_, value]) => value === "double-clicked")
 		.map(([item]) => item);
 
 export const getAllSelectedItems = (selectedItems) => Object.keys(selectedItems);
 
 /* in case I want to render just one pill
-	params eg happy, click, feeling
+	params eg happy, clicked, feeling
 */
-export const renderPill = (item, type = "click", category = "feeling") => {
-	if (!["click", "double"].includes(type)) return "Error, called with type=" + type;
+export const renderPill = (item, type = "clicked", category = "feeling") => {
+	if (!["clicked", "double-clicked"].includes(type)) return "Error, called with type=" + type;
 	if (!["feeling", "need"].includes(category)) return "Error, called with category=" + category;
 
 	return (
@@ -27,9 +27,9 @@ export const renderPill = (item, type = "click", category = "feeling") => {
 	);
 };
 
-// Renders pills for either "click" or "double" items
-export const renderPills = (selectedItems, type = "click", category = "feeling") => {
-	if (!["click", "double"].includes(type)) return "Error, called with type=" + type;
+// Renders pills for either "clicked" or "double-clicked" items
+export const renderPills = (selectedItems, type = "clicked", category = "feeling") => {
+	if (!["clicked", "double-clicked"].includes(type)) return "Error, called with type=" + type;
 	if (!["feeling", "need"].includes(category)) return "Error, called with type=" + type;
 
 	return (
@@ -48,8 +48,8 @@ export const renderPills = (selectedItems, type = "click", category = "feeling")
 // TO DO: add categories here, to style the words with bold or whatever, if feelings or needs?
 
 // Renders plain English list of selected items
-export const renderTextList = (selectedItems, type = "click") => {
-	if (!["click", "double"].includes(type)) return "";
+export const renderTextList = (selectedItems, type = "clicked") => {
+	if (!["clicked", "double-clicked"].includes(type)) return "";
 
 	const items = Object.entries(selectedItems)
 		.filter(([_, value]) => value === type)
@@ -62,7 +62,7 @@ export const renderTextList = (selectedItems, type = "click") => {
 
 // Renders Markdown-formatted bullet list
 export const renderMarkdownList = (selectedItems, type) => {
-	if (!["click", "double"].includes(type)) return "";
+	if (!["clicked", "double-clicked"].includes(type)) return "";
 
 	return Object.entries(selectedItems)
 		.filter(([_, value]) => value === type)

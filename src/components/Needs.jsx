@@ -16,7 +16,7 @@ const renderOrderedFeelings = (feelings) => {
 			{entries.map(([feeling, strength], i) => (
 				<React.Fragment key={feeling}>
 					{i > 0 && ", "}
-					{strength === "double" ? <strong>{feeling}</strong> : feeling}
+					{strength === "double-clicked" ? <strong>{feeling}</strong> : feeling}
 				</React.Fragment>
 			))}
 		</p>
@@ -37,6 +37,6 @@ const Needs = () => {
 
 Needs.title = "Needs";
 Needs.helpContent =
-	"Feelings arise because our needs are met or unmet. Which needs feel relevant right now? Double-click a need if it feels met.";
+	"Feelings arise because our needs are met or unmet. Which needs feel relevant right now? Double-clicked a need if it feels met.";
 
 export default Needs;

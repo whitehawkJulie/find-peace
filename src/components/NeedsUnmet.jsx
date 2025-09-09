@@ -6,7 +6,7 @@ const NeedsUnmet = () => {
 
 	// Filter for unmet needs
 	const unmetNeeds = Object.entries(needs)
-		.filter(([_, status]) => status === "click")
+		.filter(([_, status]) => status === "clicked")
 		.map(([need]) => need);
 
 	return (
@@ -16,7 +16,7 @@ const NeedsUnmet = () => {
 			{unmetNeeds.length > 0 ? (
 				<div className="pill-grid">
 					{unmetNeeds.map((need) => (
-						<div key={need} className="pill clicked" title="Unmet need">
+						<div key={need} className="pill clicked need" title="Unmet need">
 							{need}
 						</div>
 					))}

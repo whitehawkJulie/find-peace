@@ -21,7 +21,7 @@ const allSteps = [
 	{ component: Needs },
 	{
 		component: NeedsMet,
-		condition: (state) => Object.values(state.needs || {}).includes("double"),
+		condition: (state) => Object.values(state.needs || {}).includes("double-clicked"),
 	},
 	{ component: NeedsUnmet },
 	{ component: Review },

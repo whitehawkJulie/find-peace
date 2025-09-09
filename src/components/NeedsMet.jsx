@@ -6,7 +6,7 @@ const NeedsMet = () => {
 
 	// Filter for met needs
 	const metNeeds = Object.entries(needs)
-		.filter(([_, status]) => status === "double") /* double click means met need */
+		.filter(([_, status]) => status === "double-clicked") /* double clicked means met need */
 		.map(([need]) => need);
 
 	return (
@@ -20,7 +20,7 @@ const NeedsMet = () => {
 			{metNeeds.length > 0 ? (
 				<div className="pill-grid">
 					{metNeeds.map((need) => (
-						<div key={need} className="pill clicked" title="Met need">
+						<div key={need} className="pill double-clicked need" title="Met need">
 							{need}
 						</div>
 					))}
@@ -38,7 +38,7 @@ NeedsMet.title = "Needs that ARE met";
 NeedsMet.showHelp = true;
 NeedsMet.helpContent = (
 	<>
-		<p>This step shows the needs you've marked as met (via double-click).</p>
+		<p>This step shows the needs you've marked as met (via double-clicked).</p>
 		<p>
 			Recognizing met needs can be just as valuable as identifying unmet ones. It helps you see what’s working and
 			what resources you already have.

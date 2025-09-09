@@ -13,10 +13,10 @@ const Review = () => {
 
 	const handleCopy = () => {
 		const markdown = `**Observation**\n${observation}\n\n**Feelings (strong)**\n
-		${renderTextList(feelings, "double")}\n\n**Feelings (felt)**\n
-		${renderTextList(feelings, "click")}\n\n**Needs (strong)**\n
-		${renderTextList(needs, "double")}\n\n**Needs (met)**\n
-		${renderTextList(needs, "click")}`;
+		${renderTextList(feelings, "double-clicked")}\n\n**Feelings (felt)**\n
+		${renderTextList(feelings, "clicked")}\n\n**Needs (strong)**\n
+		${renderTextList(needs, "double-clicked")}\n\n**Needs (met)**\n
+		${renderTextList(needs, "clicked")}`;
 
 		navigator.clipboard.writeText(markdown).then(() => {
 			alert("Summary copied to clipboard!");
@@ -34,21 +34,21 @@ const Review = () => {
 			<p>
 				<strong>Strong:</strong>
 			</p>
-			{renderPills(feelings, "double", "feeling")}
+			{renderPills(feelings, "double-clicked", "feeling")}
 			<p>
 				<strong>Felt:</strong>
 			</p>
-			{renderPills(feelings, "click", "feeling")}
+			{renderPills(feelings, "clicked", "feeling")}
 
 			<h3>Needs</h3>
 			<p>
 				<strong>Strong:</strong>
 			</p>
-			{renderPills(needs, "double", "need")}
+			{renderPills(needs, "double-clicked", "need")}
 			<p>
 				<strong>Met:</strong>
 			</p>
-			{renderPills(needs, "click", "need")}
+			{renderPills(needs, "clicked", "need")}
 
 			<button onClick={handleCopy}>Copy to Clipboard</button>
 		</div>

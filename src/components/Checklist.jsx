@@ -5,21 +5,21 @@ import "./Checklist.css";
 const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings" }) => {
 	const [collapsedCategories, setCollapsedCategories] = useState({});
 
-	// Toggle between click and double-click states
+	// Toggle between clicked and double-clicked states
 	const handleClick = (item) => {
 		const newState = { ...selectedItems };
 
-		// If item was "double", change to "click"
-		if (newState[item] === "double") {
-			newState[item] = "click";
+		// If item was "double-clicked", change to "clicked"
+		if (newState[item] === "double-clicked") {
+			newState[item] = "clicked";
 		}
-		// If item was "click", remove it (toggle off)
-		else if (newState[item] === "click") {
+		// If item was "clicked", remove it (toggle off)
+		else if (newState[item] === "clicked") {
 			delete newState[item];
 		}
-		// If item wasn't selected yet, add as "click"
+		// If item wasn't selected yet, add as "clicked"
 		else {
-			newState[item] = "click";
+			newState[item] = "clicked";
 		}
 
 		setSelectedItems(newState);
@@ -27,7 +27,7 @@ const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings" })
 
 	const handleDoubleClick = (item) => {
 		const newState = { ...selectedItems };
-		newState[item] = "double";
+		newState[item] = "double-clicked";
 		setSelectedItems(newState);
 	};
 

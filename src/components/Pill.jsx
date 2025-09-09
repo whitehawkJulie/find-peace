@@ -4,7 +4,7 @@ import "./Pill.css"; // uses existing styles
 const Pill = ({
 	item,
 	type = "", // "feeling" or "need"
-	state = "", // "", "click", or "double"
+	state = "", // "", "clicked", or "double-clicked"
 	meaning = "", // if defined, will be shown as a tooltip
 	onClick = null,
 	onDoubleClick = null,
