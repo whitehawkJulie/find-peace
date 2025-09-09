@@ -3,25 +3,34 @@ import Checklist from "./Checklist";
 import needsData from "./NeedsData";
 import { useWizard } from "./WizardContext";
 
+const renderOrderedFeelings = (feelings) => {
+	const entries = Object.entries(feelings);
+
+	if (entries.length === 0) {
+		return <p>What was missing that led to how you are feeling?</p>;
+	}
+
+	return (
+		<p>
+			What was missing that led to you feeling <br />
+			{entries.map(([feeling, strength], i) => (
+				<React.Fragment key={feeling}>
+					{i > 0 && ", "}
+					{strength === "double" ? <strong>{feeling}</strong> : feeling}
+				</React.Fragment>
+			))}
+		</p>
+	);
+};
+
 const Needs = () => {
 	const { needs, setNeeds, feelings } = useWizard(); // <- fix: access feelings from context
 
 	return (
 		<div className="step-needs">
-			{feelings.length > 0 && (
-				<p>
-					So, you're feeling <strong>{feelings.join(", ")}</strong>.
-				</p>
-			)}
-			<p>What needs might be underneath those feelings?</p>
+			{renderOrderedFeelings(feelings)}
 
-			<Checklist
-				data={needsData}
-				selectedItems={needs}
-				setSelectedItems={setNeeds}
-				allowDoubleClick={true}
-				showMeanings={true}
-			/>
+			<Checklist data={needsData} selectedItems={needs} setSelectedItems={setNeeds} showMeanings={true} />
 		</div>
 	);
 };

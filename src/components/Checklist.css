@@ -2,7 +2,7 @@
    Checklist Component Styling (Generic)
    ===================== */
 
-.checklist-container {
+.checklist {
 	min-height: calc(100vh - 100px);
 	overflow-y: auto;
 }
@@ -35,9 +35,10 @@
 	overflow: hidden;
 	margin-bottom: 1.5rem;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+	background-color: var(--body-bg);
 }
 
-.category-title {
+.category-header h3 {
 	font-size: 1rem;
 	font-weight: 600;
 	margin: 0;
@@ -47,24 +48,23 @@
 	width: 100%;
 }
 
-.category-container {
-	border-radius: 8px;
-	overflow: hidden;
-	margin-bottom: 1.5rem;
-	box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
-	background-color: var(--body-bg);
-}
-
-/* Ensure full width header */
+/* Top header of each category box */
 .category-header {
-	width: 100%;
-	padding: 0.6rem 1rem;
-	background-color: var(--header-bg);
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
+	padding: 0.5rem 1rem;
+	background-color: var(--header-bg);
+	border-radius: 8px 8px 0 0;
+	font-weight: 600;
 	cursor: pointer;
+	user-select: none;
 }
 
+.collapse-icon {
+	font-size: 0.9rem;
+	color: #555;
+}
 /* ========== SUBCATEGORY STYLING ========== */
 .subcategory {
 	padding: 1rem; /* ✅ Padding only here */
@@ -93,18 +93,31 @@
 	font-size: 0.85rem;
 	cursor: pointer;
 	transition: all 0.2s ease;
+	user-select: none; /* so we don't accidentally select the text when double clicking */
 }
 
 .pill:hover {
 	background-color: #d3d3d3;
 }
 
-.pill.met {
+.step-feelings .pill.click {
+	background-color: #fff2f2;
+	border: 1px dotted red;
+}
+
+.step-feelings .pill.double {
+	background-color: #fdd6d6;
+	border: 2px dotted red;
+}
+
+/* met needs */
+.step-needs .pill.double {
 	background-color: #c6e6c3;
 	border: 1px solid #96cb92;
 }
 
-.pill.unmet {
+/* unmet needs */
+.step-needs .pill.click {
 	background-color: #fff2f2;
 	border: 2px dotted red;
 }

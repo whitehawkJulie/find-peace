@@ -29,7 +29,7 @@ export const WizardProvider = ({ children }) => {
 	// App-wide state
 	const [stepIndex, setStepIndex] = useState(0);
 	const [observation, setObservation] = useState("");
-	const [feelings, setFeelings] = useState([]);
+	const [feelings, setFeelings] = useState({});
 	const [needs, setNeeds] = useState({});
 
 	// Filter steps by condition

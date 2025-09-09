@@ -1,20 +1,31 @@
 import React from "react";
+import { useWizard } from "./WizardContext";
 
-const NeedsUnmet = ({ needs }) => {
-	const unmetNeeds = Object.keys(needs).filter((key) => needs[key] === "unmet");
+const NeedsUnmet = () => {
+	const { needs } = useWizard();
+
+	// Filter for unmet needs
+	const unmetNeeds = Object.entries(needs)
+		.filter(([_, status]) => status === "unmet")
+		.map(([need]) => need);
 
 	return (
-		<div className="step-met-needs">
-			<h2>Needs that were not met</h2>
-			{/* if unmetNeeds.length > 0? show "No needs selected" */}
+		<>
+			<h2>Unmet needs</h2>
 
-			<div className="pill-grid">
-				{unmetNeeds.map((need) => (
-					<div key={need} className="pill unmet">
-						{need}
-					</div>
-				))}
-			</div>
+			{unmetNeeds.length > 0 ? (
+				<div className="pill-grid">
+					{unmetNeeds.map((need) => (
+						<div key={need} className="pill clicked" title="Unmet need">
+							{need}
+						</div>
+					))}
+				</div>
+			) : (
+				<p>
+					<em>No unmet needs selected.</em>
+				</p>
+			)}
 			<p>
 				These are the needs that weren't met for you in that moment. If any of these come up often for you, it's
 				probable that those particular needs are often unmet for you, that you have "bone dry needs tanks" for
@@ -24,8 +35,19 @@ const NeedsUnmet = ({ needs }) => {
 				strategies fo rneeds etc. So let's consider how we might be able to better met those needs in our daily
 				lives?
 			</p>
-		</div>
+		</>
 	);
 };
+
+NeedsUnmet.showHelp = true;
+NeedsUnmet.helpContent = (
+	<>
+		<p>This step shows the needs you’ve marked as unmet.</p>
+		<p>
+			Seeing these clearly can help you identify pathways forward—ways to get support, make requests, or care for
+			yourself.
+		</p>
+	</>
+);
 
 export default NeedsUnmet;

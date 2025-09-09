@@ -12,13 +12,10 @@ const Feelings = () => {
 				How are you feeling now about <strong>{observation || "what happened"}</strong>?
 			</p>
 
-			<p className="smaller">Selected: {feelings.join(", ")}</p>
-
 			<Checklist
 				data={feelingsData}
 				selectedItems={feelings}
 				setSelectedItems={setFeelings}
-				allowDoubleClick={false}
 				showMeanings={true}
 			/>
 		</div>
