@@ -24,11 +24,23 @@ body {
 	padding: 0; /* or keep 2rem if you like, but it can affect stickiness */
 }
 
+.app-header {
+	width: 100%;
+	background: #6fad81;
+}
+
 /* Root layout wrapper */
 .nvc-wizard {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+}
+
+.app-header h1 {
+	width: 100%;
+	color: white;
+	font-size: 20px;
+	margin: 1rem;
 }
 
 /* Textareas (used in Observation etc) */

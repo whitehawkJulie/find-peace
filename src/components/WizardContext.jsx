@@ -12,6 +12,7 @@ import Feelings from "./Feelings";
 import Needs from "./Needs";
 import NeedsMet from "./NeedsMet";
 import NeedsUnmet from "./NeedsUnmet";
+import Review from "./Review";
 
 // Full list of steps
 const allSteps = [
@@ -23,6 +24,7 @@ const allSteps = [
 		condition: (state) => Object.values(state.needs || {}).includes("double"),
 	},
 	{ component: NeedsUnmet },
+	{ component: Review },
 ];
 
 export const WizardProvider = ({ children }) => {

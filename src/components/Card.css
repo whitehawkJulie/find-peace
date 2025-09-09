@@ -20,13 +20,13 @@
 /* Main content area */
 .card-content {
 	flex-grow: 1;
-	padding: 1rem 2rem 2rem 2rem;
+	/* padding: 1rem 2rem 2rem 2rem; */
 	overflow-y: auto;
 }
 
 /* Header area */
 .card-header {
-	padding: 1.5rem 2rem 0 2rem;
+	/* padding: 1.5rem 2rem 0 0; */
 	border-bottom: none;
 	background-color: white;
 }
