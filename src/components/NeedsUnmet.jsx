@@ -14,7 +14,7 @@ const NeedsUnmet = () => {
 			<h2>Unmet needs</h2>
 
 			{unmetNeeds.length > 0 ? (
-				<div className="pill-grid">
+				<div className="pill-grid cloud">
 					{unmetNeeds.map((need) => (
 						<div key={need} className="pill clicked need" title="Unmet need">
 							{need}

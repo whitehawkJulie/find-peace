@@ -18,7 +18,7 @@ const NeedsMet = () => {
 			</p>
 
 			{metNeeds.length > 0 ? (
-				<div className="pill-grid">
+				<div className="pill-grid cloud">
 					{metNeeds.map((need) => (
 						<div key={need} className="pill double-clicked need" title="Met need">
 							{need}

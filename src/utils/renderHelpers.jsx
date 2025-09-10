@@ -11,6 +11,13 @@ export const getDoubleClickedItems = (selectedItems) =>
 		.filter(([_, value]) => value === "double-clicked")
 		.map(([item]) => item);
 
+/* i thnk this replaces the previous two?? */
+export const filterByState = (itemsObject, targetState) => {
+	return Object.entries(itemsObject)
+		.filter(([_, state]) => state === targetState)
+		.map(([item]) => item);
+};
+
 export const getAllSelectedItems = (selectedItems) => Object.keys(selectedItems);
 
 /* in case I want to render just one pill
@@ -33,7 +40,7 @@ export const renderPills = (selectedItems, type = "clicked", category = "feeling
 	if (!["feeling", "need"].includes(category)) return "Error, called with type=" + type;
 
 	return (
-		<div className="pill-grid">
+		<div className="pill-grid  cloud">
 			{Object.entries(selectedItems)
 				.filter(([_, value]) => value === type)
 				.map(([item]) => (
@@ -41,6 +48,21 @@ export const renderPills = (selectedItems, type = "clicked", category = "feeling
 						{item}
 					</div>
 				))}
+		</div>
+	);
+};
+
+// Renders all selected pills, both clicked and double-clicked
+export const renderAllPills = (selectedItems, category = "feeling") => {
+	if (!["feeling", "need"].includes(category)) return "Error, called with category=" + category;
+
+	return (
+		<div className="pill-grid cloud">
+			{Object.entries(selectedItems).map(([item, type]) => (
+				<div key={item} className={`pill ${category} ${type}`}>
+					{item}
+				</div>
+			))}
 		</div>
 	);
 };
