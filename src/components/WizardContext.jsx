@@ -15,21 +15,22 @@ import NeedsMet from "./NeedsMet";
 import NeedsUnmet from "./NeedsUnmet";
 import Review from "./Review";
 import BodyCheckIn from "./BodyCheckIn";
-import StepTracker from "./StepTracker";
 
 // Full list of steps
 const allSteps = [
-	{ component: Introduction },
-	{ component: Observation },
-	{ component: BodyCheckIn },
-	{ component: Feelings },
-	{ component: Needs },
+	{ component: Introduction, title: "Intro", optional: true },
+	{ component: Observation, title: "Observation" },
+	{ component: BodyCheckIn, title: "Body", optional: true },
+	{ component: Feelings, title: "Feelings" },
+	{ component: Needs, title: "Needs" },
 	{
 		component: NeedsMet,
+		title: "Met",
+		optional: true,
 		condition: (state) => Object.values(state.needs || {}).includes("double-clicked"),
 	},
-	{ component: NeedsUnmet },
-	{ component: Review },
+	{ component: NeedsUnmet, title: "Unmet", optional: true },
+	{ component: Review, title: "Review", optional: true },
 ];
 
 export const WizardProvider = ({ children }) => {
@@ -39,13 +40,11 @@ export const WizardProvider = ({ children }) => {
 	const [feelings, setFeelings] = useState({});
 	const [needs, setNeeds] = useState({});
 
-	// Filter steps by condition
 	const visibleSteps = allSteps.filter((step) =>
 		step.condition ? step.condition({ observation, feelings, needs }) : true
 	);
 
-	// Current step info
-	const currentStep = visibleSteps[stepIndex]?.component;
+	const currentStep = visibleSteps[stepIndex];
 
 	const value = {
 		stepIndex,
