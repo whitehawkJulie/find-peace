@@ -7,16 +7,21 @@ const WizardContext = createContext();
 export const useWizard = () => useContext(WizardContext);
 
 // Step components
+import Introduction from "./Introduction";
 import Observation from "./Observation";
 import Feelings from "./Feelings";
 import Needs from "./Needs";
 import NeedsMet from "./NeedsMet";
 import NeedsUnmet from "./NeedsUnmet";
 import Review from "./Review";
+import BodyCheckIn from "./BodyCheckIn";
+import StepTracker from "./StepTracker";
 
 // Full list of steps
 const allSteps = [
+	{ component: Introduction },
 	{ component: Observation },
+	{ component: BodyCheckIn },
 	{ component: Feelings },
 	{ component: Needs },
 	{

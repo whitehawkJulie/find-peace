@@ -1,0 +1,41 @@
+.step-tracker {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 1rem;
+	flex-wrap: wrap;
+}
+
+.step {
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.circle {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background-color: #ccc;
+}
+
+.step.active .circle {
+	background-color: #4a90e2;
+}
+
+.step.optional .circle {
+	background-color: #eee;
+}
+
+.label {
+	margin: 0 0.5rem;
+	font-size: 0.8rem;
+	white-space: nowrap;
+}
+
+.line {
+	width: 24px;
+	height: 2px;
+	background-color: #ccc;
+	margin: 0 0.5rem;
+}

@@ -67,3 +67,15 @@ textarea {
 	margin: 0;
 	font-size: 10px;
 }
+
+.subtle-button {
+	background: none;
+	border: none;
+	color: #555;
+	font-size: 0.95rem;
+	cursor: pointer;
+	text-decoration: underline;
+}
+.subtle-button:hover {
+	color: #000;
+}
