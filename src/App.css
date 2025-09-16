@@ -79,3 +79,20 @@ textarea {
 .subtle-button:hover {
 	color: #000;
 }
+
+/* TABLES */
+my-.tables table {
+	width: 95%;
+	border-collapse: collapse;
+}
+
+.my-table th,
+.my-table td {
+	border: 1px solid #ccc;
+	padding: 0.5rem;
+	text-align: left;
+}
+
+.my-table th {
+	background-color: #f2f2f2;
+}

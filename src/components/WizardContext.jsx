@@ -10,6 +10,8 @@ export const useWizard = () => useContext(WizardContext);
 import Introduction from "./Introduction";
 import Observation from "./Observation";
 import Feelings from "./Feelings";
+import FauxFeelingsUnpackCard from "./FauxFeelingsUnpackCard";
+
 import Needs from "./Needs";
 import NeedsMet from "./NeedsMet";
 import NeedsUnmet from "./NeedsUnmet";
@@ -22,6 +24,7 @@ const allSteps = [
 	{ component: Observation, title: "Observation" },
 	{ component: BodyCheckIn, title: "Body", optional: true },
 	{ component: Feelings, title: "Feelings" },
+	{ component: FauxFeelingsUnpackCard, title: "Faux Feelings" },
 	{ component: Needs, title: "Needs" },
 	{
 		component: NeedsMet,
@@ -36,6 +39,8 @@ const allSteps = [
 export const WizardProvider = ({ children }) => {
 	// App-wide state
 	const [stepIndex, setStepIndex] = useState(0);
+	const [jackalTalk, setJackalTalk] = useState("");
+
 	const [observation, setObservation] = useState("");
 	const [feelings, setFeelings] = useState({});
 	const [needs, setNeeds] = useState({});
@@ -49,6 +54,8 @@ export const WizardProvider = ({ children }) => {
 	const value = {
 		stepIndex,
 		setStepIndex,
+		jackalTalk,
+		setJackalTalk,
 		observation,
 		setObservation,
 		feelings,

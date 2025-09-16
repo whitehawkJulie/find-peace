@@ -16,13 +16,9 @@ Introduction.title = "Instructions";
 Introduction.helpContent = (
 	<>
 		<p>
-			<strong>This is a 4-step “OFNR” process — Observation, Feelings, Needs, and Request.</strong>
-		</p>
-
-		<p>
 			Before you start… if you’ve come to use this tool, you’re probably wanting resolution to something. You
 			might think you want answers, action, or change — but more often than not, the first thing we actually need
-			is clarity and self-connection.
+			is clarity and self-connection. We want to get clear on what it is we're actually longing for.
 		</p>
 
 		<p>

@@ -27,14 +27,15 @@
 
 .checklist {
 	min-height: calc(100vh - 100px);
-	overflow-y: auto;
+	overflow-y: visible;
 }
 
 /* ========== CATEGORY STYLING ========== */
 
 .category {
 	border-radius: 8px;
-	overflow: hidden;
+	overflow: visible;
+	position: relative; /* required for absolute children */
 	margin-bottom: 1.5rem;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 	background-color: var(--body-bg);
@@ -91,4 +92,10 @@
 
 .collapse-icon:hover {
 	color: #cc2424;
+}
+
+/* make the feelings list a bit more narrow */
+.step-feelings .checklist {
+	width: 80%;
+	margin: auto;
 }

@@ -7,7 +7,7 @@ const BodyCheckIn = () => {
 			<ul>
 				<li>Close your eyes if you’re comfortable</li>
 				<li>Notice any tension, flutter, heaviness, tightness, lightness</li>
-				<li>See if a word or emotion arises naturally</li>
+				<li>You don't need to go looking for anything ... just notice what's already there.</li>
 			</ul>
 			<p>This moment of pause can help you connect with what's *really* happening underneath the surface.</p>
 		</div>

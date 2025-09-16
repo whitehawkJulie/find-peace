@@ -84,9 +84,9 @@ const Review = () => {
 					{renderPills(needs, "double-clicked", "need")}
 				</>
 			)}
-			<p>
-				<h3>Needs tanks I need to fill up</h3>
-			</p>
+
+			<h3>Needs tanks I need to fill up</h3>
+
 			{renderPills(needs, "clicked", "need")}
 			<hr />
 			<button onClick={generateSummaryText}>Copy to Clipboard</button>

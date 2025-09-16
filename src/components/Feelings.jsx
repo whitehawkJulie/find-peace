@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Checklist from "./Checklist";
-import { feelingsData } from "./FeelingsData";
+import { feelingsData } from "./feelingsData";
 import { useWizard } from "./WizardContext";
+import FauxFeelingsTable from "../data/FauxFeelingsTable";
 import SlideDrawer from "./SlideDrawer";
 
 const Feelings = () => {
@@ -23,14 +24,7 @@ const Feelings = () => {
 			</div>
 
 			<SlideDrawer isOpen={showFauxHelp} onClose={() => setShowFauxHelp(false)} title="Faux Feelings">
-				<p>
-					Sometimes we say things like “I feel ignored” or “I feel manipulated.” But these aren’t actual
-					feelings — they’re interpretations of someone else’s behaviour.
-				</p>
-				<p>
-					A real feeling might be “I feel sad” or “I feel lonely.” Try asking yourself: “If I couldn’t blame
-					them, what would I be feeling?”
-				</p>
+				<FauxFeelingsTable />
 			</SlideDrawer>
 		</div>
 	);

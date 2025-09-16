@@ -7,7 +7,7 @@ const renderOrderedFeelings = (feelings) => {
 	const entries = Object.entries(feelings);
 
 	if (entries.length === 0) {
-		return <p>What was missing that led to how you are feeling?</p>;
+		return <p>What was missing in that situation or interaction that led to how you are feeling?</p>;
 	}
 
 	return (

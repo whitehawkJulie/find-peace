@@ -25,6 +25,7 @@ const needsData = {
 
 	Connection: {
 		Affection: [
+			{ item: "Affection", meaning: "Expressions of emotional warmth and connection" },
 			{ item: "Appreciation", meaning: "Being seen and valued" },
 			{ item: "Attention", meaning: "Being genuinely noticed" },
 			{ item: "Closeness", meaning: "Emotional and/or physical intimacy" },
@@ -39,6 +40,7 @@ const needsData = {
 			{ item: "Warmth", meaning: "A sense of friendliness and care" },
 		],
 		"To matter": [
+			{ item: "To matter", meaning: "To know that I am valued" },
 			{ item: "Acceptance", meaning: "Welcomed just as I am" },
 			{ item: "Care", meaning: "Concern for my well-being" },
 			{ item: "Compassion", meaning: "Understanding and warmth in response to suffering" },
@@ -53,6 +55,7 @@ const needsData = {
 			{ item: "Kindness", meaning: "Gentle and benevolent care" },
 		],
 		Community: [
+			{ item: "Community", meaning: "Belonging to a group" },
 			{ item: "Belonging", meaning: "Feeling part of something" },
 			{ item: "Communication", meaning: "Sharing and receiving information" },
 			{ item: "Cooperation", meaning: "Working together toward common goals" },
@@ -84,6 +87,7 @@ const needsData = {
 			{ item: "Mattering to myself", meaning: "Recognizing my own value" },
 		],
 		Understanding: [
+			{ item: "Understanding", meaning: "Grasp what something means" },
 			{ item: "Awareness", meaning: "Conscious presence" },
 			{ item: "Clarity", meaning: "Clear thinking and perception" },
 			{ item: "Discovery", meaning: "Finding or uncovering something new" },
@@ -92,6 +96,7 @@ const needsData = {
 			{ item: "Stimulation", meaning: "Mental engagement and interest" },
 		],
 		Meaning: [
+			{ item: "Meaning", meaning: "A sense that something matters" },
 			{ item: "Challenge", meaning: "Opportunities to stretch and grow" },
 			{ item: "Aliveness", meaning: "Feeling fully vibrant and present" },
 			{ item: "Consciousness", meaning: "Deep awareness of self and life" },
