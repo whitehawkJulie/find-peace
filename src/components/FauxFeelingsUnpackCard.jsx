@@ -2,6 +2,7 @@ import React from "react";
 import Card from "./Card";
 import { useWizard } from "./WizardContext";
 import { feelingsData } from "./feelingsData"; // adjust import path if needed
+import { renderAllPills, renderPills, renderTextList, filterByState } from "../utils/renderHelpers";
 
 const FauxFeelingsUnpackCard = () => {
 	const { feelings } = useWizard();
@@ -27,12 +28,28 @@ const FauxFeelingsUnpackCard = () => {
 
 	return (
 		<>
+			<p>EMPATHY: Ah, these particular words are so painful, aren't they?!</p>
 			<p>
-				It looks like one or more of the words you chose are <strong>faux feelings</strong> — words that sound
-				like feelings, but actually contain judgments, diagnoses, or assumptions. This is an opportunity to (a)
-				consider whether the story is actually true, and (b), unpack the actual feelings underneath.
+				WHY REFRAME? These <strong>"faux feeling"</strong> words that actually thoughts, but we often use them
+				as feeling words. Part of why they so painful is they're actually thoughts (rather than specific
+				body-based feelings) about what we think someone else is doing to us, as we're mostly utterly powerless
+				over other people's behaviour. Don't get me wrong, there are absolutely big feelings underneath these
+				words, but it's so much more useful to us if we can identify the actual feelings, rather than just the
+				though. When we use these words, we often feel like victims, unable to change our experience.
 			</p>
-			<p>Let’s unpack them a little, to see what might really be going on underneath:</p>
+			<p>
+				HOW TO REFRAME The good (or at least, better!) news is that we're NOT powerless over the stories we tell
+				ourselves, and our actual feelings, which occur in our bodies. So let's unpack these particular words,
+				so we can notice the judgments, diagnoses, or assumptions. This is an opportunity to (a) consider
+				whether the story is actually true, and (b), unpack the actual feelings underneath. The body has a
+				powerful ability to move through emotions, but the mind DOES NOT. It will dwell on them forever, given
+				the opportunity! Add "message delivered" stuff here from Sarah Peyton.
+			</p>
+			<p>
+				{" "}
+				LET'S START So let’s unpack them, to see what might be going on underneath, so we see what parts we can
+				actually do something about.
+			</p>
 
 			{selectedFauxFeelings.map((feeling, i) => (
 				<div key={i} style={{ marginBottom: "2rem" }}>

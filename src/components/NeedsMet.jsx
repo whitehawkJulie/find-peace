@@ -17,6 +17,8 @@ const NeedsMet = () => {
 				body when those needs are met!
 			</p>
 
+			{/* replace the following with renderPills */}
+
 			{metNeeds.length > 0 ? (
 				<div className="pill-grid cloud">
 					{metNeeds.map((need) => (
