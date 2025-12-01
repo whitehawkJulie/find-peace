@@ -27,13 +27,24 @@ const NeedsUnmet = () => {
 				</p>
 			)}
 			<p>
-				These are the needs that weren't met for you in that moment. If any of these come up often for you, it's
-				probable that those particular needs are often unmet for you, that you have "bone dry needs tanks" for
-				these. This particular situation won't be the only time this pain arises for you around this need.
-				Fortunately, needs are not tied to any one person, place or time ... we can get them met in many, many
-				ways! There are two meanings of the phrase "to meet a need" ... living energy of needs etc, and finding
-				strategies fo rneeds etc. So let's consider how we might be able to better met those needs in our daily
-				lives?
+				Note to self: maybe have some buttons here, with prompts like "Do you feel self-righteous about this
+				need?", "do you feel sad about this need", do you feel hopeless etc ... and then link to the following
+				bits of text in separate drawers? Including beauty of the needs, finding strategies etc.
+			</p>
+			<p>
+				Here are the needs that weren't met for you in that moment, or now, as you think about that moment. If
+				you feel self-righteous about having those needs met, rather than a sense of relief at having named
+				them, it's quite likely there are deeper needs under that one, that would be good to unpack. Ask
+				youself, "If [that need] was met, then what would I have?". Keep going until you find a need that really
+				"lands" for you, that gives you some kind of "shift".
+			</p>
+			<p>
+				Also, if any of these come up often for you, it's probable that those particular needs are often unmet
+				for you, that you have "bone dry needs tanks" for these. This particular situation won't be the only
+				time this pain arises for you around this need. Fortunately, needs are not tied to any one person, place
+				or time ... we can get them met in many, many ways! There are two meanings of the phrase "to meet a
+				need" ... living energy of needs etc, and finding strategies for needs etc. So let's consider how we
+				might be able to better met those needs in our daily lives?
 			</p>
 		</>
 	);

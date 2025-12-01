@@ -38,8 +38,8 @@ body {
 button {
 	background-color: green;
 	float: right;
-	padding: 1em;
-	margin: 1em;
+	padding: 0.5em;
+	margin: 0.5em;
 	color: white;
 }
 

@@ -21,7 +21,7 @@ const NvcWizard = () => {
 			</div>
 
 			<div className="nvc-wizard">
-				<StepTracker steps={visibleSteps} currentStepIndex={stepIndex} />
+				{/* <StepTracker steps={visibleSteps} currentStepIndex={stepIndex} /> */}
 
 				<Card title={title} helpContent={helpContent} showHelp={!!helpContent}>
 					<CurrentStepComponent />

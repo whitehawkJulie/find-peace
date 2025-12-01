@@ -28,6 +28,14 @@ const FauxFeelingsUnpackCard = () => {
 
 	return (
 		<>
+			<p>
+				<i>
+					The key to identifying and expressing feelings is to focus on words that describe our inner
+					experience rather than words that describe our interpretations of people's actions. For example: "I
+					feel lonely" describes an inner experience, while "I feel like you don't love me" describes an
+					interpretation of how the other person may be feeling. - Miki Kashtan
+				</i>
+			</p>
 			<p>EMPATHY: Ah, these particular words are so painful, aren't they?!</p>
 			<p>
 				WHY REFRAME? These <strong>"faux feeling"</strong> words that actually thoughts, but we often use them

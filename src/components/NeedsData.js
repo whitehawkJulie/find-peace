@@ -122,10 +122,11 @@ const needsData = {
 
 	Freedom: {
 		Autonomy: [
+			{ item: "Autonomy", meaning: "Make decisions without external control", status: "" },
 			{ item: "Choice", meaning: "Freedom to decide", status: "" },
 			{ item: "Ease", meaning: "Freedom from strain or effort", status: "" },
 			{ item: "Independence", meaning: "Self-reliance and agency", status: "" },
-			{ item: "Power", meaning: "Ability to influence", status: "" },
+			{ item: "Agency", meaning: "Ability to influence", status: "" },
 			{ item: "Self-responsiblity", meaning: "Owning my own choices", status: "" },
 			{ item: "Space", meaning: "Room to be and act", status: "" },
 			{ item: "Spontaneity", meaning: "Freedom to act in the moment", status: "" },

@@ -24,7 +24,15 @@ const allSteps = [
 	{ component: Observation, title: "Observation" },
 	{ component: BodyCheckIn, title: "Body", optional: true },
 	{ component: Feelings, title: "Feelings" },
-	{ component: FauxFeelingsUnpackCard, title: "Faux Feelings" },
+	{
+		component: FauxFeelingsUnpackCard,
+		title: "Faux Feelings",
+		optional: true,
+		condition: (state) =>
+			Object.values(state.feelings?.["Faux Feelings"] || {}).some((subcategory) =>
+				subcategory.some((feeling) => feeling.status === "selected")
+			),
+	},
 	{ component: Needs, title: "Needs" },
 	{
 		component: NeedsMet,
