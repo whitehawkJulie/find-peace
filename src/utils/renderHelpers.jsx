@@ -1,4 +1,26 @@
 import React from "react";
+import needsData from "../components/NeedsData";
+
+// Look up which top-level category a need belongs to (e.g. "Love" → "Connection")
+export const getNeedCategory = (needName) => {
+	for (const [category, subcategories] of Object.entries(needsData)) {
+		for (const [_, items] of Object.entries(subcategories)) {
+			if (items.some((item) => item.item === needName)) return category;
+		}
+	}
+	return null;
+};
+
+// Look up the meaning/definition of a need (e.g. "Love" → "Unconditional acceptance and care")
+export const getNeedMeaning = (needName) => {
+	for (const [_, subcategories] of Object.entries(needsData)) {
+		for (const [__, items] of Object.entries(subcategories)) {
+			const found = items.find((item) => item.item === needName);
+			if (found) return found.meaning;
+		}
+	}
+	return null;
+};
 
 // Utility functions to extract selected items by type
 export const getClickedItems = (selectedItems) =>

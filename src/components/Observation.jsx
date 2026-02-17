@@ -8,7 +8,11 @@ const Observation = () => {
 
 	return (
 		<div className="step-observation">
-			<p>Let’s start by getting things off your chest. Say it how it is, in all your glorious jackal-ness:</p>
+			<p>
+				Can you think of an exact moment when you were triggered? Try to picture a specific scene —
+				not the whole relationship or the big pattern, just <strong>one moment</strong>.
+			</p>
+			<p>Let's start by getting things off your chest. Say it how it is, in all your glorious jackal-ness:</p>
 
 			<label htmlFor="jackalTalk">
 				<strong>Jackal talk (vent it out):</strong>

@@ -1,98 +1,164 @@
 import React from "react";
-import Card from "./Card";
 import { useWizard } from "./WizardContext";
-import { feelingsData } from "./feelingsData"; // adjust import path if needed
-import { renderAllPills, renderPills, renderTextList, filterByState } from "../utils/renderHelpers";
+import { feelingsData } from "./feelingsData";
+import Pill from "./Pill";
+import "./FauxFeelingsUnpackCard.css";
 
 const FauxFeelingsUnpackCard = () => {
-	const { feelings } = useWizard();
+	const { feelings, setFeelings, needs, setNeeds } = useWizard();
 
 	// Flatten all faux feelings into a single list for lookup
-	const fauxFeelingsMap = Object.entries(feelingsData["Faux Feelings"]).flatMap(([subCategory, items]) =>
-		items.map((item) => ({
-			...item,
-			subCategory,
-		}))
+	const fauxFeelingsMap = Object.entries(feelingsData["Faux Feelings"]).flatMap(
+		([subCategory, items]) =>
+			items.map((item) => ({
+				...item,
+				subCategory,
+			}))
 	);
 
 	// Find which selected feelings are actually faux feelings
 	const selectedFauxFeelings = Object.entries(feelings)
-		.filter(([_, status]) => status === "clicked") // or whatever your selection flag is
-		.map(([feeling]) => {
-			return fauxFeelingsMap.find((entry) => entry.item === feeling);
-		})
+		.filter(([_, status]) => status === "clicked")
+		.map(([feeling]) => fauxFeelingsMap.find((entry) => entry.item === feeling))
 		.filter(Boolean);
 
-	// If no faux feelings selected, skip rendering this card
 	if (selectedFauxFeelings.length === 0) return null;
 
+	// Toggle a suggested feeling into/out of the main feelings state
+	const toggleFeeling = (name) => {
+		setFeelings((prev) => {
+			const updated = { ...prev };
+			if (updated[name] === "clicked") {
+				delete updated[name];
+			} else {
+				updated[name] = "clicked";
+			}
+			return updated;
+		});
+	};
+
+	// Toggle a suggested need into/out of the main needs state
+	const toggleNeed = (name) => {
+		setNeeds((prev) => {
+			const updated = { ...prev };
+			if (updated[name] === "clicked") {
+				delete updated[name];
+			} else {
+				updated[name] = "clicked";
+			}
+			return updated;
+		});
+	};
+
 	return (
-		<>
+		<div className="faux-unpack">
 			<p>
-				<i>
-					The key to identifying and expressing feelings is to focus on words that describe our inner
-					experience rather than words that describe our interpretations of people's actions. For example: "I
-					feel lonely" describes an inner experience, while "I feel like you don't love me" describes an
-					interpretation of how the other person may be feeling. - Miki Kashtan
-				</i>
-			</p>
-			<p>EMPATHY: Ah, these particular words are so painful, aren't they?!</p>
-			<p>
-				WHY REFRAME? These <strong>"faux feeling"</strong> words that actually thoughts, but we often use them
-				as feeling words. Part of why they so painful is they're actually thoughts (rather than specific
-				body-based feelings) about what we think someone else is doing to us, as we're mostly utterly powerless
-				over other people's behaviour. Don't get me wrong, there are absolutely big feelings underneath these
-				words, but it's so much more useful to us if we can identify the actual feelings, rather than just the
-				though. When we use these words, we often feel like victims, unable to change our experience.
+				Some of the words you chose are what we call <strong>"faux feelings"</strong> — they sound
+				like feelings, but they're actually thoughts about what someone else is doing to us.
 			</p>
 			<p>
-				HOW TO REFRAME The good (or at least, better!) news is that we're NOT powerless over the stories we tell
-				ourselves, and our actual feelings, which occur in our bodies. So let's unpack these particular words,
-				so we can notice the judgments, diagnoses, or assumptions. This is an opportunity to (a) consider
-				whether the story is actually true, and (b), unpack the actual feelings underneath. The body has a
-				powerful ability to move through emotions, but the mind DOES NOT. It will dwell on them forever, given
-				the opportunity! Add "message delivered" stuff here from Sarah Peyton.
+				That's completely okay! These words carry a lot of pain. But because they're thoughts rather
+				than body-based feelings, they tend to keep us stuck — feeling like victims, powerless to
+				change anything.
 			</p>
 			<p>
-				{" "}
-				LET'S START So let’s unpack them, to see what might be going on underneath, so we see what parts we can
-				actually do something about.
+				The good news? Underneath each of these words, there <em>are</em> real feelings and real
+				needs. And those, we can work with. <strong>Tap any that resonate</strong> to add them to
+				your selections.
 			</p>
 
 			{selectedFauxFeelings.map((feeling, i) => (
-				<div key={i} style={{ marginBottom: "2rem" }}>
-					<h3 style={{ marginBottom: "0.25rem" }}>❌ {feeling.item}</h3>
-					<p style={{ fontStyle: "italic", marginBottom: "0.5rem" }}>{feeling.problem}</p>
+				<div key={i} className="faux-card">
+					<div className="faux-card-header">
+						<span className="faux-word">{feeling.item}</span>
+						<span className="faux-category">{feeling.subCategory}</span>
+					</div>
+
+					{feeling.thought && (
+						<p className="faux-reframe">{feeling.thought}.</p>
+					)}
+
+					<p className="faux-why">{feeling.problem}.</p>
 
 					{feeling.suggestedFeelings?.length > 0 && (
-						<div>
-							<p style={{ marginBottom: "0.25rem" }}>
-								👉 <strong>Possible real feelings:</strong>
-							</p>
-							<ul>
+						<div className="faux-suggestions">
+							<p className="faux-suggestions-label">What you might actually be feeling:</p>
+							<div className="pill-grid cloud">
 								{feeling.suggestedFeelings.map((f, index) => (
-									<li key={index}>{f}</li>
+									<Pill
+										key={index}
+										item={f}
+										type="feeling"
+										state={feelings[f] === "clicked" ? "clicked" : ""}
+										onClick={() => toggleFeeling(f)}
+									/>
 								))}
-							</ul>
+							</div>
 						</div>
 					)}
 
 					{feeling.suggestedNeeds?.length > 0 && (
-						<div>
-							<p style={{ marginBottom: "0.25rem" }}>
-								💡 <strong>Possible underlying needs:</strong>
-							</p>
-							<ul>
+						<div className="faux-suggestions">
+							<p className="faux-suggestions-label">Needs that might be underneath:</p>
+							<div className="pill-grid cloud">
 								{feeling.suggestedNeeds.map((n, index) => (
-									<li key={index}>{n}</li>
+									<Pill
+										key={index}
+										item={n}
+										type="need"
+										state={needs[n] === "clicked" ? "clicked" : ""}
+										onClick={() => toggleNeed(n)}
+									/>
 								))}
-							</ul>
+							</div>
 						</div>
 					)}
 				</div>
 			))}
-		</>
+		</div>
 	);
 };
+
+FauxFeelingsUnpackCard.title = "Unpacking Faux Feelings";
+
+FauxFeelingsUnpackCard.helpContent = (
+	<>
+		<p>
+			<em>
+				"The key to identifying and expressing feelings is to focus on words that describe our inner
+				experience rather than words that describe our interpretations of people's actions."
+			</em>{" "}
+			— Miki Kashtan
+		</p>
+		<h4>Why does this matter?</h4>
+		<p>
+			Words like "abandoned," "betrayed," or "manipulated" feel deeply true when we're in pain. But
+			they describe what we think someone <em>did to us</em>, not what we're actually feeling in our
+			bodies.
+		</p>
+		<p>
+			The problem is that our minds can dwell on these stories forever. But our bodies have a
+			powerful ability to move through actual emotions — if we can name them.
+		</p>
+		<h4>How to reframe</h4>
+		<p>
+			For each faux feeling, we're looking for two things: the <strong>real feelings</strong>{" "}
+			underneath (what's happening in your body?) and the <strong>unmet needs</strong> those feelings
+			are pointing to.
+		</p>
+		<p>
+			For example, "I feel rejected" might become "I'm feeling sad and scared, because I have a need
+			for belonging and acceptance."
+		</p>
+		<p>
+			This shift — from story to sensation, from blame to need — is where the real power is. It
+			moves us from helplessness into self-connection.
+		</p>
+		<p>
+			<strong>Tap any feelings or needs that resonate</strong> — they'll be added to your selections
+			and carry through to the next steps.
+		</p>
+	</>
+);
 
 export default FauxFeelingsUnpackCard;

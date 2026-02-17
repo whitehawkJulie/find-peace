@@ -1,0 +1,35 @@
+.request-formulation {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.request-section {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.request-section h3 {
+	margin: 0.5rem 0 0 0;
+	font-size: 1.05rem;
+	color: #333;
+}
+
+.request-textarea {
+	width: 100%;
+	padding: 0.75rem;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-family: inherit;
+	font-size: 1rem;
+	line-height: 1.5;
+	resize: vertical;
+	box-sizing: border-box;
+}
+
+.request-textarea:focus {
+	outline: none;
+	border-color: #6fad81;
+	box-shadow: 0 0 0 2px rgba(111, 173, 129, 0.2);
+}

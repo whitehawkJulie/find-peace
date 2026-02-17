@@ -1,12 +1,72 @@
 .saved-entries {
-  margin-top: 2em;
-  text-align: left;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
 }
 
 .saved-card {
-  background-color: #f9fafb;
-  border-left: 4px solid #10b981;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-radius: 4px;
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	border-left: 4px solid #6fad81;
+	padding: 0.75rem 1rem;
+	border-radius: 8px;
+}
+
+.saved-card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.25rem;
+}
+
+.saved-date {
+	font-size: 0.8rem;
+	color: #888;
+}
+
+.saved-card-actions {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.saved-action-btn {
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.8rem;
+	padding: 0.2rem 0.5rem;
+}
+
+.load-btn {
+	background: #6fad81;
+	color: white;
+}
+
+.load-btn:hover {
+	background: #5a9a6e;
+}
+
+.delete-btn {
+	background: #eee;
+	color: #999;
+	font-size: 1rem;
+	line-height: 1;
+}
+
+.delete-btn:hover {
+	background: #fdd;
+	color: #c62828;
+}
+
+.saved-preview {
+	margin: 0.25rem 0;
+	font-size: 0.9rem;
+	color: #444;
+}
+
+.saved-stats {
+	display: flex;
+	gap: 0.75rem;
+	font-size: 0.8rem;
+	color: #888;
 }
