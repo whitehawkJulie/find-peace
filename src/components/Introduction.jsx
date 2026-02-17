@@ -28,6 +28,7 @@ const Introduction = () => {
 
 			<ol style={{ lineHeight: "1.8", paddingLeft: "1.25rem" }}>
 				<li><strong>Observation</strong> — what actually happened?</li>
+				<li><strong>Body check-in</strong> — what's happening inside?</li>
 				<li><strong>Feelings</strong> — what emotions are alive in you?</li>
 				<li><strong>Needs</strong> — what are you really longing for?</li>
 				<li><strong>Strategies & Requests</strong> — what could help?</li>

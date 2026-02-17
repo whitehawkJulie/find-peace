@@ -10,7 +10,6 @@ export const useWizard = () => useContext(WizardContext);
 import Introduction from "./Introduction";
 import Observation from "./Observation";
 import Feelings from "./Feelings";
-import FauxFeelingsUnpackCard from "./FauxFeelingsUnpackCard";
 import Needs from "./Needs";
 import NeedsMet from "./NeedsMet";
 import NeedExploration from "./NeedExploration";
@@ -19,29 +18,22 @@ import MakingGuesses from "./MakingGuesses";
 import RequestFormulation from "./RequestFormulation";
 import Review from "./Review";
 import BodyCheckIn from "./BodyCheckIn";
-import { feelingsData } from "./FeelingsData";
-
-// Build a Set of all faux feeling item names for quick lookup
-const fauxFeelingNames = new Set(
-	Object.values(feelingsData["Faux Feelings"]).flatMap((items) => items.map((f) => f.item))
-);
 
 // Full list of steps
 const allSteps = [
 	{ component: Introduction, title: "Intro", optional: true },
 	{ component: Observation, title: "Observation" },
-	{ component: BodyCheckIn, title: "Body", optional: true },
+	{
+		component: BodyCheckIn,
+		title: "Body",
+		pause: "Let's slow down for a moment. Before we name anything, let's just notice what's happening in your body...",
+	},
 	{ component: Feelings, title: "Feelings" },
 	{
-		component: FauxFeelingsUnpackCard,
-		title: "Faux Feelings",
-		optional: true,
-		condition: (state) =>
-			Object.entries(state.feelings || {}).some(
-				([name, status]) => status === "clicked" && fauxFeelingNames.has(name)
-			),
+		component: Needs,
+		title: "Needs",
+		pause: "Now that you've named what you're feeling, let's look at what those feelings are pointing to — the needs underneath...",
 	},
-	{ component: Needs, title: "Needs" },
 	{
 		component: NeedsMet,
 		title: "Met",
@@ -53,12 +45,14 @@ const allSteps = [
 		title: "Explore",
 		optional: true,
 		condition: (state) => Object.values(state.needs || {}).includes("clicked"),
+		pause: "Take a breath. You've done important work naming your needs. Now let's go deeper — exploring what these needs really mean to you...",
 	},
 	{
 		component: StrategyDiscovery,
 		title: "Strategies",
 		optional: true,
 		condition: (state) => Object.values(state.needs || {}).includes("clicked"),
+		pause: "Now let's think about what might actually help — concrete things you could do to meet these needs...",
 	},
 	{ component: MakingGuesses, title: "Their View", optional: true },
 	{ component: RequestFormulation, title: "Request", optional: true },
@@ -70,6 +64,7 @@ export const WizardProvider = ({ children }) => {
 	const [stepIndex, setStepIndex] = useState(0);
 	const [jackalTalk, setJackalTalk] = useState("");
 	const [observation, setObservation] = useState("");
+	const [bodyScan, setBodyScan] = useState({});
 	const [feelings, setFeelings] = useState({});
 	const [needs, setNeeds] = useState({});
 
@@ -115,6 +110,7 @@ export const WizardProvider = ({ children }) => {
 			date: new Date().toISOString(),
 			jackalTalk,
 			observation,
+			bodyScan,
 			feelings,
 			needs,
 			needExplorations,
@@ -135,6 +131,7 @@ export const WizardProvider = ({ children }) => {
 	const loadSession = (session) => {
 		setJackalTalk(session.jackalTalk || "");
 		setObservation(session.observation || "");
+		setBodyScan(session.bodyScan || {});
 		setFeelings(session.feelings || {});
 		setNeeds(session.needs || {});
 		setNeedExplorations(session.needExplorations || {});
@@ -154,6 +151,7 @@ export const WizardProvider = ({ children }) => {
 		setStepIndex(0);
 		setJackalTalk("");
 		setObservation("");
+		setBodyScan({});
 		setFeelings({});
 		setNeeds({});
 		setNeedExplorations({});
@@ -181,6 +179,8 @@ export const WizardProvider = ({ children }) => {
 		setJackalTalk,
 		observation,
 		setObservation,
+		bodyScan,
+		setBodyScan,
 		feelings,
 		setFeelings,
 		needs,

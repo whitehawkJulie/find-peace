@@ -5,10 +5,8 @@ import { feelingsData } from "./FeelingsData";
 import needsData from "./NeedsData";
 import "./MakingGuesses.css";
 
-// Build a version of feelingsData without the Faux Feelings category
-const realFeelingsData = Object.fromEntries(
-	Object.entries(feelingsData).filter(([key]) => key !== "Faux Feelings")
-);
+// Use only the real feelings (not faux feelings) for guessing the other person's feelings
+const realFeelingsData = feelingsData["Feelings when needs are not met"];
 
 const MakingGuesses = () => {
 	const {

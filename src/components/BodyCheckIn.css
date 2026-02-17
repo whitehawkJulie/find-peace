@@ -1,0 +1,139 @@
+/* ========== Body Check-In ========== */
+
+.body-checkin {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+.body-checkin-intro {
+	font-size: 0.95rem;
+	color: #555;
+	line-height: 1.5;
+	margin: 0;
+}
+
+/* Body areas list */
+.body-areas {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+/* Individual body area */
+.body-area {
+	border: 1px solid #e0e0e0;
+	border-radius: 10px;
+	overflow: hidden;
+	transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.body-area.active {
+	border-color: #6fad81;
+	box-shadow: 0 0 0 2px rgba(111, 173, 129, 0.15);
+}
+
+.body-area.has-value:not(.active) {
+	border-color: #c8e6c9;
+	background: #f9fdf9;
+}
+
+/* Header button */
+.body-area-header {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	padding: 0.7rem 1rem;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: 0.95rem;
+	color: #333;
+	text-align: left;
+	transition: background 0.15s;
+}
+
+.body-area-header:hover {
+	background: #f5f5f5;
+}
+
+.body-area.active .body-area-header {
+	background: #f0f7f1;
+}
+
+.body-area-icon {
+	font-size: 1.2rem;
+	flex-shrink: 0;
+}
+
+.body-area-label {
+	flex: 1;
+	font-weight: 500;
+}
+
+.body-area-check {
+	color: #6fad81;
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+
+/* Expanded content */
+.body-area-content {
+	padding: 0 1rem 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	animation: bodyFadeIn 0.2s ease;
+}
+
+.body-area-prompt {
+	font-size: 0.9rem;
+	color: #666;
+	font-style: italic;
+	margin: 0;
+	line-height: 1.4;
+}
+
+.body-area-input {
+	padding: 0.5rem 0.75rem;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	font-family: inherit;
+	font-size: 0.9rem;
+	resize: vertical;
+	box-sizing: border-box;
+	transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.body-area-input:focus {
+	outline: none;
+	border-color: #6fad81;
+	box-shadow: 0 0 0 2px rgba(111, 173, 129, 0.2);
+}
+
+.body-area-input::placeholder {
+	color: #aaa;
+}
+
+/* Bridge text at bottom */
+.body-checkin-bridge {
+	font-size: 0.9rem;
+	color: #777;
+	font-style: italic;
+	text-align: center;
+	margin: 0.5rem 0 0;
+	line-height: 1.4;
+}
+
+@keyframes bodyFadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-4px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

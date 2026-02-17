@@ -5,6 +5,7 @@ import { renderAllPills, renderPills, renderTextList, filterByState } from "../u
 const Review = () => {
 	const {
 		observation,
+		bodyScan,
 		feelings,
 		needs,
 		needExplorations,
@@ -18,6 +19,16 @@ const Review = () => {
 	} = useWizard();
 
 	const [saved, setSaved] = useState(false);
+
+	const bodyScanEntries = Object.entries(bodyScan || {}).filter(([_, v]) => v && v.trim());
+	const bodyAreaLabels = {
+		chest: "Chest / Heart",
+		stomach: "Stomach / Gut",
+		throat: "Throat",
+		shoulders: "Shoulders / Neck",
+		jaw: "Jaw / Face",
+		hands: "Hands / Arms",
+	};
 
 	const strongFeelings = filterByState(feelings, "double-clicked");
 	const regularFeelings = filterByState(feelings, "clicked");
@@ -35,6 +46,14 @@ const Review = () => {
 
 		if (observation && observation.trim() !== "") {
 			output.push(`**Observation**\n${observation.trim()}\n`);
+		}
+
+		if (bodyScanEntries.length > 0) {
+			output.push("**Body Check-In**");
+			for (const [area, value] of bodyScanEntries) {
+				output.push(`${bodyAreaLabels[area] || area}: ${value}`);
+			}
+			output.push("");
 		}
 
 		if (strongFeelings.length > 0 || regularFeelings.length > 0) {
@@ -114,6 +133,17 @@ const Review = () => {
 				<div className="review-section">
 					<h3>Observation</h3>
 					<p>{observation}</p>
+				</div>
+			)}
+
+			{bodyScanEntries.length > 0 && (
+				<div className="review-section">
+					<h3>Body check-in</h3>
+					{bodyScanEntries.map(([area, value]) => (
+						<p key={area}>
+							<em>{bodyAreaLabels[area] || area}:</em> {value}
+						</p>
+					))}
 				</div>
 			)}
 

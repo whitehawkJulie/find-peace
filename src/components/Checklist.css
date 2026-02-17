@@ -26,7 +26,6 @@
 /* ========== CheckList STYLING ========== */
 
 .checklist {
-	min-height: calc(100vh - 100px);
 	overflow-y: visible;
 }
 
@@ -34,9 +33,9 @@
 
 .category {
 	border-radius: 8px;
-	overflow: visible;
-	position: relative; /* required for absolute children */
-	margin-bottom: 1.5rem;
+	overflow: hidden;
+	position: relative;
+	margin-bottom: 1rem;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 	background-color: var(--body-bg);
 }
@@ -64,14 +63,49 @@
 	user-select: none;
 }
 
+/* Selected count badge */
+.selected-count {
+	background: #6fad81;
+	color: white;
+	font-size: 0.75rem;
+	font-weight: 600;
+	padding: 0.1rem 0.5rem;
+	border-radius: 999px;
+	margin-left: 0.5rem;
+}
+
+/* ========== COLLAPSIBLE SUBCATEGORIES ========== */
+
+.subcategories {
+	transition: max-height 0.3s ease, opacity 0.3s ease;
+	overflow: hidden;
+}
+
+.subcategories.expanded {
+	max-height: 5000px;
+	opacity: 1;
+}
+
+.subcategories.collapsed {
+	max-height: 0;
+	opacity: 0;
+}
+
 .collapse-icon {
-	font-size: 0.9rem;
+	margin-left: 0.5rem;
+	font-size: 1rem;
+	user-select: none;
 	color: #555;
 }
-/* ========== SUBCATEGORY STYLING ========== */
-.subcategory {
-	padding: 1rem; /* ✅ Padding only here */
 
+.collapse-icon:hover {
+	color: #cc2424;
+}
+
+/* ========== SUBCATEGORY STYLING ========== */
+
+.subcategory {
+	padding: 1rem;
 	margin: 1rem;
 	border-radius: 10px;
 }
@@ -82,16 +116,47 @@
 	margin-top: 0;
 }
 
-/* ========== COLLAPSIBLE HEADERS ========== */
+/* ========== FAUX ITEMS (merged into categories) ========== */
 
-.collapse-icon {
-	margin-left: 0.5rem;
-	font-size: 1rem;
-	user-select: none;
+.faux-subcategory {
+	border-top: 1px dashed #ccc;
+	margin-top: 0.5rem;
+	padding-top: 0.75rem;
 }
 
-.collapse-icon:hover {
-	color: #cc2424;
+.faux-subcategory-title {
+	font-size: 0.9rem;
+	font-style: italic;
+	color: #888;
+	font-weight: 500;
+}
+
+.faux-subcategory-hint {
+	font-size: 0.85rem;
+	color: #888;
+	margin: -0.5rem 0 0.75rem 0;
+	line-height: 1.4;
+}
+
+/* Inline faux unpack card */
+.faux-inline-unpack {
+	margin-top: 0.75rem;
+	padding: 1rem;
+	background: #f9f7f2;
+	border: 1px solid #e8e0c8;
+	border-radius: 10px;
+	animation: fadeSlideIn 0.3s ease;
+}
+
+@keyframes fadeSlideIn {
+	from {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 /* make the feelings list a bit more narrow */
