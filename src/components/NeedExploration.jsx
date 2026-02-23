@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { useWizard } from "./WizardContext";
 import Pill from "./Pill";
+import { getNeedData } from "../utils/renderHelpers";
+import { unpackPromptLibrary } from "../data/unpackPromptLibrary";
 import "./NeedExploration.css";
 
-const SUMMARY_STEP = 6;
+// Steps for the OLD flow (non-unpack needs):
+// 0 = pick, 1 = deepen, 2 = grounding, 3-6 = reflective, 7 = summary
+const OLD_SUMMARY_STEP = 7;
 
-const explorationPrompts = [
-	null, // step 0: pick a need
-	null, // step 1: deepen ("if I had this, then what?")
+const oldExplorationPrompts = [
+	null, // step 0: pick
+	null, // step 1: deepen
+	null, // step 2: grounding
 	{
 		title: "Body awareness",
 		field: "bodyFeeling",
@@ -32,10 +37,66 @@ const explorationPrompts = [
 		prompt:
 			"Does this need feel familiar — like it keeps showing up in your life? Do you get triggered around it often, maybe intensely? If so, this might be a \"black hole need\" — one that's been deeply unmet for a long time, possibly since childhood. It doesn't mean something is wrong with you. It means this need deserves real attention, beyond just this situation. What do you notice?",
 	},
-	null, // step 6: summary
+	null, // step 7: summary
 ];
 
-// Step 1: Deepen — "If I had this need, then what would I have?"
+// Grounding prompts for old flow step 2
+const groundingPrompts = [
+	{
+		field: "groundBody",
+		prompt: "If this need were met, what would change in your body — even 5%?",
+	},
+	{
+		field: "groundStopDoing",
+		prompt: "What would you be able to stop doing if it were met?",
+	},
+	{
+		field: "groundSign",
+		prompt: "What small sign would tell you this need is being met?",
+	},
+	{
+		field: "groundTimeframe",
+		prompt: "Is this about something happening now, soon, or long-term?",
+	},
+	{
+		field: "groundWhose",
+		prompt: "Is this about your experience — or about changing someone else?",
+	},
+];
+
+// Steps for the NEW unpack flow (unpackEnabled needs):
+// 0 = pick, 1 = unpack (core + go deeper), 2 = summary
+const UNPACK_SUMMARY_STEP = 2;
+
+// Build the list of unpack prompts for a need from its metadata + the prompt library
+const getUnpackPrompts = (needName) => {
+	const needData = getNeedData(needName);
+	if (!needData?.unpackEnabled || !needData?.unpack) return null;
+
+	const { specificPrompts, promptKeys } = needData.unpack;
+
+	// Core prompts (always shown)
+	const core = [
+		{ key: "core_specific", label: "What this means for you", text: specificPrompts.core_specific },
+		{ key: "core_embodiment", label: "In your body", text: unpackPromptLibrary[promptKeys.core_embodiment] },
+		{ key: "core_discrimination", label: "Getting clearer", text: unpackPromptLibrary[promptKeys.core_discrimination] },
+	];
+
+	// Deeper prompts (revealed on "Go deeper")
+	const deeper = [];
+	if (specificPrompts.deeper_specific_optional) {
+		deeper.push({ key: "deeper_specific", label: "A little further", text: specificPrompts.deeper_specific_optional });
+	}
+	deeper.push(
+		{ key: "deeper_unfolding", label: "Unfolding", text: unpackPromptLibrary[promptKeys.deeper_unfolding] },
+		{ key: "deeper_probing", label: "Underneath", text: unpackPromptLibrary[promptKeys.deeper_probing] },
+		{ key: "deeper_integration", label: "Next step", text: unpackPromptLibrary[promptKeys.deeper_integration] },
+	);
+
+	return { core, deeper };
+};
+
+// Old flow step 1: Deepen — "If I had this need, then what would I have?"
 const DeepenStep = ({ needName, onSwap }) => {
 	const [steps, setSteps] = useState([""]);
 
@@ -43,7 +104,6 @@ const DeepenStep = ({ needName, onSwap }) => {
 	const updateStep = (index, value) =>
 		setSteps((prev) => prev.map((s, i) => (i === index ? value : s)));
 
-	// The deepest non-empty answer
 	const deepestNeed = [...steps].reverse().find((s) => s.trim()) || "";
 
 	return (
@@ -131,6 +191,80 @@ const DeepenStep = ({ needName, onSwap }) => {
 	);
 };
 
+// Unpack step — core (3 shown) + deeper (behind "Go deeper" button)
+const UnpackStep = ({ needName, exploration, updateField }) => {
+	const [showDeeper, setShowDeeper] = useState(false);
+	const prompts = getUnpackPrompts(needName);
+
+	if (!prompts) return null;
+
+	return (
+		<div className="unpack-step">
+			<div className="unpack-intro">
+				<p>
+					Let's get specific about what <strong>{needName}</strong> means for you right now.
+					There's no right answer — just notice what feels true.
+				</p>
+			</div>
+
+			<div className="unpack-prompts">
+				{prompts.core.map(({ key, label, text }) => (
+					<div key={key} className="unpack-prompt-item">
+						<label className="unpack-prompt-label">{label}</label>
+						<p className="unpack-prompt-text">{text}</p>
+						<textarea
+							className="unpack-prompt-input"
+							value={exploration[`unpack_${key}`] || ""}
+							onChange={(e) => updateField(`unpack_${key}`, e.target.value)}
+							placeholder="..."
+							rows={2}
+						/>
+					</div>
+				))}
+			</div>
+
+			{!showDeeper ? (
+				<button
+					className="subtle-button unpack-deeper-button"
+					onClick={() => setShowDeeper(true)}
+				>
+					Go deeper
+				</button>
+			) : (
+				<div className="unpack-deeper-section">
+					<div className="unpack-deeper-guidance">
+						<p>As you explore, notice the tone in your body.</p>
+						<p>
+							If the energy feels tight, charged, or righteous, you might still be protecting something.
+						</p>
+						<p>
+							If there's a softening, relief, or tenderness — even briefly — that can be a sign
+							you're touching something important.
+						</p>
+						<p>There's no right answer. Just notice what happens.</p>
+					</div>
+
+					<div className="unpack-prompts unpack-deeper-prompts">
+						{prompts.deeper.map(({ key, label, text }) => (
+							<div key={key} className="unpack-prompt-item unpack-prompt-deeper">
+								<label className="unpack-prompt-label">{label}</label>
+								<p className="unpack-prompt-text">{text}</p>
+								<textarea
+									className="unpack-prompt-input"
+									value={exploration[`unpack_${key}`] || ""}
+									onChange={(e) => updateField(`unpack_${key}`, e.target.value)}
+									placeholder="..."
+									rows={2}
+								/>
+							</div>
+						))}
+					</div>
+				</div>
+			)}
+		</div>
+	);
+};
+
 const NeedExploration = () => {
 	const {
 		needs,
@@ -155,6 +289,10 @@ const NeedExploration = () => {
 	);
 	const unexploredNeeds = unmetNeeds.filter((n) => !exploredNeeds.includes(n));
 
+	// Check if the current need uses the new unpack flow
+	const currentNeedData = currentExploringNeed ? getNeedData(currentExploringNeed) : null;
+	const hasUnpack = currentNeedData?.unpackEnabled && currentNeedData?.unpack;
+
 	// Update a field in the current need's exploration
 	const updateField = (field, value) => {
 		setNeedExplorations((prev) => ({
@@ -171,9 +309,15 @@ const NeedExploration = () => {
 		if (!needExplorations[needName]) {
 			setNeedExplorations((prev) => ({
 				...prev,
-				[needName]: { bodyFeeling: "", whenMet: "", beauty: "", blackHole: "", completed: false },
+				[needName]: {
+					groundBody: "", groundStopDoing: "", groundSign: "",
+					groundTimeframe: "", groundWhose: "",
+					bodyFeeling: "", whenMet: "", beauty: "", blackHole: "",
+					completed: false,
+				},
 			}));
 		}
+		// Unpack-enabled needs go straight to unpack (step 1); others go to old deepen (step 1)
 		setExplorationStep(1);
 	};
 
@@ -193,11 +337,10 @@ const NeedExploration = () => {
 		setStepIndex(stepIndex + 1);
 	};
 
-	// Swap the current need for a deeper one
+	// Swap the current need for a deeper one (old flow only)
 	const handleSwap = (deeperNeedName) => {
 		const oldNeed = currentExploringNeed;
 
-		// Move the old need's status to the new one
 		setNeeds((prev) => {
 			const updated = { ...prev };
 			delete updated[oldNeed];
@@ -205,21 +348,24 @@ const NeedExploration = () => {
 			return updated;
 		});
 
-		// Move any exploration data to the new need name
 		setNeedExplorations((prev) => {
 			const updated = { ...prev };
-			const oldData = updated[oldNeed] || { bodyFeeling: "", whenMet: "", beauty: "", blackHole: "", completed: false };
+			const oldData = updated[oldNeed] || {
+				groundBody: "", groundStopDoing: "", groundSign: "",
+				groundTimeframe: "", groundWhose: "",
+				bodyFeeling: "", whenMet: "", beauty: "", blackHole: "",
+				completed: false,
+			};
 			delete updated[oldNeed];
 			updated[deeperNeedName] = oldData;
 			return updated;
 		});
 
 		setCurrentExploringNeed(deeperNeedName);
-		// Move to step 2 (body awareness) after swapping
 		setExplorationStep(2);
 	};
 
-	// Step 0: Pick a need (merged from NeedsUnmet)
+	// ───── Step 0: Pick a need ─────
 	if (explorationStep === 0 || !currentExploringNeed) {
 		return (
 			<div className="need-exploration">
@@ -285,6 +431,92 @@ const NeedExploration = () => {
 		);
 	}
 
+	// ═══════════════════════════════════════
+	//  NEW UNPACK FLOW (for unpackEnabled needs)
+	// ═══════════════════════════════════════
+	if (hasUnpack) {
+		// Step 1: Unpack prompts
+		if (explorationStep === 1) {
+			const exploration = needExplorations[currentExploringNeed] || {};
+
+			return (
+				<div className="need-exploration">
+					<div className="exploring-header">
+						<span className="exploring-label">Unpacking:</span>
+						<Pill item={currentExploringNeed} type="need" state="clicked" />
+					</div>
+
+					<UnpackStep
+						needName={currentExploringNeed}
+						exploration={exploration}
+						updateField={updateField}
+					/>
+
+					<div className="exploration-nav">
+						<button
+							className="subtle-button"
+							onClick={() => setExplorationStep(0)}>
+							Back
+						</button>
+						<button onClick={() => setExplorationStep(UNPACK_SUMMARY_STEP)}>
+							Finish
+						</button>
+					</div>
+				</div>
+			);
+		}
+
+		// Step 2: Unpack summary
+		if (explorationStep === UNPACK_SUMMARY_STEP) {
+			const exploration = needExplorations[currentExploringNeed] || {};
+			const unpackPrompts = getUnpackPrompts(currentExploringNeed);
+			const allPrompts = unpackPrompts ? [...unpackPrompts.core, ...unpackPrompts.deeper] : [];
+			const hasResponses = allPrompts.some(({ key }) => exploration[`unpack_${key}`]?.trim());
+
+			return (
+				<div className="need-exploration">
+					<h3>Sitting with: {currentExploringNeed}</h3>
+					<p className="exploration-sit-with">
+						Take a moment to just be with this. Your need for <strong>{currentExploringNeed}</strong>{" "}
+						isn't a problem to fix — it's life energy, pointing you towards what makes life meaningful.
+					</p>
+
+					{hasResponses && (
+						<div className="exploration-summary">
+							<div className="summary-item summary-item-unpack">
+								<strong>What you noticed:</strong>
+								{allPrompts.map(({ key, label, text }) =>
+									exploration[`unpack_${key}`]?.trim() ? (
+										<p key={key}>
+											<em>{text}</em>
+											<br />
+											{exploration[`unpack_${key}`]}
+										</p>
+									) : null
+								)}
+							</div>
+						</div>
+					)}
+
+					<div className="exploration-actions">
+						<button onClick={() => { finishCurrentNeed(); }}>
+							{unexploredNeeds.length > 1
+								? "Done — explore another need"
+								: "Done"}
+						</button>
+						<button className="subtle-button" onClick={() => { finishCurrentNeed(); moveOn(); }}>
+							I'm ready to move on
+						</button>
+					</div>
+				</div>
+			);
+		}
+	}
+
+	// ═══════════════════════════════════════
+	//  OLD FLOW (for non-unpack needs)
+	// ═══════════════════════════════════════
+
 	// Step 1: Deepen — "If I had this, then what?"
 	if (explorationStep === 1) {
 		return (
@@ -311,8 +543,55 @@ const NeedExploration = () => {
 		);
 	}
 
-	// Summary / completion step
-	if (explorationStep === SUMMARY_STEP) {
+	// Step 2: Gentle grounding prompts
+	if (explorationStep === 2) {
+		const exploration = needExplorations[currentExploringNeed] || {};
+
+		return (
+			<div className="need-exploration">
+				<div className="exploring-header">
+					<span className="exploring-label">Exploring:</span>
+					<Pill item={currentExploringNeed} type="need" state="clicked" />
+				</div>
+
+				<div className="grounding-intro">
+					<p>
+						Let's slow this down a little. When you choose a need, we're not trying to
+						be right — we're trying to find what would actually bring relief or
+						aliveness.
+					</p>
+					<p>You don't have to answer everything. Just notice what lands.</p>
+				</div>
+
+				<div className="grounding-prompts">
+					{groundingPrompts.map(({ field, prompt }) => (
+						<div key={field} className="grounding-prompt-item">
+							<label className="grounding-label">{prompt}</label>
+							<input
+								type="text"
+								className="grounding-input"
+								value={exploration[field] || ""}
+								onChange={(e) => updateField(field, e.target.value)}
+								placeholder="..."
+							/>
+						</div>
+					))}
+				</div>
+
+				<div className="exploration-nav">
+					<button
+						className="subtle-button"
+						onClick={() => setExplorationStep(1)}>
+						Back
+					</button>
+					<button onClick={() => setExplorationStep(3)}>Continue</button>
+				</div>
+			</div>
+		);
+	}
+
+	// Step 7 (OLD_SUMMARY_STEP): Summary / completion
+	if (explorationStep === OLD_SUMMARY_STEP) {
 		const exploration = needExplorations[currentExploringNeed] || {};
 		const isBlackHole = exploration.blackHole && exploration.blackHole.trim().length > 0;
 
@@ -334,6 +613,20 @@ const NeedExploration = () => {
 				)}
 
 				<div className="exploration-summary">
+					{groundingPrompts.some(({ field }) => exploration[field]?.trim()) && (
+						<div className="summary-item summary-item-grounding">
+							<strong>Grounding:</strong>
+							{groundingPrompts.map(({ field, prompt }) =>
+								exploration[field]?.trim() ? (
+									<p key={field}>
+										<em>{prompt}</em>
+										<br />
+										{exploration[field]}
+									</p>
+								) : null
+							)}
+						</div>
+					)}
 					{exploration.bodyFeeling && (
 						<div className="summary-item">
 							<strong>In your body:</strong>
@@ -374,10 +667,10 @@ const NeedExploration = () => {
 		);
 	}
 
-	// Steps 2-5: Reflective prompts (body, whenMet, beauty, blackHole)
-	const prompt = explorationPrompts[explorationStep];
+	// Steps 3-6: Reflective prompts (body, whenMet, beauty, blackHole)
+	const prompt = oldExplorationPrompts[explorationStep];
 	const currentValue = needExplorations[currentExploringNeed]?.[prompt.field] || "";
-	const isLastPrompt = explorationStep === SUMMARY_STEP - 1;
+	const isLastPrompt = explorationStep === OLD_SUMMARY_STEP - 1;
 
 	return (
 		<div className="need-exploration">
@@ -414,6 +707,12 @@ NeedExploration.helpContent = (
 		<p>
 			This step is inspired by the work of Susan Skye and Robert Gonzales, who invite us to connect
 			with needs not as deficiencies, but as beautiful expressions of what makes life wonderful.
+		</p>
+		<h4>Unpacking a need</h4>
+		<p>
+			For some needs, we'll offer specific questions to help you get clearer about what this need
+			really means for you. The first three questions help you get specific; if you want to go
+			further, there are deeper prompts that gently explore what's underneath.
 		</p>
 		<h4>Finding the real need</h4>
 		<p>

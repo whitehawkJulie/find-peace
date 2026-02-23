@@ -1,6 +1,5 @@
 import React from "react";
 import Card from "./Card";
-import StepTracker from "./StepTracker";
 import { useWizard } from "./WizardContext";
 
 const NvcWizard = () => {
@@ -15,19 +14,11 @@ const NvcWizard = () => {
 	const helpContent = CurrentStepComponent.helpContent || null;
 
 	return (
-		<>
-			<div className="app-header">
-				<h1>Find Peace</h1>
-			</div>
-
-			<div className="nvc-wizard">
-				{/* <StepTracker steps={visibleSteps} currentStepIndex={stepIndex} /> */}
-
-				<Card title={title} helpContent={helpContent} showHelp={!!helpContent}>
-					<CurrentStepComponent />
-				</Card>
-			</div>
-		</>
+		<div className="nvc-wizard">
+			<Card title={title} helpContent={helpContent} showHelp={!!helpContent}>
+				<CurrentStepComponent />
+			</Card>
+		</div>
 	);
 };
 

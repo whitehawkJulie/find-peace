@@ -23,11 +23,6 @@ body {
 	padding: 0; /* or keep 2rem if you like, but it can affect stickiness */
 }
 
-.app-header {
-	width: 100%;
-	background: #6fad81;
-}
-
 /* Root layout wrapper */
 .nvc-wizard {
 	display: flex;
@@ -41,13 +36,6 @@ button {
 	padding: 0.5em;
 	margin: 0.5em;
 	color: white;
-}
-
-.app-header h1 {
-	width: 100%;
-	color: white;
-	font-size: 20px;
-	margin: 1rem;
 }
 
 /* Textareas (used in Observation etc) */

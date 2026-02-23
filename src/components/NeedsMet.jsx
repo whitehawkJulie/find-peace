@@ -40,10 +40,31 @@ NeedsMet.title = "Needs that ARE met";
 NeedsMet.showHelp = true;
 NeedsMet.helpContent = (
 	<>
-		<p>This step shows the needs you've marked as met (via double-clicked).</p>
 		<p>
-			Recognizing met needs can be just as valuable as identifying unmet ones. It helps you see what’s working and
-			what resources you already have.
+			NVC isn't only about what's missing. Noticing which needs <em>are</em> being met — even
+			in a painful situation — builds resilience and perspective.
+		</p>
+
+		<h4>Why celebrate met needs?</h4>
+		<ul>
+			<li>
+				It shifts us out of pure deficit-thinking. Even in conflict, some needs are alive
+				and nourished.
+			</li>
+			<li>
+				Savouring met needs builds our capacity to hold the unmet ones with more
+				steadiness.
+			</li>
+			<li>
+				It can reveal what's already working — resources we might overlook when we're in
+				pain.
+			</li>
+		</ul>
+
+		<h4>How to sit with this</h4>
+		<p>
+			Take a moment with each met need. Notice how it feels in your body when that need is
+			met. Let yourself really receive that — it's nourishment for what comes next.
 		</p>
 	</>
 );

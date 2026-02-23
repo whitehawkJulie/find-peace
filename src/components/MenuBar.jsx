@@ -22,6 +22,10 @@ const MenuBar = () => {
 				← Prev
 			</button>
 
+			<span className="step-indicator">
+				{stepIndex + 1} / {visibleSteps.length}
+			</span>
+
 			<button onClick={goToNext} disabled={!hasNext} className="nav-button" aria-label="Next">
 				Next →
 			</button>

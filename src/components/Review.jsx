@@ -9,6 +9,7 @@ const Review = () => {
 		needs,
 		needExplorations,
 		strategies,
+		familyResponses,
 		guessObservation,
 		guessFeelings,
 		guessNeeds,
@@ -24,6 +25,9 @@ const Review = () => {
 	const metNeeds = filterByState(needs, "double-clicked");
 	const unmetNeeds = filterByState(needs, "clicked");
 	const exploredNeeds = Object.entries(needExplorations).filter(([_, v]) => v.completed);
+	const hasFamilyResponses = Object.values(familyResponses).some(
+		(v) => (Array.isArray(v) ? v.length > 0 : v && String(v).trim() !== "")
+	);
 	const hasStrategies = Object.values(strategies).some((s) => s.length > 0);
 	const guessFeelingsSelected = Object.keys(guessFeelings).length > 0;
 	const guessNeedsSelected = Object.keys(guessNeeds).length > 0;
@@ -124,6 +128,20 @@ const Review = () => {
 				</div>
 			)}
 
+			{hasFamilyResponses && (
+				<div className="review-section">
+					<h3>Feeling exploration</h3>
+					{Object.entries(familyResponses).map(([key, value]) => {
+						if (!value || (Array.isArray(value) && value.length === 0) || String(value).trim() === "") return null;
+						return (
+							<p key={key}>
+								{Array.isArray(value) ? value.join(", ") : String(value)}
+							</p>
+						);
+					})}
+				</div>
+			)}
+
 			{metNeeds.length > 0 && (
 				<div className="review-section">
 					<h3>Met needs</h3>
@@ -212,8 +230,43 @@ const Review = () => {
 Review.title = "Review";
 Review.helpContent = (
 	<>
-		<p>This is a summary of everything you've worked through in this session.</p>
-		<p>You can copy it to your clipboard to paste somewhere, or save it to your journal to revisit later.</p>
+		<p>
+			This is a summary of everything you've worked through. Take a moment to read through
+			it — you might be surprised how much has shifted since you started.
+		</p>
+
+		<h4>Putting it all together</h4>
+		<p>
+			The classic NVC template sounds like this: "When I see/hear [observation], I feel
+			[feeling], because I need [need]. Would you be willing to [request]?"
+		</p>
+		<p>
+			You don't have to say it exactly like that — it can sound robotic. What matters is that
+			all four elements are present: a clean observation, genuine feelings, universal needs,
+			and a concrete request.
+		</p>
+
+		<h4>What to do with this</h4>
+		<ul>
+			<li>
+				<strong>Copy to clipboard</strong> — paste into a note, message, or journal.
+			</li>
+			<li>
+				<strong>Save to journal</strong> — keep it here so you can revisit your sessions
+				and track patterns over time.
+			</li>
+			<li>
+				You might use this as preparation for a real conversation, or simply as a
+				self-empathy exercise — both are valuable.
+			</li>
+		</ul>
+
+		<h4>A note on sharing</h4>
+		<p>
+			If you plan to share this with someone, remember: leading with empathy (guessing their
+			feelings and needs first) is often more effective than leading with your own. People are
+			much more willing to hear us after they feel heard.
+		</p>
 	</>
 );
 

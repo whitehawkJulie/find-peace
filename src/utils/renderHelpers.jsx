@@ -22,6 +22,17 @@ export const getNeedMeaning = (needName) => {
 	return null;
 };
 
+// Look up the full data object for a need (including unpack metadata)
+export const getNeedData = (needName) => {
+	for (const [_, subcategories] of Object.entries(needsData)) {
+		for (const [__, items] of Object.entries(subcategories)) {
+			const found = items.find((item) => item.item === needName);
+			if (found) return found;
+		}
+	}
+	return null;
+};
+
 // Utility functions to extract selected items by type
 export const getClickedItems = (selectedItems) =>
 	Object.entries(selectedItems)

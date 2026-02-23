@@ -7,10 +7,8 @@ const WizardContext = createContext();
 export const useWizard = () => useContext(WizardContext);
 
 // Step components
-import Introduction from "./Introduction";
 import Observation from "./Observation";
 import Feelings from "./Feelings";
-import FauxFeelingsUnpackCard from "./FauxFeelingsUnpackCard";
 import Needs from "./Needs";
 import NeedsMet from "./NeedsMet";
 import NeedExploration from "./NeedExploration";
@@ -18,28 +16,42 @@ import StrategyDiscovery from "./StrategyDiscovery";
 import MakingGuesses from "./MakingGuesses";
 import RequestFormulation from "./RequestFormulation";
 import Review from "./Review";
-import BodyCheckIn from "./BodyCheckIn";
-import { feelingsData } from "./FeelingsData";
+import RegulationGate from "./RegulationGate";
+import FamilyRegulationCard from "./FamilyRegulationCard";
 
-// Build a Set of all faux feeling item names for quick lookup
-const fauxFeelingNames = new Set(
-	Object.values(feelingsData["Faux Feelings"]).flatMap((items) => items.map((f) => f.item))
-);
+// Data for family regulation step condition
+import { feelingsData } from "./FeelingsData";
+import { pickDominantFamily } from "./familyCards";
+
+// Build lookup for unmet feelings that have a family property
+const unmetFeelingLookup = {};
+const unmetCategory = feelingsData["Feelings when needs are not met"];
+if (unmetCategory) {
+	for (const items of Object.values(unmetCategory)) {
+		for (const item of items) {
+			if (item.family) {
+				unmetFeelingLookup[item.item] = item;
+			}
+		}
+	}
+}
 
 // Full list of steps
 const allSteps = [
-	{ component: Introduction, title: "Intro", optional: true },
+	{ component: RegulationGate, title: "Settle" },
 	{ component: Observation, title: "Observation" },
-	{ component: BodyCheckIn, title: "Body", optional: true },
 	{ component: Feelings, title: "Feelings" },
 	{
-		component: FauxFeelingsUnpackCard,
-		title: "Faux Feelings",
+		component: FamilyRegulationCard,
+		title: "Settling",
 		optional: true,
-		condition: (state) =>
-			Object.entries(state.feelings || {}).some(
-				([name, status]) => status === "clicked" && fauxFeelingNames.has(name)
-			),
+		condition: (state) => {
+			const selectedUnmet = Object.entries(state.feelings || {})
+				.filter(([_, status]) => status === "clicked" || status === "double-clicked")
+				.map(([name]) => unmetFeelingLookup[name])
+				.filter(Boolean);
+			return pickDominantFamily(selectedUnmet) !== null;
+		},
 	},
 	{ component: Needs, title: "Needs" },
 	{
@@ -81,6 +93,9 @@ export const WizardProvider = ({ children }) => {
 	// Strategies
 	const [strategies, setStrategies] = useState({});
 
+	// Family regulation card responses
+	const [familyResponses, setFamilyResponses] = useState({});
+
 	// Making Guesses (other person's perspective)
 	const [guessObservation, setGuessObservation] = useState("");
 	const [guessFeelings, setGuessFeelings] = useState({});
@@ -119,6 +134,7 @@ export const WizardProvider = ({ children }) => {
 			needs,
 			needExplorations,
 			strategies,
+			familyResponses,
 			guessObservation,
 			guessFeelings,
 			guessNeeds,
@@ -141,6 +157,7 @@ export const WizardProvider = ({ children }) => {
 		setCurrentExploringNeed(null);
 		setExplorationStep(0);
 		setStrategies(session.strategies || {});
+		setFamilyResponses(session.familyResponses || {});
 		setGuessObservation(session.guessObservation || "");
 		setGuessFeelings(session.guessFeelings || {});
 		setGuessNeeds(session.guessNeeds || {});
@@ -160,6 +177,7 @@ export const WizardProvider = ({ children }) => {
 		setCurrentExploringNeed(null);
 		setExplorationStep(0);
 		setStrategies({});
+		setFamilyResponses({});
 		setGuessObservation("");
 		setGuessFeelings({});
 		setGuessNeeds({});
@@ -193,6 +211,8 @@ export const WizardProvider = ({ children }) => {
 		setExplorationStep,
 		strategies,
 		setStrategies,
+		familyResponses,
+		setFamilyResponses,
 		guessObservation,
 		setGuessObservation,
 		guessFeelings,

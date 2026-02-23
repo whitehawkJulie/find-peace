@@ -47,8 +47,31 @@
 	margin: 0;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	width: 100%;
+	gap: 0.5rem;
+	flex: 1;
+}
+
+.category-help-icon {
+	background: none;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	font-size: 0.75rem;
+	cursor: pointer;
+	color: #666;
+	width: 1.4rem;
+	height: 1.4rem;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 1.25rem;
+	padding: 0;
+	margin: 0;
+	float: none;
+	flex-shrink: 0;
+	transition: background 0.15s ease;
+}
+
+.category-help-icon:hover {
+	background: rgba(0, 0, 0, 0.06);
+	color: #333;
 }
 
 /* Top header of each category box */
@@ -56,22 +79,24 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0.5rem 1rem;
+	padding: 0.6rem 1rem;
 	background-color: var(--header-bg);
 	border-radius: 8px 8px 0 0;
 	font-weight: 600;
 	cursor: pointer;
 	user-select: none;
+	min-height: 2.4rem;
 }
 
 .collapse-icon {
 	font-size: 0.9rem;
 	color: #555;
 }
-/* ========== SUBCATEGORY STYLING ========== */
-.subcategory {
-	padding: 1rem; /* ✅ Padding only here */
 
+/* ========== SUBCATEGORY STYLING ========== */
+
+.subcategory {
+	padding: 1rem;
 	margin: 1rem;
 	border-radius: 10px;
 }
@@ -80,6 +105,9 @@
 	font-weight: bold;
 	margin-bottom: 1rem;
 	margin-top: 0;
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
 }
 
 /* ========== COLLAPSIBLE HEADERS ========== */
@@ -92,6 +120,47 @@
 
 .collapse-icon:hover {
 	color: #cc2424;
+}
+
+/* ========== TIER TOGGLE (+/− icon) ========== */
+
+.tier-toggle-icon {
+	background: none;
+	border: 1px solid #bbb;
+	font-size: 0.85rem;
+	line-height: 1;
+	cursor: pointer;
+	color: #888;
+	width: 1.3rem;
+	height: 1.3rem;
+	border-radius: 50%;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	flex-shrink: 0;
+	transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tier-toggle-icon:hover {
+	background: rgba(0, 0, 0, 0.06);
+	color: #555;
+	border-color: #999;
+}
+
+/* ========== QUICK PICKS ========== */
+
+.quick-picks {
+	padding: 1rem 1rem 0;
+	text-align: center;
+}
+
+.quick-picks-label {
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #888;
+	margin: 0 0 0.5rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
 }
 
 /* make the feelings list a bit more narrow */
