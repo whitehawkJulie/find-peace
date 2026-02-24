@@ -20,15 +20,15 @@ import RegulationGate from "./RegulationGate";
 import FamilyRegulationCard from "./FamilyRegulationCard";
 
 // Data for family regulation step condition
-import { feelingsData } from "./FeelingsData";
-import { pickDominantFamily } from "./familyCards";
+import { Feelings as FeelingsData } from "../data/AllFeelingsData";
+import { pickDominantFamily } from "../data/familyCards";
 
 // Build lookup for unmet feelings that have a family property
 const unmetFeelingLookup = {};
-const unmetCategory = feelingsData["Feelings when needs are not met"];
-if (unmetCategory) {
-	for (const items of Object.values(unmetCategory)) {
-		for (const item of items) {
+const unmetSection = FeelingsData.sections.unmet;
+if (unmetSection?.groups) {
+	for (const group of Object.values(unmetSection.groups)) {
+		for (const item of group.items) {
 			if (item.family) {
 				unmetFeelingLookup[item.item] = item;
 			}

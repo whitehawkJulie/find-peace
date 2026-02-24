@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Checklist from "./Checklist";
-import { feelingsData } from "./feelingsData";
+import { Feelings as FeelingsData } from "../data/AllFeelingsData";
 import { useWizard } from "./WizardContext";
 import SlideDrawer from "./SlideDrawer";
 import UnpackPopup from "./UnpackPopup";
@@ -12,12 +12,12 @@ const Feelings = () => {
 
 	// Called by Checklist before default selection
 	const handleItemClick = (itemData) => {
-		if (itemData.kind === "storyWord") {
+		if (itemData.type === "storyWord") {
 			// Story word: open popup, do NOT add to selection yet
 			setPopupItem(itemData);
 			return false;
 		}
-		if (itemData.unpack && itemData.unpack.cardId) {
+		if (itemData.unpack?.type === "murky") {
 			// Murky feeling: DO add to selection (return true), then open popup
 			setPopupItem(itemData);
 			return true;
@@ -59,11 +59,6 @@ const Feelings = () => {
 		setPopupItem(null);
 	};
 
-	// Look up unpack card data for murky feelings
-	const unpackCard = popupItem?.unpack?.cardId
-		? feelingsData.meta?.unpackCards?.[popupItem.unpack.cardId] || null
-		: null;
-
 	return (
 		<div className="step-feelings">
 			<p>
@@ -71,20 +66,19 @@ const Feelings = () => {
 			</p>
 
 			<Checklist
-				data={feelingsData}
+				data={[FeelingsData.sections.unmet, FeelingsData.sections.story, FeelingsData.sections.met]}
 				selectedItems={feelings}
 				setSelectedItems={setFeelings}
 				type="feelings"
 				onItemClick={handleItemClick}
 				categoryHelpIcons={{
-					"Words that point to what happened": () => setShowStoryHelp(true),
+					[FeelingsData.sections.story.ui.heading]: () => setShowStoryHelp(true),
 				}}
 			/>
 
 			{popupItem && (
 				<UnpackPopup
 					itemData={popupItem}
-					unpackCard={unpackCard}
 					feelings={feelings}
 					needs={needs}
 					onToggleFeeling={toggleFeeling}
@@ -158,7 +152,7 @@ Feelings.helpContent = (
 			</li>
 			<li>
 				If you select a word that points more to what happened than how you feel,
-				you'll get a chance to unpack the real feelings underneath.
+				you'll get a chance to unpack the real feelings and needs underneath.
 			</li>
 			<li>
 				When in doubt, check your body. Feelings live in the body — tight chest, heavy

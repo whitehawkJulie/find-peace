@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Checklist from "./Checklist";
-import needsData from "./NeedsData";
+import { Needs as NeedsData } from "../data/AllNeedsData";
 import { useWizard } from "./WizardContext";
 import SlideDrawer from "./SlideDrawer";
 import PatriarchyNeeds from "./PatriarchyNeeds";
@@ -35,7 +35,12 @@ const Needs = () => {
 		<div className="step-needs">
 			{renderOrderedFeelings(feelings)}
 
-			<Checklist data={needsData} selectedItems={needs} setSelectedItems={setNeeds} type="needs" />
+			<Checklist
+				data={[NeedsData.sections.subsistence, NeedsData.sections.connection, NeedsData.sections.meaning, NeedsData.sections.freedom]}
+				selectedItems={needs}
+				setSelectedItems={setNeeds}
+				type="needs"
+			/>
 
 			<div style={{ marginTop: "2rem", textAlign: "center" }}>
 				<button className="subtle-button" onClick={() => setShowPatriarchy(true)}>

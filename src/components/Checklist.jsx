@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import Pill from "./Pill";
 import "./Checklist.css";
 
+/**
+ * Checklist now receives `data` as an array of section objects:
+ *   [{ ui: { heading }, groups: { Key: { ui: { heading, order }, items: [...] } } }, ...]
+ *
+ * Each section renders as a collapsible category.
+ * Groups within a section are sorted by `group.ui.order` and rendered as subcategories.
+ */
 const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings", categoryHelpIcons = {}, onItemClick = null }) => {
 	const [collapsedCategories, setCollapsedCategories] = useState({});
-	const [expandedTiers, setExpandedTiers] = useState({}); // keyed by subcategory name
+	const [expandedTiers, setExpandedTiers] = useState({}); // keyed by subcategory heading
 
 	// Toggle between clicked and double-clicked states
 	const handleClick = (item, itemData) => {
@@ -16,16 +23,11 @@ const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings", c
 
 		const newState = { ...selectedItems };
 
-		// If item was "double-clicked", change to "clicked"
 		if (newState[item] === "double-clicked") {
 			newState[item] = "clicked";
-		}
-		// If item was "clicked", remove it (toggle off)
-		else if (newState[item] === "clicked") {
+		} else if (newState[item] === "clicked") {
 			delete newState[item];
-		}
-		// If item wasn't selected yet, add as "clicked"
-		else {
+		} else {
 			newState[item] = "clicked";
 		}
 
@@ -38,38 +40,38 @@ const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings", c
 		setSelectedItems(newState);
 	};
 
-	const toggleCategory = (category) => {
+	const toggleCategory = (heading) => {
 		setCollapsedCategories((prev) => ({
 			...prev,
-			[category]: !prev[category],
+			[heading]: !prev[heading],
 		}));
 	};
 
-	const toggleTier = (subcategory) => {
+	const toggleTier = (subcategoryHeading) => {
 		setExpandedTiers((prev) => ({
 			...prev,
-			[subcategory]: !prev[subcategory],
+			[subcategoryHeading]: !prev[subcategoryHeading],
 		}));
 	};
 
-	// Only apply tiering to categories whose items have a `family` property
-	// (i.e. "Feelings when needs are not met"). Other sections show all items.
-	const categoryUsesTiers = (subcategories) => {
-		return Object.values(subcategories).some((items) =>
-			items.some((it) => it.family)
+	// Only apply tiering to sections whose items have a `family` property
+	// (i.e. FeelingsUnmet). Other sections show all items.
+	const sectionUsesTiers = (groups) => {
+		return Object.values(groups).some((group) =>
+			group.items.some((it) => it.family)
 		);
 	};
 
-	// Check if a subcategory has any tier:"more" items
-	const subcategoryHasMore = (items) => {
+	// Check if a group has any tier:"more" items
+	const groupHasMore = (items) => {
 		return items.some((it) => it.ui && it.ui.tier === "more");
 	};
 
-	// Collect quick pick items from a category's subcategories
-	const getQuickPicks = (subcategories) => {
+	// Collect quick pick items from a section's groups
+	const getQuickPicks = (groups) => {
 		const picks = [];
-		for (const items of Object.values(subcategories)) {
-			for (const item of items) {
+		for (const group of Object.values(groups)) {
+			for (const item of group.items) {
 				if (item.ui && item.ui.quickPick) {
 					picks.push(item);
 				}
@@ -78,47 +80,54 @@ const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings", c
 		return picks;
 	};
 
+	// Sort groups by their ui.order
+	const getSortedGroups = (groups) => {
+		return Object.entries(groups)
+			.sort(([, a], [, b]) => (a.ui?.order || 0) - (b.ui?.order || 0));
+	};
+
 	return (
 		<div className="checklist">
-			{Object.entries(data)
-				.filter(([key]) => key !== "meta")
-				.map(([mainCategory, subcategories], index) => {
-				const usesTiers = categoryUsesTiers(subcategories);
-				const quickPicks = getQuickPicks(subcategories);
+			{data.map((section, index) => {
+				const sectionHeading = section.ui.heading;
+				const groups = section.groups;
+				const usesTiers = sectionUsesTiers(groups);
+				const quickPicks = getQuickPicks(groups);
+				const sortedGroups = getSortedGroups(groups);
 
 				return (
-				<div key={mainCategory} className={`category category-${index % 8}`}>
+				<div key={sectionHeading} className={`category category-${index % 8}`}>
 					<div
 						className="category-header"
-						onClick={() => toggleCategory(mainCategory)}
-						title={collapsedCategories[mainCategory] ? "Expand section" : "Collapse section"}>
+						onClick={() => toggleCategory(sectionHeading)}
+						title={collapsedCategories[sectionHeading] ? "Expand section" : "Collapse section"}>
 						<h3 className="category-title">
-							{mainCategory}
-							{categoryHelpIcons[mainCategory] && (
+							{sectionHeading}
+							{categoryHelpIcons[sectionHeading] && (
 								<button
 									className="category-help-icon"
 									title="What's this?"
 									onClick={(e) => {
 										e.stopPropagation();
-										categoryHelpIcons[mainCategory]();
+										categoryHelpIcons[sectionHeading]();
 									}}>
 									?
 								</button>
 							)}
 						</h3>
-						<span className="collapse-icon">{collapsedCategories[mainCategory] ? "▼" : "▲"}</span>
+						<span className="collapse-icon">{collapsedCategories[sectionHeading] ? "▼" : "▲"}</span>
 					</div>
 
-					{!collapsedCategories[mainCategory] && (
+					{!collapsedCategories[sectionHeading] && (
 						<div className="subcategories">
-							{/* Quick picks row — inside this category, before subcategories */}
+							{/* Quick picks row — inside this section, before groups */}
 							{quickPicks.length > 0 && (
 								<div className="quick-picks">
 									<h4 className="quick-picks-label">Quick picks</h4>
 									<div className="pill-grid cloud">
 										{quickPicks.map((itemData) => {
 											const { item } = itemData;
-											const tooltip = itemData.meaning || itemData.problem || "";
+											const tooltip = itemData.description || itemData.meaning || "";
 											return (
 												<Pill
 													key={item}
@@ -135,10 +144,13 @@ const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings", c
 								</div>
 							)}
 
-							{Object.entries(subcategories).map(([subcategory, items]) => {
-								// Only filter by tier in the unmet-needs section
-								const isSubExpanded = expandedTiers[subcategory];
-								const hasMore = usesTiers && subcategoryHasMore(items);
+							{sortedGroups.map(([groupKey, group]) => {
+								const groupHeading = group.ui?.heading || groupKey;
+								const items = group.items;
+
+								// Only filter by tier in sections that use tiers
+								const isSubExpanded = expandedTiers[groupHeading];
+								const hasMore = usesTiers && groupHasMore(items);
 								const visibleItems = (!usesTiers || isSubExpanded)
 									? items
 									: items.filter(
@@ -147,16 +159,16 @@ const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings", c
 								if (visibleItems.length === 0) return null;
 
 								return (
-									<div key={subcategory} className="subcategory">
+									<div key={groupKey} className="subcategory">
 										<h4 className="subcategory-title">
-											{subcategory}
+											{groupHeading}
 											{hasMore && (
 												<button
 													className="tier-toggle-icon"
 													title={isSubExpanded ? "Show fewer" : "Show more"}
 													onClick={(e) => {
 														e.stopPropagation();
-														toggleTier(subcategory);
+														toggleTier(groupHeading);
 													}}>
 													{isSubExpanded ? "−" : "+"}
 												</button>
@@ -165,7 +177,7 @@ const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings", c
 										<div className="pill-grid">
 											{visibleItems.map((itemData) => {
 												const { item } = itemData;
-												const tooltip = itemData.meaning || itemData.problem || "";
+												const tooltip = itemData.description || itemData.meaning || "";
 												return (
 													<Pill
 														key={item}

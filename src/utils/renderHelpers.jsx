@@ -1,36 +1,36 @@
 import React from "react";
-import needsData from "../components/NeedsData";
+import { Needs } from "../data/AllNeedsData";
+
+// Build a flat lookup at module scope: needName → { item data, sectionHeading }
+const needLookup = {};
+for (const section of Object.values(Needs.sections)) {
+	const sectionHeading = section.ui?.heading || "";
+	for (const group of Object.values(section.groups)) {
+		for (const item of group.items) {
+			needLookup[item.item] = { ...item, _sectionHeading: sectionHeading };
+		}
+	}
+}
 
 // Look up which top-level category a need belongs to (e.g. "Love" → "Connection")
 export const getNeedCategory = (needName) => {
-	for (const [category, subcategories] of Object.entries(needsData)) {
-		for (const [_, items] of Object.entries(subcategories)) {
-			if (items.some((item) => item.item === needName)) return category;
-		}
-	}
-	return null;
+	const entry = needLookup[needName];
+	return entry ? entry._sectionHeading : null;
 };
 
 // Look up the meaning/definition of a need (e.g. "Love" → "Unconditional acceptance and care")
 export const getNeedMeaning = (needName) => {
-	for (const [_, subcategories] of Object.entries(needsData)) {
-		for (const [__, items] of Object.entries(subcategories)) {
-			const found = items.find((item) => item.item === needName);
-			if (found) return found.meaning;
-		}
-	}
-	return null;
+	const entry = needLookup[needName];
+	return entry ? entry.meaning : null;
 };
 
 // Look up the full data object for a need (including unpack metadata)
 export const getNeedData = (needName) => {
-	for (const [_, subcategories] of Object.entries(needsData)) {
-		for (const [__, items] of Object.entries(subcategories)) {
-			const found = items.find((item) => item.item === needName);
-			if (found) return found;
-		}
-	}
-	return null;
+	const entry = needLookup[needName];
+	if (!entry) return null;
+	// Return a clean copy without the internal _sectionHeading field
+	const { _sectionHeading, ...data } = entry;
+	return data;
 };
 
 // Utility functions to extract selected items by type

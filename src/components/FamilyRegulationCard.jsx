@@ -1,0 +1,118 @@
+import React, { useMemo } from "react";
+import { useWizard } from "./WizardContext";
+import { Feelings as FeelingsData } from "../data/AllFeelingsData";
+import { familyCards, pickDominantFamily } from "../data/familyCards";
+import "./FamilyRegulationCard.css";
+
+// Build a lookup: item name → full item data (only for unmet feelings with a family tag)
+const itemLookup = {};
+const unmetSection = FeelingsData.sections.unmet;
+if (unmetSection?.groups) {
+	for (const group of Object.values(unmetSection.groups)) {
+		for (const item of group.items) {
+			if (item.family) {
+				itemLookup[item.item] = item;
+			}
+		}
+	}
+}
+
+const FamilyRegulationCard = () => {
+	const { feelings, familyResponses, setFamilyResponses } = useWizard();
+
+	// Get selected unmet feelings with family data
+	const selectedUnmetWithFamily = useMemo(() => {
+		return Object.entries(feelings)
+			.filter(([_, status]) => status === "clicked" || status === "double-clicked")
+			.map(([name]) => itemLookup[name])
+			.filter(Boolean);
+	}, [feelings]);
+
+	const dominantFamily = pickDominantFamily(selectedUnmetWithFamily);
+	const card = dominantFamily ? familyCards[dominantFamily] : null;
+
+	if (!card) return null;
+
+	const setResponse = (promptId, value) => {
+		setFamilyResponses((prev) => ({ ...prev, [promptId]: value }));
+	};
+
+	const toggleMultiChoice = (promptId, option) => {
+		setFamilyResponses((prev) => {
+			const current = prev[promptId] || [];
+			const updated = current.includes(option)
+				? current.filter((o) => o !== option)
+				: [...current, option];
+			return { ...prev, [promptId]: updated };
+		});
+	};
+
+	return (
+		<div className="family-regulation">
+			<h3 className="family-title">{card.title}</h3>
+			<p className="family-intro">{card.intro}</p>
+
+			{card.prompts.map((prompt) => (
+				<div key={prompt.id} className="family-prompt">
+					<p className="family-prompt-question">{prompt.question}</p>
+
+					{prompt.type === "text" && (
+						<textarea
+							className="family-textarea"
+							value={familyResponses[prompt.id] || ""}
+							onChange={(e) => setResponse(prompt.id, e.target.value)}
+							rows={3}
+						/>
+					)}
+
+					{prompt.type === "singleChoice" && (
+						<div className="family-choices">
+							{prompt.options.map((opt) => (
+								<button
+									key={opt}
+									className={`family-choice ${familyResponses[prompt.id] === opt ? "chosen" : ""}`}
+									onClick={() => setResponse(prompt.id, opt)}>
+									{opt}
+								</button>
+							))}
+						</div>
+					)}
+
+					{prompt.type === "multiChoice" && (
+						<div className="family-choices">
+							{prompt.options.map((opt) => (
+								<button
+									key={opt}
+									className={`family-choice ${
+										(familyResponses[prompt.id] || []).includes(opt) ? "chosen" : ""
+									}`}
+									onClick={() => toggleMultiChoice(prompt.id, opt)}>
+									{opt}
+								</button>
+							))}
+						</div>
+					)}
+				</div>
+			))}
+		</div>
+	);
+};
+
+FamilyRegulationCard.title = "Settling";
+FamilyRegulationCard.helpContent = (
+	<>
+		<p>
+			When many of your feelings point in the same direction, it can help
+			to spend a moment with that emotional family before moving on.
+		</p>
+		<p>
+			This step is optional — if it doesn't feel right, you can skip it
+			and move on to exploring your needs.
+		</p>
+		<p>
+			There are no right answers here. Just notice what comes up.
+		</p>
+	</>
+);
+
+export default FamilyRegulationCard;

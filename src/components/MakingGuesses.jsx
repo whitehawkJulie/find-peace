@@ -1,14 +1,9 @@
 import React from "react";
 import { useWizard } from "./WizardContext";
 import Checklist from "./Checklist";
-import { feelingsData } from "./FeelingsData";
-import needsData from "./NeedsData";
+import { Feelings as FeelingsData } from "../data/AllFeelingsData";
+import { Needs as NeedsData } from "../data/AllNeedsData";
 import "./MakingGuesses.css";
-
-// Build a version of feelingsData without the Faux Feelings category
-const realFeelingsData = Object.fromEntries(
-	Object.entries(feelingsData).filter(([key]) => key !== "meta" && key !== "Words that point to what happened")
-);
 
 const MakingGuesses = () => {
 	const { guessObservation, setGuessObservation, guessFeelings, setGuessFeelings, guessNeeds, setGuessNeeds } =
@@ -17,12 +12,12 @@ const MakingGuesses = () => {
 	return (
 		<div className="making-guesses">
 			<p>
-				When you’re ready, we can gently turn toward the other person. Not to agree — just to widen the view. As
-				we imagine what they might be feeling or needing, we often see more of what’s happening. Sometimes that
+				When you're ready, we can gently turn toward the other person. Not to agree — just to widen the view. As
+				we imagine what they might be feeling or needing, we often see more of what's happening. Sometimes that
 				brings a little more space inside you, and it can feel less like a verdict about you.
 			</p>
 			<p className="guesses-reminder">
-				<em>Remember: The point isn’t to guess correctly. It’s simply to widen the frame.</em>
+				<em>Remember: The point isn't to guess correctly. It's simply to widen the frame.</em>
 			</p>
 
 			<div className="guesses-section">
@@ -44,7 +39,7 @@ const MakingGuesses = () => {
 					with each other.
 				</p>
 				<Checklist
-					data={realFeelingsData}
+					data={[FeelingsData.sections.unmet, FeelingsData.sections.met]}
 					selectedItems={guessFeelings}
 					setSelectedItems={setGuessFeelings}
 					type="feeling"
@@ -54,7 +49,12 @@ const MakingGuesses = () => {
 			<div className="guesses-section">
 				<h3>What might they be needing?</h3>
 				<p>What needs of theirs might not be met in this situation?</p>
-				<Checklist data={needsData} selectedItems={guessNeeds} setSelectedItems={setGuessNeeds} type="need" />
+				<Checklist
+					data={[NeedsData.sections.subsistence, NeedsData.sections.connection, NeedsData.sections.meaning, NeedsData.sections.freedom]}
+					selectedItems={guessNeeds}
+					setSelectedItems={setGuessNeeds}
+					type="need"
+				/>
 			</div>
 		</div>
 	);

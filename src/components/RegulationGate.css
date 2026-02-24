@@ -1,0 +1,278 @@
+/* ========== REGULATION GATE ========== */
+
+.regulation-gate {
+	padding: 1rem 0;
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+/* ── Questions & lead text ── */
+
+.regulation-question {
+	font-size: 1.15rem;
+	font-weight: 500;
+	color: #333;
+	margin-bottom: 1.5rem;
+	line-height: 1.5;
+}
+
+.regulation-lead {
+	font-size: 1rem;
+	color: #555;
+	line-height: 1.6;
+	margin-bottom: 1rem;
+}
+
+/* ── Choice buttons ── */
+
+.regulation-choices {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	margin-bottom: 1.5rem;
+}
+
+.regulation-choice {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 1rem 1.25rem;
+	border: 1.5px solid #d4c5b0;
+	border-radius: 12px;
+	background: #fefcf9;
+	color: #444;
+	font-size: 0.95rem;
+	line-height: 1.4;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	text-align: left;
+}
+
+.regulation-choice:hover {
+	border-color: #b8a88e;
+	background: #f8f3ec;
+}
+
+.regulation-choice:active {
+	transform: scale(0.98);
+}
+
+.regulation-choice-soft {
+	border-style: dashed;
+	color: #666;
+}
+
+.regulation-choice.chosen {
+	border-color: #8aab7f;
+	background: #f0f7ed;
+	color: #3a5a30;
+}
+
+/* ── Activation type buttons ── */
+
+.type-choices {
+	gap: 0.85rem;
+}
+
+.type-icon {
+	font-size: 1.4rem;
+	flex-shrink: 0;
+}
+
+.type-label {
+	font-size: 0.95rem;
+}
+
+.type-agitated {
+	border-color: #e0c4a0;
+}
+.type-agitated:hover {
+	background: #fdf5eb;
+	border-color: #d4a96a;
+}
+
+.type-numb {
+	border-color: #a8c4d4;
+}
+.type-numb:hover {
+	background: #eef5f9;
+	border-color: #7aa8c0;
+}
+
+.type-foggy {
+	border-color: #c4b4d4;
+}
+.type-foggy:hover {
+	background: #f5f0fa;
+	border-color: #a890c0;
+}
+
+/* ── Regulation exercise ── */
+
+.regulation-exercise {
+	padding: 1.25rem;
+	border-radius: 14px;
+	margin-bottom: 1rem;
+}
+
+.exercise-agitated {
+	background: #fef8f0;
+	border-left: 3px solid #d4a96a;
+}
+
+.exercise-numb {
+	background: #f0f6fa;
+	border-left: 3px solid #7aa8c0;
+}
+
+.exercise-foggy {
+	background: #f5f0fa;
+	border-left: 3px solid #a890c0;
+}
+
+.regulation-framing {
+	font-size: 0.95rem;
+	color: #555;
+	line-height: 1.6;
+	margin-bottom: 0.75rem;
+	font-style: italic;
+}
+
+.regulation-invitations {
+	margin: 1.25rem 0;
+	padding-left: 1rem;
+	border-left: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.regulation-invitations p {
+	font-size: 0.95rem;
+	color: #444;
+	line-height: 1.6;
+	margin: 0.6rem 0;
+}
+
+.regulation-pause {
+	margin-top: 1.5rem;
+}
+
+.pause-prompt {
+	font-size: 1.05rem;
+	font-weight: 500;
+	color: #444;
+	margin-bottom: 1rem;
+}
+
+.regulation-notyet {
+	background: rgba(255, 255, 255, 0.6);
+	border-radius: 10px;
+	padding: 1rem;
+	margin-top: 0.5rem;
+}
+
+.regulation-notyet p {
+	font-size: 0.93rem;
+	color: #555;
+	line-height: 1.6;
+	margin-bottom: 1rem;
+}
+
+.regulation-notyet button {
+	padding: 0.65rem 1.25rem;
+	border: 1.5px solid #8aab7f;
+	border-radius: 10px;
+	background: white;
+	color: #3a5a30;
+	font-size: 0.9rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.regulation-notyet button:hover {
+	background: #f0f7ed;
+}
+
+/* ── Body check-in invitations ── */
+
+.body-check-invitations {
+	background: #f9f7f4;
+	border-radius: 12px;
+	padding: 1rem 1.25rem;
+	margin-bottom: 1.25rem;
+	border-left: 3px solid #d4c5b0;
+}
+
+/* ── Textarea ── */
+
+.regulation-textarea {
+	width: 100%;
+	padding: 0.85rem;
+	border: 1.5px solid #d4c5b0;
+	border-radius: 10px;
+	font-size: 0.95rem;
+	font-family: inherit;
+	line-height: 1.5;
+	resize: vertical;
+	background: #fefcf9;
+	color: #333;
+	margin-bottom: 1.5rem;
+	box-sizing: border-box;
+}
+
+.regulation-textarea:focus {
+	outline: none;
+	border-color: #b8a88e;
+	box-shadow: 0 0 0 3px rgba(184, 168, 142, 0.15);
+}
+
+.regulation-textarea::placeholder {
+	color: #aaa;
+}
+
+/* ── Orientation noticing ── */
+
+.regulation-noticing {
+	font-size: 0.9rem;
+	color: #888;
+	font-style: italic;
+	text-align: center;
+	margin: 1rem 0;
+}
+
+/* ── Readiness "stay" block ── */
+
+.regulation-stay {
+	margin-bottom: 1rem;
+}
+
+.regulation-stay > p {
+	font-size: 0.95rem;
+	color: #555;
+	line-height: 1.6;
+	margin-bottom: 1.25rem;
+}
+
+/* ── Navigation ── */
+
+.regulation-nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 1.5rem;
+	padding-top: 1rem;
+	border-top: 1px solid #eee;
+}
+
+.regulation-nav button:not(.subtle-button) {
+	padding: 0.6rem 1.5rem;
+	border: none;
+	border-radius: 8px;
+	background: #8aab7f;
+	color: white;
+	font-size: 0.9rem;
+	cursor: pointer;
+	transition: background 0.2s ease;
+}
+
+.regulation-nav button:not(.subtle-button):hover {
+	background: #7a9b6f;
+}
