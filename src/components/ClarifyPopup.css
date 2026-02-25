@@ -1,6 +1,6 @@
-/* ===== Unpack Popup Modal ===== */
+/* ===== Clarify Popup Modal ===== */
 
-.unpack-popup-backdrop {
+.clarify-popup-backdrop {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -15,7 +15,7 @@
 	box-sizing: border-box;
 }
 
-.unpack-popup {
+.clarify-popup {
 	background: #fffdf5;
 	border-radius: 14px;
 	padding: 1.5rem;
@@ -29,7 +29,7 @@
 
 /* ===== Header ===== */
 
-.unpack-popup-header h3 {
+.clarify-popup-header h3 {
 	margin: 0 0 0.75rem;
 	font-size: 1.1rem;
 	color: #444;
@@ -38,7 +38,7 @@
 
 /* ===== Story Word: Reframe ===== */
 
-.unpack-reframe {
+.clarify-reframe {
 	background: #f9f7f2;
 	padding: 0.75rem 1rem;
 	border-radius: 8px;
@@ -51,11 +51,11 @@
 
 /* ===== Suggestions ===== */
 
-.unpack-suggestions {
+.clarify-suggestions {
 	margin: 1rem 0;
 }
 
-.unpack-label {
+.clarify-label {
 	font-size: 0.85rem;
 	font-weight: 600;
 	color: #555;
@@ -64,7 +64,7 @@
 
 /* ===== OK / Done Button ===== */
 
-.unpack-ok {
+.clarify-ok {
 	display: block;
 	margin: 1.25rem auto 0;
 	padding: 0.5rem 2rem;
@@ -76,30 +76,30 @@
 	cursor: pointer;
 }
 
-.unpack-ok:hover {
+.clarify-ok:hover {
 	background: #4d8a5e;
 }
 
 /* ===== Keep / Remove Prompt ===== */
 
-.unpack-keep-prompt {
+.clarify-keep-prompt {
 	text-align: center;
 	padding: 1rem 0 0;
 }
 
-.unpack-keep-prompt p {
+.clarify-keep-prompt p {
 	font-size: 0.95rem;
 	color: #444;
 	margin: 0 0 0.75rem;
 }
 
-.unpack-keep-buttons {
+.clarify-keep-buttons {
 	display: flex;
 	gap: 0.75rem;
 	justify-content: center;
 }
 
-.unpack-keep-btn {
+.clarify-keep-btn {
 	padding: 0.5rem 1.25rem;
 	border-radius: 8px;
 	font-size: 0.9rem;
@@ -109,22 +109,86 @@
 	color: white;
 }
 
-.unpack-keep-btn:hover {
+.clarify-keep-btn:hover {
 	background: #4d8a5e;
 }
 
-.unpack-keep-btn-secondary {
+.clarify-keep-btn-secondary {
 	background: white;
 	color: #5a9e6d;
 }
 
-.unpack-keep-btn-secondary:hover {
+.clarify-keep-btn-secondary:hover {
 	background: #f0f0ee;
 }
 
-/* ===== Murky: Intro ===== */
+/* ===== Gentle Prompt (before murky clarify) ===== */
 
-.unpack-intro {
+.clarify-gentle-prompt {
+	text-align: center;
+	max-width: 360px;
+}
+
+.clarify-gentle-text {
+	font-size: 1rem;
+	color: #555;
+	line-height: 1.5;
+	margin: 0 0 1.25rem;
+}
+
+.clarify-gentle-buttons {
+	display: flex;
+	gap: 0.75rem;
+	justify-content: center;
+}
+
+.clarify-gentle-btn {
+	padding: 0.5rem 1.5rem;
+	border-radius: 8px;
+	font-size: 0.95rem;
+	cursor: pointer;
+	border: 1px solid #5a9e6d;
+	background: #5a9e6d;
+	color: white;
+}
+
+.clarify-gentle-btn:hover {
+	background: #4d8a5e;
+}
+
+.clarify-gentle-btn-secondary {
+	background: white;
+	color: #888;
+	border-color: #ccc;
+}
+
+.clarify-gentle-btn-secondary:hover {
+	background: #f5f5f0;
+}
+
+/* ===== Murky: Attunement + Normalization ===== */
+
+.clarify-attunement {
+	background: #f5f0e6;
+	padding: 0.75rem 1rem;
+	border-radius: 8px;
+	border-left: 3px solid #d4b879;
+	color: #555;
+	font-style: italic;
+	line-height: 1.5;
+	margin: 0 0 0.75rem;
+}
+
+.clarify-normalization {
+	color: #666;
+	font-size: 0.9rem;
+	line-height: 1.5;
+	margin: 0 0 1.25rem;
+}
+
+/* ===== Murky: Intro (legacy) ===== */
+
+.clarify-intro {
 	color: #666;
 	font-size: 0.95rem;
 	line-height: 1.5;
@@ -133,17 +197,17 @@
 
 /* ===== Murky: Prompts ===== */
 
-.unpack-prompt {
+.clarify-prompt {
 	margin: 1.25rem 0;
 }
 
-.unpack-prompt-question {
+.clarify-prompt-question {
 	font-size: 0.95rem;
 	color: #444;
 	margin: 0 0 0.5rem;
 }
 
-.unpack-stem {
+.clarify-stem {
 	display: block;
 	font-style: italic;
 	color: #888;
@@ -151,7 +215,7 @@
 	margin-bottom: 0.4rem;
 }
 
-.unpack-textarea {
+.clarify-textarea {
 	width: 100%;
 	padding: 0.6rem;
 	border: 1px solid #ccc;
@@ -163,20 +227,20 @@
 	background: #fefefe;
 }
 
-.unpack-textarea:focus {
+.clarify-textarea:focus {
 	outline: none;
 	border-color: #5a9e6d;
 }
 
 /* ===== Choice Buttons ===== */
 
-.unpack-choices {
+.clarify-choices {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.5rem;
 }
 
-.unpack-choice {
+.clarify-choice {
 	padding: 0.4rem 0.8rem;
 	border-radius: 999px;
 	background: #e8e8e0;
@@ -186,11 +250,11 @@
 	cursor: pointer;
 }
 
-.unpack-choice:hover {
+.clarify-choice:hover {
 	background: #deded6;
 }
 
-.unpack-choice.chosen {
+.clarify-choice.chosen {
 	background: #d4e8d0;
 	border-color: #5a9e6d;
 	color: #2d5a36;
@@ -199,7 +263,7 @@
 /* ===== Responsive ===== */
 
 @media (max-width: 540px) {
-	.unpack-popup {
+	.clarify-popup {
 		padding: 1.25rem;
 		border-radius: 12px;
 	}

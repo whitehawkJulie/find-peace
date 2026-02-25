@@ -1,4 +1,4 @@
-export const unpackPromptLibrary = {
+export const clarifyPromptLibrary = {
 	// EMBODIMENT (rotating across all categories)
 	EMB_01: "If this were present, what would shift in your body — even 5%?",
 	EMB_02: "What would soften in you if this were here?",
@@ -35,4 +35,4 @@ export const unpackPromptLibrary = {
 	INT_CONC_01: "What small step could move this 10% today?",
 };
 
-export default unpackPromptLibrary;
+export default clarifyPromptLibrary;

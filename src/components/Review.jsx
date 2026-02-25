@@ -37,8 +37,13 @@ const Review = () => {
 	const generateSummaryText = () => {
 		let output = [];
 
-		if (observation && observation.trim() !== "") {
-			output.push(`**Observation**\n${observation.trim()}\n`);
+		const obsText = typeof observation === "string"
+			? observation.trim()
+			: [observation?.moment, observation?.actions, observation?.camera]
+				.filter((s) => s?.trim())
+				.join("\n");
+		if (obsText) {
+			output.push(`**Observation**\n${obsText}\n`);
 		}
 
 		if (strongFeelings.length > 0 || regularFeelings.length > 0) {
@@ -114,10 +119,12 @@ const Review = () => {
 		<div className="review">
 			<p>Here's a summary of everything you've worked through. Take a moment to appreciate the journey you've just taken.</p>
 
-			{observation && (
+			{(observation?.moment || observation?.actions || observation?.camera) && (
 				<div className="review-section">
 					<h3>Observation</h3>
-					<p>{observation}</p>
+					{observation.moment && <p><strong>The moment:</strong> {observation.moment}</p>}
+					{observation.actions && <p><strong>What happened:</strong> {observation.actions}</p>}
+					{observation.camera && <p><strong>What others would see:</strong> {observation.camera}</p>}
 				</div>
 			)}
 

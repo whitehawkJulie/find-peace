@@ -1,7 +1,7 @@
-export const FeelingsUnmet = {
+export const Feelings = {
 	ui: {
-		heading: "Things we might feel when our needs are not met",
-		helpText: "",
+		heading: "Feelings",
+		helpText: "Feelings are part of your guidance system. They can help you discover what matters most right now.",
 	},
 
 	groups: {
@@ -52,6 +52,8 @@ export const FeelingsUnmet = {
 
 		Afraid: {
 			ui: { heading: "Afraid", order: 10 },
+			regulationType: "threat",
+
 			items: [
 				// ORDERING NOTE:
 				// We're ordering by somatic experience first, cognitive interpretations later.
@@ -105,12 +107,13 @@ export const FeelingsUnmet = {
 					description: "feeling fear",
 					type: "emotion",
 					family: "fear",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 
 				// --- Lower-intensity embodied vigilance ---
 				{
 					item: "wary",
+					regulationType: ["threat", "cognitive"],
 					description: "cautious and alert",
 					type: "emotion",
 					family: "fear",
@@ -127,6 +130,7 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "worried",
+					regulationType: ["threat", "cognitive"],
 					description: "concerned about outcome",
 					type: "cognitive",
 					family: "fear",
@@ -151,6 +155,7 @@ export const FeelingsUnmet = {
 				// --- Story-based distrust interpretations (fear filtered through cognition) ---
 				{
 					item: "mistrustful",
+					regulationType: ["threat", "cognitive"],
 					description: "finding it hard to trust",
 					type: "cognitive",
 					family: "fear",
@@ -159,6 +164,7 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "suspicious",
+					regulationType: ["threat", "cognitive"],
 					description: "doubting intentions",
 					type: "cognitive",
 					family: "fear",
@@ -167,9 +173,10 @@ export const FeelingsUnmet = {
 				},
 			],
 		},
-
 		Tense: {
 			ui: { heading: "Tense", order: 20 },
+			regulationType: "activated",
+
 			items: [
 				// ORDERING NOTE:
 				// We're ordering by somatic experience first, cognitive interpretations later.
@@ -181,7 +188,7 @@ export const FeelingsUnmet = {
 					description: "body tight and braced",
 					type: "activation",
 					family: "fear",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "restless",
@@ -215,6 +222,8 @@ export const FeelingsUnmet = {
 				// --- Escalated overwhelm / stress activation ---
 				{
 					item: "overwhelmed",
+					regulationType: ["threat", "collapsed"],
+
 					description: "too much at once",
 					type: "activation",
 					family: "fear",
@@ -236,6 +245,8 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "distressed",
+					regulationType: ["threat", "contracted"],
+
 					description: "emotionally strained",
 					type: "activation",
 					family: "fear",
@@ -243,6 +254,7 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "distraught",
+					regulationType: ["threat", "contracted"],
 					description: "deeply upset",
 					type: "activation",
 					family: "fear",
@@ -252,6 +264,7 @@ export const FeelingsUnmet = {
 				// --- Irritable crossover states (tension tipping toward anger) ---
 				{
 					item: "cranky",
+					regulationType: ["activated", "collapsed"],
 					description: "irritable + tired",
 					type: "activation",
 					family: "fear",
@@ -275,26 +288,39 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "anxious",
+					regulationType: ["threat", "cognitive"],
 					description: "worried and uneasy",
 					type: "cognitive",
 					family: "fear",
 					interpretationHint: "Often connected to thoughts like: 'Something bad might happen.'",
 					ui: { tier: "simple" },
-					unpack: {
+					clarify: {
 						type: "murky",
-						title: "Unpack: anxious",
-						intro: "This word often holds both a body sensation and a worried thought.",
+						title: "Clarify: anxious",
+
+						attunement: [
+							"Ahh… that restless edge can be hard to sit with.",
+							"Yeah… anxiety can make everything feel a bit buzzy or tight.",
+							"That keyed-up feeling makes sense. Something feels uncertain or at risk.",
+						], // choose one to display
+
+						normalization:
+							"Anxiety often mixes body sensation with a story about what might happen. Let’s gently separate those pieces.",
+
 						prompts: [
 							{
-								type: "singleChoice",
+								type: "multiChoice",
 								question: "Which flavour fits most right now?",
-								options: ["Nervous", "Worried", "Tense", "Scared", "Uneasy"],
+								options: ["scared", "worried", "tense", "uneasy", "overwhelmed"],
+								selectsFeeling: true,
 							},
+
 							{
 								type: "text",
 								question: "If there’s a worried prediction attached, what is it saying? (optional)",
 								stem: "I’m afraid that…",
 							},
+
 							{
 								type: "singleChoice",
 								question: "Where do you feel it most in your body? (optional)",
@@ -305,9 +331,10 @@ export const FeelingsUnmet = {
 				},
 			],
 		},
-
 		Disquiet: {
 			ui: { heading: "Disquiet", order: 30 },
+			regulationType: "mixed",
+
 			items: [
 				// ORDERING NOTE:
 				// Disquiet family ordered by:
@@ -329,7 +356,7 @@ export const FeelingsUnmet = {
 					description: "slightly unsettled",
 					type: "activation",
 					family: "fear",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "uncomfortable",
@@ -349,6 +376,7 @@ export const FeelingsUnmet = {
 				// --- Activated disturbance ---
 				{
 					item: "upset",
+					regulationType: ["activated", "cognitive"],
 					description: "emotionally unsettled",
 					type: "primary",
 					family: "fear",
@@ -379,6 +407,7 @@ export const FeelingsUnmet = {
 				// --- Alarm / nervous system spike ---
 				{
 					item: "alarmed",
+					regulationType: ["threat", "activated"],
 					description: "suddenly afraid or concerned",
 					type: "activation",
 					family: "fear",
@@ -386,6 +415,7 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "startled",
+					regulationType: ["threat", "activated"],
 					description: "suddenly shocked",
 					type: "activation",
 					family: "fear",
@@ -393,6 +423,7 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "shocked",
+					regulationType: ["threat", "activated"],
 					description: "deeply startled",
 					type: "activation",
 					family: "fear",
@@ -438,9 +469,10 @@ export const FeelingsUnmet = {
 				},
 			],
 		},
-
 		Annoyed: {
 			ui: { heading: "Annoyed", order: 40 },
+			regulationType: "activated",
+
 			items: [
 				// ORDERING NOTE:
 				// Annoyed family ordered by:
@@ -462,7 +494,7 @@ export const FeelingsUnmet = {
 					description: "mildly irritated",
 					type: "primary",
 					family: "anger",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "irked",
@@ -528,9 +560,9 @@ export const FeelingsUnmet = {
 				},
 			],
 		},
-
 		Angry: {
 			ui: { heading: "Angry", order: 50 },
+			regulationType: "activated",
 			items: [
 				// ORDERING NOTE:
 				// Angry family ordered by:
@@ -552,26 +584,46 @@ export const FeelingsUnmet = {
 					description: "strong displeasure or protest",
 					type: "primary",
 					family: "anger",
-					ui: { tier: "simple" },
-					unpack: {
+					ui: { tier: "simple", quickPick: true },
+					clarify: {
 						type: "murky",
-						title: "Unpack: angry",
-						intro: "Anger often carries a clear 'no' or a boundary signal.",
+						title: "Clarify: angry",
+
+						// Attune first — herd energy, without escalation.
+						attunement: [
+							"Ohhh. That surge makes sense. Something in you is really saying no.",
+							"Yeah… anger can come in strong when something doesn’t feel okay.",
+							"Of course something’s fired up. Anger usually means something matters.",
+						], // UI to randomly select one of these attunement statements to normalize the experience.
+
+						// Normalize protective function.
+						normalization:
+							"Anger often shows up to protect something important — a boundary, a value, or something tender underneath.",
+
 						prompts: [
-							{
-								type: "text",
-								question: "What felt not okay, or what line felt crossed?",
-							},
+							// Differentiate flavour — reduces global activation.
 							{
 								type: "singleChoice",
-								question: "Is this anger more like…",
+								question: "If you feel into it, what kind of anger does this feel like right now?",
 								options: [
 									"Hot and urgent",
 									"Firm and clear",
 									"Simmering / resentful",
 									"Protective / defensive",
+									"Not sure",
 								],
 							},
+
+							// Structured pivot to underlying layer.
+							{
+								type: "multiChoice",
+								question:
+									"If you slow it down just a little… can you see what the anger might be protecting here?",
+								options: ["hurt", "scared", "overwhelmed"],
+								selectsFeeling: true,
+							},
+
+							// Bridge toward needs.
 							{
 								type: "text",
 								question: "What are you protecting or standing up for here? (optional)",
@@ -637,9 +689,10 @@ export const FeelingsUnmet = {
 				},
 			],
 		},
-
 		Aversion: {
 			ui: { heading: "Aversion", order: 60 },
+			regulationType: "activated",
+
 			items: [
 				// ORDERING NOTE:
 				// Aversion family ordered by:
@@ -668,7 +721,7 @@ export const FeelingsUnmet = {
 					description: "strong reluctance or resistance",
 					type: "primary",
 					family: "anger",
-					ui: { tier: "more" },
+					ui: { tier: "more", quickPick: true },
 				},
 
 				// --- Visceral revulsion ---
@@ -728,9 +781,10 @@ export const FeelingsUnmet = {
 				},
 			],
 		},
-
 		Vulnerable: {
 			ui: { heading: "Vulnerable", order: 70 },
+			regulationType: "contracted",
+
 			items: [
 				// ORDERING NOTE:
 				// Vulnerable family ordered by:
@@ -753,7 +807,7 @@ export const FeelingsUnmet = {
 					description: "emotionally exposed",
 					type: "primary",
 					family: "fear",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "sensitive",
@@ -820,9 +874,10 @@ export const FeelingsUnmet = {
 				},
 			],
 		},
-
 		Embarrassed: {
 			ui: { heading: "Embarrassed", order: 80 },
+			regulationType: ["contracted", "cognitive"],
+
 			items: [
 				// ORDERING NOTE:
 				// Embarrassed family ordered by:
@@ -849,6 +904,7 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "self-conscious",
+					regulationType: ["contracted", "cognitive"],
 					description: "aware of how one appears to others",
 					type: "cognitive",
 					family: "shame",
@@ -861,7 +917,7 @@ export const FeelingsUnmet = {
 					description: "uncomfortable about how one is seen",
 					type: "primary",
 					family: "shame",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "chagrined",
@@ -874,19 +930,30 @@ export const FeelingsUnmet = {
 				// --- Moral/self-evaluative layer ---
 				{
 					item: "ashamed",
+					regulationType: ["contracted", "cognitive"],
 					description: "believing something is wrong with oneself",
 					type: "cognitive",
 					family: "shame",
 					interpretationHint: "Often connected to thoughts like: 'There’s something wrong with me.'",
 					ui: { tier: "simple" },
-					unpack: {
+					clarify: {
 						type: "murky",
-						title: "Unpack: ashamed",
-						intro: "Shame often includes a tender story about belonging or worth.",
+						title: "Clarify: ashamed",
+
+						attunement: [
+							"Oof… shame can feel really tender.",
+							"That one can land heavy. You don’t have to face it alone here.",
+							"Yeah… shame has a way of shrinking us. Let’s go gently.",
+						], // display ONE of these, randomly
+
+						normalization:
+							"Shame often carries a story about belonging, worth, or whether we’re still okay in the eyes of others — or ourselves. \
+							And feeling shame doesn't mean you're BAD or broken. It often means you care about something deeply, and that something feels at risk.",
+
 						prompts: [
 							{
 								type: "singleChoice",
-								question: "Which feels closer?",
+								question: "Which feels closer right now?",
 								options: [
 									"I did something wrong",
 									"There’s something wrong with me",
@@ -894,15 +961,22 @@ export const FeelingsUnmet = {
 									"Not sure",
 								],
 							},
+
 							{
 								type: "text",
 								question: "If there’s a harsh inner sentence attached, what is it saying? (optional)",
 								stem: "The story is…",
 							},
 							{
+								type: "multiChoice",
+								question: "Under the shame, is there also something else present?",
+								options: ["scared", "hurt", "sad", "lonely", "disappointed", "guilty"],
+								selectsFeeling: true,
+							},
+							{
 								type: "text",
 								question:
-									"If you were met with kindness right now, what would you want understood about you?",
+									"If you were met with real kindness right now, what would you want understood about you?",
 							},
 						],
 					},
@@ -910,28 +984,41 @@ export const FeelingsUnmet = {
 				{
 					item: "guilty",
 					description: "believing one has done something wrong",
+					regulationType: ["contracted", "cognitive"],
 					type: "cognitive",
 					family: "shame",
 					interpretationHint: "Often connected to thoughts like: 'I shouldn’t have done that.'",
-					ui: { tier: "simple" },
-					unpack: {
+					ui: { tier: "simple", quickPick: true },
+					clarify: {
 						type: "murky",
-						title: "Unpack: guilty",
-						intro: "Guilt often carries an inner 'should' and a value you care about.",
+						title: "Clarify: guilty",
+
+						attunement: [
+							"Ah… that tight, sinking feeling.",
+							"Guilt can feel really uncomfortable — like an inner ‘should’ pressing in.",
+							"Yeah… that sense of having missed something important.",
+						],
+
+						normalization:
+							"Guilt often carries a value you care about. Let’s gently look at what’s underneath.",
+
 						prompts: [
 							{
 								type: "text",
-								question: "What’s the 'should' in you? (optional)",
+								question: "What’s the ‘should’ voice saying? (optional)",
 								stem: "I should have…",
 							},
+
 							{
-								type: "singleChoice",
+								type: "multiChoice",
 								question: "Under the guilt, is there also…",
-								options: ["Regret", "Sadness", "Fear", "Shame", "Not sure"],
+								options: ["regret", "sad", "scared", "ashamed"],
+								selectsFeeling: true,
 							},
+
 							{
 								type: "text",
-								question: "What value were you wishing to honour?",
+								question: "What value were you wanting to honour?",
 							},
 						],
 					},
@@ -947,9 +1034,10 @@ export const FeelingsUnmet = {
 				},
 			],
 		},
-
 		Sad: {
 			ui: { heading: "Sad", order: 90 },
+			regulationType: "collapsed",
+
 			items: [
 				// ORDERING NOTE:
 				// Sad family ordered by:
@@ -971,7 +1059,7 @@ export const FeelingsUnmet = {
 					description: "feeling sorrow",
 					type: "primary",
 					family: "distress",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "unhappy",
@@ -998,6 +1086,8 @@ export const FeelingsUnmet = {
 				// --- Disappointment / loss of expectation ---
 				{
 					item: "disappointed",
+					regulationType: ["contracted", "cognitive"],
+
 					description: "sad that expectations weren’t met",
 					type: "cognitive",
 					family: "distress",
@@ -1040,8 +1130,10 @@ export const FeelingsUnmet = {
 					family: "distress",
 					ui: { tier: "more" },
 				},
+
 				{
-					item: "wretched",
+					item: "miserable",
+					regulationType: ["collapsed", "contracted"],
 					description: "deeply unhappy",
 					type: "primary",
 					family: "distress",
@@ -1056,6 +1148,7 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "despair",
+					regulationType: ["collapsed", "contracted"],
 					description: "complete loss of hope",
 					type: "cognitive",
 					family: "distress",
@@ -1063,6 +1156,7 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "hopeless",
+					regulationType: ["collapsed", "contracted"],
 					description: "believing nothing will improve",
 					type: "cognitive",
 					family: "distress",
@@ -1071,47 +1165,52 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "depressed",
+					regulationType: ["collapsed", "cognitive"],
 					description: "persistent low mood",
 					type: "cognitive",
 					family: "distress",
 					interpretationHint: "Often connected to thoughts like: 'I can’t feel anything will change.'",
 					ui: { tier: "simple" },
-					unpack: {
+					clarify: {
 						type: "murky",
-						title: "Unpack: depressed",
-						intro: "This word can sometimes hold a bundle of experiences. Unpacking it can make the next step clearer.",
+						title: "Clarify: depressed",
+
+						attunement: [
+							"Mm… that heavy, flat feeling can be really hard.",
+							"Yeah… when everything feels grey or slowed down, that’s a lot to carry.",
+							"That kind of low energy can make even small things feel big.",
+						],
+
+						normalization:
+							"‘Depressed’ can hold a few different experiences bundled together. Let’s gently see what’s actually present.",
+
 						prompts: [
 							{
 								type: "multiChoice",
 								question: "Which parts are present right now?",
-								options: [
-									"Numb",
-									"Hopeless",
-									"Drained",
-									"Lonely",
-									"Overwhelmed",
-									"Sad",
-									"Disconnected",
-									"Tired",
-								],
+								options: ["sad", "hopeless", "lonely", "overwhelmed", "tired", "numb", "disconnected"],
+								selectsFeeling: true,
 							},
+
 							{
 								type: "singleChoice",
-								question: "Is it more like…",
+								question: "Does it feel more like…",
 								options: ["Flat / shut down", "Heavy / grieving", "Agitated / overwhelmed", "Not sure"],
 							},
+
 							{
 								type: "text",
-								question: "If one small thing could shift 5%, what might that be? (optional)",
+								question: "If one small thing could shift this by 5%, what might help? (optional)",
 							},
 						],
 					},
 				},
 			],
 		},
-
 		Pain: {
 			ui: { heading: "Pain", order: 100 },
+			regulationType: "contracted",
+
 			items: [
 				// ORDERING NOTE:
 				// Pain family ordered by:
@@ -1133,15 +1232,19 @@ export const FeelingsUnmet = {
 				// --- Accessible hurt ---
 				{
 					item: "hurt",
+					regulationType: "contracted",
+
 					description: "emotionally wounded",
 					type: "primary",
 					family: "distress",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 
 				// --- Relational ache ---
 				{
 					item: "lonely",
+					regulationType: "contracted",
+
 					description: "feeling alone or isolated",
 					type: "primary",
 					family: "distress",
@@ -1181,6 +1284,7 @@ export const FeelingsUnmet = {
 				// --- Cognitive overlay (self-evaluative pain) ---
 				{
 					item: "regretful",
+					regulationType: ["contracted", "cognitive"],
 					description: "wishing something had been different",
 					type: "cognitive",
 					family: "distress",
@@ -1188,6 +1292,7 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "remorseful",
+					regulationType: ["contracted", "cognitive"],
 					description: "deep regret for causing harm",
 					type: "cognitive",
 					family: "distress",
@@ -1197,6 +1302,7 @@ export const FeelingsUnmet = {
 				// --- Intensity escalation ---
 				{
 					item: "devastated",
+					regulationType: ["collapsed", "contracted"],
 					description: "overwhelmed by grief",
 					type: "primary",
 					family: "distress",
@@ -1213,6 +1319,8 @@ export const FeelingsUnmet = {
 		},
 		Disconnected: {
 			ui: { heading: "Disconnected", order: 110 },
+			regulationType: "collapsed",
+
 			items: [
 				// ORDERING NOTE:
 				// Disconnected family ordered by:
@@ -1241,7 +1349,7 @@ export const FeelingsUnmet = {
 					description: "separated emotionally",
 					type: "primary",
 					family: "shutdown",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "aloof",
@@ -1316,6 +1424,8 @@ export const FeelingsUnmet = {
 		},
 		Fatigue: {
 			ui: { heading: "Fatigue", order: 120 },
+			regulationType: "collapsed",
+
 			items: [
 				// ORDERING NOTE:
 				// Fatigue family ordered by:
@@ -1337,7 +1447,7 @@ export const FeelingsUnmet = {
 					description: "needing rest",
 					type: "activation",
 					family: "tiredness",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "sleepy",
@@ -1412,6 +1522,8 @@ export const FeelingsUnmet = {
 		},
 		Confused: {
 			ui: { heading: "Confused", order: 130 },
+			regulationType: ["cognitive", "activated"],
+
 			items: [
 				// ORDERING NOTE:
 				// Confused family ordered by:
@@ -1465,7 +1577,7 @@ export const FeelingsUnmet = {
 					description: "unclear about what is happening",
 					type: "cognitive",
 					family: "confused",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "perplexed",
@@ -1516,6 +1628,8 @@ export const FeelingsUnmet = {
 		},
 		Yearning: {
 			ui: { heading: "Yearning", order: 140 },
+			regulationType: "contracted",
+
 			items: [
 				// ORDERING NOTE:
 				// Yearning family ordered by:
@@ -1537,7 +1651,7 @@ export const FeelingsUnmet = {
 					description: "deep desire for something",
 					type: "primary",
 					family: "distress",
-					ui: { tier: "simple" },
+					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "longing",
@@ -1550,6 +1664,7 @@ export const FeelingsUnmet = {
 				// --- Softer reflective longing ---
 				{
 					item: "wistful",
+					regulationType: ["contracted", "cognitive"],
 					description: "gentle sadness for something desired",
 					type: "primary",
 					family: "distress",
@@ -1566,6 +1681,7 @@ export const FeelingsUnmet = {
 				// --- Reflective comparison with the past ---
 				{
 					item: "nostalgic",
+					regulationType: ["settled", "cognitive"],
 					description: "longing for the past",
 					type: "cognitive",
 					family: "distress",
@@ -1575,6 +1691,7 @@ export const FeelingsUnmet = {
 				// --- Comparison overlays ---
 				{
 					item: "envious",
+					regulationType: ["activated", "cognitive"],
 					description: "wanting what someone else has",
 					type: "cognitive",
 					family: "distress",
@@ -1582,6 +1699,7 @@ export const FeelingsUnmet = {
 				},
 				{
 					item: "jealous",
+					regulationType: ["activated", "cognitive"],
 					description: "fear of losing something valued",
 					type: "cognitive",
 					family: "distress",
@@ -1589,7 +1707,195 @@ export const FeelingsUnmet = {
 				},
 			],
 		},
+
+		// I'm adding the "met feelings" here too, not differentiating them!!
+
+		Affectionate: {
+			ui: { heading: "Affectionate", order: 210 },
+			regulationType: "settled",
+			items: [
+				{ item: "affectionate", description: "warm fondness", ui: { tier: "simple" } },
+				{ item: "compassionate", description: "care for suffering", ui: { tier: "simple" } },
+				{ item: "friendly", description: "welcoming warmth", ui: { tier: "simple" } },
+				{ item: "loving", description: "full of care", ui: { tier: "simple" } },
+				{ item: "open hearted", description: "unguarded warmth", ui: { tier: "simple" } },
+
+				{ item: "sympathetic", description: "concern for another", ui: { tier: "more" } },
+				{ item: "tender", description: "gentle care", ui: { tier: "more" } },
+				{ item: "warm", description: "kind friendliness", ui: { tier: "more" } },
+			],
+		},
+
+		Engaged: {
+			ui: { heading: "Engaged", order: 220 },
+			regulationType: "settled",
+			items: [
+				{ item: "engaged", description: "actively involved", ui: { tier: "simple" } },
+				{ item: "absorbed", description: "fully immersed", ui: { tier: "simple" } },
+				{ item: "alert", description: "awake and attentive", ui: { tier: "simple" } },
+				{ item: "curious", description: "wanting to know more", ui: { tier: "simple" } },
+				{ item: "engrossed", description: "deeply interested", ui: { tier: "simple" } },
+
+				{ item: "enchanted", description: "charmed and delighted", ui: { tier: "more" } },
+				{ item: "entranced", description: "captivated", ui: { tier: "more" } },
+				{ item: "fascinated", description: "highly interested", ui: { tier: "more" } },
+				{ item: "interested", description: "attentive curiosity", ui: { tier: "more" } },
+				{ item: "intrigued", description: "drawn in", ui: { tier: "more" } },
+				{ item: "involved", description: "participating", ui: { tier: "more" } },
+				{ item: "spellbound", description: "captured attention", ui: { tier: "more" } },
+				{ item: "stimulated", description: "mentally energized", ui: { tier: "more" } },
+			],
+		},
+
+		Hopeful: {
+			ui: { heading: "Hopeful", order: 230 },
+			regulationType: "settled",
+			items: [
+				{ item: "hopeful", description: "expecting good outcomes", ui: { tier: "simple" } },
+				{ item: "expectant", description: "anticipating something good", ui: { tier: "simple" } },
+				{ item: "encouraged", description: "more confidence to continue", ui: { tier: "simple" } },
+				{ item: "optimistic", description: "seeing positive possibilities", ui: { tier: "simple" } },
+			],
+		},
+
+		Confident: {
+			ui: { heading: "Confident", order: 240 },
+			regulationType: "settled",
+			items: [
+				{ item: "confident", description: "sure of yourself", ui: { tier: "simple" } },
+				{ item: "empowered", description: "able to influence", ui: { tier: "simple" } },
+				{ item: "open", description: "receptive and unguarded", ui: { tier: "simple" } },
+				{ item: "proud", description: "pleased with yourself", ui: { tier: "simple" } },
+				{ item: "safe", description: "protected", ui: { tier: "simple" } },
+
+				{ item: "secure", description: "steady and protected", ui: { tier: "more" } },
+			],
+		},
+
+		Excited: {
+			ui: { heading: "Excited", order: 250 },
+			regulationType: "settled",
+			items: [
+				{ item: "excited", description: "eager and energized", ui: { tier: "simple" } },
+				{ item: "amazed", description: "filled with wonder", ui: { tier: "simple" } },
+				{ item: "animated", description: "lively", ui: { tier: "simple" } },
+				{ item: "ardent", description: "intensely enthusiastic", ui: { tier: "simple" } },
+				{ item: "aroused", description: "stirred and activated", ui: { tier: "simple" } },
+
+				{ item: "astonished", description: "very surprised", ui: { tier: "more" } },
+				{ item: "dazzled", description: "impressed and delighted", ui: { tier: "more" } },
+				{ item: "eager", description: "keen to begin", ui: { tier: "more" } },
+				{ item: "energetic", description: "full of energy", ui: { tier: "more" } },
+				{ item: "enthusiastic", description: "eager and positive", ui: { tier: "more" } },
+				{ item: "giddy", description: "light excitedness", ui: { tier: "more" } },
+				{ item: "invigorated", description: "renewed energy", ui: { tier: "more" } },
+				{ item: "lively", description: "full of life", ui: { tier: "more" } },
+				{ item: "passionate", description: "strong enthusiasm", ui: { tier: "more" } },
+				{ item: "surprised", description: "caught off guard", ui: { tier: "more" } },
+				{ item: "vibrant", description: "full of vitality", ui: { tier: "more" } },
+			],
+		},
+
+		Grateful: {
+			ui: { heading: "Grateful", order: 260 },
+			regulationType: "settled",
+			items: [
+				{
+					item: "grateful",
+					description: "appreciating what’s received",
+					ui: { tier: "simple" },
+				},
+				{ item: "appreciative", description: "noticing value", ui: { tier: "simple" } },
+				{ item: "moved", description: "emotionally touched", ui: { tier: "simple" } },
+				{ item: "thankful", description: "feeling thanks", ui: { tier: "simple" } },
+				{ item: "touched", description: "warmly affected", ui: { tier: "simple" } },
+			],
+		},
+
+		Inspired: {
+			ui: { heading: "Inspired", order: 270 },
+			regulationType: "settled",
+			items: [
+				{ item: "inspired", description: "uplifted into possibility", ui: { tier: "simple" } },
+				{ item: "amazed", description: "filled with wonder", ui: { tier: "simple" } },
+				{ item: "awed", description: "reverent wonder", ui: { tier: "simple" } },
+				{ item: "wonder", description: "sense of awe", ui: { tier: "simple" } },
+			],
+		},
+
+		Joyful: {
+			ui: { heading: "Joyful", order: 280 },
+			regulationType: "settled",
+			items: [
+				{ item: "joyful", description: "feeling joy", ui: { tier: "simple" } },
+				{ item: "amused", description: "finding it funny", ui: { tier: "simple" } },
+				{ item: "delighted", description: "very pleased", ui: { tier: "simple" } },
+				{ item: "glad", description: "pleased or relieved", ui: { tier: "simple" } },
+				{ item: "happy", description: "content pleasure", ui: { tier: "simple" } },
+
+				{ item: "jubilant", description: "celebratory joy", ui: { tier: "more" } },
+				{ item: "pleased", description: "satisfied pleasure", ui: { tier: "more" } },
+				{ item: "tickled", description: "lightly amused", ui: { tier: "more" } },
+			],
+		},
+
+		Exhilarated: {
+			ui: { heading: "Exhilarated", order: 290 },
+			regulationType: "settled",
+			items: [
+				{ item: "exhilarated", description: "energized joy", ui: { tier: "simple" } },
+				{ item: "blissful", description: "deep contentment", ui: { tier: "simple" } },
+				{ item: "ecstatic", description: "extreme happiness", ui: { tier: "simple" } },
+				{ item: "elated", description: "highly happy", ui: { tier: "simple" } },
+				{ item: "enthralled", description: "captivated with joy", ui: { tier: "simple" } },
+
+				{ item: "exuberant", description: "high-spirited energy", ui: { tier: "more" } },
+				{ item: "radiant", description: "glowing happiness", ui: { tier: "more" } },
+				{ item: "rapturous", description: "intense joy", ui: { tier: "more" } },
+				{ item: "thrilled", description: "excited and pleased", ui: { tier: "more" } },
+			],
+		},
+
+		Refreshed: {
+			ui: { heading: "Refreshed", order: 2100 },
+			regulationType: "settled",
+			items: [
+				{ item: "refreshed", description: "rested and renewed", ui: { tier: "simple" } },
+				{ item: "enlivened", description: "more alive", ui: { tier: "simple" } },
+				{ item: "rejuvenated", description: "renewed vitality", ui: { tier: "simple" } },
+				{ item: "renewed", description: "fresh start feeling", ui: { tier: "simple" } },
+				{ item: "rested", description: "adequately rested", ui: { tier: "simple" } },
+
+				{ item: "restored", description: "strength returned", ui: { tier: "more" } },
+				{ item: "revived", description: "brought back to life", ui: { tier: "more" } },
+			],
+		},
+
+		Peaceful: {
+			ui: { heading: "Peaceful", order: 2110 },
+			regulationType: "settled",
+			items: [
+				{ item: "peaceful", description: "calm and undisturbed", ui: { tier: "simple" } },
+				{ item: "calm", description: "not agitated", ui: { tier: "simple" } },
+				{ item: "clear headed", description: "mentally clear", ui: { tier: "simple" } },
+				{ item: "comfortable", description: "at ease", ui: { tier: "simple" } },
+				{ item: "centered", description: "grounded balance", ui: { tier: "simple" } },
+
+				{ item: "content", description: "satisfied with what is", ui: { tier: "more" } },
+				{ item: "equanimous", description: "steady under stress", ui: { tier: "more" } },
+				{ item: "fulfilled", description: "deeply satisfied", ui: { tier: "more" } },
+				{ item: "mellow", description: "easygoing calm", ui: { tier: "more" } },
+				{ item: "quiet", description: "inner quiet", ui: { tier: "more" } },
+				{ item: "relaxed", description: "tension released", ui: { tier: "more" } },
+				{ item: "relieved", description: "pressure lifted", ui: { tier: "more" } },
+				{ item: "satisfied", description: "content with outcome", ui: { tier: "more" } },
+				{ item: "serene", description: "deep calm", ui: { tier: "more" } },
+				{ item: "still", description: "quiet and settled", ui: { tier: "more" } },
+				{ item: "tranquil", description: "peaceful calm", ui: { tier: "more" } },
+				{ item: "trusting", description: "able to rely safely", ui: { tier: "more" } },
+			],
+		},
 	},
 };
 
-export default FeelingsUnmet;
+export default Feelings;

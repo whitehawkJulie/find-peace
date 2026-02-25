@@ -27,8 +27,11 @@ export default function SavedEntries() {
 						hour: "2-digit",
 						minute: "2-digit",
 					});
-					const preview = entry.observation
-						? entry.observation.slice(0, 80) + (entry.observation.length > 80 ? "..." : "")
+					const obsText = typeof entry.observation === "string"
+						? entry.observation
+						: (entry.observation?.moment || entry.observation?.actions || "");
+					const preview = obsText
+						? obsText.slice(0, 80) + (obsText.length > 80 ? "..." : "")
 						: "No observation recorded";
 					const feelingCount = entry.feelings ? Object.keys(entry.feelings).length : 0;
 					const unmetCount = entry.needs ? filterByState(entry.needs, "clicked").length : 0;

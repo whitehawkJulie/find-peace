@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Pill from "./Pill";
-import "./UnpackPopup.css";
+import "./ClarifyPopup.css";
 
-const UnpackPopup = ({
+const ClarifyPopup = ({
 	itemData,
 	feelings,
 	needs,
@@ -14,6 +14,13 @@ const UnpackPopup = ({
 	const [showKeepPrompt, setShowKeepPrompt] = useState(false);
 	const [responses, setResponses] = useState({});
 
+	// Pick a random attunement statement once per item (stable across re-renders)
+	const attunement = useMemo(() => {
+		if (!itemData?.clarify?.attunement?.length) return null;
+		const arr = itemData.clarify.attunement;
+		return arr[Math.floor(Math.random() * arr.length)];
+	}, [itemData?.item]);
+
 	// Reset internal state when the popup opens for a different item
 	useEffect(() => {
 		setShowKeepPrompt(false);
@@ -23,7 +30,7 @@ const UnpackPopup = ({
 	if (!itemData) return null;
 
 	const isStoryWord = itemData.type === "storyWord";
-	const isMurky = itemData.unpack?.type === "murky";
+	const isMurky = itemData.clarify?.type === "murky";
 
 	const setResponse = (key, value) => {
 		setResponses((prev) => ({ ...prev, [key]: value }));
@@ -40,22 +47,22 @@ const UnpackPopup = ({
 	};
 
 	return (
-		<div className="unpack-popup-backdrop" onClick={onClose}>
-			<div className="unpack-popup" onClick={(e) => e.stopPropagation()}>
+		<div className="clarify-popup-backdrop" onClick={onClose}>
+			<div className="clarify-popup" onClick={(e) => e.stopPropagation()}>
 				{/* ===== Story Word Mode ===== */}
 				{isStoryWord && (
 					<>
-						<div className="unpack-popup-header">
+						<div className="clarify-popup-header">
 							<h3>{itemData.item}</h3>
 						</div>
 
 						{itemData.storyHint && (
-							<p className="unpack-reframe">{itemData.storyHint}.</p>
+							<p className="clarify-reframe">{itemData.storyHint}.</p>
 						)}
 
 						{itemData.empathyGuesses?.length > 0 && (
-							<div className="unpack-empathy-guesses">
-								<p className="unpack-label">You might be telling yourself:</p>
+							<div className="clarify-empathy-guesses">
+								<p className="clarify-label">You might be telling yourself:</p>
 								<ul>
 									{itemData.empathyGuesses.map((guess, i) => (
 										<li key={i}>{guess}</li>
@@ -65,8 +72,8 @@ const UnpackPopup = ({
 						)}
 
 						{itemData.suggestedFeelings?.length > 0 && (
-							<div className="unpack-suggestions">
-								<p className="unpack-label">What you might actually be feeling:</p>
+							<div className="clarify-suggestions">
+								<p className="clarify-label">What you might actually be feeling:</p>
 								<div className="pill-grid cloud">
 									{itemData.suggestedFeelings.map((f) => (
 										<Pill
@@ -82,8 +89,8 @@ const UnpackPopup = ({
 						)}
 
 						{itemData.suggestedNeeds?.length > 0 && (
-							<div className="unpack-suggestions">
-								<p className="unpack-label">Needs that might be underneath:</p>
+							<div className="clarify-suggestions">
+								<p className="clarify-label">Needs that might be underneath:</p>
 								<div className="pill-grid cloud">
 									{itemData.suggestedNeeds.map((n) => (
 										<Pill
@@ -99,20 +106,20 @@ const UnpackPopup = ({
 						)}
 
 						{!showKeepPrompt ? (
-							<button className="unpack-ok" onClick={() => setShowKeepPrompt(true)}>
+							<button className="clarify-ok" onClick={() => setShowKeepPrompt(true)}>
 								OK
 							</button>
 						) : (
-							<div className="unpack-keep-prompt">
+							<div className="clarify-keep-prompt">
 								<p>Do you still want to keep "{itemData.item}"?</p>
-								<div className="unpack-keep-buttons">
+								<div className="clarify-keep-buttons">
 									<button
-										className="unpack-keep-btn"
+										className="clarify-keep-btn"
 										onClick={() => onKeepWord(itemData.item, true)}>
 										Yes, keep it
 									</button>
 									<button
-										className="unpack-keep-btn unpack-keep-btn-secondary"
+										className="clarify-keep-btn clarify-keep-btn-secondary"
 										onClick={() => onKeepWord(itemData.item, false)}>
 										No, remove it
 									</button>
@@ -125,35 +132,57 @@ const UnpackPopup = ({
 				{/* ===== Murky Feeling Mode ===== */}
 				{isMurky && (
 					<>
-						<div className="unpack-popup-header">
-							<h3>{itemData.unpack.title}</h3>
+						<div className="clarify-popup-header">
+							<h3>{itemData.clarify.title}</h3>
 						</div>
 
-						<p className="unpack-intro">{itemData.unpack.intro}</p>
+						{attunement && (
+							<p className="clarify-attunement">{attunement}</p>
+						)}
 
-						{itemData.unpack.prompts.map((prompt, i) => (
-							<div key={i} className="unpack-prompt">
-								<p className="unpack-prompt-question">{prompt.question}</p>
+						{itemData.clarify.normalization && (
+							<p className="clarify-normalization">{itemData.clarify.normalization}</p>
+						)}
+
+						{itemData.clarify.prompts.map((prompt, i) => (
+							<div key={i} className="clarify-prompt">
+								<p className="clarify-prompt-question">{prompt.question}</p>
 
 								{prompt.stem && (
-									<span className="unpack-stem">{prompt.stem}</span>
+									<span className="clarify-stem">{prompt.stem}</span>
 								)}
 
 								{prompt.type === "text" && (
 									<textarea
-										className="unpack-textarea"
+										className="clarify-textarea"
 										value={responses[i] || ""}
 										onChange={(e) => setResponse(i, e.target.value)}
 										rows={3}
 									/>
 								)}
 
-								{prompt.type === "singleChoice" && (
-									<div className="unpack-choices">
+								{/* Feeling-selecting prompts: render as Pills that carry over */}
+								{prompt.selectsFeeling && (prompt.type === "multiChoice" || prompt.type === "singleChoice") && (
+									<div className="pill-grid cloud">
+										{prompt.options.map((opt) => (
+											<Pill
+												key={opt}
+												item={opt}
+												type="feeling"
+												state={feelings[opt] === "clicked" || feelings[opt] === "double-clicked" ? "clicked" : ""}
+												onClick={() => onToggleFeeling(opt)}
+											/>
+										))}
+									</div>
+								)}
+
+								{/* Regular singleChoice (not feeling-selecting) */}
+								{prompt.type === "singleChoice" && !prompt.selectsFeeling && (
+									<div className="clarify-choices">
 										{prompt.options.map((opt) => (
 											<button
 												key={opt}
-												className={`unpack-choice ${responses[i] === opt ? "chosen" : ""}`}
+												className={`clarify-choice ${responses[i] === opt ? "chosen" : ""}`}
 												onClick={() => setResponse(i, opt)}>
 												{opt}
 											</button>
@@ -161,12 +190,13 @@ const UnpackPopup = ({
 									</div>
 								)}
 
-								{prompt.type === "multiChoice" && (
-									<div className="unpack-choices">
+								{/* Regular multiChoice (not feeling-selecting) */}
+								{prompt.type === "multiChoice" && !prompt.selectsFeeling && (
+									<div className="clarify-choices">
 										{prompt.options.map((opt) => (
 											<button
 												key={opt}
-												className={`unpack-choice ${(responses[i] || []).includes(opt) ? "chosen" : ""}`}
+												className={`clarify-choice ${(responses[i] || []).includes(opt) ? "chosen" : ""}`}
 												onClick={() => toggleMultiChoice(i, opt)}>
 												{opt}
 											</button>
@@ -176,7 +206,7 @@ const UnpackPopup = ({
 							</div>
 						))}
 
-						<button className="unpack-ok" onClick={onClose}>
+						<button className="clarify-ok" onClick={onClose}>
 							Done
 						</button>
 					</>
@@ -186,4 +216,4 @@ const UnpackPopup = ({
 	);
 };
 
-export default UnpackPopup;
+export default ClarifyPopup;

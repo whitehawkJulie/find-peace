@@ -22,7 +22,7 @@ const FauxFeelingsTable = () => (
 		</p>
 		<p>
 			They're thoughts about what other people are doing to us, and usually leave us feeling powerless and afraid.
-			It helps to really unpack what we're feeling beneath those stories we're telling ourselves. I'm not saying
+			It helps to really clarify what we're feeling beneath those stories we're telling ourselves. I'm not saying
 			the stories aren't true - just that we can be more resourced and resilient by focusing on the feeling (which
 			we might be able to do something about) rather than the actions of others (which we have zero control over).
 		</p>

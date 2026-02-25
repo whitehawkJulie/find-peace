@@ -1,136 +1,132 @@
-import React, { useState } from "react";
+import React from "react";
 import { useWizard } from "./WizardContext";
-import SlideDrawer from "./SlideDrawer";
+import "./Observation.css";
 
 const Observation = () => {
-	const { jackalTalk, setJackalTalk, observation, setObservation } = useWizard();
-	const [showDrawer, setShowDrawer] = useState(false);
+	const { observation, setObservation } = useWizard();
+
+	const update = (field, value) => setObservation((prev) => ({ ...prev, [field]: value }));
 
 	return (
 		<div className="step-observation">
-			<p>
-				Ok, so you're ready to explore. Can you identify what this is about? Try to picture a
-				specific scene — not the whole relationship or the big pattern, just{" "}
-				<strong>one moment</strong>.
-			</p>
-			<p>
-				Let's start by getting things off your chest. Say it how it is, in all your glorious
-				jackal-ness:
-			</p>
+			<p>The whole story may be big and complicated.</p>
+			<p>Right now, we're just choosing one moment — like pausing a video on a single frame.</p>
 
-			<label htmlFor="jackalTalk">
-				<strong>Jackal talk (vent it out):</strong>
+			<label htmlFor="obs-moment">
+				Which specific moment are we looking at? Not the whole pattern — just one instance.
 			</label>
 			<textarea
-				id="jackalTalk"
-				value={jackalTalk}
-				onChange={(e) => setJackalTalk(e.target.value)}
-				placeholder="They ALWAYS do this! I’m so over it..."
-				rows={5}
+				id="obs-moment"
+				value={observation.moment}
+				onChange={(e) => update("moment", e.target.value)}
+				rows={3}
 			/>
 
-			<p>
-				Now, take a breath... and try to describe the <strong>observable facts</strong> — what actually
-				happened, like a camera would see it. This is your “clean” observation.{" "}
-				<button
-					className="subtle-button"
-					onClick={() => setShowDrawer(true)}
-					title="Click for tips on how to make a clean observation">
-					How do I do that?
-				</button>
-			</p>
+			<label htmlFor="obs-actions">What did you or the other person say or do in that moment?</label>
+			<textarea
+				id="obs-actions"
+				value={observation.actions}
+				onChange={(e) => update("actions", e.target.value)}
+				rows={3}
+			/>
 
-			<label htmlFor="observation">
-				<strong>Clean observation:</strong>
+			<label htmlFor="obs-camera" className="observation-camera-label">
+				Imagine someone else had been in the room — what would they have seen or heard?
 			</label>
 			<textarea
-				id="observation"
-				value={observation}
-				onChange={(e) => setObservation(e.target.value)}
-				placeholder="e.g. They walked out while I was speaking"
-				rows={4}
+				id="obs-camera"
+				value={observation.camera}
+				onChange={(e) => update("camera", e.target.value)}
+				rows={3}
 			/>
-
-			<SlideDrawer
-				isOpen={showDrawer}
-				onClose={() => setShowDrawer(false)}
-				title="How to make a clean observation">
-				<p>
-					A clean observation is something you could record on video — it’s what happened, without any
-					judgments, interpretations, or assumptions.
-				</p>
-				<p>
-					Instead of “They disrespected me” (a judgment), try “They left the room while I was still talking.”
-				</p>
-				<p>
-					This helps reduce defensiveness, build clarity, and focus on the facts of what’s actually going on.
-				</p>
-				{/* You can edit/add content here later */}
-			</SlideDrawer>
 		</div>
 	);
 };
 
-Observation.title = "Observation";
+Observation.title = "Let\u2019s slow this down";
 Observation.helpContent = (
 	<>
+		<h4>How to Choose a Clear Observation</h4>
+		<p>When something hurts or frustrates us, our minds naturally zoom out.</p>
+		<p>We think in patterns:</p>
+		<ul>
+			<li>"You always…"</li>
+			<li>"This is what you're like."</li>
+			<li>"It's the whole relationship."</li>
+		</ul>
+		<p>That makes sense. It's how we try to protect ourselves.</p>
+		<p>But when everything is bundled together, it becomes hard to work with.</p>
 		<p>
-			First, give yourself a chance to vent — just let it out, raw and unfiltered. Then see if
-			you can name the actual observable event without judgments or interpretations.
+			<strong>Clarity grows from specifics.</strong>
 		</p>
-
-		<h4>The camera test</h4>
 		<p>
-			Imagine a video camera was recording the moment. What would it capture? Stick to what you
-			could literally see or hear — no mind-reading, no interpretations.
+			Instead of the whole arc, we're choosing one concrete moment — something that happened at a particular time.
 		</p>
-
-		<h4>Common traps to watch for</h4>
+		<p>
+			<strong>Why this helps:</strong>
+		</p>
+		<ul>
+			<li>It reduces overwhelm.</li>
+			<li>It lowers defensiveness.</li>
+			<li>It helps you see what actually happened.</li>
+			<li>It makes your next steps clearer.</li>
+		</ul>
+		<p>
+			We're not denying the pattern.
+			<br />
+			We're starting with one frame of the video.
+		</p>
+		<h4>What makes an observation clear?</h4>
+		<p>A clear observation describes what someone could have seen or heard.</p>
+		<p>It avoids:</p>
 		<ul>
 			<li>
-				<strong>Avoid "always" and "never"</strong> — these are generalisations, not
-				observations. Instead of "You never listen," try "When I was telling you about my
-				day, you picked up your phone."
+				<strong>Time collapse</strong> – "always / never"
 			</li>
 			<li>
-				<strong>Drop labels and diagnoses</strong> — "You were rude" is a judgment. "You
-				said 'whatever' and walked out" is an observation.
+				<strong>Evaluation</strong> – "disrespectful / selfish"
 			</li>
 			<li>
-				<strong>Watch for "that" as a clue</strong> — "I noticed <em>that</em> you don't
-				care" sneaks in an interpretation. What did you actually see or hear?
+				<strong>Motive guesses</strong> – "to control me"
 			</li>
 			<li>
-				<strong>Be specific about time and place</strong> — "Last Tuesday at dinner" is
-				much more grounded than "lately" or "all the time."
+				<strong>Identity labels</strong> – "toxic / immature"
 			</li>
 			<li>
-				<strong>Separate observation from evaluation</strong> — "She's lazy" is an
-				evaluation. "She didn't take out the bins on Thursday" is an observation.
+				<strong>Historical stacking</strong> – blending many past events into one
 			</li>
 		</ul>
-
-		<h4>Why this matters</h4>
 		<p>
-			When we mix observation with evaluation, the other person is likely to hear criticism and
-			resist. A clean observation creates a shared reality that both people can agree on —
-			that's the foundation for everything that follows.
+			Those interpretations may or may not be true.
+			<br />
+			For this step, we're just separating what happened from what it meant.
 		</p>
-
+		<p>You can come back to meaning later.</p>
 		<h4>Examples</h4>
-		<ul>
-			<li>
-				Instead of "You ignored me" → "When I said hello, you didn't respond."
-			</li>
-			<li>
-				Instead of "You're always late" → "The last three times we met, you arrived 20
-				minutes after the agreed time."
-			</li>
-			<li>
-				Instead of "You don't care about my work" → "When I told you about my promotion,
-				you said 'that's nice' and changed the subject."
-			</li>
-		</ul>
+		<p>Instead of:</p>
+		<p>
+			<em>"You were disrespectful."</em>
+		</p>
+		<p>Try:</p>
+		<p>
+			<em>"When I was speaking, you interrupted me and raised your voice."</em>
+		</p>
+		<p>Instead of:</p>
+		<p>
+			<em>"You never listen."</em>
+		</p>
+		<p>Try:</p>
+		<p>
+			<em>"Yesterday at dinner, when I said I was tired, you kept talking about your day without responding."</em>
+		</p>
+		<p>Specific. Concrete. Observable.</p>
+		<h4>If you're thinking:</h4>
+		<p>
+			<em>"But the whole thing matters!"</em>
+		</p>
+		<p>You're right.</p>
+		<p>We're just choosing one doorway into it.</p>
+		<p>As a wise person once said, "Even if you choose a twig, it's always connected to the whole trunk anyway"</p>
 	</>
 );
 export default Observation;

@@ -300,40 +300,40 @@
 	margin: 0.4rem 0;
 }
 
-/* Unpack step styles */
-.unpack-step {
+/* Clarify step styles */
+.clarify-step {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
 }
 
-.unpack-intro {
+.clarify-intro {
 	background: #f5f0e8;
 	border-radius: 10px;
 	padding: 1rem 1.25rem;
 	border-left: 3px solid #b8976a;
 }
 
-.unpack-intro p {
+.clarify-intro p {
 	margin: 0;
 	font-size: 0.95rem;
 	line-height: 1.6;
 	color: #555;
 }
 
-.unpack-prompts {
+.clarify-prompts {
 	display: flex;
 	flex-direction: column;
 	gap: 1.25rem;
 }
 
-.unpack-prompt-item {
+.clarify-prompt-item {
 	display: flex;
 	flex-direction: column;
 	gap: 0.3rem;
 }
 
-.unpack-prompt-label {
+.clarify-prompt-label {
 	font-size: 0.8rem;
 	font-weight: 600;
 	color: #888;
@@ -341,7 +341,7 @@
 	letter-spacing: 0.03em;
 }
 
-.unpack-prompt-text {
+.clarify-prompt-text {
 	margin: 0;
 	font-size: 0.95rem;
 	line-height: 1.5;
@@ -349,7 +349,7 @@
 	font-style: italic;
 }
 
-.unpack-prompt-input {
+.clarify-prompt-input {
 	width: 100%;
 	padding: 0.6rem 0.75rem;
 	border: 1px solid #d4d0c8;
@@ -363,35 +363,35 @@
 	color: #333;
 }
 
-.unpack-prompt-input:focus {
+.clarify-prompt-input:focus {
 	outline: none;
 	border-color: #b8976a;
 	box-shadow: 0 0 0 2px rgba(184, 151, 106, 0.15);
 }
 
-.unpack-prompt-input::placeholder {
+.clarify-prompt-input::placeholder {
 	color: #bbb;
 }
 
-.unpack-deeper-button {
+.clarify-deeper-button {
 	align-self: center;
 	margin-top: 0.25rem;
 }
 
-.unpack-deeper-section {
+.clarify-deeper-section {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
 }
 
-.unpack-deeper-guidance {
+.clarify-deeper-guidance {
 	background: #f0ede6;
 	border-radius: 10px;
 	padding: 1rem 1.25rem;
 	border-left: 3px solid #a89070;
 }
 
-.unpack-deeper-guidance p {
+.clarify-deeper-guidance p {
 	margin: 0 0 0.4rem 0;
 	font-size: 0.9rem;
 	line-height: 1.6;
@@ -399,29 +399,29 @@
 	font-style: italic;
 }
 
-.unpack-deeper-guidance p:last-child {
+.clarify-deeper-guidance p:last-child {
 	margin-bottom: 0;
 }
 
-.unpack-deeper-prompts {
+.clarify-deeper-prompts {
 	border-top: 1px solid #e8e0d0;
 	padding-top: 1rem;
 }
 
-.unpack-prompt-deeper .unpack-prompt-label {
+.clarify-prompt-deeper .clarify-prompt-label {
 	color: #a08060;
 }
 
-.summary-item-unpack {
+.summary-item-clarify {
 	border-color: #b8976a;
 	background: #faf7f2;
 }
 
-.summary-item-unpack em {
+.summary-item-clarify em {
 	font-size: 0.85rem;
 	color: #888;
 }
 
-.summary-item-unpack p {
+.summary-item-clarify p {
 	margin: 0.4rem 0;
 }

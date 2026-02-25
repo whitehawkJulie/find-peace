@@ -24,7 +24,7 @@ export const getNeedMeaning = (needName) => {
 	return entry ? entry.meaning : null;
 };
 
-// Look up the full data object for a need (including unpack metadata)
+// Look up the full data object for a need (including clarify metadata)
 export const getNeedData = (needName) => {
 	const entry = needLookup[needName];
 	if (!entry) return null;

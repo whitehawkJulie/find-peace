@@ -1,11 +1,16 @@
+// to be deleted - now included in Feelings.js
+
 export const FeelingsMet = {
 	ui: {
 		heading: "Things we might feel when our needs are met",
 		helpText: "",
 	},
+	regulationType: "settled",
+
 	groups: {
 		Affectionate: {
 			ui: { heading: "Affectionate", order: 10 },
+			regulationType: "settled",
 			items: [
 				{ item: "affectionate", description: "warm fondness", ui: { tier: "simple", quickPick: true } },
 				{ item: "compassionate", description: "care for suffering", ui: { tier: "simple" } },
@@ -21,6 +26,7 @@ export const FeelingsMet = {
 
 		Engaged: {
 			ui: { heading: "Engaged", order: 20 },
+			regulationType: "settled",
 			items: [
 				{ item: "engaged", description: "actively involved", ui: { tier: "simple", quickPick: true } },
 				{ item: "absorbed", description: "fully immersed", ui: { tier: "simple" } },
@@ -41,6 +47,7 @@ export const FeelingsMet = {
 
 		Hopeful: {
 			ui: { heading: "Hopeful", order: 30 },
+			regulationType: "settled",
 			items: [
 				{ item: "hopeful", description: "expecting good outcomes", ui: { tier: "simple", quickPick: true } },
 				{ item: "expectant", description: "anticipating something good", ui: { tier: "simple" } },
@@ -51,6 +58,7 @@ export const FeelingsMet = {
 
 		Confident: {
 			ui: { heading: "Confident", order: 40 },
+			regulationType: "settled",
 			items: [
 				{ item: "confident", description: "sure of yourself", ui: { tier: "simple", quickPick: true } },
 				{ item: "empowered", description: "able to influence", ui: { tier: "simple" } },
@@ -64,6 +72,7 @@ export const FeelingsMet = {
 
 		Excited: {
 			ui: { heading: "Excited", order: 50 },
+			regulationType: "settled",
 			items: [
 				{ item: "excited", description: "eager and energized", ui: { tier: "simple", quickPick: true } },
 				{ item: "amazed", description: "filled with wonder", ui: { tier: "simple" } },
@@ -87,6 +96,7 @@ export const FeelingsMet = {
 
 		Grateful: {
 			ui: { heading: "Grateful", order: 60 },
+			regulationType: "settled",
 			items: [
 				{
 					item: "grateful",
@@ -102,6 +112,7 @@ export const FeelingsMet = {
 
 		Inspired: {
 			ui: { heading: "Inspired", order: 70 },
+			regulationType: "settled",
 			items: [
 				{ item: "inspired", description: "uplifted into possibility", ui: { tier: "simple", quickPick: true } },
 				{ item: "amazed", description: "filled with wonder", ui: { tier: "simple" } },
@@ -112,6 +123,7 @@ export const FeelingsMet = {
 
 		Joyful: {
 			ui: { heading: "Joyful", order: 80 },
+			regulationType: "settled",
 			items: [
 				{ item: "joyful", description: "feeling joy", ui: { tier: "simple", quickPick: true } },
 				{ item: "amused", description: "finding it funny", ui: { tier: "simple" } },
@@ -127,6 +139,7 @@ export const FeelingsMet = {
 
 		Exhilarated: {
 			ui: { heading: "Exhilarated", order: 90 },
+			regulationType: "settled",
 			items: [
 				{ item: "exhilarated", description: "energized joy", ui: { tier: "simple", quickPick: true } },
 				{ item: "blissful", description: "deep contentment", ui: { tier: "simple" } },
@@ -143,6 +156,7 @@ export const FeelingsMet = {
 
 		Refreshed: {
 			ui: { heading: "Refreshed", order: 100 },
+			regulationType: "settled",
 			items: [
 				{ item: "refreshed", description: "rested and renewed", ui: { tier: "simple", quickPick: true } },
 				{ item: "enlivened", description: "more alive", ui: { tier: "simple" } },
@@ -157,6 +171,7 @@ export const FeelingsMet = {
 
 		Peaceful: {
 			ui: { heading: "Peaceful", order: 110 },
+			regulationType: "settled",
 			items: [
 				{ item: "peaceful", description: "calm and undisturbed", ui: { tier: "simple", quickPick: true } },
 				{ item: "calm", description: "not agitated", ui: { tier: "simple" } },

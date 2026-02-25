@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Pill from "./Pill";
 import "./Checklist.css";
 
@@ -86,8 +86,47 @@ const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings", c
 			.sort(([, a], [, b]) => (a.ui?.order || 0) - (b.ui?.order || 0));
 	};
 
+	// Collect all group headings that have "more" tier items (for show-all toggle)
+	const allTierGroups = useMemo(() => {
+		const headings = [];
+		for (const section of data) {
+			if (!sectionUsesTiers(section.groups)) continue;
+			for (const group of Object.values(section.groups)) {
+				const heading = group.ui?.heading;
+				if (heading && groupHasMore(group.items)) {
+					headings.push(heading);
+				}
+			}
+		}
+		return headings;
+	}, [data]);
+
+	// Are all tiers expanded?
+	const allTiersExpanded =
+		allTierGroups.length > 0 && allTierGroups.every((h) => expandedTiers[h]);
+
+	const toggleShowAll = () => {
+		if (allTiersExpanded) {
+			// Collapse all tiers back to simple view
+			setExpandedTiers({});
+		} else {
+			// Expand all tiers to show every word
+			const expanded = {};
+			allTierGroups.forEach((h) => { expanded[h] = true; });
+			setExpandedTiers(expanded);
+		}
+	};
+
 	return (
 		<div className="checklist">
+			{allTierGroups.length > 0 && (
+				<div className="checklist-show-all">
+					<button className="show-all-btn" onClick={toggleShowAll}>
+						{allTiersExpanded ? "Show fewer words" : "Show all words"}
+					</button>
+				</div>
+			)}
+
 			{data.map((section, index) => {
 				const sectionHeading = section.ui.heading;
 				const groups = section.groups;

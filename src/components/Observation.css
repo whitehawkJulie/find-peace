@@ -1,0 +1,20 @@
+.step-observation {
+	display: flex;
+	flex-direction: column;
+}
+
+.step-observation label {
+	margin-top: 1.25rem;
+	font-style: italic;
+	color: #444;
+	line-height: 1.5;
+}
+
+.step-observation .observation-camera-label {
+	font-size: 0.9rem;
+	color: #666;
+}
+
+.step-observation textarea {
+	margin-top: 0.5rem;
+}

@@ -3,7 +3,7 @@ import SlideDrawer from "./SlideDrawer";
 import MenuBar from "./MenuBar";
 import "./Card.css";
 
-const Card = ({ title, children, showHelp = false, helpContent = null }) => {
+const Card = ({ title, children, showHelp = false, helpContent = null, hideNav = false }) => {
 	const [showDrawer, setShowDrawer] = useState(false);
 
 	return (
@@ -29,7 +29,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null }) => {
 				{helpContent}
 			</SlideDrawer>
 
-			<MenuBar />
+			{!hideNav && <MenuBar />}
 		</div>
 	);
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { useWizard } from "./WizardContext";
 import Checklist from "./Checklist";
-import { Feelings as FeelingsData } from "../data/AllFeelingsData";
+import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
 import { Needs as NeedsData } from "../data/AllNeedsData";
 import "./MakingGuesses.css";
 
@@ -39,7 +39,7 @@ const MakingGuesses = () => {
 					with each other.
 				</p>
 				<Checklist
-					data={[FeelingsData.sections.unmet, FeelingsData.sections.met]}
+					data={[FeelingsData.sections.feelings]}
 					selectedItems={guessFeelings}
 					setSelectedItems={setGuessFeelings}
 					type="feeling"

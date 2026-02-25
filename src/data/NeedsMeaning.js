@@ -12,61 +12,49 @@ export const NeedsMeaning = {
 				{
 					item: "Authenticity",
 					meaning: "Being true to myself",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"Is there something you're holding back or pretending about? What would it look like to be more yourself here?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_02",
-							core_discrimination: "DISC_REL_02",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is there something you're holding back or pretending about? What would it look like to be more yourself here?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_02", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_02", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Competence",
 					meaning: "Feeling capable and skilled",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"Is this about wanting to feel capable, wanting others to see you as capable, or both?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_01",
-							core_discrimination: "DISC_REL_03",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about wanting to feel capable, wanting others to see you as capable, or both?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_03", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Creativity",
 					meaning: "Expressing imagination and originality",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"What kind of creative expression is calling you — making something, solving a problem in a new way, or just having the space to imagine?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_03",
-							core_discrimination: "DISC_CONC_02",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What kind of creative expression is calling you — making something, solving a problem in a new way, or just having the space to imagine?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_03", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_02", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 				{
@@ -91,65 +79,51 @@ export const NeedsMeaning = {
 							},
 						],
 					},
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"Has something happened that felt undignified? What would restore your sense of worth here?",
-							deeper_specific_optional:
-								"Is this about how others treat you, or about how you're treating yourself?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_04",
-							core_discrimination: "DISC_LOAD_01",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Has something happened that felt undignified? What would restore your sense of worth here?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_04", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_01", tier: "core" },
+							{ key: "deeper_specific", label: "A little further", question: "Is this about how others treat you, or about how you're treating yourself?", tier: "deeper" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Growth",
 					meaning: "Development and evolution",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"What kind of growth are you wanting — learning something new, becoming more yourself, or moving past something that's been holding you back?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_01",
-							core_discrimination: "DISC_REL_02",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What kind of growth are you wanting — learning something new, becoming more yourself, or moving past something that's been holding you back?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_02", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Healing",
 					meaning: "Moving toward wholeness",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"What are you wanting to heal from — something recent, something old, or something you can't quite name yet?",
-							deeper_specific_optional:
-								"What would a small step toward healing look like, even if the whole journey feels long?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_02",
-							core_discrimination: "DISC_LOAD_01",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What are you wanting to heal from — something recent, something old, or something you can't quite name yet?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_02", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_01", tier: "core" },
+							{ key: "deeper_specific", label: "A little further", question: "What would a small step toward healing look like, even if the whole journey feels long?", tier: "deeper" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
@@ -167,161 +141,129 @@ export const NeedsMeaning = {
 							setsMetaType: "relationalField",
 						},
 					],
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"Is this about wanting someone to be honest with you, or about wanting to be more honest yourself?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_03",
-							core_discrimination: "DISC_REL_02",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about wanting someone to be honest with you, or about wanting to be more honest yourself?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_03", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_02", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Integrity",
 					meaning: "Living in alignment with values",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"Is there something you've done that doesn't sit right with you, or is it about someone else acting out of alignment with what you expected?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_04",
-							core_discrimination: "DISC_LOAD_01",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is there something you've done that doesn't sit right with you, or is it about someone else acting out of alignment with what you expected?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_04", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Self-acceptance",
 					meaning: "Welcoming all parts of myself",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"What part of yourself are you struggling to accept right now? Is it something you did, something you feel, or something about who you are?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_02",
-							core_discrimination: "DISC_REL_02",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What part of yourself are you struggling to accept right now? Is it something you did, something you feel, or something about who you are?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_02", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_02", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Self-care",
 					meaning: "Tending to my own needs",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"What kind of self-care feels most needed — rest, nourishment, time alone, or giving yourself permission to slow down?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_04",
-							core_discrimination: "DISC_CONC_02",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What kind of self-care feels most needed — rest, nourishment, time alone, or giving yourself permission to slow down?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_04", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_02", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Self-connection",
 					meaning: "Awareness of inner experience",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"Have you been disconnected from yourself lately — going through the motions, ignoring signals, or not knowing what you feel?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_03",
-							core_discrimination: "DISC_REL_01",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Have you been disconnected from yourself lately — going through the motions, ignoring signals, or not knowing what you feel?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_03", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Self-knowledge",
 					meaning: "Understanding myself",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"Is there something about yourself you're trying to understand — a pattern, a reaction, or something you keep doing that puzzles you?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_01",
-							core_discrimination: "DISC_REL_02",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is there something about yourself you're trying to understand — a pattern, a reaction, or something you keep doing that puzzles you?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_02", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Self-realization",
 					meaning: "Becoming who I am meant to be",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"Is there something you feel you're meant to do or become that you haven't been able to move toward?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_04",
-							core_discrimination: "DISC_REL_02",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is there something you feel you're meant to do or become that you haven't been able to move toward?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_04", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_02", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Mattering to myself",
 					meaning: "Recognizing my own value",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"Have you been putting yourself last? What would it look like to treat your own needs as worthy of attention?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_02",
-							core_discrimination: "DISC_REL_01",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Have you been putting yourself last? What would it look like to treat your own needs as worthy of attention?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_02", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 			],
@@ -332,143 +274,114 @@ export const NeedsMeaning = {
 				{
 					item: "Understanding",
 					meaning: "Grasp what something means",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"What are you trying to understand — why something happened, how someone feels, or what's going on inside you?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_01",
-							core_discrimination: "DISC_REL_02",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What are you trying to understand — why something happened, how someone feels, or what's going on inside you?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_02", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Awareness",
 					meaning: "Conscious presence",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"Is this about wanting to be more present, or about wanting someone else to be more aware of what's happening?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_03",
-							core_discrimination: "DISC_REL_02",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about wanting to be more present, or about wanting someone else to be more aware of what's happening?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_03", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_02", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Clarity",
 					meaning: "Clear thinking and perception",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"What feels unclear right now — the situation, someone's intentions, or your own feelings about it?",
-							deeper_specific_optional:
-								"What would 'clear enough' look like, even if you don't have all the answers?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_04",
-							core_discrimination: "DISC_LOAD_02",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What feels unclear right now — the situation, someone's intentions, or your own feelings about it?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_04", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_02", tier: "core" },
+							{ key: "deeper_specific", label: "A little further", question: "What would 'clear enough' look like, even if you don't have all the answers?", tier: "deeper" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Discovery",
 					meaning: "Finding or uncovering something new",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"Is this about wanting to learn something new, or about uncovering something that's already there but hidden?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_01",
-							core_discrimination: "DISC_CONC_01",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about wanting to learn something new, or about uncovering something that's already there but hidden?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Learning",
 					meaning: "Gaining knowledge or insight",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"What are you wanting to learn — a skill, an understanding of someone, or something about yourself?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_02",
-							core_discrimination: "DISC_CONC_02",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What are you wanting to learn — a skill, an understanding of someone, or something about yourself?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_02", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_02", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Making sense of life",
 					meaning: "Understanding the bigger picture",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"Is there something specific that doesn't make sense right now, or is it a wider feeling of confusion about where things are heading?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_03",
-							core_discrimination: "DISC_LOAD_01",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is there something specific that doesn't make sense right now, or is it a wider feeling of confusion about where things are heading?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_03", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Stimulation",
 					meaning: "Mental engagement and interest",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"Is this about boredom, or about wanting something that engages your mind and makes you feel alive?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_04",
-							core_discrimination: "DISC_CONC_01",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about boredom, or about wanting something that engages your mind and makes you feel alive?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_04", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 			],
@@ -480,185 +393,147 @@ export const NeedsMeaning = {
 				{
 					item: "Meaning",
 					meaning: "A sense that something matters",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"Is this about something specific feeling pointless, or a wider sense that you're searching for what matters?",
-							deeper_specific_optional:
-								"If meaning were present here, what would be different about how you spend your time or energy?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_01",
-							core_discrimination: "DISC_LOAD_01",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about something specific feeling pointless, or a wider sense that you're searching for what matters?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_01", tier: "core" },
+							{ key: "deeper_specific", label: "A little further", question: "If meaning were present here, what would be different about how you spend your time or energy?", tier: "deeper" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Challenge",
 					meaning: "Opportunities to stretch and grow",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"Are you feeling under-challenged and wanting more, or is there a specific challenge you're ready for?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_03",
-							core_discrimination: "DISC_CONC_01",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Are you feeling under-challenged and wanting more, or is there a specific challenge you're ready for?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_03", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Aliveness",
 					meaning: "Feeling fully vibrant and present",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"What helps you feel most alive — physical activity, deep conversation, creative work, or being in nature?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_01",
-							core_discrimination: "DISC_CONC_01",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What helps you feel most alive — physical activity, deep conversation, creative work, or being in nature?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Consciousness",
 					meaning: "Deep awareness of self and life",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"Is this about wanting to be more awake to your own experience, or about connecting to something larger than yourself?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_02",
-							core_discrimination: "DISC_LOAD_01",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about wanting to be more awake to your own experience, or about connecting to something larger than yourself?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_02", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Contribution",
 					meaning: "Making a difference",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"What would contribution look like — helping someone specific, serving a cause, or simply knowing your work matters?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_04",
-							core_discrimination: "DISC_REL_03",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What would contribution look like — helping someone specific, serving a cause, or simply knowing your work matters?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_04", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_03", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Effectiveness",
 					meaning: "Capacity to bring about change",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"Is this about wanting your efforts to actually produce results, or about feeling stuck and powerless?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_01",
-							core_discrimination: "DISC_CONC_01",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about wanting your efforts to actually produce results, or about feeling stuck and powerless?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Exploration",
 					meaning: "Willingness to investigate and try",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"What are you wanting to explore — new experiences, new ideas, or new aspects of yourself?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_03",
-							core_discrimination: "DISC_CONC_01",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What are you wanting to explore — new experiences, new ideas, or new aspects of yourself?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_03", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Integration",
 					meaning: "Wholeness and coherence",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"Is there a part of your life or your experience that feels separate or fragmented? What would coming together look like?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_02",
-							core_discrimination: "DISC_LOAD_01",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is there a part of your life or your experience that feels separate or fragmented? What would coming together look like?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_02", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Purpose",
 					meaning: "Having meaningful direction",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"Is this about wanting a clearer sense of direction, or about the things you're doing not feeling purposeful enough?",
-							deeper_specific_optional:
-								"What's one thing that, if you spent more time on it, would feel like it matters?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_04",
-							core_discrimination: "DISC_LOAD_01",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about wanting a clearer sense of direction, or about the things you're doing not feeling purposeful enough?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_04", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_01", tier: "core" },
+							{ key: "deeper_specific", label: "A little further", question: "What's one thing that, if you spent more time on it, would feel like it matters?", tier: "deeper" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 			],
@@ -670,41 +545,33 @@ export const NeedsMeaning = {
 				{
 					item: "Beauty",
 					meaning: "Appreciating harmony and elegance",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"What kind of beauty are you wanting more of — in nature, art, people, or your everyday surroundings?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_01",
-							core_discrimination: "DISC_CONC_01",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What kind of beauty are you wanting more of — in nature, art, people, or your everyday surroundings?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Celebration of life",
 					meaning: "Honoring what's precious",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"What feels worth celebrating right now — even something small? Or are you missing the feeling of being able to celebrate?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_04",
-							core_discrimination: "DISC_REL_01",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What feels worth celebrating right now — even something small? Or are you missing the feeling of being able to celebrate?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_04", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
@@ -729,166 +596,133 @@ export const NeedsMeaning = {
 							},
 						],
 					},
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "relational",
-						specificPrompts: {
-							core_specific:
-								"Is this communion you're wanting with another person, with nature, with something spiritual, or with yourself?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_02",
-							core_discrimination: "DISC_REL_01",
-							deeper_unfolding: "UNF_REL_01",
-							deeper_probing: "PROBE_REL_01",
-							deeper_integration: "INT_REL_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this communion you're wanting with another person, with nature, with something spiritual, or with yourself?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_02", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_REL_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Faith",
 					meaning: "Trust in something greater",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"Is this about religious or spiritual faith, or about a more general trust that things will work out?",
-							deeper_specific_optional: "Has something happened that's shaken your faith or trust?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_03",
-							core_discrimination: "DISC_LOAD_01",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about religious or spiritual faith, or about a more general trust that things will work out?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_03", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_01", tier: "core" },
+							{ key: "deeper_specific", label: "A little further", question: "Has something happened that's shaken your faith or trust?", tier: "deeper" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Flow",
 					meaning: "Being fully absorbed in the moment",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"When did you last feel in flow? What were you doing, and what would help you get back to that?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_01",
-							core_discrimination: "DISC_CONC_01",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "When did you last feel in flow? What were you doing, and what would help you get back to that?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Hope",
 					meaning: "Belief in possibilities",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"Is this about a specific situation you're hoping will improve, or a wider feeling that things could get better?",
-							deeper_specific_optional: "What small sign of possibility would help you hold onto hope?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_02",
-							core_discrimination: "DISC_LOAD_03",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about a specific situation you're hoping will improve, or a wider feeling that things could get better?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_02", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_03", tier: "core" },
+							{ key: "deeper_specific", label: "A little further", question: "What small sign of possibility would help you hold onto hope?", tier: "deeper" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Inspiration",
 					meaning: "Being uplifted into vision or action",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"What inspires you when you find it — ideas, people, nature, art? What would help you reconnect with that?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_04",
-							core_discrimination: "DISC_CONC_01",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What inspires you when you find it — ideas, people, nature, art? What would help you reconnect with that?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_04", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Mourning",
 					meaning: "Honoring loss with care",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"What are you mourning — a person, a possibility, something that changed, or something that never was?",
-							deeper_specific_optional:
-								"Is there space in your life right now to grieve, or does it feel like you have to hold it together?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_03",
-							core_discrimination: "DISC_LOAD_01",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What are you mourning — a person, a possibility, something that changed, or something that never was?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_03", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_01", tier: "core" },
+							{ key: "deeper_specific", label: "A little further", question: "Is there space in your life right now to grieve, or does it feel like you have to hold it together?", tier: "deeper" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Peace (internal)",
 					meaning: "Calm within",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "loaded",
-						specificPrompts: {
-							core_specific:
-								"What's disturbing your inner peace — racing thoughts, unresolved feelings, or a situation that won't settle?",
-							deeper_specific_optional: "What would inner peace feel like, even just a moment of it?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_04",
-							core_discrimination: "DISC_LOAD_01",
-							deeper_unfolding: "UNF_LOAD_01",
-							deeper_probing: "PROBE_LOAD_01",
-							deeper_integration: "INT_LOAD_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "What's disturbing your inner peace — racing thoughts, unresolved feelings, or a situation that won't settle?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_04", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_LOAD_01", tier: "core" },
+							{ key: "deeper_specific", label: "A little further", question: "What would inner peace feel like, even just a moment of it?", tier: "deeper" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_LOAD_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_LOAD_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_LOAD_01", tier: "deeper" },
+						],
 					},
 				},
 				{
 					item: "Presence",
 					meaning: "Fully here and now",
-
-					unpackEnabled: true,
-					unpack: {
+					clarify: {
+						type: "needs-clarify",
 						category: "concrete",
-						specificPrompts: {
-							core_specific:
-								"Is this about wanting to be more present yourself, or about wanting someone else to be more present with you?",
-						},
-						promptKeys: {
-							core_embodiment: "EMB_01",
-							core_discrimination: "DISC_CONC_01",
-							deeper_unfolding: "UNF_CONC_01",
-							deeper_probing: "PROBE_CONC_01",
-							deeper_integration: "INT_CONC_01",
-						},
+						prompts: [
+							{ key: "core_specific", label: "What this means for you", question: "Is this about wanting to be more present yourself, or about wanting someone else to be more present with you?", tier: "core" },
+							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
+							{ key: "core_discrimination", label: "Getting clearer", ref: "DISC_CONC_01", tier: "core" },
+							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_CONC_01", tier: "deeper" },
+							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_CONC_01", tier: "deeper" },
+							{ key: "deeper_integration", label: "Next step", ref: "INT_CONC_01", tier: "deeper" },
+						],
 					},
 				},
 			],

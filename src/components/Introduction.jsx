@@ -10,34 +10,24 @@ const Introduction = () => {
 	return (
 		<div className="step-intro">
 			<p>
-				If you've come to use this tool, something has probably happened that's stirred you up. You
-				might be wanting answers, action, or change — but more often than not, the first thing we
-				actually need is <strong>clarity and self-connection</strong>.
+				<strong>Something here matters.</strong>
 			</p>
+
+			<p>You wouldn’t be here if it didn’t.</p>
 
 			<p>
-				This tool will walk you gently through a process of uncovering the deep longings underneath
-				what you're feeling. And once you've made contact with those needs, you may find your whole
-				body relaxing into relief, clarity, or even hope.
+				When something feels important — or threatening — our systems respond. Anger, hurt, confusion, urgency…
+				none of that is random.
 			</p>
+
+			<p>Your response makes sense in context.</p>
 
 			<p>
-				There are a few steps, but don't worry — each one has guidance, and you can take as long as
-				you need. The steps are:
+				We’re not here to judge it. We’re here to understand it clearly — so we can take good care of what
+				matters.
 			</p>
 
-			<ol style={{ lineHeight: "1.8", paddingLeft: "1.25rem" }}>
-				<li><strong>Settling in</strong> — is your body ready to reflect?</li>
-				<li><strong>Observation</strong> — what actually happened?</li>
-				<li><strong>Feelings</strong> — what emotions are alive in you?</li>
-				<li><strong>Needs</strong> — what are you really longing for?</li>
-				<li><strong>Strategies & Requests</strong> — what could help?</li>
-			</ol>
-
-			<p style={{ fontStyle: "italic", color: "#555" }}>
-				So take a breath. Slow down. Let yourself really feel into these questions. It's worth the
-				time.
-			</p>
+			<p>We’ll move one step at a time.</p>
 
 			{savedEntries.length > 0 && (
 				<div style={{ marginTop: "1.5rem", textAlign: "center" }}>
@@ -58,24 +48,35 @@ Introduction.title = "Welcome";
 
 Introduction.helpContent = (
 	<>
+		<h3>About This Process</h3>
+
 		<p>
-			This tool is based on the 4-step process of Nonviolent Communication (NVC) — Observation,
-			Feelings, Needs, and Request (OFNR).
+			This tool is rooted in the 4 steps of Nonviolent Communication (NVC): Observation, Feelings, Needs, and
+			Request.
 		</p>
+
+		<p>You don’t need to know anything about NVC to use it. I’ll guide you.</p>
+
+		<p>Over time, I’ve expanded the traditional framework to include:</p>
+
+		<ul>
+			<li>A wider range of feelings and needs</li>
+			<li>Gentle unpacking when things feel tangled or murky</li>
+			<li>Support for finding clarity before trying to fix anything</li>
+		</ul>
+
 		<p>
-			You don't need to know anything about NVC to use it. Each step includes helpful prompts and
-			optional guidance. Take your time, and follow your body's sense of resonance — it knows what's
-			true.
+			We’ll begin by exploring what’s happening in you. Later — if you’re willing — you’ll have the option to
+			consider what might be happening for the other person.
 		</p>
+
 		<p>
-			You'll begin by exploring what's going on in <em>you</em> — and later, you'll have the option
-			to consider what might be going on for the other person involved. I know — you might not care
-			about that right now 🙂 — but it's a powerful process. Trust me.
+			You might not care about that part right now 🙂 That’s okay. We’ll get there when (and if) it feels right.
 		</p>
-		<p>
-			Marshall Rosenberg, creator of NVC, used to say: <br />
-			<em>"When we uncover the needs, the solutions find us."</em>
-		</p>
+
+		<p>Marshall Rosenberg, the creator of NVC, used to say:</p>
+
+		<blockquote>“When we uncover the needs, the solutions find us.”</blockquote>
 	</>
 );
 

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useWizard } from "./WizardContext";
 import Pill from "./Pill";
 import { getNeedData } from "../utils/renderHelpers";
-import { unpackPromptLibrary } from "../data/unpackPromptLibrary";
+import { resolvePrompts } from "../utils/resolvePrompts";
 import "./NeedExploration.css";
 
-// Steps for the OLD flow (non-unpack needs):
+// Steps for the OLD flow (non-clarify needs):
 // 0 = pick, 1 = deepen, 2 = grounding, 3-6 = reflective, 7 = summary
 const OLD_SUMMARY_STEP = 7;
 
@@ -64,36 +64,20 @@ const groundingPrompts = [
 	},
 ];
 
-// Steps for the NEW unpack flow (unpackEnabled needs):
-// 0 = pick, 1 = unpack (core + go deeper), 2 = summary
-const UNPACK_SUMMARY_STEP = 2;
+// Steps for the NEW clarify flow (needs-clarify type):
+// 0 = pick, 1 = clarify (core + go deeper), 2 = summary
+const CLARIFY_SUMMARY_STEP = 2;
 
-// Build the list of unpack prompts for a need from its metadata + the prompt library
-const getUnpackPrompts = (needName) => {
+// Build the list of clarify prompts for a need, resolving any library refs
+const getClarifyPrompts = (needName) => {
 	const needData = getNeedData(needName);
-	if (!needData?.unpackEnabled || !needData?.unpack) return null;
+	if (!needData?.clarify || needData.clarify.type !== "needs-clarify") return null;
 
-	const { specificPrompts, promptKeys } = needData.unpack;
-
-	// Core prompts (always shown)
-	const core = [
-		{ key: "core_specific", label: "What this means for you", text: specificPrompts.core_specific },
-		{ key: "core_embodiment", label: "In your body", text: unpackPromptLibrary[promptKeys.core_embodiment] },
-		{ key: "core_discrimination", label: "Getting clearer", text: unpackPromptLibrary[promptKeys.core_discrimination] },
-	];
-
-	// Deeper prompts (revealed on "Go deeper")
-	const deeper = [];
-	if (specificPrompts.deeper_specific_optional) {
-		deeper.push({ key: "deeper_specific", label: "A little further", text: specificPrompts.deeper_specific_optional });
-	}
-	deeper.push(
-		{ key: "deeper_unfolding", label: "Unfolding", text: unpackPromptLibrary[promptKeys.deeper_unfolding] },
-		{ key: "deeper_probing", label: "Underneath", text: unpackPromptLibrary[promptKeys.deeper_probing] },
-		{ key: "deeper_integration", label: "Next step", text: unpackPromptLibrary[promptKeys.deeper_integration] },
-	);
-
-	return { core, deeper };
+	const resolved = resolvePrompts(needData.clarify.prompts);
+	return {
+		core: resolved.filter((p) => p.tier === "core"),
+		deeper: resolved.filter((p) => p.tier === "deeper"),
+	};
 };
 
 // Old flow step 1: Deepen — "If I had this need, then what would I have?"
@@ -191,31 +175,31 @@ const DeepenStep = ({ needName, onSwap }) => {
 	);
 };
 
-// Unpack step — core (3 shown) + deeper (behind "Go deeper" button)
-const UnpackStep = ({ needName, exploration, updateField }) => {
+// Clarify step — core (3 shown) + deeper (behind "Go deeper" button)
+const ClarifyStep = ({ needName, exploration, updateField }) => {
 	const [showDeeper, setShowDeeper] = useState(false);
-	const prompts = getUnpackPrompts(needName);
+	const prompts = getClarifyPrompts(needName);
 
 	if (!prompts) return null;
 
 	return (
-		<div className="unpack-step">
-			<div className="unpack-intro">
+		<div className="clarify-step">
+			<div className="clarify-intro">
 				<p>
 					Let's get specific about what <strong>{needName}</strong> means for you right now.
 					There's no right answer — just notice what feels true.
 				</p>
 			</div>
 
-			<div className="unpack-prompts">
-				{prompts.core.map(({ key, label, text }) => (
-					<div key={key} className="unpack-prompt-item">
-						<label className="unpack-prompt-label">{label}</label>
-						<p className="unpack-prompt-text">{text}</p>
+			<div className="clarify-prompts">
+				{prompts.core.map(({ key, label, question }) => (
+					<div key={key} className="clarify-prompt-item">
+						<label className="clarify-prompt-label">{label}</label>
+						<p className="clarify-prompt-text">{question}</p>
 						<textarea
-							className="unpack-prompt-input"
-							value={exploration[`unpack_${key}`] || ""}
-							onChange={(e) => updateField(`unpack_${key}`, e.target.value)}
+							className="clarify-prompt-input"
+							value={exploration[`clarify_${key}`] || ""}
+							onChange={(e) => updateField(`clarify_${key}`, e.target.value)}
 							placeholder="..."
 							rows={2}
 						/>
@@ -225,14 +209,14 @@ const UnpackStep = ({ needName, exploration, updateField }) => {
 
 			{!showDeeper ? (
 				<button
-					className="subtle-button unpack-deeper-button"
+					className="subtle-button clarify-deeper-button"
 					onClick={() => setShowDeeper(true)}
 				>
 					Go deeper
 				</button>
 			) : (
-				<div className="unpack-deeper-section">
-					<div className="unpack-deeper-guidance">
+				<div className="clarify-deeper-section">
+					<div className="clarify-deeper-guidance">
 						<p>As you explore, notice the tone in your body.</p>
 						<p>
 							If the energy feels tight, charged, or righteous, you might still be protecting something.
@@ -244,15 +228,15 @@ const UnpackStep = ({ needName, exploration, updateField }) => {
 						<p>There's no right answer. Just notice what happens.</p>
 					</div>
 
-					<div className="unpack-prompts unpack-deeper-prompts">
-						{prompts.deeper.map(({ key, label, text }) => (
-							<div key={key} className="unpack-prompt-item unpack-prompt-deeper">
-								<label className="unpack-prompt-label">{label}</label>
-								<p className="unpack-prompt-text">{text}</p>
+					<div className="clarify-prompts clarify-deeper-prompts">
+						{prompts.deeper.map(({ key, label, question }) => (
+							<div key={key} className="clarify-prompt-item clarify-prompt-deeper">
+								<label className="clarify-prompt-label">{label}</label>
+								<p className="clarify-prompt-text">{question}</p>
 								<textarea
-									className="unpack-prompt-input"
-									value={exploration[`unpack_${key}`] || ""}
-									onChange={(e) => updateField(`unpack_${key}`, e.target.value)}
+									className="clarify-prompt-input"
+									value={exploration[`clarify_${key}`] || ""}
+									onChange={(e) => updateField(`clarify_${key}`, e.target.value)}
 									placeholder="..."
 									rows={2}
 								/>
@@ -289,9 +273,9 @@ const NeedExploration = () => {
 	);
 	const unexploredNeeds = unmetNeeds.filter((n) => !exploredNeeds.includes(n));
 
-	// Check if the current need uses the new unpack flow
+	// Check if the current need uses the new clarify flow
 	const currentNeedData = currentExploringNeed ? getNeedData(currentExploringNeed) : null;
-	const hasUnpack = currentNeedData?.unpackEnabled && currentNeedData?.unpack;
+	const hasClarify = currentNeedData?.clarify?.type === "needs-clarify";
 
 	// Update a field in the current need's exploration
 	const updateField = (field, value) => {
@@ -317,7 +301,7 @@ const NeedExploration = () => {
 				},
 			}));
 		}
-		// Unpack-enabled needs go straight to unpack (step 1); others go to old deepen (step 1)
+		// Needs with clarify go straight to clarify (step 1); others go to old deepen (step 1)
 		setExplorationStep(1);
 	};
 
@@ -432,21 +416,21 @@ const NeedExploration = () => {
 	}
 
 	// ═══════════════════════════════════════
-	//  NEW UNPACK FLOW (for unpackEnabled needs)
+	//  NEW CLARIFY FLOW (for needs-clarify type)
 	// ═══════════════════════════════════════
-	if (hasUnpack) {
-		// Step 1: Unpack prompts
+	if (hasClarify) {
+		// Step 1: Clarify prompts
 		if (explorationStep === 1) {
 			const exploration = needExplorations[currentExploringNeed] || {};
 
 			return (
 				<div className="need-exploration">
 					<div className="exploring-header">
-						<span className="exploring-label">Unpacking:</span>
+						<span className="exploring-label">Clarifying:</span>
 						<Pill item={currentExploringNeed} type="need" state="clicked" />
 					</div>
 
-					<UnpackStep
+					<ClarifyStep
 						needName={currentExploringNeed}
 						exploration={exploration}
 						updateField={updateField}
@@ -458,7 +442,7 @@ const NeedExploration = () => {
 							onClick={() => setExplorationStep(0)}>
 							Back
 						</button>
-						<button onClick={() => setExplorationStep(UNPACK_SUMMARY_STEP)}>
+						<button onClick={() => setExplorationStep(CLARIFY_SUMMARY_STEP)}>
 							Finish
 						</button>
 					</div>
@@ -466,12 +450,12 @@ const NeedExploration = () => {
 			);
 		}
 
-		// Step 2: Unpack summary
-		if (explorationStep === UNPACK_SUMMARY_STEP) {
+		// Step 2: Clarify summary
+		if (explorationStep === CLARIFY_SUMMARY_STEP) {
 			const exploration = needExplorations[currentExploringNeed] || {};
-			const unpackPrompts = getUnpackPrompts(currentExploringNeed);
-			const allPrompts = unpackPrompts ? [...unpackPrompts.core, ...unpackPrompts.deeper] : [];
-			const hasResponses = allPrompts.some(({ key }) => exploration[`unpack_${key}`]?.trim());
+			const clarifyPrompts = getClarifyPrompts(currentExploringNeed);
+			const allPrompts = clarifyPrompts ? [...clarifyPrompts.core, ...clarifyPrompts.deeper] : [];
+			const hasResponses = allPrompts.some(({ key }) => exploration[`clarify_${key}`]?.trim());
 
 			return (
 				<div className="need-exploration">
@@ -483,14 +467,14 @@ const NeedExploration = () => {
 
 					{hasResponses && (
 						<div className="exploration-summary">
-							<div className="summary-item summary-item-unpack">
+							<div className="summary-item summary-item-clarify">
 								<strong>What you noticed:</strong>
-								{allPrompts.map(({ key, label, text }) =>
-									exploration[`unpack_${key}`]?.trim() ? (
+								{allPrompts.map(({ key, label, question }) =>
+									exploration[`clarify_${key}`]?.trim() ? (
 										<p key={key}>
-											<em>{text}</em>
+											<em>{question}</em>
 											<br />
-											{exploration[`unpack_${key}`]}
+											{exploration[`clarify_${key}`]}
 										</p>
 									) : null
 								)}
@@ -514,7 +498,7 @@ const NeedExploration = () => {
 	}
 
 	// ═══════════════════════════════════════
-	//  OLD FLOW (for non-unpack needs)
+	//  OLD FLOW (for non-clarify needs)
 	// ═══════════════════════════════════════
 
 	// Step 1: Deepen — "If I had this, then what?"
@@ -708,7 +692,7 @@ NeedExploration.helpContent = (
 			This step is inspired by the work of Susan Skye and Robert Gonzales, who invite us to connect
 			with needs not as deficiencies, but as beautiful expressions of what makes life wonderful.
 		</p>
-		<h4>Unpacking a need</h4>
+		<h4>Clarifying a need</h4>
 		<p>
 			For some needs, we'll offer specific questions to help you get clearer about what this need
 			really means for you. The first three questions help you get specific; if you want to go

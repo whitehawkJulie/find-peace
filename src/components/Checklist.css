@@ -147,6 +147,30 @@
 	border-color: #999;
 }
 
+/* ========== SHOW ALL BUTTON ========== */
+
+.checklist-show-all {
+	text-align: right;
+	margin-bottom: 0.25rem;
+}
+
+.show-all-btn {
+	background: none;
+	border: none;
+	color: #888;
+	font-size: 0.8rem;
+	cursor: pointer;
+	padding: 0.2rem 0.4rem;
+	text-decoration: underline;
+	text-decoration-color: #ccc;
+	text-underline-offset: 2px;
+}
+
+.show-all-btn:hover {
+	color: #555;
+	text-decoration-color: #999;
+}
+
 /* ========== QUICK PICKS ========== */
 
 .quick-picks {

@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { useWizard } from "./WizardContext";
-import { Feelings as FeelingsData } from "../data/AllFeelingsData";
+import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
 import { familyCards, pickDominantFamily } from "../data/familyCards";
 import "./FamilyRegulationCard.css";
 
 // Build a lookup: item name → full item data (only for unmet feelings with a family tag)
 const itemLookup = {};
-const unmetSection = FeelingsData.sections.unmet;
+const unmetSection = FeelingsData.sections.feelings;
 if (unmetSection?.groups) {
 	for (const group of Object.values(unmetSection.groups)) {
 		for (const item of group.items) {

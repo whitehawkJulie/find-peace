@@ -12,7 +12,7 @@
  * - Accidental deletions
  * - Duplicate entries
  * - Drift in casing conventions
- * - Broken prompt refs / unpack structures
+ * - Broken prompt refs / clarify structures
  *
  * It does NOT enforce philosophical correctness.
  * It enforces structural integrity.
@@ -37,17 +37,17 @@
  *    - Missing empathyGuesses
  *    - Too many suggestedNeeds (> 8)
  *
- * D. UNPACK VALIDATION (needs + feelings)
- *    - If item.unpack exists:
- *        - unpack.type is one of: clarify | deepen | differentiate
- *        - unpack.prompts is an array
+ * D. CLARIFY VALIDATION (needs + feelings)
+ *    - If item.clarify exists:
+ *        - clarify.type is one of: murky | needs-clarify | deepen | differentiate
+ *        - clarify.prompts is an array
  *        - Each prompt is EITHER:
  *            - Inline prompt: { type, question, ... }
  *            - Ref prompt: { ref: "KEY", override?: { ... } }
- *        - Ref keys must exist in unpackPromptLibrary
+ *        - Ref keys must exist in clarifyPromptLibrary
  *        - Inline prompts must include required fields
  *        - Library prompts must include required fields (warn/error)
- *    - Warn if murky feelings (angry/anxious/depressed/ashamed/guilty) are missing unpack
+ *    - Warn if murky feelings (angry/anxious/depressed/ashamed/guilty) are missing clarify
  *
  * Hard errors cause exit code 1.
  * Warnings do not block execution.
@@ -55,7 +55,7 @@
 
 import { Feelings } from "../src/data/AllFeelingsData.js";
 import { Needs } from "../src/data/AllNeedsData.js";
-import unpackPromptLibrary from "../src/data/unpackPromptLibrary.js";
+import clarifyPromptLibrary from "../src/data/clarifyPromptLibrary.js";
 
 /* --------------------------------------------------
    Configuration
@@ -71,7 +71,7 @@ const ALLOWED_NONCANON_FEELINGS = new Set([
 ]);
 
 /**
- * “Murky” feelings that we generally expect to have immediate unpack support.
+ * "Murky" feelings that we generally expect to have immediate clarify support.
  * (Warn only — not an error.)
  */
 const MURKY_FEELINGS = new Set(["angry", "anxious", "depressed", "ashamed", "guilty"]);
@@ -194,13 +194,13 @@ function walkSections(sections, basePath, cb) {
 -------------------------------------------------- */
 
 function collectCanonicalUnmetFeelings(FeelingsRoot) {
-	// Expect: Feelings.sections.unmet.groups...
-	const unmet = FeelingsRoot?.sections?.unmet;
+	// Expect: Feelings.sections.feelings.groups...
+	const unmet = FeelingsRoot?.sections?.feelings;
 	const out = [];
 
 	if (!unmet) return out;
 
-	walkGroups(unmet.groups, "Feelings.sections.unmet", ({ item }) => {
+	walkGroups(unmet.groups, "Feelings.sections.feelings", ({ item }) => {
 		if (isNonEmptyString(item?.item)) out.push(item.item);
 	});
 
@@ -254,7 +254,7 @@ function error(msg) {
 }
 
 /* --------------------------------------------------
-   UNPACK VALIDATION
+   CLARIFY VALIDATION
 -------------------------------------------------- */
 
 function isValidPromptType(t) {
@@ -263,20 +263,20 @@ function isValidPromptType(t) {
 
 function validateLibraryPromptShape(libPrompt, contextPath) {
 	if (!libPrompt || typeof libPrompt !== "object") {
-		error(`${contextPath}: unpackPromptLibrary entry is missing or not an object`);
+		error(`${contextPath}: clarifyPromptLibrary entry is missing or not an object`);
 		return;
 	}
 
 	const { type, question, options } = libPrompt;
 
 	if (!isValidPromptType(type)) {
-		error(`${contextPath}: unpackPromptLibrary prompt has invalid type "${type}"`);
+		error(`${contextPath}: clarifyPromptLibrary prompt has invalid type "${type}"`);
 	}
 	if (!isNonEmptyString(question)) {
-		error(`${contextPath}: unpackPromptLibrary prompt missing question`);
+		error(`${contextPath}: clarifyPromptLibrary prompt missing question`);
 	}
 	if ((type === "singleChoice" || type === "multiChoice") && !Array.isArray(options)) {
-		error(`${contextPath}: unpackPromptLibrary choice prompt missing options[]`);
+		error(`${contextPath}: clarifyPromptLibrary choice prompt missing options[]`);
 	}
 }
 
@@ -297,22 +297,22 @@ function validateInlinePromptShape(prompt, contextPath) {
 	}
 }
 
-function validateUnpack(unpack, contextPath) {
-	if (!unpack) return;
+function validateClarify(clarify, contextPath) {
+	if (!clarify) return;
 
-	const allowedModes = ["clarify", "deepen", "differentiate"];
-	if (!allowedModes.includes(unpack.type)) {
-		error(`${contextPath}: unpack.type "${unpack.type}" is invalid`);
+	const allowedModes = ["murky", "needs-clarify", "deepen", "differentiate"];
+	if (!allowedModes.includes(clarify.type)) {
+		error(`${contextPath}: clarify.type "${clarify.type}" is invalid`);
 	}
 
-	if (!Array.isArray(unpack.prompts)) {
-		error(`${contextPath}: unpack.prompts must be an array`);
+	if (!Array.isArray(clarify.prompts)) {
+		error(`${contextPath}: clarify.prompts must be an array`);
 		return;
 	}
 
-	for (let i = 0; i < unpack.prompts.length; i++) {
-		const p = unpack.prompts[i];
-		const promptPath = `${contextPath}: unpack.prompts[${i}]`;
+	for (let i = 0; i < clarify.prompts.length; i++) {
+		const p = clarify.prompts[i];
+		const promptPath = `${contextPath}: clarify.prompts[${i}]`;
 
 		if (!p || typeof p !== "object") {
 			error(`${promptPath}: prompt must be an object`);
@@ -322,16 +322,16 @@ function validateUnpack(unpack, contextPath) {
 		// Ref prompt
 		if (isNonEmptyString(p.ref)) {
 			const key = p.ref.trim();
-			if (!unpackPromptLibrary || typeof unpackPromptLibrary !== "object") {
-				error(`${promptPath}: unpackPromptLibrary is not an object (import issue?)`);
+			if (!clarifyPromptLibrary || typeof clarifyPromptLibrary !== "object") {
+				error(`${promptPath}: clarifyPromptLibrary is not an object (import issue?)`);
 				continue;
 			}
-			if (!unpackPromptLibrary[key]) {
-				error(`${promptPath}: ref "${key}" not found in unpackPromptLibrary`);
+			if (!clarifyPromptLibrary[key]) {
+				error(`${promptPath}: ref "${key}" not found in clarifyPromptLibrary`);
 				continue;
 			}
 
-			validateLibraryPromptShape(unpackPromptLibrary[key], `${promptPath}: unpackPromptLibrary["${key}"]`);
+			validateLibraryPromptShape(clarifyPromptLibrary[key], `${promptPath}: clarifyPromptLibrary["${key}"]`);
 
 			if (p.override !== undefined && (typeof p.override !== "object" || Array.isArray(p.override))) {
 				error(`${promptPath}: override must be an object if provided`);
@@ -362,14 +362,14 @@ function validateUnpack(unpack, contextPath) {
 
 /**
  * Walk every item that appears in a Feelings section that has groups,
- * and validate item.unpack if present.
+ * and validate item.clarify if present.
  */
-function validateAllFeelingsUnpack(FeelingsRoot) {
+function validateAllFeelingsClarify(FeelingsRoot) {
 	const sections = FeelingsRoot?.sections;
 	if (!sections || typeof sections !== "object") return;
 
 	for (const [sectionKey, sectionObj] of Object.entries(sections)) {
-		// story words are handled elsewhere; but if you ever add unpack there, this will still validate it
+		// story words are handled elsewhere; but if you ever add clarify there, this will still validate it
 		if (!sectionObj || typeof sectionObj !== "object") continue;
 		if (!sectionObj.groups) continue;
 
@@ -379,21 +379,21 @@ function validateAllFeelingsUnpack(FeelingsRoot) {
 			if (!isNonEmptyString(item.item)) return;
 
 			const ctx = `${item.item} @ ${path}`;
-			if (item.unpack) validateUnpack(item.unpack, ctx);
+			if (item.clarify) validateClarify(item.clarify, ctx);
 
-			// Murky feelings: warn if missing unpack (only in unmet section, but safe regardless)
+			// Murky feelings: warn if missing clarify (only in unmet section, but safe regardless)
 			const lower = item.item.toLowerCase();
-			if (MURKY_FEELINGS.has(lower) && !item.unpack) {
-				warn(`Murky feeling "${item.item}" missing unpack @ ${path}`);
+			if (MURKY_FEELINGS.has(lower) && !item.clarify) {
+				warn(`Murky feeling "${item.item}" missing clarify @ ${path}`);
 			}
 		});
 	}
 }
 
 /**
- * Walk every needs item and validate item.unpack if present.
+ * Walk every needs item and validate item.clarify if present.
  */
-function validateAllNeedsUnpack(NeedsRoot) {
+function validateAllNeedsClarify(NeedsRoot) {
 	const sections = NeedsRoot?.sections;
 	if (!sections || typeof sections !== "object") return;
 
@@ -407,7 +407,7 @@ function validateAllNeedsUnpack(NeedsRoot) {
 			if (!isNonEmptyString(item.item)) return;
 
 			const ctx = `${item.item} @ ${path}`;
-			if (item.unpack) validateUnpack(item.unpack, ctx);
+			if (item.clarify) validateClarify(item.clarify, ctx);
 		});
 	}
 }
@@ -442,9 +442,9 @@ const needsSet = new Set(canonicalNeeds);
 	if (dupNeeds.length) warn(`Duplicate needs items: ${dupNeeds.join(", ")}`);
 }
 
-// D. Unpack validation (needs + feelings)
-validateAllFeelingsUnpack(Feelings);
-validateAllNeedsUnpack(Needs);
+// D. Clarify validation (needs + feelings)
+validateAllFeelingsClarify(Feelings);
+validateAllNeedsClarify(Needs);
 
 // B. StoryWords checks
 const storyWords = collectStoryWords(Feelings);
@@ -496,8 +496,8 @@ for (const sw of storyWords) {
 	}
 	if (sn.length > 8) warn(`${label}: suggestedNeeds has ${sn.length} items (may be heavy)`);
 
-	// If story words ever gain unpack, validate it too
-	if (sw.unpack) validateUnpack(sw.unpack, label);
+	// If story words ever gain clarify, validate it too
+	if (sw.clarify) validateClarify(sw.clarify, label);
 }
 
 /* --------------------------------------------------

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import Checklist from "./Checklist";
-import { Feelings as FeelingsData } from "../data/AllFeelingsData";
+import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
 import { useWizard } from "./WizardContext";
 import SlideDrawer from "./SlideDrawer";
-import UnpackPopup from "./UnpackPopup";
+import ClarifyPopup from "./ClarifyPopup";
 
 const Feelings = () => {
 	const { observation, feelings, setFeelings, needs, setNeeds } = useWizard();
 	const [showStoryHelp, setShowStoryHelp] = useState(false);
 	const [popupItem, setPopupItem] = useState(null);
+	const [murkyPromptItem, setMurkyPromptItem] = useState(null);
 
 	// Called by Checklist before default selection
 	const handleItemClick = (itemData) => {
@@ -17,12 +18,23 @@ const Feelings = () => {
 			setPopupItem(itemData);
 			return false;
 		}
-		if (itemData.unpack?.type === "murky") {
-			// Murky feeling: DO add to selection (return true), then open popup
-			setPopupItem(itemData);
+		if (itemData.clarify?.type === "murky" && !feelings[itemData.item]) {
+			// Murky feeling being selected: add to selection, then show gentle prompt
+			setMurkyPromptItem(itemData);
 			return true;
 		}
 		return true; // normal feeling — allow default selection
+	};
+
+	// User chose to clarify the murky feeling
+	const handleClarify = () => {
+		setPopupItem(murkyPromptItem);
+		setMurkyPromptItem(null);
+	};
+
+	// User chose to skip clarifying
+	const handleSkipClarify = () => {
+		setMurkyPromptItem(null);
 	};
 
 	// Toggle a suggested feeling from popup
@@ -62,11 +74,11 @@ const Feelings = () => {
 	return (
 		<div className="step-feelings">
 			<p>
-				How are you feeling now about <strong>{observation || "what happened"}</strong>?
+				How are you feeling now about <strong>{observation?.refined || observation?.moment || observation?.actions || "what happened"}</strong>?
 			</p>
 
 			<Checklist
-				data={[FeelingsData.sections.unmet, FeelingsData.sections.story, FeelingsData.sections.met]}
+				data={[FeelingsData.sections.feelings, FeelingsData.sections.story]}
 				selectedItems={feelings}
 				setSelectedItems={setFeelings}
 				type="feelings"
@@ -76,8 +88,27 @@ const Feelings = () => {
 				}}
 			/>
 
+			{/* Gentle prompt before murky clarify */}
+			{murkyPromptItem && (
+				<div className="clarify-popup-backdrop" onClick={handleSkipClarify}>
+					<div className="clarify-popup clarify-gentle-prompt" onClick={(e) => e.stopPropagation()}>
+						<p className="clarify-gentle-text">
+							That can be really big… would you like to clarify it just a little?
+						</p>
+						<div className="clarify-gentle-buttons">
+							<button className="clarify-gentle-btn" onClick={handleClarify}>
+								Clarify
+							</button>
+							<button className="clarify-gentle-btn clarify-gentle-btn-secondary" onClick={handleSkipClarify}>
+								Skip
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
+
 			{popupItem && (
-				<UnpackPopup
+				<ClarifyPopup
 					itemData={popupItem}
 					feelings={feelings}
 					needs={needs}
@@ -94,7 +125,7 @@ const Feelings = () => {
 					or what someone did — they carry a story or judgment about another person.
 				</p>
 				<p>
-					Selecting one will help you unpack the real feelings and needs underneath.
+					Selecting one will help you clarify the real feelings and needs underneath.
 				</p>
 				<p><em>More detailed help text coming soon.</em></p>
 			</SlideDrawer>
@@ -152,7 +183,7 @@ Feelings.helpContent = (
 			</li>
 			<li>
 				If you select a word that points more to what happened than how you feel,
-				you'll get a chance to unpack the real feelings and needs underneath.
+				you'll get a chance to clarify the real feelings and needs underneath.
 			</li>
 			<li>
 				When in doubt, check your body. Feelings live in the body — tight chest, heavy
