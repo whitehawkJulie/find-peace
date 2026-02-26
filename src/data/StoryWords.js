@@ -14,7 +14,7 @@
 
 export const StoryWords = {
 	ui: {
-		heading: "Words We Often Use (That Hold More Inside Them)",
+		heading: "Story Words",
 		helpText:
 			"These words make sense — they often tell a story about what happened <em>out there</em>. And at the same time, there’s something happening <em>in here</em>, inside you, in response to that. Let’s pause and gently feel it.",
 	},
@@ -346,6 +346,8 @@ export const StoryWords = {
 			items: [
 				{
 					item: "Excluded",
+					type: "storyWord",
+					ruptureType: "belonging",
 
 					storyHint:
 						"This word often points to feeling outside the circle — not included in something important.",
@@ -395,6 +397,8 @@ export const StoryWords = {
 				},
 				{
 					item: "Rejected",
+					type: "storyWord",
+					ruptureType: "belonging",
 
 					storyHint: "This word often carries the sense of being refused, dismissed, or pushed away.",
 
@@ -442,6 +446,8 @@ export const StoryWords = {
 				// next
 				{
 					item: "Left out",
+					type: "storyWord",
+					ruptureType: "belonging",
 
 					storyHint:
 						"This word often points to a quieter form of exclusion — noticing others included while you were not.",
@@ -488,6 +494,8 @@ export const StoryWords = {
 				},
 				{
 					item: "Unwanted",
+					type: "storyWord",
+					ruptureType: "belonging",
 
 					storyHint: "This word often carries a sense of not being desired, valued, or welcomed.",
 
@@ -558,57 +566,8 @@ export const StoryWords = {
 			items: [
 				{
 					item: "Belittled",
-
-					storyHint:
-						"This word often carries the sense of being made small, diminished, or treated as less-than.",
-
-					empathyGuesses: [
-						"That sounds sharp… was it like something in you shrank?",
-						"Did it land as hurt — like your dignity was touched?",
-						"Maybe there’s anger too, a protective ‘that’s not okay.’",
-						"Sometimes embarrassment shows up, especially if it happened publicly.",
-						"And sometimes there’s sadness underneath, if it felt invalidating.",
-						"Let’s pause gently… what feels most alive right now?",
-					],
-
-					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"hurt", // original
-						"tense", // original (activation)
-						"distressed", // original
-
-						// ADDED — Protest layer
-						"angry",
-						"resentful",
-						"indignant",
-
-						// ADDED — Social exposure layer
-						"embarrassed",
-						"ashamed",
-
-						// ADDED — Vulnerability
-						"sad",
-					],
-
-					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
-						"Respect",
-						"Autonomy",
-						"To be seen",
-						"Acknowledgement",
-						"Appreciation",
-
-						// ADDED — Dignity / self-worth
-						"Dignity",
-						"Mutual Recognition",
-						"Equality",
-
-						// ADDED — Emotional steadiness
-						"Safety (emotional)",
-					],
-				},
-				{
-					item: "Belittled",
+					type: "storyWord",
+					ruptureType: "belonging",
 
 					storyHint:
 						"This word often carries the sense of being made small, diminished, or treated as less-than.",
@@ -660,6 +619,8 @@ export const StoryWords = {
 				},
 				{
 					item: "Insulted",
+					type: "storyWord",
+					ruptureType: "belonging",
 
 					storyHint:
 						"This word often points to a direct attack — something said or done that felt degrading or disrespectful.",
@@ -810,6 +771,8 @@ export const StoryWords = {
 			items: [
 				{
 					item: "Betrayed",
+					type: "storyWord",
+					ruptureType: "trust",
 
 					storyHint:
 						"This word often carries the sense that a bond or agreement was broken in a deeply personal way.",
@@ -860,6 +823,8 @@ export const StoryWords = {
 				},
 				{
 					item: "Tricked",
+					type: "storyWord",
+					ruptureType: "trust",
 
 					storyHint:
 						"This word often points to discovering that something wasn’t as it seemed — a sense of being misled.",
@@ -909,6 +874,8 @@ export const StoryWords = {
 				},
 				{
 					item: "Cheated",
+					type: "storyWord",
+					ruptureType: "trust",
 
 					storyHint:
 						"This word often points to feeling unfairly treated — like something you were entitled to wasn’t honoured.",
@@ -981,6 +948,8 @@ export const StoryWords = {
 			items: [
 				{
 					item: "Ignored",
+					type: "storyWord",
+					ruptureType: "invisibility",
 
 					storyHint: "This word often points to reaching out and not receiving a response.",
 
@@ -1029,6 +998,8 @@ export const StoryWords = {
 
 				{
 					item: "Unseen",
+					type: "storyWord",
+					ruptureType: "invisibility",
 
 					storyHint:
 						"This word often carries the sense of not being recognised or acknowledged for who you are.",
@@ -1076,6 +1047,8 @@ export const StoryWords = {
 
 				{
 					item: "Unheard",
+					type: "storyWord",
+					ruptureType: "invisibility",
 
 					storyHint:
 						"This word often points to speaking or expressing something and not feeling listened to or understood.",
@@ -1146,6 +1119,8 @@ export const StoryWords = {
 			items: [
 				{
 					item: "Wronged",
+					type: "storyWord",
+					ruptureType: "justice",
 
 					storyHint: "This word often carries the sense that something unjust or unfair happened to you.",
 
@@ -1188,6 +1163,8 @@ export const StoryWords = {
 
 				{
 					item: "Ripped off",
+					type: "storyWord",
+					ruptureType: "justice",
 
 					storyHint:
 						"This word often points to feeling taken advantage of — especially regarding time, money, or effort.",
@@ -1230,6 +1207,8 @@ export const StoryWords = {
 
 				{
 					item: "Victimised",
+					type: "storyWord",
+					ruptureType: "justice",
 
 					storyHint:
 						"This word often carries the sense of being harmed or targeted from a position of less power.",

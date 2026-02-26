@@ -92,7 +92,8 @@ const allSteps = [
 	{
 		component: Needs,
 		title: "Needs",
-		pause: "Now that you've named what you're feeling, let's look at what those feelings are pointing to — the needs underneath...",
+		pause: "Now that you've named what you're feeling, let's look at what those feelings are pointing to — \
+		to what really matters to you here...",
 	},
 	{
 		component: NeedsMet,
@@ -147,6 +148,27 @@ export const WizardProvider = ({ children }) => {
 	// Requests
 	const [requestOfSelf, setRequestOfSelf] = useState("");
 	const [requestOfOther, setRequestOfOther] = useState("");
+
+	// Settings (persisted in localStorage)
+	const [settings, setSettings] = useState(() => {
+		try {
+			const saved = localStorage.getItem("findPeaceSettings");
+			return saved ? JSON.parse(saved) : {};
+		} catch {
+			return {};
+		}
+	});
+
+	const updateSettings = (updates) => {
+		setSettings((prev) => {
+			const next = { ...prev, ...updates };
+			localStorage.setItem("findPeaceSettings", JSON.stringify(next));
+			return next;
+		});
+	};
+
+	// Sub-step navigation: when true, Card hides the main MenuBar
+	const [hideMainNav, setHideMainNav] = useState(false);
 
 	// Saved entries (loaded from localStorage)
 	const [savedEntries, setSavedEntries] = useState(() => {
@@ -269,6 +291,10 @@ export const WizardProvider = ({ children }) => {
 		setRequestOfSelf,
 		requestOfOther,
 		setRequestOfOther,
+		settings,
+		updateSettings,
+		hideMainNav,
+		setHideMainNav,
 		savedEntries,
 		saveSession,
 		loadSession,

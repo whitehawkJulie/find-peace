@@ -1,21 +1,47 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Pill from "./Pill";
 import "./Checklist.css";
 
 /**
- * Checklist now receives `data` as an array of section objects:
+ * Checklist receives `data` as an array of section objects:
  *   [{ ui: { heading }, groups: { Key: { ui: { heading, order }, items: [...] } } }, ...]
  *
- * Each section renders as a collapsible category.
- * Groups within a section are sorted by `group.ui.order` and rendered as subcategories.
+ * listMode controls item visibility per-section:
+ *   "quick"  — only quickPick items, flat (no subcategory headings)
+ *   "short"  — items without tier:"more" (default)
+ *   "full"   — all items
  */
-const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings", categoryHelpIcons = {}, onItemClick = null }) => {
-	const [collapsedCategories, setCollapsedCategories] = useState({});
-	const [expandedTiers, setExpandedTiers] = useState({}); // keyed by subcategory heading
+const LIST_MODES = [
+	{ key: "quick", label: "Quick picks", icon: "●" },
+	{ key: "short", label: "Short list", icon: "●●" },
+	{ key: "full", label: "Full list", icon: "●●●" },
+];
 
-	// Toggle between clicked and double-clicked states
+const Checklist = ({
+	data,
+	selectedItems,
+	setSelectedItems,
+	type = "feelings",
+	categoryHelpIcons = {},
+	onItemClick = null,
+	onIndicatorClick = null,
+	showListModeToggle = false,
+	defaultListMode = "short",
+	regulationOverlay = false,
+	regulationToggle = null,
+}) => {
+	const [collapsedCategories, setCollapsedCategories] = useState({});
+	// Per-section list mode, keyed by section heading
+	const [sectionModes, setSectionModes] = useState({});
+
+	const getModeForSection = (heading) => sectionModes[heading] || defaultListMode;
+
+	const setSectionMode = (heading, mode) => {
+		setSectionModes((prev) => ({ ...prev, [heading]: mode }));
+	};
+
+	// Click cycle: unselected → clicked (intensity 1) → double-clicked (intensity 2) → unselected
 	const handleClick = (item, itemData) => {
-		// If onItemClick is provided, call it first — if it returns false, skip default selection
 		if (onItemClick) {
 			const proceed = onItemClick(itemData);
 			if (proceed === false) return;
@@ -24,19 +50,13 @@ const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings", c
 		const newState = { ...selectedItems };
 
 		if (newState[item] === "double-clicked") {
-			newState[item] = "clicked";
+			delete newState[item]; // 3rd click: unselect
 		} else if (newState[item] === "clicked") {
-			delete newState[item];
+			newState[item] = "double-clicked"; // 2nd click: intensity 2
 		} else {
-			newState[item] = "clicked";
+			newState[item] = "clicked"; // 1st click: select
 		}
 
-		setSelectedItems(newState);
-	};
-
-	const handleDoubleClick = (item) => {
-		const newState = { ...selectedItems };
-		newState[item] = "double-clicked";
 		setSelectedItems(newState);
 	};
 
@@ -47,195 +67,218 @@ const Checklist = ({ data, selectedItems, setSelectedItems, type = "feelings", c
 		}));
 	};
 
-	const toggleTier = (subcategoryHeading) => {
-		setExpandedTiers((prev) => ({
-			...prev,
-			[subcategoryHeading]: !prev[subcategoryHeading],
-		}));
+	const getSortedGroups = (groups) => {
+		return Object.entries(groups).sort(([, a], [, b]) => (a.ui?.order || 0) - (b.ui?.order || 0));
 	};
 
-	// Only apply tiering to sections whose items have a `family` property
-	// (i.e. FeelingsUnmet). Other sections show all items.
-	const sectionUsesTiers = (groups) => {
-		return Object.values(groups).some((group) =>
-			group.items.some((it) => it.family)
-		);
+	const getVisibleItems = (items, mode) => {
+		if (mode === "full") return items;
+		if (mode === "quick") return items.filter((it) => it.ui?.quickPick);
+		return items.filter((it) => !it.ui || it.ui.tier !== "more");
 	};
 
-	// Check if a group has any tier:"more" items
-	const groupHasMore = (items) => {
-		return items.some((it) => it.ui && it.ui.tier === "more");
-	};
-
-	// Collect quick pick items from a section's groups
-	const getQuickPicks = (groups) => {
+	const getQuickPicksFlat = (groups, sectionRegType) => {
 		const picks = [];
-		for (const group of Object.values(groups)) {
+		const sorted = getSortedGroups(groups);
+		for (const [, group] of sorted) {
 			for (const item of group.items) {
-				if (item.ui && item.ui.quickPick) {
-					picks.push(item);
+				if (item.ui?.quickPick) {
+					picks.push({
+						...item,
+						_resolvedRegType: item.regulationType || group.regulationType || sectionRegType || null,
+					});
 				}
 			}
 		}
 		return picks;
 	};
 
-	// Sort groups by their ui.order
-	const getSortedGroups = (groups) => {
-		return Object.entries(groups)
-			.sort(([, a], [, b]) => (a.ui?.order || 0) - (b.ui?.order || 0));
+	const renderPill = (itemData) => {
+		const { item } = itemData;
+		const tooltip = itemData.description || itemData.meaning || "";
+
+		// Determine indicator type
+		let indicator = null;
+		if (itemData.type === "storyWord") {
+			indicator = "plus";
+		} else if (itemData.clarify?.type === "murky" && selectedItems[item]) {
+			indicator = "chevron";
+		}
+
+		return (
+			<Pill
+				key={item}
+				item={item}
+				type={type}
+				state={selectedItems[item] || ""}
+				meaning={tooltip}
+				indicator={indicator}
+				regulationType={itemData._resolvedRegType || null}
+				regulationOverlay={regulationOverlay}
+				onClick={() => handleClick(item, itemData)}
+				onIndicatorClick={indicator === "chevron" ? () => onIndicatorClick?.(itemData) : undefined}
+			/>
+		);
 	};
 
-	// Collect all group headings that have "more" tier items (for show-all toggle)
-	const allTierGroups = useMemo(() => {
-		const headings = [];
-		for (const section of data) {
-			if (!sectionUsesTiers(section.groups)) continue;
-			for (const group of Object.values(section.groups)) {
-				const heading = group.ui?.heading;
-				if (heading && groupHasMore(group.items)) {
-					headings.push(heading);
-				}
-			}
-		}
-		return headings;
-	}, [data]);
-
-	// Are all tiers expanded?
-	const allTiersExpanded =
-		allTierGroups.length > 0 && allTierGroups.every((h) => expandedTiers[h]);
-
-	const toggleShowAll = () => {
-		if (allTiersExpanded) {
-			// Collapse all tiers back to simple view
-			setExpandedTiers({});
-		} else {
-			// Expand all tiers to show every word
-			const expanded = {};
-			allTierGroups.forEach((h) => { expanded[h] = true; });
-			setExpandedTiers(expanded);
-		}
+	const sectionHasTiers = (groups) => {
+		return Object.values(groups).some((group) =>
+			group.items.some((it) => it.ui?.quickPick || it.ui?.tier === "more"),
+		);
 	};
+
+	const renderRegulationToggle = () => {
+		if (!regulationToggle) return null;
+		return (
+			<span className="regulation-toggle-group">
+				<button
+					className={`regulation-toggle ${regulationToggle.active ? "regulation-toggle-active" : ""}`}
+					title="Colour by body state"
+					onClick={(e) => {
+						e.stopPropagation();
+						regulationToggle.onToggle();
+					}}>
+					🧍
+				</button>
+				{regulationToggle.onHelp && (
+					<button
+						className="regulation-help-btn"
+						title="What's this?"
+						onClick={(e) => {
+							e.stopPropagation();
+							regulationToggle.onHelp();
+						}}>
+						?
+					</button>
+				)}
+			</span>
+		);
+	};
+
+	const renderModeIcons = (sectionHeading, groups) => {
+		if (!showListModeToggle || !sectionHasTiers(groups)) return null;
+		const currentMode = getModeForSection(sectionHeading);
+		return (
+			<span className="mode-icons">
+				{LIST_MODES.map((mode) => (
+					<button
+						key={mode.key}
+						className={`mode-icon ${currentMode === mode.key ? "mode-icon-active" : ""}`}
+						title={mode.label}
+						onClick={(e) => {
+							e.stopPropagation();
+							setSectionMode(sectionHeading, mode.key);
+						}}>
+						{mode.icon}
+					</button>
+				))}
+			</span>
+		);
+	};
+
+	const renderHeaderControls = (sectionHeading, groups, sectionIndex) => (
+		<span className="category-controls">
+			{sectionIndex === 0 && renderRegulationToggle()}
+			{renderModeIcons(sectionHeading, groups)}
+			<span className="collapse-icon">{collapsedCategories[sectionHeading] ? "▼" : "▲"}</span>
+		</span>
+	);
 
 	return (
 		<div className="checklist">
-			{allTierGroups.length > 0 && (
-				<div className="checklist-show-all">
-					<button className="show-all-btn" onClick={toggleShowAll}>
-						{allTiersExpanded ? "Show fewer words" : "Show all words"}
-					</button>
-				</div>
-			)}
-
 			{data.map((section, index) => {
 				const sectionHeading = section.ui.heading;
 				const groups = section.groups;
-				const usesTiers = sectionUsesTiers(groups);
-				const quickPicks = getQuickPicks(groups);
 				const sortedGroups = getSortedGroups(groups);
+				const mode = getModeForSection(sectionHeading);
+				const sectionRegType = section.regulationType || null;
 
-				return (
-				<div key={sectionHeading} className={`category category-${index % 8}`}>
-					<div
-						className="category-header"
-						onClick={() => toggleCategory(sectionHeading)}
-						title={collapsedCategories[sectionHeading] ? "Expand section" : "Collapse section"}>
-						<h3 className="category-title">
-							{sectionHeading}
-							{categoryHelpIcons[sectionHeading] && (
-								<button
-									className="category-help-icon"
-									title="What's this?"
-									onClick={(e) => {
-										e.stopPropagation();
-										categoryHelpIcons[sectionHeading]();
-									}}>
-									?
-								</button>
-							)}
-						</h3>
-						<span className="collapse-icon">{collapsedCategories[sectionHeading] ? "▼" : "▲"}</span>
-					</div>
+				// In quick mode, render flat pills without subcategory headings
+				if (mode === "quick") {
+					const quickPicks = getQuickPicksFlat(groups, sectionRegType);
+					if (quickPicks.length === 0) return null;
 
-					{!collapsedCategories[sectionHeading] && (
-						<div className="subcategories">
-							{/* Quick picks row — inside this section, before groups */}
-							{quickPicks.length > 0 && (
-								<div className="quick-picks">
-									<h4 className="quick-picks-label">Quick picks</h4>
-									<div className="pill-grid cloud">
-										{quickPicks.map((itemData) => {
-											const { item } = itemData;
-											const tooltip = itemData.description || itemData.meaning || "";
-											return (
-												<Pill
-													key={item}
-													item={item}
-													type={type}
-													state={selectedItems[item] || ""}
-													meaning={tooltip}
-													onClick={() => handleClick(item, itemData)}
-													onDoubleClick={() => handleDoubleClick(item)}
-												/>
-											);
-										})}
+					return (
+						<div key={sectionHeading} className={`category category-${index % 8}`}>
+							<div
+								className="category-header"
+								onClick={() => toggleCategory(sectionHeading)}
+								title={collapsedCategories[sectionHeading] ? "Expand section" : "Collapse section"}>
+								<h3 className="category-title">
+									{sectionHeading}
+									{categoryHelpIcons[sectionHeading] && (
+										<button
+											className="category-help-icon"
+											title="What's this?"
+											onClick={(e) => {
+												e.stopPropagation();
+												categoryHelpIcons[sectionHeading]();
+											}}>
+											?
+										</button>
+									)}
+								</h3>
+								{renderHeaderControls(sectionHeading, groups, index)}
+							</div>
+
+							{!collapsedCategories[sectionHeading] && (
+								<div className="subcategories">
+									<div className="pill-grid cloud" style={{ padding: "1rem" }}>
+										{quickPicks.map(renderPill)}
 									</div>
 								</div>
 							)}
-
-							{sortedGroups.map(([groupKey, group]) => {
-								const groupHeading = group.ui?.heading || groupKey;
-								const items = group.items;
-
-								// Only filter by tier in sections that use tiers
-								const isSubExpanded = expandedTiers[groupHeading];
-								const hasMore = usesTiers && groupHasMore(items);
-								const visibleItems = (!usesTiers || isSubExpanded)
-									? items
-									: items.filter(
-										(itemData) => !itemData.ui || itemData.ui.tier !== "more"
-									);
-								if (visibleItems.length === 0) return null;
-
-								return (
-									<div key={groupKey} className="subcategory">
-										<h4 className="subcategory-title">
-											{groupHeading}
-											{hasMore && (
-												<button
-													className="tier-toggle-icon"
-													title={isSubExpanded ? "Show fewer" : "Show more"}
-													onClick={(e) => {
-														e.stopPropagation();
-														toggleTier(groupHeading);
-													}}>
-													{isSubExpanded ? "−" : "+"}
-												</button>
-											)}
-										</h4>
-										<div className="pill-grid">
-											{visibleItems.map((itemData) => {
-												const { item } = itemData;
-												const tooltip = itemData.description || itemData.meaning || "";
-												return (
-													<Pill
-														key={item}
-														item={item}
-														type={type}
-														state={selectedItems[item] || ""}
-														meaning={tooltip}
-														onClick={() => handleClick(item, itemData)}
-														onDoubleClick={() => handleDoubleClick(item)}
-													/>
-												);
-											})}
-										</div>
-									</div>
-								);
-							})}
 						</div>
-					)}
-				</div>
+					);
+				}
+
+				// Short / full modes — render with subcategory headings
+				return (
+					<div key={sectionHeading} className={`category category-${index % 8}`}>
+						<div
+							className="category-header"
+							onClick={() => toggleCategory(sectionHeading)}
+							title={collapsedCategories[sectionHeading] ? "Expand section" : "Collapse section"}>
+							<h3 className="category-title">
+								{sectionHeading}
+								{categoryHelpIcons[sectionHeading] && (
+									<button
+										className="category-help-icon"
+										title="What's this?"
+										onClick={(e) => {
+											e.stopPropagation();
+											categoryHelpIcons[sectionHeading]();
+										}}>
+										?
+									</button>
+								)}
+							</h3>
+							{renderHeaderControls(sectionHeading, groups, index)}
+						</div>
+
+						{!collapsedCategories[sectionHeading] && (
+							<div className="subcategories">
+								{sortedGroups.map(([groupKey, group]) => {
+									const groupHeading = group.ui?.heading || groupKey;
+									const visibleItems = getVisibleItems(group.items, mode);
+									if (visibleItems.length === 0) return null;
+
+									const groupRegType = group.regulationType || sectionRegType;
+									const resolvedItems = visibleItems.map((it) => ({
+										...it,
+										_resolvedRegType: it.regulationType || groupRegType || null,
+									}));
+
+									return (
+										<div key={groupKey} className="subcategory">
+											<h4 className="subcategory-title">{groupHeading}</h4>
+											<div className="pill-grid">{resolvedItems.map(renderPill)}</div>
+										</div>
+									);
+								})}
+							</div>
+						)}
+					</div>
 				);
 			})}
 		</div>

@@ -26,7 +26,6 @@
 /* ========== CheckList STYLING ========== */
 
 .checklist {
-	min-height: calc(100vh - 100px);
 	overflow-y: visible;
 }
 
@@ -147,28 +146,192 @@
 	border-color: #999;
 }
 
-/* ========== SHOW ALL BUTTON ========== */
+/* ========== CATEGORY CONTROLS (right side of header) ========== */
 
-.checklist-show-all {
-	text-align: right;
-	margin-bottom: 0.25rem;
+.category-controls {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
 }
 
-.show-all-btn {
-	background: none;
-	border: none;
-	color: #888;
-	font-size: 0.8rem;
+/* ========== LIST MODE ICONS ========== */
+
+.mode-icons {
+	display: flex;
+	align-items: center;
+	gap: 0.15rem;
+}
+
+.mode-icon {
+	background: rgba(0, 0, 0, 0.04);
+	border: 1px solid rgba(0, 0, 0, 0.12);
 	cursor: pointer;
 	padding: 0.2rem 0.4rem;
-	text-decoration: underline;
-	text-decoration-color: #ccc;
-	text-underline-offset: 2px;
+	font-size: 0.55rem;
+	font-weight: bold;
+	line-height: 1;
+	color: #999;
+	border-radius: 4px;
+	transition: color 0.15s, background 0.15s, border-color 0.15s;
+	letter-spacing: 1px;
 }
 
-.show-all-btn:hover {
+.mode-icon:hover {
 	color: #555;
-	text-decoration-color: #999;
+	background: rgba(0, 0, 0, 0.08);
+	border-color: rgba(0, 0, 0, 0.2);
+}
+
+.mode-icon-active {
+	color: #3d7a4e;
+	background: rgba(90, 154, 110, 0.12);
+	border-color: rgba(90, 154, 110, 0.4);
+}
+
+.mode-icon-active:hover {
+	color: #2d6a3e;
+	background: rgba(90, 154, 110, 0.18);
+	border-color: rgba(90, 154, 110, 0.5);
+}
+
+/* ========== REGULATION TOGGLE ========== */
+
+.regulation-toggle-group {
+	display: flex;
+	align-items: center;
+	gap: 0;
+}
+
+.regulation-toggle {
+	background: rgba(0, 0, 0, 0.04);
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	cursor: pointer;
+	padding: 0.15rem 0.3rem;
+	font-size: 0.75rem;
+	line-height: 1;
+	border-radius: 4px;
+	transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.regulation-toggle:hover {
+	background: rgba(0, 0, 0, 0.08);
+	border-color: rgba(0, 0, 0, 0.2);
+}
+
+.regulation-toggle-active {
+	background: rgba(90, 154, 110, 0.12);
+	border-color: rgba(90, 154, 110, 0.4);
+}
+
+.regulation-toggle-active:hover {
+	background: rgba(90, 154, 110, 0.18);
+	border-color: rgba(90, 154, 110, 0.5);
+}
+
+.regulation-help-btn {
+	background: none;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	font-size: 0.6rem;
+	cursor: pointer;
+	color: #888;
+	width: 1.1rem;
+	height: 1.1rem;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 1rem;
+	padding: 0;
+	transition: background 0.15s ease;
+}
+
+.regulation-help-btn:hover {
+	background: rgba(0, 0, 0, 0.06);
+	color: #333;
+}
+
+/* ========== REGULATION LEGEND (inline) ========== */
+
+.regulation-legend {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.6rem 1rem;
+	padding: 0.5rem 0.8rem;
+	margin-bottom: 0.5rem;
+	font-size: 0.75rem;
+	color: #777;
+	background: #fafaf8;
+	border-radius: 6px;
+	border: 1px solid #eee;
+}
+
+.regulation-legend-item {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	white-space: nowrap;
+}
+
+.regulation-legend-dot {
+	display: inline-block;
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+/* ========== REGULATION HELP DRAWER ========== */
+
+.regulation-help-type {
+	margin-bottom: 1.2rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.regulation-help-type:last-of-type {
+	border-bottom: none;
+}
+
+.regulation-help-header {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-bottom: 0.3rem;
+}
+
+.regulation-help-swatch {
+	display: inline-block;
+	width: 1.2rem;
+	height: 1.2rem;
+	border-radius: 4px;
+	border: 2px solid;
+	flex-shrink: 0;
+}
+
+.regulation-help-desc {
+	margin: 0.2rem 0 0.5rem;
+	color: #555;
+	font-size: 0.9rem;
+}
+
+.regulation-help-detail {
+	margin: 0.2rem 0;
+	font-size: 0.85rem;
+	color: #666;
+}
+
+.regulation-help-gentle {
+	margin: 0.3rem 0 0;
+	font-size: 0.85rem;
+	color: #888;
+	font-style: italic;
+}
+
+.regulation-help-caution {
+	margin-top: 1.5rem;
+	padding-top: 1rem;
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	color: #888;
+	font-size: 0.85rem;
 }
 
 /* ========== QUICK PICKS ========== */
@@ -191,4 +354,59 @@
 .step-feelings .checklist {
 	width: 80%;
 	margin: auto;
+}
+
+/* ========== MURKY INLINE PROMPT ========== */
+
+.murky-inline-prompt {
+	text-align: center;
+	padding: 0.8rem 1rem;
+	margin: 0.8rem auto;
+	max-width: 360px;
+	background: #faf8f0;
+	border: 1px solid #e8e0d0;
+	border-radius: 10px;
+	font-size: 0.9rem;
+	color: #555;
+	animation: murky-fade-in 0.25s ease;
+}
+
+@keyframes murky-fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(-4px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.murky-inline-prompt p {
+	margin: 0 0 0.6rem;
+	line-height: 1.4;
+}
+
+.murky-inline-buttons {
+	display: flex;
+	gap: 0.5rem;
+	justify-content: center;
+}
+
+.murky-inline-btn {
+	padding: 0.3rem 1.1rem;
+	border-radius: 20px;
+	font-size: 0.85rem;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	background: white;
+	transition: background 0.15s;
+}
+
+.murky-inline-btn:hover {
+	background: #f0ede4;
+}
+
+.murky-inline-btn-secondary {
+	color: #888;
 }

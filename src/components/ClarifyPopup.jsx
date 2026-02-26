@@ -2,17 +2,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import Pill from "./Pill";
 import "./ClarifyPopup.css";
 
-const ClarifyPopup = ({
-	itemData,
-	feelings,
-	needs,
-	onToggleFeeling,
-	onToggleNeed,
-	onKeepWord,
-	onClose,
-}) => {
-	const [showKeepPrompt, setShowKeepPrompt] = useState(false);
+const ClarifyPopup = ({ itemData, feelings, needs, onToggleFeeling, onToggleNeed, onKeepWord, onClose }) => {
 	const [responses, setResponses] = useState({});
+	const [showNeedsHelp, setShowNeedsHelp] = useState(false);
 
 	// Pick a random attunement statement once per item (stable across re-renders)
 	const attunement = useMemo(() => {
@@ -23,8 +15,8 @@ const ClarifyPopup = ({
 
 	// Reset internal state when the popup opens for a different item
 	useEffect(() => {
-		setShowKeepPrompt(false);
 		setResponses({});
+		setShowNeedsHelp(false);
 	}, [itemData?.item]);
 
 	if (!itemData) return null;
@@ -39,9 +31,7 @@ const ClarifyPopup = ({
 	const toggleMultiChoice = (key, option) => {
 		setResponses((prev) => {
 			const current = prev[key] || [];
-			const updated = current.includes(option)
-				? current.filter((o) => o !== option)
-				: [...current, option];
+			const updated = current.includes(option) ? current.filter((o) => o !== option) : [...current, option];
 			return { ...prev, [key]: updated };
 		});
 	};
@@ -56,13 +46,11 @@ const ClarifyPopup = ({
 							<h3>{itemData.item}</h3>
 						</div>
 
-						{itemData.storyHint && (
-							<p className="clarify-reframe">{itemData.storyHint}.</p>
-						)}
+						{itemData.storyHint && <p className="clarify-reframe">{itemData.storyHint}.</p>}
 
 						{itemData.empathyGuesses?.length > 0 && (
 							<div className="clarify-empathy-guesses">
-								<p className="clarify-label">You might be telling yourself:</p>
+								<p className="clarify-label">How are you around this?</p>
 								<ul>
 									{itemData.empathyGuesses.map((guess, i) => (
 										<li key={i}>{guess}</li>
@@ -73,14 +61,18 @@ const ClarifyPopup = ({
 
 						{itemData.suggestedFeelings?.length > 0 && (
 							<div className="clarify-suggestions">
-								<p className="clarify-label">What you might actually be feeling:</p>
+								<p className="clarify-label">Are these also present?</p>
 								<div className="pill-grid cloud">
 									{itemData.suggestedFeelings.map((f) => (
 										<Pill
 											key={f}
 											item={f}
 											type="feeling"
-											state={feelings[f] === "clicked" || feelings[f] === "double-clicked" ? "clicked" : ""}
+											state={
+												feelings[f] === "clicked" || feelings[f] === "double-clicked"
+													? "clicked"
+													: ""
+											}
 											onClick={() => onToggleFeeling(f)}
 										/>
 									))}
@@ -90,14 +82,34 @@ const ClarifyPopup = ({
 
 						{itemData.suggestedNeeds?.length > 0 && (
 							<div className="clarify-suggestions">
-								<p className="clarify-label">Needs that might be underneath:</p>
+								<p className="clarify-label">
+									Needs that might be underneath:
+									<button
+										className="clarify-needs-help-btn"
+										title="Why needs here?"
+										onClick={() => setShowNeedsHelp((v) => !v)}>
+										?
+									</button>
+								</p>
+								{showNeedsHelp && (
+									<p className="clarify-needs-help-text">
+										We're still clarifying the feeling layer here.
+										Technically, needs come next.
+										But many story words already point toward a need —
+										for example, "unappreciated" often connects to appreciation.
+										If a need feels clear to you now, you can choose it.
+										We'll return to it and explore it more deeply in the next step.
+									</p>
+								)}
 								<div className="pill-grid cloud">
 									{itemData.suggestedNeeds.map((n) => (
 										<Pill
 											key={n}
 											item={n}
 											type="need"
-											state={needs[n] === "clicked" || needs[n] === "double-clicked" ? "clicked" : ""}
+											state={
+												needs[n] === "clicked" || needs[n] === "double-clicked" ? "clicked" : ""
+											}
 											onClick={() => onToggleNeed(n)}
 										/>
 									))}
@@ -105,27 +117,9 @@ const ClarifyPopup = ({
 							</div>
 						)}
 
-						{!showKeepPrompt ? (
-							<button className="clarify-ok" onClick={() => setShowKeepPrompt(true)}>
-								OK
-							</button>
-						) : (
-							<div className="clarify-keep-prompt">
-								<p>Do you still want to keep "{itemData.item}"?</p>
-								<div className="clarify-keep-buttons">
-									<button
-										className="clarify-keep-btn"
-										onClick={() => onKeepWord(itemData.item, true)}>
-										Yes, keep it
-									</button>
-									<button
-										className="clarify-keep-btn clarify-keep-btn-secondary"
-										onClick={() => onKeepWord(itemData.item, false)}>
-										No, remove it
-									</button>
-								</div>
-							</div>
-						)}
+						<button className="clarify-ok" onClick={() => onKeepWord(itemData.item, true)}>
+							OK
+						</button>
 					</>
 				)}
 
@@ -136,9 +130,7 @@ const ClarifyPopup = ({
 							<h3>{itemData.clarify.title}</h3>
 						</div>
 
-						{attunement && (
-							<p className="clarify-attunement">{attunement}</p>
-						)}
+						{attunement && <p className="clarify-attunement">{attunement}</p>}
 
 						{itemData.clarify.normalization && (
 							<p className="clarify-normalization">{itemData.clarify.normalization}</p>
@@ -148,9 +140,7 @@ const ClarifyPopup = ({
 							<div key={i} className="clarify-prompt">
 								<p className="clarify-prompt-question">{prompt.question}</p>
 
-								{prompt.stem && (
-									<span className="clarify-stem">{prompt.stem}</span>
-								)}
+								{prompt.stem && <span className="clarify-stem">{prompt.stem}</span>}
 
 								{prompt.type === "text" && (
 									<textarea
@@ -162,19 +152,25 @@ const ClarifyPopup = ({
 								)}
 
 								{/* Feeling-selecting prompts: render as Pills that carry over */}
-								{prompt.selectsFeeling && (prompt.type === "multiChoice" || prompt.type === "singleChoice") && (
-									<div className="pill-grid cloud">
-										{prompt.options.map((opt) => (
-											<Pill
-												key={opt}
-												item={opt}
-												type="feeling"
-												state={feelings[opt] === "clicked" || feelings[opt] === "double-clicked" ? "clicked" : ""}
-												onClick={() => onToggleFeeling(opt)}
-											/>
-										))}
-									</div>
-								)}
+								{prompt.selectsFeeling &&
+									(prompt.type === "multiChoice" || prompt.type === "singleChoice") && (
+										<div className="pill-grid cloud">
+											{prompt.options.map((opt) => (
+												<Pill
+													key={opt}
+													item={opt}
+													type="feeling"
+													state={
+														feelings[opt] === "clicked" ||
+														feelings[opt] === "double-clicked"
+															? "clicked"
+															: ""
+													}
+													onClick={() => onToggleFeeling(opt)}
+												/>
+											))}
+										</div>
+									)}
 
 								{/* Regular singleChoice (not feeling-selecting) */}
 								{prompt.type === "singleChoice" && !prompt.selectsFeeling && (

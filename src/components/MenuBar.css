@@ -19,6 +19,9 @@
 	font-size: 0.8rem;
 	color: #999;
 	font-variant-numeric: tabular-nums;
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
 }
 
 .nav-button {
@@ -40,4 +43,83 @@
 .nav-button:disabled {
 	opacity: 0;
 	pointer-events: none;
+}
+
+/* ========== Settings cog ========== */
+
+.settings-cog {
+	background: none;
+	border: none;
+	font-size: 1rem;
+	cursor: pointer;
+	color: #aaa;
+	padding: 0;
+	line-height: 1;
+	transition: color 0.15s ease;
+}
+
+.settings-cog:hover {
+	color: #666;
+}
+
+/* ========== Settings drawer content ========== */
+
+.settings-content {
+	font-size: 0.9rem;
+}
+
+.settings-group {
+	margin-bottom: 1.5rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid #eee;
+}
+
+.settings-group:last-child {
+	border-bottom: none;
+}
+
+.settings-group h4 {
+	margin: 0 0 0.5rem;
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #555;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.settings-toggle {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+	color: #444;
+}
+
+.settings-toggle input[type="checkbox"] {
+	accent-color: #5a9e6d;
+}
+
+.settings-label {
+	display: block;
+	margin-bottom: 0.4rem;
+	color: #555;
+	font-size: 0.85rem;
+}
+
+.settings-radio-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+}
+
+.settings-radio {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	cursor: pointer;
+	color: #444;
+}
+
+.settings-radio input[type="radio"] {
+	accent-color: #5a9e6d;
 }

@@ -9,7 +9,7 @@ const renderOrderedFeelings = (feelings) => {
 	const entries = Object.entries(feelings);
 
 	if (entries.length === 0) {
-		return <p>What would you like instead? What feels important or meaningful about this?</p>;
+		return "(no feelings selected)";
 	}
 
 	return (
@@ -22,7 +22,6 @@ const renderOrderedFeelings = (feelings) => {
 				</React.Fragment>
 			))}
 			<br />
-			what would you like instead? What feels important or meaningful about this?
 		</p>
 	);
 };
@@ -35,8 +34,25 @@ const Needs = () => {
 		<div className="step-needs">
 			{renderOrderedFeelings(feelings)}
 
+			<p>What are these feelings telling us about what is important or meaningful to us here?</p>
+
+			<p>
+				Needs are qualities that ALL human beings long for, that contribute to our thriving — things like
+				safety, respect, choice, understanding, connection.
+			</p>
+
+			<p>
+				You don’t have to get this “right.” Just notice what feels alive. Select all that feel relevant. We’ll
+				explore them next.
+			</p>
+
 			<Checklist
-				data={[NeedsData.sections.subsistence, NeedsData.sections.connection, NeedsData.sections.meaning, NeedsData.sections.freedom]}
+				data={[
+					NeedsData.sections.subsistence,
+					NeedsData.sections.connection,
+					NeedsData.sections.meaning,
+					NeedsData.sections.freedom,
+				]}
 				selectedItems={needs}
 				setSelectedItems={setNeeds}
 				type="needs"
@@ -61,52 +77,60 @@ const Needs = () => {
 Needs.title = "Needs";
 Needs.helpContent = (
 	<>
+		<h3>What Is a Need?</h3>
 		<p>
-			In NVC, needs are universal human longings — things every person shares, regardless of culture, age, or
-			circumstances. They are not about any specific person or action. They're about what makes life feel full,
-			connected, and meaningful.
+			In this process, a need isn’t a demand and it isn’t a specific outcome. It’s a word for what matters most —
+			the human qualities that help us thrive. Needs live inside us as a longing of our hearts. They’re what we’re
+			trying to meet whenever we take action — even if we don’t realize it. They’re also what we’re trying to
+			soothe when we feel distress.
+			<br />
+			When we identify the need, we can often feel a sense of relief — even before anything changes externally.
+			It’s like we’ve been fumbling around in the dark, and now we can finally see what we were reaching for.
 		</p>
-
-		<h4>Needs vs. strategies</h4>
-		<p>
-			A need is universal and doesn't depend on any particular person or action. A strategy is one specific way to
-			meet a need. For example:
-		</p>
+		<p>Needs are universal. Strategies are personal.</p>
 		<ul>
 			<li>
-				<strong>Need:</strong> Connection. <strong>Strategy:</strong> "I want them to call me every day."
+				<strong>Need:</strong> Respect
 			</li>
 			<li>
-				<strong>Need:</strong> Respect. <strong>Strategy:</strong> "I want them to ask before making decisions."
+				<strong>Strategy:</strong> “I want this particular person to act in this particular way.”
 			</li>
 		</ul>
+		<p>When we focus on the need instead of the strategy, we open up more possible ways forward.</p>
+		<h3>Why Naming Needs Helps</h3>
+
 		<p>
-			When we focus on needs rather than strategies, we open up to many possible ways of getting what we really
-			long for — instead of being stuck on just one.
+			Feelings are signals that something important is happening. When we identify the need underneath, intensity
+			often softens — even before anything changes externally.
 		</p>
 
-		<h4>How to find your needs</h4>
+		<p>
+			When we’re unclear about the need beneath our feelings, we often reach for strategies that we hope will
+			relieve the discomfort — pushing harder, withdrawing, criticising, demanding reassurance, or trying to
+			control the situation.
+		</p>
+
+		<p>
+			Marshall Rosenberg, who developed Nonviolent Communication, called these{" "}
+			<strong>“tragic strategies for unmet needs.”</strong>
+			They’re tragic not because we’re wrong — but because the strategy is aimed at relief while missing the real
+			source of the pain.
+		</p>
+
+		<p>
+			Naming the need gives us a clearer target. Instead of reacting blindly, we can respond with more choice —
+			and often discover options we couldn’t see before.
+		</p>
+		<h3>Hold tightly to the need, loosely to the strategy</h3>
+		<p>
+			Filling the tank does <strong>not</strong> have to mean:
+		</p>
 		<ul>
-			<li>
-				Look at the feelings you selected. Each feeling is a messenger. Ask: "What need of mine is met or unmet
-				that's producing this feeling?"
-			</li>
-			<li>
-				<strong>Tap once</strong> for unmet needs — these are needs that aren't being met in this situation.
-			</li>
-			<li>
-				<strong>Double-tap</strong> for needs that <em>are</em> being met — even in difficult situations, some
-				needs are still alive and nourished.
-			</li>
-			<li>Needs don't point to anyone. "I need you to listen" is a strategy. "I need to be heard" is a need.</li>
+			<li>This person</li>
+			<li>This exact behaviour</li>
+			<li>This one solution</li>
 		</ul>
-
-		<h4>Why needs matter</h4>
-		<p>
-			Marshall Rosenberg said that behind every action, no matter how destructive, is an attempt to meet a need.
-			When we can see the need, compassion becomes possible — for ourselves and for others. This is the heart of
-			NVC.
-		</p>
+		<p>The need is what matters. The strategy is just one possible way to support it.</p>
 	</>
 );
 

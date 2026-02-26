@@ -39,10 +39,11 @@ const MakingGuesses = () => {
 					with each other.
 				</p>
 				<Checklist
-					data={[FeelingsData.sections.feelings]}
+					data={[FeelingsData.sections.feelings, FeelingsData.sections.feelingsMet]}
 					selectedItems={guessFeelings}
 					setSelectedItems={setGuessFeelings}
 					type="feeling"
+					showListModeToggle
 				/>
 			</div>
 

@@ -425,3 +425,77 @@
 .summary-item-clarify p {
 	margin: 0.4rem 0;
 }
+
+/* ========== SUB-STEP NAV (replaces MenuBar during exploration) ========== */
+
+.substep-nav {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.3rem;
+	position: sticky;
+	bottom: 0;
+	background: #eef0eb;
+	border-top: 1px solid #c8cfc2;
+	padding: 0.6rem 1.25rem 0.5rem;
+	margin: 1rem -1.25rem -1rem;
+	border-radius: 0 0 14px 14px;
+}
+
+.substep-nav-buttons {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.substep-nav-btn {
+	border: none;
+	border-radius: 6px;
+	padding: 0.5rem 1rem;
+	font-size: 0.9rem;
+	cursor: pointer;
+	transition: background-color 0.15s ease;
+}
+
+.substep-nav-back {
+	background: #b8c4b0;
+	color: #fff;
+}
+
+.substep-nav-back:hover {
+	background: #a4b39a;
+}
+
+.substep-nav-next {
+	background: #5a9e6d;
+	color: #fff;
+}
+
+.substep-nav-next:hover {
+	background: #4a8c5c;
+}
+
+.substep-nav-spacer {
+	width: 80px;
+}
+
+.substep-nav-indicator {
+	font-size: 0.8rem;
+	color: #888;
+	font-variant-numeric: tabular-nums;
+}
+
+.substep-nav-exit {
+	background: none;
+	border: none;
+	color: #888;
+	font-size: 0.8rem;
+	cursor: pointer;
+	padding: 0.15rem 0.5rem;
+	transition: color 0.15s ease;
+}
+
+.substep-nav-exit:hover {
+	color: #555;
+}

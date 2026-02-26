@@ -20,7 +20,7 @@
 	font-size: 0.85rem;
 	cursor: pointer;
 	transition: all 0.2s ease;
-	user-select: none; /* so we don't accidentally select the text when double clicking */
+	user-select: none;
 	position: relative;
 }
 
@@ -28,18 +28,28 @@
 	background-color: #d3d3d3;
 }
 
-/* Feelings which were single-clickeded */
+/* Feelings — intensity 1 (single click) */
 .pill.clicked.feeling,
 .step-feelings .pill.clicked {
 	background-color: #fff2f2;
-	border: 1px dotted red;
+	border: 1.5px solid #e66;
 }
 
-/* Strongly felt feelings */
+/* Feelings — intensity 2 (double click / second tap) */
 .pill.double-clicked.feeling,
 .step-feelings .pill.double-clicked {
 	background-color: #fdd6d6;
-	border: 2px dotted red;
+	border: 3px solid #c22;
+}
+
+/* When regulation overlay is active, keep the regulation bg and use solid red border */
+.pill.reg-overlay.clicked {
+	border: 2px solid #d44;
+}
+
+.pill.reg-overlay.double-clicked {
+	border: 3.5px solid #c22;
+	box-shadow: 0 0 4px rgba(200, 30, 30, 0.25);
 }
 
 /* met needs */
@@ -56,27 +66,88 @@
 	border: 2px dotted red;
 }
 
-/* Tooltip styling */
+/* Expandable hint (+) for story words */
+.pill-expand-hint {
+	display: inline-block;
+	margin-left: 0.2rem;
+	font-size: 0.7rem;
+	font-weight: 700;
+	color: #999;
+	vertical-align: super;
+	line-height: 1;
+}
+
+.pill:hover .pill-expand-hint {
+	color: #666;
+}
+
+/* Chevron indicator (›) for murky feelings that have been selected */
+.pill-chevron {
+	display: inline-block;
+	margin-left: 0.25rem;
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: #b88;
+	cursor: pointer;
+	line-height: 1;
+	transition: color 0.15s;
+}
+
+.pill-chevron:hover {
+	color: #944;
+}
+
+/* ========== TOOLTIP STYLING ========== */
+
+/* Desktop tooltip (CSS, hover-only devices) */
 .pill[data-tooltip]::after {
 	content: attr(data-tooltip);
 	position: absolute;
-	bottom: 120%;
+	bottom: calc(100% + 6px);
 	left: 50%;
 	transform: translateX(-50%);
-	background-color: #ffffff;
-	color: #626262;
+	background-color: #fff;
+	color: #555;
 	padding: 6px 10px;
 	border-radius: 6px;
 	font-size: 0.8rem;
-	white-space: nowrap;
+	max-width: 220px;
+	width: max-content;
+	white-space: normal;
+	text-align: center;
 	pointer-events: none;
 	opacity: 0;
-	transition: opacity 0.4s ease;
+	transition: opacity 0.3s ease;
 	z-index: 999;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+	line-height: 1.35;
 }
 
-/* Show tooltip on hover with delay */
-.pill[data-tooltip]:hover::after {
-	opacity: 1;
-	transition-delay: 0.8s; /* delay before showing */
+/* Only show CSS tooltip on devices with hover (mouse) */
+@media (hover: hover) {
+	.pill[data-tooltip]:hover::after {
+		opacity: 1;
+		transition-delay: 0.4s;
+	}
+}
+
+/* Mobile tooltip (React-rendered, long press) */
+.pill-tooltip-touch {
+	position: absolute;
+	bottom: calc(100% + 6px);
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #fff;
+	color: #555;
+	padding: 6px 10px;
+	border-radius: 6px;
+	font-size: 0.8rem;
+	max-width: 220px;
+	width: max-content;
+	white-space: normal;
+	text-align: center;
+	pointer-events: none;
+	z-index: 1000;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	line-height: 1.35;
 }

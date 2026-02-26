@@ -10,10 +10,8 @@ const Introduction = () => {
 	return (
 		<div className="step-intro">
 			<p>
-				<strong>Something here matters.</strong>
+				<strong>Something here matters to you. A LOT.</strong>
 			</p>
-
-			<p>You wouldn’t be here if it didn’t.</p>
 
 			<p>
 				When something feels important — or threatening — our systems respond. Anger, hurt, confusion, urgency…

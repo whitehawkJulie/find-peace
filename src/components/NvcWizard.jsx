@@ -4,22 +4,24 @@ import PauseInterstitial from "./PauseInterstitial";
 import { useWizard } from "./WizardContext";
 
 const NvcWizard = () => {
-	const { stepIndex, visibleSteps } = useWizard();
+	const { stepIndex, visibleSteps, settings } = useWizard();
 	const [showPause, setShowPause] = useState(false);
 	const [pauseMessage, setPauseMessage] = useState("");
 	const prevStepIndex = useRef(stepIndex);
+
+	const skipPauses = settings.skipPauses ?? false;
 
 	useEffect(() => {
 		const movedForward = stepIndex > prevStepIndex.current;
 		prevStepIndex.current = stepIndex;
 
-		if (movedForward && visibleSteps[stepIndex]?.pause) {
+		if (!skipPauses && movedForward && visibleSteps[stepIndex]?.pause) {
 			setPauseMessage(visibleSteps[stepIndex].pause);
 			setShowPause(true);
 		} else {
 			setShowPause(false);
 		}
-	}, [stepIndex, visibleSteps]);
+	}, [stepIndex, visibleSteps, skipPauses]);
 
 	if (!visibleSteps || visibleSteps.length === 0) return null;
 
@@ -33,10 +35,7 @@ const NvcWizard = () => {
 		<div className="nvc-wizard">
 			{showPause ? (
 				<Card title="" helpContent={null} showHelp={false} hideNav>
-					<PauseInterstitial
-						message={pauseMessage}
-						onContinue={() => setShowPause(false)}
-					/>
+					<PauseInterstitial message={pauseMessage} onContinue={() => setShowPause(false)} />
 				</Card>
 			) : (
 				<Card title={title} helpContent={helpContent} showHelp={!!helpContent}>

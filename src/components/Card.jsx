@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import SlideDrawer from "./SlideDrawer";
 import MenuBar from "./MenuBar";
+import { useWizard } from "./WizardContext";
 import "./Card.css";
 
 const Card = ({ title, children, showHelp = false, helpContent = null, hideNav = false }) => {
+	const { hideMainNav } = useWizard();
 	const [showDrawer, setShowDrawer] = useState(false);
 
 	return (
@@ -29,7 +31,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 				{helpContent}
 			</SlideDrawer>
 
-			{!hideNav && <MenuBar />}
+			{!hideNav && !hideMainNav && <MenuBar />}
 		</div>
 	);
 };
