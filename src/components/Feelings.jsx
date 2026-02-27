@@ -175,7 +175,7 @@ const Feelings = () => {
 				onItemClick={handleItemClick}
 				onIndicatorClick={handleIndicatorClick}
 				showListModeToggle
-				defaultListMode={settings.defaultListMode || "short"}
+				defaultListMode="full"
 				regulationOverlay={showRegulationOverlay}
 				regulationToggle={regulationToggle}
 				categoryHelpIcons={{
@@ -190,7 +190,7 @@ const Feelings = () => {
 				type="feelings"
 				onIndicatorClick={handleIndicatorClick}
 				showListModeToggle
-				defaultListMode={settings.defaultListMode || "short"}
+				defaultListMode="quick"
 				regulationOverlay={showRegulationOverlay}
 			/>
 

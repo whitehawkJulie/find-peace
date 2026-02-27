@@ -21,8 +21,8 @@ const Introduction = () => {
 			<p>Your response makes sense in context.</p>
 
 			<p>
-				We’re not here to judge it. We’re here to understand it clearly — so we can take good care of what
-				matters.
+				We don't need to judge ourselves for our responses. We simply need to understand how it landed in us,
+				clearly — so we can take good care of what matters.
 			</p>
 
 			<p>We’ll move one step at a time.</p>

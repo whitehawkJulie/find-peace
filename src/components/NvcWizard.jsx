@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import Card from "./Card";
 import PauseInterstitial from "./PauseInterstitial";
+import NeedExploration from "./NeedExploration";
 import { useWizard } from "./WizardContext";
 
 const NvcWizard = () => {
-	const { stepIndex, visibleSteps, settings } = useWizard();
+	const { stepIndex, visibleSteps, settings, needExplorationOpen } = useWizard();
 	const [showPause, setShowPause] = useState(false);
 	const [pauseMessage, setPauseMessage] = useState("");
 	const prevStepIndex = useRef(stepIndex);
@@ -26,10 +27,15 @@ const NvcWizard = () => {
 	if (!visibleSteps || visibleSteps.length === 0) return null;
 
 	const currentStep = visibleSteps[stepIndex];
-	const CurrentStepComponent = currentStep.component;
 
-	const title = CurrentStepComponent.title || "";
-	const helpContent = CurrentStepComponent.helpContent || null;
+	// When the need exploration overlay is open, render NeedExploration instead of the current step
+	const CurrentStepComponent = needExplorationOpen ? NeedExploration : currentStep.component;
+	const title = needExplorationOpen
+		? NeedExploration.title || ""
+		: CurrentStepComponent.title || "";
+	const helpContent = needExplorationOpen
+		? NeedExploration.helpContent
+		: CurrentStepComponent.helpContent || null;
 
 	return (
 		<div className="nvc-wizard">

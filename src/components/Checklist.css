@@ -137,7 +137,9 @@
 	padding: 0;
 	margin: 0;
 	flex-shrink: 0;
-	transition: background 0.15s ease, color 0.15s ease;
+	transition:
+		background 0.15s ease,
+		color 0.15s ease;
 }
 
 .tier-toggle-icon:hover {
@@ -172,7 +174,10 @@
 	line-height: 1;
 	color: #999;
 	border-radius: 4px;
-	transition: color 0.15s, background 0.15s, border-color 0.15s;
+	transition:
+		color 0.15s,
+		background 0.15s,
+		border-color 0.15s;
 	letter-spacing: 1px;
 }
 
@@ -210,7 +215,10 @@
 	font-size: 0.75rem;
 	line-height: 1;
 	border-radius: 4px;
-	transition: color 0.15s, background 0.15s, border-color 0.15s;
+	transition:
+		color 0.15s,
+		background 0.15s,
+		border-color 0.15s;
 }
 
 .regulation-toggle:hover {
@@ -241,6 +249,7 @@
 	line-height: 1rem;
 	padding: 0;
 	transition: background 0.15s ease;
+	margin-left: -6px;
 }
 
 .regulation-help-btn:hover {

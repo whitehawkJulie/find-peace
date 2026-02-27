@@ -9,12 +9,10 @@ const checks = [
 		description: (
 			<>
 				<p>
-					Are we describing what was said or done?
-					Or are we including interpretations like "disrespectful," "uncaring," "manipulative"?
+					Are we describing what was said or done? Or are we including interpretations like "disrespectful,"
+					"uncaring," "manipulative"?
 				</p>
-				<p className="refinement-hint">
-					If it helps, imagine a camera in the room. What would it capture?
-				</p>
+				<p className="refinement-hint">If it helps, imagine a camera in the room. What would it capture?</p>
 			</>
 		),
 		clear: "This is mostly concrete and observable",
@@ -24,10 +22,7 @@ const checks = [
 		icon: "\uD83C\uDFA5",
 		heading: "Something someone else could have seen or heard",
 		description: (
-			<p>
-				Could another person in the room agree that this is what happened — even
-				if they disagree about why?
-			</p>
+			<p>Could another person in the room agree that this is what happened — even if they disagree about why?</p>
 		),
 		clear: "Yes, this feels observable",
 		unclear: "Not quite — I may want to adjust it",
@@ -37,8 +32,8 @@ const checks = [
 		heading: "No guesses about intention",
 		description: (
 			<p>
-				Are we including assumptions about motive?
-				(e.g., "to control me," "to hurt me," "because he doesn't care")
+				Are we including assumptions about motive? (e.g., "to control me," "to hurt me," "because he doesn't
+				care")
 			</p>
 		),
 		clear: "I'm sticking to behaviour",
@@ -47,11 +42,7 @@ const checks = [
 	{
 		icon: "\u23F3",
 		heading: "One specific moment",
-		description: (
-			<p>
-				Are we describing one instance — not a pattern or the whole history?
-			</p>
-		),
+		description: <p>Are we describing one instance — not a pattern or the whole history?</p>,
 		clear: "One clear moment",
 		unclear: "It's blending multiple times together",
 	},
@@ -65,7 +56,7 @@ const ObservationRefinement = () => {
 	const combinedObservation = [
 		observation.moment,
 		observation.actions,
-		observation.camera,
+		// observation.camera,
 	]
 		.filter((s) => s?.trim())
 		.join("\n\n");
@@ -83,11 +74,10 @@ const ObservationRefinement = () => {
 
 	return (
 		<div className="step-refinement">
+			<p>Before we move on, let's gently refine what you wrote.</p>
 			<p>
-				Before we move on, let's gently refine what you wrote.
-			</p>
-			<p>
-				You don't have to change anything.<br />
+				You don't have to change anything.
+				<br />
 				Just notice whether any of these land.
 			</p>
 
@@ -124,14 +114,10 @@ const ObservationRefinement = () => {
 			</div>
 
 			<div className="refinement-edit">
-				<p>
-					If anything shifted for you, feel free to edit your observation below.
-				</p>
+				<p>If anything shifted for you, feel free to edit your observation below.</p>
 				<textarea
 					value={observation.refined || ""}
-					onChange={(e) =>
-						setObservation((prev) => ({ ...prev, refined: e.target.value }))
-					}
+					onChange={(e) => setObservation((prev) => ({ ...prev, refined: e.target.value }))}
 					rows={5}
 				/>
 			</div>
@@ -144,18 +130,16 @@ ObservationRefinement.title = "Let\u2019s check the clarity of this moment";
 ObservationRefinement.helpContent = (
 	<>
 		<p>
-			This step isn't about getting it "right." It's about noticing whether your
-			observation includes interpretation, motive-guessing, or pattern-stacking —
-			and gently separating those out.
+			This step isn't about getting it "right." It's about noticing whether your observation includes
+			interpretation, motive-guessing, or pattern-stacking — and gently separating those out.
 		</p>
 		<p>
-			A clear observation is one that another person could agree happened, even if
-			they interpret it differently. It's the shared ground that makes the rest of
-			the process possible.
+			A clear observation is one that another person could agree happened, even if they interpret it differently.
+			It's the shared ground that makes the rest of the process possible.
 		</p>
 		<p>
-			You don't have to change anything. But if something shifts as you reflect,
-			you can edit your observation at the bottom of the page.
+			You don't have to change anything. But if something shifts as you reflect, you can edit your observation at
+			the bottom of the page.
 		</p>
 	</>
 );

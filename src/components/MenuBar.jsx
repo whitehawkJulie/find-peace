@@ -3,12 +3,6 @@ import { useWizard } from "./WizardContext";
 import SlideDrawer from "./SlideDrawer";
 import "./MenuBar.css";
 
-const LIST_MODE_OPTIONS = [
-	{ key: "quick", label: "Quick picks" },
-	{ key: "short", label: "Short list" },
-	{ key: "full", label: "Full list" },
-];
-
 const SettingsContent = ({ settings, updateSettings }) => (
 	<div className="settings-content">
 		<div className="settings-group">
@@ -21,25 +15,6 @@ const SettingsContent = ({ settings, updateSettings }) => (
 				/>
 				Show pause/breathing screens between steps
 			</label>
-		</div>
-
-		<div className="settings-group">
-			<h4>Feelings List</h4>
-			<label className="settings-label">Default list size:</label>
-			<div className="settings-radio-group">
-				{LIST_MODE_OPTIONS.map((opt) => (
-					<label key={opt.key} className="settings-radio">
-						<input
-							type="radio"
-							name="defaultListMode"
-							value={opt.key}
-							checked={(settings.defaultListMode || "short") === opt.key}
-							onChange={() => updateSettings({ defaultListMode: opt.key })}
-						/>
-						{opt.label}
-					</label>
-				))}
-			</div>
 		</div>
 
 		<div className="settings-group">

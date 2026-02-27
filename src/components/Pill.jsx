@@ -100,6 +100,16 @@ const Pill = ({
 					›
 				</span>
 			)}
+			{indicator === "info" && (
+				<span
+					className="pill-info"
+					onClick={(e) => {
+						e.stopPropagation();
+						onIndicatorClick?.();
+					}}>
+					?
+				</span>
+			)}
 			{showTooltip && meaning && <div className="pill-tooltip-touch">{meaning}</div>}
 		</div>
 	);

@@ -8,13 +8,9 @@ export const useWizard = () => useContext(WizardContext);
 
 // Step components
 import Introduction from "./Introduction";
-import Vent from "./Vent";
 import Observation from "./Observation";
-import ObservationRefinement from "./ObservationRefinement";
 import Feelings from "./Feelings";
 import Needs from "./Needs";
-import NeedsMet from "./NeedsMet";
-import NeedExploration from "./NeedExploration";
 import StrategyDiscovery from "./StrategyDiscovery";
 import MakingGuesses from "./MakingGuesses";
 import RequestFormulation from "./RequestFormulation";
@@ -42,26 +38,6 @@ if (unmetSection?.groups) {
 const allSteps = [
 	{ component: Introduction, title: "Intro", optional: true },
 	{
-		component: Vent,
-		title: "Vent",
-		pause: (
-			<>
-				<p>
-					Before we begin, just notice:
-					<br />
-					Are you sitting? Standing?
-					<br />
-					Take one slow breath — nothing dramatic, just steady.
-				</p>
-				<p>
-					You don't need to be calm to continue.
-					<br />
-					Just willing to look gently.
-				</p>
-			</>
-		),
-	},
-	{
 		component: Observation,
 		title: "Observation",
 		pause: (
@@ -75,8 +51,18 @@ const allSteps = [
 			</>
 		),
 	},
-	{ component: ObservationRefinement, title: "Refine" },
-	{ component: Feelings, title: "Feelings" },
+	{
+		component: Feelings,
+		title: "Feelings",
+		pause: (
+			<>
+				<p>
+					This mattered. Stay with just that one moment. <br />
+					Take one slow breath before we continue.
+				</p>
+			</>
+		),
+	},
 	{
 		component: FamilyRegulationCard,
 		title: "Settling",
@@ -96,19 +82,6 @@ const allSteps = [
 		to what really matters to you here...",
 	},
 	{
-		component: NeedsMet,
-		title: "Met",
-		optional: true,
-		condition: (state) => Object.values(state.needs || {}).includes("double-clicked"),
-	},
-	{
-		component: NeedExploration,
-		title: "Explore",
-		optional: true,
-		condition: (state) => Object.values(state.needs || {}).includes("clicked"),
-		pause: "Take a breath. You've done important work naming your needs. Now let's go deeper — exploring what these needs really mean to you...",
-	},
-	{
 		component: StrategyDiscovery,
 		title: "Strategies",
 		optional: true,
@@ -124,7 +97,7 @@ export const WizardProvider = ({ children }) => {
 	// App-wide state
 	const [stepIndex, setStepIndex] = useState(0);
 	const [jackalTalk, setJackalTalk] = useState("");
-	const [observation, setObservation] = useState({ moment: "", actions: "", camera: "" });
+	const [observation, setObservation] = useState({ moment: "", actions: "", camera: "", refined: "" });
 	const [bodyScan, setBodyScan] = useState({});
 	const [feelings, setFeelings] = useState({});
 	const [needs, setNeeds] = useState({});
@@ -133,6 +106,7 @@ export const WizardProvider = ({ children }) => {
 	const [needExplorations, setNeedExplorations] = useState({});
 	const [currentExploringNeed, setCurrentExploringNeed] = useState(null);
 	const [explorationStep, setExplorationStep] = useState(0);
+	const [needExplorationOpen, setNeedExplorationOpen] = useState(false);
 
 	// Strategies
 	const [strategies, setStrategies] = useState({});
@@ -214,7 +188,14 @@ export const WizardProvider = ({ children }) => {
 	// Load a past session back into the wizard
 	const loadSession = (session) => {
 		setJackalTalk(session.jackalTalk || "");
-		setObservation(session.observation || { moment: "", actions: "", camera: "" });
+		const obs = session.observation || {};
+		setObservation({
+			moment: obs.moment || "",
+			actions: obs.actions || "",
+			camera: obs.camera || "",
+			// Backward compat: old sessions have no refined field; combine the 3 parts
+			refined: obs.refined || [obs.moment, obs.actions, obs.camera].filter((s) => s?.trim()).join("\n\n"),
+		});
 		setBodyScan(session.bodyScan || {});
 		setFeelings(session.feelings || {});
 		setNeeds(session.needs || {});
@@ -235,13 +216,14 @@ export const WizardProvider = ({ children }) => {
 	const resetSession = () => {
 		setStepIndex(0);
 		setJackalTalk("");
-		setObservation({ moment: "", actions: "", camera: "" });
+		setObservation({ moment: "", actions: "", camera: "", refined: "" });
 		setBodyScan({});
 		setFeelings({});
 		setNeeds({});
 		setNeedExplorations({});
 		setCurrentExploringNeed(null);
 		setExplorationStep(0);
+		setNeedExplorationOpen(false);
 		setStrategies({});
 		setFamilyResponses({});
 		setGuessObservation("");
@@ -277,6 +259,8 @@ export const WizardProvider = ({ children }) => {
 		setCurrentExploringNeed,
 		explorationStep,
 		setExplorationStep,
+		needExplorationOpen,
+		setNeedExplorationOpen,
 		strategies,
 		setStrategies,
 		familyResponses,

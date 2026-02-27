@@ -30,15 +30,18 @@ export const regulationMeta = {
 	// - pill border (optional): border
 	// - tiny dot (optional): dot
 
+	// activated, threat, contracted, collapsed, cognitive, settled
+
 	activated: {
 		label: "Mobilised",
 		description: "Energy is rising. Something in you is ready to act or respond.",
 
 		// Subtle warm/energised tint
+		// Activated (energised, charged, restless)
 		colors: {
-			bg: "#FFF6E8", // very pale apricot
-			border: "#F2C99A",
-			dot: "#D9822B",
+			bg: "#FFF1E6", // pale apricot
+			border: "#F5B97A",
+			dot: "#D97706",
 		},
 
 		help: {
@@ -56,11 +59,11 @@ export const regulationMeta = {
 		label: "On Alert",
 		description: "Your system is scanning for safety. Something feels uncertain or risky.",
 
-		// Subtle bright-yet-soft yellow tint (attention/orienting)
+		// Threat (alarm, fear, danger response)
 		colors: {
-			bg: "#FFFBE6", // very pale butter
-			border: "#E8D37A",
-			dot: "#B08900",
+			bg: "#FFE4E6", // soft rose
+			border: "#FCA5A5",
+			dot: "#DC2626",
 		},
 
 		help: {
@@ -78,11 +81,11 @@ export const regulationMeta = {
 		label: "Protecting",
 		description: "Part of you is guarding something important.",
 
-		// Subtle muted lavender/rose tint (protective contraction without ‘alarm’)
+		// Contracted (tight, withdrawn, braced)
 		colors: {
-			bg: "#F6F0FF", // very pale lavender
-			border: "#CDB7F2",
-			dot: "#6E56CF",
+			bg: "#EDE9FE", // muted lavender
+			border: "#C4B5FD",
+			dot: "#7C3AED",
 		},
 
 		help: {
@@ -100,11 +103,11 @@ export const regulationMeta = {
 		label: "Shut Down",
 		description: "Energy has dropped. Your system may be pulling back to cope.",
 
-		// Subtle cool blue-grey tint (low energy / shut down)
+		// Collapsed (low energy, shut down)
 		colors: {
-			bg: "#EEF3F7", // very pale blue-grey
-			border: "#B7C6D3",
-			dot: "#4C6A86",
+			bg: "#F1F5F9", // cool mist grey
+			border: "#CBD5E1",
+			dot: "#475569",
 		},
 
 		help: {
@@ -122,11 +125,11 @@ export const regulationMeta = {
 		label: "Seeking Clarity",
 		description: "Something feels unclear or unsettled. Your mind is trying to make sense of it.",
 
-		// Subtle mint tint (cognitive ‘searching’ without strong emotion)
+		// Cognitive (confused, disoriented, mental overload)
 		colors: {
-			bg: "#EAF8F2", // very pale mint
-			border: "#8FD3B8",
-			dot: "#1F7A5A",
+			bg: "#E0F2FE", // soft sky
+			border: "#7DD3FC",
+			dot: "#0284C7",
 		},
 
 		help: {
@@ -146,11 +149,11 @@ export const regulationMeta = {
 		label: "Settled",
 		description: "You feel calm and grounded.",
 
-		// Subtle green tint (grounded)
+		// Settled (regulated, grounded, safe)
 		colors: {
-			bg: "#ECF8EE", // very pale green
-			border: "#9ED0A5",
-			dot: "#2F7D3A",
+			bg: "#DCFCE7", // pale sage
+			border: "#86EFAC",
+			dot: "#15803D",
 		},
 
 		help: {

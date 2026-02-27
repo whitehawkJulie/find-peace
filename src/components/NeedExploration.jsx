@@ -65,7 +65,7 @@ const groundingPrompts = [
 const CLARIFY_SUMMARY_STEP = 2;
 
 // Build the list of clarify prompts for a need, resolving any library refs
-const getClarifyPrompts = (needName) => {
+export const getClarifyPrompts = (needName) => {
 	const needData = getNeedData(needName);
 	if (!needData?.clarify || needData.clarify.type !== "needs-clarify") return null;
 
@@ -278,9 +278,8 @@ const NeedExploration = () => {
 		setCurrentExploringNeed,
 		explorationStep,
 		setExplorationStep,
-		stepIndex,
-		setStepIndex,
 		setHideMainNav,
+		setNeedExplorationOpen,
 	} = useWizard();
 
 	const inSubStep = explorationStep > 0 && !!currentExploringNeed;
@@ -320,6 +319,7 @@ const NeedExploration = () => {
 	const exitExploration = () => {
 		setCurrentExploringNeed(null);
 		setExplorationStep(0);
+		setNeedExplorationOpen(false);
 	};
 
 	const startExploring = (needName) => {
@@ -354,10 +354,7 @@ const NeedExploration = () => {
 		}));
 		setCurrentExploringNeed(null);
 		setExplorationStep(0);
-	};
-
-	const moveOn = () => {
-		setStepIndex(stepIndex + 1);
+		setNeedExplorationOpen(false);
 	};
 
 	// Swap the current need for a deeper one (old flow only)
@@ -383,6 +380,7 @@ const NeedExploration = () => {
 				whenMet: "",
 				beauty: "",
 				blackHole: "",
+				selfCare: "",
 				completed: false,
 			};
 			delete updated[oldNeed];
@@ -445,7 +443,7 @@ const NeedExploration = () => {
 				)}
 
 				<div className="exploration-actions">
-					<button className="subtle-button" onClick={moveOn}>
+					<button className="subtle-button" onClick={exitExploration}>
 						{exploredNeeds.length > 0 ? "I'm ready to move on" : "Skip this step"}
 					</button>
 				</div>
@@ -518,20 +516,25 @@ const NeedExploration = () => {
 						</div>
 					)}
 
+					<div className="self-care-prompt">
+						<label className="self-care-label">
+							Is there anything <em>you</em> could do, to meet this need for yourself — even if only by 5%?
+						</label>
+						<textarea
+							className="self-care-input"
+							value={exploration.selfCare || ""}
+							onChange={(e) => updateField("selfCare", e.target.value)}
+							placeholder="..."
+							rows={2}
+						/>
+					</div>
+
 					<div className="exploration-actions">
 						<button
 							onClick={() => {
 								finishCurrentNeed();
 							}}>
-							{unexploredNeeds.length > 1 ? "Done — explore another need" : "Done"}
-						</button>
-						<button
-							className="subtle-button"
-							onClick={() => {
-								finishCurrentNeed();
-								moveOn();
-							}}>
-							I'm ready to move on
+							{"Done"}
 						</button>
 					</div>
 
@@ -683,20 +686,25 @@ const NeedExploration = () => {
 					)}
 				</div>
 
+				<div className="self-care-prompt">
+					<label className="self-care-label">
+						Is there anything <em>you</em> could do, to meet this need for yourself — even if only by 5%?
+					</label>
+					<textarea
+						className="self-care-input"
+						value={exploration.selfCare || ""}
+						onChange={(e) => updateField("selfCare", e.target.value)}
+						placeholder="..."
+						rows={2}
+					/>
+				</div>
+
 				<div className="exploration-actions">
 					<button
 						onClick={() => {
 							finishCurrentNeed();
 						}}>
-						{unexploredNeeds.length > 1 ? "Done — explore another need" : "Done"}
-					</button>
-					<button
-						className="subtle-button"
-						onClick={() => {
-							finishCurrentNeed();
-							moveOn();
-						}}>
-						I'm ready to move on
+						{"Done"}
 					</button>
 				</div>
 
@@ -777,15 +785,6 @@ NeedExploration.helpContent = (
 			Naming the need doesn’t fill the tank — but it often steadies the system enough to respond with more choice.
 		</p>
 
-		<p>
-			<em>Learn more about the Needs Tank Model on the next page.</em>
-		</p>
-	</>
-);
-
-// help for the page that unpacks an individual need
-NeedExploration.helpContentExtended = (
-	<>
 		<h3>Meeting a Need (Not Just Fulfilling It)</h3>
 
 		<p>

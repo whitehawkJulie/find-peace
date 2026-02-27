@@ -27,8 +27,15 @@ const renderOrderedFeelings = (feelings) => {
 };
 
 const Needs = () => {
-	const { needs, setNeeds, feelings } = useWizard();
+	const { needs, setNeeds, feelings, setCurrentExploringNeed, setExplorationStep, setNeedExplorationOpen } =
+		useWizard();
 	const [showPatriarchy, setShowPatriarchy] = useState(false);
+
+	const handleNeedInfoClick = (needName) => {
+		setCurrentExploringNeed(needName);
+		setExplorationStep(1);
+		setNeedExplorationOpen(true);
+	};
 
 	return (
 		<div className="step-needs">
@@ -42,8 +49,24 @@ const Needs = () => {
 			</p>
 
 			<p>
-				You don’t have to get this “right.” Just notice what feels alive. Select all that feel relevant. We’ll
-				explore them next.
+				You don’t have to get this "right." Just notice what feels alive. Select all that feel relevant. Tap{" "}
+				<span
+					style={{
+						display: "inline-flex",
+						alignItems: "center",
+						justifyContent: "center",
+						width: "1rem",
+						height: "1rem",
+						fontSize: "0.65rem",
+						fontWeight: 700,
+						color: "#888",
+						background: "rgba(0,0,0,0.08)",
+						borderRadius: "50%",
+						verticalAlign: "middle",
+					}}>
+					?
+				</span>{" "}
+				on any selected need to explore it more deeply.
 			</p>
 
 			<Checklist
@@ -56,6 +79,7 @@ const Needs = () => {
 				selectedItems={needs}
 				setSelectedItems={setNeeds}
 				type="needs"
+				onInfoClick={handleNeedInfoClick}
 			/>
 
 			<div style={{ marginTop: "2rem", textAlign: "center" }}>
@@ -93,7 +117,7 @@ Needs.helpContent = (
 				<strong>Need:</strong> Respect
 			</li>
 			<li>
-				<strong>Strategy:</strong> “I want this particular person to act in this particular way.”
+				<strong>Strategy:</strong> "I want this particular person to act in this particular way."
 			</li>
 		</ul>
 		<p>When we focus on the need instead of the strategy, we open up more possible ways forward.</p>
@@ -112,7 +136,7 @@ Needs.helpContent = (
 
 		<p>
 			Marshall Rosenberg, who developed Nonviolent Communication, called these{" "}
-			<strong>“tragic strategies for unmet needs.”</strong>
+			<strong>"tragic strategies for unmet needs."</strong>
 			They’re tragic not because we’re wrong — but because the strategy is aimed at relief while missing the real
 			source of the pain.
 		</p>

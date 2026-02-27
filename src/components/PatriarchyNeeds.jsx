@@ -19,13 +19,14 @@ const PatriarchyNeeds = () => {
 	return (
 		<div className="patriarchy-needs">
 			<p className="patriarchy-intro">
-				Sometimes the words we reach for — like <em>control</em>, <em>safety</em>, or{" "}
-				<em>approval</em> — feel like needs, but they're actually strategies shaped by the
-				culture we grew up in. Underneath each one is a genuine, universal need.
+				Sometimes the words we reach for — like <em>control</em>, <em>safety</em>, or <em>approval</em> — feel
+				like needs, but they're actually strategies shaped by the culture we grew up in. Underneath each one is
+				a genuine, universal need. These come from Miki Kashtan.
+				{/* TODO: ASK MIKI for permission to use these!! 
+					AND add footnote:  Social Structures and Socialization, by Miki, Inbal and Arnina Kashtan, 
+					link to https://thefearlessheart.org/item/social-structures-and-socialization-packet/ */}
 			</p>
-			<p className="patriarchy-intro">
-				Tap a genuine need to add it to your selections. Tap again to remove it.
-			</p>
+			<p className="patriarchy-intro">Tap a genuine need to add it to your selections. Tap again to remove it.</p>
 
 			<div className="patriarchy-list">
 				{patriarchyNeedsData.map(({ item, genuineNeeds, description }) => (

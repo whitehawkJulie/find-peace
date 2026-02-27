@@ -97,6 +97,30 @@
 	color: #944;
 }
 
+/* Info indicator (?) for selected needs */
+.pill-info {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 0.3rem;
+	width: 1rem;
+	height: 1rem;
+	font-size: 0.65rem;
+	font-weight: 700;
+	color: #888;
+	background: rgba(0, 0, 0, 0.08);
+	border-radius: 50%;
+	cursor: pointer;
+	line-height: 1;
+	transition: all 0.15s;
+	vertical-align: middle;
+}
+
+.pill-info:hover {
+	color: #444;
+	background: rgba(0, 0, 0, 0.18);
+}
+
 /* ========== TOOLTIP STYLING ========== */
 
 /* Desktop tooltip (CSS, hover-only devices) */

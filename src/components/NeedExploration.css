@@ -499,3 +499,38 @@
 .substep-nav-exit:hover {
 	color: #555;
 }
+
+/* ── Self-care prompt (end of every exploration summary) ── */
+.self-care-prompt {
+	margin-top: 1.25rem;
+	padding: 1rem 1.1rem;
+	background: #f0f7f0;
+	border-left: 3px solid #7cba7a;
+	border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.self-care-label {
+	display: block;
+	font-size: 0.9rem;
+	color: #444;
+	margin-bottom: 0.5rem;
+	line-height: 1.4;
+}
+
+.self-care-input {
+	width: 100%;
+	border: 1px solid #c3dfc2;
+	border-radius: 0.4rem;
+	padding: 0.45rem 0.6rem;
+	font-size: 0.9rem;
+	font-family: inherit;
+	resize: vertical;
+	background: #fff;
+	box-sizing: border-box;
+}
+
+.self-care-input:focus {
+	outline: none;
+	border-color: #7cba7a;
+	box-shadow: 0 0 0 2px rgba(124, 186, 122, 0.2);
+}

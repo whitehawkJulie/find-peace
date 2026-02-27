@@ -25,6 +25,7 @@ const Checklist = ({
 	categoryHelpIcons = {},
 	onItemClick = null,
 	onIndicatorClick = null,
+	onInfoClick = null,
 	showListModeToggle = false,
 	defaultListMode = "short",
 	regulationOverlay = false,
@@ -40,7 +41,6 @@ const Checklist = ({
 		setSectionModes((prev) => ({ ...prev, [heading]: mode }));
 	};
 
-	// Click cycle: unselected → clicked (intensity 1) → double-clicked (intensity 2) → unselected
 	const handleClick = (item, itemData) => {
 		if (onItemClick) {
 			const proceed = onItemClick(itemData);
@@ -49,12 +49,22 @@ const Checklist = ({
 
 		const newState = { ...selectedItems };
 
-		if (newState[item] === "double-clicked") {
-			delete newState[item]; // 3rd click: unselect
-		} else if (newState[item] === "clicked") {
-			newState[item] = "double-clicked"; // 2nd click: intensity 2
+		if (type === "needs") {
+			// Simple toggle for needs: selected ↔ unselected (no double-click)
+			if (newState[item]) {
+				delete newState[item];
+			} else {
+				newState[item] = "clicked";
+			}
 		} else {
-			newState[item] = "clicked"; // 1st click: select
+			// Click cycle: unselected → clicked → double-clicked → unselected
+			if (newState[item] === "double-clicked") {
+				delete newState[item];
+			} else if (newState[item] === "clicked") {
+				newState[item] = "double-clicked";
+			} else {
+				newState[item] = "clicked";
+			}
 		}
 
 		setSelectedItems(newState);
@@ -103,6 +113,8 @@ const Checklist = ({
 			indicator = "plus";
 		} else if (itemData.clarify?.type === "murky" && selectedItems[item]) {
 			indicator = "chevron";
+		} else if (type === "needs" && selectedItems[item] && onInfoClick) {
+			indicator = "info";
 		}
 
 		return (
@@ -116,7 +128,13 @@ const Checklist = ({
 				regulationType={itemData._resolvedRegType || null}
 				regulationOverlay={regulationOverlay}
 				onClick={() => handleClick(item, itemData)}
-				onIndicatorClick={indicator === "chevron" ? () => onIndicatorClick?.(itemData) : undefined}
+				onIndicatorClick={
+					indicator === "chevron"
+						? () => onIndicatorClick?.(itemData)
+						: indicator === "info"
+						? () => onInfoClick?.(item)
+						: undefined
+				}
 			/>
 		);
 	};
@@ -196,40 +214,41 @@ const Checklist = ({
 				// In quick mode, render flat pills without subcategory headings
 				if (mode === "quick") {
 					const quickPicks = getQuickPicksFlat(groups, sectionRegType);
-					if (quickPicks.length === 0) return null;
-
-					return (
-						<div key={sectionHeading} className={`category category-${index % 8}`}>
-							<div
-								className="category-header"
-								onClick={() => toggleCategory(sectionHeading)}
-								title={collapsedCategories[sectionHeading] ? "Expand section" : "Collapse section"}>
-								<h3 className="category-title">
-									{sectionHeading}
-									{categoryHelpIcons[sectionHeading] && (
-										<button
-											className="category-help-icon"
-											title="What's this?"
-											onClick={(e) => {
-												e.stopPropagation();
-												categoryHelpIcons[sectionHeading]();
-											}}>
-											?
-										</button>
-									)}
-								</h3>
-								{renderHeaderControls(sectionHeading, groups, index)}
-							</div>
-
-							{!collapsedCategories[sectionHeading] && (
-								<div className="subcategories">
-									<div className="pill-grid cloud" style={{ padding: "1rem" }}>
-										{quickPicks.map(renderPill)}
-									</div>
+					// If no quickPick items exist, fall through to short-mode rendering below
+					if (quickPicks.length > 0) {
+						return (
+							<div key={sectionHeading} className={`category category-${index % 8}`}>
+								<div
+									className="category-header"
+									onClick={() => toggleCategory(sectionHeading)}
+									title={collapsedCategories[sectionHeading] ? "Expand section" : "Collapse section"}>
+									<h3 className="category-title">
+										{sectionHeading}
+										{categoryHelpIcons[sectionHeading] && (
+											<button
+												className="category-help-icon"
+												title="What's this?"
+												onClick={(e) => {
+													e.stopPropagation();
+													categoryHelpIcons[sectionHeading]();
+												}}>
+												?
+											</button>
+										)}
+									</h3>
+									{renderHeaderControls(sectionHeading, groups, index)}
 								</div>
-							)}
-						</div>
-					);
+
+								{!collapsedCategories[sectionHeading] && (
+									<div className="subcategories">
+										<div className="pill-grid cloud" style={{ padding: "1rem" }}>
+											{quickPicks.map(renderPill)}
+										</div>
+									</div>
+								)}
+							</div>
+						);
+					}
 				}
 
 				// Short / full modes — render with subcategory headings
