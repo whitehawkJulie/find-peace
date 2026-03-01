@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useWizard } from "./WizardContext";
-import { renderAllPills, renderPills, renderTextList, filterByState } from "../utils/renderHelpers";
+import { filterByState } from "../utils/renderHelpers";
+import "./Review.css";
 
 const Review = () => {
 	const {
@@ -9,7 +10,7 @@ const Review = () => {
 		needs,
 		needExplorations,
 		strategies,
-		familyResponses,
+		feelingsExploreResponses,
 		guessObservation,
 		guessFeelings,
 		guessNeeds,
@@ -19,102 +20,102 @@ const Review = () => {
 	} = useWizard();
 
 	const [saved, setSaved] = useState(false);
+	const [copied, setCopied] = useState(false);
 
 	const strongFeelings = filterByState(feelings, "double-clicked");
 	const regularFeelings = filterByState(feelings, "clicked");
+	const allFeelings = [...strongFeelings, ...regularFeelings];
 	const metNeeds = filterByState(needs, "double-clicked");
 	const unmetNeeds = filterByState(needs, "clicked");
 	const exploredNeeds = Object.entries(needExplorations).filter(([_, v]) => v.completed);
-	const hasFamilyResponses = Object.values(familyResponses).some((v) =>
+	const hasFeelingsExplore = Object.values(feelingsExploreResponses).some((v) =>
 		Array.isArray(v) ? v.length > 0 : v && String(v).trim() !== "",
 	);
 	const hasStrategies = Object.values(strategies).some((s) => s.length > 0);
-	const guessFeelingsSelected = Object.keys(guessFeelings).length > 0;
-	const guessNeedsSelected = Object.keys(guessNeeds).length > 0;
-	const hasGuesses = guessObservation || guessFeelingsSelected || guessNeedsSelected;
+	const guessFeelingsAll = [...filterByState(guessFeelings, "clicked"), ...filterByState(guessFeelings, "double-clicked")];
+	const guessNeedsAll = [...filterByState(guessNeeds, "clicked"), ...filterByState(guessNeeds, "double-clicked")];
+	const hasGuesses = guessObservation || guessFeelingsAll.length > 0 || guessNeedsAll.length > 0;
 	const hasRequests = requestOfSelf || requestOfOther;
 
-	const outputHeading = (text, output) => {
-		output.push("---------------------------------");
-		output.push(`**${text}**`);
-		output.push("---------------------------------");
-	};
+	const obsText = observation?.refined?.trim() ||
+		[observation?.moment, observation?.actions].filter((s) => s?.trim()).join("\n");
 
 	const generateSummaryText = () => {
-		let output = [];
+		const lines = [];
+		const heading = (text) => {
+			lines.push("", `— ${text} —`, "");
+		};
 
-		outputHeading("What was happening for you?", output);
+		heading("What was happening for you?");
 
-		const obsText =
-			typeof observation === "string"
-				? observation.trim()
-				: [observation?.moment, observation?.actions, observation?.camera].filter((s) => s?.trim()).join("\n");
 		if (obsText) {
-			output.push(`**Observation**\n${obsText}\n`);
+			lines.push("Observation:", obsText, "");
 		}
 
-		if (strongFeelings.length > 0 || regularFeelings.length > 0) {
-			output.push("**Feelings**");
-			const feelingsText = [...strongFeelings.map((f) => `**${f}**`), ...regularFeelings.map((f) => f)].join(
-				", ",
-			);
-			output.push(feelingsText + "\n");
+		if (allFeelings.length > 0) {
+			const feelingsList = [
+				...strongFeelings.map((f) => `${f} (strong)`),
+				...regularFeelings,
+			].join(", ");
+			lines.push(`Feelings: ${feelingsList}`, "");
+		}
+
+		if (hasFeelingsExplore) {
+			lines.push("Feeling exploration:");
+			Object.entries(feelingsExploreResponses).forEach(([_, value]) => {
+				const v = Array.isArray(value) ? value.join(", ") : String(value);
+				if (v.trim()) lines.push(v);
+			});
+			lines.push("");
 		}
 
 		if (metNeeds.length > 0) {
-			output.push("**Met Needs**");
-			output.push(metNeeds.join(", ") + "\n");
+			lines.push(`Met needs: ${metNeeds.join(", ")}`, "");
 		}
 
 		if (unmetNeeds.length > 0) {
-			output.push("**Unmet Needs**");
-			output.push(unmetNeeds.join(", ") + "\n");
+			lines.push(`Unmet needs: ${unmetNeeds.join(", ")}`, "");
 		}
 
 		if (exploredNeeds.length > 0) {
-			output.push("**Need Explorations**");
+			lines.push("Need explorations:");
 			for (const [name, exp] of exploredNeeds) {
-				output.push(`\n*${name}*`);
-				if (exp.bodyFeeling) output.push(`In my body: ${exp.bodyFeeling}`);
-				if (exp.whenMet) output.push(`When met: ${exp.whenMet}`);
-				if (exp.beauty) output.push(`The beauty: ${exp.beauty}`);
-				if (exp.blackHole) output.push(`Black hole need: ${exp.blackHole}`);
+				lines.push(`  ${name}:`);
+				if (exp.bodyFeeling) lines.push(`    In my body: ${exp.bodyFeeling}`);
+				if (exp.whenMet) lines.push(`    When met: ${exp.whenMet}`);
+				if (exp.beauty) lines.push(`    The beauty: ${exp.beauty}`);
+				if (exp.blackHole) lines.push(`    Black hole need: ${exp.blackHole}`);
 			}
-			output.push("");
+			lines.push("");
 		}
 
 		if (hasStrategies) {
-			output.push("**Strategies**");
+			lines.push("Strategies:");
 			for (const [need, strats] of Object.entries(strategies)) {
 				if (strats.length > 0) {
-					output.push(`\n*${need}*`);
-					strats.forEach((s) => output.push(`- ${s}`));
+					lines.push(`  ${need}:`);
+					strats.forEach((s) => lines.push(`    - ${s}`));
 				}
 			}
-			output.push("");
+			lines.push("");
 		}
 
 		if (hasGuesses) {
-			outputHeading("The Other Person's Perspective", output);
-
-			if (guessObservation) output.push(`They might have observed: ${guessObservation}`);
-			const gf = filterByState(guessFeelings, "clicked");
-			if (gf.length > 0) output.push(`They might be feeling: ${gf.join(", ")}`);
-			const gn = filterByState(guessNeeds, "clicked");
-			if (gn.length > 0) output.push(`Their unmet needs might include: ${gn.join(", ")}`);
-			output.push("");
+			heading("The Other Person's Perspective");
+			if (guessObservation) lines.push(`They might have observed: ${guessObservation}`, "");
+			if (guessFeelingsAll.length > 0) lines.push(`They might be feeling: ${guessFeelingsAll.join(", ")}`, "");
+			if (guessNeedsAll.length > 0) lines.push(`Their unmet needs might include: ${guessNeedsAll.join(", ")}`, "");
 		}
 
 		if (hasRequests) {
-			outputHeading("Requests", output);
-
-			if (requestOfSelf) output.push(`Of myself: ${requestOfSelf}`);
-			if (requestOfOther) output.push(`Of them: ${requestOfOther}`);
-			output.push("");
+			heading("Requests");
+			if (requestOfSelf) lines.push(`Of myself: ${requestOfSelf}`);
+			if (requestOfOther) lines.push(`Of them: ${requestOfOther}`);
 		}
 
-		navigator.clipboard.writeText(output.join("\n")).then(() => {
-			alert("Summary copied to clipboard!");
+		navigator.clipboard.writeText(lines.join("\n")).then(() => {
+			setCopied(true);
+			setTimeout(() => setCopied(false), 2500);
 		});
 	};
 
@@ -123,49 +124,44 @@ const Review = () => {
 		setSaved(true);
 	};
 
-	// TODO: add the headings and stuff to the generateSummaryText fn as well
 	return (
 		<div className="review">
 			<p>
 				Here's a summary of everything you've worked through. Take a moment to appreciate the journey you've
 				just taken.
 			</p>
+
 			<h2>What was happening for you?</h2>
 
-			{(observation?.moment || observation?.actions || observation?.camera) && (
+			{obsText && (
 				<div className="review-section">
 					<h3>Observation</h3>
-					{observation.moment && (
-						<p>
-							<strong>The moment:</strong> {observation.moment}
-						</p>
-					)}
-					{observation.actions && (
-						<p>
-							<strong>What happened:</strong> {observation.actions}
-						</p>
-					)}
-					{/* {observation.camera && <p><strong>What others would see:</strong> {observation.camera}</p>} */}
+					<p className="review-text">{obsText}</p>
 				</div>
 			)}
 
-			{(strongFeelings.length > 0 || regularFeelings.length > 0) && (
+			{allFeelings.length > 0 && (
 				<div className="review-section">
 					<h3>Feelings</h3>
-					{/* {renderAllPills(feelings, "feeling")} */}
-					<p>
-						<strong>Regular feelings:</strong> {renderTextList(feelings, "clicked")}
-					</p>
-					<p>
-						<strong>Strong feelings:</strong> {renderTextList(feelings, "double-clicked")}
-					</p>
+					{strongFeelings.length > 0 && (
+						<p>
+							<span className="review-label">Strong:</span>{" "}
+							<strong>{strongFeelings.join(", ")}</strong>
+						</p>
+					)}
+					{regularFeelings.length > 0 && (
+						<p>
+							<span className="review-label">Also present:</span>{" "}
+							{regularFeelings.join(", ")}
+						</p>
+					)}
 				</div>
 			)}
 
-			{hasFamilyResponses && (
+			{hasFeelingsExplore && (
 				<div className="review-section">
 					<h3>Feeling exploration</h3>
-					{Object.entries(familyResponses).map(([key, value]) => {
+					{Object.entries(feelingsExploreResponses).map(([key, value]) => {
 						if (!value || (Array.isArray(value) && value.length === 0) || String(value).trim() === "")
 							return null;
 						return <p key={key}>{Array.isArray(value) ? value.join(", ") : String(value)}</p>;
@@ -173,17 +169,17 @@ const Review = () => {
 				</div>
 			)}
 
-			{metNeeds.length > 0 && (
-				<div className="review-section">
-					<h3>Met needs</h3>
-					{renderPills(needs, "double-clicked", "need")}
-				</div>
-			)}
-
 			{unmetNeeds.length > 0 && (
 				<div className="review-section">
 					<h3>Unmet needs</h3>
-					{renderPills(needs, "clicked", "need")}
+					<p>{unmetNeeds.join(", ")}</p>
+				</div>
+			)}
+
+			{metNeeds.length > 0 && (
+				<div className="review-section">
+					<h3>Met needs</h3>
+					<p>{metNeeds.join(", ")}</p>
 				</div>
 			)}
 
@@ -236,59 +232,54 @@ const Review = () => {
 				</div>
 			)}
 
-			<hr></hr>
-			<h2>Your guesses for the other person</h2>
-
 			{hasGuesses && (
-				<div className="review-section">
-					<h3>The other person</h3>
-					{guessObservation && (
-						<p>
-							<em>They might have observed:</em> {guessObservation}
-						</p>
-					)}
-					{guessFeelingsSelected && (
-						<>
+				<>
+					<h2>Your guesses for the other person</h2>
+					<div className="review-section">
+						{guessObservation && (
 							<p>
-								<em>They might be feeling:</em>
+								<span className="review-label">They might have observed:</span> {guessObservation}
 							</p>
-							{renderAllPills(guessFeelings, "feeling")}
-						</>
-					)}
-					{guessNeedsSelected && (
-						<>
+						)}
+						{guessFeelingsAll.length > 0 && (
 							<p>
-								<em>Their unmet needs might include:</em>
+								<span className="review-label">They might be feeling:</span>{" "}
+								{guessFeelingsAll.join(", ")}
 							</p>
-							{renderAllPills(guessNeeds, "need")}
-						</>
-					)}
-				</div>
+						)}
+						{guessNeedsAll.length > 0 && (
+							<p>
+								<span className="review-label">Their unmet needs might include:</span>{" "}
+								{guessNeedsAll.join(", ")}
+							</p>
+						)}
+					</div>
+				</>
 			)}
-			<hr></hr>
-
-			<h2>What you might like to do next</h2>
 
 			{hasRequests && (
-				<div className="review-section">
-					<h3>Requests</h3>
-					{requestOfSelf && (
-						<p>
-							<strong>Of myself:</strong> {requestOfSelf}
-						</p>
-					)}
-					{requestOfOther && (
-						<p>
-							<strong>Of them:</strong> {requestOfOther}
-						</p>
-					)}
-				</div>
+				<>
+					<h2>What you might like to do next</h2>
+					<div className="review-section">
+						{requestOfSelf && (
+							<p>
+								<span className="review-label">Of myself:</span> {requestOfSelf}
+							</p>
+						)}
+						{requestOfOther && (
+							<p>
+								<span className="review-label">Of them:</span> {requestOfOther}
+							</p>
+						)}
+					</div>
+				</>
 			)}
 
-			<hr />
 			<div className="review-actions">
-				<button onClick={generateSummaryText}>Copy to Clipboard</button>
-				<button onClick={handleSave} disabled={saved}>
+				<button onClick={generateSummaryText} className="review-action-btn">
+					{copied ? "Copied!" : "Copy to Clipboard"}
+				</button>
+				<button onClick={handleSave} disabled={saved} className="review-action-btn review-action-btn-secondary">
 					{saved ? "Saved to Journal" : "Save to Journal"}
 				</button>
 			</div>

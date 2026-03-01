@@ -5,6 +5,7 @@ import "./ClarifyPopup.css";
 const ClarifyPopup = ({ itemData, feelings, needs, onToggleFeeling, onToggleNeed, onKeepWord, onClose }) => {
 	const [responses, setResponses] = useState({});
 	const [showNeedsHelp, setShowNeedsHelp] = useState(false);
+	const [replaceWithFeelings, setReplaceWithFeelings] = useState(false);
 
 	// Pick a random attunement statement once per item (stable across re-renders)
 	const attunement = useMemo(() => {
@@ -17,6 +18,7 @@ const ClarifyPopup = ({ itemData, feelings, needs, onToggleFeeling, onToggleNeed
 	useEffect(() => {
 		setResponses({});
 		setShowNeedsHelp(false);
+		setReplaceWithFeelings(false);
 	}, [itemData?.item]);
 
 	if (!itemData) return null;
@@ -117,7 +119,18 @@ const ClarifyPopup = ({ itemData, feelings, needs, onToggleFeeling, onToggleNeed
 							</div>
 						)}
 
-						<button className="clarify-ok" onClick={() => onKeepWord(itemData.item, true)}>
+						{itemData.suggestedFeelings?.some((f) => feelings[f]) && (
+							<label className="clarify-replace-label">
+								<input
+									type="checkbox"
+									checked={replaceWithFeelings}
+									onChange={(e) => setReplaceWithFeelings(e.target.checked)}
+								/>
+								{" "}Replace "{itemData.item}" with the feelings I've chosen
+							</label>
+						)}
+
+						<button className="clarify-ok" onClick={() => onKeepWord(itemData.item, !replaceWithFeelings)}>
 							OK
 						</button>
 					</>

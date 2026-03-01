@@ -130,11 +130,17 @@ const CheckPanel = ({ observation, setObservation }) => {
 // ── Main step component ────────────────────────────────────────────────────
 
 const Observation = () => {
-	const { observation, setObservation } = useWizard();
+	const { observation, setObservation, setHelpDrawerOpen } = useWizard();
 
 	return (
 		<div className="step-observation">
-			<p>Can you make a clear observation about what happened — just one specific moment?</p>
+			<p>
+				Can you make a{" "}
+				<button className="button-styled-as-link" onClick={() => setHelpDrawerOpen(true)}>
+					clear observation
+				</button>{" "}
+				about what happened — just one specific moment?
+			</p>
 
 			<textarea
 				className="obs-main-textarea"
@@ -180,18 +186,6 @@ Observation.helpContent = (
 
 		<h4>Example</h4>
 		<ObservationExample />
-
-		<h4>Not sure where to start?</h4>
-		<p>
-			Use <em>Help me build it</em> to work through some guided questions. Your answers will be combined into the
-			text box automatically.
-		</p>
-
-		<h4>Want to check what you wrote?</h4>
-		<p>
-			Once you've written something, <em>Check my observation</em> will walk you through four clarity tests — and
-			offer guidance if anything needs adjusting.
-		</p>
 	</>
 );
 

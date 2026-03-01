@@ -15,7 +15,7 @@ import StrategyDiscovery from "./StrategyDiscovery";
 import MakingGuesses from "./MakingGuesses";
 import RequestFormulation from "./RequestFormulation";
 import Review from "./Review";
-import FamilyRegulationCard from "./FamilyRegulationCard";
+import FeelingsExploreCard from "./FeelingsExploreCard";
 
 // Data for family regulation step condition
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
@@ -64,16 +64,9 @@ const allSteps = [
 		),
 	},
 	{
-		component: FamilyRegulationCard,
+		component: FeelingsExploreCard,
 		title: "Settling",
 		optional: true,
-		condition: (state) => {
-			const selectedUnmet = Object.entries(state.feelings || {})
-				.filter(([_, status]) => status === "clicked" || status === "double-clicked")
-				.map(([name]) => unmetFeelingLookup[name])
-				.filter(Boolean);
-			return pickDominantFamily(selectedUnmet) !== null;
-		},
 	},
 	{
 		component: Needs,
@@ -111,8 +104,8 @@ export const WizardProvider = ({ children }) => {
 	// Strategies
 	const [strategies, setStrategies] = useState({});
 
-	// Family regulation card responses
-	const [familyResponses, setFamilyResponses] = useState({});
+	// Feelings explore card responses
+	const [feelingsExploreResponses, setFeelingsExploreResponses] = useState({});
 
 	// Making Guesses (other person's perspective)
 	const [guessObservation, setGuessObservation] = useState("");
@@ -122,6 +115,9 @@ export const WizardProvider = ({ children }) => {
 	// Requests
 	const [requestOfSelf, setRequestOfSelf] = useState("");
 	const [requestOfOther, setRequestOfOther] = useState("");
+
+	// Help drawer open state (lifted so step components can trigger it)
+	const [helpDrawerOpen, setHelpDrawerOpen] = useState(false);
 
 	// Settings (persisted in localStorage)
 	const [settings, setSettings] = useState(() => {
@@ -172,7 +168,7 @@ export const WizardProvider = ({ children }) => {
 			needs,
 			needExplorations,
 			strategies,
-			familyResponses,
+			feelingsExploreResponses,
 			guessObservation,
 			guessFeelings,
 			guessNeeds,
@@ -203,7 +199,8 @@ export const WizardProvider = ({ children }) => {
 		setCurrentExploringNeed(null);
 		setExplorationStep(0);
 		setStrategies(session.strategies || {});
-		setFamilyResponses(session.familyResponses || {});
+		// Backward compat: old sessions used familyResponses key
+		setFeelingsExploreResponses(session.feelingsExploreResponses || session.familyResponses || {});
 		setGuessObservation(session.guessObservation || "");
 		setGuessFeelings(session.guessFeelings || {});
 		setGuessNeeds(session.guessNeeds || {});
@@ -225,7 +222,7 @@ export const WizardProvider = ({ children }) => {
 		setExplorationStep(0);
 		setNeedExplorationOpen(false);
 		setStrategies({});
-		setFamilyResponses({});
+		setFeelingsExploreResponses({});
 		setGuessObservation("");
 		setGuessFeelings({});
 		setGuessNeeds({});
@@ -263,8 +260,8 @@ export const WizardProvider = ({ children }) => {
 		setNeedExplorationOpen,
 		strategies,
 		setStrategies,
-		familyResponses,
-		setFamilyResponses,
+		feelingsExploreResponses,
+		setFeelingsExploreResponses,
 		guessObservation,
 		setGuessObservation,
 		guessFeelings,
@@ -277,6 +274,8 @@ export const WizardProvider = ({ children }) => {
 		setRequestOfOther,
 		settings,
 		updateSettings,
+		helpDrawerOpen,
+		setHelpDrawerOpen,
 		hideMainNav,
 		setHideMainNav,
 		savedEntries,

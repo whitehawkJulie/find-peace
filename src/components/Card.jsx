@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import SlideDrawer from "./SlideDrawer";
 import MenuBar from "./MenuBar";
 import { useWizard } from "./WizardContext";
 import "./Card.css";
 
 const Card = ({ title, children, showHelp = false, helpContent = null, hideNav = false }) => {
-	const { hideMainNav } = useWizard();
-	const [showDrawer, setShowDrawer] = useState(false);
+	const { hideMainNav, helpDrawerOpen, setHelpDrawerOpen } = useWizard();
 
 	return (
 		<div className="card">
@@ -17,8 +16,8 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 					{showHelp && (
 						<button
 							className="help-icon"
-							title={showDrawer ? "Close help" : "Open help"}
-							onClick={() => setShowDrawer((prev) => !prev)}>
+							title={helpDrawerOpen ? "Close help" : "Open help"}
+							onClick={() => setHelpDrawerOpen((prev) => !prev)}>
 							?
 						</button>
 					)}
@@ -27,7 +26,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 
 			<div className="card-content">{children}</div>
 
-			<SlideDrawer isOpen={showDrawer} onClose={() => setShowDrawer(false)} title={`Help: ${title}`}>
+			<SlideDrawer isOpen={helpDrawerOpen} onClose={() => setHelpDrawerOpen(false)} title={`Help: ${title}`} showBrowse>
 				{helpContent}
 			</SlideDrawer>
 

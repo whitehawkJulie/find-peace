@@ -5,7 +5,7 @@ import NeedExploration from "./NeedExploration";
 import { useWizard } from "./WizardContext";
 
 const NvcWizard = () => {
-	const { stepIndex, visibleSteps, settings, needExplorationOpen } = useWizard();
+	const { stepIndex, visibleSteps, settings, needExplorationOpen, setHelpDrawerOpen } = useWizard();
 	const [showPause, setShowPause] = useState(false);
 	const [pauseMessage, setPauseMessage] = useState("");
 	const prevStepIndex = useRef(stepIndex);
@@ -13,6 +13,8 @@ const NvcWizard = () => {
 	const skipPauses = settings.skipPauses ?? false;
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
+		setHelpDrawerOpen(false);
 		const movedForward = stepIndex > prevStepIndex.current;
 		prevStepIndex.current = stepIndex;
 
@@ -22,7 +24,7 @@ const NvcWizard = () => {
 		} else {
 			setShowPause(false);
 		}
-	}, [stepIndex, visibleSteps, skipPauses]);
+	}, [stepIndex, skipPauses]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	if (!visibleSteps || visibleSteps.length === 0) return null;
 

@@ -34,11 +34,17 @@ const Checklist = ({
 	const [collapsedCategories, setCollapsedCategories] = useState({});
 	// Per-section list mode, keyed by section heading
 	const [sectionModes, setSectionModes] = useState({});
+	// Per-section "show selected only" toggle, keyed by section heading
+	const [sectionSelectedOnly, setSectionSelectedOnly] = useState({});
 
 	const getModeForSection = (heading) => sectionModes[heading] || defaultListMode;
 
 	const setSectionMode = (heading, mode) => {
 		setSectionModes((prev) => ({ ...prev, [heading]: mode }));
+	};
+
+	const toggleSelectedOnly = (heading) => {
+		setSectionSelectedOnly((prev) => ({ ...prev, [heading]: !prev[heading] }));
 	};
 
 	const handleClick = (item, itemData) => {
@@ -101,6 +107,16 @@ const Checklist = ({
 			}
 		}
 		return picks;
+	};
+
+	// Returns true if a section has any selected items
+	const sectionHasSelections = (groups) => {
+		for (const group of Object.values(groups)) {
+			for (const item of group.items) {
+				if (selectedItems[item.item]) return true;
+			}
+		}
+		return false;
 	};
 
 	const renderPill = (itemData) => {
@@ -194,10 +210,27 @@ const Checklist = ({
 		);
 	};
 
+	const renderSelectedOnlyToggle = (sectionHeading, groups) => {
+		if (!sectionHasSelections(groups)) return null;
+		const isActive = sectionSelectedOnly[sectionHeading] || false;
+		return (
+			<button
+				className={`mode-icon selected-only-toggle ${isActive ? "mode-icon-active" : ""}`}
+				title={isActive ? "Show all" : "Show selected only"}
+				onClick={(e) => {
+					e.stopPropagation();
+					toggleSelectedOnly(sectionHeading);
+				}}>
+				✓
+			</button>
+		);
+	};
+
 	const renderHeaderControls = (sectionHeading, groups, sectionIndex) => (
 		<span className="category-controls">
 			{sectionIndex === 0 && renderRegulationToggle()}
 			{renderModeIcons(sectionHeading, groups)}
+			{renderSelectedOnlyToggle(sectionHeading, groups)}
 			<span className="collapse-icon">{collapsedCategories[sectionHeading] ? "▼" : "▲"}</span>
 		</span>
 	);
@@ -210,10 +243,14 @@ const Checklist = ({
 				const sortedGroups = getSortedGroups(groups);
 				const mode = getModeForSection(sectionHeading);
 				const sectionRegType = section.regulationType || null;
+				const showSelectedOnly = sectionSelectedOnly[sectionHeading] || false;
 
 				// In quick mode, render flat pills without subcategory headings
 				if (mode === "quick") {
-					const quickPicks = getQuickPicksFlat(groups, sectionRegType);
+					let quickPicks = getQuickPicksFlat(groups, sectionRegType);
+					if (showSelectedOnly) {
+						quickPicks = quickPicks.filter((it) => selectedItems[it.item]);
+					}
 					// If no quickPick items exist, fall through to short-mode rendering below
 					if (quickPicks.length > 0) {
 						return (
@@ -279,7 +316,10 @@ const Checklist = ({
 							<div className="subcategories">
 								{sortedGroups.map(([groupKey, group]) => {
 									const groupHeading = group.ui?.heading || groupKey;
-									const visibleItems = getVisibleItems(group.items, mode);
+									let visibleItems = getVisibleItems(group.items, mode);
+									if (showSelectedOnly) {
+										visibleItems = visibleItems.filter((it) => selectedItems[it.item]);
+									}
 									if (visibleItems.length === 0) return null;
 
 									const groupRegType = group.regulationType || sectionRegType;

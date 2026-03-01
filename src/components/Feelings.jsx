@@ -92,6 +92,15 @@ const Feelings = () => {
 	// Called by Checklist before default selection
 	const handleItemClick = (itemData) => {
 		if (itemData.type === "storyWord") {
+			if (feelings[itemData.item]) {
+				// Already selected — deselect immediately on single click
+				setFeelings((prev) => {
+					const updated = { ...prev };
+					delete updated[itemData.item];
+					return updated;
+				});
+				return false;
+			}
 			// Story word: open popup, do NOT add to selection yet
 			setPopupItem(itemData);
 			return false;

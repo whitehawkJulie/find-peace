@@ -1,0 +1,109 @@
+/* ===== Review page ===== */
+
+.review h2 {
+	font-size: 1.1rem;
+	color: #555;
+	margin: 1.5rem 0 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	font-weight: 600;
+}
+
+.review-section {
+	background: #f7f4ef;
+	border-radius: 10px;
+	padding: 1rem 1.25rem;
+	margin-bottom: 0.75rem;
+	border-left: 3px solid #d4c8b8;
+}
+
+.review-section h3 {
+	margin: 0 0 0.5rem;
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: #8a7a6a;
+	font-weight: 600;
+}
+
+.review-section p {
+	margin: 0.25rem 0;
+	line-height: 1.5;
+	color: #333;
+}
+
+.review-text {
+	white-space: pre-wrap;
+}
+
+.review-label {
+	font-weight: 600;
+	color: #6b5b4e;
+}
+
+.review-exploration {
+	margin-bottom: 0.75rem;
+}
+
+.review-exploration strong {
+	display: block;
+	margin-bottom: 0.25rem;
+	color: #4a3f35;
+}
+
+.review-exploration p {
+	margin: 0.2rem 0;
+	font-size: 0.95rem;
+}
+
+.review-strategies strong {
+	color: #4a3f35;
+}
+
+.review-strategies ul {
+	margin: 0.25rem 0 0.75rem 1.25rem;
+}
+
+.review-strategies li {
+	margin: 0.2rem 0;
+	color: #444;
+}
+
+/* ===== Actions bar ===== */
+
+.review-actions {
+	display: flex;
+	gap: 0.75rem;
+	margin-top: 1.5rem;
+	flex-wrap: wrap;
+}
+
+.review-action-btn {
+	padding: 0.6rem 1.25rem;
+	border-radius: 8px;
+	font-size: 0.9rem;
+	cursor: pointer;
+	border: 1.5px solid #5a9e6d;
+	background: #5a9e6d;
+	color: white;
+	font-family: inherit;
+	transition: background 0.15s ease;
+}
+
+.review-action-btn:hover {
+	background: #4d8a5e;
+}
+
+.review-action-btn:disabled {
+	opacity: 0.55;
+	cursor: default;
+}
+
+.review-action-btn-secondary {
+	background: white;
+	color: #5a9e6d;
+}
+
+.review-action-btn-secondary:hover:not(:disabled) {
+	background: #f0f8f2;
+}

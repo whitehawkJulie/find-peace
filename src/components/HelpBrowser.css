@@ -1,0 +1,91 @@
+/* ===== Help Browser ===== */
+
+.help-browser {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.help-browser-back {
+	background: none;
+	border: none;
+	color: #5a9e6d;
+	font-size: 0.85rem;
+	cursor: pointer;
+	padding: 0;
+	text-align: left;
+	margin-bottom: 0.25rem;
+}
+
+.help-browser-back:hover {
+	text-decoration: underline;
+}
+
+.help-browser-search {
+	width: 100%;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-size: 0.9rem;
+	font-family: inherit;
+	box-sizing: border-box;
+	margin-bottom: 0.25rem;
+}
+
+.help-browser-search:focus {
+	outline: none;
+	border-color: #5a9e6d;
+}
+
+.help-browser-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.help-browser-item {
+	display: block;
+	width: 100%;
+	padding: 0.6rem 0.75rem;
+	text-align: left;
+	background: none;
+	border: none;
+	border-radius: 8px;
+	font-size: 0.95rem;
+	color: #333;
+	cursor: pointer;
+	font-family: inherit;
+}
+
+.help-browser-item:hover {
+	background: #f0ede6;
+	color: #5a9e6d;
+}
+
+.help-browser-empty {
+	font-size: 0.9rem;
+	color: #999;
+	padding: 0.5rem 0.75rem;
+}
+
+.help-browser-topic-title {
+	margin: 0 0 0.75rem;
+	font-size: 1rem;
+	color: #333;
+}
+
+.help-browser-content {
+	font-size: 0.95rem;
+	line-height: 1.6;
+}
+
+.help-browser-content h3,
+.help-browser-content h4 {
+	margin-top: 1rem;
+	margin-bottom: 0.4rem;
+}
+
+.help-browser-content p,
+.help-browser-content ul {
+	margin-bottom: 0.6rem;
+}

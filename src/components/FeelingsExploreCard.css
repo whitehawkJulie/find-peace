@@ -1,16 +1,22 @@
-/* ===== Family Regulation Card ===== */
+/* ===== Feelings Explore Card ===== */
 
-.family-regulation {
+.feelings-explore-regulation {
 	padding: 0.5rem 0;
 }
 
-.family-title {
+.feelings-explore-placeholder {
+	color: #888;
+	font-style: italic;
+	margin-bottom: 1rem;
+}
+
+.feelings-explore-title {
 	font-size: 1.1rem;
 	color: #444;
 	margin: 0 0 0.5rem;
 }
 
-.family-intro {
+.feelings-explore-intro {
 	color: #666;
 	line-height: 1.5;
 	margin: 0 0 1.25rem;
@@ -19,18 +25,18 @@
 
 /* ===== Prompts ===== */
 
-.family-prompt {
+.feelings-explore-prompt {
 	margin: 1.25rem 0;
 }
 
-.family-prompt-question {
+.feelings-explore-prompt-question {
 	font-size: 0.95rem;
 	color: #444;
 	margin: 0 0 0.5rem;
 	line-height: 1.4;
 }
 
-.family-textarea {
+.feelings-explore-textarea {
 	width: 100%;
 	padding: 0.6rem;
 	border: 1px solid #ccc;
@@ -42,20 +48,20 @@
 	background: #fefefe;
 }
 
-.family-textarea:focus {
+.feelings-explore-textarea:focus {
 	outline: none;
 	border-color: #5a9e6d;
 }
 
 /* ===== Choice Buttons ===== */
 
-.family-choices {
+.feelings-explore-choices {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.5rem;
 }
 
-.family-choice {
+.feelings-explore-choice {
 	padding: 0.4rem 0.8rem;
 	border-radius: 999px;
 	background: #e8e8e0;
@@ -66,11 +72,11 @@
 	transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.family-choice:hover {
+.feelings-explore-choice:hover {
 	background: #deded6;
 }
 
-.family-choice.chosen {
+.feelings-explore-choice.chosen {
 	background: #d4e8d0;
 	border-color: #5a9e6d;
 	color: #2d5a36;
