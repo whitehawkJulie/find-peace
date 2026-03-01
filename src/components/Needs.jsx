@@ -13,8 +13,7 @@ const renderOrderedFeelings = (feelings) => {
 	}
 
 	return (
-		<p>
-			With these feelings here —{" "}
+		<p style={{ textAlign: "center" }}>
 			{entries.map(([feeling, strength], i) => (
 				<React.Fragment key={feeling}>
 					{i > 0 && ", "}
@@ -40,16 +39,10 @@ const Needs = () => {
 	return (
 		<div className="step-needs">
 			{renderOrderedFeelings(feelings)}
-
-			<p>What are these feelings telling us about what is important or meaningful to us here?</p>
-
-			<p>
-				Needs are qualities that ALL human beings long for, that contribute to our thriving — things like
-				safety, respect, choice, understanding, connection.
-			</p>
+			<p>Take them one at a time — each feeling is pointing to something that matters to you here.</p>
 
 			<p>
-				You don’t have to get this "right." Just notice what feels alive. Select all that feel relevant. Tap{" "}
+				Just notice what feels alive. Select all that feel relevant. Tap{" "}
 				<span
 					style={{
 						display: "inline-flex",
@@ -103,6 +96,10 @@ Needs.helpContent = (
 	<>
 		<h3>What Is a Need?</h3>
 		<p>
+			Needs are qualities that ALL human beings long for, that contribute to our thriving — things like safety,
+			respect, choice, understanding, connection.
+		</p>
+		<p>
 			In this process, a need isn’t a demand and it isn’t a specific outcome. It’s a word for what matters most —
 			the human qualities that help us thrive. Needs live inside us as a longing of our hearts. They’re what we’re
 			trying to meet whenever we take action — even if we don’t realize it. They’re also what we’re trying to
@@ -154,7 +151,11 @@ Needs.helpContent = (
 			<li>This exact behaviour</li>
 			<li>This one solution</li>
 		</ul>
-		<p>The need is what matters. The strategy is just one possible way to support it.</p>
+		<p>
+			The need is what matters. The strategy (THIS particular person in THIS particular way) is just one possible
+			way to support it. There are always thousands of possible ways to meet any need. When we get attached to one
+			strategy, we can miss out on all the other possibilities that might work better.
+		</p>
 	</>
 );
 

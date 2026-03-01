@@ -237,7 +237,7 @@ const Review = () => {
 			)}
 
 			<hr></hr>
-			<h2>You guesses for the other person</h2>
+			<h2>Your guesses for the other person</h2>
 
 			{hasGuesses && (
 				<div className="review-section">

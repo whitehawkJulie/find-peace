@@ -3,7 +3,7 @@ export const clarifyPromptLibrary = {
 	EMB_01: "If this were present, what would shift in your body — even 5%?",
 	EMB_02: "What would soften in you if this were here?",
 	EMB_03: "Where do you feel this need most in your body right now?",
-	EMB_04: "If this were met, what would your breath or shoulders do differently?",
+	EMB_04: "If this need were met right now, what would your breath or shoulders do differently?",
 
 	// DISCRIMINATION — RELATIONAL
 	DISC_REL_01: "Is this about wanting connection — or about preventing disconnection?",

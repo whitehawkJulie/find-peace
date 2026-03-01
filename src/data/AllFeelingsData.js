@@ -39,8 +39,8 @@ export const regulationMeta = {
 		// Subtle warm/energised tint
 		// Activated (energised, charged, restless)
 		colors: {
-			bg: "#FFF1E6", // pale apricot
-			border: "#F5B97A",
+			bg: "#fcf5f188", // pale apricot
+			border: "#F5B97A33",
 			dot: "#D97706",
 		},
 
@@ -61,8 +61,8 @@ export const regulationMeta = {
 
 		// Threat (alarm, fear, danger response)
 		colors: {
-			bg: "#FFE4E6", // soft rose
-			border: "#FCA5A5",
+			bg: "#fbf0f1", // soft rose
+			border: "#FCA5A533",
 			dot: "#DC2626",
 		},
 
@@ -83,8 +83,8 @@ export const regulationMeta = {
 
 		// Contracted (tight, withdrawn, braced)
 		colors: {
-			bg: "#EDE9FE", // muted lavender
-			border: "#C4B5FD",
+			bg: "#f4f1ff", // muted lavender
+			border: "#C4B5FD33",
 			dot: "#7C3AED",
 		},
 
@@ -106,7 +106,7 @@ export const regulationMeta = {
 		// Collapsed (low energy, shut down)
 		colors: {
 			bg: "#F1F5F9", // cool mist grey
-			border: "#CBD5E1",
+			border: "#CBD5E133",
 			dot: "#475569",
 		},
 
@@ -127,8 +127,8 @@ export const regulationMeta = {
 
 		// Cognitive (confused, disoriented, mental overload)
 		colors: {
-			bg: "#E0F2FE", // soft sky
-			border: "#7DD3FC",
+			bg: "#ebf5fb", // soft sky
+			border: "#7DD3FC33",
 			dot: "#0284C7",
 		},
 
@@ -151,8 +151,8 @@ export const regulationMeta = {
 
 		// Settled (regulated, grounded, safe)
 		colors: {
-			bg: "#DCFCE7", // pale sage
-			border: "#86EFAC",
+			bg: "#ecfbf2", // pale sage
+			border: "#86EFAC33",
 			dot: "#15803D",
 		},
 
@@ -168,11 +168,11 @@ export const regulationMeta = {
 	// Drawer-level UI copy (optional place to centralize the help content)
 	uiHelpDrawer: {
 		title: "Nervous System Overlay",
-		intro: "This overlay lightly colour-maps feeling words by nervous system state. It’s not a diagnosis \
-		— just a way to notice patterns. And it's just a guess - it might be slightly different for you.",
-		why: "Sometimes the most useful next step depends on state. For example: high activation may benefit from slowing; threat may benefit from safety; collapse may benefit from gentleness and support.",
+		intro: "This overlay lightly colour-maps feeling words by nervous system state. It shows how each particular feeling \
+				often shows up in people's nervous systems.",
+		why: "Sometimes the most useful next step depends on state. For example: high activation may benefit \
+			from slowing; threat may benefit from safety; collapse may benefit from gentleness and support.",
 		howToUse: [
-			"Use it as a *pattern lens*, not a sorting rule.",
 			"Keep scanning the whole list — surprises often come from outside your expected ‘band’.",
 			"If the colours feel too much, turn the overlay off.",
 		],

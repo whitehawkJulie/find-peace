@@ -16,40 +16,44 @@
 .pill {
 	padding: 0.4rem 0.8rem;
 	border-radius: 999px;
-	background-color: #e0e0e0;
+	background-color: #eeeeee;
 	font-size: 0.85rem;
 	cursor: pointer;
 	transition: all 0.2s ease;
 	user-select: none;
 	position: relative;
+	/* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.09); */
 }
 
 .pill:hover {
-	background-color: #d3d3d3;
+	background-color: #e0e0e0;
 }
 
 /* Feelings — intensity 1 (single click) */
 .pill.clicked.feeling,
 .step-feelings .pill.clicked {
-	background-color: #fff2f2;
-	border: 1.5px solid #e66;
+	background-color: #d6d6d6;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Feelings — intensity 2 (double click / second tap) */
+/* Feelings — intensity 2 ( second tap) */
 .pill.double-clicked.feeling,
 .step-feelings .pill.double-clicked {
-	background-color: #fdd6d6;
-	border: 3px solid #c22;
+	background-color: #d6d6d6;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+	font-weight: 600;
 }
 
 /* When regulation overlay is active, keep the regulation bg and use solid red border */
 .pill.reg-overlay.clicked {
-	border: 2px solid #d44;
+	background-color: #f1e3e3;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .pill.reg-overlay.double-clicked {
-	border: 3.5px solid #c22;
-	box-shadow: 0 0 4px rgba(200, 30, 30, 0.25);
+	background-color: #f1d1d1;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+	font-weight: 600;
 }
 
 /* met needs */
@@ -62,8 +66,8 @@
 /* unmet needs */
 .pill.clicked.need,
 .step-needs .pill.clicked {
-	background-color: #fff2f2;
-	border: 2px dotted red;
+	background-color: #d6d6d6;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* Expandable hint (+) for story words */

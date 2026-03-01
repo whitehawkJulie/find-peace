@@ -16,22 +16,28 @@ const oldExplorationPrompts = [
 	{
 		title: "Body awareness",
 		field: "bodyFeeling",
-		prompt: "Close your eyes for a moment if you can. Where in your body do you feel this need? Is there tightness, heaviness, emptiness, restlessness? Just notice — there's no right answer.",
+		prompt: "Close your eyes for a moment if you can. Where in your body do you feel this need? Is there tightness, \
+				heaviness, emptiness, restlessness? Just notice — there's no right answer.",
 	},
 	{
 		title: "When this need is met",
 		field: "whenMet",
-		prompt: "Can you recall a time when this need WAS met — even partially? What did that feel like in your body? What was happening? Let yourself really feel into that memory for a moment.",
+		prompt: "Can you recall a time when this need WAS met — even partially? What did that feel like in your body? \
+				What was happening? Let yourself really feel into that memory for a moment.",
 	},
 	{
 		title: "The beauty of this need",
 		field: "beauty",
-		prompt: "What is beautiful about this need? What does it tell you about what matters to you, about who you are? This need is life energy — it's telling you something important about what makes life wonderful for you.",
+		prompt: "What is beautiful about this need? What does it tell you about what matters to you, about who you are? \
+				This need is life energy — it's telling you something important about what makes life wonderful for you.",
 	},
 	{
-		title: "Is this a black hole need?",
+		title: "How empty is this tank?",
 		field: "blackHole",
-		prompt: "Does this need feel familiar — like it keeps showing up in your life? Do you get triggered around it often, maybe intensely? If so, this might be a \"black hole need\" — one that's been deeply unmet for a long time, possibly since childhood. It doesn't mean something is wrong with you. It means this need deserves real attention, beyond just this situation. What do you notice?",
+		prompt: "Does this need feel familiar — like it keeps showing up in your life? Do you get triggered around it often, \
+				maybe intensely? If so, this might be a \"black hole need\" — one that's been deeply unmet for a long time, \
+				possibly since childhood. It doesn't mean something is wrong with you. It means this need deserves real \
+				attention, beyond just this situation. What do you notice?",
 	},
 	null, // step 7: summary
 ];
@@ -518,7 +524,8 @@ const NeedExploration = () => {
 
 					<div className="self-care-prompt">
 						<label className="self-care-label">
-							Is there anything <em>you</em> could do, to meet this need for yourself — even if only by 5%?
+							Is there anything <em>you</em> could do, to meet this need for yourself — even if only by
+							5%?
 						</label>
 						<textarea
 							className="self-care-input"
@@ -766,24 +773,10 @@ NeedExploration.helpContent = (
 		<p>If the energy feels sharp or especially strong, you might gently ask:</p>
 
 		<p>
-			<em>“If I truly had this… what would that give me?”</em>
+			<em>“If I truly had this need… what would that give me?”</em>
 		</p>
 
-		<p>Follow the thread until something softens.</p>
-
-		<h3>Why Some Needs Feel Bigger</h3>
-		<p>It can help to imagine your needs as small water tanks.</p>
-
-		<p>Some tanks are usually full. Others fluctuate. And some may be running low.</p>
-
-		<p>
-			When a tank is low, reactions feel stronger. What looks like “overreacting” is often just a low tank being
-			touched.
-		</p>
-
-		<p>
-			Naming the need doesn’t fill the tank — but it often steadies the system enough to respond with more choice.
-		</p>
+		<p>and see if a deeper need emerges.</p>
 
 		<h3>Meeting a Need (Not Just Fulfilling It)</h3>
 

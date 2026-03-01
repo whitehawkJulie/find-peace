@@ -194,8 +194,9 @@ const Feelings = () => {
 				regulationOverlay={showRegulationOverlay}
 			/>
 
+			{/* REPLACED by having a chevron they can open if they want */}
 			{/* Inline prompt for murky feelings (only while the triggering feeling is still selected) */}
-			{murkyPromptItem && feelings[murkyPromptItem.item] && (
+			{/* {murkyPromptItem && feelings[murkyPromptItem.item] && (
 				<div className="murky-inline-prompt">
 					<p>This often has a lot packed into it. Want to explore it a little?</p>
 					<div className="murky-inline-buttons">
@@ -207,7 +208,7 @@ const Feelings = () => {
 						</button>
 					</div>
 				</div>
-			)}
+			)} */}
 
 			{popupItem && (
 				<ClarifyPopup
@@ -227,7 +228,8 @@ const Feelings = () => {
 
 					<p>
 						Some words sound like feelings but actually point to what happened or what someone else did.
-						These are what we call <strong>Story Words</strong>.
+						These are what we call <strong>Story Words</strong>. (Traditional NVC calls them Faux Feelings.)
+						{/* TODO: put that last bit in a footnote */}
 					</p>
 
 					<p>
@@ -283,6 +285,12 @@ Feelings.helpContent = (
 		<p>
 			When you can name what you're actually feeling, intensity often shifts. Clarity opens the doorway to
 			understanding what you need.
+		</p>
+
+		<p>
+			It's really useful to look through the entire list, checking for every feeling inside yourself, rather than
+			just scanning the list looking for words for feelings you already know. The surprising ones hold a LOT of
+			power to shift your experience.
 		</p>
 
 		<h3>Using the Feeling List</h3>
