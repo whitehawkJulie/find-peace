@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useWizard } from "./WizardContext";
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
 import { familyCards, pickDominantFamily } from "../data/familyCards";
@@ -17,8 +17,25 @@ if (unmetSection?.groups) {
 	}
 }
 
+const renderOrderedFeelings = (feelings) => {
+	const entries = Object.entries(feelings).filter(([, s]) => s === "clicked" || s === "double-clicked");
+	if (entries.length === 0) return null;
+	return (
+		<p style={{ textAlign: "center" }}>
+			{entries.map(([name, strength], i) => (
+				<React.Fragment key={name}>
+					{i > 0 && ", "}
+					{strength === "double-clicked" ? <strong>{name}</strong> : name}
+				</React.Fragment>
+			))}
+		</p>
+	);
+};
+
 const FeelingsExploreCard = () => {
 	const { feelings, feelingsExploreResponses, setFeelingsExploreResponses } = useWizard();
+
+	const [cardExpanded, setCardExpanded] = useState(false);
 
 	// Get selected unmet feelings with family data
 	const selectedUnmetWithFamily = useMemo(() => {
@@ -30,6 +47,11 @@ const FeelingsExploreCard = () => {
 
 	const dominantFamily = pickDominantFamily(selectedUnmetWithFamily);
 	const card = dominantFamily ? familyCards[dominantFamily] : null;
+
+	// Reset expanded state when the dominant family changes
+	useEffect(() => {
+		setCardExpanded(false);
+	}, [dominantFamily]);
 
 	const setResponse = (promptId, value) => {
 		setFeelingsExploreResponses((prev) => ({ ...prev, [promptId]: value }));
@@ -47,9 +69,23 @@ const FeelingsExploreCard = () => {
 
 	return (
 		<div className="feelings-explore-regulation">
-			<p className="feelings-explore-placeholder">[Placeholder text — to be edited]</p>
+			{renderOrderedFeelings(feelings)}
 
-			{card && (
+			{card && !cardExpanded && (
+				<div className="feelings-explore-prompt-reveal">
+					<p className="feelings-explore-prompt-title">{card.title} — would you like to explore that a little?</p>
+					<div className="feelings-explore-reveal-buttons">
+						<button className="feelings-explore-reveal-yes" onClick={() => setCardExpanded(true)}>
+							Yes, let's explore
+						</button>
+						<button className="subtle-button feelings-explore-reveal-no" onClick={() => {}}>
+							No thanks
+						</button>
+					</div>
+				</div>
+			)}
+
+			{card && cardExpanded && (
 				<>
 					<h3 className="feelings-explore-title">{card.title}</h3>
 					<p className="feelings-explore-intro">{card.intro}</p>
@@ -102,7 +138,7 @@ const FeelingsExploreCard = () => {
 	);
 };
 
-FeelingsExploreCard.title = "Settling";
+FeelingsExploreCard.title = "Explore Feelings";
 FeelingsExploreCard.helpContent = (
 	<>
 		<p>

@@ -212,12 +212,12 @@ const ClarifyStep = ({ needName, exploration, updateField }) => {
 
 	return (
 		<div className="clarify-step">
-			<div className="clarify-intro">
+			{/* <div className="clarify-intro">
 				<p>
 					Let's get specific about what <strong>{needName}</strong> means for you right now. There's no right
 					answer — just notice what feels true.
 				</p>
-			</div>
+			</div> */}
 
 			<div className="clarify-prompts">
 				{prompts.core.map(({ key, label, question }) => (
@@ -461,7 +461,7 @@ const NeedExploration = () => {
 	//  NEW CLARIFY FLOW (for needs-clarify type)
 	// ═══════════════════════════════════════
 	if (hasClarify) {
-		// Step 1: Clarify prompts
+		// Step 1: Clarify prompts + self-care + Done (single screen — no summary step)
 		if (explorationStep === 1) {
 			const exploration = needExplorations[currentExploringNeed] || {};
 
@@ -472,30 +472,6 @@ const NeedExploration = () => {
 						<Pill item={currentExploringNeed} type="need" state="clicked" />
 					</div>
 
-					<ClarifyStep needName={currentExploringNeed} exploration={exploration} updateField={updateField} />
-
-					<SubStepNav
-						current={1}
-						total={totalSubSteps}
-						onBack={exitExploration}
-						onNext={() => setExplorationStep(CLARIFY_SUMMARY_STEP)}
-						nextLabel="Finish"
-						onExit={exitExploration}
-					/>
-				</div>
-			);
-		}
-
-		// Step 2: Clarify summary
-		if (explorationStep === CLARIFY_SUMMARY_STEP) {
-			const exploration = needExplorations[currentExploringNeed] || {};
-			const clarifyPrompts = getClarifyPrompts(currentExploringNeed);
-			const allPrompts = clarifyPrompts ? [...clarifyPrompts.core, ...clarifyPrompts.deeper] : [];
-			const hasResponses = allPrompts.some(({ key }) => exploration[`clarify_${key}`]?.trim());
-
-			return (
-				<div className="need-exploration need-exploration-substep">
-					<h3>Sitting with: {currentExploringNeed}</h3>
 					<p className="exploration-sit-with">
 						Take a moment to just be with this. Your need for <strong>{currentExploringNeed}</strong> isn't
 						a problem to fix — it's life energy, pointing you towards what makes life meaningful.
@@ -503,24 +479,9 @@ const NeedExploration = () => {
 					<p>
 						Before you try to solve this need, take a moment to <em>meet</em> it — not as something to
 						fulfil, but as something living in you.
-						{/* TODO: add a ? or something to meet, which links to "meeting a need" in the extended help file */}
 					</p>
-					{hasResponses && (
-						<div className="exploration-summary">
-							<div className="summary-item summary-item-clarify">
-								<strong>What you noticed:</strong>
-								{allPrompts.map(({ key, label, question }) =>
-									exploration[`clarify_${key}`]?.trim() ? (
-										<p key={key}>
-											<em>{question}</em>
-											<br />
-											{exploration[`clarify_${key}`]}
-										</p>
-									) : null,
-								)}
-							</div>
-						</div>
-					)}
+
+					<ClarifyStep needName={currentExploringNeed} exploration={exploration} updateField={updateField} />
 
 					<div className="self-care-prompt">
 						<label className="self-care-label">
@@ -537,21 +498,8 @@ const NeedExploration = () => {
 					</div>
 
 					<div className="exploration-actions">
-						<button
-							onClick={() => {
-								finishCurrentNeed();
-							}}>
-							{"Done"}
-						</button>
+						<button onClick={finishCurrentNeed}>Done</button>
 					</div>
-
-					<SubStepNav
-						current={2}
-						total={totalSubSteps}
-						onBack={() => setExplorationStep(1)}
-						onNext={null}
-						onExit={exitExploration}
-					/>
 				</div>
 			);
 		}

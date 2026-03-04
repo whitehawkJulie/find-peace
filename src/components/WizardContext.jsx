@@ -65,7 +65,7 @@ const allSteps = [
 	},
 	{
 		component: FeelingsExploreCard,
-		title: "Settling",
+		title: "Explore Feelings",
 		optional: true,
 	},
 	{

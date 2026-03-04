@@ -288,38 +288,72 @@ const Checklist = ({
 					}
 				}
 
-				// Short / full modes — render with subcategory headings
+				// Short / full modes — render with subcategory headings.
+				// Exception: when showSelectedOnly, render a flat cloud sorted strong (double-clicked) first.
+				const sectionHeader = (
+					<div
+						className="category-header"
+						onClick={() => toggleCategory(sectionHeading)}
+						title={collapsedCategories[sectionHeading] ? "Expand section" : "Collapse section"}>
+						<h3 className="category-title">
+							{sectionHeading}
+							{categoryHelpIcons[sectionHeading] && (
+								<button
+									className="category-help-icon"
+									title="What's this?"
+									onClick={(e) => {
+										e.stopPropagation();
+										categoryHelpIcons[sectionHeading]();
+									}}>
+									?
+								</button>
+							)}
+						</h3>
+						{renderHeaderControls(sectionHeading, groups, index)}
+					</div>
+				);
+
+				if (showSelectedOnly) {
+					const allSelected = [];
+					for (const [, group] of sortedGroups) {
+						const groupRegType = group.regulationType || sectionRegType;
+						for (const item of group.items) {
+							if (selectedItems[item.item]) {
+								allSelected.push({
+									...item,
+									_resolvedRegType: item.regulationType || groupRegType || null,
+								});
+							}
+						}
+					}
+					allSelected.sort((a, b) => {
+						const aScore = selectedItems[a.item] === "double-clicked" ? 0 : 1;
+						const bScore = selectedItems[b.item] === "double-clicked" ? 0 : 1;
+						return aScore - bScore;
+					});
+					return (
+						<div key={sectionHeading} className={`category category-${index % 8}`}>
+							{sectionHeader}
+							{!collapsedCategories[sectionHeading] && (
+								<div className="subcategories">
+									<div className="pill-grid cloud" style={{ padding: "1rem" }}>
+										{allSelected.map(renderPill)}
+									</div>
+								</div>
+							)}
+						</div>
+					);
+				}
+
 				return (
 					<div key={sectionHeading} className={`category category-${index % 8}`}>
-						<div
-							className="category-header"
-							onClick={() => toggleCategory(sectionHeading)}
-							title={collapsedCategories[sectionHeading] ? "Expand section" : "Collapse section"}>
-							<h3 className="category-title">
-								{sectionHeading}
-								{categoryHelpIcons[sectionHeading] && (
-									<button
-										className="category-help-icon"
-										title="What's this?"
-										onClick={(e) => {
-											e.stopPropagation();
-											categoryHelpIcons[sectionHeading]();
-										}}>
-										?
-									</button>
-								)}
-							</h3>
-							{renderHeaderControls(sectionHeading, groups, index)}
-						</div>
+						{sectionHeader}
 
 						{!collapsedCategories[sectionHeading] && (
 							<div className="subcategories">
 								{sortedGroups.map(([groupKey, group]) => {
 									const groupHeading = group.ui?.heading || groupKey;
-									let visibleItems = getVisibleItems(group.items, mode);
-									if (showSelectedOnly) {
-										visibleItems = visibleItems.filter((it) => selectedItems[it.item]);
-									}
+									const visibleItems = getVisibleItems(group.items, mode);
 									if (visibleItems.length === 0) return null;
 
 									const groupRegType = group.regulationType || sectionRegType;

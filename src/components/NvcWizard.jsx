@@ -5,7 +5,8 @@ import NeedExploration from "./NeedExploration";
 import { useWizard } from "./WizardContext";
 
 const NvcWizard = () => {
-	const { stepIndex, visibleSteps, settings, needExplorationOpen, setHelpDrawerOpen } = useWizard();
+	const { stepIndex, visibleSteps, settings, needExplorationOpen, setHelpDrawerOpen,
+		currentExploringNeed, explorationStep } = useWizard();
 	const [showPause, setShowPause] = useState(false);
 	const [pauseMessage, setPauseMessage] = useState("");
 	const prevStepIndex = useRef(stepIndex);
@@ -33,7 +34,9 @@ const NvcWizard = () => {
 	// When the need exploration overlay is open, render NeedExploration instead of the current step
 	const CurrentStepComponent = needExplorationOpen ? NeedExploration : currentStep.component;
 	const title = needExplorationOpen
-		? NeedExploration.title || ""
+		? (currentExploringNeed && explorationStep > 0
+			? `Clarify: ${currentExploringNeed}`
+			: NeedExploration.title || "")
 		: CurrentStepComponent.title || "";
 	const helpContent = needExplorationOpen
 		? NeedExploration.helpContent

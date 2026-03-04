@@ -1,16 +1,23 @@
+import { NEEDS, GROUPS } from "./NeedsConstants.js";
+import { WHERE_MET } from "./whereMetData.js";
+import { UNPACKING_TYPE } from "./unpackingTypeData.js";
+
+const { IN_ME, BETWEEN_US, ENVIRONMENT } = WHERE_MET;
+
 export const NeedsConnection = {
 	ui: {
 		heading: "Connection Needs",
 		helpText:
 			"Connection needs are about relating to others and feeling a sense of belonging. They include needs for love, acceptance, understanding, support, and intimacy. When these needs are unmet, we may feel lonely, isolated, or disconnected.",
 	},
-	metaType: "relationalField",
 	groups: {
-		Affection: {
+		[GROUPS.AFFECTION]: {
 			ui: { heading: "Affection", order: 1 },
+			unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD],
+			whereMet: [BETWEEN_US],
 			items: [
 				{
-					item: "Affection",
+					item: NEEDS.AFFECTION,
 					meaning: "Expressions of emotional warmth and connection",
 					status: "",
 					clarify: {
@@ -33,9 +40,11 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Appreciation",
+					item: NEEDS.APPRECIATION,
 					meaning: "Being seen and valued",
 					status: "",
+					whereMet: [BETWEEN_US, IN_ME],
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.INTEGRITY_IDENTITY],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -56,7 +65,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Attention",
+					item: NEEDS.ATTENTION,
 					meaning: "Being genuinely noticed",
 					status: "",
 					clarify: {
@@ -79,7 +88,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Closeness",
+					item: NEEDS.CLOSENESS,
 					meaning: "Emotional and/or physical intimacy",
 					status: "",
 					clarify: {
@@ -102,7 +111,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Connection",
+					item: NEEDS.CONNECTION,
 					meaning: "Feeling linked to others and to life",
 					status: "",
 					clarify: {
@@ -125,7 +134,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Companionship",
+					item: NEEDS.COMPANIONSHIP,
 					meaning: "Enjoying life with others",
 					status: "",
 					clarify: {
@@ -148,9 +157,11 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Harmony",
+					item: NEEDS.HARMONY,
 					meaning: "Cooperation and mutual support",
 					status: "",
+					whereMet: [BETWEEN_US, IN_ME],
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.PROTECTIVE_SAFETY],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -171,7 +182,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Intimacy",
+					item: NEEDS.INTIMACY,
 					meaning: "Mutual vulnerability and closeness",
 					status: "",
 					clarify: {
@@ -194,9 +205,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Love",
+					item: NEEDS.LOVE,
 					meaning: "Unconditional acceptance and care",
 					status: "",
+					whereMet: [BETWEEN_US, IN_ME],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -217,9 +229,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Nurturing",
+					item: NEEDS.NURTURING,
 					meaning: "Care that supports growth and healing",
 					status: "",
+					whereMet: [BETWEEN_US, IN_ME],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -240,7 +253,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Sexual expression",
+					item: NEEDS.SEXUAL_EXPRESSION,
 					meaning: "Authentic physical intimacy",
 					status: "",
 					clarify: {
@@ -263,9 +276,11 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Support",
+					item: NEEDS.SUPPORT,
 					meaning: "Practical or emotional backing",
 					status: "",
+					whereMet: [BETWEEN_US, ENVIRONMENT, IN_ME],
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.PRACTICAL],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -293,7 +308,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Tenderness",
+					item: NEEDS.TENDERNESS,
 					meaning: "Gentle, caring touch or tone",
 					status: "",
 					clarify: {
@@ -316,7 +331,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Warmth",
+					item: NEEDS.WARMTH,
 					meaning: "A sense of friendliness and care",
 					status: "",
 					clarify: {
@@ -340,13 +355,16 @@ export const NeedsConnection = {
 				},
 			],
 		},
-		Mattering: {
+		[GROUPS.MATTERING]: {
 			ui: { heading: "To matter", order: 2 },
+			unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD],
+			whereMet: [BETWEEN_US, IN_ME],
 			items: [
 				{
-					item: "To matter",
+					item: NEEDS.TO_MATTER,
 					meaning: "To know that I am valued",
 					status: "",
+					unpackingType: [UNPACKING_TYPE.INTEGRITY_IDENTITY, UNPACKING_TYPE.RELATIONAL_FIELD],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -374,9 +392,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Acceptance",
+					item: NEEDS.ACCEPTANCE,
 					meaning: "Welcomed just as I am",
 					status: "",
+					unpackingType: [UNPACKING_TYPE.INTEGRITY_IDENTITY, UNPACKING_TYPE.RELATIONAL_FIELD],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -397,9 +416,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Care",
+					item: NEEDS.CARE,
 					meaning: "Concern for my well-being",
 					status: "",
+					whereMet: [BETWEEN_US],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -420,7 +440,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Compassion",
+					item: NEEDS.COMPASSION,
 					meaning: "Understanding and warmth in response to suffering",
 					status: "",
 					clarify: {
@@ -443,9 +463,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Consideration",
+					item: NEEDS.CONSIDERATION,
 					meaning: "Having my needs factored in",
 					status: "",
+					whereMet: [BETWEEN_US],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -466,9 +487,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Empathy",
+					item: NEEDS.EMPATHY,
 					meaning: "Emotional resonance and understanding",
 					status: "",
+					whereMet: [BETWEEN_US],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -489,9 +511,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Respect",
+					item: NEEDS.RESPECT,
 					meaning: "Being valued and honored",
 					status: "",
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.INTEGRITY_IDENTITY],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -519,9 +542,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Acknowledgement",
+					item: NEEDS.ACKNOWLEDGEMENT,
 					meaning: "Having your experience or contribution recognised",
 					status: "",
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.INTEGRITY_IDENTITY],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -544,9 +568,10 @@ export const NeedsConnection = {
 				// Split from: "To be heard, seen"
 
 				{
-					item: "To be heard",
+					item: NEEDS.TO_BE_HEARD,
 					meaning: "To know my words are received and taken in",
 					status: "",
+					whereMet: [BETWEEN_US],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -567,9 +592,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "To be seen",
+					item: NEEDS.TO_BE_SEEN,
 					meaning: "To have my experience and presence acknowledged",
 					status: "",
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.INTEGRITY_IDENTITY],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -578,7 +604,7 @@ export const NeedsConnection = {
 								key: "core_specific",
 								label: "What this means for you",
 								question:
-									"Is this about being noticed and recognised (your experience matters), or about someone really getting what it’s like to be you right now?",
+									"Is this about being noticed and recognised (your experience matters), or about someone really getting what it's like to be you right now?",
 								tier: "core",
 							},
 							{ key: "core_embodiment", label: "In your body", ref: "EMB_01", tier: "core" },
@@ -590,9 +616,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "To be known, understood",
+					item: NEEDS.TO_BE_KNOWN_UNDERSTOOD,
 					meaning: "Deep recognition of who I am",
 					status: "",
+					whereMet: [BETWEEN_US],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -613,9 +640,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "To be trusted",
+					item: NEEDS.TO_BE_TRUSTED,
 					meaning: "Confidence placed in me",
 					status: "",
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.PROTECTIVE_SAFETY],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -636,7 +664,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Understanding others",
+					item: NEEDS.UNDERSTANDING_OTHERS,
 					meaning: "Being able to grasp others' experience",
 					status: "",
 					clarify: {
@@ -659,9 +687,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Mutual Recognition",
+					item: NEEDS.MUTUAL_RECOGNITION,
 					meaning: "Seeing and being seen by another",
 					status: "",
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.INTEGRITY_IDENTITY],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -682,7 +711,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Kindness",
+					item: NEEDS.KINDNESS,
 					meaning: "Gentle and benevolent care",
 					status: "",
 					clarify: {
@@ -706,11 +735,13 @@ export const NeedsConnection = {
 				},
 			],
 		},
-		Community: {
+		[GROUPS.COMMUNITY]: {
 			ui: { heading: "Community", order: 3 },
+			unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD],
+			whereMet: [BETWEEN_US],
 			items: [
 				{
-					item: "Community",
+					item: NEEDS.COMMUNITY,
 					meaning: "Belonging to a group",
 					status: "",
 					clarify: {
@@ -733,9 +764,11 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Belonging",
+					item: NEEDS.BELONGING,
 					meaning: "Feeling part of something",
 					status: "",
+					whereMet: [BETWEEN_US, IN_ME],
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.PROTECTIVE_SAFETY],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -789,13 +822,14 @@ export const NeedsConnection = {
 					// This is not about entitlement.
 					// It reflects nervous-system design around attachment stability.
 					// ──────────────────────────────────────────────────────────
-					item: "Reliability",
+					item: NEEDS.RELIABILITY,
 					meaning:
 						"Steady, predictable follow-through over time; being able to depend on consistency in behaviour or agreement.",
 
 					status: "",
 
-					metaType: "relationalField",
+					whereMet: [BETWEEN_US, ENVIRONMENT],
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.PROTECTIVE_SAFETY],
 
 					clarify: {
 						type: "needs-clarify",
@@ -842,7 +876,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Communication",
+					item: NEEDS.COMMUNICATION,
 					meaning: "Sharing and receiving information",
 					status: "",
 					clarify: {
@@ -865,9 +899,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Cooperation",
+					item: NEEDS.COOPERATION,
 					meaning: "Working together toward common goals",
 					status: "",
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.PRACTICAL],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -888,9 +923,11 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Equality",
+					item: NEEDS.EQUALITY,
 					meaning: "Equal worth and rights for all",
 					status: "",
+					whereMet: [BETWEEN_US, ENVIRONMENT],
+					unpackingType: [UNPACKING_TYPE.RELATIONAL_FIELD, UNPACKING_TYPE.INTEGRITY_IDENTITY],
 					clarify: {
 						type: "needs-clarify",
 						category: "loaded",
@@ -917,9 +954,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Inclusion",
+					item: NEEDS.INCLUSION,
 					meaning: "Being actively welcomed",
 					status: "",
+					whereMet: [BETWEEN_US, ENVIRONMENT],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -940,7 +978,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Mutuality",
+					item: NEEDS.MUTUALITY,
 					meaning: "Reciprocal give and take",
 					status: "",
 					clarify: {
@@ -963,9 +1001,10 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Participation",
+					item: NEEDS.PARTICIPATION,
 					meaning: "Being involved and engaged",
 					status: "",
+					whereMet: [BETWEEN_US, ENVIRONMENT],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -986,7 +1025,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Partnership",
+					item: NEEDS.PARTNERSHIP,
 					meaning: "Collaborative and shared efforts",
 					status: "",
 					clarify: {
@@ -1009,9 +1048,11 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Self-expression",
+					item: NEEDS.SELF_EXPRESSION,
 					meaning: "Freedom to express who I am",
 					status: "",
+					whereMet: [IN_ME, BETWEEN_US],
+					unpackingType: [UNPACKING_TYPE.INTEGRITY_IDENTITY, UNPACKING_TYPE.RELATIONAL_FIELD],
 					clarify: {
 						type: "needs-clarify",
 						category: "relational",
@@ -1032,7 +1073,7 @@ export const NeedsConnection = {
 					},
 				},
 				{
-					item: "Sharing",
+					item: NEEDS.SHARING,
 					meaning: "Mutual giving and receiving",
 					status: "",
 					clarify: {
