@@ -409,6 +409,8 @@
 	cursor: pointer;
 	border: 1px solid #ccc;
 	background: white;
+	color: #333;
+	float: none;
 	transition: background 0.15s;
 }
 

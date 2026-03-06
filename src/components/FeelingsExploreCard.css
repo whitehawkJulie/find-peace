@@ -1,5 +1,14 @@
 /* ===== Feelings Explore Card ===== */
 
+.feelings-selected-box {
+	background: rgba(150, 80, 40, 0.08);
+	border-radius: 0.6em;
+	padding: 0.5em 0.85em;
+	text-align: center;
+	line-height: 1.8;
+	margin: 0 auto;
+}
+
 .feelings-explore-regulation {
 	padding: 0.5rem 0;
 }
@@ -9,6 +18,8 @@
 .feelings-explore-prompt-reveal {
 	margin: 1.5rem 0;
 	text-align: center;
+	background-color: #f0f5ee;
+	padding: 1em;
 }
 
 .feelings-explore-prompt-title {
@@ -57,6 +68,14 @@
 	font-size: 0.95rem;
 }
 
+.words-box {
+	background: #f9f7f2;
+	padding: 0.75rem 1rem;
+	border-radius: 8px;
+	border-left: 3px solid #e0c97f;
+	color: #555;
+}
+
 /* ===== Prompts ===== */
 
 .feelings-explore-prompt {
@@ -103,7 +122,9 @@
 	color: #444;
 	font-size: 0.85rem;
 	cursor: pointer;
-	transition: background 0.15s ease, border-color 0.15s ease;
+	transition:
+		background 0.15s ease,
+		border-color 0.15s ease;
 }
 
 .feelings-explore-choice:hover {

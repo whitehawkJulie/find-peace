@@ -66,14 +66,15 @@ const groundingPrompts = [
 	},
 ];
 
-// Steps for the NEW clarify flow (needs-clarify type):
+// Steps for the NEW clarify flow (if clarify field exists):
 // 0 = pick, 1 = clarify (core + go deeper), 2 = summary
 const CLARIFY_SUMMARY_STEP = 2;
 
 // Build the list of clarify prompts for a need, resolving any library refs
 export const getClarifyPrompts = (needName) => {
 	const needData = getNeedData(needName);
-	if (!needData?.clarify || needData.clarify.type !== "needs-clarify") return null;
+	// if (!needData?.clarify || needData.clarify.type !== "needs-clarify") return null;
+	if (!needData?.clarify) return null;
 
 	const resolved = resolvePrompts(needData.clarify.prompts);
 	return {
@@ -306,7 +307,8 @@ const NeedExploration = () => {
 
 	// Check if the current need uses the new clarify flow
 	const currentNeedData = currentExploringNeed ? getNeedData(currentExploringNeed) : null;
-	const hasClarify = currentNeedData?.clarify?.type === "needs-clarify";
+	// const hasClarify = currentNeedData?.clarify?.type === "needs-clarify";
+	const hasClarify = !!currentNeedData?.clarify;
 
 	// Sub-step counts for the navigation indicator
 	const totalSubSteps = hasClarify ? CLARIFY_SUMMARY_STEP : OLD_SUMMARY_STEP;
@@ -483,7 +485,7 @@ const NeedExploration = () => {
 
 					<ClarifyStep needName={currentExploringNeed} exploration={exploration} updateField={updateField} />
 
-					<div className="self-care-prompt">
+					{/* <div className="self-care-prompt">
 						<label className="self-care-label">
 							Is there anything <em>you</em> could do, to meet this need for yourself — even if only by
 							5%?
@@ -495,7 +497,7 @@ const NeedExploration = () => {
 							placeholder="..."
 							rows={2}
 						/>
-					</div>
+					</div> */}
 
 					<div className="exploration-actions">
 						<button onClick={finishCurrentNeed}>Done</button>

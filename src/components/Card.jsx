@@ -5,7 +5,7 @@ import { useWizard } from "./WizardContext";
 import "./Card.css";
 
 const Card = ({ title, children, showHelp = false, helpContent = null, hideNav = false }) => {
-	const { hideMainNav, helpDrawerOpen, setHelpDrawerOpen } = useWizard();
+	const { hideMainNav, helpDrawerOpen, setHelpDrawerOpen, cardContentRef } = useWizard();
 
 	return (
 		<div className="card">
@@ -24,7 +24,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 				</div>
 			</div>
 
-			<div className="card-content">{children}</div>
+			<div className="card-content" ref={cardContentRef}>{children}</div>
 
 			<SlideDrawer isOpen={helpDrawerOpen} onClose={() => setHelpDrawerOpen(false)} title={`Help: ${title}`} showBrowse>
 				{helpContent}

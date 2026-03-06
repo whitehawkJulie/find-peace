@@ -6,7 +6,7 @@ import { useWizard } from "./WizardContext";
 
 const NvcWizard = () => {
 	const { stepIndex, visibleSteps, settings, needExplorationOpen, setHelpDrawerOpen,
-		currentExploringNeed, explorationStep } = useWizard();
+		currentExploringNeed, explorationStep, cardContentRef } = useWizard();
 	const [showPause, setShowPause] = useState(false);
 	const [pauseMessage, setPauseMessage] = useState("");
 	const prevStepIndex = useRef(stepIndex);
@@ -14,7 +14,7 @@ const NvcWizard = () => {
 	const skipPauses = settings.skipPauses ?? false;
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
+		cardContentRef.current?.scrollTo(0, 0);
 		setHelpDrawerOpen(false);
 		const movedForward = stepIndex > prevStepIndex.current;
 		prevStepIndex.current = stepIndex;

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useRef } from "react";
 
 // Create context
 const WizardContext = createContext();
@@ -33,6 +33,8 @@ if (unmetSection?.groups) {
 		}
 	}
 }
+
+// I DON'T THINK THIS IS BEING USED ANYMORE, BUT LEAVING IN CASE
 
 // Full list of steps
 const allSteps = [
@@ -230,6 +232,9 @@ export const WizardProvider = ({ children }) => {
 		setRequestOfOther("");
 	};
 
+	// Ref to .card-content scroll container (attached by Card.jsx)
+	const cardContentRef = useRef(null);
+
 	// Delete a saved session
 	const deleteSession = (sessionId) => {
 		const updated = savedEntries.filter((s) => s.id !== sessionId);
@@ -285,6 +290,7 @@ export const WizardProvider = ({ children }) => {
 		deleteSession,
 		visibleSteps,
 		currentStep,
+		cardContentRef,
 	};
 
 	return <WizardContext.Provider value={value}>{children}</WizardContext.Provider>;

@@ -1,3 +1,12 @@
+.feelings-selected-box {
+	background: rgba(150, 80, 40, 0.08);
+	border-radius: 0.6em;
+	padding: 0.5em 0.85em;
+	text-align: center;
+	line-height: 1.8;
+	margin: 0 auto;
+}
+
 .feeling-prompt {
 	margin-top: 1rem;
 	margin-bottom: 1.5rem;

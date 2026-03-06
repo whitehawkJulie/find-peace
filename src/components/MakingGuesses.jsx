@@ -51,7 +51,12 @@ const MakingGuesses = () => {
 				<h3>What might they be needing?</h3>
 				<p>What needs of theirs might not be met in this situation?</p>
 				<Checklist
-					data={[NeedsData.sections.subsistence, NeedsData.sections.connection, NeedsData.sections.meaning, NeedsData.sections.freedom]}
+					data={[
+						NeedsData.sections.subsistence,
+						NeedsData.sections.connection,
+						NeedsData.sections.meaning,
+						NeedsData.sections.freedom,
+					]}
 					selectedItems={guessNeeds}
 					setSelectedItems={setGuessNeeds}
 					type="need"
@@ -61,7 +66,7 @@ const MakingGuesses = () => {
 	);
 };
 
-MakingGuesses.title = "Their Perspective";
+MakingGuesses.title = "What might have been happening for them?";
 MakingGuesses.helpContent = (
 	<>
 		<p>

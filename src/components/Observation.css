@@ -3,7 +3,7 @@
 .step-observation {
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	/* gap: 1rem; */
 }
 
 .obs-main-textarea {
@@ -94,6 +94,7 @@
 .obs-check-inline {
 	background-color: #5a9e6d22;
 	padding: 20px;
+	margin-top: 20px;
 }
 
 /* ── Shared panel styles (backdrop + card) ───────────────────────────────── */

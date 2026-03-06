@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Checklist from "./Checklist";
 import { AllFeelingsData as FeelingsData, regulationMeta } from "../data/AllFeelingsData";
 import { useWizard } from "./WizardContext";
@@ -75,11 +75,26 @@ const RegulationHelpContent = () => {
 };
 
 const Feelings = () => {
-	const { observation, feelings, setFeelings, needs, setNeeds, settings } = useWizard();
+	const { observation, feelings, setFeelings, needs, setNeeds, settings, cardContentRef } = useWizard();
 	const [showStoryHelp, setShowStoryHelp] = useState(false);
 	const [popupItem, setPopupItem] = useState(null);
 	const [murkyPromptItem, setMurkyPromptItem] = useState(null);
 	const [promptedMurky, setPromptedMurky] = useState(new Set());
+	const murkyPromptRef = useRef(null);
+
+	// Scroll murky prompt into view when it appears
+	useEffect(() => {
+		if (!murkyPromptItem) return;
+		const container = cardContentRef?.current;
+		const element = murkyPromptRef.current;
+		if (!container || !element) return;
+		const elementRect = element.getBoundingClientRect();
+		const containerRect = container.getBoundingClientRect();
+		const overflowBottom = elementRect.bottom - containerRect.bottom;
+		if (overflowBottom > 0) {
+			container.scrollBy({ top: overflowBottom + 16, behavior: "smooth" });
+		}
+	}, [murkyPromptItem]);
 	const [showRegulationOverlay, setShowRegulationOverlay] = useState(settings.regulationOverlay ?? false);
 	const [showRegulationHelp, setShowRegulationHelp] = useState(false);
 
@@ -167,11 +182,16 @@ const Feelings = () => {
 	return (
 		<div className="step-feelings">
 			<p>
-				How are you feeling now about{" "}
-				<strong>
-					{observation?.refined || observation?.moment || observation?.actions || "what happened"}
-				</strong>
-				?
+				Now take a moment and return to that situation:{" "}
+				<strong>{observation?.refined || observation?.moment || observation?.actions || ""}</strong>
+			</p>
+
+			<p>When you remember that moment, what happens inside you?</p>
+
+			<p>You might notice sensations, emotions, tension, or energy in the body. Just notice what’s there.</p>
+
+			<p>
+				Most importantly, what did you feel <em>first</em>?
 			</p>
 
 			{showRegulationOverlay && <RegulationLegend />}
@@ -190,6 +210,34 @@ const Feelings = () => {
 				categoryHelpIcons={{
 					[FeelingsData.sections.story.ui.heading]: () => setShowStoryHelp(true),
 				}}
+				afterGroupContent={
+					murkyPromptItem && feelings[murkyPromptItem.item]
+						? {
+								itemName: murkyPromptItem.item,
+								node: (
+									<div className="murky-inline-prompt" ref={murkyPromptRef}>
+										<p>
+											"{murkyPromptItem.item}" often has a lot packed into it. Want to explore it
+											a little?
+										</p>
+										<p>
+											<i>You can always unpack it later by clicking on the &gt; symbol</i>
+										</p>
+										<div className="murky-inline-buttons">
+											<button className="murky-inline-btn" onClick={handleClarify}>
+												Yes
+											</button>
+											<button
+												className="murky-inline-btn murky-inline-btn-secondary"
+												onClick={handleSkipClarify}>
+												Not now
+											</button>
+										</div>
+									</div>
+								),
+							}
+						: null
+				}
 			/>
 
 			<Checklist
@@ -202,22 +250,6 @@ const Feelings = () => {
 				defaultListMode="quick"
 				regulationOverlay={showRegulationOverlay}
 			/>
-
-			{/* REPLACED by having a chevron they can open if they want */}
-			{/* Inline prompt for murky feelings (only while the triggering feeling is still selected) */}
-			{/* {murkyPromptItem && feelings[murkyPromptItem.item] && (
-				<div className="murky-inline-prompt">
-					<p>This often has a lot packed into it. Want to explore it a little?</p>
-					<div className="murky-inline-buttons">
-						<button className="murky-inline-btn" onClick={handleClarify}>
-							Yes
-						</button>
-						<button className="murky-inline-btn murky-inline-btn-secondary" onClick={handleSkipClarify}>
-							Not now
-						</button>
-					</div>
-				</div>
-			)} */}
 
 			{popupItem && (
 				<ClarifyPopup

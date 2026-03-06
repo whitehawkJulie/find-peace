@@ -20,9 +20,12 @@ if (unmetSection?.groups) {
 const renderOrderedFeelings = (feelings) => {
 	const entries = Object.entries(feelings).filter(([, s]) => s === "clicked" || s === "double-clicked");
 	if (entries.length === 0) return null;
+	const strong = entries.filter(([, s]) => s === "double-clicked");
+	const regular = entries.filter(([, s]) => s === "clicked");
+	const sorted = [...strong, ...regular];
 	return (
-		<p style={{ textAlign: "center" }}>
-			{entries.map(([name, strength], i) => (
+		<p className="feelings-selected-box">
+			{sorted.map(([name, strength], i) => (
 				<React.Fragment key={name}>
 					{i > 0 && ", "}
 					{strength === "double-clicked" ? <strong>{name}</strong> : name}
@@ -60,9 +63,7 @@ const FeelingsExploreCard = () => {
 	const toggleMultiChoice = (promptId, option) => {
 		setFeelingsExploreResponses((prev) => {
 			const current = prev[promptId] || [];
-			const updated = current.includes(option)
-				? current.filter((o) => o !== option)
-				: [...current, option];
+			const updated = current.includes(option) ? current.filter((o) => o !== option) : [...current, option];
 			return { ...prev, [promptId]: updated };
 		});
 	};
@@ -70,16 +71,23 @@ const FeelingsExploreCard = () => {
 	return (
 		<div className="feelings-explore-regulation">
 			{renderOrderedFeelings(feelings)}
+			<div class="words-box">
+				<p>
+					Take a moment to notice the order in which these feelings arrived. We often feel something
+					vulnerable first, which is quickly covered up by the mind with stories about what the other person
+					did wrong. Can you distinguish the early feelings, from the "thought-feelings" that came in response
+					to those?
+				</p>
+			</div>
 
 			{card && !cardExpanded && (
 				<div className="feelings-explore-prompt-reveal">
-					<p className="feelings-explore-prompt-title">{card.title} — would you like to explore that a little?</p>
+					<p className="feelings-explore-prompt-title">
+						{card.title} — would you like to explore that a little?
+					</p>
 					<div className="feelings-explore-reveal-buttons">
 						<button className="feelings-explore-reveal-yes" onClick={() => setCardExpanded(true)}>
 							Yes, let's explore
-						</button>
-						<button className="subtle-button feelings-explore-reveal-no" onClick={() => {}}>
-							No thanks
 						</button>
 					</div>
 				</div>
@@ -122,7 +130,9 @@ const FeelingsExploreCard = () => {
 										<button
 											key={opt}
 											className={`feelings-explore-choice ${
-												(feelingsExploreResponses[prompt.id] || []).includes(opt) ? "chosen" : ""
+												(feelingsExploreResponses[prompt.id] || []).includes(opt)
+													? "chosen"
+													: ""
 											}`}
 											onClick={() => toggleMultiChoice(prompt.id, opt)}>
 											{opt}
@@ -142,15 +152,23 @@ FeelingsExploreCard.title = "Explore Feelings";
 FeelingsExploreCard.helpContent = (
 	<>
 		<p>
-			When many of your feelings point in the same direction, it can help
-			to spend a moment with that emotional family before moving on.
+			When many of your feelings point in the same direction, it can help to spend a moment with that emotional
+			family before moving on.
 		</p>
+		<p>This step is optional — if it doesn't feel right, you can skip it and move on to exploring your needs.</p>
+		<p>There are no right answers here. Just notice what comes up.</p>
+		{/* TODO: Add more detailed help content here */}
 		<p>
-			This step is optional — if it doesn't feel right, you can skip it
-			and move on to exploring your needs.
-		</p>
-		<p>
-			There are no right answers here. Just notice what comes up.
+			TODO: Add stuff here about thought-feelings!! The feelings that come after the initial reaction, as a result
+			of our thoughts about it. feelings START in the body, before the mind knows anything ... they're the body's
+			wisdom, a different intelligence to the mind, that pick up on so much more information that's processed
+			unconsciously. But then there's the feelings that get generated when we tell stories about what we think is
+			happening, and they're the ones that lead us astray!! Like with friends of mine when she "dismissed" him
+			when she got a phone call ... the initial feeling was confusion, surprise and maybe hurt, but then the
+			stories like "she doesn't respect me" and "she's playing with me" generated HUGE anger. And it's not that we
+			want to dismiss those latter "thought feelings" - they're the ones that tell us about PAST traumas, we
+			absolutely need to address that too. But we need to separate them, so that we know what's relevant to THIS
+			situation, and react appropriately to this, and deal with the other stuff in a different way!
 		</p>
 	</>
 );

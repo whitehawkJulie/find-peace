@@ -136,8 +136,9 @@ const StrategyDiscovery = () => {
 	return (
 		<div className="strategy-discovery">
 			<p>
-				Now that you've connected with your needs, let's think about <strong>strategies</strong> — concrete
-				things you could do to help meet these needs. Remember, every need can be met in many different ways!
+				Now that you've connected with your needs, let's think about small things you could do to top up that
+				"needs tank" — concrete things you could do to help meet these needs, inside OR outside of the current
+				situation. Remember, every need can be met in many different ways!
 			</p>
 
 			{unmetNeeds.map((needName) => {

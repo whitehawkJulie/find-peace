@@ -30,6 +30,7 @@ const Checklist = ({
 	defaultListMode = "short",
 	regulationOverlay = false,
 	regulationToggle = null,
+	afterGroupContent = null,
 }) => {
 	const [collapsedCategories, setCollapsedCategories] = useState({});
 	// Per-section list mode, keyed by section heading
@@ -281,6 +282,9 @@ const Checklist = ({
 										<div className="pill-grid cloud" style={{ padding: "1rem" }}>
 											{quickPicks.map(renderPill)}
 										</div>
+										{afterGroupContent &&
+											quickPicks.some((it) => it.item === afterGroupContent.itemName) &&
+											afterGroupContent.node}
 									</div>
 								)}
 							</div>
@@ -366,6 +370,9 @@ const Checklist = ({
 										<div key={groupKey} className="subcategory">
 											<h4 className="subcategory-title">{groupHeading}</h4>
 											<div className="pill-grid">{resolvedItems.map(renderPill)}</div>
+											{afterGroupContent &&
+												visibleItems.some((it) => it.item === afterGroupContent.itemName) &&
+												afterGroupContent.node}
 										</div>
 									);
 								})}

@@ -9,7 +9,7 @@ const checks = [
 	{
 		icon: "⏳",
 		heading: "One specific moment",
-		description: <p>Are we describing one instance — not a pattern or the whole history?</p>,
+		description: <p>Choose a single instance — not the whole history.</p>,
 		extraInfo: (
 			<>
 				<p>
@@ -17,7 +17,7 @@ const checks = [
 					together.
 				</p>
 				<p>
-					Try narrowing to one specific time: <em>"On Tuesday evening when…"</em> rather than{" "}
+					Try narrowing to one moment: <em>"On Tuesday evening when…"</em> instead of{" "}
 					<em>"Every time we talk about this…"</em>
 				</p>
 			</>
@@ -29,41 +29,30 @@ const checks = [
 		description: (
 			<>
 				<p>
-					Are we describing what was said or done, rather than interpretations like "disrespectful,"
+					Are we describing what was actually said or done, rather than interpretations like "disrespectful,"
 					"uncaring," "manipulative"?
 				</p>
-				<p className="obs-check-hint">If it helps, imagine a camera in the room. What would it capture?</p>
 			</>
 		),
 		extraInfo: (
 			<>
 				<p>
-					Try stripping out words that carry a judgment or meaning. Instead of <em>"she was dismissive"</em>,
-					try <em>"she looked at her phone while I was speaking."</em>
+					Try stripping out words that carry a judgment or meaning, and rewriting in terms of actions, words,
+					and what was physically present. Instead of <em>"she was dismissive"</em>, try{" "}
+					<em>"she looked at her phone while I was speaking."</em>
 				</p>
-				<p>Ask: could a camera have recorded this? If not, it may be interpretation.</p>
-			</>
-		),
-	},
-	{
-		icon: "🎥",
-		heading: "Something someone else could have seen or heard",
-		description: (
-			<p>Could another person in the room agree that this is what happened — even if they disagree about why?</p>
-		),
-		extraInfo: (
-			<>
+
 				<p>
-					If someone else was there, would they describe it the same way? If they might say{" "}
-					<em>"I didn't see it that way"</em>, there may be interpretation mixed in.
+					If it helps, imagine what someone else in the room might have noticed happening. What might they say
+					they saw or heard?
 				</p>
-				<p>Try rewriting in terms of actions, words, and what was physically present.</p>
 			</>
 		),
 	},
+
 	{
 		icon: "🧠",
-		heading: "No guesses about intention",
+		heading: "Leave the “why” aside just for now",
 		description: (
 			<p>
 				Have we removed any assumptions about motive? (e.g., "to control me," "to hurt me," "because he doesn't
@@ -72,13 +61,8 @@ const checks = [
 		),
 		extraInfo: (
 			<>
-				<p>
-					We often add "because" or "in order to" — and those usually contain a guess. Our minds make meaning
-					quickly; it's normal.
-				</p>
-				<p>
-					Try leaving out the "why" for now. Just describe what happened — the motive question can come later.
-				</p>
+				Our minds fill in meaning very quickly — that’s normal. Try leaving out the “because” for now. Just
+				describe what happened. The question of why can come later.
 			</>
 		),
 	},
@@ -92,8 +76,11 @@ const CheckPanel = ({ observation, setObservation }) => {
 	return (
 		<div className="obs-check-inline">
 			<div className="obs-check-header">
-				<h3>Let’s check the clarity</h3>
-				<p>You don’t have to change anything. Just notice whether any of these land.</p>
+				<h3>Want to check the clarity?</h3>
+				<p>
+					You don’t have to change anything. Just notice whether any of these land. These questions simply
+					help separate what happened from the meaning our minds add.
+				</p>
 			</div>
 
 			<div className="obs-checks">
@@ -134,13 +121,14 @@ const Observation = () => {
 
 	return (
 		<div className="step-observation">
+			<p>Reclaiming your agency starts right here.</p>
+
 			<p>
-				Can you make a{" "}
-				<button className="button-styled-as-link" onClick={() => setHelpDrawerOpen(true)}>
-					clear observation
-				</button>{" "}
-				about what happened — just one specific moment?
+				You can’t control what the other person did. But you can start by choosing where to put your attention
+				and how to understand what happened.
 			</p>
+
+			<p>Start with one specific moment that stood out to you, that still holds some charge for you.</p>
 
 			<textarea
 				className="obs-main-textarea"
@@ -161,7 +149,7 @@ const Observation = () => {
 	);
 };
 
-Observation.title = "What happened?";
+Observation.title = "Start with one moment";
 
 Observation.helpContent = (
 	<>

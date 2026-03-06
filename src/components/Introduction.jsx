@@ -9,9 +9,7 @@ const Introduction = () => {
 
 	return (
 		<div className="step-intro">
-			<p>
-				<strong>Something here matters to you. A LOT.</strong>
-			</p>
+			<p>Something here matters to you. A LOT.</p>
 
 			<p>
 				When something feels important — or threatening — our systems respond. Anger, hurt, confusion, urgency…
@@ -21,11 +19,21 @@ const Introduction = () => {
 			<p>Your response makes sense in context.</p>
 
 			<p>
-				We don't need to judge ourselves for our responses. We simply need to understand how it landed in us,
-				clearly — so we can take good care of what matters.
+				If you're feeling stuck, it might be because it seems like the only way this situation gets better is if
+				the other person changes. When it looks like that, it's easy to feel powerless.
 			</p>
 
-			<p>We’ll move one step at a time.</p>
+			<p>
+				This process is here to help you find where you <em>do</em> have agency — how you express yourself, what
+				you ask for, what choices are available to you, and what might help move things forward.
+			</p>
+
+			<p>
+				As that clarity grows, people are often surprised to discover they have more influence in the situation
+				than it first seemed.
+			</p>
+
+			<p>Ready? We’ll move one step at a time.</p>
 
 			{savedEntries.length > 0 && (
 				<div style={{ marginTop: "1.5rem", textAlign: "center" }}>

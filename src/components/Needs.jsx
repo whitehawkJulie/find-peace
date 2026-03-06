@@ -4,23 +4,27 @@ import { Needs as NeedsData } from "../data/AllNeedsData";
 import { useWizard } from "./WizardContext";
 import SlideDrawer from "./SlideDrawer";
 import PatriarchyNeeds from "./PatriarchyNeeds";
+import "./Needs.css";
 
 const renderOrderedFeelings = (feelings) => {
-	const entries = Object.entries(feelings);
+	const entries = Object.entries(feelings).filter(([, s]) => s === "clicked" || s === "double-clicked");
 
 	if (entries.length === 0) {
 		return "(no feelings selected)";
 	}
 
+	const strong = entries.filter(([, s]) => s === "double-clicked");
+	const regular = entries.filter(([, s]) => s === "clicked");
+	const sorted = [...strong, ...regular];
+
 	return (
-		<p style={{ textAlign: "center" }}>
-			{entries.map(([feeling, strength], i) => (
+		<p className="feelings-selected-box">
+			{sorted.map(([feeling, strength], i) => (
 				<React.Fragment key={feeling}>
 					{i > 0 && ", "}
 					{strength === "double-clicked" ? <strong>{feeling}</strong> : feeling}
 				</React.Fragment>
 			))}
-			<br />
 		</p>
 	);
 };
