@@ -43,7 +43,7 @@ export const Feelings = {
 		// - Then cognitive disorientation.
 		// - Finally, we end with longing — which points toward life and forward movement.
 		//
-		// Within each family, words are also ordered intentionally
+		// Within each group, words are also ordered intentionally
 		// (e.g., somatic-first, intensity gradient, or cognitive overlays last).
 		//
 		// This structure supports regulation, embodiment,
@@ -64,49 +64,49 @@ export const Feelings = {
 					item: "trapped",
 					description: "Feeling confined or unable to move or change your situation",
 					type: "primary",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "petrified",
 					description: "frozen with fear",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "panicked",
 					description: "overwhelmed by fear",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "terrified",
 					description: "extremely afraid",
 					type: "emotion",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "frightened",
 					description: "suddenly scared",
 					type: "emotion",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "scared",
 					description: "feeling threatened",
 					type: "emotion",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "afraid",
 					description: "feeling fear",
 					type: "emotion",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple", quickPick: true },
 				},
 
@@ -116,7 +116,7 @@ export const Feelings = {
 					regulationType: ["threat", "cognitive"],
 					description: "cautious and alert",
 					type: "emotion",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 
@@ -125,7 +125,7 @@ export const Feelings = {
 					item: "apprehensive",
 					description: "uneasy about what’s coming",
 					type: "emotion",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple" },
 				},
 				{
@@ -133,7 +133,7 @@ export const Feelings = {
 					regulationType: ["threat", "cognitive"],
 					description: "concerned about outcome",
 					type: "cognitive",
-					family: "fear",
+					feelingType: "fear",
 					interpretationHint: "Often connected to thoughts like: 'Something might go wrong.'",
 					ui: { tier: "more" },
 				},
@@ -141,14 +141,14 @@ export const Feelings = {
 					item: "dread",
 					description: "anticipating something bad",
 					type: "emotion",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "foreboding",
 					description: "sense trouble is coming",
 					type: "emotion",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple" },
 				},
 
@@ -158,7 +158,7 @@ export const Feelings = {
 					regulationType: ["threat", "cognitive"],
 					description: "finding it hard to trust",
 					type: "cognitive",
-					family: "fear",
+					feelingType: "fear",
 					interpretationHint: "Often connected to thoughts like: 'It doesn’t feel safe to rely.'",
 					ui: { tier: "more" },
 				},
@@ -167,7 +167,7 @@ export const Feelings = {
 					regulationType: ["threat", "cognitive"],
 					description: "doubting intentions",
 					type: "cognitive",
-					family: "fear",
+					feelingType: "fear",
 					interpretationHint: "Often connected to thoughts like: 'I don’t believe their intent.'",
 					ui: { tier: "more" },
 				},
@@ -187,35 +187,35 @@ export const Feelings = {
 					item: "tense",
 					description: "body tight and braced",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "restless",
 					description: "unable to settle",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "fidgety",
 					description: "restless movement",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "jittery",
 					description: "nervous energy",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "edgy",
 					description: "on edge",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 
@@ -226,21 +226,21 @@ export const Feelings = {
 
 					description: "too much at once",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "stressed out",
 					description: "under heavy pressure",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "frazzled",
 					description: "overloaded and stressed",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
@@ -249,7 +249,7 @@ export const Feelings = {
 
 					description: "emotionally strained",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple" },
 				},
 				{
@@ -257,7 +257,7 @@ export const Feelings = {
 					regulationType: ["threat", "contracted"],
 					description: "deeply upset",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple" },
 				},
 
@@ -267,14 +267,14 @@ export const Feelings = {
 					regulationType: ["activated", "collapsed"],
 					description: "irritable + tired",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "irritable",
 					description: "easily annoyed",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 
@@ -283,7 +283,7 @@ export const Feelings = {
 					item: "nervous",
 					description: "uneasy, slight fear",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
@@ -291,7 +291,7 @@ export const Feelings = {
 					regulationType: ["threat", "cognitive"],
 					description: "worried and uneasy",
 					type: "cognitive",
-					family: "fear",
+					feelingType: "fear",
 					interpretationHint: "Often connected to thoughts like: 'Something bad might happen.'",
 					ui: { tier: "simple" },
 					clarify: {
@@ -336,7 +336,7 @@ export const Feelings = {
 			regulationType: ["threat", "activated", "cognitive"],
 			items: [
 				// ORDERING NOTE:
-				// Disquiet family ordered by:
+				// Disquiet group ordered by:
 				// mild perturbation → unsettled activation → alarm/startle → narrative disturbance
 				//
 				// Rationale:
@@ -355,7 +355,7 @@ export const Feelings = {
 					description: "slightly unsettled",
 					regulationType: ["threat"],
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
@@ -363,7 +363,7 @@ export const Feelings = {
 					regulationType: ["threat"],
 					description: "not at ease",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple" },
 				},
 				{
@@ -372,7 +372,7 @@ export const Feelings = {
 					regulationType: ["threat", "cognitive"],
 
 					type: "primary",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 
@@ -382,7 +382,7 @@ export const Feelings = {
 					regulationType: ["activated", "cognitive"],
 					description: "emotionally unsettled",
 					type: "primary",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple" },
 				},
 				{
@@ -390,7 +390,7 @@ export const Feelings = {
 					regulationType: ["activated"],
 					description: "disturbed or agitated",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
@@ -398,7 +398,7 @@ export const Feelings = {
 					regulationType: ["activated"],
 					description: "unable to settle",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
@@ -406,7 +406,7 @@ export const Feelings = {
 					regulationType: ["activated", "threat"],
 					description: "shaken and unsettled",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 
@@ -416,7 +416,7 @@ export const Feelings = {
 					regulationType: ["threat", "activated"],
 					description: "suddenly afraid or concerned",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
@@ -424,7 +424,7 @@ export const Feelings = {
 					regulationType: ["threat", "activated"],
 					description: "suddenly shocked",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
@@ -432,7 +432,7 @@ export const Feelings = {
 					regulationType: ["threat", "activated"],
 					description: "deeply startled",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 
@@ -442,7 +442,7 @@ export const Feelings = {
 					regulationType: ["cognitive", "threat"],
 					description: "thrown off by something unexpected",
 					type: "cognitive",
-					family: "fear",
+					feelingType: "fear",
 					interpretationHint: "Often connected to thoughts like: 'This isn’t what I expected.'",
 					ui: { tier: "more" },
 				},
@@ -451,7 +451,7 @@ export const Feelings = {
 					regulationType: ["threat", "activated"],
 					description: "emotionally unsettled by something",
 					type: "cognitive",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
@@ -459,7 +459,7 @@ export const Feelings = {
 					regulationType: "cognitive",
 					description: "confused and unsettled",
 					type: "cognitive",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
@@ -467,7 +467,7 @@ export const Feelings = {
 					regulationType: ["activated", "threat"],
 					description: "inner chaos or disturbance",
 					type: "primary",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
@@ -475,7 +475,7 @@ export const Feelings = {
 					regulationType: ["activated"],
 					description: "emotionally stormy",
 					type: "primary",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 			],
@@ -486,7 +486,7 @@ export const Feelings = {
 
 			items: [
 				// ORDERING NOTE:
-				// Annoyed family ordered by:
+				// Annoyed group ordered by:
 				// mild irritation → sustained frustration → sharper aggravation → reactivity
 				//
 				// Rationale:
@@ -504,21 +504,21 @@ export const Feelings = {
 					item: "annoyed",
 					description: "mildly irritated",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "irked",
 					description: "slightly bothered",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 				{
 					item: "displeased",
 					description: "not satisfied",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 
@@ -527,21 +527,21 @@ export const Feelings = {
 					item: "frustrated",
 					description: "blocked from what one wants",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "impatient",
 					description: "wanting things to move faster",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 				{
 					item: "dismayed",
 					description: "disturbed or disappointed",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 
@@ -550,14 +550,14 @@ export const Feelings = {
 					item: "aggravated",
 					description: "strongly irritated",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 				{
 					item: "irritated",
 					description: "bothered and reactive",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 
@@ -566,7 +566,7 @@ export const Feelings = {
 					item: "exasperated",
 					description: "intensely frustrated",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 			],
@@ -576,7 +576,7 @@ export const Feelings = {
 			regulationType: "activated",
 			items: [
 				// ORDERING NOTE:
-				// Angry family ordered by:
+				// Angry group ordered by:
 				// clean anger → protective anger → moral outrage → hardened resentment
 				//
 				// Rationale:
@@ -594,7 +594,7 @@ export const Feelings = {
 					item: "angry",
 					description: "strong displeasure or protest",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "simple", quickPick: true },
 					clarify: {
 						type: "murky",
@@ -648,28 +648,28 @@ export const Feelings = {
 					item: "irate",
 					description: "intensely angry",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 				{
 					item: "furious",
 					description: "very strong anger",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 				{
 					item: "enraged",
 					description: "overcome with anger",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 				{
 					item: "livid",
 					description: "intensely furious",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 
@@ -678,7 +678,7 @@ export const Feelings = {
 					item: "indignant",
 					description: "angry about perceived injustice",
 					type: "cognitive",
-					family: "anger",
+					feelingType: "anger",
 					interpretationHint: "Often connected to thoughts like: 'This isn’t fair.'",
 					ui: { tier: "more" },
 				},
@@ -686,7 +686,7 @@ export const Feelings = {
 					item: "outraged",
 					description: "shocked and angry at injustice",
 					type: "cognitive",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 
@@ -695,7 +695,7 @@ export const Feelings = {
 					item: "resentful",
 					description: "holding onto anger over time",
 					type: "cognitive",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "simple" },
 				},
 			],
@@ -706,7 +706,7 @@ export const Feelings = {
 
 			items: [
 				// ORDERING NOTE:
-				// Aversion family ordered by:
+				// Aversion group ordered by:
 				// mild push-away → revulsion → hostility → contempt/hate
 				//
 				// Rationale:
@@ -724,14 +724,14 @@ export const Feelings = {
 					item: "dislike",
 					description: "not enjoying or approving",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "aversion",
 					description: "strong reluctance or resistance",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more", quickPick: true },
 				},
 
@@ -740,28 +740,28 @@ export const Feelings = {
 					item: "disgusted",
 					description: "feeling revulsion",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 				{
 					item: "repulsed",
 					description: "strongly disgusted",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 				{
 					item: "appalled",
 					description: "shocked and dismayed",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 				{
 					item: "horrified",
 					description: "deeply shocked or disgusted",
 					type: "primary",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 
@@ -770,7 +770,7 @@ export const Feelings = {
 					item: "hostile",
 					description: "actively unfriendly or antagonistic",
 					type: "cognitive",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "more" },
 				},
 
@@ -779,7 +779,7 @@ export const Feelings = {
 					item: "contempt",
 					description: "seeing someone as beneath respect",
 					type: "cognitive",
-					family: "anger",
+					feelingType: "anger",
 					interpretationHint: "Often connected to thoughts like: 'You are beneath me.'",
 					ui: { tier: "more" },
 				},
@@ -787,7 +787,7 @@ export const Feelings = {
 					item: "hate",
 					description: "intense and enduring aversion",
 					type: "cognitive",
-					family: "anger",
+					feelingType: "anger",
 					ui: { tier: "simple" },
 				},
 			],
@@ -798,7 +798,7 @@ export const Feelings = {
 
 			items: [
 				// ORDERING NOTE:
-				// Vulnerable family ordered by:
+				// Vulnerable group ordered by:
 				// open exposure → fragility → insecurity → guarded protection
 				//
 				// Rationale:
@@ -817,14 +817,14 @@ export const Feelings = {
 					item: "vulnerable",
 					description: "emotionally exposed",
 					type: "primary",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "sensitive",
 					description: "easily affected",
 					type: "primary",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 
@@ -833,14 +833,14 @@ export const Feelings = {
 					item: "fragile",
 					description: "easily hurt",
 					type: "primary",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "shaky",
 					description: "unsteady inside",
 					type: "activation",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 
@@ -849,7 +849,7 @@ export const Feelings = {
 					item: "insecure",
 					description: "uncertain of worth or safety",
 					type: "cognitive",
-					family: "fear",
+					feelingType: "fear",
 					interpretationHint: "Often connected to thoughts like: 'Am I enough?' or 'Am I safe here?'",
 					ui: { tier: "simple" },
 				},
@@ -857,7 +857,7 @@ export const Feelings = {
 					item: "helpless",
 					description: "without power to change things",
 					type: "primary",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "simple" },
 				},
 
@@ -866,21 +866,21 @@ export const Feelings = {
 					item: "guarded",
 					description: "holding back to protect oneself",
 					type: "cognitive",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "reserved",
 					description: "emotionally restrained",
 					type: "cognitive",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 				{
 					item: "leery",
 					description: "cautious and wary",
 					type: "cognitive",
-					family: "fear",
+					feelingType: "fear",
 					ui: { tier: "more" },
 				},
 			],
@@ -891,7 +891,7 @@ export const Feelings = {
 
 			items: [
 				// ORDERING NOTE:
-				// Embarrassed family ordered by:
+				// Embarrassed group ordered by:
 				// awkward self-consciousness → embarrassment → shame/guilt → mortification
 				//
 				// Rationale:
@@ -910,7 +910,7 @@ export const Feelings = {
 					item: "flustered",
 					description: "thrown off balance socially",
 					type: "activation",
-					family: "shame",
+					feelingType: "shame",
 					ui: { tier: "more" },
 				},
 				{
@@ -918,7 +918,7 @@ export const Feelings = {
 					regulationType: ["contracted", "cognitive"],
 					description: "aware of how one appears to others",
 					type: "cognitive",
-					family: "shame",
+					feelingType: "shame",
 					ui: { tier: "more" },
 				},
 
@@ -927,14 +927,14 @@ export const Feelings = {
 					item: "embarrassed",
 					description: "uncomfortable about how one is seen",
 					type: "primary",
-					family: "shame",
+					feelingType: "shame",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "chagrined",
 					description: "embarrassed with mild regret",
 					type: "primary",
-					family: "shame",
+					feelingType: "shame",
 					ui: { tier: "more" },
 				},
 
@@ -944,7 +944,7 @@ export const Feelings = {
 					regulationType: ["contracted", "cognitive"],
 					description: "believing something is wrong with oneself",
 					type: "cognitive",
-					family: "shame",
+					feelingType: "shame",
 					interpretationHint: "Often connected to thoughts like: 'There’s something wrong with me.'",
 					ui: { tier: "simple" },
 					clarify: {
@@ -997,7 +997,7 @@ export const Feelings = {
 					description: "believing one has done something wrong",
 					regulationType: ["contracted", "cognitive"],
 					type: "cognitive",
-					family: "shame",
+					feelingType: "shame",
 					interpretationHint: "Often connected to thoughts like: 'I shouldn’t have done that.'",
 					ui: { tier: "simple", quickPick: true },
 					clarify: {
@@ -1040,7 +1040,7 @@ export const Feelings = {
 					item: "mortified",
 					description: "deeply humiliated",
 					type: "primary",
-					family: "shame",
+					feelingType: "shame",
 					ui: { tier: "more" },
 				},
 			],
@@ -1051,7 +1051,7 @@ export const Feelings = {
 
 			items: [
 				// ORDERING NOTE:
-				// Sad family ordered by:
+				// Sad group ordered by:
 				// simple sadness → disappointment → discouragement → despair/depression overlays
 				//
 				// Rationale:
@@ -1069,28 +1069,28 @@ export const Feelings = {
 					item: "sad",
 					description: "feeling sorrow",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "unhappy",
 					description: "not feeling joy",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
 					item: "gloomy",
 					description: "low in mood",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
 					item: "melancholy",
 					description: "deep, reflective sadness",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 
@@ -1101,28 +1101,28 @@ export const Feelings = {
 
 					description: "sad that expectations weren’t met",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "discouraged",
 					description: "losing hope or confidence",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
 					item: "disheartened",
 					description: "losing motivation",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
 					item: "dejected",
 					description: "low-spirited",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 
@@ -1131,14 +1131,14 @@ export const Feelings = {
 					item: "forlorn",
 					description: "feeling abandoned and sad",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
 					item: "heavy hearted",
 					description: "weighed down by sadness",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 
@@ -1147,14 +1147,14 @@ export const Feelings = {
 					regulationType: ["collapsed", "contracted"],
 					description: "deeply unhappy",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
 					item: "despondent",
 					description: "in low spirits from loss of hope",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
@@ -1162,7 +1162,7 @@ export const Feelings = {
 					regulationType: ["collapsed", "contracted"],
 					description: "complete loss of hope",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
@@ -1170,7 +1170,7 @@ export const Feelings = {
 					regulationType: ["collapsed", "contracted"],
 					description: "believing nothing will improve",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					interpretationHint: "Often connected to thoughts like: 'There’s no point.'",
 					ui: { tier: "simple" },
 				},
@@ -1179,7 +1179,7 @@ export const Feelings = {
 					regulationType: ["collapsed", "cognitive"],
 					description: "persistent low mood",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					interpretationHint: "Often connected to thoughts like: 'I can’t feel anything will change.'",
 					ui: { tier: "simple" },
 					clarify: {
@@ -1224,7 +1224,7 @@ export const Feelings = {
 
 			items: [
 				// ORDERING NOTE:
-				// Pain family ordered by:
+				// Pain group ordered by:
 				// hurt/ache → loneliness → heartbreak → grief/loss → devastation
 				//
 				// Rationale:
@@ -1247,7 +1247,7 @@ export const Feelings = {
 
 					description: "emotionally wounded",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "simple", quickPick: true },
 				},
 
@@ -1258,14 +1258,14 @@ export const Feelings = {
 
 					description: "feeling alone or isolated",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "heartbroken",
 					description: "deep emotional pain from loss",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 
@@ -1274,21 +1274,21 @@ export const Feelings = {
 					item: "grief",
 					description: "deep sorrow over loss",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
 					item: "bereaved",
 					description: "mourning a loss",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
 					item: "anguished",
 					description: "experiencing intense sorrow",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 
@@ -1298,7 +1298,7 @@ export const Feelings = {
 					regulationType: ["contracted", "cognitive"],
 					description: "wishing something had been different",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
@@ -1306,7 +1306,7 @@ export const Feelings = {
 					regulationType: ["contracted", "cognitive"],
 					description: "deep regret for causing harm",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 
@@ -1316,14 +1316,14 @@ export const Feelings = {
 					regulationType: ["collapsed", "contracted"],
 					description: "overwhelmed by grief",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
 					item: "agony",
 					description: "extreme emotional suffering",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 			],
@@ -1334,7 +1334,7 @@ export const Feelings = {
 
 			items: [
 				// ORDERING NOTE:
-				// Disconnected family ordered by:
+				// Disconnected group ordered by:
 				// mild distance → withdrawal → numbness → apathy/collapse overlays
 				//
 				// Rationale:
@@ -1352,21 +1352,21 @@ export const Feelings = {
 					item: "distant",
 					description: "not feeling close",
 					type: "primary",
-					family: "shutdown",
+					feelingType: "shutdown",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "detached",
 					description: "separated emotionally",
 					type: "primary",
-					family: "shutdown",
+					feelingType: "shutdown",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "aloof",
 					description: "keeping emotional distance",
 					type: "cognitive",
-					family: "shutdown",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 
@@ -1375,21 +1375,21 @@ export const Feelings = {
 					item: "withdrawn",
 					description: "pulling away socially",
 					type: "primary",
-					family: "shutdown",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "removed",
 					description: "not emotionally present",
 					type: "primary",
-					family: "shutdown",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "distracted",
 					description: "mentally elsewhere",
 					type: "cognitive",
-					family: "shutdown",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 
@@ -1398,14 +1398,14 @@ export const Feelings = {
 					item: "numb",
 					description: "without emotional feeling",
 					type: "activation",
-					family: "shutdown",
+					feelingType: "shutdown",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "cold",
 					description: "emotionally closed",
 					type: "cognitive",
-					family: "shutdown",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 
@@ -1414,21 +1414,21 @@ export const Feelings = {
 					item: "uninterested",
 					description: "lacking engagement",
 					type: "cognitive",
-					family: "shutdown",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "indifferent",
 					description: "not caring either way",
 					type: "cognitive",
-					family: "shutdown",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "apathetic",
 					description: "lacking motivation or feeling",
 					type: "cognitive",
-					family: "shutdown",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 			],
@@ -1439,7 +1439,7 @@ export const Feelings = {
 
 			items: [
 				// ORDERING NOTE:
-				// Fatigue family ordered by:
+				// Fatigue group ordered by:
 				// simple tiredness → physical depletion → exhaustion → burnout overlay
 				//
 				// Rationale:
@@ -1457,21 +1457,21 @@ export const Feelings = {
 					item: "tired",
 					description: "needing rest",
 					type: "activation",
-					family: "tiredness",
+					feelingType: "tiredness",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "sleepy",
 					description: "ready for sleep",
 					type: "activation",
-					family: "tiredness",
+					feelingType: "tiredness",
 					ui: { tier: "more" },
 				},
 				{
 					item: "weary",
 					description: "physically or emotionally tired",
 					type: "primary",
-					family: "tiredness",
+					feelingType: "tiredness",
 					ui: { tier: "more" },
 				},
 
@@ -1480,28 +1480,28 @@ export const Feelings = {
 					item: "listless",
 					description: "lacking energy",
 					type: "activation",
-					family: "tiredness",
+					feelingType: "tiredness",
 					ui: { tier: "more" },
 				},
 				{
 					item: "lethargic",
 					description: "sluggish and low-energy",
 					type: "activation",
-					family: "tiredness",
+					feelingType: "tiredness",
 					ui: { tier: "more" },
 				},
 				{
 					item: "worn out",
 					description: "physically drained",
 					type: "primary",
-					family: "tiredness",
+					feelingType: "tiredness",
 					ui: { tier: "more" },
 				},
 				{
 					item: "beat",
 					description: "extremely tired",
 					type: "primary",
-					family: "tiredness",
+					feelingType: "tiredness",
 					ui: { tier: "more" },
 				},
 
@@ -1510,14 +1510,14 @@ export const Feelings = {
 					item: "exhausted",
 					description: "completely drained",
 					type: "primary",
-					family: "tiredness",
+					feelingType: "tiredness",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "depleted",
 					description: "used up emotionally or physically",
 					type: "primary",
-					family: "tiredness",
+					feelingType: "tiredness",
 					ui: { tier: "more" },
 				},
 
@@ -1526,7 +1526,7 @@ export const Feelings = {
 					item: "burnt out",
 					description: "long-term exhaustion and overwhelm",
 					type: "cognitive",
-					family: "tiredness",
+					feelingType: "tiredness",
 					ui: { tier: "more" },
 				},
 			],
@@ -1537,7 +1537,7 @@ export const Feelings = {
 
 			items: [
 				// ORDERING NOTE:
-				// Confused family ordered by:
+				// Confused group ordered by:
 				// mild uncertainty → ambivalence → disorientation → distressed confusion
 				//
 				// Rationale:
@@ -1555,14 +1555,14 @@ export const Feelings = {
 					item: "puzzled",
 					description: "not fully understanding",
 					type: "cognitive",
-					family: "confused",
+					feelingType: "confused",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "hesitant",
 					description: "unsure about moving forward",
 					type: "cognitive",
-					family: "confused",
+					feelingType: "confused",
 					ui: { tier: "more" },
 				},
 
@@ -1571,14 +1571,14 @@ export const Feelings = {
 					item: "torn",
 					description: "pulled in different directions",
 					type: "cognitive",
-					family: "confused",
+					feelingType: "confused",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "ambivalent",
 					description: "holding mixed feelings",
 					type: "cognitive",
-					family: "confused",
+					feelingType: "confused",
 					ui: { tier: "more" },
 				},
 
@@ -1587,21 +1587,21 @@ export const Feelings = {
 					item: "confused",
 					description: "unclear about what is happening",
 					type: "cognitive",
-					family: "confused",
+					feelingType: "confused",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "perplexed",
 					description: "unable to understand something",
 					type: "cognitive",
-					family: "confused",
+					feelingType: "confused",
 					ui: { tier: "more" },
 				},
 				{
 					item: "baffled",
 					description: "deeply confused",
 					type: "cognitive",
-					family: "confused",
+					feelingType: "confused",
 					ui: { tier: "more" },
 				},
 
@@ -1610,28 +1610,28 @@ export const Feelings = {
 					item: "lost",
 					description: "without direction or clarity",
 					type: "cognitive",
-					family: "confused",
+					feelingType: "confused",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "mystified",
 					description: "unable to make sense of something",
 					type: "cognitive",
-					family: "confused",
+					feelingType: "confused",
 					ui: { tier: "more" },
 				},
 				{
 					item: "dazed",
 					description: "mentally stunned or unfocused",
 					type: "activation",
-					family: "confused",
+					feelingType: "confused",
 					ui: { tier: "more" },
 				},
 				{
 					item: "bewildered",
 					description: "confused and distressed",
 					type: "cognitive",
-					family: "confused",
+					feelingType: "confused",
 					interpretationHint: "Often connected to thoughts like: 'I don’t understand what’s happening.'",
 					ui: { tier: "more" },
 				},
@@ -1643,7 +1643,7 @@ export const Feelings = {
 
 			items: [
 				// ORDERING NOTE:
-				// Yearning family ordered by:
+				// Yearning group ordered by:
 				// longing/yearning → wistful/pining → nostalgic → jealous/envious
 				//
 				// Rationale:
@@ -1661,14 +1661,14 @@ export const Feelings = {
 					item: "yearning",
 					description: "deep desire for something",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "longing",
 					description: "strong desire",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "simple" },
 				},
 
@@ -1678,14 +1678,14 @@ export const Feelings = {
 					regulationType: ["contracted", "cognitive"],
 					description: "gentle sadness for something desired",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
 					item: "pining",
 					description: "aching with desire",
 					type: "primary",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 
@@ -1695,7 +1695,7 @@ export const Feelings = {
 					regulationType: ["settled", "cognitive"],
 					description: "longing for the past",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 
@@ -1705,7 +1705,7 @@ export const Feelings = {
 					regulationType: ["activated", "cognitive"],
 					description: "wanting what someone else has",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "more" },
 				},
 				{
@@ -1713,7 +1713,7 @@ export const Feelings = {
 					regulationType: ["activated", "cognitive"],
 					description: "fear of losing something valued",
 					type: "cognitive",
-					family: "distress",
+					feelingType: "distress",
 					ui: { tier: "simple" },
 				},
 			],

@@ -17,17 +17,17 @@ import RequestFormulation from "./RequestFormulation";
 import Review from "./Review";
 import FeelingsExploreCard from "./FeelingsExploreCard";
 
-// Data for family regulation step condition
+// Data for feeling type regulation step condition
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
-import { pickDominantFamily } from "../data/familyCards";
+import { pickDominantFeelingType } from "../data/FeelingTypes";
 
-// Build lookup for unmet feelings that have a family property
+// Build lookup for unmet feelings that have a FeelingType property
 const unmetFeelingLookup = {};
 const unmetSection = FeelingsData.sections.feelings;
 if (unmetSection?.groups) {
 	for (const group of Object.values(unmetSection.groups)) {
 		for (const item of group.items) {
-			if (item.family) {
+			if (item.feelingType) {
 				unmetFeelingLookup[item.item] = item;
 			}
 		}
@@ -201,8 +201,8 @@ export const WizardProvider = ({ children }) => {
 		setCurrentExploringNeed(null);
 		setExplorationStep(0);
 		setStrategies(session.strategies || {});
-		// Backward compat: old sessions used familyResponses key
-		setFeelingsExploreResponses(session.feelingsExploreResponses || session.familyResponses || {});
+		// Backward compat: old sessions used FeelingTypeResponses key
+		setFeelingsExploreResponses(session.feelingsExploreResponses || session.feelingTypeResponses || {});
 		setGuessObservation(session.guessObservation || "");
 		setGuessFeelings(session.guessFeelings || {});
 		setGuessNeeds(session.guessNeeds || {});

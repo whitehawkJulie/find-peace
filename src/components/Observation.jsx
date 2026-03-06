@@ -9,17 +9,16 @@ const checks = [
 	{
 		icon: "⏳",
 		heading: "One specific moment",
-		description: <p>Choose a single instance — not the whole history.</p>,
+		description: "Choose a single instance — not the whole history.",
 		extraInfo: (
 			<>
-				<p>
+				<>
 					Words like "always," "never," or "every time" often signal that multiple events are bundled
 					together.
-				</p>
-				<p>
+					<br />
 					Try narrowing to one moment: <em>"On Tuesday evening when…"</em> instead of{" "}
 					<em>"Every time we talk about this…"</em>
-				</p>
+				</>
 			</>
 		),
 	},
@@ -28,24 +27,22 @@ const checks = [
 		heading: "Just what happened — not what it meant",
 		description: (
 			<>
-				<p>
+				<>
 					Are we describing what was actually said or done, rather than interpretations like "disrespectful,"
 					"uncaring," "manipulative"?
-				</p>
+				</>
 			</>
 		),
 		extraInfo: (
 			<>
-				<p>
+				<>
 					Try stripping out words that carry a judgment or meaning, and rewriting in terms of actions, words,
 					and what was physically present. Instead of <em>"she was dismissive"</em>, try{" "}
 					<em>"she looked at her phone while I was speaking."</em>
-				</p>
-
-				<p>
+					<br />
 					If it helps, imagine what someone else in the room might have noticed happening. What might they say
 					they saw or heard?
-				</p>
+				</>
 			</>
 		),
 	},
@@ -54,10 +51,10 @@ const checks = [
 		icon: "🧠",
 		heading: "Leave the “why” aside just for now",
 		description: (
-			<p>
+			<>
 				Have we removed any assumptions about motive? (e.g., "to control me," "to hurt me," "because he doesn't
 				care")
-			</p>
+			</>
 		),
 		extraInfo: (
 			<>
@@ -77,10 +74,10 @@ const CheckPanel = ({ observation, setObservation }) => {
 		<div className="obs-check-inline">
 			<div className="obs-check-header">
 				<h3>Want to check the clarity?</h3>
-				<p>
+				<>
 					You don’t have to change anything. Just notice whether any of these land. These questions simply
 					help separate what happened from the meaning our minds add.
-				</p>
+				</>
 			</div>
 
 			<div className="obs-checks">
@@ -121,14 +118,12 @@ const Observation = () => {
 
 	return (
 		<div className="step-observation">
-			<p>Reclaiming your agency starts right here.</p>
+			{/* <>
+				Reclaiming your agency starts right here. You can’t control what the other person did. But you can start
+				by choosing where to put your attention and how to understand what happened.
+			</> */}
 
-			<p>
-				You can’t control what the other person did. But you can start by choosing where to put your attention
-				and how to understand what happened.
-			</p>
-
-			<p>Start with one specific moment that stood out to you, that still holds some charge for you.</p>
+			<>In what happened, what was the specific moment that stood out to you, that upset you the most?</>
 
 			<textarea
 				className="obs-main-textarea"
@@ -149,15 +144,15 @@ const Observation = () => {
 	);
 };
 
-Observation.title = "Start with one moment";
+Observation.title = "What happened that you didn't like?";
 
 Observation.helpContent = (
 	<>
 		<h4>What is an observation?</h4>
-		<p>
+		<>
 			An observation is a description of a specific moment — something that could have been seen or heard by
 			someone in the room. It avoids interpretation, judgment, motive-guessing, and time collapse.
-		</p>
+		</>
 
 		<h4>How to write one</h4>
 		<ul>

@@ -9,6 +9,13 @@ const Introduction = () => {
 
 	return (
 		<div className="step-intro">
+			<p>
+				<i>
+					This is a tool for working through something that's upset you. It will help you move from stuckness
+					and frustration, to having options and choices that you couldn't see before.
+				</i>
+			</p>
+
 			<p>Something here matters to you. A LOT.</p>
 
 			<p>

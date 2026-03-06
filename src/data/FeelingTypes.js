@@ -1,8 +1,8 @@
-// familyCards.js
+// feelingTypes.js
 // Tentative, collaborative tone.
 // Designed to be optional, lightweight, and always skippable.
 
-export const familyCards = {
+export const feelingTypes = {
 	fear: {
 		title: "It sounds like there may be a lot of fear here",
 		intro: "If that’s right, we can gently orient to what your system might be bracing for.",
@@ -213,29 +213,32 @@ export const familyCards = {
 	},
 };
 
-export default familyCards;
+export default feelingTypes;
 
 // If you want the trigger logic in one place (optional helper),
-// use this alongside familyCards. This isn’t required, but it matches what we agreed.
+// use this alongside feelingFamilies. This isn’t required, but it matches what we agreed.
 
-export const pickDominantFamily = (selectedUnmetFeelings, { dominanceThreshold = 0.7, minSelections = 2 } = {}) => {
-	// selectedUnmetFeelings: array of items that have `family`
-	const items = (selectedUnmetFeelings || []).filter((x) => x && x.family);
+export const pickDominantFeelingType = (
+	selectedUnmetFeelings,
+	{ dominanceThreshold = 0.7, minSelections = 2 } = {},
+) => {
+	// selectedUnmetFeelings: array of items that have `feelingType`
+	const items = (selectedUnmetFeelings || []).filter((x) => x && x.feelingType);
 	if (items.length < minSelections) return null;
 
 	const counts = {};
-	for (const it of items) counts[it.family] = (counts[it.family] || 0) + 1;
+	for (const it of items) counts[it.feelingType] = (counts[it.feelingType] || 0) + 1;
 
 	const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
 	if (sorted.length === 0) return null;
 
-	const [topFamily, topCount] = sorted[0];
+	const [topFeelingType, topCount] = sorted[0];
 	const total = items.length;
 
 	// tie check
 	if (sorted.length > 1 && sorted[1][1] === topCount) return null;
 
-	if (topCount / total >= dominanceThreshold) return topFamily;
+	if (topCount / total >= dominanceThreshold) return topFeelingType;
 
 	return null;
 };

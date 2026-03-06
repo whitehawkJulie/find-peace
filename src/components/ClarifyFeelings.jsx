@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Pill from "./Pill";
-import "./ClarifyPopup.css";
+import "./ClarifyFeelings.css";
 
-const ClarifyPopup = ({ itemData, feelings, needs, onToggleFeeling, onToggleNeed, onKeepWord, onClose }) => {
+const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleNeed, onKeepWord, onClose }) => {
 	const [responses, setResponses] = useState({});
 	const [showNeedsHelp, setShowNeedsHelp] = useState(false);
 	const [replaceWithFeelings, setReplaceWithFeelings] = useState(false);
@@ -95,12 +95,10 @@ const ClarifyPopup = ({ itemData, feelings, needs, onToggleFeeling, onToggleNeed
 								</p>
 								{showNeedsHelp && (
 									<p className="clarify-needs-help-text">
-										We're still clarifying the feeling layer here.
-										Technically, needs come next.
-										But many story words already point toward a need —
-										for example, "unappreciated" often connects to appreciation.
-										If a need feels clear to you now, you can choose it.
-										We'll return to it and explore it more deeply in the next step.
+										We're still clarifying the feeling layer here. Technically, needs come next. But
+										many story words already point toward a need — for example, "unappreciated"
+										often connects to appreciation. If a need feels clear to you now, you can choose
+										it. We'll return to it and explore it more deeply in the next step.
 									</p>
 								)}
 								<div className="pill-grid cloud">
@@ -125,8 +123,8 @@ const ClarifyPopup = ({ itemData, feelings, needs, onToggleFeeling, onToggleNeed
 									type="checkbox"
 									checked={replaceWithFeelings}
 									onChange={(e) => setReplaceWithFeelings(e.target.checked)}
-								/>
-								{" "}Replace "{itemData.item}" with the feelings I've chosen
+								/>{" "}
+								Replace "{itemData.item}" with the feelings I've chosen
 							</label>
 						)}
 
@@ -225,4 +223,4 @@ const ClarifyPopup = ({ itemData, feelings, needs, onToggleFeeling, onToggleNeed
 	);
 };
 
-export default ClarifyPopup;
+export default ClarifyFeelings;

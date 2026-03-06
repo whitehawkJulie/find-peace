@@ -1,0 +1,189 @@
+/* ── Outer container — fills card-content ── */
+.need-unpacking {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	gap: 0;
+}
+
+/* ── Accordion section ── */
+.unpacking-section {
+	border-radius: 10px;
+	overflow: hidden;
+	margin-bottom: 0.75rem;
+	border: 1px solid #d8ddd4;
+}
+
+.unpacking-section-toggle {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.75rem 1rem;
+	background: #f4f7f3;
+	border: none;
+	cursor: pointer;
+	font-size: 0.95rem;
+	font-weight: 500;
+	color: #3a5c42;
+	text-align: left;
+	gap: 0.5rem;
+	float: none;
+	transition: background 0.15s ease;
+}
+
+.unpacking-section-toggle:hover {
+	background: #eaf0e8;
+}
+
+.unpacking-toggle-chevron {
+	font-size: 0.7rem;
+	color: #7a9e82;
+	flex-shrink: 0;
+}
+
+.unpacking-section-body {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	padding: 0.9rem 1rem 1rem;
+	background: white;
+}
+
+/* Stage 2 section gets a subtle tint */
+.unpacking-section-stage2 {
+	border-color: #c8d9c8;
+}
+
+.unpacking-section-stage2 .unpacking-section-toggle {
+	background: #eaf2ea;
+	color: #2e5236;
+}
+
+.unpacking-section-stage2 .unpacking-section-toggle:hover {
+	background: #ddeedd;
+}
+
+.unpacking-section-stage2 .unpacking-section-body {
+	background: #f5faf5;
+}
+
+/* ── Stage 1 content ── */
+.unpacking-question {
+	margin: 0;
+	color: #444;
+	line-height: 1.5;
+	font-size: 0.95rem;
+}
+
+.unpacking-guesses-label {
+	font-size: 0.9rem;
+	color: #666;
+	font-style: italic;
+	margin: 0;
+}
+
+/* ── Stage 2 content ── */
+.unpacking-prompt {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+}
+
+.unpacking-prompt-text {
+	font-size: 0.95rem;
+	line-height: 1.5;
+	color: #444;
+	margin: 0;
+}
+
+.unpacking-prompt-subnote {
+	font-size: 0.85rem;
+	color: #888;
+	margin: 0;
+}
+
+.unpacking-textarea {
+	width: 100%;
+	padding: 0.6rem 0.75rem;
+	border: 1px solid #d4d0c8;
+	border-radius: 8px;
+	font-family: inherit;
+	font-size: 0.95rem;
+	line-height: 1.5;
+	resize: vertical;
+	box-sizing: border-box;
+	background: #fefcf9;
+	color: #333;
+}
+
+.unpacking-textarea:focus {
+	outline: none;
+	border-color: #6fad81;
+	box-shadow: 0 0 0 2px rgba(111, 173, 129, 0.15);
+}
+
+.unpacking-closing-note {
+	font-size: 0.9rem;
+	line-height: 1.6;
+	color: #666;
+	font-style: italic;
+	background: #eef5ee;
+	padding: 0.75rem 1rem;
+	border-radius: 8px;
+	border-left: 3px solid #a8c9a8;
+	margin: 0;
+}
+
+/* ── Footer — pushed to bottom ── */
+.unpacking-footer {
+	margin-top: auto;
+	padding-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+.unpacking-done-btn {
+	background: #5a9e6d;
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	padding: 0.55rem 1.5rem;
+	font-size: 0.95rem;
+	cursor: pointer;
+	transition: background 0.15s ease;
+	float: none;
+}
+
+.unpacking-done-btn:hover {
+	background: #4a8c5c;
+}
+
+.unpacking-exit-btn {
+	background: none;
+	border: none;
+	color: #999;
+	font-size: 0.85rem;
+	cursor: pointer;
+	padding: 0.2rem 0.5rem;
+	transition: color 0.15s ease;
+	float: none;
+}
+
+.unpacking-exit-btn:hover {
+	color: #555;
+}
+
+/* ── Picker ── */
+.explored-section {
+	margin-top: 0.5rem;
+}
+
+.explored-label {
+	font-size: 0.9rem;
+	color: #888;
+	font-style: italic;
+	margin: 0 0 0.5rem;
+}

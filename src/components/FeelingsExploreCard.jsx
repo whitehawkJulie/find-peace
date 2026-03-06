@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useWizard } from "./WizardContext";
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
-import { familyCards, pickDominantFamily } from "../data/familyCards";
+import { feelingTypes, pickDominantFeelingType } from "../data/FeelingTypes";
 import "./FeelingsExploreCard.css";
 
-// Build a lookup: item name → full item data (only for unmet feelings with a family tag)
+// Build a lookup: item name → full item data (only for unmet feelings with a feelingType tag)
 const itemLookup = {};
 const unmetSection = FeelingsData.sections.feelings;
 if (unmetSection?.groups) {
 	for (const group of Object.values(unmetSection.groups)) {
 		for (const item of group.items) {
-			if (item.family) {
+			if (item.feelingType) {
 				itemLookup[item.item] = item;
 			}
 		}
@@ -40,21 +40,21 @@ const FeelingsExploreCard = () => {
 
 	const [cardExpanded, setCardExpanded] = useState(false);
 
-	// Get selected unmet feelings with family data
-	const selectedUnmetWithFamily = useMemo(() => {
+	// Get selected unmet feelings with FeelingType data
+	const selectedUnmetWithFeelingType = useMemo(() => {
 		return Object.entries(feelings)
 			.filter(([_, status]) => status === "clicked" || status === "double-clicked")
 			.map(([name]) => itemLookup[name])
 			.filter(Boolean);
 	}, [feelings]);
 
-	const dominantFamily = pickDominantFamily(selectedUnmetWithFamily);
-	const card = dominantFamily ? familyCards[dominantFamily] : null;
+	const dominantFeelingType = pickDominantFeelingType(selectedUnmetWithFeelingType);
+	const card = dominantFeelingType ? feelingTypes[dominantFeelingType] : null;
 
-	// Reset expanded state when the dominant family changes
+	// Reset expanded state when the dominant FeelingType changes
 	useEffect(() => {
 		setCardExpanded(false);
-	}, [dominantFamily]);
+	}, [dominantFeelingType]);
 
 	const setResponse = (promptId, value) => {
 		setFeelingsExploreResponses((prev) => ({ ...prev, [promptId]: value }));
@@ -71,7 +71,13 @@ const FeelingsExploreCard = () => {
 	return (
 		<div className="feelings-explore-regulation">
 			{renderOrderedFeelings(feelings)}
-			<div class="words-box">
+
+			<p>
+				When you sit with these feelings, is there anything else that feels important or missing? If so, you
+				might like to look through the feelings list again, and choose more.
+			</p>
+
+			<div className="words-box">
 				<p>
 					Take a moment to notice the order in which these feelings arrived. We often feel something
 					vulnerable first, which is quickly covered up by the mind with stories about what the other person
@@ -153,7 +159,7 @@ FeelingsExploreCard.helpContent = (
 	<>
 		<p>
 			When many of your feelings point in the same direction, it can help to spend a moment with that emotional
-			family before moving on.
+			type before moving on.
 		</p>
 		<p>This step is optional — if it doesn't feel right, you can skip it and move on to exploring your needs.</p>
 		<p>There are no right answers here. Just notice what comes up.</p>

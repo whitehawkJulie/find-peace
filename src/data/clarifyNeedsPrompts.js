@@ -1,4 +1,6 @@
-export const clarifyPromptLibrary = {
+// these questions are used for unpacking needs
+
+export const clarifyNeedsPrompts = {
 	// EMBODIMENT (rotating across all categories) - All have label: "In your body"
 	EMB_01: "If this were present, what would shift in your body — even 5%?",
 	EMB_02: "What would soften in you if this were here?",
@@ -36,4 +38,4 @@ export const clarifyPromptLibrary = {
 	INT_CONC_01: "What small step could move this 10% today?", // Next step
 };
 
-export default clarifyPromptLibrary;
+export default clarifyNeedsPrompts;

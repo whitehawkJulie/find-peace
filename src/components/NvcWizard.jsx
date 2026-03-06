@@ -1,17 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import Card from "./Card";
 import PauseInterstitial from "./PauseInterstitial";
-import NeedExploration from "./NeedExploration";
+import NeedUnpacking from "./NeedUnpacking";
 import { useWizard } from "./WizardContext";
 
 const NvcWizard = () => {
-	const { stepIndex, visibleSteps, settings, needExplorationOpen, setHelpDrawerOpen,
-		currentExploringNeed, explorationStep, cardContentRef } = useWizard();
+	const {
+		stepIndex,
+		visibleSteps,
+		settings,
+		needExplorationOpen,
+		setHelpDrawerOpen,
+		currentExploringNeed,
+		explorationStep,
+		cardContentRef,
+	} = useWizard();
 	const [showPause, setShowPause] = useState(false);
 	const [pauseMessage, setPauseMessage] = useState("");
 	const prevStepIndex = useRef(stepIndex);
 
-	const skipPauses = settings.skipPauses ?? false;
+	const skipPauses = settings.skipPauses ?? true;
 
 	useEffect(() => {
 		cardContentRef.current?.scrollTo(0, 0);
@@ -31,16 +39,14 @@ const NvcWizard = () => {
 
 	const currentStep = visibleSteps[stepIndex];
 
-	// When the need exploration overlay is open, render NeedExploration instead of the current step
-	const CurrentStepComponent = needExplorationOpen ? NeedExploration : currentStep.component;
+	// When the need exploration overlay is open, render NeedUnpacking instead of the current step
+	const CurrentStepComponent = needExplorationOpen ? NeedUnpacking : currentStep.component;
 	const title = needExplorationOpen
-		? (currentExploringNeed && explorationStep > 0
-			? `Clarify: ${currentExploringNeed}`
-			: NeedExploration.title || "")
+		? currentExploringNeed && explorationStep > 0
+			? `Exploring "${currentExploringNeed}"?`
+			: NeedUnpacking.title || ""
 		: CurrentStepComponent.title || "";
-	const helpContent = needExplorationOpen
-		? NeedExploration.helpContent
-		: CurrentStepComponent.helpContent || null;
+	const helpContent = needExplorationOpen ? NeedUnpacking.helpContent : CurrentStepComponent.helpContent || null;
 
 	return (
 		<div className="nvc-wizard">

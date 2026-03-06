@@ -79,11 +79,12 @@ const Needs = () => {
 				onInfoClick={handleNeedInfoClick}
 			/>
 
-			<div style={{ marginTop: "2rem", textAlign: "center" }}>
+			{/* Faux feelings stuff - now embedded as actual options for selection, instead */}
+			{/* <div style={{ marginTop: "2rem", textAlign: "center" }}>
 				<button className="subtle-button" onClick={() => setShowPatriarchy(true)}>
 					Can't find some words you expected to see here?
 				</button>
-			</div>
+			</div> */}
 
 			<SlideDrawer
 				isOpen={showPatriarchy}

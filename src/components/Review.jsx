@@ -32,13 +32,16 @@ const Review = () => {
 		Array.isArray(v) ? v.length > 0 : v && String(v).trim() !== "",
 	);
 	const hasStrategies = Object.values(strategies).some((s) => s.length > 0);
-	const guessFeelingsAll = [...filterByState(guessFeelings, "clicked"), ...filterByState(guessFeelings, "double-clicked")];
+	const guessFeelingsAll = [
+		...filterByState(guessFeelings, "clicked"),
+		...filterByState(guessFeelings, "double-clicked"),
+	];
 	const guessNeedsAll = [...filterByState(guessNeeds, "clicked"), ...filterByState(guessNeeds, "double-clicked")];
 	const hasGuesses = guessObservation || guessFeelingsAll.length > 0 || guessNeedsAll.length > 0;
 	const hasRequests = requestOfSelf || requestOfOther;
 
-	const obsText = observation?.refined?.trim() ||
-		[observation?.moment, observation?.actions].filter((s) => s?.trim()).join("\n");
+	const obsText =
+		observation?.refined?.trim() || [observation?.moment, observation?.actions].filter((s) => s?.trim()).join("\n");
 
 	const generateSummaryText = () => {
 		const lines = [];
@@ -53,10 +56,7 @@ const Review = () => {
 		}
 
 		if (allFeelings.length > 0) {
-			const feelingsList = [
-				...strongFeelings.map((f) => `${f} (strong)`),
-				...regularFeelings,
-			].join(", ");
+			const feelingsList = [...strongFeelings.map((f) => `${f} (strong)`), ...regularFeelings].join(", ");
 			lines.push(`Feelings: ${feelingsList}`, "");
 		}
 
@@ -81,10 +81,10 @@ const Review = () => {
 			lines.push("Need explorations:");
 			for (const [name, exp] of exploredNeeds) {
 				lines.push(`  ${name}:`);
-				if (exp.bodyFeeling) lines.push(`    In my body: ${exp.bodyFeeling}`);
-				if (exp.whenMet) lines.push(`    When met: ${exp.whenMet}`);
-				if (exp.beauty) lines.push(`    The beauty: ${exp.beauty}`);
-				if (exp.blackHole) lines.push(`    Black hole need: ${exp.blackHole}`);
+				if (exp.coreSpecific) lines.push(`    About this need: ${exp.coreSpecific}`);
+				if (exp.unmetFeeling) lines.push(`    When it's not met: ${exp.unmetFeeling}`);
+				if (exp.metFeeling) lines.push(`    When it is met: ${exp.metFeeling}`);
+				if (exp.metCircumstances) lines.push(`    What helped: ${exp.metCircumstances}`);
 			}
 			lines.push("");
 		}
@@ -104,7 +104,7 @@ const Review = () => {
 			heading("The Other Person's Perspective");
 			if (guessObservation) lines.push(`They might have observed: ${guessObservation}`, "");
 			if (guessFeelingsAll.length > 0) lines.push(`They might be feeling: ${guessFeelingsAll.join(", ")}`, "");
-			if (guessNeedsAll.length > 0) lines.push(`Their unmet needs might include: ${guessNeedsAll.join(", ")}`, "");
+			if (guessNeedsAll.length > 0) lines.push(`Their needs might include: ${guessNeedsAll.join(", ")}`, "");
 		}
 
 		if (hasRequests) {
@@ -145,14 +145,12 @@ const Review = () => {
 					<h3>Feelings</h3>
 					{strongFeelings.length > 0 && (
 						<p>
-							<span className="review-label">Strong:</span>{" "}
-							<strong>{strongFeelings.join(", ")}</strong>
+							<span className="review-label">Strong:</span> <strong>{strongFeelings.join(", ")}</strong>
 						</p>
 					)}
 					{regularFeelings.length > 0 && (
 						<p>
-							<span className="review-label">Also present:</span>{" "}
-							{regularFeelings.join(", ")}
+							<span className="review-label">Also present:</span> {regularFeelings.join(", ")}
 						</p>
 					)}
 				</div>
@@ -189,24 +187,24 @@ const Review = () => {
 					{exploredNeeds.map(([name, exp]) => (
 						<div key={name} className="review-exploration">
 							<strong>{name}</strong>
-							{exp.bodyFeeling && (
+							{exp.coreSpecific && (
 								<p>
-									<em>In my body:</em> {exp.bodyFeeling}
+									<em>About this need:</em> {exp.coreSpecific}
 								</p>
 							)}
-							{exp.whenMet && (
+							{exp.unmetFeeling && (
 								<p>
-									<em>When met:</em> {exp.whenMet}
+									<em>When it's not met:</em> {exp.unmetFeeling}
 								</p>
 							)}
-							{exp.beauty && (
+							{exp.metFeeling && (
 								<p>
-									<em>The beauty:</em> {exp.beauty}
+									<em>When it is met:</em> {exp.metFeeling}
 								</p>
 							)}
-							{exp.blackHole && (
+							{exp.metCircumstances && (
 								<p>
-									<em>Black hole need:</em> {exp.blackHole}
+									<em>What helped:</em> {exp.metCircumstances}
 								</p>
 							)}
 						</div>
@@ -249,7 +247,7 @@ const Review = () => {
 						)}
 						{guessNeedsAll.length > 0 && (
 							<p>
-								<span className="review-label">Their unmet needs might include:</span>{" "}
+								<span className="review-label">Their needs might include:</span>{" "}
 								{guessNeedsAll.join(", ")}
 							</p>
 						)}

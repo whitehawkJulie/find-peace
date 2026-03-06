@@ -1,4 +1,4 @@
-import { clarifyPromptLibrary } from "../data/clarifyPromptLibrary";
+import { clarifyNeedsPrompts } from "../data/clarifyNeedsPrompts";
 
 /**
  * Resolves an array of prompt objects, expanding any library refs.
@@ -13,7 +13,7 @@ import { clarifyPromptLibrary } from "../data/clarifyPromptLibrary";
 export const resolvePrompts = (prompts) =>
 	prompts.map((prompt) => {
 		if (prompt.ref) {
-			const question = clarifyPromptLibrary[prompt.ref];
+			const question = clarifyNeedsPrompts[prompt.ref];
 			const { override, ...rest } = prompt;
 			return { ...rest, question, ...(override || {}) };
 		}

@@ -843,7 +843,10 @@ NeedExploration.helpContent = (
 
 		<p>
 			Once the need is clear, you can look for multiple ways to support it — including outside this relationship.
-			That often reduces pressure and increases freedom.
+			That often reduces pressure and increases freedom. Every need has millions of possible ways to meet it
+			(strategies), and we can get very stuck when we insist on one particular way that isn't actually available,
+			like insisting on a particular person acting in a particular way that they're actually not capable of right
+			now.
 		</p>
 	</>
 );

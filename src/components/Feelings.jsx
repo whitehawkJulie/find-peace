@@ -3,7 +3,7 @@ import Checklist from "./Checklist";
 import { AllFeelingsData as FeelingsData, regulationMeta } from "../data/AllFeelingsData";
 import { useWizard } from "./WizardContext";
 import SlideDrawer from "./SlideDrawer";
-import ClarifyPopup from "./ClarifyPopup";
+import ClarifyFeelings from "./ClarifyFeelings";
 
 const REGULATION_TYPES = ["activated", "threat", "contracted", "collapsed", "cognitive", "settled"];
 
@@ -252,7 +252,7 @@ const Feelings = () => {
 			/>
 
 			{popupItem && (
-				<ClarifyPopup
+				<ClarifyFeelings
 					itemData={popupItem}
 					feelings={feelings}
 					needs={needs}

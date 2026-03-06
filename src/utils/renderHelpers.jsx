@@ -1,13 +1,17 @@
 import React from "react";
 import { Needs } from "../data/AllNeedsData";
 
-// Build a flat lookup at module scope: needName → { item data, sectionHeading }
+// Build a flat lookup at module scope: needName → { item data, sectionHeading, _groupUnpackingType }
 const needLookup = {};
 for (const section of Object.values(Needs.sections)) {
 	const sectionHeading = section.ui?.heading || "";
 	for (const group of Object.values(section.groups)) {
 		for (const item of group.items) {
-			needLookup[item.item] = { ...item, _sectionHeading: sectionHeading };
+			needLookup[item.item] = {
+				...item,
+				_sectionHeading: sectionHeading,
+				_groupUnpackingType: group.unpackingType || [],
+			};
 		}
 	}
 }
@@ -28,9 +32,16 @@ export const getNeedMeaning = (needName) => {
 export const getNeedData = (needName) => {
 	const entry = needLookup[needName];
 	if (!entry) return null;
-	// Return a clean copy without the internal _sectionHeading field
-	const { _sectionHeading, ...data } = entry;
+	// Return a clean copy without internal fields
+	const { _sectionHeading, _groupUnpackingType, ...data } = entry;
 	return data;
+};
+
+// Resolve the unpackingType array for a need, falling back to the group's type
+export const resolveNeedUnpackingType = (needName) => {
+	const entry = needLookup[needName];
+	if (!entry) return [];
+	return entry.unpackingType?.length ? entry.unpackingType : (entry._groupUnpackingType ?? []);
 };
 
 // Utility functions to extract selected items by type
