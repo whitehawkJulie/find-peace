@@ -145,14 +145,10 @@ const Review = () => {
 					<h3>Feelings</h3>
 					{strongFeelings.length > 0 && (
 						<p>
-							<span className="review-label">Strong:</span> <strong>{strongFeelings.join(", ")}</strong>
+							<strong>{strongFeelings.join(", ")}</strong>
 						</p>
 					)}
-					{regularFeelings.length > 0 && (
-						<p>
-							<span className="review-label">Also present:</span> {regularFeelings.join(", ")}
-						</p>
-					)}
+					{regularFeelings.length > 0 && <p>{regularFeelings.join(", ")}</p>}
 				</div>
 			)}
 
