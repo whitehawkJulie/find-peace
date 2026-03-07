@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import NvcWizard from "./components/NvcWizard";
 import { WizardProvider } from "./components/WizardContext";
 import "./App.css";
