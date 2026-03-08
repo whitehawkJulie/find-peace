@@ -11,8 +11,8 @@ const Introduction = () => {
 		<div className="step-intro">
 			<p>
 				<i>
-					This is a tool for working through something that's upset you. It will help you move from stuckness
-					and frustration, to having options and choices that you couldn't see before.
+					This is a tool for working through something that's bothering you. It will help you move from
+					stuckness and frustration, to having options and choices that you couldn't see before.
 				</i>
 			</p>
 
@@ -42,10 +42,11 @@ const Introduction = () => {
 
 			<p>Ready? We’ll move one step at a time.</p>
 
+			{/* TODO: move this to settings, can load past sessions from there.  */}
 			{savedEntries.length > 0 && (
 				<div style={{ marginTop: "1.5rem", textAlign: "center" }}>
 					<button className="subtle-button" onClick={() => setShowSaved(true)}>
-						View past sessions ({savedEntries.length})
+						Load past session ({savedEntries.length})
 					</button>
 				</div>
 			)}

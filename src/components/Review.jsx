@@ -45,6 +45,7 @@ const Review = () => {
 
 	const generateSummaryText = () => {
 		const lines = [];
+		let feelingsList;
 		const heading = (text) => {
 			lines.push("", `— ${text} —`, "");
 		};
@@ -56,7 +57,7 @@ const Review = () => {
 		}
 
 		if (allFeelings.length > 0) {
-			const feelingsList = [...strongFeelings.map((f) => `${f} (strong)`), ...regularFeelings].join(", ");
+			feelingsList = [...strongFeelings.map((f) => `${f} (strong)`), ...regularFeelings].join(", ");
 			lines.push(`Feelings: ${feelingsList}`, "");
 		}
 
@@ -76,6 +77,18 @@ const Review = () => {
 		if (unmetNeeds.length > 0) {
 			lines.push(`Unmet needs: ${unmetNeeds.join(", ")}`, "");
 		}
+
+		// analytics - recording JUST feelings and needs, no personal data
+		fetch("/log-selections.php", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				feelings: strongFeelings.map((f) => `${f} (strong)`).concat(regularFeelings),
+				needs: unmetNeeds,
+			}),
+		});
 
 		if (exploredNeeds.length > 0) {
 			lines.push("Need explorations:");
@@ -273,7 +286,11 @@ const Review = () => {
 				<button onClick={generateSummaryText} className="review-action-btn">
 					{copied ? "Copied!" : "Copy to Clipboard"}
 				</button>
-				<button onClick={handleSave} disabled={saved} className="review-action-btn review-action-btn-secondary">
+				<button
+					onClick={handleSave}
+					disabled={saved}
+					className="review-action-btn review-action-btn-secondary"
+					title="Warning, will be deleted any time you clear the browser cache">
 					{saved ? "Saved to Journal" : "Save to Journal"}
 				</button>
 			</div>
