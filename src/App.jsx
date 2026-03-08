@@ -3,7 +3,7 @@ import NvcWizard from "./components/NvcWizard";
 import { WizardProvider } from "./components/WizardContext";
 import "./App.css";
 
-const NeedsAuditPage = lazy(() => import("./dev/NeedsAuditPage.jsx"));
+const NeedsAuditPage = import.meta.env.DEV ? lazy(() => import("./dev/NeedsAuditPage.jsx")) : null;
 const showAudit = import.meta.env.DEV && new URLSearchParams(window.location.search).has("audit");
 
 const App = () => {

@@ -78,18 +78,6 @@ const Review = () => {
 			lines.push(`Unmet needs: ${unmetNeeds.join(", ")}`, "");
 		}
 
-		// analytics - recording JUST feelings and needs, no personal data
-		fetch("/log-selections.php", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				feelings: strongFeelings.map((f) => `${f} (strong)`).concat(regularFeelings),
-				needs: unmetNeeds,
-			}),
-		});
-
 		if (exploredNeeds.length > 0) {
 			lines.push("Need explorations:");
 			for (const [name, exp] of exploredNeeds) {
@@ -126,13 +114,27 @@ const Review = () => {
 			if (requestOfOther) lines.push(`Of them: ${requestOfOther}`);
 		}
 
+		logSelections();
 		navigator.clipboard.writeText(lines.join("\n")).then(() => {
 			setCopied(true);
 			setTimeout(() => setCopied(false), 2500);
 		});
 	};
 
+	// analytics - recording JUST feelings and needs, no personal data
+	const logSelections = () => {
+		fetch("/log-selections.php", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				feelings: strongFeelings.map((f) => `${f} (strong)`).concat(regularFeelings),
+				needs: unmetNeeds,
+			}),
+		});
+	};
+
 	const handleSave = () => {
+		logSelections();
 		saveSession();
 		setSaved(true);
 	};
