@@ -30,7 +30,7 @@ const RequestFormulation = () => {
 					className="request-textarea"
 					value={requestOfSelf}
 					onChange={(e) => setRequestOfSelf(e.target.value)}
-					placeholder="I would like to..."
+					placeholder="Might I be willing to..."
 					rows={3}
 				/>
 			</div>

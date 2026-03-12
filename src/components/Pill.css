@@ -141,7 +141,7 @@
 	font-size: 0.8rem;
 	max-width: 220px;
 	width: max-content;
-	white-space: normal;
+	white-space: pre-line;
 	text-align: center;
 	pointer-events: none;
 	opacity: 0;
@@ -172,7 +172,7 @@
 	font-size: 0.8rem;
 	max-width: 220px;
 	width: max-content;
-	white-space: normal;
+	white-space: pre-line;
 	text-align: center;
 	pointer-events: none;
 	z-index: 1000;

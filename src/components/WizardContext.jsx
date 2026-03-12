@@ -201,8 +201,8 @@ export const WizardProvider = ({ children }) => {
 		setCurrentExploringNeed(null);
 		setExplorationStep(0);
 		setStrategies(session.strategies || {});
-		// Backward compat: old sessions used FeelingTypeResponses key
-		setFeelingsExploreResponses(session.feelingsExploreResponses || session.feelingTypeResponses || {});
+		// Backward compat: old sessions used different key names for this field
+		setFeelingsExploreResponses(session.feelingsExploreResponses || session.feelingTypeResponses || session.familyResponses || {});
 		setGuessObservation(session.guessObservation || "");
 		setGuessFeelings(session.guessFeelings || {});
 		setGuessNeeds(session.guessNeeds || {});
@@ -240,6 +240,25 @@ export const WizardProvider = ({ children }) => {
 		const updated = savedEntries.filter((s) => s.id !== sessionId);
 		setSavedEntries(updated);
 		localStorage.setItem("findPeaceSessions", JSON.stringify(updated));
+	};
+
+	// Check if the current session has any data worth warning about
+	const hasSessionData = () => {
+		return !!(
+			jackalTalk ||
+			observation?.refined?.trim() ||
+			observation?.moment?.trim() ||
+			Object.keys(feelings).length > 0 ||
+			Object.keys(needs).length > 0 ||
+			Object.keys(needExplorations).length > 0 ||
+			Object.keys(strategies).length > 0 ||
+			Object.keys(feelingsExploreResponses).length > 0 ||
+			guessObservation?.trim() ||
+			Object.keys(guessFeelings).length > 0 ||
+			Object.keys(guessNeeds).length > 0 ||
+			requestOfSelf?.trim() ||
+			requestOfOther?.trim()
+		);
 	};
 
 	const value = {
@@ -288,6 +307,7 @@ export const WizardProvider = ({ children }) => {
 		loadSession,
 		resetSession,
 		deleteSession,
+		hasSessionData,
 		visibleSteps,
 		currentStep,
 		cardContentRef,

@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useWizard } from "./WizardContext";
 import { filterByState } from "../utils/renderHelpers";
 import "./SavedEntries.css";
 
 export default function SavedEntries() {
-	const { savedEntries, loadSession, deleteSession } = useWizard();
+	const { savedEntries, loadSession, deleteSession, hasSessionData } = useWizard();
+	const [loadedId, setLoadedId] = useState(null);
+
+	const handleLoad = (entry) => {
+		if (
+			hasSessionData() &&
+			!window.confirm("Loading this session will replace your current responses. Continue?")
+		) {
+			return;
+		}
+		loadSession(entry);
+		setLoadedId(entry.id);
+	};
 
 	if (savedEntries.length === 0) {
 		return (
@@ -29,12 +41,13 @@ export default function SavedEntries() {
 					});
 					const obsText = typeof entry.observation === "string"
 						? entry.observation
-						: (entry.observation?.moment || entry.observation?.actions || "");
+						: (entry.observation?.refined || entry.observation?.moment || entry.observation?.actions || "");
 					const preview = obsText
 						? obsText.slice(0, 80) + (obsText.length > 80 ? "..." : "")
 						: "No observation recorded";
 					const feelingCount = entry.feelings ? Object.keys(entry.feelings).length : 0;
 					const unmetCount = entry.needs ? filterByState(entry.needs, "clicked").length : 0;
+					const isLoaded = loadedId === entry.id;
 
 					return (
 						<div className="saved-card" key={entry.id}>
@@ -42,11 +55,11 @@ export default function SavedEntries() {
 								<span className="saved-date">{date}</span>
 								<div className="saved-card-actions">
 									<button
-										className="saved-action-btn load-btn"
-										onClick={() => loadSession(entry)}
+										className={`saved-action-btn load-btn${isLoaded ? " load-btn-loaded" : ""}`}
+										onClick={() => handleLoad(entry)}
 										title="Load this session"
 									>
-										Open
+										{isLoaded ? "Loaded ✓" : "Open"}
 									</button>
 									<button
 										className="saved-action-btn delete-btn"

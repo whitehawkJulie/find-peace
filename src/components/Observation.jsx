@@ -73,11 +73,11 @@ const CheckPanel = ({ observation, setObservation }) => {
 	return (
 		<div className="obs-check-inline">
 			<div className="obs-check-header">
-				<h3>Want to check the clarity?</h3>
-				<>
-					You don’t have to change anything. Just notice whether any of these land. These questions simply
-					help separate what happened from the meaning our minds add.
-				</>
+				<h3>From threat mode to curiosity</h3>
+				<p>
+					These checks can help us move from a reactive, threat-focused mindset to a more curious,
+					understanding one. They help us slow down.
+				</p>
 			</div>
 
 			<div className="obs-checks">
@@ -100,7 +100,7 @@ const CheckPanel = ({ observation, setObservation }) => {
 									[i]: !prev[i],
 								}))
 							}>
-							{expanded[i] ? "Hide details" : "More detail"}
+							{expanded[i] ? "Hide example" : "Show example"}
 						</button>
 
 						{expanded[i] && <div className="obs-check-hint-box">{check.extraInfo}</div>}
@@ -115,16 +115,20 @@ const CheckPanel = ({ observation, setObservation }) => {
 
 const Observation = () => {
 	const { observation, setObservation, setHelpDrawerOpen } = useWizard();
+	const [showCheckPanel, setShowCheckPanel] = useState(false);
 
 	return (
 		<div className="step-observation">
-			{/* <>
-				Reclaiming your agency starts right here. You can’t control what the other person did. But you can start
-				by choosing where to put your attention and how to understand what happened.
-			</> */}
+			<p>
+				When something upsets us, our brain quickly creates a story about what the other person meant or why
+				they did it. That helps us feel certain, but it can also hide what actually happened.
+			</p>
 
-			<>In what happened, what was the specific moment that stood out to you, that upset you the most?</>
-
+			<p>Getting curious about the moment helps our brain move out of reaction and into understanding.</p>
+			<p>
+				To understand the situation more clearly, we’ll slow down and look at the specific moment itself — just
+				what someone could have seen or heard, before any interpretations, or assumptions about motives.
+			</p>
 			<textarea
 				className="obs-main-textarea"
 				value={observation.refined || ""}
@@ -135,16 +139,25 @@ const Observation = () => {
 					}))
 				}
 				rows={6}
-				placeholder="eg “Yesterday evening, when I was telling you about my day, you looked at your phone and didn’t respond.”"
+				placeholder={
+					"Example:\nYesterday evening,\nwhile I was telling you about my day,\nyou looked at your phone and didn’t respond."
+				}
 			/>
 
-			{/* Inline check panel always visible */}
-			<CheckPanel observation={observation} setObservation={setObservation} />
+			{!showCheckPanel && (
+				<div className="obs-action-row">
+					<button type="button" className="obs-btn obs-btn-check" onClick={() => setShowCheckPanel(true)}>
+						Help me unpack this
+					</button>
+				</div>
+			)}
+
+			{showCheckPanel && <CheckPanel observation={observation} setObservation={setObservation} />}
 		</div>
 	);
 };
 
-Observation.title = "What happened that you didn't like?";
+Observation.title = "What was the moment that upset you?";
 
 Observation.helpContent = (
 	<>

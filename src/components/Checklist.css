@@ -96,17 +96,22 @@
 
 .subcategory {
 	padding: 1rem;
-	margin: 1rem;
-	border-radius: 10px;
 }
 
 .subcategory-title {
 	font-weight: bold;
-	margin-bottom: 1rem;
+	margin-bottom: 0.5rem;
 	margin-top: 0;
 	display: flex;
 	align-items: center;
 	gap: 0.4rem;
+}
+
+/* less padding on mobile to fit more feelings and needs */
+@media (max-width: 768px) {
+	.subcategory {
+		padding: 0.5rem;
+	}
 }
 
 /* ========== COLLAPSIBLE HEADERS ========== */
@@ -249,7 +254,7 @@
 	line-height: 1rem;
 	padding: 0;
 	transition: background 0.15s ease;
-	margin-left: -6px;
+	margin-left: auto;
 }
 
 .regulation-help-btn:hover {
@@ -263,29 +268,17 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: 0.6rem 1rem;
-	padding: 0.5rem 0.8rem;
-	margin-bottom: 0.5rem;
+	gap: 0.35rem;
+	padding: 0.55rem 1rem 0.6rem;
+	background: rgba(255, 255, 255, 0.55);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.regulation-legend .pill {
 	font-size: 0.75rem;
-	color: #777;
-	background: #fafaf8;
-	border-radius: 6px;
-	border: 1px solid #eee;
-}
-
-.regulation-legend-item {
-	display: flex;
-	align-items: center;
-	gap: 0.25rem;
-	white-space: nowrap;
-}
-
-.regulation-legend-dot {
-	display: inline-block;
-	width: 0.5rem;
-	height: 0.5rem;
-	border-radius: 50%;
-	flex-shrink: 0;
+	padding: 0.2rem 0.6rem;
+	cursor: default;
+	pointer-events: none;
 }
 
 /* ========== REGULATION HELP DRAWER ========== */
@@ -361,7 +354,7 @@
 
 /* make the feelings list a bit more narrow */
 .step-feelings .checklist {
-	width: 80%;
+	width: 100%;
 	margin: auto;
 }
 

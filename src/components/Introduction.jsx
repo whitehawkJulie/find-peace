@@ -1,60 +1,32 @@
-import React, { useState } from "react";
-import { useWizard } from "./WizardContext";
-import SlideDrawer from "./SlideDrawer";
-import SavedEntries from "./SavedEntries";
+import React from "react";
 
 const Introduction = () => {
-	const { savedEntries } = useWizard();
-	const [showSaved, setShowSaved] = useState(false);
-
 	return (
-		<div className="step-intro">
-			<p>
-				<i>
-					This is a tool for working through something that's bothering you. It will help you move from
-					stuckness and frustration, to having options and choices that you couldn't see before.
-				</i>
-			</p>
-
-			<p>Something here matters to you. A LOT.</p>
+		<>
+			<p>If you're here, something probably happened that didn’t go the way you hoped.</p>
 
 			<p>
-				When something feels important — or threatening — our systems respond. Anger, hurt, confusion, urgency…
-				none of that is random.
-			</p>
-
-			<p>Your response makes sense in context.</p>
-
-			<p>
-				If you're feeling stuck, it might be because it seems like the only way this situation gets better is if
-				the other person changes. When it looks like that, it's easy to feel powerless.
+				When we feel hurt, angry, or scared, our brain often switches into <strong>threat mode</strong>. In that
+				state our thinking narrows, and we quickly form a story about what went wrong and who’s to blame.
 			</p>
 
 			<p>
-				This process is here to help you find where you <em>do</em> have agency — how you express yourself, what
-				you ask for, what choices are available to you, and what might help move things forward.
+				Being in threat mode reduces our emotional and cognitive flexibility, so the strategies we reach for in
+				that moment often don’t lead where we want them to. In threat mode, we tend to focus on fixing the other
+				person or controlling the situation. When we reconnect with what actually matters to us — our needs —
+				new possibilities open up, new strategies that are much more likely to satisfy us.
 			</p>
 
 			<p>
-				As that clarity grows, people are often surprised to discover they have more influence in the situation
-				than it first seemed.
+				This tool helps you slow things down, reconnect with what actually matters to you, and look at the
+				situation with a wider perspective.
 			</p>
 
-			<p>Ready? We’ll move one step at a time.</p>
-
-			{/* TODO: move this to settings, can load past sessions from there.  */}
-			{savedEntries.length > 0 && (
-				<div style={{ marginTop: "1.5rem", textAlign: "center" }}>
-					<button className="subtle-button" onClick={() => setShowSaved(true)}>
-						Load past session ({savedEntries.length})
-					</button>
-				</div>
-			)}
-
-			<SlideDrawer isOpen={showSaved} onClose={() => setShowSaved(false)} title="Past Sessions">
-				<SavedEntries />
-			</SlideDrawer>
-		</div>
+			<p>
+				Once that happens, it becomes much easier to find responses that move the situation in a better
+				direction.
+			</p>
+		</>
 	);
 };
 
@@ -62,35 +34,84 @@ Introduction.title = "Welcome";
 
 Introduction.helpContent = (
 	<>
-		<h3>About This Process</h3>
-
+		<h2>Why conversations go wrong</h2>
 		<p>
-			This tool is rooted in the 4 steps of Nonviolent Communication (NVC): Observation, Feelings, Needs, and
-			Request.
+			When something upsetting happens, our brain often switches into <strong>threat mode</strong>.
 		</p>
-
-		<p>You don’t need to know anything about NVC to use it. I’ll guide you.</p>
-
-		<p>Over time, I’ve expanded the traditional framework to include:</p>
-
+		<p>
+			In threat mode, our thinking narrows. We quickly form a story about what’s wrong and who’s to blame, and we
+			reach for the first strategy that seems like it might stop the pain.
+		</p>
+		<p>That strategy often looks like:</p>
 		<ul>
-			<li>A wider range of feelings and needs</li>
-			<li>Gentle unpacking when things feel tangled or murky</li>
-			<li>Support for finding clarity before trying to fix anything</li>
+			<li>arguing</li>
+			<li>defending ourselves</li>
+			<li>blaming the other person</li>
+			<li>trying to control the situation</li>
 		</ul>
-
 		<p>
-			We’ll begin by exploring what’s happening in you. Later — if you’re willing — you’ll have the option to
-			consider what might be happening for the other person.
+			Unfortunately, these reactions usually make the situation worse. They push the other person into threat mode
+			too.
 		</p>
-
 		<p>
-			You might not care about that part right now 🙂 That’s okay. We’ll get there when (and if) it feels right.
+			The result is a conversation where both people are trying to <strong>fix the other person</strong>, and
+			nobody is really being heard.
 		</p>
+		<h2>What’s happening inside us</h2>
+		<p>
+			Underneath the blame story, there is usually a <strong>first feeling</strong> — something like fear, anger,
+			or hurt.
+		</p>
+		<p>
+			When we are in threat mode, our brain tries to get rid of that feeling as quickly as possible. It does this
+			by generating “fix-it thoughts” about what the other person did wrong and what they should do differently.
+		</p>
+		<p>
+			But in threat mode we lose a lot of our <strong>emotional and cognitive flexibility</strong>, so the
+			strategies we come up with are often the least effective ones.
+		</p>
+		<h2>What this tool helps you do</h2>
+		<p>React → Get curious → Understand → Connect → Solve</p>
+		<p>This tool helps you step out of threat mode and reconnect with what actually matters to you.</p>
+		<p>It does that in three stages:</p>
+		<ol>
+			<li>
+				<strong>Clarify what’s happening in you</strong>
+				<br />
+				Identify the first feeling and the needs underneath it. This helps your brain move out of threat mode
+				and into a more curious, problem-solving state.
+			</li>
 
-		<p>Marshall Rosenberg, the creator of NVC, used to say:</p>
+			<li>
+				<strong>Widen your perspective</strong>
+				<br />
+				Consider what might be happening for the other person as well. This helps reduce the sense that they are
+				an enemy you need to defend against.
+			</li>
 
-		<blockquote>“When we uncover the needs, the solutions find us.”</blockquote>
+			<li>
+				<strong>Find strategies that work for both people</strong>
+				<br />
+				When you’re looking at the level of needs rather than blame, surprisingly creative and workable
+				solutions often appear.
+			</li>
+		</ol>
+		<h2>A different starting point for conversation</h2>
+		<p>
+			Nonviolent Communication helps translate the reactions that arise in threat mode into something more useful.
+		</p>
+		<p>
+			Instead of focusing on <strong>what’s wrong with the other person</strong>, it helps you discover{" "}
+			<strong>what you are really wanting</strong>.
+		</p>
+		<p>Once you know that, your brain becomes much better at finding ways to move toward it.</p>
+
+		<div className="highlight-box">
+			<p>
+				When we focus on what’s wrong, we get stuck. <br />
+				When we focus on what matters, new possibilities appear.
+			</p>
+		</div>
 	</>
 );
 

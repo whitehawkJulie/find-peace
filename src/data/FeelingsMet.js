@@ -2,7 +2,7 @@
 
 export const FeelingsMet = {
 	ui: {
-		heading: "Things we might feel when our needs are met",
+		heading: "Feelingswhen our needs are met",
 		helpText: "",
 	},
 	regulationType: "settled",

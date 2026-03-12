@@ -5,20 +5,31 @@ import { useWizard } from "./WizardContext";
 import SlideDrawer from "./SlideDrawer";
 import ClarifyFeelings from "./ClarifyFeelings";
 
-const REGULATION_TYPES = ["activated", "threat", "contracted", "collapsed", "cognitive", "settled"];
+const REGULATION_TYPES = ["activated", "threat", "contracted", "collapsed", "cognitive"];
 
-const RegulationLegend = () => (
+const RegulationLegend = ({ onHelp }) => (
 	<div className="regulation-legend">
 		{REGULATION_TYPES.map((key) => {
 			const meta = regulationMeta[key];
 			if (!meta) return null;
 			return (
-				<span key={key} className="regulation-legend-item">
-					<span className="regulation-legend-dot" style={{ backgroundColor: meta.colors.dot }} />
+				<span
+					key={key}
+					className="pill reg-overlay"
+					style={{
+						backgroundColor: meta.colors.bg,
+						border: `1px solid ${meta.colors.border}`,
+						cursor: "default",
+					}}>
 					{meta.label}
 				</span>
 			);
 		})}
+		{onHelp && (
+			<button className="regulation-help-btn" title="What's this?" onClick={onHelp}>
+				?
+			</button>
+		)}
 	</div>
 );
 
@@ -191,10 +202,9 @@ const Feelings = () => {
 			<p>You might notice sensations, emotions, tension, or energy in the body. Just notice what’s there.</p>
 
 			<p>
-				Most importantly, what did you feel <em>first</em>?
+				Most importantly, what did you feel <em>first</em>? Was there something there <em>before</em> the threat
+				circuit turned on?
 			</p>
-
-			{showRegulationOverlay && <RegulationLegend />}
 
 			<Checklist
 				data={[FeelingsData.sections.feelings, FeelingsData.sections.story]}
@@ -207,6 +217,20 @@ const Feelings = () => {
 				defaultListMode="full"
 				regulationOverlay={showRegulationOverlay}
 				regulationToggle={regulationToggle}
+				headerContent={showRegulationOverlay ? <RegulationLegend onHelp={regulationToggle?.onHelp} /> : null}
+				tooltipEnhancer={
+					showRegulationOverlay
+						? (itemData, base) => {
+								const regType = itemData._resolvedRegType;
+								if (!regType) return base;
+								const types = Array.isArray(regType) ? regType : [regType];
+								const labels = types.map((t) => regulationMeta[t]?.label).filter(Boolean);
+								if (!labels.length) return base;
+								const suffix = `(${labels.join(" / ")})`;
+								return base ? `${base}\n${suffix}` : suffix;
+							}
+						: null
+				}
 				categoryHelpIcons={{
 					[FeelingsData.sections.story.ui.heading]: () => setShowStoryHelp(true),
 				}}

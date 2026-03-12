@@ -46,6 +46,11 @@
 	background: #5a9a6e;
 }
 
+.load-btn-loaded {
+	background: #4a7a5a;
+	cursor: default;
+}
+
 .delete-btn {
 	background: #eee;
 	color: #999;

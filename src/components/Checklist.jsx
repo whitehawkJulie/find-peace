@@ -31,6 +31,8 @@ const Checklist = ({
 	regulationOverlay = false,
 	regulationToggle = null,
 	afterGroupContent = null,
+	headerContent = null,
+	tooltipEnhancer = null,
 }) => {
 	const [collapsedCategories, setCollapsedCategories] = useState({});
 	// Per-section list mode, keyed by section heading
@@ -122,7 +124,8 @@ const Checklist = ({
 
 	const renderPill = (itemData) => {
 		const { item } = itemData;
-		const tooltip = itemData.description || itemData.meaning || "";
+		const baseTooltip = itemData.description || itemData.meaning || "";
+		const tooltip = tooltipEnhancer ? tooltipEnhancer(itemData, baseTooltip) : baseTooltip;
 
 		// Determine indicator type
 		let indicator = null;
@@ -175,17 +178,7 @@ const Checklist = ({
 					}}>
 					🧍
 				</button>
-				{regulationToggle.onHelp && (
-					<button
-						className="regulation-help-btn"
-						title="What's this?"
-						onClick={(e) => {
-							e.stopPropagation();
-							regulationToggle.onHelp();
-						}}>
-						?
-					</button>
-				)}
+				
 			</span>
 		);
 	};
@@ -279,6 +272,7 @@ const Checklist = ({
 
 								{!collapsedCategories[sectionHeading] && (
 									<div className="subcategories">
+										{index === 0 && headerContent}
 										<div className="pill-grid cloud" style={{ padding: "1rem" }}>
 											{quickPicks.map(renderPill)}
 										</div>
@@ -340,6 +334,7 @@ const Checklist = ({
 							{sectionHeader}
 							{!collapsedCategories[sectionHeading] && (
 								<div className="subcategories">
+								{index === 0 && headerContent}
 									<div className="pill-grid cloud" style={{ padding: "1rem" }}>
 										{allSelected.map(renderPill)}
 									</div>
@@ -355,6 +350,7 @@ const Checklist = ({
 
 						{!collapsedCategories[sectionHeading] && (
 							<div className="subcategories">
+							{index === 0 && headerContent}
 								{sortedGroups.map(([groupKey, group]) => {
 									const groupHeading = group.ui?.heading || groupKey;
 									const visibleItems = getVisibleItems(group.items, mode);

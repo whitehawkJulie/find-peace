@@ -68,14 +68,6 @@
 	font-size: 0.95rem;
 }
 
-.words-box {
-	background: #f9f7f2;
-	padding: 0.75rem 1rem;
-	border-radius: 8px;
-	border-left: 3px solid #e0c97f;
-	color: #555;
-}
-
 /* ===== Prompts ===== */
 
 .feelings-explore-prompt {

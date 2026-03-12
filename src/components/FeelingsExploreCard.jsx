@@ -70,14 +70,7 @@ const FeelingsExploreCard = () => {
 
 	return (
 		<div className="feelings-explore-regulation">
-			{renderOrderedFeelings(feelings)}
-
-			<p>
-				When you sit with these feelings, is there anything else that feels important or missing? If so, you
-				might like to look through the feelings list again, and choose more.
-			</p>
-
-			<div className="words-box">
+			<div className="highlight-box">
 				<p>
 					Take a moment to notice the order in which these feelings arrived. We often feel something
 					vulnerable first, which is quickly covered up by the mind with stories about what the other person
@@ -85,6 +78,13 @@ const FeelingsExploreCard = () => {
 					to those?
 				</p>
 			</div>
+
+			{renderOrderedFeelings(feelings)}
+
+			<p>
+				When you sit with these feelings, is there anything else that feels important or missing? If so, you
+				might like to look through the feelings list again, and choose more.
+			</p>
 
 			{card && !cardExpanded && (
 				<div className="feelings-explore-prompt-reveal">
