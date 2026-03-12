@@ -14,6 +14,8 @@ import Needs from "./Needs";
 import StrategyDiscovery from "./StrategyDiscovery";
 import MakingGuesses from "./MakingGuesses";
 import RequestFormulation from "./RequestFormulation";
+import ExploringWhatsChanged from "./ExploringWhatsChanged";
+import ConversationsAndCollaboration from "./ConversationsAndCollaboration";
 import Review from "./Review";
 import FeelingsExploreCard from "./FeelingsExploreCard";
 
@@ -84,7 +86,9 @@ const allSteps = [
 		pause: "Now let's think about what might actually help — concrete things you could do to meet these needs...",
 	},
 	{ component: MakingGuesses, title: "Their View", optional: true },
-	{ component: RequestFormulation, title: "Request", optional: true },
+	// { component: RequestFormulation, title: "Request", optional: true },
+	{ component: ExploringWhatsChanged, title: "Exploring what's changed", optional: true },
+	{ component: ConversationsAndCollaboration, title: "Conversations and Collaboration", optional: true },
 	{ component: Review, title: "Review", optional: true },
 ];
 
@@ -117,6 +121,9 @@ export const WizardProvider = ({ children }) => {
 	// Requests
 	const [requestOfSelf, setRequestOfSelf] = useState("");
 	const [requestOfOther, setRequestOfOther] = useState("");
+
+	// "Exploring what's changed" page responses
+	const [whatsChangedResponses, setWhatsChangedResponses] = useState({});
 
 	// Help drawer open state (lifted so step components can trigger it)
 	const [helpDrawerOpen, setHelpDrawerOpen] = useState(false);
@@ -176,6 +183,7 @@ export const WizardProvider = ({ children }) => {
 			guessNeeds,
 			requestOfSelf,
 			requestOfOther,
+			whatsChangedResponses,
 		};
 		const updated = [...savedEntries, session];
 		setSavedEntries(updated);
@@ -208,6 +216,7 @@ export const WizardProvider = ({ children }) => {
 		setGuessNeeds(session.guessNeeds || {});
 		setRequestOfSelf(session.requestOfSelf || "");
 		setRequestOfOther(session.requestOfOther || "");
+		setWhatsChangedResponses(session.whatsChangedResponses || {});
 		setStepIndex(0);
 	};
 
@@ -230,6 +239,7 @@ export const WizardProvider = ({ children }) => {
 		setGuessNeeds({});
 		setRequestOfSelf("");
 		setRequestOfOther("");
+		setWhatsChangedResponses({});
 	};
 
 	// Ref to .card-content scroll container (attached by Card.jsx)
@@ -296,6 +306,8 @@ export const WizardProvider = ({ children }) => {
 		setRequestOfSelf,
 		requestOfOther,
 		setRequestOfOther,
+		whatsChangedResponses,
+		setWhatsChangedResponses,
 		settings,
 		updateSettings,
 		helpDrawerOpen,

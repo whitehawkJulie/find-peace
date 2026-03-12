@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useWizard } from "./WizardContext";
 import ObservationExample from "./ObservationExample";
 import "./Observation.css";
@@ -116,6 +116,13 @@ const CheckPanel = ({ observation, setObservation }) => {
 const Observation = () => {
 	const { observation, setObservation, setHelpDrawerOpen } = useWizard();
 	const [showCheckPanel, setShowCheckPanel] = useState(false);
+	const checkPanelRef = useRef(null);
+
+	useEffect(() => {
+		if (showCheckPanel) {
+			checkPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+		}
+	}, [showCheckPanel]);
 
 	return (
 		<div className="step-observation">
@@ -152,7 +159,11 @@ const Observation = () => {
 				</div>
 			)}
 
-			{showCheckPanel && <CheckPanel observation={observation} setObservation={setObservation} />}
+			{showCheckPanel && (
+			<div ref={checkPanelRef}>
+				<CheckPanel observation={observation} setObservation={setObservation} />
+			</div>
+		)}
 		</div>
 	);
 };
