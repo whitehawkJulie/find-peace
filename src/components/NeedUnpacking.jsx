@@ -187,13 +187,10 @@ const NeedUnpacking = () => {
 	// ════════════════════════════════════════
 	return (
 		<div className="need-unpacking">
-
 			{/* Stage 1 accordion — only for non-PRACTICAL needs */}
 			{!isPractical && (
 				<div className="unpacking-section">
-					<button
-						className="unpacking-section-toggle"
-						onClick={() => setOpenStage1((o) => !o)}>
+					<button className="unpacking-section-toggle" onClick={() => setOpenStage1((o) => !o)}>
 						<span>Might there be a deeper need underneath this?</span>
 						<span className="unpacking-toggle-chevron">{openStage1 ? "▲" : "▼"}</span>
 					</button>
@@ -226,9 +223,7 @@ const NeedUnpacking = () => {
 
 			{/* Stage 2 accordion */}
 			<div className="unpacking-section unpacking-section-stage2">
-				<button
-					className="unpacking-section-toggle"
-					onClick={() => setOpenStage2((o) => !o)}>
+				<button className="unpacking-section-toggle" onClick={() => setOpenStage2((o) => !o)}>
 					<span>Get to know the need</span>
 					<span className="unpacking-toggle-chevron">{openStage2 ? "▲" : "▼"}</span>
 				</button>
@@ -256,6 +251,10 @@ const NeedUnpacking = () => {
 								value={currentData.unmetFeeling || ""}
 								onChange={(e) => updateField("unmetFeeling", e.target.value)}
 							/>
+							<p className="unpacking-closing-note">
+								If you're really struggling to remember or imagine a time that it was met, you might
+								need to take some time to sit with the sadness of that. TODO: add info about mourning.
+							</p>
 						</div>
 
 						<div className="unpacking-prompt">
@@ -263,7 +262,10 @@ const NeedUnpacking = () => {
 								remember when the need was met, and how that felt (find the metness)
 							</p>
 							<p className="unpacking-prompt-subnote">
-								<em>if can't remember - imagine!!!</em>
+								<em>
+									if can't remember - imagine!!! if can't do that, what might it look and feel like
+									for another person, if THEY had the need met?
+								</em>
 							</p>
 							<textarea
 								className="unpacking-textarea"
@@ -285,10 +287,17 @@ const NeedUnpacking = () => {
 							/>
 						</div>
 
-						<p className="unpacking-closing-note">
-							If you're really struggling to remember or imagine a time that it was met, you might need
-							to take some time to sit with the sadness of that.
-						</p>
+						<p>TODO: add two more questions:</p>
+						<ul>
+							<li>
+								Consider whether this need is something that's often unmet in your life. Are there ways
+								you could top up the tank, just a little?
+							</li>
+							<li>
+								Consider whether this need COULD or even should be met in the current situation? Is the
+								other person capable of meeting this need? Is there a better place to get it met?{" "}
+							</li>
+						</ul>
 					</div>
 				)}
 			</div>

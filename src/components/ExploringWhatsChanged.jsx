@@ -10,9 +10,15 @@ const ExploringWhatsChanged = () => {
 	};
 
 	return (
-		<div className="request-formulation">
+		// <div className="request-formulation">
+		<div>
+			<p>Let's take a moment to see what's changed inside you.</p>
+			<p>This page isn't about finding solutions we plan to use - it's just about noticing the shift, if any.</p>
 			<div className="request-section">
-				<h3>How might you have handled this situation before this process?</h3>
+				<h3>
+					How might you have handled this situation before doing this process? If you approached the person
+					from the place you were in at the beginning… what would likely happen?
+				</h3>
 				<textarea
 					className="request-textarea"
 					value={whatsChangedResponses.before || ""}
@@ -22,7 +28,10 @@ const ExploringWhatsChanged = () => {
 			</div>
 
 			<div className="request-section">
-				<h3>What might you do differently now?</h3>
+				<h3>
+					What might you want to do differently now? If you approached from where you are now… what might be
+					different? What's changed?
+				</h3>
 				<textarea
 					className="request-textarea"
 					value={whatsChangedResponses.differently || ""}
