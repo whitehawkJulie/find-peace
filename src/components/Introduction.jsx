@@ -1,110 +1,111 @@
 import React from "react";
+import "./Introduction.css";
 
 const Introduction = () => {
 	return (
-		<>
-			<p>If you're here, something probably happened that didn’t go the way you hoped.</p>
-
+		<div className="step-introduction">
 			<p>
-				When we feel hurt, angry, or scared, our brain often switches into <strong>threat mode</strong>. In that
-				state our thinking narrows, and we quickly form a story about what went wrong and who’s to blame.
+				Life sure throws some curve balls, doesn’t it? We do our best, but things don’t always go the way we
+				expected.
 			</p>
 
 			<p>
-				Being in threat mode reduces our emotional and cognitive flexibility, so the strategies we reach for in
-				that moment often don’t lead where we want them to. In threat mode, we tend to focus on fixing the other
-				person or controlling the situation. When we reconnect with what actually matters to us — our needs —
-				new possibilities open up, new strategies that are much more likely to satisfy us.
+				When something painful happens, we might feel hurt, angry, or scared. Our brain flips into threat mode
+				and quickly creates a story about what happened, who’s to blame, and how to stop it — a story we can
+				feel very certain is the truth.
 			</p>
 
 			<p>
-				This tool helps you slow things down, reconnect with what actually matters to you, and look at the
-				situation with a wider perspective.
+				But in threat mode, our ability to think clearly shrinks. We reach for quick reactions like arguing,
+				blaming, defending, controlling, or shutting down. Those reactions usually don’t solve the problem —
+				because we haven’t yet slowed down enough to understand what’s really going on.
 			</p>
 
 			<p>
-				Once that happens, it becomes much easier to find responses that move the situation in a better
-				direction.
+				This tool helps you pause and get clear on three things: what actually happened, how it landed in you
+				(your feelings), and what mattered to you (your needs).
 			</p>
-		</>
+
+			<p>
+				When we do that, our brain can move out of threat mode and into the seeking and care circuits — the
+				parts that are much better at finding creative solutions, often ones that work for everyone involved.
+			</p>
+		</div>
 	);
 };
 
-Introduction.title = "Welcome";
+Introduction.title = "WTF just happened?!";
 
 Introduction.helpContent = (
 	<>
 		<h2>Why conversations go wrong</h2>
-		<p>
-			When something upsetting happens, our brain often switches into <strong>threat mode</strong>.
-		</p>
-		<p>
-			In threat mode, our thinking narrows. We quickly form a story about what’s wrong and who’s to blame, and we
-			reach for the first strategy that seems like it might stop the pain.
-		</p>
-		<p>That strategy often looks like:</p>
-		<ul>
-			<li>arguing</li>
-			<li>defending ourselves</li>
-			<li>blaming the other person</li>
-			<li>trying to control the situation</li>
-		</ul>
-		<p>
-			Unfortunately, these reactions usually make the situation worse. They push the other person into threat mode
-			too.
-		</p>
-		<p>
-			The result is a conversation where both people are trying to <strong>fix the other person</strong>, and
-			nobody is really being heard.
-		</p>
-		<h2>What’s happening inside us</h2>
-		<p>
-			Underneath the blame story, there is usually a <strong>first feeling</strong> — something like fear, anger,
-			or hurt.
-		</p>
-		<p>
-			When we are in threat mode, our brain tries to get rid of that feeling as quickly as possible. It does this
-			by generating “fix-it thoughts” about what the other person did wrong and what they should do differently.
-		</p>
-		<p>
-			But in threat mode we lose a lot of our <strong>emotional and cognitive flexibility</strong>, so the
-			strategies we come up with are often the least effective ones.
-		</p>
-		<h2>What this tool helps you do</h2>
-		<p>React → Get curious → Understand → Connect → Solve</p>
-		<p>This tool helps you step out of threat mode and reconnect with what actually matters to you.</p>
-		<p>It does that in three stages:</p>
-		<ol>
-			<li>
-				<strong>Clarify what’s happening in you</strong>
-				<br />
-				Identify the first feeling and the needs underneath it. This helps your brain move out of threat mode
-				and into a more curious, problem-solving state.
-			</li>
 
-			<li>
-				<strong>Widen your perspective</strong>
-				<br />
-				Consider what might be happening for the other person as well. This helps reduce the sense that they are
-				an enemy you need to defend against.
-			</li>
-
-			<li>
-				<strong>Find strategies that work for both people</strong>
-				<br />
-				When you’re looking at the level of needs rather than blame, surprisingly creative and workable
-				solutions often appear.
-			</li>
-		</ol>
-		<h2>A different starting point for conversation</h2>
-		<p>
-			Nonviolent Communication helps translate the reactions that arise in threat mode into something more useful.
-		</p>
-		<p>
-			Instead of focusing on <strong>what’s wrong with the other person</strong>, it helps you discover{" "}
-			<strong>what you are really wanting</strong>.
-		</p>
-		<p>Once you know that, your brain becomes much better at finding ways to move toward it.</p>
+		<div>
+			<p>
+				<em>
+					This tool is based on the four steps of Nonviolent Communication, a process developed by Marshall
+					Rosenberg, adapted with more recent understanding of nervous system regulation and polyvagal theory.
+				</em>
+			</p>
+			<p>
+				I’ve come to understand conflict as something that begins when one of the three core aversive emotions
+				common to all mammals is triggered: fear, anger, or distress. In Jaak Panksepp’s affective neuroscience
+				research these correspond to the FEAR, RAGE, and PANIC/GRIEF systems.
+			</p>
+			<p>
+				When one of these systems activates, it switches on what we might call the brain’s{" "}
+				<strong>threat circuit</strong>. In this state, the brain reduces cognitive and emotional flexibility so
+				it can focus on survival. Because speed matters more than accuracy here, the mind tends to create quick
+				explanations for what’s happening. These explanations almost always involve figuring out who is to blame
+				and how to stop them. In other words, the brain quickly generates what Marshall Rosenberg would call a{" "}
+				<em>tragic strategy</em>.
+			</p>
+			<p>
+				Nonviolent Communication is essentially a process for helping people move out of this threat state and
+				into two other brain systems that support much more flexible thinking: the{" "}
+				<strong>SEEKING circuit</strong> (curiosity about what I want or need) and the{" "}
+				<strong>CARE circuit</strong> (care for myself and for others).
+			</p>
+			<p>
+				Sometimes people get stuck along the way. One common reason is that they miss the{" "}
+				<strong>first feeling</strong> that activated the threat response. Instead, they focus only on the{" "}
+				<em>secondary</em>, defensive feelings that appear afterward. When that happens, they often identify the
+				wrong need underneath the situation, and nothing really lands — they never experience the “shift” that
+				NVC practitioners often talk about.
+			</p>
+			<p>
+				How someone responds to that first feeling often depends on their preferred{" "}
+				<strong>regulation strategy</strong>. Broadly speaking, there are three ways humans tend to regulate
+				emotions:
+			</p>
+			<ul>
+				<li>expressing the feeling and moving toward it</li>
+				<li>suppressing the feeling and moving away from it</li>
+				<li>reframing the feeling cognitively</li>
+			</ul>
+			<p>
+				For example, I might initially feel anger when something crosses a boundary. But instead of staying
+				connected to that anger, my nervous system tries to feel safer by reframing the situation cognitively. I
+				disconnect from the anger and mainly notice a vague discomfort instead. Then I may rationalise that
+				discomfort away through numbness or resignation.
+			</p>
+			<p>
+				If I then look for the need underneath that state, I might conclude that what I need is <em>peace</em>.
+				But that may not actually be the original need at all. The anger might have been signalling something
+				closer to <strong>agency</strong> or self-respect — needs associated with the anger/agency triad.
+			</p>
+			<p>
+				If I keep trying to meet the need for peace, it never fully resolves the situation, because it wasn’t
+				the real signal in the first place. When the original need is recognised, however, the system can often
+				settle much more deeply.
+			</p>
+			<p>
+				This app offers tools to help you look beneath the surface reactions and reconnect with the deeper need
+				that may have been missed. When that underlying need becomes clearer, it’s much easier to find
+				strategies that genuinely move the situation forward rather than repeating the same old patterns.
+			</p>
+			<p>React → Get curious → Understand → Connect → Solve</p>
+		</div>
 
 		<div className="highlight-box">
 			<p>

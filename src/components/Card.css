@@ -53,25 +53,42 @@
 	color: white;
 }
 
-/* Help icon styling */
+/* Help pill styling */
 .help-icon {
 	background: rgba(255, 255, 255, 0.15);
 	border: 1px solid rgba(255, 255, 255, 0.35);
-	font-size: 1.5rem;
+	border-radius: 20px;
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+	padding: 0.2rem 0.65rem 0.2rem 0.25rem;
 	cursor: pointer;
 	color: white;
-	width: 2rem;
-	height: 2rem;
-	border-radius: 50%;
-	text-align: center;
-	line-height: 1.5rem;
-	padding: 0;
+	float: none;
 	flex-shrink: 0;
 	transition: background 0.15s ease;
 }
 
 .help-icon:hover {
 	background: rgba(255, 255, 255, 0.25);
+}
+
+.help-icon-q {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.3rem;
+	height: 1.3rem;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.2);
+	font-size: 0.85rem;
+	line-height: 1;
+	font-weight: 700;
+}
+
+.help-icon-label {
+	font-size: 0.8rem;
+	font-weight: 500;
 }
 
 /* ── Main content area ── */
@@ -82,6 +99,15 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 	padding: 1.25rem 1.25rem 0 1.25rem;
+}
+
+/* Reset browser default margins for p/h2/h3 inside the card.
+   Step wrappers use gap: 1rem so spacing comes from one predictable source.
+   More-specific rules in component CSS files override this where needed. */
+.card-content p,
+.card-content h2,
+.card-content h3 {
+	margin: 0;
 }
 
 /* ── Scroll indicator fade ── */

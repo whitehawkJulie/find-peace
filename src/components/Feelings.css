@@ -1,0 +1,25 @@
+.step-feelings {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+/* Subtle inline link for body sensations helper */
+.feelings-body-sens-link {
+	display: inline;
+	float: none;
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	font-size: inherit;
+	color: #888;
+	cursor: pointer;
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	text-underline-offset: 2px;
+}
+
+.feelings-body-sens-link:hover {
+	color: #555;
+}

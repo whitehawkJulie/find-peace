@@ -1,3 +1,9 @@
+.step-needs {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
 .feelings-selected-box {
 	background: rgba(150, 80, 40, 0.08);
 	border-radius: 0.6em;

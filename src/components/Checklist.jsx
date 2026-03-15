@@ -12,9 +12,9 @@ import "./Checklist.css";
  *   "full"   — all items
  */
 const LIST_MODES = [
-	{ key: "quick", label: "Quick picks", icon: "●" },
-	{ key: "short", label: "Short list", icon: "●●" },
-	{ key: "full", label: "Full list", icon: "●●●" },
+	{ key: "quick", label: "Quick picks", icon: "Quick" },
+	{ key: "short", label: "Short list", icon: "Short" },
+	{ key: "full", label: "Full list", icon: "Full" },
 ];
 
 const Checklist = ({
@@ -58,8 +58,8 @@ const Checklist = ({
 
 		const newState = { ...selectedItems };
 
-		if (type === "needs") {
-			// Simple toggle for needs: selected ↔ unselected (no double-click)
+		if (type === "needs" || type === "feelings") {
+			// Simple toggle: selected ↔ unselected (no double-click)
 			if (newState[item]) {
 				delete newState[item];
 			} else {
@@ -176,9 +176,8 @@ const Checklist = ({
 						e.stopPropagation();
 						regulationToggle.onToggle();
 					}}>
-					🧍
+					🧍<span className="regulation-toggle-label">Body state</span>
 				</button>
-				
 			</span>
 		);
 	};

@@ -1,0 +1,214 @@
+/* ===== Body Sensations Popup ===== */
+
+.body-sens-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+	z-index: 1100;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	box-sizing: border-box;
+}
+
+.body-sens-popup {
+	background: #fffdf5;
+	border-radius: 14px;
+	padding: 1.25rem 1.4rem 1.4rem;
+	max-width: 480px;
+	width: 100%;
+	max-height: 88vh;
+	overflow-y: auto;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+	z-index: 1101;
+}
+
+/* ===== Header ===== */
+
+.body-sens-header h3 {
+	margin: 0 0 0.4rem;
+	font-size: 1.05rem;
+	color: #444;
+}
+
+.body-sens-intro {
+	font-size: 0.88rem;
+	color: #777;
+	margin: 0 0 1rem;
+	line-height: 1.4;
+}
+
+/* ===== Body area prompts (plain text) ===== */
+
+.body-sens-prompts {
+	margin-bottom: 1.1rem;
+}
+
+.body-sens-prompt-text {
+	font-size: 0.88rem;
+	color: #666;
+	line-height: 1.5;
+	margin: 0 0 0.55rem;
+}
+
+/* ===== Sensation words accordion ===== */
+
+.body-sens-accordion {
+	border: 1px solid #e0dcd4;
+	border-radius: 8px;
+	overflow: hidden;
+	margin: 1.5rem 0 0.25rem;
+}
+
+.body-sens-accordion-toggle {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.65rem 1rem;
+	background: #f5f2ed;
+	border: none;
+	cursor: pointer;
+	font-size: 0.88rem;
+	color: #555;
+	text-align: left;
+	float: none;
+	transition: background 0.15s;
+}
+
+.body-sens-accordion-toggle:hover {
+	background: #eeebe6;
+}
+
+.body-sens-accordion-toggle.open {
+	background: #ece8e2;
+}
+
+.body-sens-accordion-chevron {
+	font-size: 0.65rem;
+	color: #888;
+	flex-shrink: 0;
+}
+
+.body-sens-accordion-body {
+	padding: 0.75rem 1rem 1rem;
+	background: white;
+}
+
+/* ===== Words intro ===== */
+
+.body-sens-words-intro {
+	font-size: 0.88rem;
+	color: #777;
+	margin: 0 0 0.75rem;
+}
+
+/* ===== Groups ===== */
+
+.body-sens-groups {
+	display: flex;
+	flex-direction: column;
+	gap: 0.9rem;
+}
+
+.body-sens-group-heading {
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: #999;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	margin: 0 0 0.35rem;
+}
+
+.body-sens-words {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+
+.body-sens-word {
+	padding: 0.3rem 0.7rem;
+	border-radius: 999px;
+	background: #eeece8;
+	border: 1px solid #d8d4ce;
+	color: #555;
+	font-size: 0.85rem;
+	cursor: pointer;
+	transition:
+		background 0.12s,
+		border-color 0.12s,
+		color 0.12s;
+	float: none;
+}
+
+.body-sens-word:hover {
+	background: #e4e0da;
+}
+
+.body-sens-word.selected {
+	background: #d6e8d2;
+	border-color: #7ab87a;
+	color: #2d5a36;
+}
+
+/* ===== Free-text field ===== */
+
+.body-sens-custom {
+	margin-top: 1.1rem;
+	padding-top: 1rem;
+	border-top: 1px solid #eee;
+}
+
+.body-sens-custom-label {
+	display: block;
+	font-size: 0.88rem;
+	color: #666;
+	margin-bottom: 0.4rem;
+}
+
+.body-sens-custom-input {
+	width: 100%;
+	padding: 0.55rem 0.7rem;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-size: 0.88rem;
+	font-family: inherit;
+	resize: vertical;
+	box-sizing: border-box;
+	background: #fefefe;
+}
+
+.body-sens-custom-input:focus {
+	outline: none;
+	border-color: #7ab87a;
+}
+
+/* ===== Done button ===== */
+
+.body-sens-done {
+	display: block;
+	margin: 1.25rem auto 0;
+	padding: 0.5rem 2.5rem;
+	background: #5a9e6d;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-size: 0.95rem;
+	cursor: pointer;
+	float: none;
+}
+
+.body-sens-done:hover {
+	background: #4d8a5e;
+}
+
+@media (max-width: 540px) {
+	.body-sens-popup {
+		padding: 1rem 1.1rem 1.25rem;
+		border-radius: 12px;
+	}
+}

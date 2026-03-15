@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Checklist from "./Checklist";
 import { Needs as NeedsData } from "../data/AllNeedsData";
 import { useWizard } from "./WizardContext";
@@ -13,16 +13,12 @@ const renderOrderedFeelings = (feelings) => {
 		return "(no feelings selected)";
 	}
 
-	const strong = entries.filter(([, s]) => s === "double-clicked");
-	const regular = entries.filter(([, s]) => s === "clicked");
-	const sorted = [...strong, ...regular];
-
 	return (
 		<p className="feelings-selected-box">
-			{sorted.map(([feeling, strength], i) => (
+			{entries.map(([feeling], i) => (
 				<React.Fragment key={feeling}>
 					{i > 0 && ", "}
-					{strength === "double-clicked" ? <strong>{feeling}</strong> : feeling}
+					{feeling}
 				</React.Fragment>
 			))}
 		</p>
@@ -30,8 +26,41 @@ const renderOrderedFeelings = (feelings) => {
 };
 
 const Needs = () => {
-	const { needs, setNeeds, feelings, setCurrentExploringNeed, setExplorationStep, setNeedExplorationOpen } =
+	const { needs, setNeeds, feelings, needExplorations, setCurrentExploringNeed, setExplorationStep, setNeedExplorationOpen } =
 		useWizard();
+
+	// Show explored+unmet needs as green ("double-clicked") visually
+	const displayNeeds = useMemo(() => {
+		const result = {};
+		for (const [name, state] of Object.entries(needs)) {
+			if (state === "clicked" && needExplorations[name]?.completed) {
+				result[name] = "double-clicked";
+			} else {
+				result[name] = state;
+			}
+		}
+		return result;
+	}, [needs, needExplorations]);
+
+	// Wrapper to prevent explored needs from being saved as "double-clicked"
+	const handleSetNeeds = (updaterOrValue) => {
+		setNeeds((prev) => {
+			// Build a display version of prev (what Checklist sees)
+			const prevDisplay = {};
+			for (const [name, state] of Object.entries(prev)) {
+				prevDisplay[name] = state === "clicked" && needExplorations[name]?.completed ? "double-clicked" : state;
+			}
+			const next = typeof updaterOrValue === "function" ? updaterOrValue(prevDisplay) : updaterOrValue;
+			// Convert any "double-clicked" back to "clicked" for explored needs
+			const result = { ...next };
+			for (const name of Object.keys(result)) {
+				if (result[name] === "double-clicked" && needExplorations[name]?.completed) {
+					result[name] = "clicked";
+				}
+			}
+			return result;
+		});
+	};
 	const [showPatriarchy, setShowPatriarchy] = useState(false);
 
 	const handleNeedInfoClick = (needName) => {
@@ -73,8 +102,8 @@ const Needs = () => {
 					NeedsData.sections.meaning,
 					NeedsData.sections.freedom,
 				]}
-				selectedItems={needs}
-				setSelectedItems={setNeeds}
+				selectedItems={displayNeeds}
+				setSelectedItems={handleSetNeeds}
 				type="needs"
 				onInfoClick={handleNeedInfoClick}
 			/>

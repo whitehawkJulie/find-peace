@@ -1,3 +1,9 @@
+.step-whats-changed {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
 .request-formulation {
 	display: flex;
 	flex-direction: column;

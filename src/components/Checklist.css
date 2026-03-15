@@ -174,8 +174,8 @@
 	border: 1px solid rgba(0, 0, 0, 0.12);
 	cursor: pointer;
 	padding: 0.2rem 0.4rem;
-	font-size: 0.55rem;
-	font-weight: bold;
+	font-size: 0.7rem;
+	font-weight: 500;
 	line-height: 1;
 	color: #999;
 	border-radius: 4px;
@@ -183,7 +183,6 @@
 		color 0.15s,
 		background 0.15s,
 		border-color 0.15s;
-	letter-spacing: 1px;
 }
 
 .mode-icon:hover {
@@ -241,6 +240,12 @@
 	border-color: rgba(90, 154, 110, 0.5);
 }
 
+.regulation-toggle-label {
+	font-size: 0.68rem;
+	font-weight: 500;
+	margin-left: 0.2rem;
+}
+
 .regulation-help-btn {
 	background: none;
 	border: 1px solid rgba(0, 0, 0, 0.15);
@@ -260,6 +265,28 @@
 .regulation-help-btn:hover {
 	background: rgba(0, 0, 0, 0.06);
 	color: #333;
+}
+
+.regulation-legend-close {
+	background: none;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	font-size: 0.6rem;
+	cursor: pointer;
+	color: #888;
+	width: 1.1rem;
+	height: 1.1rem;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 1rem;
+	padding: 0;
+	float: none;
+	transition: background 0.15s ease;
+}
+
+.regulation-legend-close:hover {
+	background: rgba(200, 50, 50, 0.08);
+	color: #c44;
+	border-color: rgba(200, 50, 50, 0.3);
 }
 
 /* ========== REGULATION LEGEND (inline) ========== */

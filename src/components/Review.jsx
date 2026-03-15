@@ -11,26 +11,27 @@ const Review = () => {
 		needExplorations,
 		strategies,
 		feelingsExploreResponses,
+		bodySensations,
 		guessObservation,
 		guessFeelings,
 		guessNeeds,
 		requestOfSelf,
 		requestOfOther,
+		whatsChangedResponses,
 		saveSession,
 	} = useWizard();
 
 	const [saved, setSaved] = useState(false);
 	const [copied, setCopied] = useState(false);
 
-	const strongFeelings = filterByState(feelings, "double-clicked");
-	const regularFeelings = filterByState(feelings, "clicked");
-	const allFeelings = [...strongFeelings, ...regularFeelings];
+	const allFeelings = filterByState(feelings, "clicked");
 	const metNeeds = filterByState(needs, "double-clicked");
 	const unmetNeeds = filterByState(needs, "clicked");
 	const exploredNeeds = Object.entries(needExplorations).filter(([_, v]) => v.completed);
 	const hasFeelingsExplore = Object.values(feelingsExploreResponses).some((v) =>
 		Array.isArray(v) ? v.length > 0 : v && String(v).trim() !== "",
 	);
+	const hasBodySensations = (bodySensations?.selected?.length > 0) || bodySensations?.custom?.trim();
 	const hasStrategies = Object.values(strategies).some((s) => s.length > 0);
 	const guessFeelingsAll = [
 		...filterByState(guessFeelings, "clicked"),
@@ -39,13 +40,13 @@ const Review = () => {
 	const guessNeedsAll = [...filterByState(guessNeeds, "clicked"), ...filterByState(guessNeeds, "double-clicked")];
 	const hasGuesses = guessObservation || guessFeelingsAll.length > 0 || guessNeedsAll.length > 0;
 	const hasRequests = requestOfSelf || requestOfOther;
+	const hasWhatsChanged = whatsChangedResponses?.before?.trim() || whatsChangedResponses?.differently?.trim();
 
 	const obsText =
 		observation?.refined?.trim() || [observation?.moment, observation?.actions].filter((s) => s?.trim()).join("\n");
 
 	const generateSummaryText = () => {
 		const lines = [];
-		let feelingsList;
 		const heading = (text) => {
 			lines.push("", `— ${text} —`, "");
 		};
@@ -57,8 +58,7 @@ const Review = () => {
 		}
 
 		if (allFeelings.length > 0) {
-			feelingsList = [...strongFeelings.map((f) => `${f} (strong)`), ...regularFeelings].join(", ");
-			lines.push(`Feelings: ${feelingsList}`, "");
+			lines.push(`Feelings: ${allFeelings.join(", ")}`, "");
 		}
 
 		if (hasFeelingsExplore) {
@@ -68,6 +68,13 @@ const Review = () => {
 				if (v.trim()) lines.push(v);
 			});
 			lines.push("");
+		}
+
+		if (hasBodySensations) {
+			const parts = [];
+			if (bodySensations.selected.length > 0) parts.push(bodySensations.selected.join(", "));
+			if (bodySensations.custom?.trim()) parts.push(bodySensations.custom.trim());
+			lines.push(`Body sensations: ${parts.join("; ")}`, "");
 		}
 
 		if (metNeeds.length > 0) {
@@ -86,6 +93,8 @@ const Review = () => {
 				if (exp.unmetFeeling) lines.push(`    When it's not met: ${exp.unmetFeeling}`);
 				if (exp.metFeeling) lines.push(`    When it is met: ${exp.metFeeling}`);
 				if (exp.metCircumstances) lines.push(`    What helped: ${exp.metCircumstances}`);
+			if (exp.oftenUnmet) lines.push(`    Often unmet / topping up: ${exp.oftenUnmet}`);
+			if (exp.whereToMeet) lines.push(`    Where to get it met: ${exp.whereToMeet}`);
 			}
 			lines.push("");
 		}
@@ -114,6 +123,14 @@ const Review = () => {
 			if (requestOfOther) lines.push(`Of them: ${requestOfOther}`);
 		}
 
+		if (hasWhatsChanged) {
+			heading("Exploring what's changed");
+			if (whatsChangedResponses?.before?.trim())
+				lines.push(`Before: ${whatsChangedResponses.before.trim()}`, "");
+			if (whatsChangedResponses?.differently?.trim())
+				lines.push(`What's different now: ${whatsChangedResponses.differently.trim()}`, "");
+		}
+
 		logSelections();
 		navigator.clipboard.writeText(lines.join("\n")).then(() => {
 			setCopied(true);
@@ -127,7 +144,7 @@ const Review = () => {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
-				feelings: strongFeelings.map((f) => `${f} (strong)`).concat(regularFeelings),
+				feelings: allFeelings,
 				needs: unmetNeeds,
 			}),
 		});
@@ -158,12 +175,7 @@ const Review = () => {
 			{allFeelings.length > 0 && (
 				<div className="review-section">
 					<h3>Feelings</h3>
-					{strongFeelings.length > 0 && (
-						<p>
-							<strong>{strongFeelings.join(", ")}</strong>
-						</p>
-					)}
-					{regularFeelings.length > 0 && <p>{regularFeelings.join(", ")}</p>}
+					<p>{allFeelings.join(", ")}</p>
 				</div>
 			)}
 
@@ -175,6 +187,14 @@ const Review = () => {
 							return null;
 						return <p key={key}>{Array.isArray(value) ? value.join(", ") : String(value)}</p>;
 					})}
+				</div>
+			)}
+
+			{hasBodySensations && (
+				<div className="review-section">
+					<h3>Body sensations</h3>
+					{bodySensations.selected.length > 0 && <p>{bodySensations.selected.join(", ")}</p>}
+					{bodySensations.custom?.trim() && <p>{bodySensations.custom.trim()}</p>}
 				</div>
 			)}
 
@@ -216,6 +236,16 @@ const Review = () => {
 							{exp.metCircumstances && (
 								<p>
 									<em>What helped:</em> {exp.metCircumstances}
+								</p>
+							)}
+							{exp.oftenUnmet && (
+								<p>
+									<em>Often unmet / topping up:</em> {exp.oftenUnmet}
+								</p>
+							)}
+							{exp.whereToMeet && (
+								<p>
+									<em>Where to get it met:</em> {exp.whereToMeet}
 								</p>
 							)}
 						</div>
@@ -278,6 +308,26 @@ const Review = () => {
 						{requestOfOther && (
 							<p>
 								<span className="review-label">Of them:</span> {requestOfOther}
+							</p>
+						)}
+					</div>
+				</>
+			)}
+
+			{hasWhatsChanged && (
+				<>
+					<h2>Exploring what's changed</h2>
+					<div className="review-section">
+						{whatsChangedResponses?.before?.trim() && (
+							<p>
+								<span className="review-label">Before this process:</span>{" "}
+								{whatsChangedResponses.before}
+							</p>
+						)}
+						{whatsChangedResponses?.differently?.trim() && (
+							<p>
+								<span className="review-label">What's different now:</span>{" "}
+								{whatsChangedResponses.differently}
 							</p>
 						)}
 					</div>

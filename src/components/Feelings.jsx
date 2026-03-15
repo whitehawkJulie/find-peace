@@ -1,13 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Checklist from "./Checklist";
 import { AllFeelingsData as FeelingsData, regulationMeta } from "../data/AllFeelingsData";
 import { useWizard } from "./WizardContext";
 import SlideDrawer from "./SlideDrawer";
 import ClarifyFeelings from "./ClarifyFeelings";
+import BodySensationsPopup from "./BodySensationsPopup";
+import "./Feelings.css";
 
 const REGULATION_TYPES = ["activated", "threat", "contracted", "collapsed", "cognitive"];
 
-const RegulationLegend = ({ onHelp }) => (
+const RegulationLegend = ({ onHelp, onClose }) => (
 	<div className="regulation-legend">
 		{REGULATION_TYPES.map((key) => {
 			const meta = regulationMeta[key];
@@ -28,6 +30,11 @@ const RegulationLegend = ({ onHelp }) => (
 		{onHelp && (
 			<button className="regulation-help-btn" title="What's this?" onClick={onHelp}>
 				?
+			</button>
+		)}
+		{onClose && (
+			<button className="regulation-legend-close" title="Turn off body state view" onClick={onClose}>
+				✕
 			</button>
 		)}
 	</div>
@@ -86,26 +93,11 @@ const RegulationHelpContent = () => {
 };
 
 const Feelings = () => {
-	const { observation, feelings, setFeelings, needs, setNeeds, settings, cardContentRef } = useWizard();
+	const { observation, feelings, setFeelings, needs, setNeeds, settings, bodySensations, setBodySensations } =
+		useWizard();
 	const [showStoryHelp, setShowStoryHelp] = useState(false);
+	const [showBodySensations, setShowBodySensations] = useState(false);
 	const [popupItem, setPopupItem] = useState(null);
-	const [murkyPromptItem, setMurkyPromptItem] = useState(null);
-	const [promptedMurky, setPromptedMurky] = useState(new Set());
-	const murkyPromptRef = useRef(null);
-
-	// Scroll murky prompt into view when it appears
-	useEffect(() => {
-		if (!murkyPromptItem) return;
-		const container = cardContentRef?.current;
-		const element = murkyPromptRef.current;
-		if (!container || !element) return;
-		const elementRect = element.getBoundingClientRect();
-		const containerRect = container.getBoundingClientRect();
-		const overflowBottom = elementRect.bottom - containerRect.bottom;
-		if (overflowBottom > 0) {
-			container.scrollBy({ top: overflowBottom + 16, behavior: "smooth" });
-		}
-	}, [murkyPromptItem]);
 	const [showRegulationOverlay, setShowRegulationOverlay] = useState(settings.regulationOverlay ?? false);
 	const [showRegulationHelp, setShowRegulationHelp] = useState(false);
 
@@ -131,29 +123,12 @@ const Feelings = () => {
 			setPopupItem(itemData);
 			return false;
 		}
-		if (itemData.clarify?.type === "murky" && !feelings[itemData.item] && !promptedMurky.has(itemData.item)) {
-			// Murky feeling being selected for the first time: add to selection, then show gentle prompt
-			setMurkyPromptItem(itemData);
-			setPromptedMurky((prev) => new Set(prev).add(itemData.item));
-			return true;
-		}
 		return true; // normal feeling — allow default selection
 	};
 
 	// Chevron click on a selected murky feeling: reopen clarify popup
 	const handleIndicatorClick = (itemData) => {
 		setPopupItem(itemData);
-	};
-
-	// User chose to clarify the murky feeling
-	const handleClarify = () => {
-		setPopupItem(murkyPromptItem);
-		setMurkyPromptItem(null);
-	};
-
-	// User chose to skip clarifying
-	const handleSkipClarify = () => {
-		setMurkyPromptItem(null);
 	};
 
 	// Toggle a suggested feeling from popup
@@ -199,11 +174,17 @@ const Feelings = () => {
 
 			<p>When you remember that moment, what happens inside you?</p>
 
-			<p>You might notice sensations, emotions, tension, or energy in the body. Just notice what’s there.</p>
+			<p>
+				{/* You might notice sensations, emotions, tension, or energy in the body. Just notice what’s there.{" "} */}
+				You might notice where it shows up in your body. Where do you feel it?{" "}
+				<button className="feelings-body-sens-link" onClick={() => setShowBodySensations(true)}>
+					Want some help? →
+				</button>
+			</p>
 
 			<p>
-				Most importantly, what did you feel <em>first</em>? Was there something there <em>before</em> the threat
-				circuit turned on?
+				And as you stay with that moment, what feelings begin to emerge? Was there a particular feeling there
+				before the threat circuit fully kicked in?
 			</p>
 
 			<Checklist
@@ -217,7 +198,7 @@ const Feelings = () => {
 				defaultListMode="full"
 				regulationOverlay={showRegulationOverlay}
 				regulationToggle={regulationToggle}
-				headerContent={showRegulationOverlay ? <RegulationLegend onHelp={regulationToggle?.onHelp} /> : null}
+				headerContent={showRegulationOverlay ? <RegulationLegend onHelp={regulationToggle?.onHelp} onClose={() => setShowRegulationOverlay(false)} /> : null}
 				tooltipEnhancer={
 					showRegulationOverlay
 						? (itemData, base) => {
@@ -234,34 +215,6 @@ const Feelings = () => {
 				categoryHelpIcons={{
 					[FeelingsData.sections.story.ui.heading]: () => setShowStoryHelp(true),
 				}}
-				afterGroupContent={
-					murkyPromptItem && feelings[murkyPromptItem.item]
-						? {
-								itemName: murkyPromptItem.item,
-								node: (
-									<div className="murky-inline-prompt" ref={murkyPromptRef}>
-										<p>
-											"{murkyPromptItem.item}" often has a lot packed into it. Want to explore it
-											a little?
-										</p>
-										<p>
-											<i>You can always unpack it later by clicking on the &gt; symbol</i>
-										</p>
-										<div className="murky-inline-buttons">
-											<button className="murky-inline-btn" onClick={handleClarify}>
-												Yes
-											</button>
-											<button
-												className="murky-inline-btn murky-inline-btn-secondary"
-												onClick={handleSkipClarify}>
-												Not now
-											</button>
-										</div>
-									</div>
-								),
-							}
-						: null
-				}
 			/>
 
 			<Checklist
@@ -274,6 +227,24 @@ const Feelings = () => {
 				defaultListMode="quick"
 				regulationOverlay={showRegulationOverlay}
 			/>
+
+			{showBodySensations && (
+				<BodySensationsPopup
+					selected={bodySensations.selected}
+					customText={bodySensations.custom}
+					onToggle={(word) =>
+						setBodySensations((prev) => {
+							const already = prev.selected.includes(word);
+							return {
+								...prev,
+								selected: already ? prev.selected.filter((w) => w !== word) : [...prev.selected, word],
+							};
+						})
+					}
+					onCustomChange={(text) => setBodySensations((prev) => ({ ...prev, custom: text }))}
+					onClose={() => setShowBodySensations(false)}
+				/>
+			)}
 
 			{popupItem && (
 				<ClarifyFeelings
@@ -374,25 +345,8 @@ Feelings.helpContent = (
 		<h3>Story Words</h3>
 
 		<p>
-			Some words people use as feelings actually contain a strong story about what someone else is doing. We call
-			these <strong>Story Words</strong>.
-		</p>
-
-		<p>If you select a Story Word, you'll be guided to unpack the clearer feelings underneath.</p>
-
-		<p>
-			<a href="#story-words-help">Learn more about Story Words →</a>
-		</p>
-	</>
-);
-
-Feelings.storyWordsHelpContent = (
-	<>
-		<h3>Story Words</h3>
-
-		<p>
-			Many of the words we use as "feelings" actually contain a story about what someone else did. This isn't
-			wrong — it's just how we're taught to speak.
+			Many of the words we use as "feelings" actually contain a story about what someone else did. We call these{" "}
+			<strong>Story Words</strong>. This isn't wrong — it's just how we're taught to speak.
 		</p>
 
 		<p>For example:</p>
@@ -411,28 +365,12 @@ Feelings.storyWordsHelpContent = (
 
 		<p>Underneath these words are usually clearer body-feelings — lonely, hurt, scared, angry, sad, unsettled.</p>
 
-		<h3>Why This Matters</h3>
-
 		<p>
 			When we speak in story words, we often stay focused on what the other person did. When we name the
-			underlying feeling, we move closer to ourselves.
+			underlying feeling, we move closer to ourselves. Clear feelings point more directly to clear needs.
 		</p>
 
-		<p>
-			This shift isn't about being "more correct." It's about clarity. Clear feelings point more directly to clear
-			needs.
-		</p>
-
-		<h3>How to Use This Step</h3>
-
-		<p>
-			If you selected a Story Word, you'll be gently guided to unpack it. There's no pressure to get it perfect.
-			You're simply translating from story-language into felt experience.
-		</p>
-
-		<p>
-			If nothing underneath feels true yet, that's okay. Pause. Check your body. What sensation is actually here?
-		</p>
+		<p>If you select a Story Word, you'll be gently guided to unpack it. There's no pressure to get it perfect.</p>
 	</>
 );
 

@@ -33,7 +33,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		<div className="card">
 			<div className="card-content" ref={cardContentRef}>
 				<div className="card-header">
-					<div className="card-app-title">Find Peace</div>
+					<div className="card-app-title">Wait, What?!</div>
 					<div className="card-title-row">
 						<h2>{title}</h2>
 						{showHelp && (
@@ -41,20 +41,21 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 								className="help-icon"
 								title={helpDrawerOpen ? "Close help" : "Open help"}
 								onClick={() => setHelpDrawerOpen((prev) => !prev)}>
-								?
+								<span className="help-icon-q">?</span>
+								<span className="help-icon-label">Help</span>
 							</button>
 						)}
 					</div>
 				</div>
 				{children}
-				<div
-					className="card-scroll-fade"
-					aria-hidden="true"
-					style={{ opacity: hasMoreBelow ? 1 : 0 }}
-				/>
+				<div className="card-scroll-fade" aria-hidden="true" style={{ opacity: hasMoreBelow ? 1 : 0 }} />
 			</div>
 
-			<SlideDrawer isOpen={helpDrawerOpen} onClose={() => setHelpDrawerOpen(false)} title={`Help: ${title}`} showBrowse>
+			<SlideDrawer
+				isOpen={helpDrawerOpen}
+				onClose={() => setHelpDrawerOpen(false)}
+				title={`Help: ${title}`}
+				showBrowse>
 				{helpContent}
 			</SlideDrawer>
 

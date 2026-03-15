@@ -11,7 +11,7 @@ import Introduction from "./Introduction";
 import Observation from "./Observation";
 import Feelings from "./Feelings";
 import Needs from "./Needs";
-import StrategyDiscovery from "./StrategyDiscovery";
+import NeedUnpacking from "./NeedUnpacking";
 import MakingGuesses from "./MakingGuesses";
 import RequestFormulation from "./RequestFormulation";
 import ExploringWhatsChanged from "./ExploringWhatsChanged";
@@ -35,8 +35,6 @@ if (unmetSection?.groups) {
 		}
 	}
 }
-
-// I DON'T THINK THIS IS BEING USED ANYMORE, BUT LEAVING IN CASE
 
 // Full list of steps
 const allSteps = [
@@ -71,6 +69,7 @@ const allSteps = [
 		component: FeelingsExploreCard,
 		title: "Explore Feelings",
 		optional: true,
+		condition: (state) => Object.values(state.feelings || {}).some((s) => s === "clicked" || s === "double-clicked"),
 	},
 	{
 		component: Needs,
@@ -79,11 +78,10 @@ const allSteps = [
 		to what really matters to you here...",
 	},
 	{
-		component: StrategyDiscovery,
-		title: "Strategies",
+		component: NeedUnpacking,
+		title: "Explore a Need",
 		optional: true,
 		condition: (state) => Object.values(state.needs || {}).includes("clicked"),
-		pause: "Now let's think about what might actually help — concrete things you could do to meet these needs...",
 	},
 	{ component: MakingGuesses, title: "Their View", optional: true },
 	// { component: RequestFormulation, title: "Request", optional: true },
@@ -98,6 +96,7 @@ export const WizardProvider = ({ children }) => {
 	const [jackalTalk, setJackalTalk] = useState("");
 	const [observation, setObservation] = useState({ moment: "", actions: "", camera: "", refined: "" });
 	const [bodyScan, setBodyScan] = useState({});
+	const [bodySensations, setBodySensations] = useState({ selected: [], custom: "" });
 	const [feelings, setFeelings] = useState({});
 	const [needs, setNeeds] = useState({});
 
@@ -173,6 +172,7 @@ export const WizardProvider = ({ children }) => {
 			jackalTalk,
 			observation,
 			bodyScan,
+			bodySensations,
 			feelings,
 			needs,
 			needExplorations,
@@ -203,6 +203,7 @@ export const WizardProvider = ({ children }) => {
 			refined: obs.refined || [obs.moment, obs.actions, obs.camera].filter((s) => s?.trim()).join("\n\n"),
 		});
 		setBodyScan(session.bodyScan || {});
+		setBodySensations(session.bodySensations || { selected: [], custom: "" });
 		setFeelings(session.feelings || {});
 		setNeeds(session.needs || {});
 		setNeedExplorations(session.needExplorations || {});
@@ -210,7 +211,9 @@ export const WizardProvider = ({ children }) => {
 		setExplorationStep(0);
 		setStrategies(session.strategies || {});
 		// Backward compat: old sessions used different key names for this field
-		setFeelingsExploreResponses(session.feelingsExploreResponses || session.feelingTypeResponses || session.familyResponses || {});
+		setFeelingsExploreResponses(
+			session.feelingsExploreResponses || session.feelingTypeResponses || session.familyResponses || {},
+		);
 		setGuessObservation(session.guessObservation || "");
 		setGuessFeelings(session.guessFeelings || {});
 		setGuessNeeds(session.guessNeeds || {});
@@ -226,6 +229,7 @@ export const WizardProvider = ({ children }) => {
 		setJackalTalk("");
 		setObservation({ moment: "", actions: "", camera: "", refined: "" });
 		setBodyScan({});
+		setBodySensations({ selected: [], custom: "" });
 		setFeelings({});
 		setNeeds({});
 		setNeedExplorations({});
@@ -267,7 +271,9 @@ export const WizardProvider = ({ children }) => {
 			Object.keys(guessFeelings).length > 0 ||
 			Object.keys(guessNeeds).length > 0 ||
 			requestOfSelf?.trim() ||
-			requestOfOther?.trim()
+			requestOfOther?.trim() ||
+			whatsChangedResponses?.before?.trim() ||
+			whatsChangedResponses?.differently?.trim()
 		);
 	};
 
@@ -280,6 +286,8 @@ export const WizardProvider = ({ children }) => {
 		setObservation,
 		bodyScan,
 		setBodyScan,
+		bodySensations,
+		setBodySensations,
 		feelings,
 		setFeelings,
 		needs,

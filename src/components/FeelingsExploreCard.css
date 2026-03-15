@@ -10,50 +10,95 @@
 }
 
 .feelings-explore-regulation {
-	padding: 0.5rem 0;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
 
-/* ===== Optional Reveal Prompt ===== */
+/* ===== Murky feeling indicator in the selected feelings list ===== */
 
-.feelings-explore-prompt-reveal {
+.feelings-explore-murky {
+	border-bottom: 1px dashed #b88;
+	cursor: pointer;
+	transition: color 0.15s;
+}
+
+.feelings-explore-murky:hover {
+	color: #944;
+}
+
+/* ===== Category accordion ===== */
+
+.feelings-explore-categories {
 	margin: 1.5rem 0;
-	text-align: center;
-	background-color: #f0f5ee;
-	padding: 1em;
 }
 
-.feelings-explore-prompt-title {
+.feelings-explore-categories-intro {
 	font-size: 0.95rem;
 	color: #555;
+	margin: 0 0 0.75rem;
 	line-height: 1.5;
-	margin: 0 0 1rem;
 }
 
-.feelings-explore-reveal-buttons {
+.feelings-explore-category {
+	margin: 0.5rem 0;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.feelings-explore-category-toggle {
+	width: 100%;
+	text-align: left;
+	padding: 0.7rem 1rem;
+	background: #f7f5f2;
+	border: none;
+	font-size: 0.9rem;
+	color: #444;
+	cursor: pointer;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
+	align-items: center;
+	float: none;
+	transition: background 0.15s;
+}
+
+.feelings-explore-category-toggle:hover {
+	background: #eeece8;
+}
+
+.feelings-explore-category-toggle.expanded {
+	background: #ece8e2;
+}
+
+.feelings-explore-category-chevron {
+	font-size: 0.7rem;
+	color: #888;
+	margin-left: 0.5rem;
+	flex-shrink: 0;
+}
+
+.feelings-explore-category-content {
+	padding: 0.75rem 1rem 1rem;
+}
+
+/* ===== Suggest-feeling inline button ===== */
+
+.feelings-explore-suggest-feeling {
+	margin-top: 0.6rem;
+	display: flex;
+	align-items: center;
 	gap: 0.75rem;
 	flex-wrap: wrap;
-}
-
-.feelings-explore-reveal-yes {
-	padding: 0.45rem 1.1rem;
-	border-radius: 999px;
-	background: #d4e8d0;
-	border: 1px solid #5a9e6d;
-	color: #2d5a36;
 	font-size: 0.9rem;
-	cursor: pointer;
+	color: #555;
+}
+
+.feelings-explore-suggest-feeling .feelings-explore-choice {
 	float: none;
 }
 
-.feelings-explore-reveal-yes:hover {
-	background: #c2dcbc;
-}
-
-.feelings-explore-reveal-no {
-	float: none;
-}
+/* ===== (kept for legacy reference, unused) ===== */
 
 .feelings-explore-title {
 	font-size: 1.1rem;

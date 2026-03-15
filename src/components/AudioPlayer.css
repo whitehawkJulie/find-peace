@@ -1,0 +1,101 @@
+/* ===== Audio Player ===== */
+
+.audio-player {
+	background: rgba(90, 158, 109, 0.08);
+	border: 1px solid rgba(90, 158, 109, 0.2);
+	border-radius: 12px;
+	padding: 0.85rem 1rem;
+	margin: 0.75rem 0 1.25rem;
+}
+
+.audio-player-title {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: #3d6b4a;
+	margin: 0 0 0.2rem;
+}
+
+.audio-player-description {
+	font-size: 0.82rem;
+	color: #777;
+	margin: 0 0 0.7rem;
+	line-height: 1.4;
+}
+
+.audio-player-controls {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+/* ===== Play/Pause button ===== */
+
+.audio-player-btn {
+	width: 2.2rem;
+	height: 2.2rem;
+	border-radius: 50%;
+	background: #5a9e6d;
+	border: none;
+	color: white;
+	font-size: 0.85rem;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	float: none;
+	transition: background 0.15s, transform 0.1s;
+	padding: 0;
+	line-height: 1;
+}
+
+.audio-player-btn:hover {
+	background: #4d8a5e;
+}
+
+.audio-player-btn:active {
+	transform: scale(0.93);
+}
+
+/* ===== Progress bar ===== */
+
+.audio-player-progress {
+	flex: 1;
+	cursor: pointer;
+	padding: 0.5rem 0;
+}
+
+.audio-player-bar {
+	position: relative;
+	height: 4px;
+	background: rgba(90, 158, 109, 0.2);
+	border-radius: 999px;
+}
+
+.audio-player-fill {
+	height: 100%;
+	background: #5a9e6d;
+	border-radius: 999px;
+	transition: width 0.1s linear;
+}
+
+.audio-player-thumb {
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #5a9e6d;
+	transition: left 0.1s linear;
+}
+
+/* ===== Time display ===== */
+
+.audio-player-time {
+	font-size: 0.78rem;
+	color: #888;
+	white-space: nowrap;
+	flex-shrink: 0;
+	font-variant-numeric: tabular-nums;
+}

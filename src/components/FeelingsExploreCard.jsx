@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { useWizard } from "./WizardContext";
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
-import { feelingTypes, pickDominantFeelingType } from "../data/FeelingTypes";
+import { feelingTypes } from "../data/FeelingTypes";
+import ClarifyFeelings from "./ClarifyFeelings";
 import "./FeelingsExploreCard.css";
 
 // Build a lookup: item name → full item data (only for unmet feelings with a feelingType tag)
@@ -17,44 +18,93 @@ if (unmetSection?.groups) {
 	}
 }
 
-const renderOrderedFeelings = (feelings) => {
+// Build a lookup: murky feeling name → full item data
+const murkyFeelingLookup = {};
+for (const section of Object.values(FeelingsData.sections)) {
+	if (!section.groups) continue;
+	for (const group of Object.values(section.groups)) {
+		for (const item of group.items || []) {
+			if (item.clarify?.type === "murky") {
+				murkyFeelingLookup[item.item] = item;
+			}
+		}
+	}
+}
+
+// Only offer deeper exploration for these three types
+const EXPLORE_TYPES = ["fear", "anger", "distress"];
+
+const renderOrderedFeelings = (feelings, onMurkyClick) => {
 	const entries = Object.entries(feelings).filter(([, s]) => s === "clicked" || s === "double-clicked");
 	if (entries.length === 0) return null;
-	const strong = entries.filter(([, s]) => s === "double-clicked");
-	const regular = entries.filter(([, s]) => s === "clicked");
-	const sorted = [...strong, ...regular];
 	return (
 		<p className="feelings-selected-box">
-			{sorted.map(([name, strength], i) => (
-				<React.Fragment key={name}>
-					{i > 0 && ", "}
-					{strength === "double-clicked" ? <strong>{name}</strong> : name}
-				</React.Fragment>
-			))}
+			{entries.map(([name], i) => {
+				const isMurky = name in murkyFeelingLookup;
+				return (
+					<React.Fragment key={name}>
+						{i > 0 && ", "}
+						{isMurky ? (
+							<span
+								title="Click to explore further"
+								className="feelings-explore-murky"
+								onClick={() => onMurkyClick(murkyFeelingLookup[name])}>
+								{name}
+							</span>
+						) : (
+							name
+						)}
+					</React.Fragment>
+				);
+			})}
 		</p>
 	);
 };
 
 const FeelingsExploreCard = () => {
-	const { feelings, feelingsExploreResponses, setFeelingsExploreResponses } = useWizard();
+	const { feelings, setFeelings, needs, setNeeds, feelingsExploreResponses, setFeelingsExploreResponses } =
+		useWizard();
 
-	const [cardExpanded, setCardExpanded] = useState(false);
+	const [expandedTypes, setExpandedTypes] = useState(new Set());
+	const [popupItem, setPopupItem] = useState(null);
 
-	// Get selected unmet feelings with FeelingType data
-	const selectedUnmetWithFeelingType = useMemo(() => {
-		return Object.entries(feelings)
-			.filter(([_, status]) => status === "clicked" || status === "double-clicked")
-			.map(([name]) => itemLookup[name])
-			.filter(Boolean);
+	// Detect which of fear/anger/distress have any selected feelings
+	const detectedTypes = useMemo(() => {
+		const selectedNames = new Set(
+			Object.entries(feelings)
+				.filter(([, s]) => s === "clicked" || s === "double-clicked")
+				.map(([name]) => name),
+		);
+		return EXPLORE_TYPES.filter((type) =>
+			[...selectedNames].some((name) => itemLookup[name]?.feelingType === type),
+		);
 	}, [feelings]);
 
-	const dominantFeelingType = pickDominantFeelingType(selectedUnmetWithFeelingType);
-	const card = dominantFeelingType ? feelingTypes[dominantFeelingType] : null;
+	const toggleType = (type) => {
+		setExpandedTypes((prev) => {
+			const next = new Set(prev);
+			next.has(type) ? next.delete(type) : next.add(type);
+			return next;
+		});
+	};
 
-	// Reset expanded state when the dominant FeelingType changes
-	useEffect(() => {
-		setCardExpanded(false);
-	}, [dominantFeelingType]);
+	const toggleFeeling = (name) => {
+		setFeelings((prev) => {
+			const updated = { ...prev };
+			if (updated[name]) delete updated[name];
+			else updated[name] = "clicked";
+			return updated;
+		});
+	};
+
+	const toggleNeed = (name) => {
+		setNeeds((prev) => {
+			const updated = { ...prev };
+			if (updated[name]) delete updated[name];
+			else updated[name] = "clicked";
+			return updated;
+		});
+	};
 
 	const setResponse = (promptId, value) => {
 		setFeelingsExploreResponses((prev) => ({ ...prev, [promptId]: value }));
@@ -68,87 +118,111 @@ const FeelingsExploreCard = () => {
 		});
 	};
 
-	return (
-		<div className="feelings-explore-regulation">
-			<div className="highlight-box">
-				<p>
-					Take a moment to notice the order in which these feelings arrived. We often feel something
-					vulnerable first, which is quickly covered up by the mind with stories about what the other person
-					did wrong. Can you distinguish the early feelings, from the "thought-feelings" that came in response
-					to those?
-				</p>
-			</div>
+	const renderPrompt = (prompt) => (
+		<div key={prompt.id} className="feelings-explore-prompt">
+			<p className="feelings-explore-prompt-question">{prompt.question}</p>
 
-			{renderOrderedFeelings(feelings)}
+			{prompt.type === "text" && (
+				<>
+					<textarea
+						className="feelings-explore-textarea"
+						value={feelingsExploreResponses[prompt.id] || ""}
+						onChange={(e) => setResponse(prompt.id, e.target.value)}
+						rows={3}
+					/>
+					{prompt.suggestFeeling && (
+						<div className="feelings-explore-suggest-feeling">
+							<span>{prompt.suggestFeeling.prompt}</span>
+							<button
+								className={`feelings-explore-choice ${feelings[prompt.suggestFeeling.name] ? "chosen" : ""}`}
+								onClick={() => toggleFeeling(prompt.suggestFeeling.name)}>
+								{feelings[prompt.suggestFeeling.name]
+									? `✓ "${prompt.suggestFeeling.name}" added`
+									: `Add "${prompt.suggestFeeling.name}"`}
+							</button>
+						</div>
+					)}
+				</>
+			)}
 
-			<p>
-				When you sit with these feelings, is there anything else that feels important or missing? If so, you
-				might like to look through the feelings list again, and choose more.
-			</p>
-
-			{card && !cardExpanded && (
-				<div className="feelings-explore-prompt-reveal">
-					<p className="feelings-explore-prompt-title">
-						{card.title} — would you like to explore that a little?
-					</p>
-					<div className="feelings-explore-reveal-buttons">
-						<button className="feelings-explore-reveal-yes" onClick={() => setCardExpanded(true)}>
-							Yes, let's explore
+			{prompt.type === "singleChoice" && (
+				<div className="feelings-explore-choices">
+					{prompt.options.map((opt) => (
+						<button
+							key={opt}
+							className={`feelings-explore-choice ${feelingsExploreResponses[prompt.id] === opt ? "chosen" : ""}`}
+							onClick={() => setResponse(prompt.id, opt)}>
+							{opt}
 						</button>
-					</div>
+					))}
 				</div>
 			)}
 
-			{card && cardExpanded && (
-				<>
-					<h3 className="feelings-explore-title">{card.title}</h3>
-					<p className="feelings-explore-intro">{card.intro}</p>
-
-					{card.prompts.map((prompt) => (
-						<div key={prompt.id} className="feelings-explore-prompt">
-							<p className="feelings-explore-prompt-question">{prompt.question}</p>
-
-							{prompt.type === "text" && (
-								<textarea
-									className="feelings-explore-textarea"
-									value={feelingsExploreResponses[prompt.id] || ""}
-									onChange={(e) => setResponse(prompt.id, e.target.value)}
-									rows={3}
-								/>
-							)}
-
-							{prompt.type === "singleChoice" && (
-								<div className="feelings-explore-choices">
-									{prompt.options.map((opt) => (
-										<button
-											key={opt}
-											className={`feelings-explore-choice ${feelingsExploreResponses[prompt.id] === opt ? "chosen" : ""}`}
-											onClick={() => setResponse(prompt.id, opt)}>
-											{opt}
-										</button>
-									))}
-								</div>
-							)}
-
-							{prompt.type === "multiChoice" && (
-								<div className="feelings-explore-choices">
-									{prompt.options.map((opt) => (
-										<button
-											key={opt}
-											className={`feelings-explore-choice ${
-												(feelingsExploreResponses[prompt.id] || []).includes(opt)
-													? "chosen"
-													: ""
-											}`}
-											onClick={() => toggleMultiChoice(prompt.id, opt)}>
-											{opt}
-										</button>
-									))}
-								</div>
-							)}
-						</div>
+			{prompt.type === "multiChoice" && (
+				<div className="feelings-explore-choices">
+					{prompt.options.map((opt) => (
+						<button
+							key={opt}
+							className={`feelings-explore-choice ${
+								(feelingsExploreResponses[prompt.id] || []).includes(opt) ? "chosen" : ""
+							}`}
+							onClick={() => toggleMultiChoice(prompt.id, opt)}>
+							{opt}
+						</button>
 					))}
-				</>
+				</div>
+			)}
+		</div>
+	);
+
+	return (
+		<div className="feelings-explore-regulation">
+			<p>
+				We often feel something vulnerable first, quickly followed by more defended feelings. Can you
+				distinguish the early feelings, from the "thought-feelings" that came in response to those?
+			</p>
+
+			{renderOrderedFeelings(feelings, setPopupItem)}
+
+			{detectedTypes.length > 0 && (
+				<div className="feelings-explore-categories">
+					<p className="feelings-explore-categories-intro">
+						You've chosen feelings in these categories. Would you like to have a deeper look? Start with the
+						one that's loudest.
+					</p>
+					{detectedTypes.map((type) => {
+						const card = feelingTypes[type];
+						const isExpanded = expandedTypes.has(type);
+						return (
+							<div key={type} className="feelings-explore-category">
+								<button
+									className={`feelings-explore-category-toggle ${isExpanded ? "expanded" : ""}`}
+									onClick={() => toggleType(type)}>
+									{card.title}
+									<span className="feelings-explore-category-chevron">{isExpanded ? "▲" : "▼"}</span>
+								</button>
+								{isExpanded && (
+									<div className="feelings-explore-category-content">
+										<p className="feelings-explore-intro">{card.intro}</p>
+										{card.prompts.map(renderPrompt)}
+									</div>
+								)}
+							</div>
+						);
+					})}
+				</div>
+			)}
+
+			{popupItem && (
+				<ClarifyFeelings
+					itemData={popupItem}
+					feelings={feelings}
+					needs={needs}
+					onToggleFeeling={toggleFeeling}
+					onToggleNeed={toggleNeed}
+					onKeepWord={() => setPopupItem(null)}
+					onClose={() => setPopupItem(null)}
+				/>
 			)}
 		</div>
 	);

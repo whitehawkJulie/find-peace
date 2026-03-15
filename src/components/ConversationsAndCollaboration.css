@@ -1,0 +1,63 @@
+.step-collab {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.collab-accordion {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.collab-section {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.collab-section-toggle {
+	width: 100%;
+	text-align: left;
+	padding: 0.75rem 1rem;
+	background: #f7f5f2;
+	border: none;
+	font-size: 0.95rem;
+	font-weight: 500;
+	color: #444;
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.5rem;
+	float: none;
+	transition: background 0.15s;
+}
+
+.collab-section-toggle:hover {
+	background: #eeece8;
+}
+
+.collab-section.open .collab-section-toggle {
+	background: #ece8e2;
+}
+
+.collab-section-chevron {
+	font-size: 0.7rem;
+	color: #888;
+	flex-shrink: 0;
+}
+
+.collab-section-content {
+	padding: 0.75rem 1.1rem 1rem;
+	border-top: 1px solid #e8e4de;
+}
+
+.collab-section-content p,
+.collab-section-content ul {
+	margin: 0.5rem 0;
+}
+
+.collab-section-content ul {
+	padding-left: 1.4rem;
+}

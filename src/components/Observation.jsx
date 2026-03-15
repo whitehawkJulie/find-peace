@@ -74,10 +74,10 @@ const CheckPanel = ({ observation, setObservation }) => {
 		<div className="obs-check-inline">
 			<div className="obs-check-header">
 				<h3>From threat mode to curiosity</h3>
-				<p>
+				{/* <p>
 					These checks can help us move from a reactive, threat-focused mindset to a more curious,
 					understanding one. They help us slow down.
-				</p>
+				</p> */}
 			</div>
 
 			<div className="obs-checks">
@@ -126,11 +126,6 @@ const Observation = () => {
 
 	return (
 		<div className="step-observation">
-			<p>
-				When something upsets us, our brain quickly creates a story about what the other person meant or why
-				they did it. That helps us feel certain, but it can also hide what actually happened.
-			</p>
-
 			<p>Getting curious about the moment helps our brain move out of reaction and into understanding.</p>
 			<p>
 				To understand the situation more clearly, we’ll slow down and look at the specific moment itself — just
@@ -160,10 +155,10 @@ const Observation = () => {
 			)}
 
 			{showCheckPanel && (
-			<div ref={checkPanelRef}>
-				<CheckPanel observation={observation} setObservation={setObservation} />
-			</div>
-		)}
+				<div ref={checkPanelRef}>
+					<CheckPanel observation={observation} setObservation={setObservation} />
+				</div>
+			)}
 		</div>
 	);
 };

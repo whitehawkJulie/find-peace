@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useWizard } from "./WizardContext";
 import { getNeedData, resolveNeedUnpackingType } from "../utils/renderHelpers";
 import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
+import AudioPlayer from "./AudioPlayer";
+import meditationAudio from "../assets/Beauty_of_need.mp3";
 import "./NeedUnpacking.css";
 
 const PRACTICAL = UNPACKING_TYPE.PRACTICAL;
@@ -45,6 +47,8 @@ const NeedUnpacking = () => {
 					unmetFeeling: "",
 					metFeeling: "",
 					metCircumstances: "",
+					oftenUnmet: "",
+					whereToMeet: "",
 					completed: false,
 				},
 			}));
@@ -122,6 +126,8 @@ const NeedUnpacking = () => {
 					unmetFeeling: "",
 					metFeeling: "",
 					metCircumstances: "",
+					oftenUnmet: "",
+					whereToMeet: "",
 					completed: false,
 				},
 			}));
@@ -147,6 +153,11 @@ const NeedUnpacking = () => {
 	if (explorationStep === 0) {
 		return (
 			<div className="need-unpacking">
+				<AudioPlayer
+					src={meditationAudio}
+					title="The beauty of a need"
+					description="A short guided meditation to connect with what matters most."
+				/>
 				<p>Choose a need to explore more deeply.</p>
 
 				<div className="pill-grid cloud">
@@ -287,17 +298,31 @@ const NeedUnpacking = () => {
 							/>
 						</div>
 
-						<p>TODO: add two more questions:</p>
-						<ul>
-							<li>
-								Consider whether this need is something that's often unmet in your life. Are there ways
-								you could top up the tank, just a little?
-							</li>
-							<li>
-								Consider whether this need COULD or even should be met in the current situation? Is the
-								other person capable of meeting this need? Is there a better place to get it met?{" "}
-							</li>
-						</ul>
+						<div className="unpacking-prompt">
+							<p className="unpacking-prompt-text">
+								Is this a need that often goes unmet in your life? Are there small ways you could top
+								up the tank, even a little?
+							</p>
+							<textarea
+								className="unpacking-textarea"
+								rows={3}
+								value={currentData.oftenUnmet || ""}
+								onChange={(e) => updateField("oftenUnmet", e.target.value)}
+							/>
+						</div>
+
+						<div className="unpacking-prompt">
+							<p className="unpacking-prompt-text">
+								Could this need be met in the current situation? Is the other person capable of meeting
+								it — or is there a better place to get it met?
+							</p>
+							<textarea
+								className="unpacking-textarea"
+								rows={3}
+								value={currentData.whereToMeet || ""}
+								onChange={(e) => updateField("whereToMeet", e.target.value)}
+							/>
+						</div>
 					</div>
 				)}
 			</div>

@@ -1186,14 +1186,10 @@ export const Feelings = {
 						type: "murky",
 						title: "Clarify: depressed",
 
-						attunement: [
-							"Mm… that heavy, flat feeling can be really hard.",
-							"Yeah… when everything feels grey or slowed down, that’s a lot to carry.",
-							"That kind of low energy can make even small things feel big.",
-						],
+						attunement: ["Depression is so cruel. Me too. Me too. You're not alone."],
 
 						normalization:
-							"‘Depressed’ can hold a few different experiences bundled together. Let’s gently see what’s actually present.",
+							"‘Depressed’ is such a bundle of pain. What other feelings can you identify as being part of it?",
 
 						prompts: [
 							{
@@ -1201,17 +1197,6 @@ export const Feelings = {
 								question: "Which parts are present right now?",
 								options: ["sad", "hopeless", "lonely", "overwhelmed", "tired", "numb", "disconnected"],
 								selectsFeeling: true,
-							},
-
-							{
-								type: "singleChoice",
-								question: "Does it feel more like…",
-								options: ["Flat / shut down", "Heavy / grieving", "Agitated / overwhelmed", "Not sure"],
-							},
-
-							{
-								type: "text",
-								question: "If one small thing could shift this by 5%, what might help? (optional)",
 							},
 						],
 					},

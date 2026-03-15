@@ -4,73 +4,68 @@
 
 export const feelingTypes = {
 	fear: {
-		title: "It sounds like there may be a lot of fear here",
-		intro: "If that’s right, we can gently orient to what your system might be bracing for.",
+		title: "Fear",
+		intro: "Let's get curious about what your system might be bracing for.",
 		skipLabel: "Skip this",
 		prompts: [
+			{
+				id: "fear_body",
+				type: "text",
+				question:
+					"Is it anticipatory fear, because this feels like something you've been in before, that didn't turn out well?",
+			},
 			{
 				id: "fear_prediction",
 				type: "text",
 				question: "If there’s a worried prediction attached, what is it saying? (optional)",
 				stem: "I’m afraid that…",
 			},
-			{
-				id: "fear_body",
-				type: "singleChoice",
-				question: "Where do you feel it most in your body? (optional)",
-				options: ["Chest", "Stomach", "Throat", "Jaw", "Whole body", "Not sure"],
-			},
-			{
-				id: "fear_soften",
-				type: "singleChoice",
-				question: "What would help it soften 5% right now? (optional)",
-				options: [
-					"More information",
-					"Reassurance / warmth",
-					"Space / distance",
-					"A small plan",
-					"Rest",
-					"Not sure",
-				],
-			},
 		],
 	},
 
 	anger: {
-		title: "It sounds like there may be a lot of anger here",
-		intro: "If that fits, anger often shows up when something feels not okay. Let’s find the clean edge of it.",
+		title: "Anger",
+		intro: "Anger often shows up when a boundary has been crossed, or when we're hurt, or afraid.",
 		skipLabel: "Skip this",
 		prompts: [
 			{
-				id: "anger_line",
+				id: "anger_body",
 				type: "text",
-				question: "What felt not okay, or what line felt crossed?",
+				question:
+					"Where can you feel the anger in your body? Can you ask your BODY what it's telling you about this anger, rather than your mind?)",
 			},
 			{
-				id: "anger_protecting",
-				type: "singleChoice",
-				question: "What are you wanting protected here? (optional)",
-				options: [
-					"Respect",
-					"Choice / autonomy",
-					"Fairness",
-					"Safety",
-					"To be heard / understood",
-					"Space",
-					"Not sure",
-				],
+				id: "anger_violation",
+				type: "text",
+				question:
+					"Is there a sense that a boundary has been crossed? Some kind of violation or wrongness? What’s that about?",
 			},
 			{
-				id: "anger_boundary",
+				id: "anger_tears",
 				type: "text",
-				question: "If there were a ‘clean boundary’ (even just inside you), what would it be? (optional)",
+				question:
+					"Does it feel like there might be hot tears behind the anger? Is there a sense of outrage at emotional rupture?",
+				suggestFeeling: {
+					name: "hurt",
+					prompt: 'Would you like to add "hurt" to your feeling list?',
+				},
+			},
+			{
+				id: "anger_protect",
+				type: "text",
+				question:
+					"Does the anger feel like it’s trying to protect you from harm? What are you afraid might happen, if the anger doesn’t protect you?",
+				suggestFeeling: {
+					name: "afraid",
+					prompt: 'Would you like to add "afraid" to your feeling list?',
+				},
 			},
 		],
 	},
 
 	distress: {
-		title: "It sounds like there may be a lot of sadness or hurt here",
-		intro: "If that’s true, this often points to loss or longing. We can stay very gentle here.",
+		title: "Sadness or hurt",
+		intro: "Words in this category often point to loss or longing. We can stay very gentle here.",
 		skipLabel: "Skip this",
 		prompts: [
 			{
@@ -81,20 +76,13 @@ export const feelingTypes = {
 			{
 				id: "distress_if_met",
 				type: "text",
-				question: "If things had gone the way you hoped, what would you have had? (optional)",
+				question: "If things had gone the way you hoped, what would you have had?",
 			},
 			{
 				id: "distress_kindness",
 				type: "singleChoice",
-				question: "What would be kind to you right now? (optional)",
-				options: [
-					"Contact / support",
-					"Rest",
-					"Reassurance",
-					"Time to feel",
-					"A small step forward",
-					"Not sure",
-				],
+				question: "What would be kind to you right now?",
+				options: ["A warm hug", "Rest", "Reassurance", "Time to feel", "A small step forward", "Not sure"],
 			},
 		],
 	},
