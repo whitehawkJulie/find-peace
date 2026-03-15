@@ -50,7 +50,7 @@ const NvcWizard = () => {
 
 	return (
 		<div className="nvc-wizard">
-			{showPause ? (
+			{/* {showPause ? (
 				<Card title="" helpContent={null} showHelp={false} hideNav>
 					<PauseInterstitial message={pauseMessage} onContinue={() => setShowPause(false)} />
 				</Card>
@@ -58,7 +58,12 @@ const NvcWizard = () => {
 				<Card title={title} helpContent={helpContent} showHelp={!!helpContent}>
 					<CurrentStepComponent />
 				</Card>
-			)}
+			)} */}
+			(
+			<Card title={title} helpContent={helpContent} showHelp={!!helpContent}>
+				<CurrentStepComponent />
+			</Card>
+			)
 		</div>
 	);
 };

@@ -3,7 +3,7 @@ import { useWizard } from "./WizardContext";
 import { filterByState } from "../utils/renderHelpers";
 import "./SavedEntries.css";
 
-export default function SavedEntries() {
+export default function SavedEntries({ onSessionLoaded }) {
 	const { savedEntries, loadSession, deleteSession, hasSessionData } = useWizard();
 	const [loadedId, setLoadedId] = useState(null);
 
@@ -16,6 +16,7 @@ export default function SavedEntries() {
 		}
 		loadSession(entry);
 		setLoadedId(entry.id);
+		onSessionLoaded?.();
 	};
 
 	if (savedEntries.length === 0) {

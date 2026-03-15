@@ -12,7 +12,10 @@ const ExploringWhatsChanged = () => {
 	return (
 		<div className="step-whats-changed">
 			<p>Let's take a moment to see what's changed inside you.</p>
-			<p>This page isn't about finding solutions we plan to use - it's just about noticing the shift, if any.</p>
+			<p>
+				This page isn't about finding solutions we plan to use, yet - it's just about noticing the shift, if
+				any.
+			</p>
 			<div className="request-section">
 				<p>
 					How might you have handled this situation before doing this process? If you approached the person
@@ -43,10 +46,6 @@ const ExploringWhatsChanged = () => {
 };
 
 ExploringWhatsChanged.title = "Exploring what's changed";
-ExploringWhatsChanged.helpContent = (
-	<>
-		<p>Help content coming soon.</p>
-	</>
-);
+ExploringWhatsChanged.helpContent = null;
 
 export default ExploringWhatsChanged;

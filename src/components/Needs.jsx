@@ -26,8 +26,15 @@ const renderOrderedFeelings = (feelings) => {
 };
 
 const Needs = () => {
-	const { needs, setNeeds, feelings, needExplorations, setCurrentExploringNeed, setExplorationStep, setNeedExplorationOpen } =
-		useWizard();
+	const {
+		needs,
+		setNeeds,
+		feelings,
+		needExplorations,
+		setCurrentExploringNeed,
+		setExplorationStep,
+		setNeedExplorationOpen,
+	} = useWizard();
 
 	// Show explored+unmet needs as green ("double-clicked") visually
 	const displayNeeds = useMemo(() => {
@@ -71,8 +78,13 @@ const Needs = () => {
 
 	return (
 		<div className="step-needs">
+			<p>
+				Needs are what we’re hoping to experience when things go well — and what we’re longing for when they
+				don’t.
+			</p>
+
 			{renderOrderedFeelings(feelings)}
-			<p>Take them one at a time — each feeling is pointing to something that matters to you here.</p>
+			<p>Each feeling you selected is an indication of something that matters to you here.</p>
 
 			<p>
 				Just notice what feels alive. Select all that feel relevant. Tap{" "}
@@ -129,67 +141,49 @@ Needs.title = "Needs";
 Needs.helpContent = (
 	<>
 		<h3>What Is a Need?</h3>
+
 		<p>
-			Needs are qualities that ALL human beings long for, that contribute to our thriving — things like safety,
-			respect, choice, understanding, connection.
+			Needs are qualities that all human beings long for — things that help us thrive, like safety, respect,
+			understanding, choice, or connection.
 		</p>
-		<p>
-			In this process, a need isn’t a demand and it isn’t a specific outcome. It’s a word for what matters most —
-			the human qualities that help us thrive. Needs live inside us as a longing of our hearts. They’re what we’re
-			trying to meet whenever we take action — even if we don’t realize it. They’re also what we’re trying to
-			soothe when we feel distress.
-			<br />
-			When we identify the need, we can often feel a sense of relief — even before anything changes externally.
-			It’s like we’ve been fumbling around in the dark, and now we can finally see what we were reaching for.
-		</p>
+
+		<p>A need isn’t a demand and it isn’t a specific outcome. It’s simply a word for what matters most to us.</p>
+
 		<p>Needs are universal. Strategies are personal.</p>
-		<ul>
-			<li>
-				<strong>Need:</strong> Respect
-			</li>
-			<li>
-				<strong>Strategy:</strong> "I want this particular person to act in this particular way."
-			</li>
-		</ul>
-		<p>When we focus on the need instead of the strategy, we open up more possible ways forward.</p>
+
+		<p>
+			<strong>Need:</strong> Respect
+			<br />
+			<strong>Strategy:</strong> “I want this particular person to act in this particular way.”
+		</p>
+
+		<p>When we focus on the need instead of one strategy, many more possibilities open up.</p>
+
 		<h3>Why Naming Needs Helps</h3>
 
 		<p>
-			Feelings are signals that something important is happening. When we identify the need underneath, intensity
-			often softens — even before anything changes externally.
+			Feelings are signals that something important is happening. When we identify the need underneath, the
+			intensity often softens — even before anything changes externally.
 		</p>
 
 		<p>
-			When we’re unclear about the need beneath our feelings, we often reach for strategies that we hope will
-			relieve the discomfort — pushing harder, withdrawing, criticising, demanding reassurance, or trying to
-			control the situation.
+			If the need isn’t clear, we often reach for strategies that promise relief — arguing, withdrawing, blaming,
+			or trying to control the situation.
 		</p>
 
 		<p>
-			Marshall Rosenberg, who developed Nonviolent Communication, called these{" "}
-			<strong>"tragic strategies for unmet needs."</strong>
-			They’re tragic not because we’re wrong — but because the strategy is aimed at relief while missing the real
-			source of the pain.
+			Marshall Rosenberg called these “tragic strategies for unmet needs.” They’re tragic not because we’re wrong,
+			but because the strategy aims for relief while missing the real source of the pain.
 		</p>
 
+		<h3>Hold Tightly to the Need, Loosely to the Strategy</h3>
+
 		<p>
-			Naming the need gives us a clearer target. Instead of reacting blindly, we can respond with more choice —
-			and often discover options we couldn’t see before.
+			The need is what matters. Any specific strategy — a particular person acting in a particular way — is just
+			one possible way to meet it.
 		</p>
-		<h3>Hold tightly to the need, loosely to the strategy</h3>
-		<p>
-			Filling the tank does <strong>not</strong> have to mean:
-		</p>
-		<ul>
-			<li>This person</li>
-			<li>This exact behaviour</li>
-			<li>This one solution</li>
-		</ul>
-		<p>
-			The need is what matters. The strategy (THIS particular person in THIS particular way) is just one possible
-			way to support it. There are always thousands of possible ways to meet any need. When we get attached to one
-			strategy, we can miss out on all the other possibilities that might work better.
-		</p>
+
+		<p>When we loosen our grip on one strategy, we open the door to many other ways forward.</p>
 	</>
 );
 

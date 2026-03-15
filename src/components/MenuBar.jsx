@@ -4,7 +4,7 @@ import SlideDrawer from "./SlideDrawer";
 import SavedEntries from "./SavedEntries";
 import "./MenuBar.css";
 
-const SettingsContent = ({ settings, updateSettings }) => {
+const SettingsContent = ({ settings, updateSettings, onSessionLoaded }) => {
 	const { savedEntries } = useWizard();
 	return (
 		<div className="settings-content">
@@ -35,7 +35,7 @@ const SettingsContent = ({ settings, updateSettings }) => {
 			{savedEntries.length > 0 && (
 				<div className="settings-group">
 					<h4>Past Sessions</h4>
-					<SavedEntries />
+					<SavedEntries onSessionLoaded={onSessionLoaded} />
 				</div>
 			)}
 		</div>
@@ -81,7 +81,11 @@ const MenuBar = () => {
 			</div>
 
 			<SlideDrawer isOpen={showSettings} onClose={() => setShowSettings(false)} title="Settings">
-				<SettingsContent settings={settings} updateSettings={updateSettings} />
+				<SettingsContent
+					settings={settings}
+					updateSettings={updateSettings}
+					onSessionLoaded={() => setShowSettings(false)}
+				/>
 			</SlideDrawer>
 		</>
 	);

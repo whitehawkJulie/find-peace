@@ -1,7 +1,7 @@
 import React from "react";
 import { Needs } from "../data/AllNeedsData";
 
-// Build a flat lookup at module scope: needName → { item data, sectionHeading, _groupUnpackingType }
+// Build a flat lookup at module scope: needName → { item data, sectionHeading, _groupUnpackingType, _groupWhereMet }
 const needLookup = {};
 for (const section of Object.values(Needs.sections)) {
 	const sectionHeading = section.ui?.heading || "";
@@ -11,6 +11,7 @@ for (const section of Object.values(Needs.sections)) {
 				...item,
 				_sectionHeading: sectionHeading,
 				_groupUnpackingType: group.unpackingType || [],
+				_groupWhereMet: group.whereMet || [],
 			};
 		}
 	}
@@ -33,7 +34,7 @@ export const getNeedData = (needName) => {
 	const entry = needLookup[needName];
 	if (!entry) return null;
 	// Return a clean copy without internal fields
-	const { _sectionHeading, _groupUnpackingType, ...data } = entry;
+	const { _sectionHeading, _groupUnpackingType, _groupWhereMet, ...data } = entry;
 	return data;
 };
 
@@ -42,6 +43,13 @@ export const resolveNeedUnpackingType = (needName) => {
 	const entry = needLookup[needName];
 	if (!entry) return [];
 	return entry.unpackingType?.length ? entry.unpackingType : (entry._groupUnpackingType ?? []);
+};
+
+// Resolve the whereMet array for a need, falling back to the group's whereMet
+export const resolveNeedWhereMet = (needName) => {
+	const entry = needLookup[needName];
+	if (!entry) return [];
+	return entry.whereMet?.length ? entry.whereMet : (entry._groupWhereMet ?? []);
 };
 
 // Utility functions to extract selected items by type

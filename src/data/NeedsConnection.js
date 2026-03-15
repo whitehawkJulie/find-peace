@@ -267,7 +267,7 @@ export const NeedsConnection = {
 							{ key: "deeper_unfolding", label: "Unfolding", ref: "UNF_REL_01", tier: "deeper" },
 							{ key: "deeper_probing", label: "Underneath", ref: "PROBE_REL_01", tier: "deeper" },
 							{
-								/* 							{ key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" }, */
+								/* { key: "deeper_integration", label: "Next step", ref: "INT_REL_01", tier: "deeper" }, */
 							},
 						],
 					},

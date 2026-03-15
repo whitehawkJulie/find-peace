@@ -30,6 +30,7 @@ const Introduction = () => {
 				When we do that, our brain can move out of threat mode and into the seeking and care circuits — the
 				parts that are much better at finding creative solutions, often ones that work for everyone involved.
 			</p>
+			<p>Ready to try it out?</p>
 		</div>
 	);
 };

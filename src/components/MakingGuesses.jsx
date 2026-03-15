@@ -106,8 +106,9 @@ MakingGuesses.helpContent = (
 
 		<h4>If it feels too hard</h4>
 		<p>
-			If you're not ready to empathise with them yet, that's completely fine. It usually means you haven't fully
-			received empathy for yourself first. You can skip this and come back to it later.
+			If you're not ready to consider what might have been going on in them yet, that's completely fine. It
+			usually means you haven't fully received empathy for yourself first. You can skip this and come back to it
+			later if you like.
 		</p>
 	</>
 );

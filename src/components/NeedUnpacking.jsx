@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useWizard } from "./WizardContext";
-import { getNeedData, resolveNeedUnpackingType } from "../utils/renderHelpers";
+import { getNeedData, resolveNeedUnpackingType, resolveNeedWhereMet } from "../utils/renderHelpers";
+import { whereMetLabels } from "../data/whereMetData";
 import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
 import AudioPlayer from "./AudioPlayer";
 import meditationAudio from "../assets/Beauty_of_need.mp3";
@@ -44,6 +45,8 @@ const NeedUnpacking = () => {
 				...prev,
 				[currentExploringNeed]: {
 					coreSpecific: "",
+					differentiation: "",
+					whereMetResponse: "",
 					unmetFeeling: "",
 					metFeeling: "",
 					metCircumstances: "",
@@ -94,6 +97,22 @@ const NeedUnpacking = () => {
 		? getNeedData(currentExploringNeed)?.clarify?.prompts?.find((p) => p.key === "core_specific")?.question
 		: null;
 
+	// Stage 2: differentiation question for needs with 2+ non-PRACTICAL types
+	const differentiationQ =
+		nonPracticalTypes.length >= 2
+			? `Is this more about ${unpackingTypeData[nonPracticalTypes[0]]?.discriminationHint} — or about ${unpackingTypeData[nonPracticalTypes[1]]?.discriminationHint}?`
+			: null;
+	``;
+	// Stage 2: where-met question for needs with 2+ whereMet values
+	const resolvedWhereMet = currentExploringNeed ? resolveNeedWhereMet(currentExploringNeed) : [];
+	const whereMetQ = (() => {
+		const hints = resolvedWhereMet.map((w) => whereMetLabelsc[w]).filter(Boolean);
+		if (hints.length < 2) return null;
+		const last = hints[hints.length - 1];
+		const rest = hints.slice(0, -1);
+		return `Where would you most hope to find this met — ${rest.join(", ")}, or ${last}?`;
+	})();
+
 	// ── Helpers ──
 	const currentData = currentExploringNeed ? needExplorations[currentExploringNeed] || {} : {};
 
@@ -123,6 +142,8 @@ const NeedUnpacking = () => {
 				...prev,
 				[needName]: {
 					coreSpecific: "",
+					differentiation: "",
+					whereMetResponse: "",
 					unmetFeeling: "",
 					metFeeling: "",
 					metCircumstances: "",
@@ -252,9 +273,34 @@ const NeedUnpacking = () => {
 							</div>
 						)}
 
+						{differentiationQ && (
+							<div className="unpacking-prompt">
+								<p className="unpacking-prompt-text">{differentiationQ}</p>
+								<textarea
+									className="unpacking-textarea"
+									rows={2}
+									value={currentData.differentiation || ""}
+									onChange={(e) => updateField("differentiation", e.target.value)}
+								/>
+							</div>
+						)}
+
+						{whereMetQ && (
+							<div className="unpacking-prompt">
+								<p className="unpacking-prompt-text">{whereMetQ}</p>
+								<textarea
+									className="unpacking-textarea"
+									rows={2}
+									value={currentData.whereMetResponse || ""}
+									onChange={(e) => updateField("whereMetResponse", e.target.value)}
+								/>
+							</div>
+						)}
+
 						<div className="unpacking-prompt">
 							<p className="unpacking-prompt-text">
-								how does it feel when the need isn't met? (notice the unmetness)
+								Notice in your <em>body</em> how it feels when the need isn't met - what happens when
+								you focus on the "un-met-ness" of the need?
 							</p>
 							<textarea
 								className="unpacking-textarea"
@@ -262,21 +308,23 @@ const NeedUnpacking = () => {
 								value={currentData.unmetFeeling || ""}
 								onChange={(e) => updateField("unmetFeeling", e.target.value)}
 							/>
-							<p className="unpacking-closing-note">
-								If you're really struggling to remember or imagine a time that it was met, you might
-								need to take some time to sit with the sadness of that. TODO: add info about mourning.
-							</p>
 						</div>
 
 						<div className="unpacking-prompt">
 							<p className="unpacking-prompt-text">
-								remember when the need was met, and how that felt (find the metness)
+								Now remember when the need was met, and how that felt.
 							</p>
 							<p className="unpacking-prompt-subnote">
 								<em>
-									if can't remember - imagine!!! if can't do that, what might it look and feel like
-									for another person, if THEY had the need met?
+									If can't remember a time it was met, imagine!!! <br />
+									If can't do that either, imagine what might it look and feel like for another
+									person, if THEY had the need met?
 								</em>
+							</p>
+							<p className="unpacking-closing-note">
+								If you're really struggling to remember or imagine a time that it was met, you might
+								need to take some time to sit with the sadness of that. Try to notice how the need lives
+								in you as a <em>longing</em>, a forward moving energy inside you.
 							</p>
 							<textarea
 								className="unpacking-textarea"
@@ -288,7 +336,9 @@ const NeedUnpacking = () => {
 
 						<div className="unpacking-prompt">
 							<p className="unpacking-prompt-text">
-								what circumstances were present (in memory or imagination) that helped it be met?
+								If you were able to remember or imagine the need being met, what circumstances were
+								present that helped it be met? What would it have to look like for this need to feel
+								fulfulled for <em>you</em>?
 							</p>
 							<textarea
 								className="unpacking-textarea"
@@ -300,8 +350,8 @@ const NeedUnpacking = () => {
 
 						<div className="unpacking-prompt">
 							<p className="unpacking-prompt-text">
-								Is this a need that often goes unmet in your life? Are there small ways you could top
-								up the tank, even a little?
+								Is this a need that often goes unmet in your life? Are there small ways you could move
+								towards it, top up the tank, even a little?
 							</p>
 							<textarea
 								className="unpacking-textarea"
@@ -313,8 +363,8 @@ const NeedUnpacking = () => {
 
 						<div className="unpacking-prompt">
 							<p className="unpacking-prompt-text">
-								Could this need be met in the current situation? Is the other person capable of meeting
-								it — or is there a better place to get it met?
+								Back to the issue at hand: <em>could</em> this need be met in the current situation? Is
+								the other person capable of meeting it — or is there a better place to get it met?
 							</p>
 							<textarea
 								className="unpacking-textarea"

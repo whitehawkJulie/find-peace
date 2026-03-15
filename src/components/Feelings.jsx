@@ -198,7 +198,14 @@ const Feelings = () => {
 				defaultListMode="full"
 				regulationOverlay={showRegulationOverlay}
 				regulationToggle={regulationToggle}
-				headerContent={showRegulationOverlay ? <RegulationLegend onHelp={regulationToggle?.onHelp} onClose={() => setShowRegulationOverlay(false)} /> : null}
+				headerContent={
+					showRegulationOverlay ? (
+						<RegulationLegend
+							onHelp={regulationToggle?.onHelp}
+							onClose={() => setShowRegulationOverlay(false)}
+						/>
+					) : null
+				}
 				tooltipEnhancer={
 					showRegulationOverlay
 						? (itemData, base) => {
@@ -314,39 +321,41 @@ Feelings.helpContent = (
 		<h3>Feelings</h3>
 
 		<p>
-			Feelings are part of your body's signal system. They let you know whether something important is happening —
-			often connected to your needs being met or unmet.
+			Feelings live in your body - they are part of your body's signal system. They let you know whether something
+			important is happening — often connected to your needs being met or unmet.
 		</p>
-
+		<p>
+			<p>
+				<a href="https://sarahpeyton.com/" target="_blank" rel="noopener noreferrer">
+					Sarah Peyton
+				</a>{" "}
+				says that our body’s job is to signal what’s happening inside us. When we ignore those signals, the body
+				can’t fully relax — it’s still trying to deliver the message. But when we notice and acknowledge what
+				it’s telling us, it’s as if the body says, “Message delivered!,” and it can finally relax.
+			</p>
+		</p>
 		<p>
 			When you can name what you're actually feeling, intensity often shifts. Clarity opens the doorway to
 			understanding what you need.
 		</p>
 
 		<p>
-			It's really useful to look through the entire list, checking for every feeling inside yourself, rather than
-			just scanning the list looking for words for feelings you already know. The surprising ones hold a LOT of
-			power to shift your experience.
+			It's really useful to look through the entire feelings list, checking for every feeling inside yourself,
+			rather than just scanning the list looking for words for feelings you already know. The surprising ones hold
+			a LOT of power to shift your experience.
 		</p>
 
-		<h3>Using the Feeling List</h3>
-
-		<ul>
-			<li>Tap once to select a feeling.</li>
-			<li>Tap again to mark it stronger.</li>
-			<li>Tap a third time to deselect.</li>
-			<li>You can select multiple feelings — even contradictory ones.</li>
-			<li>
-				If unsure, check your body. Feelings live in sensation: tight chest, heavy stomach, clenched jaw. What
-				word matches that?
-			</li>
-		</ul>
+		<p>
+			It's completely normal to feel lots of different things at once, some of them contradictory! Select any
+			feelings in the list that jump out at you.
+		</p>
 
 		<h3>Story Words</h3>
 
 		<p>
 			Many of the words we use as "feelings" actually contain a story about what someone else did. We call these{" "}
-			<strong>Story Words</strong>. This isn't wrong — it's just how we're taught to speak.
+			<strong>Story Words</strong>. This isn't wrong — it's just how we're taught to speak. (Traditional NVC
+			called these "Faux Feelings".)
 		</p>
 
 		<p>For example:</p>

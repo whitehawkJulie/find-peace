@@ -61,3 +61,61 @@
 .collab-section-content ul {
 	padding-left: 1.4rem;
 }
+
+/* ===== Inline input (simple request textarea) ===== */
+
+.collab-input-group {
+	margin-top: 1rem;
+	padding-top: 1rem;
+	border-top: 1px solid #e8e4de;
+}
+
+.collab-input-label {
+	display: block;
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: #444;
+	margin-bottom: 0.5rem;
+}
+
+.collab-textarea {
+	width: 100%;
+	padding: 0.55rem 0.7rem;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-size: 0.88rem;
+	font-family: inherit;
+	resize: vertical;
+	box-sizing: border-box;
+	background: #fefefe;
+}
+
+.collab-textarea:focus {
+	outline: none;
+	border-color: #7ab87a;
+}
+
+/* ===== "I'd like a conversation" checkbox ===== */
+
+.collab-checkbox-group {
+	margin-top: 1rem;
+	padding-top: 1rem;
+	border-top: 1px solid #e8e4de;
+}
+
+.collab-checkbox-label {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.9rem;
+	color: #444;
+	cursor: pointer;
+}
+
+.collab-checkbox-label input[type="checkbox"] {
+	width: 1rem;
+	height: 1rem;
+	flex-shrink: 0;
+	cursor: pointer;
+	accent-color: #5a9e6d;
+}

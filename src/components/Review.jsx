@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useWizard } from "./WizardContext";
 import { filterByState } from "../utils/renderHelpers";
+import { feelingTypes } from "../data/FeelingTypes";
+import { COLLABORATE_TIPS_TEXT } from "./ConversationsAndCollaboration";
 import "./Review.css";
 
 const Review = () => {
@@ -18,11 +20,14 @@ const Review = () => {
 		requestOfSelf,
 		requestOfOther,
 		whatsChangedResponses,
+		simpleRequest,
+		wantsConversation,
 		saveSession,
 	} = useWizard();
 
 	const [saved, setSaved] = useState(false);
 	const [copied, setCopied] = useState(false);
+	const [copiedConvo, setCopiedConvo] = useState(false);
 
 	const allFeelings = filterByState(feelings, "clicked");
 	const metNeeds = filterByState(needs, "double-clicked");
@@ -31,7 +36,7 @@ const Review = () => {
 	const hasFeelingsExplore = Object.values(feelingsExploreResponses).some((v) =>
 		Array.isArray(v) ? v.length > 0 : v && String(v).trim() !== "",
 	);
-	const hasBodySensations = (bodySensations?.selected?.length > 0) || bodySensations?.custom?.trim();
+	const hasBodySensations = bodySensations?.selected?.length > 0 || bodySensations?.custom?.trim();
 	const hasStrategies = Object.values(strategies).some((s) => s.length > 0);
 	const guessFeelingsAll = [
 		...filterByState(guessFeelings, "clicked"),
@@ -39,7 +44,7 @@ const Review = () => {
 	];
 	const guessNeedsAll = [...filterByState(guessNeeds, "clicked"), ...filterByState(guessNeeds, "double-clicked")];
 	const hasGuesses = guessObservation || guessFeelingsAll.length > 0 || guessNeedsAll.length > 0;
-	const hasRequests = requestOfSelf || requestOfOther;
+	const hasRequests = requestOfSelf || requestOfOther || simpleRequest?.trim();
 	const hasWhatsChanged = whatsChangedResponses?.before?.trim() || whatsChangedResponses?.differently?.trim();
 
 	const obsText =
@@ -63,10 +68,20 @@ const Review = () => {
 
 		if (hasFeelingsExplore) {
 			lines.push("Feeling exploration:");
-			Object.entries(feelingsExploreResponses).forEach(([_, value]) => {
-				const v = Array.isArray(value) ? value.join(", ") : String(value);
-				if (v.trim()) lines.push(v);
-			});
+			for (const [typeKey, typeData] of Object.entries(feelingTypes)) {
+				const filledPrompts = typeData.prompts.filter((p) => {
+					const val = feelingsExploreResponses[p.id];
+					return val && (Array.isArray(val) ? val.length > 0 : String(val).trim() !== "");
+				});
+				if (filledPrompts.length === 0) continue;
+				lines.push(`  ${typeData.title}:`);
+				for (const p of filledPrompts) {
+					const val = feelingsExploreResponses[p.id];
+					const v = Array.isArray(val) ? val.join(", ") : String(val);
+					lines.push(`    Q: ${p.question}`);
+					lines.push(`    A: ${v}`);
+				}
+			}
 			lines.push("");
 		}
 
@@ -90,11 +105,13 @@ const Review = () => {
 			for (const [name, exp] of exploredNeeds) {
 				lines.push(`  ${name}:`);
 				if (exp.coreSpecific) lines.push(`    About this need: ${exp.coreSpecific}`);
+				if (exp.differentiation) lines.push(`    Which flavour: ${exp.differentiation}`);
+				if (exp.whereMetResponse) lines.push(`    Where to find it: ${exp.whereMetResponse}`);
 				if (exp.unmetFeeling) lines.push(`    When it's not met: ${exp.unmetFeeling}`);
 				if (exp.metFeeling) lines.push(`    When it is met: ${exp.metFeeling}`);
 				if (exp.metCircumstances) lines.push(`    What helped: ${exp.metCircumstances}`);
-			if (exp.oftenUnmet) lines.push(`    Often unmet / topping up: ${exp.oftenUnmet}`);
-			if (exp.whereToMeet) lines.push(`    Where to get it met: ${exp.whereToMeet}`);
+				if (exp.oftenUnmet) lines.push(`    Often unmet / topping up: ${exp.oftenUnmet}`);
+				if (exp.whereToMeet) lines.push(`    Where to get it met: ${exp.whereToMeet}`);
 			}
 			lines.push("");
 		}
@@ -117,18 +134,23 @@ const Review = () => {
 			if (guessNeedsAll.length > 0) lines.push(`Their needs might include: ${guessNeedsAll.join(", ")}`, "");
 		}
 
+		if (hasWhatsChanged) {
+			heading("Exploring what's changed");
+			if (whatsChangedResponses?.before?.trim()) lines.push(`Before: ${whatsChangedResponses.before.trim()}`, "");
+			if (whatsChangedResponses?.differently?.trim())
+				lines.push(`What's different now: ${whatsChangedResponses.differently.trim()}`, "");
+		}
+
 		if (hasRequests) {
 			heading("Requests");
+			if (simpleRequest?.trim()) lines.push(`Request: ${simpleRequest.trim()}`, "");
 			if (requestOfSelf) lines.push(`Of myself: ${requestOfSelf}`);
 			if (requestOfOther) lines.push(`Of them: ${requestOfOther}`);
 		}
 
-		if (hasWhatsChanged) {
-			heading("Exploring what's changed");
-			if (whatsChangedResponses?.before?.trim())
-				lines.push(`Before: ${whatsChangedResponses.before.trim()}`, "");
-			if (whatsChangedResponses?.differently?.trim())
-				lines.push(`What's different now: ${whatsChangedResponses.differently.trim()}`, "");
+		if (wantsConversation) {
+			heading("Conversation guide");
+			lines.push(COLLABORATE_TIPS_TEXT);
 		}
 
 		logSelections();
@@ -163,6 +185,19 @@ const Review = () => {
 				just taken.
 			</p>
 
+			<div className="review-actions">
+				<button onClick={generateSummaryText} className="review-action-btn">
+					{copied ? "Copied!" : "Copy to Clipboard"}
+				</button>
+				<button
+					onClick={handleSave}
+					disabled={saved}
+					className="review-action-btn review-action-btn-secondary"
+					title="Save to local browser storage, can reload from Settings">
+					{saved ? "Saved to Journal" : "Save to Journal"}
+				</button>
+			</div>
+
 			<h2>What was happening for you?</h2>
 
 			{obsText && (
@@ -182,10 +217,27 @@ const Review = () => {
 			{hasFeelingsExplore && (
 				<div className="review-section">
 					<h3>Feeling exploration</h3>
-					{Object.entries(feelingsExploreResponses).map(([key, value]) => {
-						if (!value || (Array.isArray(value) && value.length === 0) || String(value).trim() === "")
-							return null;
-						return <p key={key}>{Array.isArray(value) ? value.join(", ") : String(value)}</p>;
+					{Object.entries(feelingTypes).map(([typeKey, typeData]) => {
+						const filledPrompts = typeData.prompts.filter((p) => {
+							const val = feelingsExploreResponses[p.id];
+							return val && (Array.isArray(val) ? val.length > 0 : String(val).trim() !== "");
+						});
+						if (filledPrompts.length === 0) return null;
+						return (
+							<div key={typeKey} className="review-exploration">
+								<strong>{typeData.title}</strong>
+								{filledPrompts.map((p) => {
+									const val = feelingsExploreResponses[p.id];
+									return (
+										<p key={p.id}>
+											<em>{p.question}</em>
+											<br />
+											{Array.isArray(val) ? val.join(", ") : String(val)}
+										</p>
+									);
+								})}
+							</div>
+						);
 					})}
 				</div>
 			)}
@@ -221,6 +273,16 @@ const Review = () => {
 							{exp.coreSpecific && (
 								<p>
 									<em>About this need:</em> {exp.coreSpecific}
+								</p>
+							)}
+							{exp.differentiation && (
+								<p>
+									<em>Which flavour:</em> {exp.differentiation}
+								</p>
+							)}
+							{exp.whereMetResponse && (
+								<p>
+									<em>Where to find it:</em> {exp.whereMetResponse}
 								</p>
 							)}
 							{exp.unmetFeeling && (
@@ -296,24 +358,6 @@ const Review = () => {
 				</>
 			)}
 
-			{hasRequests && (
-				<>
-					<h2>What you might like to do next</h2>
-					<div className="review-section">
-						{requestOfSelf && (
-							<p>
-								<span className="review-label">Of myself:</span> {requestOfSelf}
-							</p>
-						)}
-						{requestOfOther && (
-							<p>
-								<span className="review-label">Of them:</span> {requestOfOther}
-							</p>
-						)}
-					</div>
-				</>
-			)}
-
 			{hasWhatsChanged && (
 				<>
 					<h2>Exploring what's changed</h2>
@@ -334,62 +378,53 @@ const Review = () => {
 				</>
 			)}
 
-			<div className="review-actions">
-				<button onClick={generateSummaryText} className="review-action-btn">
-					{copied ? "Copied!" : "Copy to Clipboard"}
-				</button>
-				<button
-					onClick={handleSave}
-					disabled={saved}
-					className="review-action-btn review-action-btn-secondary"
-					title="Warning, will be deleted any time you clear the browser cache">
-					{saved ? "Saved to Journal" : "Save to Journal"}
-				</button>
-			</div>
+			{hasRequests && (
+				<>
+					<h2>What you might like to do next</h2>
+					<div className="review-section">
+						{simpleRequest?.trim() && (
+							<p>
+								<span className="review-label">Request:</span> {simpleRequest.trim()}
+							</p>
+						)}
+						{requestOfSelf && (
+							<p>
+								<span className="review-label">Of myself:</span> {requestOfSelf}
+							</p>
+						)}
+						{requestOfOther && (
+							<p>
+								<span className="review-label">Of them:</span> {requestOfOther}
+							</p>
+						)}
+					</div>
+				</>
+			)}
+
+			{wantsConversation && (
+				<>
+					<h2>Conversation guide</h2>
+					<div className="review-section">
+						<h3>Tips for this conversation</h3>
+						<pre className="review-convo-tips">{COLLABORATE_TIPS_TEXT}</pre>
+						<button
+							className="review-action-btn review-action-btn-secondary review-action-btn-small"
+							onClick={() => {
+								navigator.clipboard.writeText(COLLABORATE_TIPS_TEXT).then(() => {
+									setCopiedConvo(true);
+									setTimeout(() => setCopiedConvo(false), 2500);
+								});
+							}}>
+							{copiedConvo ? "Copied!" : "Copy conversation guide"}
+						</button>
+					</div>
+				</>
+			)}
 		</div>
 	);
 };
 
 Review.title = "Review";
-Review.helpContent = (
-	<>
-		<p>
-			This is a summary of everything you've worked through. Take a moment to read through it — you might be
-			surprised how much has shifted since you started.
-		</p>
-
-		<h4>Putting it all together</h4>
-		<p>
-			The classic NVC template sounds like this: "When I see/hear [observation], I feel [feeling], because I need
-			[need]. Would you be willing to [request]?"
-		</p>
-		<p>
-			You don't have to say it exactly like that — it can sound robotic. What matters is that all four elements
-			are present: a clean observation, genuine feelings, universal needs, and a concrete request.
-		</p>
-
-		<h4>What to do with this</h4>
-		<ul>
-			<li>
-				<strong>Copy to clipboard</strong> — paste into a note, message, or journal.
-			</li>
-			<li>
-				<strong>Save to journal</strong> — keep it here so you can revisit your sessions and track patterns over
-				time.
-			</li>
-			<li>
-				You might use this as preparation for a real conversation, or simply as a self-empathy exercise — both
-				are valuable.
-			</li>
-		</ul>
-
-		<h4>A note on sharing</h4>
-		<p>
-			If you plan to share this with someone, remember: leading with empathy (guessing their feelings and needs
-			first) is often more effective than leading with your own. People are much more willing to hear us after
-			they feel heard.
-		</p>
-	</>
-);
+Review.helpContent = null;
 
 export default Review;

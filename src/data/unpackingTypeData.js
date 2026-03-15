@@ -22,6 +22,7 @@ export const unpackingTypeData = {
 		meaning:
 			"This need lives in the space between people. Under activation, it can tangle into protest, blame, or longing for reassurance rather than clear connection.",
 		phase0Focus: "Looking for whether this is about connection, protection from disconnection, or reassurance.",
+		discriminationHint: "the connection (or disconnection) between you and this person",
 		questions: [
 			"When you say {need}, is it more about connection — or protection from disconnection?",
 			"Is it more about being understood — or getting agreement?",
@@ -43,6 +44,7 @@ export const unpackingTypeData = {
 		meaning:
 			"This need often activates when something feels threatened or unsafe. It can tighten around fear, bracing, or nervous-system protection.",
 		phase0Focus: "Looking for what feels threatened, unsafe, or at risk beneath this.",
+		discriminationHint: "feeling safe, settled, or protected",
 		questions: [
 			"When you say {need}, what feels at risk or unsafe right now — even slightly?",
 			"Is this mostly about the outside feeling steady, or your nervous system feeling steadier?",
@@ -62,6 +64,7 @@ export const unpackingTypeData = {
 		meaning:
 			"This need often arises when there is a sense of constraint, control, or loss of choice. It can tangle into protest or rigidity around independence.",
 		phase0Focus: "Looking for where choice, permission, or boundaries may be restricted.",
+		discriminationHint: "having choice, freedom, or autonomy",
 		questions: [
 			"When you say {need}, where do you feel constrained or controlled?",
 			"Is this about having options — or having the right to say no?",
@@ -82,6 +85,7 @@ export const unpackingTypeData = {
 		meaning:
 			"This need is broad and existential. Under activation, it can become diffuse, abstract, or overwhelming. It usually benefits from grounding rather than probing for something underneath.",
 		phase0Focus: "Grounding abstraction into lived experience rather than searching for a deeper layer.",
+		discriminationHint: "deeper meaning, aliveness, or purpose",
 		questions: [
 			"When you say {need}, what would be different in your lived experience if it were present?",
 			"Is this about direction (purpose) — or about aliveness (feeling lit up)?",
@@ -103,6 +107,7 @@ export const unpackingTypeData = {
 		meaning:
 			"This need relates to self-worth, alignment, and inner coherence. Under activation, it can tangle into shame, self-judgment, or identity contraction.",
 		phase0Focus: "Looking for dignity, self-alignment, or unacknowledged grief underneath.",
+		discriminationHint: "your sense of self, worth, or inner alignment",
 		questions: [
 			"When you say {need}, is there a part of you asking to be on your own side?",
 			"Is this about staying aligned with what you value — or repairing something inside?",

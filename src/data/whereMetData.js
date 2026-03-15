@@ -7,6 +7,14 @@ export const WHERE_MET = Object.freeze({
 	LIFE: "life",
 });
 
+// Short phrases used to build the "where would you look to find this?" question
+export const whereMetLabels = {
+	[WHERE_MET.IN_ME]: "within yourself",
+	[WHERE_MET.BETWEEN_US]: "in this relationship or from this person",
+	[WHERE_MET.ENVIRONMENT]: "through practical conditions or resources",
+	[WHERE_MET.LIFE]: "in the broader flow of your life",
+};
+
 const { IN_ME, BETWEEN_US, ENVIRONMENT, LIFE } = WHERE_MET;
 
 export const needWhereMetStructure = {
