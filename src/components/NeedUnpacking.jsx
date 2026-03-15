@@ -95,6 +95,7 @@ const NeedUnpacking = () => {
 	const currentNeedData = currentExploringNeed ? getNeedData(currentExploringNeed) : null;
 	const specificQ = currentNeedData?.coreQuestion ?? null;
 	const differentiationQuestions = currentNeedData?.differentiationQuestions ?? [];
+	const directionPrompts = currentNeedData?.directionPrompts ? Object.values(currentNeedData.directionPrompts) : [];
 
 	// ── Helpers ──
 	const currentData = currentExploringNeed ? needExplorations[currentExploringNeed] || {} : {};
@@ -244,6 +245,10 @@ const NeedUnpacking = () => {
 				</button>
 				{openStage2 && (
 					<div className="unpacking-section-body">
+						<p>
+							<em>Of course, these questions are all optional, skip them if they don't speak to you!</em>
+						</p>
+
 						{specificQ && (
 							<div className="unpacking-prompt">
 								<p className="unpacking-prompt-text">{specificQ}</p>
@@ -278,6 +283,16 @@ const NeedUnpacking = () => {
 									onChange={(e) => updateField("whereMetResponse", e.target.value)}
 								/>
 							</div>
+						)}
+
+						{directionPrompts.length > 0 && (
+							<ul className="unpacking-direction-list">
+								{directionPrompts.map((prompt, i) => (
+									<li key={i} className="unpacking-direction-item">
+										{prompt}
+									</li>
+								))}
+							</ul>
 						)}
 
 						<div className="unpacking-prompt">

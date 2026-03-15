@@ -30,7 +30,6 @@ const LIFE = "life";
 // const IDENTITY = "integrity_identity";
 
 export const allNeeds = [
-
 	// ═══════════════════════════════════════════════════════════
 	// SUBSISTENCE — Physical sustenance
 	// ═══════════════════════════════════════════════════════════
@@ -40,8 +39,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [ENV], themes: ["practical"] },
-		coreQuestion: "What does having enough clean air actually look like for you right now? Is it about your environment, or a feeling of being able to breathe freely?",
-		differentiationQuestions: [],
+		coreQuestion: "Is this about the air around you, or about the feeling of being able to breathe easily?",
 		helpText: "Clean air to breathe",
 	},
 	{
@@ -50,8 +48,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [ENV], themes: ["practical"] },
-		coreQuestion: "Is this about having enough food, or about the quality and nourishment of what you're eating? What would feel satisfying right now?",
-		differentiationQuestions: [],
+		coreQuestion: "Is this about having enough food, or about the quality and nourishment of what you're eating?",
 		helpText: "Nourishing and satisfying meals",
 	},
 	{
@@ -60,10 +57,13 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical"] },
-		coreQuestion: "What aspect of your health feels most alive right now — is it about energy, pain, capacity, or something else?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"What aspect of your health feels most present right now — energy, pain, physical capacity, or something else?",
+		directionPrompts: {
+			[IN_ME]:
+				"You might notice what your body is most needing from you right now — care, gentleness, rest, or attention.",
+			[ENV]: "You might explore what practical conditions, resources, or support would most help your health right now.",
+		},
 		helpText: "Physical well-being",
 	},
 	{
@@ -72,10 +72,13 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical", "agency_autonomy"] },
-		coreQuestion: "What kind of movement is calling you? Is it about exercise, freedom to go somewhere, or just not feeling stuck?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"What kind of movement is calling you — exercise, freedom to go somewhere, or simply not feeling stuck?",
+		directionPrompts: {
+			[IN_ME]:
+				"You might notice what kind of movement your body wants right now — stretching, walking, shifting position, or something else.",
+			[ENV]: "You might explore what practical changes would give you more freedom or room to move.",
+		},
 		helpText: "Freedom to move and be active",
 	},
 	{
@@ -84,8 +87,8 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [ENV], themes: ["protective_safety"] },
-		coreQuestion: "Is there a specific physical threat you're aware of, or is it a more general sense of wanting to feel safe in your body and surroundings?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is there a specific physical threat, or more of a general need to feel safe in your body and surroundings?",
 		helpText: "Freedom from physical harm",
 	},
 	{
@@ -94,10 +97,13 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical"] },
-		coreQuestion: "Is this about literal sleep, or about a deeper kind of rest — permission to stop, to not be productive for a while?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"Is this about literal sleep, or about a deeper kind of rest — permission to stop and not be productive for a while?",
+		directionPrompts: {
+			[IN_ME]:
+				"You might notice whether what’s most needed is sleep, stillness, permission to stop, or relief from inner pressure.",
+			[ENV]: "You might explore what practical conditions would make rest more possible right now.",
+		},
 		helpText: "Deep rest and renewal",
 	},
 	{
@@ -107,7 +113,6 @@ export const allNeeds = [
 		category: "Physical sustenance",
 		tags: { whereMet: [ENV], themes: ["practical"] },
 		coreQuestion: "Is this about having a physical place to live, or about feeling at home and settled somewhere?",
-		differentiationQuestions: [],
 		helpText: "Safe and secure housing",
 	},
 	{
@@ -116,10 +121,13 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
-		coreQuestion: "What kind of touch are you longing for? A hug, a hand on your shoulder, or simply being physically close to someone?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"What kind of touch are you longing for — a hug, a hand on your shoulder, or simply being physically close to someone?",
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might notice whether you’re longing for comfort, closeness, reassurance, or simple physical presence from someone.",
+			[IN_ME]: "You might explore whether there’s a way to bring your body some comfort or soothing right now.",
+		},
 		helpText: "Comforting physical contact",
 	},
 	{
@@ -128,8 +136,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [ENV], themes: ["practical"] },
-		coreQuestion: "Is this about literal access to water, or does it point to something about basic sustenance and having your fundamental needs met?",
-		differentiationQuestions: [],
+		coreQuestion: "Is this about literal access to water, or about your basic needs not being met?",
 		helpText: "Clean water for drinking and hygiene",
 	},
 
@@ -142,10 +149,13 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [ENV, IN_ME], themes: ["protective_safety"] },
-		coreQuestion: "Is this about wanting things around you to be organised, or about an inner sense of knowing what comes next?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — through practical conditions or resources, or within yourself?",
-		],
+		coreQuestion:
+			"Is this about wanting things around you to be organised, or about an inner sense of knowing what comes next?",
+		directionPrompts: {
+			[ENV]: "You might explore what practical structure, order, or support would help things feel more manageable.",
+			[IN_ME]:
+				"You might notice whether what’s most needed is inner steadiness, predictability, or a clearer sense of what comes next.",
+		},
 		helpText: "Clarity and organization",
 	},
 	{
@@ -154,8 +164,8 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [ENV], themes: ["protective_safety"] },
-		coreQuestion: "Is this about wanting the conflict around you to stop, or about finding a way to feel less affected by it?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is this about wanting the conflict around you to stop, or about finding a way to feel less affected by it?",
 		helpText: "Safety from external conflict",
 	},
 	{
@@ -164,8 +174,8 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [IN_ME], themes: ["protective_safety"] },
-		coreQuestion: "What's currently disturbing your peace of mind? Is it worry about the future, regret about the past, or something unresolved right now?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"What’s disturbing your peace of mind right now — worry about the future, regret about the past, or something unresolved?",
 		helpText: "Freedom from internal turmoil",
 	},
 	{
@@ -174,8 +184,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [ENV], themes: ["protective_safety"] },
-		coreQuestion: "What are you wanting protection from? Is it a person, a situation, or your own feelings?",
-		differentiationQuestions: [],
+		coreQuestion: "What are you wanting protection from — a person, a situation, or your own feelings?",
 		helpText: "Being guarded from harm",
 	},
 	{
@@ -184,10 +193,14 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["protective_safety"] },
-		coreQuestion: "What would emotional safety look like here — being able to say what you feel without being judged, or knowing you won't be hurt for being open?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or in this relationship or from this person?",
-		],
+		coreQuestion:
+			"What would emotional safety look like here — being able to say what you feel without being judged, or knowing you won’t be hurt for being open?",
+		directionPrompts: {
+			[IN_ME]:
+				"You might notice what would help you feel safer inside yourself right now — self-trust, steadiness, gentleness, or permission.",
+			[BETWEEN_US]:
+				"You might explore what would help this relationship feel safer — more care, less judgment, clearer boundaries, or more openness.",
+		},
 		helpText: "Freedom to be emotionally vulnerable",
 	},
 	{
@@ -195,12 +208,21 @@ export const allNeeds = [
 		label: "Stability",
 		family: "Subsistence",
 		category: "Security",
-		tags: { whereMet: [ENV, IN_ME, BETWEEN_US], themes: ["protective_safety", "relational_field", "practical"] },
-		coreQuestion: "What part of your life feels unsteady right now? Is it practical things, a relationship, or your own inner state?",
+		tags: {
+			whereMet: [ENV, IN_ME, BETWEEN_US],
+			themes: ["protective_safety", "relational_field", "practical"],
+		},
+		coreQuestion:
+			"What part of your life feels unsteady right now — practical things, a relationship, or your own inner state?",
 		differentiationQuestions: [
-			"Is this more about feeling safe, settled, or protected — or about the connection (or disconnection) between you and this person?",
-			"Where would you most hope to find this met — through practical conditions or resources, within yourself, or in this relationship or from this person?",
+			"Is the instability mainly in practical circumstances, in a relationship, or in your inner state?",
 		],
+		directionPrompts: {
+			[ENV]: "You might explore what practical support or steadier conditions would help life feel more stable.",
+			[IN_ME]:
+				"You might notice what would help you feel more settled inside — grounding, reassurance, rhythm, or rest.",
+			[BETWEEN_US]: "You might explore what would make this relationship feel more steady or dependable.",
+		},
 		helpText: "Steadiness in life circumstances",
 	},
 	{
@@ -209,11 +231,16 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["protective_safety", "relational_field"] },
-		coreQuestion: "Is this about trusting a specific person, or about a more general sense that things will be okay?",
+		coreQuestion:
+			"Is this about trusting a specific person, or about a more general sense that things will be okay?",
 		differentiationQuestions: [
-			"Is this more about feeling safe, settled, or protected — or about the connection (or disconnection) between you and this person?",
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
+			"Is this about trusting this person, or about trusting that things will be okay overall?",
 		],
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might explore what would help this person feel more trustworthy — consistency, honesty, care, or follow-through.",
+			[IN_ME]: "You might notice what would help you feel more able to trust yourself or life right now.",
+		},
 		helpText: "Confidence in people and systems",
 	},
 
@@ -226,8 +253,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "What kind of affection are you longing for — words, gestures, physical warmth, or simply knowing someone cares?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"What kind of affection are you longing for — words, gestures, physical warmth, or simply knowing someone cares?",
 		helpText: "Expressions of emotional warmth and connection",
 	},
 	{
@@ -236,11 +263,16 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
-		coreQuestion: "What would appreciation look like here? Is it about being thanked, being noticed, or having your effort acknowledged?",
+		coreQuestion:
+			"What would appreciation look like here — being thanked, being noticed, or having your effort acknowledged?",
 		differentiationQuestions: [
-			"Is this more about the connection (or disconnection) between you and this person — or about your sense of self, worth, or inner alignment?",
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
+			"Is this more about being appreciated by someone else, or about recognising your own worth?",
 		],
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might notice whether you're longing for recognition, gratitude, or acknowledgment from someone.",
+			[IN_ME]: "You might explore whether there's a way to recognise your own effort or value here.",
+		},
 		helpText: "Being seen and valued",
 	},
 	{
@@ -249,8 +281,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "When you say you need attention, is it about someone being present with you, or about feeling like you matter enough to be noticed?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"When you say you need attention, is it about someone being present with you, or about feeling like you matter enough to be noticed?",
 		helpText: "Being genuinely noticed",
 	},
 	{
@@ -259,8 +291,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "Is this about physical closeness, emotional closeness, or both? What does being close actually look like for you?",
-		differentiationQuestions: [],
+		coreQuestion: "Is this about physical closeness, emotional closeness, or both?",
 		helpText: "Emotional and/or physical intimacy",
 	},
 	{
@@ -269,8 +300,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "Is this connection to a specific person, to a group, or to something bigger — life, nature, meaning?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is this connection to a specific person, to a group, or to something bigger — life, nature, or meaning?",
 		helpText: "Feeling linked to others and to life",
 	},
 	{
@@ -280,7 +311,6 @@ export const allNeeds = [
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
 		coreQuestion: "Is this about having someone to do things with, or about not feeling alone in your experience?",
-		differentiationQuestions: [],
 		helpText: "Enjoying life with others",
 	},
 	{
@@ -289,11 +319,12 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "protective_safety"] },
-		coreQuestion: "Is the harmony you're wanting about people getting along, or about feeling at ease in your relationships?",
-		differentiationQuestions: [
-			"Is this more about the connection (or disconnection) between you and this person — or about feeling safe, settled, or protected?",
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"Is the harmony you're wanting about people getting along, or about feeling at ease in your relationships?",
+		directionPrompts: {
+			[BETWEEN_US]: "You might explore what would help this relationship feel more cooperative or peaceful.",
+			[IN_ME]: "You might notice what would help you feel more at ease or settled in this relationship.",
+		},
 		helpText: "Cooperation and mutual support",
 	},
 	{
@@ -302,8 +333,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "What does intimacy mean for you here — emotional openness, physical closeness, or the feeling of being truly known?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"What does intimacy mean for you here — emotional openness, physical closeness, or the feeling of being truly known?",
 		helpText: "Mutual vulnerability and closeness",
 	},
 	{
@@ -312,10 +343,14 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
-		coreQuestion: "When you notice this need for love, is it about receiving it, giving it, or knowing it's there even when it's not being said?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"When you notice this need for love, is it about receiving it, giving it, or knowing it’s there even when it isn’t being said?",
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might notice whether you're longing to receive love, express love, or feel reassured that it’s there.",
+			[IN_ME]:
+				"You might explore whether there’s a way to bring more kindness or care toward yourself right now.",
+		},
 		helpText: "Unconditional acceptance and care",
 	},
 	{
@@ -324,10 +359,11 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
-		coreQuestion: "Are you wanting to be nurtured by someone, or are you noticing a need to nurture yourself?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion: "Are you wanting to be nurtured by someone, or noticing a need to nurture yourself?",
+		directionPrompts: {
+			[BETWEEN_US]: "You might notice what kind of care or gentleness you’re hoping to receive from someone.",
+			[IN_ME]: "You might explore whether there’s a way to bring yourself some care or gentleness right now.",
+		},
 		helpText: "Care that supports growth and healing",
 	},
 	{
@@ -336,8 +372,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "Is this about physical desire, about feeling wanted, or about a deeper sense of being fully alive with another person?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is this about physical desire, about feeling wanted, or about a deeper sense of aliveness with another person?",
 		helpText: "Authentic physical intimacy",
 	},
 	{
@@ -346,10 +382,15 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, ENV, IN_ME], themes: ["relational_field", "practical"] },
-		coreQuestion: "What kind of support would help most — someone to listen, someone to help practically, or just knowing someone has your back?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in this relationship or from this person, through practical conditions or resources, or within yourself?",
-		],
+		coreQuestion:
+			"What kind of support would help most — someone to listen, practical help, or simply knowing someone has your back?",
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might notice whether you're longing for emotional support, understanding, or someone simply being there with you.",
+			[ENV]: "You might explore what practical help, resources, or changes would make things easier.",
+			[IN_ME]:
+				"You might notice whether there's a way to support yourself with encouragement, kindness, or clarity.",
+		},
 		helpText: "Practical or emotional backing",
 	},
 	{
@@ -358,8 +399,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "What would tenderness look like here — a softer tone, a gentle gesture, or simply someone being careful with you?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"What would tenderness look like here — a softer tone, a gentle gesture, or someone being especially careful with you?",
 		helpText: "Gentle, caring touch or tone",
 	},
 	{
@@ -368,8 +409,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "Is the warmth you're wanting from a specific person, or is it about the overall atmosphere around you?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is the warmth you're wanting from a specific person, or about the overall atmosphere around you?",
 		helpText: "A sense of friendliness and care",
 	},
 
@@ -382,11 +423,11 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["integrity_identity", "relational_field"] },
-		coreQuestion: "Who do you most want to matter to right now? And what would tell you that you do?",
-		differentiationQuestions: [
-			"Is this more about your sense of self, worth, or inner alignment — or about the connection (or disconnection) between you and this person?",
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion: "Who do you most want to matter to right now — someone else, or yourself?",
+		directionPrompts: {
+			[BETWEEN_US]: "You might notice what would help you feel valued or important to this person.",
+			[IN_ME]: "You might explore what would help you recognise your own worth or significance here.",
+		},
 		helpText: "To know that I am valued",
 	},
 	{
@@ -395,11 +436,13 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["integrity_identity", "relational_field"] },
-		coreQuestion: "What part of you is wanting acceptance right now — a decision you made, something you feel, or just who you are?",
-		differentiationQuestions: [
-			"Is this more about your sense of self, worth, or inner alignment — or about the connection (or disconnection) between you and this person?",
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"What part of you is wanting acceptance right now — a decision you made, something you feel, or simply who you are?",
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might notice whether you're longing for someone to accept a part of you that feels vulnerable or exposed.",
+			[IN_ME]: "You might explore whether there's a way to bring more acceptance toward yourself right now.",
+		},
 		helpText: "Welcomed just as I am",
 	},
 	{
@@ -408,8 +451,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "What would care look like in this situation — someone checking in, offering help, or just noticing you're struggling?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"What would care look like in this situation — someone checking in, offering help, or simply noticing that you're struggling?",
 		helpText: "Concern for my well-being",
 	},
 	{
@@ -418,10 +461,14 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
-		coreQuestion: "Are you wanting compassion from someone else, or noticing you need more compassion toward yourself?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"Are you wanting compassion from someone else, or noticing you need more compassion toward yourself?",
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might notice whether you're longing for someone to respond with understanding and warmth toward your pain.",
+			[IN_ME]:
+				"You might explore whether there's a way to bring yourself some gentleness or understanding right now.",
+		},
 		helpText: "Understanding and warmth in response to suffering",
 	},
 	{
@@ -430,8 +477,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "Is this about someone thinking of you before acting, or about your needs being included in a decision?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is this about someone thinking of you before acting, or about your needs being included in a decision?",
 		helpText: "Having my needs factored in",
 	},
 	{
@@ -440,8 +487,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "Is this about someone feeling what you're feeling, or about them just showing they understand what it's like for you?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is this about someone understanding what it's like for you, or about them feeling emotionally with you?",
 		helpText: "Emotional resonance and understanding",
 	},
 	{
@@ -450,11 +497,12 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
-		coreQuestion: "What would respect look like in this situation — being spoken to differently, having your boundaries honoured, or your perspective taken seriously?",
-		differentiationQuestions: [
-			"Is this more about the connection (or disconnection) between you and this person — or about your sense of self, worth, or inner alignment?",
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"What would respect look like here — being spoken to differently, having your boundaries honoured, or your perspective taken seriously?",
+		directionPrompts: {
+			[BETWEEN_US]: "You might notice what behaviour from this person would signal respect to you.",
+			[IN_ME]: "You might explore how you could honour your own boundaries or values here.",
+		},
 		helpText: "Being valued and honored",
 	},
 	{
@@ -463,11 +511,13 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
-		coreQuestion: "What would acknowledgement look like — someone saying they see what you did, what you went through, or what you're feeling?",
-		differentiationQuestions: [
-			"Is this more about the connection (or disconnection) between you and this person — or about your sense of self, worth, or inner alignment?",
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"What would acknowledgement look like — someone recognising what you did, what you went through, or what you're feeling?",
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might notice whether you're longing for someone to recognise your effort, experience, or feelings.",
+			[IN_ME]: "You might explore whether there’s a way to acknowledge your own experience or effort.",
+		},
 		helpText: "Having your experience or contribution recognised",
 	},
 	{
@@ -476,8 +526,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "Is this about someone listening all the way through (no interrupting / defending), or about knowing your words are actually landing and influencing what happens next?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is this about someone listening all the way through, or about knowing your words are actually landing and influencing what happens next?",
 		helpText: "To know my words are received and taken in",
 	},
 	{
@@ -486,11 +536,13 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
-		coreQuestion: "Is this about being noticed and recognised (your experience matters), or about someone really getting what it's like to be you right now?",
-		differentiationQuestions: [
-			"Is this more about the connection (or disconnection) between you and this person — or about your sense of self, worth, or inner alignment?",
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"Is this about being noticed and recognised, or about someone really understanding what it's like to be you right now?",
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might notice whether you're longing for someone to recognise your experience or presence.",
+			[IN_ME]: "You might explore whether there's a way to recognise and honour your own experience.",
+		},
 		helpText: "To have my experience and presence acknowledged",
 	},
 	{
@@ -499,8 +551,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "Is this about someone understanding you deeply over time, or about being understood in this particular moment?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is this about being understood in this moment, or about someone understanding you deeply over time?",
 		helpText: "Deep recognition of who I am",
 	},
 	{
@@ -509,11 +561,12 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "protective_safety"] },
-		coreQuestion: "Is this about someone believing you're capable, believing you're honest, or giving you the benefit of the doubt?",
-		differentiationQuestions: [
-			"Is this more about the connection (or disconnection) between you and this person — or about feeling safe, settled, or protected?",
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"Is this about someone believing in your honesty or capability, or about feeling able to trust yourself?",
+		directionPrompts: {
+			[BETWEEN_US]: "You might notice what behaviour from this person would signal trust in you.",
+			[IN_ME]: "You might explore whether there's a way to trust your own judgment or intentions more here.",
+		},
 		helpText: "Confidence placed in me",
 	},
 	{
@@ -522,10 +575,12 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
-		coreQuestion: "Is this about wanting to understand someone specific, or about a more general wish to connect by understanding?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"Is this about understanding a specific person, or about a more general wish to connect through understanding?",
+		directionPrompts: {
+			[BETWEEN_US]: "You might explore what might help you understand this person's experience more clearly.",
+			[IN_ME]: "You might notice what would support your own openness or curiosity here.",
+		},
 		helpText: "Being able to grasp others' experience",
 	},
 	{
@@ -534,11 +589,14 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
-		coreQuestion: "Is this about both of you seeing each other clearly, or about the absence of that — feeling invisible while the other person isn't really looking?",
-		differentiationQuestions: [
-			"Is this more about the connection (or disconnection) between you and this person — or about your sense of self, worth, or inner alignment?",
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"Is this about both of you seeing each other clearly, or about the absence of that — feeling invisible while the other person isn’t really looking?",
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might explore what would help both of you recognise and understand each other more clearly.",
+			[IN_ME]:
+				"You might notice whether there's a way to hold onto your own sense of self even if the other person doesn't see you clearly.",
+		},
 		helpText: "Seeing and being seen by another",
 	},
 	{
@@ -547,10 +605,12 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
-		coreQuestion: "What would kindness look like right now — a gentle word, a thoughtful action, or simply the absence of harshness?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"What would kindness look like right now — a gentle word, a thoughtful action, or simply the absence of harshness?",
+		directionPrompts: {
+			[BETWEEN_US]: "You might notice what behaviour from this person would feel kind or considerate to you.",
+			[IN_ME]: "You might explore whether there's a way to bring more gentleness toward yourself in this moment.",
+		},
 		helpText: "Gentle and benevolent care",
 	},
 
@@ -563,8 +623,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "What kind of community are you longing for — people who share your interests, your values, or just a sense of being part of something?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"What kind of community are you longing for — people who share your interests, your values, or simply a sense of being part of something?",
 		helpText: "Belonging to a group",
 	},
 	{
@@ -573,11 +633,11 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "protective_safety"] },
-		coreQuestion: "Where do you most want to belong right now — a family, a group, a place, or just with one person? What would tell you that you do belong?",
-		differentiationQuestions: [
-			"Is this more about the connection (or disconnection) between you and this person — or about feeling safe, settled, or protected?",
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion: "Where do you most want to belong right now — a group, a place, or with a particular person?",
+		directionPrompts: {
+			[BETWEEN_US]: "You might notice what would help you feel welcomed or included with these people.",
+			[IN_ME]: "You might explore what would help you feel more at home or secure within yourself.",
+		},
 		helpText: "Feeling part of something",
 	},
 	{
@@ -586,11 +646,16 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field", "protective_safety"] },
-		coreQuestion: "Is this about wanting someone to follow through consistently over time — not just once, but in a way you can depend on?",
+		coreQuestion:
+			"Is this about wanting someone to follow through consistently, or about needing systems or conditions you can depend on?",
 		differentiationQuestions: [
-			"Is this more about the connection (or disconnection) between you and this person — or about feeling safe, settled, or protected?",
-			"Where would you most hope to find this met — in this relationship or from this person, or through practical conditions or resources?",
+			"Is this mainly about a person’s follow-through, or about needing more dependable systems or conditions?",
 		],
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might notice what kind of follow-through or consistency you are hoping for from this person.",
+			[ENV]: "You might explore what structures or systems would make things feel more dependable.",
+		},
 		helpText: "Steady, predictable follow-through over time",
 	},
 	{
@@ -599,8 +664,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "Is this about being able to express yourself, about being heard, or about wanting more open dialogue?",
-		differentiationQuestions: [],
+		coreQuestion: "Is this about expressing yourself clearly, being heard, or wanting more open dialogue?",
 		helpText: "Sharing and receiving information",
 	},
 	{
@@ -609,8 +673,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field", "practical"] },
-		coreQuestion: "Is this about wanting others to work with you, or about feeling like you're pulling in the same direction?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is this about wanting others to work with you, or about feeling like you're pulling in the same direction?",
 		helpText: "Working together toward common goals",
 	},
 	{
@@ -619,11 +683,12 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field", "integrity_identity"] },
-		coreQuestion: "When you notice this need for equality, is it about being treated as an equal in a specific relationship, or about fairness in a wider sense?",
-		differentiationQuestions: [
-			"Is this more about the connection (or disconnection) between you and this person — or about your sense of self, worth, or inner alignment?",
-			"Where would you most hope to find this met — in this relationship or from this person, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"Is this about being treated as an equal in a specific relationship, or about fairness in a wider sense?",
+		directionPrompts: {
+			[BETWEEN_US]: "You might notice what would help this relationship feel more balanced or respectful.",
+			[ENV]: "You might explore what fairness or equality would look like in the wider situation.",
+		},
 		helpText: "Equal worth and rights for all",
 	},
 	{
@@ -632,10 +697,14 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field"] },
-		coreQuestion: "Is this about being invited in, or about not being left out? What would inclusion actually look and feel like?",
+		coreQuestion: "Is this about being actively invited in, or about not being left out?",
 		differentiationQuestions: [
-			"Where would you most hope to find this met — in this relationship or from this person, or through practical conditions or resources?",
+			"Is this more about inclusion with particular people, or about wider conditions making participation harder?",
 		],
+		directionPrompts: {
+			[BETWEEN_US]: "You might notice what would help you feel welcomed or included with these people.",
+			[ENV]: "You might explore what changes in the wider environment would allow you to participate more fully.",
+		},
 		helpText: "Being actively welcomed",
 	},
 	{
@@ -644,8 +713,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "Is this about wanting more balance in what you give and receive, or about the other person showing they're invested too?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is this about wanting more balance in what you give and receive, or about the other person showing they're invested too?",
 		helpText: "Reciprocal give and take",
 	},
 	{
@@ -654,10 +723,15 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field"] },
-		coreQuestion: "Is this about wanting to be included in decisions, activities, or conversations — or about having a role that matters?",
+		coreQuestion:
+			"Is this about wanting to be included in activities or decisions, or about having a role that matters?",
 		differentiationQuestions: [
-			"Where would you most hope to find this met — in this relationship or from this person, or through practical conditions or resources?",
+			"Is this mainly about participation with particular people, or about wider conditions that affect whether you can join in?",
 		],
+		directionPrompts: {
+			[BETWEEN_US]: "You might notice what would help you feel more included or involved with these people.",
+			[ENV]: "You might explore what changes would allow you to participate more fully.",
+		},
 		helpText: "Being involved and engaged",
 	},
 	{
@@ -666,8 +740,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
-		coreQuestion: "Is this about sharing the load with someone, making decisions together, or feeling like you're a team?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is this about sharing the load with someone, making decisions together, or feeling like you're a team?",
 		helpText: "Collaborative and shared efforts",
 	},
 	{
@@ -676,11 +750,12 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["integrity_identity", "relational_field"] },
-		coreQuestion: "What part of yourself are you wanting to express — your feelings, your creativity, your opinions, or something you've been holding back?",
-		differentiationQuestions: [
-			"Is this more about your sense of self, worth, or inner alignment — or about the connection (or disconnection) between you and this person?",
-			"Where would you most hope to find this met — within yourself, or in this relationship or from this person?",
-		],
+		coreQuestion:
+			"What part of yourself are you wanting to express — your feelings, your creativity, your opinions, or something you've been holding back?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what would help you feel more free or confident expressing yourself.",
+			[BETWEEN_US]: "You might explore what would make it safer or easier to express yourself with these people.",
+		},
 		helpText: "Freedom to express who I am",
 	},
 	{
@@ -690,7 +765,6 @@ export const allNeeds = [
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
 		coreQuestion: "Is this about sharing experiences together, sharing resources, or sharing what's in your heart?",
-		differentiationQuestions: [],
 		helpText: "Mutual giving and receiving",
 	},
 
@@ -703,8 +777,8 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
-		coreQuestion: "Is there something you're holding back or pretending about? What would it look like to be more yourself here?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is there something you're holding back or pretending about? What would it look like to be more yourself here?",
 		helpText: "Being true to myself",
 	},
 	{
@@ -713,10 +787,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, ENV], themes: ["integrity_identity", "practical"] },
-		coreQuestion: "Is this about wanting to feel capable, wanting others to see you as capable, or both?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"Is this about wanting to feel capable, or about having the conditions and support to act capably?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what would help you feel more confident or able in yourself right now.",
+			[ENV]: "You might explore what support, tools, or conditions would help your competence come through more easily.",
+		},
 		helpText: "Feeling capable and skilled",
 	},
 	{
@@ -725,11 +801,13 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, LIFE, ENV], themes: ["integrity_identity", "existential_expansive"] },
-		coreQuestion: "What kind of creative expression is calling you — making something, solving a problem in a new way, or just having the space to imagine?",
-		differentiationQuestions: [
-			"Is this more about your sense of self, worth, or inner alignment — or about deeper meaning, aliveness, or purpose?",
-			"Where would you most hope to find this met — within yourself, in the broader flow of your life, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"What kind of creativity is calling you — making something, solving a problem in a new way, or simply having space to imagine?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what wants to be expressed or explored in you right now.",
+			[LIFE]: "You might explore how creativity connects to aliveness, meaning, or the wider shape of your life.",
+			[ENV]: "You might notice what time, space, tools, or freedom would support your creativity.",
+		},
 		helpText: "Expressing imagination and originality",
 	},
 	{
@@ -738,10 +816,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["integrity_identity"] },
-		coreQuestion: "Has something happened that felt undignified? What would restore your sense of worth here?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or in this relationship or from this person?",
-		],
+		coreQuestion: "Has something happened that felt undignified? What would help restore your sense of worth here?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what would help you reconnect with your own worth or self-respect.",
+			[BETWEEN_US]:
+				"You might explore what response or behaviour from this person would help restore dignity here.",
+		},
 		helpText: "Inherent worth and self-respect",
 	},
 	{
@@ -750,11 +830,13 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, LIFE, ENV], themes: ["integrity_identity", "existential_expansive"] },
-		coreQuestion: "What kind of growth are you wanting — learning something new, becoming more yourself, or moving past something that's been holding you back?",
-		differentiationQuestions: [
-			"Is this more about your sense of self, worth, or inner alignment — or about deeper meaning, aliveness, or purpose?",
-			"Where would you most hope to find this met — within yourself, in the broader flow of your life, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"What kind of growth are you wanting — learning something new, becoming more yourself, or moving past something that’s been holding you back?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what inner shift, learning, or courage is wanting to emerge in you.",
+			[LIFE]: "You might explore how this growth connects to the wider direction or unfolding of your life.",
+			[ENV]: "You might notice what support, structure, or opportunity would make growth more possible.",
+		},
 		helpText: "Development and evolution",
 	},
 	{
@@ -763,11 +845,15 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, ENV, BETWEEN_US], themes: ["integrity_identity", "protective_safety"] },
-		coreQuestion: "What are you wanting to heal from — something recent, something old, or something you can't quite name yet?",
-		differentiationQuestions: [
-			"Is this more about your sense of self, worth, or inner alignment — or about feeling safe, settled, or protected?",
-			"Where would you most hope to find this met — within yourself, through practical conditions or resources, or in this relationship or from this person?",
-		],
+		coreQuestion:
+			"What are you wanting to heal from — something recent, something old, or something you can't quite name yet?",
+		directionPrompts: {
+			[IN_ME]:
+				"You might notice what kind of inner healing feels most needed — gentleness, grieving, self-understanding, or time.",
+			[ENV]: "You might explore what support, care, or practical conditions would help healing happen.",
+			[BETWEEN_US]:
+				"You might notice whether healing here involves repair, care, or a different kind of relationship with this person.",
+		},
 		helpText: "Moving toward wholeness",
 	},
 	{
@@ -776,11 +862,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["integrity_identity", "relational_field"] },
-		coreQuestion: "Is this about wanting someone to be honest with you, or about wanting to be more honest yourself?",
-		differentiationQuestions: [
-			"Is this more about your sense of self, worth, or inner alignment — or about the connection (or disconnection) between you and this person?",
-			"Where would you most hope to find this met — within yourself, or in this relationship or from this person?",
-		],
+		coreQuestion:
+			"Is this about wanting someone to be honest with you, or about wanting to be more honest yourself?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what truth in you wants to be faced or spoken more clearly.",
+			[BETWEEN_US]: "You might explore what kind of honesty or openness you’re hoping for from this person.",
+		},
 		helpText: "Telling and facing the truth",
 	},
 	{
@@ -789,8 +876,8 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
-		coreQuestion: "Is there something you've done that doesn't sit right with you, or is it about someone else acting out of alignment with what you expected?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is there something about this situation that doesn't sit right with you? What would being more in alignment look like here?",
 		helpText: "Living in alignment with values",
 	},
 	{
@@ -799,8 +886,8 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
-		coreQuestion: "What part of yourself are you struggling to accept right now? Is it something you did, something you feel, or something about who you are?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"What part of yourself are you struggling to accept right now — something you did, something you feel, or something about who you are?",
 		helpText: "Welcoming all parts of myself",
 	},
 	{
@@ -809,10 +896,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical", "integrity_identity"] },
-		coreQuestion: "What kind of self-care feels most needed — rest, nourishment, time alone, or giving yourself permission to slow down?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"What kind of self-care feels most needed — rest, nourishment, time alone, or giving yourself permission to slow down?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what care you most need to offer yourself right now.",
+			[ENV]: "You might explore what practical support, time, or conditions would make self-care more possible.",
+		},
 		helpText: "Tending to my own needs",
 	},
 	{
@@ -821,8 +910,8 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
-		coreQuestion: "Have you been disconnected from yourself lately — going through the motions, ignoring signals, or not knowing what you feel?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Have you been disconnected from yourself lately — going through the motions, ignoring signals, or not knowing what you feel?",
 		helpText: "Awareness of inner experience",
 	},
 	{
@@ -831,8 +920,8 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
-		coreQuestion: "Is there something about yourself you're trying to understand — a pattern, a reaction, or something you keep doing that puzzles you?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is there something about yourself you're trying to understand — a pattern, a reaction, or something you keep doing that puzzles you?",
 		helpText: "Understanding myself",
 	},
 	{
@@ -841,11 +930,14 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive", "integrity_identity"] },
-		coreQuestion: "Is there something you feel you're meant to do or become that you haven't been able to move toward?",
+		coreQuestion: "Is there something you feel called to do or become that you haven't been able to move toward?",
 		differentiationQuestions: [
-			"Is this more about deeper meaning, aliveness, or purpose — or about your sense of self, worth, or inner alignment?",
-			"Where would you most hope to find this met — within yourself, or in the broader flow of your life?",
+			"Is this mainly about becoming more fully yourself, or about the wider direction and purpose of your life?",
 		],
+		directionPrompts: {
+			[IN_ME]: "You might notice what in you is wanting to unfold, develop, or come more fully alive.",
+			[LIFE]: "You might explore how this connects to direction, calling, or the wider arc of your life.",
+		},
 		helpText: "Becoming who I am meant to be",
 	},
 	{
@@ -854,8 +946,8 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
-		coreQuestion: "Have you been putting yourself last? What would it look like to treat your own needs as worthy of attention?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Have you been putting yourself last? What would it look like to treat your own needs as worthy of attention?",
 		helpText: "Recognizing my own value",
 	},
 
@@ -868,11 +960,13 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, BETWEEN_US, LIFE], themes: ["existential_expansive", "relational_field"] },
-		coreQuestion: "What are you trying to understand — why something happened, how someone feels, or what's going on inside you?",
-		differentiationQuestions: [
-			"Is this more about deeper meaning, aliveness, or purpose — or about the connection (or disconnection) between you and this person?",
-			"Where would you most hope to find this met — within yourself, in this relationship or from this person, or in the broader flow of your life?",
-		],
+		coreQuestion: "What are you wanting to understand — yourself, another person, or why something happened?",
+		directionPrompts: {
+			[IN_ME]:
+				"You might notice what inside you is wanting to make more sense — a feeling, reaction, or pattern.",
+			[BETWEEN_US]: "You might explore what you most want to understand about this person or relationship.",
+			[LIFE]: "You might notice whether you're trying to understand the bigger meaning or context of what happened.",
+		},
 		helpText: "Grasping what something means",
 	},
 	{
@@ -881,10 +975,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive"] },
-		coreQuestion: "Is this about wanting to be more present, or about wanting someone else to be more aware of what's happening?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or in the broader flow of your life?",
-		],
+		coreQuestion:
+			"Is this about being more aware of your own inner experience, or more aware of life as it unfolds around you?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what in your inner experience wants more attention or presence.",
+			[LIFE]: "You might explore whether you're longing to feel more awake to life, reality, or the bigger picture.",
+		},
 		helpText: "Conscious presence",
 	},
 	{
@@ -893,11 +989,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["protective_safety", "existential_expansive"] },
-		coreQuestion: "What feels unclear right now — the situation, someone's intentions, or your own feelings about it?",
-		differentiationQuestions: [
-			"Is this more about feeling safe, settled, or protected — or about deeper meaning, aliveness, or purpose?",
-			"Where would you most hope to find this met — within yourself, or in the broader flow of your life?",
-		],
+		coreQuestion:
+			"What feels unclear right now — the situation, someone’s intentions, or your own feelings about it?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what in you wants more inner clarity — feelings, priorities, or next steps.",
+			[LIFE]: "You might explore what part of the wider situation feels confusing or hard to make sense of.",
+		},
 		helpText: "Clear thinking and perception",
 	},
 	{
@@ -906,10 +1003,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive"] },
-		coreQuestion: "Is this about wanting to learn something new, or about uncovering something that's already there but hidden?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or in the broader flow of your life?",
-		],
+		coreQuestion:
+			"Is this about learning something new, or uncovering something that was already there but hidden?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what in you is waiting to be uncovered, understood, or brought into awareness.",
+			[LIFE]: "You might explore what new experience, perspective, or truth you are being drawn toward.",
+		},
 		helpText: "Finding or uncovering something new",
 	},
 	{
@@ -918,10 +1017,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, ENV], themes: ["existential_expansive", "practical"] },
-		coreQuestion: "What are you wanting to learn — a skill, an understanding of someone, or something about yourself?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"What are you wanting to learn — a skill, something about yourself, or a better understanding of someone or something?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what kind of understanding or growth is wanting to happen in you.",
+			[ENV]: "You might explore what resources, teaching, practice, or support would help this learning happen.",
+		},
 		helpText: "Gaining knowledge or insight",
 	},
 	{
@@ -930,10 +1031,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive"] },
-		coreQuestion: "Is there something specific that doesn't make sense right now, or is it a wider feeling of confusion about where things are heading?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or in the broader flow of your life?",
-		],
+		coreQuestion:
+			"Is there something specific that doesn’t make sense right now, or a wider feeling of confusion about where life is heading?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what in you wants a clearer inner story or understanding.",
+			[LIFE]: "You might explore what larger pattern, direction, or meaning feels hard to grasp right now.",
+		},
 		helpText: "Understanding the bigger picture",
 	},
 	{
@@ -942,10 +1045,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, ENV], themes: ["existential_expansive", "practical"] },
-		coreQuestion: "Is this about boredom, or about wanting something that engages your mind and makes you feel alive?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"Is this about boredom, or about wanting something that engages your mind and brings more aliveness?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what kind of interest, novelty, or mental spark you're longing for.",
+			[ENV]: "You might explore what activities, inputs, or surroundings would feel more engaging.",
+		},
 		helpText: "Mental engagement and interest",
 	},
 
@@ -958,10 +1063,11 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
-		coreQuestion: "Is this about something specific feeling pointless, or a wider sense that you're searching for what matters?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in the broader flow of your life, or within yourself?",
-		],
+		coreQuestion: "Is this about something specific feeling pointless, or a wider search for what really matters?",
+		directionPrompts: {
+			[LIFE]: "You might explore what part of life is feeling empty, disconnected, or in need of deeper significance.",
+			[IN_ME]: "You might notice what feels meaningful to you underneath the noise or confusion.",
+		},
 		helpText: "A sense that something matters",
 	},
 	{
@@ -970,11 +1076,13 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, ENV, IN_ME], themes: ["existential_expansive", "agency_autonomy"] },
-		coreQuestion: "Are you feeling under-challenged and wanting more, or is there a specific challenge you're ready for?",
-		differentiationQuestions: [
-			"Is this more about deeper meaning, aliveness, or purpose — or about having choice, freedom, or autonomy?",
-			"Where would you most hope to find this met — in the broader flow of your life, through practical conditions or resources, or within yourself?",
-		],
+		coreQuestion:
+			"Are you feeling under-challenged and wanting more stretch, or facing a challenge you want support to meet?",
+		directionPrompts: {
+			[LIFE]: "You might explore what kind of challenge would help life feel fuller or more alive.",
+			[ENV]: "You might notice what support, structure, or opportunity would help you meet this challenge.",
+			[IN_ME]: "You might explore what inner courage, energy, or willingness is wanting to come forward.",
+		},
 		helpText: "Opportunities to stretch and grow",
 	},
 	{
@@ -983,10 +1091,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
-		coreQuestion: "What helps you feel most alive — physical activity, deep conversation, creative work, or being in nature?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in the broader flow of your life, or within yourself?",
-		],
+		coreQuestion:
+			"What tends to help you feel most alive — movement, connection, creativity, nature, or something else?",
+		directionPrompts: {
+			[LIFE]: "You might explore what kinds of experiences or contexts bring more vitality into your life.",
+			[IN_ME]: "You might notice what inside you is longing to feel more awake, engaged, or vibrant.",
+		},
 		helpText: "Feeling fully vibrant and present",
 	},
 	{
@@ -995,10 +1105,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
-		coreQuestion: "Is this about wanting to be more awake to your own experience, or about connecting to something larger than yourself?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in the broader flow of your life, or within yourself?",
-		],
+		coreQuestion:
+			"Is this about becoming more awake to your own experience, or about connecting to something larger than yourself?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what in your inner world wants more awareness or wakefulness.",
+			[LIFE]: "You might explore whether you're longing for a deeper sense of connection with life, reality, or something larger.",
+		},
 		helpText: "Deep awareness of self and life",
 	},
 	{
@@ -1007,11 +1119,14 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, BETWEEN_US, ENV], themes: ["existential_expansive", "relational_field"] },
-		coreQuestion: "What would contribution look like — helping someone specific, serving a cause, or simply knowing your work matters?",
-		differentiationQuestions: [
-			"Is this more about deeper meaning, aliveness, or purpose — or about the connection (or disconnection) between you and this person?",
-			"Where would you most hope to find this met — in the broader flow of your life, in this relationship or from this person, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"What would contribution look like here — helping someone specific, serving something larger, or knowing that what you do matters?",
+		directionPrompts: {
+			[LIFE]: "You might explore how contribution connects to purpose, service, or meaning in your life.",
+			[BETWEEN_US]:
+				"You might notice whether you're longing to make a difference to this person or relationship.",
+			[ENV]: "You might explore what role, action, or practical avenue would let you contribute more meaningfully.",
+		},
 		helpText: "Making a difference",
 	},
 	{
@@ -1020,10 +1135,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [ENV, IN_ME], themes: ["practical", "existential_expansive"] },
-		coreQuestion: "Is this about wanting your efforts to actually produce results, or about feeling stuck and powerless?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — through practical conditions or resources, or within yourself?",
-		],
+		coreQuestion:
+			"Is this about wanting your efforts to produce results, or about feeling stuck and unable to make an impact?",
+		directionPrompts: {
+			[ENV]: "You might explore what tools, support, or conditions would help your efforts work better.",
+			[IN_ME]: "You might notice what would help you feel more able to act, influence, or follow through.",
+		},
 		helpText: "Capacity to bring about change",
 	},
 	{
@@ -1032,11 +1149,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, ENV, IN_ME], themes: ["existential_expansive", "agency_autonomy"] },
-		coreQuestion: "What are you wanting to explore — new experiences, new ideas, or new aspects of yourself?",
-		differentiationQuestions: [
-			"Is this more about deeper meaning, aliveness, or purpose — or about having choice, freedom, or autonomy?",
-			"Where would you most hope to find this met — in the broader flow of your life, through practical conditions or resources, or within yourself?",
-		],
+		coreQuestion: "What are you wanting to explore — new experiences, new ideas, or new parts of yourself?",
+		directionPrompts: {
+			[LIFE]: "You might explore what new territory in life is calling for your curiosity or engagement.",
+			[ENV]: "You might notice what opportunities, resources, or freedom would support exploration.",
+			[IN_ME]: "You might explore what in you is curious, restless, or ready to discover something new.",
+		},
 		helpText: "Willingness to investigate and try",
 	},
 	{
@@ -1045,10 +1163,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
-		coreQuestion: "Is there a part of your life or your experience that feels separate or fragmented? What would coming together look like?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in the broader flow of your life, or within yourself?",
-		],
+		coreQuestion:
+			"Is there a part of your life or experience that feels separate or fragmented? What would more wholeness look like?",
+		directionPrompts: {
+			[LIFE]: "You might explore what in your life feels disconnected and wants to come together.",
+			[IN_ME]: "You might notice what parts of you or your experience want more coherence or wholeness.",
+		},
 		helpText: "Wholeness and coherence",
 	},
 	{
@@ -1057,10 +1177,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
-		coreQuestion: "Is this about wanting a clearer sense of direction, or about the things you're doing not feeling purposeful enough?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in the broader flow of your life, or within yourself?",
-		],
+		coreQuestion:
+			"Is this about wanting a clearer sense of direction, or about what you're doing not feeling purposeful enough?",
+		directionPrompts: {
+			[LIFE]: "You might explore what direction, calling, or larger aim is wanting to emerge in your life.",
+			[IN_ME]: "You might notice what feels deeply worth giving yourself to right now.",
+		},
 		helpText: "Having meaningful direction",
 	},
 
@@ -1073,10 +1195,13 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, ENV, IN_ME], themes: ["existential_expansive"] },
-		coreQuestion: "What kind of beauty are you wanting more of — in nature, art, people, or your everyday surroundings?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in the broader flow of your life, through practical conditions or resources, or within yourself?",
-		],
+		coreQuestion: "What kind of beauty are you longing for — in nature, art, people, or the world around you?",
+		directionPrompts: {
+			[LIFE]: "You might explore how beauty connects to your experience of life as a whole.",
+			[ENV]: "You might notice what surroundings, art, or sensory experiences would bring in more beauty.",
+			[IN_ME]:
+				"You might explore whether a deeper appreciation or openness to beauty is wanting to awaken in you.",
+		},
 		helpText: "Appreciating harmony and elegance",
 	},
 	{
@@ -1085,10 +1210,13 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, BETWEEN_US, IN_ME], themes: ["existential_expansive"] },
-		coreQuestion: "What feels worth celebrating right now — even something small? Or are you missing the feeling of being able to celebrate?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in the broader flow of your life, in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"What feels worth celebrating right now — even something small? Or are you missing the feeling of being able to celebrate at all?",
+		directionPrompts: {
+			[LIFE]: "You might explore what in life feels precious, meaningful, or worthy of being honoured.",
+			[BETWEEN_US]: "You might notice whether you’re longing to share celebration or joy with someone.",
+			[IN_ME]: "You might explore what would help you reconnect with gratitude, delight, or reverence.",
+		},
 		helpText: "Honoring what's precious",
 	},
 	{
@@ -1097,11 +1225,14 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, BETWEEN_US, IN_ME], themes: ["existential_expansive", "relational_field"] },
-		coreQuestion: "Is this communion you're wanting with another person, with nature, with something spiritual, or with yourself?",
-		differentiationQuestions: [
-			"Is this more about deeper meaning, aliveness, or purpose — or about the connection (or disconnection) between you and this person?",
-			"Where would you most hope to find this met — in the broader flow of your life, in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"Is this communion you're wanting with another person, with life or nature, with something spiritual, or with yourself?",
+		directionPrompts: {
+			[LIFE]: "You might explore whether you're longing for deeper connection with life, nature, or something spiritual.",
+			[BETWEEN_US]:
+				"You might notice whether you're wanting a deep sense of shared presence or union with someone.",
+			[IN_ME]: "You might explore whether a deeper connection with yourself is what's most needed.",
+		},
 		helpText: "Deep spiritual or emotional connection",
 	},
 	{
@@ -1110,10 +1241,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
-		coreQuestion: "Is this about religious or spiritual faith, or about a more general trust that things will work out?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in the broader flow of your life, or within yourself?",
-		],
+		coreQuestion:
+			"Is this about spiritual or religious faith, or about a more general trust that things can work out?",
+		directionPrompts: {
+			[LIFE]: "You might explore whether you're longing for trust in life, reality, or something larger than yourself.",
+			[IN_ME]: "You might notice what would help you feel more trusting, steady, or anchored inside.",
+		},
 		helpText: "Trust in something greater",
 	},
 	{
@@ -1122,10 +1255,13 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [IN_ME, ENV, LIFE], themes: ["existential_expansive", "practical"] },
-		coreQuestion: "When did you last feel in flow? What were you doing, and what would help you get back to that?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, through practical conditions or resources, or in the broader flow of your life?",
-		],
+		coreQuestion:
+			"When did you last feel in flow? What were you doing, and what seems to support that state for you?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what inner state helps you feel absorbed, focused, or carried along.",
+			[ENV]: "You might explore what conditions, structure, or environment make flow more possible.",
+			[LIFE]: "You might notice how flow connects to the way you want to live or move through life.",
+		},
 		helpText: "Being fully absorbed in the moment",
 	},
 	{
@@ -1134,10 +1270,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
-		coreQuestion: "Is this about a specific situation you're hoping will improve, or a wider feeling that things could get better?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in the broader flow of your life, or within yourself?",
-		],
+		coreQuestion:
+			"Is this about hope for a specific situation, or a wider sense that life could still open in a better direction?",
+		directionPrompts: {
+			[LIFE]: "You might explore what possibility or future direction you most want to believe in.",
+			[IN_ME]: "You might notice what would help hope feel more alive inside you right now.",
+		},
 		helpText: "Belief in possibilities",
 	},
 	{
@@ -1146,10 +1284,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
-		coreQuestion: "What inspires you when you find it — ideas, people, nature, art? What would help you reconnect with that?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in the broader flow of your life, or within yourself?",
-		],
+		coreQuestion:
+			"What tends to inspire you — ideas, people, nature, art, or something else? What would help you reconnect with that?",
+		directionPrompts: {
+			[LIFE]: "You might explore what in the world tends to lift, stir, or call you forward.",
+			[IN_ME]: "You might notice what inner spark wants reawakening right now.",
+		},
 		helpText: "Being uplifted into vision or action",
 	},
 	{
@@ -1158,11 +1298,14 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, IN_ME, BETWEEN_US], themes: ["integrity_identity", "existential_expansive"] },
-		coreQuestion: "What are you mourning — a person, a possibility, something that changed, or something that never was?",
-		differentiationQuestions: [
-			"Is this more about your sense of self, worth, or inner alignment — or about deeper meaning, aliveness, or purpose?",
-			"Where would you most hope to find this met — in the broader flow of your life, within yourself, or in this relationship or from this person?",
-		],
+		coreQuestion:
+			"What are you mourning — a person, a possibility, something that changed, or something that never was?",
+		directionPrompts: {
+			[LIFE]: "You might explore how this loss touches the larger shape or meaning of your life.",
+			[IN_ME]: "You might notice what in you needs space, tenderness, or acknowledgment in grieving.",
+			[BETWEEN_US]:
+				"You might explore whether this mourning is connected to what happened between you and someone else.",
+		},
 		helpText: "Honoring loss with care",
 	},
 	{
@@ -1171,11 +1314,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["protective_safety", "existential_expansive"] },
-		coreQuestion: "What's disturbing your inner peace — racing thoughts, unresolved feelings, or a situation that won't settle?",
-		differentiationQuestions: [
-			"Is this more about feeling safe, settled, or protected — or about deeper meaning, aliveness, or purpose?",
-			"Where would you most hope to find this met — within yourself, or in the broader flow of your life?",
-		],
+		coreQuestion:
+			"What’s disturbing your inner peace — racing thoughts, unresolved feelings, or something in life that won’t settle?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what would help you feel calmer, quieter, or more settled inside.",
+			[LIFE]: "You might explore whether something in the larger shape of life feels unresolved or out of harmony.",
+		},
 		helpText: "Calm within",
 	},
 	{
@@ -1184,10 +1328,12 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive"] },
-		coreQuestion: "Is this about wanting to be more present yourself, or about wanting someone else to be more present with you?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or in the broader flow of your life?",
-		],
+		coreQuestion:
+			"Is this about wanting to be more fully here yourself, or about wanting to feel more connected with life as it is happening?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what would help you come back into this moment more fully.",
+			[LIFE]: "You might explore whether you're longing for a deeper sense of participation in life itself.",
+		},
 		helpText: "Fully here and now",
 	},
 
@@ -1200,10 +1346,18 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, ENV, BETWEEN_US], themes: ["agency_autonomy"] },
-		coreQuestion: "When you say freedom, is it more about having options (choice), having room to be yourself (space), or being able to move and act without constraint? And is the limitation coming mostly from someone else, from circumstances, or from pressure inside you?",
+		coreQuestion:
+			"When you say freedom, is it more about having options, having room to be yourself, or being able to move and act without constraint?",
 		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, through practical conditions or resources, or in this relationship or from this person?",
+			"Where does the limitation feel strongest — inside you, in your circumstances, or in a relationship?",
 		],
+		directionPrompts: {
+			[IN_ME]:
+				"You might notice what inner pressure, fear, or restriction is getting in the way of feeling free.",
+			[ENV]: "You might explore what practical conditions, resources, or changes would give you more freedom.",
+			[BETWEEN_US]:
+				"You might notice what in this relationship feels constraining, and what would create more room for choice or self-expression.",
+		},
 		helpText: "Room to choose, move, and be without constraint",
 	},
 	{
@@ -1212,10 +1366,13 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["agency_autonomy"] },
-		coreQuestion: "Is someone making decisions for you, or is it more that you feel constrained even without anyone actively controlling you?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or in this relationship or from this person?",
-		],
+		coreQuestion:
+			"Is this about someone making decisions for you, or about feeling constrained even without anyone actively controlling you?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what would help you feel more self-directed or able to choose for yourself.",
+			[BETWEEN_US]:
+				"You might explore what would create more room for your choices or voice in this relationship.",
+		},
 		helpText: "Make decisions without external control",
 	},
 	{
@@ -1225,9 +1382,12 @@ export const allNeeds = [
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, ENV, BETWEEN_US], themes: ["agency_autonomy"] },
 		coreQuestion: "Is this about having options, or about feeling free to choose without pressure or guilt?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, through practical conditions or resources, or in this relationship or from this person?",
-		],
+		directionPrompts: {
+			[IN_ME]: "You might notice what inner permission or confidence would help you choose more freely.",
+			[ENV]: "You might explore what practical options or conditions would give you more real choice.",
+			[BETWEEN_US]:
+				"You might notice whether pressure, expectation, or guilt in this relationship is making choice harder.",
+		},
 		helpText: "Freedom to decide",
 	},
 	{
@@ -1236,10 +1396,12 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical", "agency_autonomy"] },
-		coreQuestion: "Is this about physical ease, emotional ease, or just wanting things to be simpler for a while?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"Is this about physical ease, emotional ease, or simply wanting things to be less effortful for a while?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what would help you feel less strained, pressured, or effortful inside.",
+			[ENV]: "You might explore what support, simplification, or practical changes would make things easier.",
+		},
 		helpText: "Freedom from strain or effort",
 	},
 	{
@@ -1248,10 +1410,13 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["agency_autonomy"] },
-		coreQuestion: "Is this about wanting to manage on your own, or about not wanting to depend on someone who isn't reliable?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or in this relationship or from this person?",
-		],
+		coreQuestion:
+			"Is this about wanting to manage on your own, or about not wanting to depend on someone who isn't reliable?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what would help you feel more self-reliant or capable on your own.",
+			[BETWEEN_US]:
+				"You might explore whether dependence in this relationship is feeling unsafe, burdensome, or limiting.",
+		},
 		helpText: "Self-reliance and agency",
 	},
 	{
@@ -1260,20 +1425,18 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME], themes: ["agency_autonomy"] },
-		coreQuestion: "Is this about feeling powerless in a specific situation, or a wider sense that your actions don't make a difference?",
-		differentiationQuestions: [],
+		coreQuestion:
+			"Is this about feeling powerless in a specific situation, or a wider sense that your actions don’t make a difference?",
 		helpText: "Ability to influence",
 	},
 	{
 		id: "self_responsibility",
-		label: "Self-responsiblity",
+		label: "Self-responsibility",
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME], themes: ["agency_autonomy", "integrity_identity"] },
-		coreQuestion: "Is this about wanting to take more ownership of your life, or about others not taking responsibility for theirs?",
-		differentiationQuestions: [
-			"Is this more about having choice, freedom, or autonomy — or about your sense of self, worth, or inner alignment?",
-		],
+		coreQuestion:
+			"Is this about wanting to take more ownership of your life, or about others not taking responsibility for theirs?",
 		helpText: "Owning my own choices",
 	},
 	{
@@ -1282,10 +1445,12 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, ENV, BETWEEN_US], themes: ["agency_autonomy", "practical"] },
-		coreQuestion: "Is this physical space, emotional space, or time and space to think and be yourself?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, through practical conditions or resources, or in this relationship or from this person?",
-		],
+		coreQuestion: "Is this physical space, emotional space, or time and room to think and be yourself?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what inner spaciousness or breathing room is most needed right now.",
+			[ENV]: "You might explore what physical space, time, or practical conditions would give you more room.",
+			[BETWEEN_US]: "You might notice whether this relationship needs more room, boundaries, or less pressure.",
+		},
 		helpText: "Room to be and act",
 	},
 	{
@@ -1294,10 +1459,12 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, ENV], themes: ["agency_autonomy", "practical"] },
-		coreQuestion: "Is this about wanting more freedom to follow impulses, or about feeling too constrained by plans and obligations?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"Is this about wanting more freedom to follow impulses, or about feeling too constrained by plans and obligations?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what in you wants more freedom, playfulness, or room to respond in the moment.",
+			[ENV]: "You might explore what plans, structures, or obligations are crowding out spontaneity.",
+		},
 		helpText: "Freedom to act in the moment",
 	},
 
@@ -1310,10 +1477,13 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["practical", "relational_field"] },
-		coreQuestion: "Is this about wanting more lightness in your life, or about missing someone specific you laugh with?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — in this relationship or from this person, or within yourself?",
-		],
+		coreQuestion:
+			"Is this about wanting more lightness in your life, or about missing someone specific you laugh with?",
+		directionPrompts: {
+			[BETWEEN_US]:
+				"You might notice whether you're longing for shared laughter, ease, or a lighter connection with someone.",
+			[IN_ME]: "You might explore what would help you reconnect with lightness or amusement inside yourself.",
+		},
 		helpText: "Lightness and laughter",
 	},
 	{
@@ -1322,10 +1492,15 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		tags: { whereMet: [IN_ME, LIFE, BETWEEN_US], themes: ["practical", "existential_expansive"] },
-		coreQuestion: "When did you last feel genuine joy? What was happening, and what would bring that closer right now?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, in the broader flow of your life, or in this relationship or from this person?",
-		],
+		coreQuestion:
+			"When did you last feel genuine joy? What was happening, and what seems closest to that right now?",
+		directionPrompts: {
+			[IN_ME]:
+				"You might notice what helps joy feel alive in you — ease, delight, play, gratitude, or something else.",
+			[LIFE]: "You might explore what kinds of experiences or rhythms in life bring you more joy.",
+			[BETWEEN_US]:
+				"You might notice whether joy here feels connected to shared moments, closeness, or being with someone.",
+		},
 		helpText: "Delight and happiness",
 	},
 	{
@@ -1334,10 +1509,13 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		tags: { whereMet: [IN_ME, BETWEEN_US, ENV], themes: ["practical", "relational_field"] },
-		coreQuestion: "What does play look like for you — games, silliness, creating something, or just doing something without a purpose?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, in this relationship or from this person, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"What does play look like for you — silliness, games, creating something, or doing something just for the fun of it?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what kind of playfulness or freedom wants to come alive in you.",
+			[BETWEEN_US]: "You might explore whether you're longing for shared play, silliness, or fun with someone.",
+			[ENV]: "You might notice what time, space, materials, or conditions would support play.",
+		},
 		helpText: "Fun, imagination and creativity",
 	},
 	{
@@ -1346,10 +1524,13 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical"] },
-		coreQuestion: "What kind of pleasure feels most needed — physical comfort, something delicious, a beautiful experience, or just relaxation?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"What kind of pleasure feels most needed — physical comfort, something delicious, a beautiful experience, or simply relaxation?",
+		directionPrompts: {
+			[IN_ME]:
+				"You might notice what kind of enjoyment, comfort, or sensory nourishment your body is asking for.",
+			[ENV]: "You might explore what surroundings, activities, or resources would bring in more pleasure.",
+		},
 		helpText: "Enjoyable sensations or experiences",
 	},
 	{
@@ -1358,10 +1539,12 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical"] },
-		coreQuestion: "What would rejuvenate you — time off, time in nature, doing something you love, or simply having nothing to do?",
-		differentiationQuestions: [
-			"Where would you most hope to find this met — within yourself, or through practical conditions or resources?",
-		],
+		coreQuestion:
+			"What would help you feel renewed — time off, time in nature, doing something you love, or simply having nothing to do?",
+		directionPrompts: {
+			[IN_ME]: "You might notice what kind of restoration your body or spirit is most longing for.",
+			[ENV]: "You might explore what time, space, or practical conditions would help you feel refreshed.",
+		},
 		helpText: "Feeling refreshed and renewed",
 	},
 ];
