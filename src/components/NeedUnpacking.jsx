@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useWizard } from "./WizardContext";
-import { getNeedData, resolveNeedUnpackingType, resolveNeedWhereMet } from "../utils/renderHelpers";
-import { whereMetLabels } from "../data/whereMetData";
+import { getNeedData, resolveNeedUnpackingType } from "../utils/renderHelpers";
 import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
 import AudioPlayer from "./AudioPlayer";
 import meditationAudio from "../assets/Beauty_of_need.mp3";
@@ -92,26 +91,10 @@ const NeedUnpacking = () => {
 	}
 	const stage1Guesses = [...stage1GuessesSet];
 
-	// Stage 2: need-specific core_specific question
-	const specificQ = currentExploringNeed
-		? getNeedData(currentExploringNeed)?.clarify?.prompts?.find((p) => p.key === "core_specific")?.question
-		: null;
-
-	// Stage 2: differentiation question for needs with 2+ non-PRACTICAL types
-	const differentiationQ =
-		nonPracticalTypes.length >= 2
-			? `Is this more about ${unpackingTypeData[nonPracticalTypes[0]]?.discriminationHint} — or about ${unpackingTypeData[nonPracticalTypes[1]]?.discriminationHint}?`
-			: null;
-	``;
-	// Stage 2: where-met question for needs with 2+ whereMet values
-	const resolvedWhereMet = currentExploringNeed ? resolveNeedWhereMet(currentExploringNeed) : [];
-	const whereMetQ = (() => {
-		const hints = resolvedWhereMet.map((w) => whereMetLabelsc[w]).filter(Boolean);
-		if (hints.length < 2) return null;
-		const last = hints[hints.length - 1];
-		const rest = hints.slice(0, -1);
-		return `Where would you most hope to find this met — ${rest.join(", ")}, or ${last}?`;
-	})();
+	// Stage 2: questions read directly from the flat need data
+	const currentNeedData = currentExploringNeed ? getNeedData(currentExploringNeed) : null;
+	const specificQ = currentNeedData?.coreQuestion ?? null;
+	const differentiationQuestions = currentNeedData?.differentiationQuestions ?? [];
 
 	// ── Helpers ──
 	const currentData = currentExploringNeed ? needExplorations[currentExploringNeed] || {} : {};
@@ -273,9 +256,9 @@ const NeedUnpacking = () => {
 							</div>
 						)}
 
-						{differentiationQ && (
+						{differentiationQuestions[0] && (
 							<div className="unpacking-prompt">
-								<p className="unpacking-prompt-text">{differentiationQ}</p>
+								<p className="unpacking-prompt-text">{differentiationQuestions[0]}</p>
 								<textarea
 									className="unpacking-textarea"
 									rows={2}
@@ -285,9 +268,9 @@ const NeedUnpacking = () => {
 							</div>
 						)}
 
-						{whereMetQ && (
+						{differentiationQuestions[1] && (
 							<div className="unpacking-prompt">
-								<p className="unpacking-prompt-text">{whereMetQ}</p>
+								<p className="unpacking-prompt-text">{differentiationQuestions[1]}</p>
 								<textarea
 									className="unpacking-textarea"
 									rows={2}

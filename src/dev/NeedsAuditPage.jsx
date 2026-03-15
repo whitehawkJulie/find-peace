@@ -1,61 +1,5 @@
 import React, { useMemo, useState } from "react";
-import NeedsSubsistence from "../data/NeedsSubsistence.js";
-import NeedsConnection from "../data/NeedsConnection.js";
-import NeedsMeaning from "../data/NeedsMeaning.js";
-import NeedsFreedom from "../data/NeedsFreedom.js";
-import { resolveNeedUnpackingType, resolveNeedWhereMet, getNeedData } from "../utils/renderHelpers";
-import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
-import { whereMetLabels } from "../data/whereMetData";
-
-const PRACTICAL = UNPACKING_TYPE.PRACTICAL;
-
-function getDifferentiationQ(needName) {
-	const resolvedTypes = resolveNeedUnpackingType(needName);
-	const nonPractical = resolvedTypes.filter((t) => t !== PRACTICAL);
-	if (nonPractical.length < 2) return "";
-	const hintA = unpackingTypeData[nonPractical[0]]?.discriminationHint;
-	const hintB = unpackingTypeData[nonPractical[1]]?.discriminationHint;
-	if (!hintA || !hintB) return "";
-	return `Is this more about ${hintA} — or about ${hintB}?`;
-}
-
-function getWhereMetQ(needName) {
-	const hints = resolveNeedWhereMet(needName).map((w) => whereMetLabels[w]).filter(Boolean);
-	if (hints.length < 2) return "";
-	const last = hints[hints.length - 1];
-	const rest = hints.slice(0, -1);
-	return `Where would you most hope to find this met — ${rest.join(", ")}, or ${last}?`;
-}
-
-function getAllNeedsFlat() {
-	const sections = [
-		{ data: NeedsSubsistence, category: "Subsistence" },
-		{ data: NeedsConnection, category: "Connection" },
-		{ data: NeedsMeaning, category: "Meaning" },
-		{ data: NeedsFreedom, category: "Freedom" },
-	];
-	const rows = [];
-	for (const { data, category } of sections) {
-		for (const [groupKey, group] of Object.entries(data.groups)) {
-			for (const item of group.items) {
-				if (!item.item) continue; // skip empty placeholder objects
-				rows.push({
-					name: item.item,
-					category,
-					group: group.ui?.heading ?? groupKey,
-					whereMet: item.whereMet ?? group.whereMet ?? [],
-					unpackingType: resolveNeedUnpackingType(item.item),
-					coreQuestion:
-						getNeedData(item.item)?.clarify?.prompts?.find((p) => p.key === "core_specific")
-							?.question ?? "",
-					differentiationQ: getDifferentiationQ(item.item),
-					whereMetQ: getWhereMetQ(item.item),
-				});
-			}
-		}
-	}
-	return rows;
-}
+import allNeeds from "../data/AllNeedsFlat";
 
 function sortByKey(rows, key, dir) {
 	const mult = dir === "asc" ? 1 : -1;
@@ -66,6 +10,17 @@ function sortByKey(rows, key, dir) {
 		const bStr = Array.isArray(bv) ? bv.join(", ") : String(bv ?? "");
 		return aStr.localeCompare(bStr, undefined, { sensitivity: "base" }) * mult;
 	});
+}
+
+// Flatten tags for sort/filter by converting arrays to strings
+function flattenedRow(need) {
+	return {
+		...need,
+		whereMetStr: (need.tags?.whereMet ?? []).join(", "),
+		themesStr: (need.tags?.themes ?? []).join(", "),
+		diffQ0: need.differentiationQuestions?.[0] ?? "",
+		diffQ1: need.differentiationQuestions?.[1] ?? "",
+	};
 }
 
 const COL_COUNT = 6;
@@ -83,62 +38,62 @@ const qCellStyle = {
 };
 
 export default function NeedsAuditPage() {
-	const allRows = useMemo(() => getAllNeedsFlat(), []);
+	const allRows = useMemo(() => allNeeds.map(flattenedRow), []);
+
 	const [q, setQ] = useState("");
+	const [family, setFamily] = useState("All");
 	const [category, setCategory] = useState("All");
-	const [group, setGroup] = useState("All");
-	const [whereMet, setWhereMet] = useState("All");
-	const [unpackingType, setUnpackingType] = useState("All");
+	const [whereMetFilter, setWhereMetFilter] = useState("All");
+	const [themeFilter, setThemeFilter] = useState("All");
 	const [missingOnly, setMissingOnly] = useState(false);
-	const [sortKey, setSortKey] = useState("name");
+	const [sortKey, setSortKey] = useState("label");
 	const [sortDir, setSortDir] = useState("asc");
 
-	// Keep natural data order for filter dropdowns
+	const families = useMemo(() => {
+		const seen = new Set();
+		const result = ["All"];
+		for (const r of allRows) {
+			if (r.family && !seen.has(r.family)) {
+				seen.add(r.family);
+				result.push(r.family);
+			}
+		}
+		return result;
+	}, [allRows]);
+
 	const categories = useMemo(() => {
 		const seen = new Set();
 		const result = ["All"];
 		for (const r of allRows) {
-			if (r.category && !seen.has(r.category)) {
+			if ((family === "All" || r.family === family) && r.category && !seen.has(r.category)) {
 				seen.add(r.category);
 				result.push(r.category);
 			}
 		}
 		return result;
-	}, [allRows]);
-
-	const groups = useMemo(() => {
-		const seen = new Set();
-		const result = ["All"];
-		for (const r of allRows) {
-			if ((category === "All" || r.category === category) && r.group && !seen.has(r.group)) {
-				seen.add(r.group);
-				result.push(r.group);
-			}
-		}
-		return result;
-	}, [allRows, category]);
+	}, [allRows, family]);
 
 	const whereMetOptions = useMemo(() => {
 		const set = new Set();
-		allRows.forEach((r) => (r.whereMet || []).forEach((x) => set.add(x)));
+		allRows.forEach((r) => (r.tags?.whereMet ?? []).forEach((x) => set.add(x)));
 		return ["All", ...Array.from(set).sort()];
 	}, [allRows]);
 
-	const unpackingOptions = useMemo(() => {
+	const themeOptions = useMemo(() => {
 		const set = new Set();
-		allRows.forEach((r) => (r.unpackingType || []).forEach((x) => set.add(x)));
+		allRows.forEach((r) => (r.tags?.themes ?? []).forEach((x) => set.add(x)));
 		return ["All", ...Array.from(set).sort()];
 	}, [allRows]);
 
-	// Natural order of category→group pairs (drives heading rows)
+	// Natural order of family→category pairs (drives heading rows)
 	const orderedGroups = useMemo(() => {
 		const seen = new Set();
 		const result = [];
 		for (const row of allRows) {
-			const key = `${row.category}::${row.group}`;
+			const key = `${row.family}::${row.category}`;
 			if (!seen.has(key)) {
 				seen.add(key);
-				result.push({ category: row.category, group: row.group });
+				result.push({ family: row.family, category: row.category });
 			}
 		}
 		return result;
@@ -147,24 +102,27 @@ export default function NeedsAuditPage() {
 	const filtered = useMemo(() => {
 		const qLower = q.trim().toLowerCase();
 		return allRows.filter((r) => {
+			if (family !== "All" && r.family !== family) return false;
 			if (category !== "All" && r.category !== category) return false;
-			if (group !== "All" && r.group !== group) return false;
-			if (whereMet !== "All" && !(r.whereMet || []).includes(whereMet)) return false;
-			if (unpackingType !== "All" && !(r.unpackingType || []).includes(unpackingType)) return false;
+			if (whereMetFilter !== "All" && !(r.tags?.whereMet ?? []).includes(whereMetFilter)) return false;
+			if (themeFilter !== "All" && !(r.tags?.themes ?? []).includes(themeFilter)) return false;
 			if (missingOnly) {
-				const missingWhereMet = !r.whereMet || r.whereMet.length === 0;
-				const missingUnpacking = !r.unpackingType || r.unpackingType.length === 0;
-				if (!(missingWhereMet || missingUnpacking)) return false;
+				const missingWhereMet = !r.tags?.whereMet?.length;
+				const missingThemes = !r.tags?.themes?.length;
+				const missingCore = !r.coreQuestion;
+				if (!(missingWhereMet || missingThemes || missingCore)) return false;
 			}
 			if (qLower) {
 				const haystack = [
-					r.name,
+					r.label,
+					r.family,
 					r.category,
-					r.group,
-					(r.whereMet || []).join(" "),
-					(r.unpackingType || []).join(" "),
+					r.whereMetStr,
+					r.themesStr,
 					r.coreQuestion,
-					r.differentiationQ,
+					r.diffQ0,
+					r.diffQ1,
+					r.helpText,
 				]
 					.filter(Boolean)
 					.join(" ")
@@ -173,16 +131,16 @@ export default function NeedsAuditPage() {
 			}
 			return true;
 		});
-	}, [allRows, q, category, group, whereMet, unpackingType, missingOnly]);
+	}, [allRows, q, family, category, whereMetFilter, themeFilter, missingOnly]);
 
 	const sorted = useMemo(() => sortByKey(filtered, sortKey, sortDir), [filtered, sortKey, sortDir]);
 
-	// Group sorted rows by category→group in natural data order
+	// Group sorted rows by family→category in natural data order
 	const groupedSorted = useMemo(() => {
 		const result = [];
-		for (const { category: cat, group: grp } of orderedGroups) {
-			const rows = sorted.filter((r) => r.category === cat && r.group === grp);
-			if (rows.length > 0) result.push({ category: cat, group: grp, rows });
+		for (const { family: fam, category: cat } of orderedGroups) {
+			const rows = sorted.filter((r) => r.family === fam && r.category === cat);
+			if (rows.length > 0) result.push({ family: fam, category: cat, rows });
 		}
 		return result;
 	}, [orderedGroups, sorted]);
@@ -196,7 +154,7 @@ export default function NeedsAuditPage() {
 	};
 
 	return (
-		<div style={{ padding: 16, maxWidth: 1400, margin: "0 auto" }}>
+		<div style={{ padding: 16, maxWidth: 1600, margin: "0 auto" }}>
 			<h2 style={{ marginBottom: 8 }}>Needs Audit</h2>
 			<div
 				style={{
@@ -213,39 +171,36 @@ export default function NeedsAuditPage() {
 					style={{ padding: "8px 10px", minWidth: 220 }}
 				/>
 				<select
-					value={category}
+					value={family}
 					onChange={(e) => {
-						setCategory(e.target.value);
-						setGroup("All");
+						setFamily(e.target.value);
+						setCategory("All");
 					}}
 					style={{ padding: 8 }}>
+					{families.map((x) => (
+						<option key={x} value={x}>
+							{x}
+						</option>
+					))}
+				</select>
+				<select value={category} onChange={(e) => setCategory(e.target.value)} style={{ padding: 8 }}>
 					{categories.map((x) => (
 						<option key={x} value={x}>
 							{x}
 						</option>
 					))}
 				</select>
-				<select value={group} onChange={(e) => setGroup(e.target.value)} style={{ padding: 8 }}>
-					{groups.map((x) => (
-						<option key={x} value={x}>
-							{x}
-						</option>
-					))}
-				</select>
-				<select value={whereMet} onChange={(e) => setWhereMet(e.target.value)} style={{ padding: 8 }}>
+				<select value={whereMetFilter} onChange={(e) => setWhereMetFilter(e.target.value)} style={{ padding: 8 }}>
 					{whereMetOptions.map((x) => (
 						<option key={x} value={x}>
 							whereMet: {x}
 						</option>
 					))}
 				</select>
-				<select
-					value={unpackingType}
-					onChange={(e) => setUnpackingType(e.target.value)}
-					style={{ padding: 8 }}>
-					{unpackingOptions.map((x) => (
+				<select value={themeFilter} onChange={(e) => setThemeFilter(e.target.value)} style={{ padding: 8 }}>
+					{themeOptions.map((x) => (
 						<option key={x} value={x}>
-							unpackingType: {x}
+							theme: {x}
 						</option>
 					))}
 				</select>
@@ -266,7 +221,7 @@ export default function NeedsAuditPage() {
 				<table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
 					<colgroup>
 						<col style={{ width: "140px" }} />
-						<col style={{ width: "120px" }} />
+						<col style={{ width: "160px" }} />
 						<col style={{ width: "190px" }} />
 						<col />
 						<col />
@@ -275,12 +230,12 @@ export default function NeedsAuditPage() {
 					<thead style={{ background: "rgba(0,0,0,0.04)" }}>
 						<tr>
 							{[
-								["name", "Need"],
-								["whereMet", "whereMet"],
-								["unpackingType", "unpackingType"],
+								["label", "Need"],
+								["whereMetStr", "whereMet"],
+								["themesStr", "themes"],
 								["coreQuestion", "Core question"],
-								["differentiationQ", "Differentiation question"],
-								["whereMetQ", "WhereMet question"],
+								["diffQ0", "Diff. question 1"],
+								["diffQ1", "Diff. question 2"],
 							].map(([key, label]) => (
 								<th
 									key={key}
@@ -309,12 +264,12 @@ export default function NeedsAuditPage() {
 								</td>
 							</tr>
 						) : (
-							groupedSorted.map(({ category: cat, group: grp, rows: groupRows }, idx) => {
-								const showCategoryHeading =
-									idx === 0 || groupedSorted[idx - 1].category !== cat;
+							groupedSorted.map(({ family: fam, category: cat, rows: groupRows }, idx) => {
+								const showFamilyHeading =
+									idx === 0 || groupedSorted[idx - 1].family !== fam;
 								return (
-									<React.Fragment key={`${cat}::${grp}`}>
-										{showCategoryHeading && (
+									<React.Fragment key={`${fam}::${cat}`}>
+										{showFamilyHeading && (
 											<tr style={{ background: "#b8b0a4" }}>
 												<td
 													colSpan={COL_COUNT}
@@ -325,7 +280,7 @@ export default function NeedsAuditPage() {
 														letterSpacing: "0.08em",
 														textTransform: "uppercase",
 													}}>
-													{cat}
+													{fam}
 												</td>
 											</tr>
 										)}
@@ -337,12 +292,12 @@ export default function NeedsAuditPage() {
 													fontWeight: 600,
 													fontSize: "0.88em",
 												}}>
-												{grp}
+												{cat}
 											</td>
 										</tr>
 										{groupRows.map((r) => (
 											<tr
-												key={r.name}
+												key={r.label}
 												style={{ background: "white" }}
 												onMouseEnter={(e) =>
 													(e.currentTarget.style.background = "#faf8f5")
@@ -350,16 +305,16 @@ export default function NeedsAuditPage() {
 												onMouseLeave={(e) =>
 													(e.currentTarget.style.background = "white")
 												}>
-												<td style={{ ...cellStyle, fontWeight: 500 }}>{r.name}</td>
+												<td style={{ ...cellStyle, fontWeight: 500 }}>{r.label}</td>
 												<td style={{ ...cellStyle, fontSize: "0.8em", color: "#555" }}>
-													{(r.whereMet || []).join(", ")}
+													{r.whereMetStr}
 												</td>
 												<td style={{ ...cellStyle, fontSize: "0.8em", color: "#555" }}>
-													{(r.unpackingType || []).join(", ")}
+													{r.themesStr}
 												</td>
 												<td style={qCellStyle}>{r.coreQuestion}</td>
-												<td style={qCellStyle}>{r.differentiationQ}</td>
-												<td style={qCellStyle}>{r.whereMetQ}</td>
+												<td style={qCellStyle}>{r.diffQ0}</td>
+												<td style={qCellStyle}>{r.diffQ1}</td>
 											</tr>
 										))}
 									</React.Fragment>

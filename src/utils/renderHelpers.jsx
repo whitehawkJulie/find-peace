@@ -1,55 +1,39 @@
 import React from "react";
-import { Needs } from "../data/AllNeedsData";
+import allNeeds from "../data/AllNeedsFlat";
 
-// Build a flat lookup at module scope: needName → { item data, sectionHeading, _groupUnpackingType, _groupWhereMet }
+// Build a flat lookup at module scope: needLabel → need object
 const needLookup = {};
-for (const section of Object.values(Needs.sections)) {
-	const sectionHeading = section.ui?.heading || "";
-	for (const group of Object.values(section.groups)) {
-		for (const item of group.items) {
-			needLookup[item.item] = {
-				...item,
-				_sectionHeading: sectionHeading,
-				_groupUnpackingType: group.unpackingType || [],
-				_groupWhereMet: group.whereMet || [],
-			};
-		}
-	}
+for (const need of allNeeds) {
+	needLookup[need.label] = need;
 }
 
-// Look up which top-level category a need belongs to (e.g. "Love" → "Connection")
+// Look up which top-level family a need belongs to (e.g. "Love" → "Connection")
 export const getNeedCategory = (needName) => {
 	const entry = needLookup[needName];
-	return entry ? entry._sectionHeading : null;
+	return entry ? entry.family : null;
 };
 
-// Look up the meaning/definition of a need (e.g. "Love" → "Unconditional acceptance and care")
+// Look up the short description of a need (e.g. "Love" → "Unconditional acceptance and care")
 export const getNeedMeaning = (needName) => {
 	const entry = needLookup[needName];
-	return entry ? entry.meaning : null;
+	return entry ? entry.helpText : null;
 };
 
-// Look up the full data object for a need (including clarify metadata)
+// Look up the full flat data object for a need
 export const getNeedData = (needName) => {
-	const entry = needLookup[needName];
-	if (!entry) return null;
-	// Return a clean copy without internal fields
-	const { _sectionHeading, _groupUnpackingType, _groupWhereMet, ...data } = entry;
-	return data;
+	return needLookup[needName] ?? null;
 };
 
-// Resolve the unpackingType array for a need, falling back to the group's type
+// Return the themes (unpackingType) array for a need — already resolved in the flat data
 export const resolveNeedUnpackingType = (needName) => {
 	const entry = needLookup[needName];
-	if (!entry) return [];
-	return entry.unpackingType?.length ? entry.unpackingType : (entry._groupUnpackingType ?? []);
+	return entry ? (entry.tags?.themes ?? []) : [];
 };
 
-// Resolve the whereMet array for a need, falling back to the group's whereMet
+// Return the whereMet array for a need — already resolved in the flat data
 export const resolveNeedWhereMet = (needName) => {
 	const entry = needLookup[needName];
-	if (!entry) return [];
-	return entry.whereMet?.length ? entry.whereMet : (entry._groupWhereMet ?? []);
+	return entry ? (entry.tags?.whereMet ?? []) : [];
 };
 
 // Utility functions to extract selected items by type
