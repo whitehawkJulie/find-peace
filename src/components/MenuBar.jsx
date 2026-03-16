@@ -71,6 +71,7 @@ const MenuBar = () => {
 						onClick={() => setShowSettings(true)}
 						aria-label="Settings">
 						&#9881;
+						<span className="settings-cog-label">Settings</span>
 					</button>
 					{stepIndex + 1} / {visibleSteps.length}
 				</span>

@@ -114,8 +114,9 @@ const CheckPanel = ({ observation, setObservation }) => {
 // ── Main step component ────────────────────────────────────────────────────
 
 const Observation = () => {
-	const { observation, setObservation, setHelpDrawerOpen } = useWizard();
+	const { observation, setObservation, setHelpDrawerOpen, jackalTalk, setJackalTalk } = useWizard();
 	const [showCheckPanel, setShowCheckPanel] = useState(false);
+	const [showJackalPopup, setShowJackalPopup] = useState(false);
 	const checkPanelRef = useRef(null);
 
 	useEffect(() => {
@@ -126,6 +127,49 @@ const Observation = () => {
 
 	return (
 		<div className="step-observation">
+
+			<button
+				type="button"
+				className="obs-jackal-trigger"
+				onClick={() => setShowJackalPopup(true)}
+			>
+				💬 Want space to let it all out first?
+			</button>
+
+			{showJackalPopup && (
+				<div className="obs-panel-backdrop" onClick={() => setShowJackalPopup(false)}>
+					<div className="obs-panel" onClick={(e) => e.stopPropagation()}>
+						<div className="obs-panel-header">
+							<h3>Let it all out</h3>
+							<button
+								type="button"
+								className="obs-panel-close"
+								onClick={() => setShowJackalPopup(false)}
+								aria-label="Close"
+							>×</button>
+						</div>
+						<div className="obs-panel-body">
+							<p>Before we try to make sense of it, you're allowed to say it the raw way.</p>
+							<p>This isn't about being fair or accurate — just letting the first wave out.</p>
+							<p className="obs-panel-intro">If you said the uncensored version in one breath, what would it be?</p>
+							<textarea
+								value={jackalTalk}
+								onChange={(e) => setJackalTalk(e.target.value)}
+								placeholder="They ALWAYS do this! I'm so over it..."
+								rows={6}
+							/>
+						</div>
+						<div className="obs-panel-footer">
+							<button
+								type="button"
+								className="obs-panel-done"
+								onClick={() => setShowJackalPopup(false)}
+							>Done</button>
+						</div>
+					</div>
+				</div>
+			)}
+
 			<p>Getting curious about the moment helps our brain move out of reaction and into understanding.</p>
 			<p>
 				To understand the situation more clearly, we’ll slow down and look at the specific moment itself — just

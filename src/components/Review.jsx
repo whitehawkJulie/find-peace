@@ -26,6 +26,7 @@ const Review = () => {
 	} = useWizard();
 
 	const [saved, setSaved] = useState(false);
+	const [savedNotice, setSavedNotice] = useState(false);
 	const [copied, setCopied] = useState(false);
 	const [copiedConvo, setCopiedConvo] = useState(false);
 
@@ -176,6 +177,8 @@ const Review = () => {
 		logSelections();
 		saveSession();
 		setSaved(true);
+		setSavedNotice(true);
+		setTimeout(() => setSavedNotice(false), 10000);
 	};
 
 	return (
@@ -197,6 +200,12 @@ const Review = () => {
 					{saved ? "Saved to Journal" : "Save to Journal"}
 				</button>
 			</div>
+
+			{savedNotice && (
+				<p className="review-saved-notice">
+					✓ Saved to your browser. To reload it later, tap the ⚙ cog icon in the menu bar at the bottom.
+				</p>
+			)}
 
 			<h2>What was happening for you?</h2>
 

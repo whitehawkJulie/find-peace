@@ -121,6 +121,19 @@
 	margin-top: 0.75rem;
 }
 
+/* ===== Saved notice ===== */
+
+.review-saved-notice {
+	margin: 0;
+	padding: 0.65rem 1rem;
+	background: #eef6f1;
+	border: 1px solid #b0d9bc;
+	border-radius: 8px;
+	font-size: 0.9rem;
+	color: #3a7050;
+	line-height: 1.5;
+}
+
 /* ===== Conversation guide ===== */
 
 .review-convo-tips {

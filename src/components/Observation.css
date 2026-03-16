@@ -31,6 +31,26 @@
 	color: #aaa;
 }
 
+/* ── Jackal talk trigger ─────────────────────────────────────────────────── */
+
+.obs-jackal-trigger {
+	align-self: flex-start;
+	background: #fdf6ec;
+	border: 1px solid #e8d8b8;
+	border-radius: 20px;
+	padding: 0.4rem 0.9rem;
+	font-size: 0.88rem;
+	color: #7a6040;
+	cursor: pointer;
+	transition: background 0.15s, border-color 0.15s;
+	float: none;
+}
+
+.obs-jackal-trigger:hover {
+	background: #f8edd8;
+	border-color: #d4b888;
+}
+
 /* ── Action buttons row ──────────────────────────────────────────────────── */
 
 .obs-action-row {
