@@ -325,14 +325,12 @@ Feelings.helpContent = (
 			important is happening — often connected to your needs being met or unmet.
 		</p>
 		<p>
-			<p>
-				<a href="https://sarahpeyton.com/" target="_blank" rel="noopener noreferrer">
-					Sarah Peyton
-				</a>{" "}
-				says that our body’s job is to signal what’s happening inside us. When we ignore those signals, the body
-				can’t fully relax — it’s still trying to deliver the message. But when we notice and acknowledge what
-				it’s telling us, it’s as if the body says, “Message delivered!,” and it can finally relax.
-			</p>
+			<a href="https://sarahpeyton.com/" target="_blank" rel="noopener noreferrer">
+				Sarah Peyton
+			</a>{" "}
+			says that our body’s job is to signal what’s happening inside us. When we ignore those signals, the body
+			can’t fully relax — it’s still trying to deliver the message. But when we notice and acknowledge what it’s
+			telling us, it’s as if the body says, “Message delivered!,” and it can finally relax.
 		</p>
 		<p>
 			When you can name what you're actually feeling, intensity often shifts. Clarity opens the doorway to

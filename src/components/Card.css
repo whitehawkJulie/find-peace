@@ -112,11 +112,10 @@
 
 /* ── Scroll indicator fade ── */
 .card-scroll-fade {
-	position: sticky;
-	bottom: 0;
 	height: 72px;
 	margin-top: -72px;
 	flex-shrink: 0;
+	position: relative;
 	background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.95));
 	pointer-events: none;
 	transition: opacity 0.25s ease;

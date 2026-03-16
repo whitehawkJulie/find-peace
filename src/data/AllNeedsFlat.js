@@ -151,7 +151,7 @@ export const allNeeds = [
 		coreQuestion:
 			"Is this about wanting things around you to be organised, or about an inner sense of knowing what comes next?",
 		directionPrompts: {
-			[ENV]: "You might explore what practical structure, order, or support would help things feel more manageable.",
+			[ENV]: "You might explore what practical structure, order, or support would help things feel more manageable. Might it help to focus on the order that's already inherent in the Universe?",
 			[IN_ME]:
 				"You might notice whether what’s most needed is inner steadiness, predictability, or a clearer sense of what comes next.",
 		},
@@ -234,7 +234,8 @@ export const allNeeds = [
 		directionPrompts: {
 			[BETWEEN_US]:
 				"You might explore what would help this person feel more trustworthy — consistency, honesty, care, or follow-through.",
-			[IN_ME]: "You might notice what would help you feel more able to trust yourself or life right now.",
+			[IN_ME]:
+				"You might notice what would help you feel more able to trust yourself or others or life right now.",
 		},
 		helpText: "Confidence in people and systems",
 	},
@@ -394,6 +395,16 @@ export const allNeeds = [
 		coreQuestion:
 			"What would tenderness look like here — a softer tone, a gentle gesture, or someone being especially careful with you?",
 		helpText: "Gentle, caring touch or tone",
+	},
+	{
+		id: "having_my_back",
+		label: "Having my back",
+		family: "Connection",
+		category: "Affection",
+		tags: { whereMet: [BETWEEN_US], themes: ["relational_field", "protective_safety"] },
+		coreQuestion:
+			"Are you wanting to know that someone would stand up for you, support you if things got difficult, or simply be on your side?",
+		helpText: "Knowing someone is on my side and will stand by me",
 	},
 	{
 		id: "warmth",
@@ -640,7 +651,6 @@ export const allNeeds = [
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field", "protective_safety"] },
 		coreQuestion:
 			"Is this about wanting someone to follow through consistently, or about needing systems or conditions you can depend on?",
-
 		directionPrompts: {
 			[BETWEEN_US]:
 				"You might notice what kind of follow-through or consistency you are hoping for from this person.",
@@ -687,7 +697,8 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field"] },
-		coreQuestion: "Is this about being actively invited in, or about not being left out? Is this more about inclusion with particular people, or about wider conditions making participation harder?",
+		coreQuestion:
+			"Is this about being actively invited in, or about not being left out? Is this more about inclusion with particular people, or about wider conditions making participation harder?",
 		directionPrompts: {
 			[BETWEEN_US]: "You might notice what would help you feel welcomed or included with these people.",
 			[ENV]: "You might explore what changes in the wider environment would allow you to participate more fully.",
@@ -914,7 +925,8 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive", "integrity_identity"] },
-		coreQuestion: "Is there something you feel called to do or become that you haven't been able to move toward? Is this mainly about becoming more fully yourself, or about the wider direction and purpose of your life?",
+		coreQuestion:
+			"Is there something you feel called to do or become that you haven't been able to move toward? Is this mainly about becoming more fully yourself, or about the wider direction and purpose of your life?",
 		directionPrompts: {
 			[IN_ME]: "You might notice what in you is wanting to unfold, develop, or come more fully alive.",
 			[LIFE]: "You might explore how this connects to direction, calling, or the wider arc of your life.",

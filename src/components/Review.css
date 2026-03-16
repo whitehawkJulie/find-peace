@@ -74,12 +74,130 @@
 	color: #444;
 }
 
+/* ===== "What was happening" accordion ===== */
+
+.review-accordion {
+	border-radius: 10px;
+	overflow: hidden;
+	border: 1px solid #d8d0c8;
+}
+
+.review-accordion-toggle {
+	float: none;
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.75rem 1.25rem 0.75rem 1rem;
+	background: #f4f0eb;
+	border: none;
+	cursor: pointer;
+	font-size: 1rem;
+	font-weight: 600;
+	color: #555;
+	text-align: left;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	gap: 0.5rem;
+	transition: background 0.15s ease;
+}
+
+.review-accordion-toggle:hover {
+	background: #ede8e2;
+}
+
+.review-accordion-chevron {
+	font-size: 1.1rem;
+	color: #5a9e6d;
+	flex-shrink: 0;
+	font-weight: bold;
+}
+
+.review-accordion-header-right {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	flex-shrink: 0;
+}
+
+.review-accordion-save-btn {
+	float: none;
+	background: white;
+	border: 1.5px solid #5a9e6d;
+	color: #5a9e6d;
+	border-radius: 6px;
+	padding: 0.25rem 0.65rem;
+	font-size: 0.8rem;
+	font-family: inherit;
+	cursor: pointer;
+	transition: background 0.15s ease;
+	line-height: 1.4;
+}
+
+.review-accordion-save-btn:hover {
+	background: #f0f8f2;
+}
+
+.review-accordion-body {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 1rem;
+	background: white;
+}
+
+.review-no-data {
+	color: #aaa;
+	font-style: italic;
+	font-size: 0.9rem;
+	margin: 0;
+}
+
+/* ===== Reflection prompt ===== */
+
+.review-reflection {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	padding: 0.9rem 1rem;
+	background: #f0ede8;
+	border-radius: 8px;
+	border-left: 3px solid #c8bfb0;
+}
+
+.review-reflection-prompt {
+	margin: 0;
+	font-size: 0.95rem;
+	color: #555;
+	font-style: italic;
+}
+
+.review-reflection-textarea {
+	width: 100%;
+	padding: 0.6rem 0.75rem;
+	border: 1px solid #d4d0c8;
+	border-radius: 8px;
+	font-family: inherit;
+	font-size: 0.95rem;
+	line-height: 1.5;
+	resize: vertical;
+	box-sizing: border-box;
+	background: #fefcf9;
+	color: #333;
+}
+
+.review-reflection-textarea:focus {
+	outline: none;
+	border-color: #6fad81;
+	box-shadow: 0 0 0 2px rgba(111, 173, 129, 0.15);
+}
+
 /* ===== Actions bar ===== */
 
 .review-actions {
 	display: flex;
 	gap: 0.75rem;
-	margin-top: 1.5rem;
 	flex-wrap: wrap;
 }
 
@@ -146,4 +264,15 @@
 	background: #f0ede8;
 	padding: 0.75rem 1rem;
 	border-radius: 6px;
+}
+
+.feedback {
+	background-color: #e6e6e6;
+	padding: 20px;
+}
+.feedback p {
+	margin: 0;
+	font-size: 0.9rem;
+	color: #333;
+	text-align: center;
 }

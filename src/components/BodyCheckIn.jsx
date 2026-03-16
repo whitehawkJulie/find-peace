@@ -57,8 +57,8 @@ const BodyCheckIn = () => {
 	return (
 		<div className="body-checkin">
 			<p className="body-checkin-intro">
-				Before naming your feelings, take a moment to notice what's happening in your body.
-				You don't need to go looking for anything — just notice what's already there.
+				Before naming your feelings, take a moment to notice what's happening in your body. You don't need to go
+				looking for anything — just notice what's already there.
 			</p>
 
 			<div className="body-areas">
@@ -69,12 +69,10 @@ const BodyCheckIn = () => {
 					return (
 						<div
 							key={area.id}
-							className={`body-area ${isActive ? "active" : ""} ${hasValue ? "has-value" : ""}`}
-						>
+							className={`body-area ${isActive ? "active" : ""} ${hasValue ? "has-value" : ""}`}>
 							<button
 								className="body-area-header"
-								onClick={() => setActiveArea(isActive ? null : area.id)}
-							>
+								onClick={() => setActiveArea(isActive ? null : area.id)}>
 								<span className="body-area-icon">{area.icon}</span>
 								<span className="body-area-label">{area.label}</span>
 								{hasValue && <span className="body-area-check">{"\u2713"}</span>}
@@ -85,7 +83,7 @@ const BodyCheckIn = () => {
 									<p className="body-area-prompt">{area.prompt}</p>
 									<textarea
 										className="body-area-input"
-										placeholder="What do you notice? (optional)"
+										placeholder="What do you notice?"
 										value={bodyScan[area.id] || ""}
 										onChange={(e) => handleInput(area.id, e.target.value)}
 										rows={2}
@@ -110,18 +108,18 @@ BodyCheckIn.title = "Body Check-In";
 BodyCheckIn.helpContent = (
 	<>
 		<p>
-			Our bodies hold information that our minds often miss. Before we try to name our
-			feelings, it helps to slow down and notice what's actually happening physically.
+			Our bodies hold information that our minds often miss. Before we try to name our feelings, it helps to slow
+			down and notice what's actually happening physically.
 		</p>
 		<p>
-			Tap on each body area to check in. You don't need to write anything — just pausing
-			to notice is enough. But if words come, you can jot them down.
+			Tap on each body area to check in. You don't need to write anything — just pausing to notice is enough. But
+			if words come, you can jot them down.
 		</p>
 		<h4>Why start with the body?</h4>
 		<p>
-			Emotions live in the body first. That knot in your stomach, the tightness in your
-			chest, the tension in your jaw — these are your feelings trying to get your attention.
-			When we name what we feel in the body, the right feeling words often follow naturally.
+			Emotions live in the body first. That knot in your stomach, the tightness in your chest, the tension in your
+			jaw — these are your feelings trying to get your attention. When we name what we feel in the body, the right
+			feeling words often follow naturally.
 		</p>
 	</>
 );

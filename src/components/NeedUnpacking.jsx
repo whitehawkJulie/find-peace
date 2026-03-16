@@ -23,6 +23,7 @@ const NeedUnpacking = () => {
 		setExplorationStep,
 		setNeedExplorationOpen,
 		setHideMainNav,
+		setHelpDrawerOpen,
 	} = useWizard();
 
 	const inSubStep = explorationStep > 0;
@@ -157,12 +158,17 @@ const NeedUnpacking = () => {
 	if (explorationStep === 0) {
 		return (
 			<div className="need-unpacking">
+				<p>
+					Knowing your needs at a head level is one thing ... what makes the absolute difference is actually
+					connecting to them, truly getting to know how they live in you. This page helps you do just that.
+				</p>
+
 				<AudioPlayer
 					src={meditationAudio}
 					title="The beauty of a need"
 					description="A short guided meditation to connect with what matters most."
 				/>
-				<p>Choose a need to explore more deeply.</p>
+				<p>Click on a need to explore more deeply, starting with the one that's loudest for you.</p>
 
 				<div className="pill-grid cloud">
 					{unexploredNeeds.map((name) => (
@@ -244,10 +250,6 @@ const NeedUnpacking = () => {
 				</button>
 				{openStage2 && (
 					<div className="unpacking-section-body">
-						<p>
-							<em>Of course, these questions are all optional, skip them if they don't speak to you!</em>
-						</p>
-
 						{specificQ && (
 							<div className="unpacking-prompt">
 								<p className="unpacking-prompt-text">{specificQ}</p>
@@ -285,19 +287,8 @@ const NeedUnpacking = () => {
 
 						<div className="unpacking-prompt">
 							<p className="unpacking-prompt-text">
-								Now remember when the need was met, and how that felt.
-							</p>
-							<p className="unpacking-prompt-subnote">
-								<em>
-									If can't remember a time it was met, imagine!!! <br />
-									If can't do that either, imagine what might it look and feel like for another
-									person, if THEY had the need met?
-								</em>
-							</p>
-							<p className="unpacking-closing-note">
-								If you're really struggling to remember or imagine a time that it was met, you might
-								need to take some time to sit with the sadness of that. Try to notice how the need lives
-								in you as a <em>longing</em>, a forward moving energy inside you.
+								Now remember when the need was most met for you - even if that was just a little - and
+								how that felt.
 							</p>
 							<textarea
 								className="unpacking-textarea"
@@ -305,13 +296,16 @@ const NeedUnpacking = () => {
 								value={currentData.metFeeling || ""}
 								onChange={(e) => updateField("metFeeling", e.target.value)}
 							/>
+							<button className="unpacking-cant-remember-toggle" onClick={() => setHelpDrawerOpen(true)}>
+								Can't remember a single time?
+							</button>
 						</div>
 
 						<div className="unpacking-prompt">
 							<p className="unpacking-prompt-text">
-								If you were able to remember or imagine the need being met, what circumstances were
-								present that helped it be met? What would it have to look like for this need to feel
-								fulfulled for <em>you</em>?
+								If you <em>were</em> able to remember or imagine the need being met, what was present
+								that helped it be met? What would it have to look like for this need to feel fulfulled
+								for <em>you</em>?
 							</p>
 							<textarea
 								className="unpacking-textarea"
@@ -364,6 +358,22 @@ const NeedUnpacking = () => {
 };
 
 NeedUnpacking.title = "Explore a Need";
-NeedUnpacking.helpContent = null;
+NeedUnpacking.helpContent = (
+	<>
+		<h3>Can't remember a time it was met?</h3>
+		<p>
+			<em>
+				If you can't remember a time it was met, imagine it! <br />
+				If you can't do that either, imagine what it might look and feel like for another person, if they had
+				the need met?
+			</em>
+		</p>
+		<p>
+			If you're really struggling to remember or imagine a time that it was met, you might need to take some time
+			to sit with the sadness of that. Try to notice how the need lives in you as a <em>longing</em>, a
+			forward-moving energy inside you.
+		</p>
+	</>
+);
 
 export default NeedUnpacking;

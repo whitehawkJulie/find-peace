@@ -127,6 +127,7 @@ export const WizardProvider = ({ children }) => {
 	// Conversations and Collaboration
 	const [simpleRequest, setSimpleRequest] = useState("");
 	const [wantsConversation, setWantsConversation] = useState(false);
+	const [reviewReflection, setReviewReflection] = useState("");
 
 	// Help drawer open state (lifted so step components can trigger it)
 	const [helpDrawerOpen, setHelpDrawerOpen] = useState(false);
@@ -190,6 +191,7 @@ export const WizardProvider = ({ children }) => {
 			whatsChangedResponses,
 			simpleRequest,
 			wantsConversation,
+			reviewReflection,
 		};
 		const updated = [...savedEntries, session];
 		setSavedEntries(updated);
@@ -228,6 +230,7 @@ export const WizardProvider = ({ children }) => {
 		setWhatsChangedResponses(session.whatsChangedResponses || {});
 		setSimpleRequest(session.simpleRequest || "");
 		setWantsConversation(session.wantsConversation || false);
+		setReviewReflection(session.reviewReflection || "");
 		setStepIndex(1); // Go straight to Observation (index 1 is always Observation)
 	};
 
@@ -254,6 +257,7 @@ export const WizardProvider = ({ children }) => {
 		setWhatsChangedResponses({});
 		setSimpleRequest("");
 		setWantsConversation(false);
+		setReviewReflection("");
 	};
 
 	// Ref to .card-content scroll container (attached by Card.jsx)
@@ -330,6 +334,8 @@ export const WizardProvider = ({ children }) => {
 		setSimpleRequest,
 		wantsConversation,
 		setWantsConversation,
+		reviewReflection,
+		setReviewReflection,
 		settings,
 		updateSettings,
 		helpDrawerOpen,

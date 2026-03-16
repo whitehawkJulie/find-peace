@@ -119,3 +119,7 @@
 	cursor: pointer;
 	accent-color: #5a9e6d;
 }
+
+.card-content .collab-section-content p {
+	margin: 1rem 0;
+}

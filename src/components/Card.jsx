@@ -48,8 +48,8 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 					</div>
 				</div>
 				{children}
-				<div className="card-scroll-fade" aria-hidden="true" style={{ opacity: hasMoreBelow ? 1 : 0 }} />
 			</div>
+			<div className="card-scroll-fade" aria-hidden="true" style={{ opacity: hasMoreBelow ? 1 : 0 }} />
 
 			<SlideDrawer
 				isOpen={helpDrawerOpen}

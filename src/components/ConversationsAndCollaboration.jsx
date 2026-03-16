@@ -34,11 +34,81 @@ const ConversationsAndCollaboration = () => {
 
 	const SECTIONS = [
 		{
+			id: "despair",
+			title: "First: despair about need ever being met",
+			content: (
+				<>
+					<p>
+						Sometimes, after identifying a need, we realise the pain is not just that the need is unmet in
+						this situation — it’s that we can’t see any way for it to be met at all.
+					</p>
+
+					<p>The first question I ask myself is:</p>
+
+					<p>
+						<strong>Am I stuck on one particular strategy?</strong>
+						<br />
+						Am I believing there is only <em>one</em> way for this need to be met?
+						<br />
+						Do I need to loosen my grip on my preferred strategy and become willing to explore other
+						possibilities?
+					</p>
+
+					<p>
+						Sometimes that is enough. Once we stop treating one strategy as the only path, other options
+						begin to appear.
+					</p>
+
+					<p>
+						Very occasionally, though, we realise something deeper: this need feels unmet not just here, but
+						in our life more broadly — and we genuinely have no idea how to change that. When that happens,
+						I tend to take one of two approaches.
+					</p>
+
+					<h3>1. Let it percolate</h3>
+
+					<p>
+						I ask myself whether I’m willing to sit with the unmet need for a few days and give it time. I
+						let myself wonder what this need really means to me, and what would actually help me feel it had
+						been met. I put it on the back burner for a while and let it unfold.
+					</p>
+
+					<h3>2. Try giving it</h3>
+
+					<p>
+						This can feel counter-intuitive, but sometimes, when I feel desperate and lost, I stop trying to
+						get the need met for myself and instead look for a way to offer it to someone else.
+					</p>
+
+					<p>
+						For example, if the need is <strong>love</strong>, I might look for someone even more starved of
+						love than I am, and find a way to offer them some. Strangely, this can teach me a lot about the
+						need itself — what it really is, what it looks like in practice, and sometimes even what might
+						help meet it in my own life.
+					</p>
+
+					<p>And finally, if I’m still completely stuck, I find it helpful to remember this:</p>
+
+					<p>
+						<strong>
+							Even if I can’t see how this need could be met right now, I do not know what the future
+							holds.
+						</strong>
+					</p>
+
+					<p>
+						I can still honour the need. I can hold it gently, value it, and let it matter — even before I
+						know what to do about it.
+					</p>
+				</>
+			),
+		},
+		{
 			id: "whether",
 			title: "Whether to have the conversation",
 			content: (
 				<>
-					<p>I'm likely to have the conversation if:</p>
+					<p>I'm likely to have the conversation with the other pereson about this situation IF:</p>
 					<ul>
 						<li>I have ongoing contact with this person</li>
 						<li>AND this is an appropriate place for me to try having this need met</li>
@@ -53,6 +123,7 @@ const ConversationsAndCollaboration = () => {
 				</>
 			),
 		},
+
 		{
 			id: "request",
 			title: "Make a simple request",

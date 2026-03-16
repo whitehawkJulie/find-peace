@@ -317,13 +317,13 @@ export const Feelings = {
 
 							{
 								type: "text",
-								question: "If there’s a worried prediction attached, what is it saying? (optional)",
+								question: "If there’s a worried prediction attached, what is it saying? ",
 								stem: "I’m afraid that…",
 							},
 
 							{
 								type: "singleChoice",
-								question: "Where do you feel it most in your body? (optional)",
+								question: "Where do you feel it most in your body? ",
 								options: ["Chest", "Stomach", "Throat", "Jaw", "Whole body", "Not sure"],
 							},
 						],
@@ -637,7 +637,7 @@ export const Feelings = {
 							// Bridge toward needs.
 							{
 								type: "text",
-								question: "What are you protecting or standing up for here? (optional)",
+								question: "What are you protecting or standing up for here? ",
 							},
 						],
 					},
@@ -975,7 +975,7 @@ export const Feelings = {
 
 							{
 								type: "text",
-								question: "If there’s a harsh inner sentence attached, what is it saying? (optional)",
+								question: "If there’s a harsh inner sentence attached, what is it saying? ",
 								stem: "The story is…",
 							},
 							{
@@ -1016,7 +1016,7 @@ export const Feelings = {
 						prompts: [
 							{
 								type: "text",
-								question: "What’s the ‘should’ voice saying? (optional)",
+								question: "What’s the ‘should’ voice saying? ",
 								stem: "I should have…",
 							},
 
