@@ -18,12 +18,13 @@ function flattenedRow(need) {
 		...need,
 		whereMetStr: (need.tags?.whereMet ?? []).join(", "),
 		themesStr: (need.tags?.themes ?? []).join(", "),
-		diffQ0: need.differentiationQuestions?.[0] ?? "",
-		diffQ1: need.differentiationQuestions?.[1] ?? "",
+		directionPromptsStr: need.directionPrompts
+			? Object.values(need.directionPrompts).join(" | ")
+			: "",
 	};
 }
 
-const COL_COUNT = 6;
+const COL_COUNT = 5;
 
 const cellStyle = {
 	padding: "8px 12px",
@@ -120,8 +121,7 @@ export default function NeedsAuditPage() {
 					r.whereMetStr,
 					r.themesStr,
 					r.coreQuestion,
-					r.diffQ0,
-					r.diffQ1,
+					r.directionPromptsStr,
 					r.helpText,
 				]
 					.filter(Boolean)
@@ -220,10 +220,9 @@ export default function NeedsAuditPage() {
 			<div style={{ border: "1px solid rgba(0,0,0,0.12)", borderRadius: 10, overflow: "hidden" }}>
 				<table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
 					<colgroup>
-						<col style={{ width: "140px" }} />
+						<col style={{ width: "130px" }} />
+						<col style={{ width: "120px" }} />
 						<col style={{ width: "160px" }} />
-						<col style={{ width: "190px" }} />
-						<col />
 						<col />
 						<col />
 					</colgroup>
@@ -234,8 +233,7 @@ export default function NeedsAuditPage() {
 								["whereMetStr", "whereMet"],
 								["themesStr", "themes"],
 								["coreQuestion", "Core question"],
-								["diffQ0", "Diff. question 1"],
-								["diffQ1", "Diff. question 2"],
+								["directionPromptsStr", "Direction prompts"],
 							].map(([key, label]) => (
 								<th
 									key={key}
@@ -313,8 +311,16 @@ export default function NeedsAuditPage() {
 													{r.themesStr}
 												</td>
 												<td style={qCellStyle}>{r.coreQuestion}</td>
-												<td style={qCellStyle}>{r.diffQ0}</td>
-												<td style={qCellStyle}>{r.diffQ1}</td>
+												<td style={qCellStyle}>
+													{r.directionPrompts
+														? Object.entries(r.directionPrompts).map(([k, v]) => (
+															<div key={k} style={{ marginBottom: 4 }}>
+																<span style={{ fontSize: "0.72em", color: "#888", display: "block", marginBottom: 1 }}>{k}</span>
+																{v}
+															</div>
+														))
+														: null}
+												</td>
 											</tr>
 										))}
 									</React.Fragment>

@@ -94,7 +94,6 @@ const NeedUnpacking = () => {
 	// Stage 2: questions read directly from the flat need data
 	const currentNeedData = currentExploringNeed ? getNeedData(currentExploringNeed) : null;
 	const specificQ = currentNeedData?.coreQuestion ?? null;
-	const differentiationQuestions = currentNeedData?.differentiationQuestions ?? [];
 	const directionPrompts = currentNeedData?.directionPrompts ? Object.values(currentNeedData.directionPrompts) : [];
 
 	// ── Helpers ──
@@ -257,30 +256,6 @@ const NeedUnpacking = () => {
 									rows={3}
 									value={currentData.coreSpecific || ""}
 									onChange={(e) => updateField("coreSpecific", e.target.value)}
-								/>
-							</div>
-						)}
-
-						{differentiationQuestions[0] && (
-							<div className="unpacking-prompt">
-								<p className="unpacking-prompt-text">{differentiationQuestions[0]}</p>
-								<textarea
-									className="unpacking-textarea"
-									rows={2}
-									value={currentData.differentiation || ""}
-									onChange={(e) => updateField("differentiation", e.target.value)}
-								/>
-							</div>
-						)}
-
-						{differentiationQuestions[1] && (
-							<div className="unpacking-prompt">
-								<p className="unpacking-prompt-text">{differentiationQuestions[1]}</p>
-								<textarea
-									className="unpacking-textarea"
-									rows={2}
-									value={currentData.whereMetResponse || ""}
-									onChange={(e) => updateField("whereMetResponse", e.target.value)}
 								/>
 							</div>
 						)}

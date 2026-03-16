@@ -11,7 +11,6 @@
  *   tags.whereMet        – WHERE_MET string values (see whereMetData.js)
  *   tags.themes          – UNPACKING_TYPE string values (see unpackingTypeData.js)
  *   coreQuestion         – main clarifying question shown in NeedUnpacking (editable)
- *   differentiationQuestions – array of 0‑2 follow-up questions (editable)
  *   helpText             – short phrase shown in the need picker
  */
 
@@ -214,9 +213,7 @@ export const allNeeds = [
 		},
 		coreQuestion:
 			"What part of your life feels unsteady right now — practical things, a relationship, or your own inner state?",
-		differentiationQuestions: [
-			"Is the instability mainly in practical circumstances, in a relationship, or in your inner state?",
-		],
+
 		directionPrompts: {
 			[ENV]: "You might explore what practical support or steadier conditions would help life feel more stable.",
 			[IN_ME]:
@@ -233,9 +230,7 @@ export const allNeeds = [
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["protective_safety", "relational_field"] },
 		coreQuestion:
 			"Is this about trusting a specific person, or about a more general sense that things will be okay?",
-		differentiationQuestions: [
-			"Is this about trusting this person, or about trusting that things will be okay overall?",
-		],
+
 		directionPrompts: {
 			[BETWEEN_US]:
 				"You might explore what would help this person feel more trustworthy — consistency, honesty, care, or follow-through.",
@@ -264,10 +259,7 @@ export const allNeeds = [
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
 		coreQuestion:
-			"What would appreciation look like here — being thanked, being noticed, or having your effort acknowledged?",
-		differentiationQuestions: [
-			"Is this more about being appreciated by someone else, or about recognising your own worth?",
-		],
+			"What would appreciation look like here — being thanked, being noticed, or having your effort acknowledged? Is this more about being appreciated by someone else, or about recognising your own worth?",
 		directionPrompts: {
 			[BETWEEN_US]:
 				"You might notice whether you're longing for recognition, gratitude, or acknowledgment from someone.",
@@ -648,9 +640,7 @@ export const allNeeds = [
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field", "protective_safety"] },
 		coreQuestion:
 			"Is this about wanting someone to follow through consistently, or about needing systems or conditions you can depend on?",
-		differentiationQuestions: [
-			"Is this mainly about a person’s follow-through, or about needing more dependable systems or conditions?",
-		],
+
 		directionPrompts: {
 			[BETWEEN_US]:
 				"You might notice what kind of follow-through or consistency you are hoping for from this person.",
@@ -697,10 +687,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field"] },
-		coreQuestion: "Is this about being actively invited in, or about not being left out?",
-		differentiationQuestions: [
-			"Is this more about inclusion with particular people, or about wider conditions making participation harder?",
-		],
+		coreQuestion: "Is this about being actively invited in, or about not being left out? Is this more about inclusion with particular people, or about wider conditions making participation harder?",
 		directionPrompts: {
 			[BETWEEN_US]: "You might notice what would help you feel welcomed or included with these people.",
 			[ENV]: "You might explore what changes in the wider environment would allow you to participate more fully.",
@@ -724,10 +711,7 @@ export const allNeeds = [
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field"] },
 		coreQuestion:
-			"Is this about wanting to be included in activities or decisions, or about having a role that matters?",
-		differentiationQuestions: [
-			"Is this mainly about participation with particular people, or about wider conditions that affect whether you can join in?",
-		],
+			"Is this about wanting to be included in activities or decisions, or about having a role that matters? Is this mainly about participation with particular people, or about wider conditions that affect whether you can join in?",
 		directionPrompts: {
 			[BETWEEN_US]: "You might notice what would help you feel more included or involved with these people.",
 			[ENV]: "You might explore what changes would allow you to participate more fully.",
@@ -930,10 +914,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive", "integrity_identity"] },
-		coreQuestion: "Is there something you feel called to do or become that you haven't been able to move toward?",
-		differentiationQuestions: [
-			"Is this mainly about becoming more fully yourself, or about the wider direction and purpose of your life?",
-		],
+		coreQuestion: "Is there something you feel called to do or become that you haven't been able to move toward? Is this mainly about becoming more fully yourself, or about the wider direction and purpose of your life?",
 		directionPrompts: {
 			[IN_ME]: "You might notice what in you is wanting to unfold, develop, or come more fully alive.",
 			[LIFE]: "You might explore how this connects to direction, calling, or the wider arc of your life.",
@@ -1347,10 +1328,7 @@ export const allNeeds = [
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, ENV, BETWEEN_US], themes: ["agency_autonomy"] },
 		coreQuestion:
-			"When you say freedom, is it more about having options, having room to be yourself, or being able to move and act without constraint?",
-		differentiationQuestions: [
-			"Where does the limitation feel strongest — inside you, in your circumstances, or in a relationship?",
-		],
+			"When you say freedom, is it more about having options, having room to be yourself, or being able to move and act without constraint? Where does the limitation feel strongest — inside you, in your circumstances, or in a relationship?",
 		directionPrompts: {
 			[IN_ME]:
 				"You might notice what inner pressure, fear, or restriction is getting in the way of feeling free.",
