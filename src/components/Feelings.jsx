@@ -276,8 +276,8 @@ const Feelings = () => {
 					</p>
 
 					<p>
-						For example, words like <em>ignored</em>, <em>rejected</em>, or <em>attacked</em>
-						carry an interpretation about another person’s behaviour.
+						For example, words like <em>ignored</em>, <em>rejected</em>, or <em>attacked</em> carry an
+						interpretation about another person’s behaviour.
 					</p>
 
 					<p>

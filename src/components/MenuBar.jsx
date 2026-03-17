@@ -9,18 +9,6 @@ const SettingsContent = ({ settings, updateSettings, onSessionLoaded }) => {
 	return (
 		<div className="settings-content">
 			<div className="settings-group">
-				<h4>Pause Screens</h4>
-				<label className="settings-toggle">
-					<input
-						type="checkbox"
-						checked={!(settings.skipPauses ?? false)}
-						onChange={(e) => updateSettings({ skipPauses: !e.target.checked })}
-					/>
-					Show pause/breathing screens between steps
-				</label>
-			</div>
-
-			<div className="settings-group">
 				<h4>Nervous System Colours</h4>
 				<label className="settings-toggle">
 					<input

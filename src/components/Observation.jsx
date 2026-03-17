@@ -127,12 +127,7 @@ const Observation = () => {
 
 	return (
 		<div className="step-observation">
-
-			<button
-				type="button"
-				className="obs-jackal-trigger"
-				onClick={() => setShowJackalPopup(true)}
-			>
+			<button type="button" className="obs-jackal-trigger" onClick={() => setShowJackalPopup(true)}>
 				💬 Want space to let it all out first?
 			</button>
 
@@ -145,13 +140,16 @@ const Observation = () => {
 								type="button"
 								className="obs-panel-close"
 								onClick={() => setShowJackalPopup(false)}
-								aria-label="Close"
-							>×</button>
+								aria-label="Close">
+								×
+							</button>
 						</div>
 						<div className="obs-panel-body">
 							<p>Before we try to make sense of it, you're allowed to say it the raw way.</p>
 							<p>This isn't about being fair or accurate — just letting the first wave out.</p>
-							<p className="obs-panel-intro">If you said the uncensored version in one breath, what would it be?</p>
+							<p className="obs-panel-intro">
+								If you said the uncensored version in one breath, what would it be?
+							</p>
 							<textarea
 								value={jackalTalk}
 								onChange={(e) => setJackalTalk(e.target.value)}
@@ -160,11 +158,9 @@ const Observation = () => {
 							/>
 						</div>
 						<div className="obs-panel-footer">
-							<button
-								type="button"
-								className="obs-panel-done"
-								onClick={() => setShowJackalPopup(false)}
-							>Done</button>
+							<button type="button" className="obs-panel-done" onClick={() => setShowJackalPopup(false)}>
+								Done
+							</button>
 						</div>
 					</div>
 				</div>
@@ -230,7 +226,8 @@ Observation.helpContent = (
 			</li>
 		</ul>
 
-		<h4>Example</h4>
+		<h4>Interactive Example</h4>
+		<p>Click the buttons to see it change.</p>
 		<ObservationExample />
 	</>
 );

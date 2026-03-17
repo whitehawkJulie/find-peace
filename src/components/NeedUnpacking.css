@@ -166,6 +166,7 @@
 	margin: 0;
 }
 
+/* "Can't remember?" — opens help drawer */
 .unpacking-cant-remember-toggle {
 	float: none;
 	background: none;
@@ -182,63 +183,6 @@
 
 .unpacking-cant-remember-toggle:hover {
 	color: #555;
-}
-
-.unpacking-cant-remember-expanded {
-	position: relative;
-	background: #eef5ee;
-	border-left: 3px solid #a8c9a8;
-	border-radius: 8px;
-	padding: 0.75rem 2.5rem 0.75rem 1rem;
-	font-size: 0.9rem;
-	line-height: 1.6;
-	color: #555;
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-}
-
-.unpacking-cant-remember-expanded p {
-	margin: 0;
-}
-
-.unpacking-cant-remember-close {
-	float: none;
-	position: absolute;
-	top: 0.5rem;
-	right: 0.6rem;
-	background: none;
-	border: none;
-	padding: 0.1rem 0.3rem;
-	font-size: 0.8rem;
-	color: #999;
-	cursor: pointer;
-	line-height: 1;
-}
-
-.unpacking-cant-remember-close:hover {
-	color: #555;
-}
-
-.unpacking-inline-link {
-	float: none;
-	display: inline;
-	background: none;
-	border: none;
-	padding: 0;
-	font-size: inherit;
-	font-style: inherit;
-	color: #5a9e6d;
-	text-decoration: underline;
-	text-decoration-style: dotted;
-	cursor: pointer;
-	font-family: inherit;
-	line-height: inherit;
-}
-
-.unpacking-inline-link:hover {
-	color: #3a7a52;
-	text-decoration-style: solid;
 }
 
 /* ── Footer — pushed to bottom ── */
@@ -292,77 +236,4 @@
 	color: #888;
 	font-style: italic;
 	margin: 0 0 0.5rem;
-}
-
-/* ── Inline help drawer (avoids SlideDrawer circular import) ── */
-.nu-drawer-backdrop {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.15);
-	z-index: 999;
-}
-
-.nu-drawer {
-	position: fixed;
-	top: 0;
-	right: 0;
-	height: 100%;
-	width: 320px;
-	background-color: #fffbe6;
-	border-left: 2px solid #f0e68c;
-	box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
-	padding: 1rem;
-	z-index: 1000;
-	overflow-y: auto;
-	transform: translateX(100%);
-	transition: transform 0.3s ease-in-out;
-}
-
-@media (min-width: 768px) {
-	.nu-drawer {
-		width: 480px;
-	}
-}
-
-@media (min-width: 1024px) {
-	.nu-drawer {
-		width: 550px;
-	}
-}
-
-.nu-drawer--open {
-	transform: translateX(0);
-}
-
-.nu-drawer-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.nu-drawer-header h3 {
-	margin: 0;
-	font-size: 1rem;
-	color: #444;
-}
-
-.nu-drawer-close {
-	float: none;
-	background: none;
-	border: none;
-	font-size: 1.5rem;
-	color: #444;
-	cursor: pointer;
-	padding: 0 0.2rem;
-	line-height: 1;
-}
-
-.nu-drawer-content {
-	margin-top: 1rem;
-	font-size: 0.95rem;
-	line-height: 1.6;
-	color: #444;
 }
