@@ -166,7 +166,7 @@ const Feelings = () => {
 	};
 
 	return (
-		<div className="step-feelings">
+		<div className="step-feelings step-container">
 			<p>
 				Now take a moment and return to that situation:{" "}
 				<strong>{observation?.refined || observation?.moment || observation?.actions || ""}</strong>

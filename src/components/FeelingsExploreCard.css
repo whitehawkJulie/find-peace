@@ -50,7 +50,6 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	float: none;
 	transition: background 0.15s;
 }
 
@@ -85,17 +84,6 @@
 	color: #555;
 }
 
-.feelings-explore-suggest-feeling .feelings-explore-choice {
-	float: none;
-}
-
-/* ===== (kept for legacy reference, unused) ===== */
-
-.feelings-explore-title {
-	font-size: 1.1rem;
-	color: #444;
-	margin: 0 0 0.5rem;
-}
 
 .feelings-explore-intro {
 	color: #666;

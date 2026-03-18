@@ -4,8 +4,15 @@ import SlideDrawer from "./SlideDrawer";
 import SavedEntries from "./SavedEntries";
 import "./MenuBar.css";
 
-const SettingsContent = ({ settings, updateSettings, onSessionLoaded }) => {
-	const { savedEntries } = useWizard();
+const SettingsContent = ({ settings, updateSettings, onSessionLoaded, onReset }) => {
+	const { savedEntries, hasSessionData } = useWizard();
+	const [confirmReset, setConfirmReset] = useState(false);
+
+	const handleReset = () => {
+		onReset();
+		setConfirmReset(false);
+	};
+
 	return (
 		<div className="settings-content">
 			<div className="settings-group">
@@ -26,12 +33,35 @@ const SettingsContent = ({ settings, updateSettings, onSessionLoaded }) => {
 					<SavedEntries onSessionLoaded={onSessionLoaded} />
 				</div>
 			)}
+
+			{hasSessionData() && (
+				<div className="settings-group settings-group--reset">
+					<h4>Start Over</h4>
+					{confirmReset ? (
+						<div className="settings-reset-confirm">
+							<p>This will clear all your current progress. Are you sure?</p>
+							<div className="settings-reset-confirm-buttons">
+								<button className="settings-reset-confirm-yes" onClick={handleReset}>
+									Yes, start over
+								</button>
+								<button className="settings-reset-cancel" onClick={() => setConfirmReset(false)}>
+									Cancel
+								</button>
+							</div>
+						</div>
+					) : (
+						<button className="settings-reset-btn" onClick={() => setConfirmReset(true)}>
+							↺ Start over
+						</button>
+					)}
+				</div>
+			)}
 		</div>
 	);
 };
 
 const MenuBar = () => {
-	const { stepIndex, setStepIndex, visibleSteps, settings, updateSettings } = useWizard();
+	const { stepIndex, setStepIndex, visibleSteps, settings, updateSettings, resetSession } = useWizard();
 	const [showSettings, setShowSettings] = useState(false);
 
 	const hasPrev = stepIndex > 0;
@@ -74,6 +104,7 @@ const MenuBar = () => {
 					settings={settings}
 					updateSettings={updateSettings}
 					onSessionLoaded={() => setShowSettings(false)}
+					onReset={() => { resetSession(); setShowSettings(false); }}
 				/>
 			</SlideDrawer>
 		</>

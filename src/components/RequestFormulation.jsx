@@ -6,7 +6,7 @@ const RequestFormulation = () => {
 	const { requestOfSelf, setRequestOfSelf, requestOfOther, setRequestOfOther } = useWizard();
 
 	return (
-		<div className="request-formulation">
+		<div className="request-formulation step-container">
 			<p>
 				<em>
 					This tool is a work in progress. There will be more to come about relational repair: how to use what

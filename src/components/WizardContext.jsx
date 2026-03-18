@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useRef } from "react";
+import React, { createContext, useContext, useState, useRef, useEffect } from "react";
 
 // Create context
 const WizardContext = createContext();
@@ -129,8 +129,24 @@ export const WizardProvider = ({ children }) => {
 	const [wantsConversation, setWantsConversation] = useState(false);
 	const [reviewReflection, setReviewReflection] = useState("");
 
+	// True once the user has unsaved changes; cleared when saveSession() is called.
+	// Using a ref so beforeunload always reads the current value without a re-render.
+	const dirtyRef = useRef(false);
+
+	// Mark dirty whenever any meaningful data changes
+	useEffect(() => {
+		dirtyRef.current = true;
+	}, [
+		jackalTalk, observation, feelings, needs, needExplorations, strategies,
+		feelingsExploreResponses, guessObservation, guessFeelings, guessNeeds,
+		requestOfSelf, requestOfOther, whatsChangedResponses, simpleRequest,
+		wantsConversation, reviewReflection,
+	]); // eslint-disable-line react-hooks/exhaustive-deps
+
 	// Help drawer open state (lifted so step components can trigger it)
 	const [helpDrawerOpen, setHelpDrawerOpen] = useState(false);
+	// Override content: when set, the drawer shows this instead of the step's helpContent
+	const [helpDrawerOverride, setHelpDrawerOverride] = useState(null);
 
 	// Settings (persisted in localStorage)
 	const [settings, setSettings] = useState(() => {
@@ -196,6 +212,7 @@ export const WizardProvider = ({ children }) => {
 		const updated = [...savedEntries, session];
 		setSavedEntries(updated);
 		localStorage.setItem("findPeaceSessions", JSON.stringify(updated));
+		dirtyRef.current = false;
 		return session;
 	};
 
@@ -236,6 +253,7 @@ export const WizardProvider = ({ children }) => {
 
 	// Start a fresh session
 	const resetSession = () => {
+		dirtyRef.current = false;
 		setStepIndex(0);
 		setJackalTalk("");
 		setObservation({ moment: "", actions: "", camera: "", refined: "" });
@@ -338,8 +356,11 @@ export const WizardProvider = ({ children }) => {
 		setReviewReflection,
 		settings,
 		updateSettings,
+		dirtyRef,
 		helpDrawerOpen,
 		setHelpDrawerOpen,
+		helpDrawerOverride,
+		setHelpDrawerOverride,
 		hideMainNav,
 		setHideMainNav,
 		savedEntries,

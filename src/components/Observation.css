@@ -1,10 +1,5 @@
 /* ── Main observation step ───────────────────────────────────────────────── */
-
-.step-observation {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
+/* .step-observation layout provided by .step-container in App.css */
 
 .obs-main-textarea {
 	width: 100%;
@@ -43,7 +38,6 @@
 	color: #7a6040;
 	cursor: pointer;
 	transition: background 0.15s, border-color 0.15s;
-	float: none;
 }
 
 .obs-jackal-trigger:hover {
@@ -107,9 +101,10 @@
 	background: rgba(0, 0, 0, 0.35);
 	z-index: 800;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
-	padding: 1rem;
+	padding: 1.5rem 1rem 2rem;
+	overflow-y: auto;
 }
 
 .obs-panel {
@@ -117,15 +112,10 @@
 	border-radius: 14px;
 	width: 100%;
 	max-width: 540px;
-	max-height: 85vh;
 	display: flex;
 	flex-direction: column;
 	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 	overflow: hidden;
-}
-
-.obs-panel-wide {
-	max-width: 600px;
 }
 
 .obs-panel-header {
@@ -216,22 +206,11 @@
 	margin-bottom: 0.75rem;
 }
 
-.obs-panel-section-vent {
-	background: #fdfaf4;
-	border-radius: 8px;
-	padding: 0.85rem;
-}
-
 .obs-panel-label {
 	font-style: italic;
 	color: #444;
 	font-size: 0.95rem;
 	line-height: 1.45;
-}
-
-.obs-panel-label-secondary {
-	font-size: 0.88rem;
-	color: #666;
 }
 
 .obs-panel-sublabel {

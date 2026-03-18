@@ -9,19 +9,64 @@ import { useWizard } from "./WizardContext";
 const NvcWizard = () => {
 	const {
 		stepIndex,
+		setStepIndex,
 		visibleSteps,
 		needExplorationOpen,
 		setHelpDrawerOpen,
+		setHelpDrawerOverride,
 		currentExploringNeed,
 		explorationStep,
 		cardContentRef,
+		dirtyRef,
 	} = useWizard();
 	const prevStepIndex = useRef(stepIndex);
+	const isPopState = useRef(false);
+	const mounted = useRef(false);
+
+	// Warn before leaving the page if the user has unsaved changes
+	useEffect(() => {
+		const handleBeforeUnload = (e) => {
+			if (!dirtyRef.current) return;
+			e.preventDefault();
+			// Modern browsers ignore custom messages and show their own generic text,
+			// but setting returnValue is still required to trigger the dialog.
+			e.returnValue = "";
+		};
+		window.addEventListener("beforeunload", handleBeforeUnload);
+		return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	// Register popstate listener once on mount
+	useEffect(() => {
+		const handlePopState = (e) => {
+			if (e.state && typeof e.state.stepIndex === "number") {
+				isPopState.current = true;
+				setStepIndex(e.state.stepIndex);
+			}
+		};
+		window.addEventListener("popstate", handlePopState);
+		return () => window.removeEventListener("popstate", handlePopState);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		cardContentRef.current?.scrollTo(0, 0);
 		setHelpDrawerOpen(false);
+		setHelpDrawerOverride(null);
 		prevStepIndex.current = stepIndex;
+
+		// On first render: seed the initial history entry so Back works from step 0
+		if (!mounted.current) {
+			mounted.current = true;
+			history.replaceState({ stepIndex: 0 }, "");
+			return;
+		}
+		// On popstate-driven changes: clear the flag, don't push a duplicate entry
+		if (isPopState.current) {
+			isPopState.current = false;
+			return;
+		}
+		// Normal step change: push a new history entry
+		history.pushState({ stepIndex }, "");
 	}, [stepIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	if (!visibleSteps || visibleSteps.length === 0) return null;

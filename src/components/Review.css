@@ -83,7 +83,6 @@
 }
 
 .review-accordion-toggle {
-	float: none;
 	width: 100%;
 	box-sizing: border-box;
 	display: flex;
@@ -234,7 +233,6 @@
 .review-action-btn-small {
 	font-size: 0.85rem;
 	padding: 0.45rem 1rem;
-	float: none;
 	display: inline-block;
 	margin-top: 0.75rem;
 }

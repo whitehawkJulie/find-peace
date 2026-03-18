@@ -231,25 +231,75 @@ const FeelingsExploreCard = () => {
 FeelingsExploreCard.title = "Explore Feelings";
 FeelingsExploreCard.helpContent = (
 	<>
-		<p>
-			When many of your feelings point in the same direction, it can help to spend a moment with that emotional
-			type before moving on.
-		</p>
-		<p>This step is optional — if it doesn't feel right, you can skip it and move on to exploring your needs.</p>
-		<p>There are no right answers here. Just notice what comes up.</p>
-		{/* TODO: Add more detailed help content here */}
-		<p>
-			TODO: Add stuff here about thought-feelings!! The feelings that come after the initial reaction, as a result
-			of our thoughts about it. feelings START in the body, before the mind knows anything ... they're the body's
-			wisdom, a different intelligence to the mind, that pick up on so much more information that's processed
-			unconsciously. But then there's the feelings that get generated when we tell stories about what we think is
-			happening, and they're the ones that lead us astray!! Like with friends of mine when she "dismissed" him
-			when she got a phone call ... the initial feeling was confusion, surprise and maybe hurt, but then the
-			stories like "she doesn't respect me" and "she's playing with me" generated HUGE anger. And it's not that we
-			want to dismiss those latter "thought feelings" - they're the ones that tell us about PAST traumas, we
-			absolutely need to address that too. But we need to separate them, so that we know what's relevant to THIS
-			situation, and react appropriately to this, and deal with the other stuff in a different way!
-		</p>
+		<div>
+			<h2>Help: Explore Feelings</h2>
+
+			<p>
+				When many of your feelings point in the same direction, it can help to spend a moment with that
+				emotional type before moving on.
+			</p>
+
+			<p>
+				This step is optional — if it doesn't feel right, you can skip it and move on to exploring your needs.
+			</p>
+
+			<p>There are no right answers here. Just notice what comes up.</p>
+
+			<hr />
+
+			<p>It can also help to understand that not all feelings come from the same place.</p>
+
+			<p>
+				Some feelings arise <strong>directly from the body</strong>, before the mind has had time to interpret
+				what’s happening. These are often the <em>first feelings</em> — things like surprise, confusion, hurt,
+				fear, or anger. They’re fast, instinctive, and based on a huge amount of information your nervous system
+				is processing outside of conscious awareness.
+			</p>
+
+			<p>You can think of these as the body’s wisdom — a different kind of intelligence to the thinking mind.</p>
+
+			<p>
+				Then, very quickly, the mind starts trying to make sense of what’s happening. It creates a story: what
+				this means, why it happened, and what it says about you or the other person.
+			</p>
+
+			<p>
+				Those stories can generate a second layer of feelings — sometimes much stronger ones. These are often{" "}
+				<strong>thought-generated feelings</strong>.
+			</p>
+
+			<p>
+				For example, someone might initially feel surprised or a bit hurt when a friend suddenly takes a phone
+				call. But if the mind creates a story like “they don’t respect me” or “they’re playing with me,” that
+				can quickly turn into much stronger anger.
+			</p>
+
+			<p>
+				There’s nothing wrong with these thought-generated feelings. They often point to important things —
+				including past experiences, sensitivities, or old hurts that still matter and may need care.
+			</p>
+
+			<p>At the same time, it can be helpful to gently separate:</p>
+
+			<ul>
+				<li>
+					what you felt <strong>first</strong>, in direct response to what happened
+				</li>
+				<li>
+					what you felt <strong>afterward</strong>, as your mind made sense of it
+				</li>
+			</ul>
+
+			<p>
+				This helps you respond more clearly to <strong>this situation</strong>, while also recognising that some
+				of what’s been stirred up may belong to other experiences that deserve attention in their own way.
+			</p>
+
+			<p>
+				You don’t need to get this perfectly right. Even a small sense of “what came first” can help bring more
+				clarity to what you’re feeling and what you might need.
+			</p>
+		</div>
 	</>
 );
 

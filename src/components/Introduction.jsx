@@ -3,7 +3,7 @@ import "./Introduction.css";
 
 const Introduction = () => {
 	return (
-		<div className="step-introduction">
+		<div className="step-introduction step-container">
 			<p>
 				Life sure throws some curve balls, doesn’t it? We do our best, but things don’t always go the way we
 				expected.

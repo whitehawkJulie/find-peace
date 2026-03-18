@@ -108,7 +108,7 @@ const ConversationsAndCollaboration = () => {
 			title: "Whether to have the conversation",
 			content: (
 				<>
-					<p>I'm likely to have the conversation with the other pereson about this situation IF:</p>
+					<p>I'm likely to have the conversation with the other person about this situation IF:</p>
 					<ul>
 						<li>I have ongoing contact with this person</li>
 						<li>AND this is an appropriate place for me to try having this need met</li>
@@ -260,7 +260,7 @@ const ConversationsAndCollaboration = () => {
 	];
 
 	return (
-		<div className="step-collab">
+		<div className="step-collab step-container">
 			<p>
 				Many of us find that doing this process resolves a lot of our issues, and when it's done, we're done!
 				But sometimes it's more complicated, and we want to figure out how to move forward with the other

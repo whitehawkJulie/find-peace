@@ -17,7 +17,7 @@ export const feelingTypes = {
 			{
 				id: "fear_prediction",
 				type: "text",
-				question: "If there’s a worried prediction attached, what is it saying? ",
+				question: "If there’s a worried prediction attached, what is it saying?",
 				stem: "I’m afraid that…",
 			},
 		],
@@ -32,7 +32,7 @@ export const feelingTypes = {
 				id: "anger_body",
 				type: "text",
 				question:
-					"Where can you feel the anger in your body? Can you ask your BODY what it's telling you about this anger, rather than your mind?)",
+					"Where can you feel the anger in your body? Can you ask your BODY what it's telling you about this anger, rather than your mind?",
 			},
 			{
 				id: "anger_violation",
@@ -100,12 +100,12 @@ export const feelingTypes = {
 			{
 				id: "confusion_one_clear",
 				type: "text",
-				question: "If we could make just one thing clearer, what would it be? ",
+				question: "If we could make just one thing clearer, what would it be?",
 			},
 			{
 				id: "confusion_next_step",
 				type: "text",
-				question: "What’s one tiny next step (or one question) that would help? ",
+				question: "What’s one tiny next step (or one question) that would help?",
 			},
 		],
 	},
@@ -118,7 +118,7 @@ export const feelingTypes = {
 			{
 				id: "shame_type",
 				type: "singleChoice",
-				question: "Which feels closer? ",
+				question: "Which feels closer?",
 				options: ["I did something wrong", "There’s something wrong with me", "Both", "Not sure"],
 			},
 			{
@@ -129,7 +129,7 @@ export const feelingTypes = {
 			{
 				id: "shame_next_kind",
 				type: "singleChoice",
-				question: "What would be kind to you right now? ",
+				question: "What would be kind to you right now?",
 				options: [
 					"Gentleness",
 					"Reassurance",
@@ -150,13 +150,13 @@ export const feelingTypes = {
 			{
 				id: "tiredness_type",
 				type: "singleChoice",
-				question: "What kind of tired is this? ",
+				question: "What kind of tired is this?",
 				options: ["Physical", "Emotional", "Both", "Not sure"],
 			},
 			{
 				id: "tiredness_rest_kind",
 				type: "singleChoice",
-				question: "What kind of rest would actually help? ",
+				question: "What kind of rest would actually help?",
 				options: [
 					"Sleep",
 					"Quiet / no input",
@@ -169,7 +169,7 @@ export const feelingTypes = {
 			{
 				id: "tiredness_smallest",
 				type: "text",
-				question: "What’s the smallest self-care you could do right now? ",
+				question: "What’s the smallest self-care you could do right now?",
 			},
 		],
 	},
@@ -182,18 +182,18 @@ export const feelingTypes = {
 			{
 				id: "shutdown_protecting",
 				type: "text",
-				question: "If the numbness is protecting you from something, what might it be protecting you from? ",
+				question: "If the numbness is protecting you from something, what might it be protecting you from?",
 			},
 			{
 				id: "shutdown_sensation",
 				type: "singleChoice",
-				question: "What’s one safe sensation you can notice right now? ",
+				question: "What’s one safe sensation you can notice right now?",
 				options: ["Feet", "Hands", "Breath", "A texture", "A sound", "Not sure"],
 			},
 			{
 				id: "shutdown_aim",
 				type: "singleChoice",
-				question: "Would you like to aim for… ",
+				question: "Would you like to aim for…",
 				options: ["A little more present", "A little more resourced", "Just naming it is enough for now"],
 			},
 		],

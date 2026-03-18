@@ -63,7 +63,6 @@
 	line-height: 1.25rem;
 	padding: 0;
 	margin: 0;
-	float: none;
 	flex-shrink: 0;
 	transition: background 0.15s ease;
 }
@@ -85,11 +84,6 @@
 	cursor: pointer;
 	user-select: none;
 	min-height: 2.4rem;
-}
-
-.collapse-icon {
-	font-size: 0.9rem;
-	color: #555;
 }
 
 /* ========== SUBCATEGORY STYLING ========== */
@@ -119,6 +113,7 @@
 .collapse-icon {
 	margin-left: 0.5rem;
 	font-size: 1rem;
+	color: #555;
 	user-select: none;
 }
 

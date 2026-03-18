@@ -126,7 +126,7 @@ const Observation = () => {
 	}, [showCheckPanel]);
 
 	return (
-		<div className="step-observation">
+		<div className="step-observation step-container">
 			<button type="button" className="obs-jackal-trigger" onClick={() => setShowJackalPopup(true)}>
 				💬 Want space to let it all out first?
 			</button>

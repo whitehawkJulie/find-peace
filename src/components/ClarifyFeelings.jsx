@@ -48,7 +48,7 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 							<h3>{itemData.item}</h3>
 						</div>
 
-						{itemData.storyHint && <p className="clarify-reframe">{itemData.storyHint}.</p>}
+						{itemData.storyHint && <p className="clarify-reframe highlight-box">{itemData.storyHint}.</p>}
 
 						{itemData.empathyGuesses?.length > 0 && (
 							<div className="clarify-empathy-guesses">

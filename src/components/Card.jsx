@@ -5,7 +5,7 @@ import { useWizard } from "./WizardContext";
 import "./Card.css";
 
 const Card = ({ title, children, showHelp = false, helpContent = null, hideNav = false }) => {
-	const { hideMainNav, helpDrawerOpen, setHelpDrawerOpen, cardContentRef } = useWizard();
+	const { hideMainNav, helpDrawerOpen, setHelpDrawerOpen, helpDrawerOverride, setHelpDrawerOverride, cardContentRef } = useWizard();
 	const [hasMoreBelow, setHasMoreBelow] = useState(false);
 
 	const checkScroll = useCallback(() => {
@@ -36,6 +36,12 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		if (!vv) return;
 		const update = () => {
 			document.documentElement.style.setProperty("--vv-height", `${vv.height}px`);
+			// After the card resizes (e.g. keyboard appears), scroll the focused
+			// input/textarea into view within the card-content scroll container.
+			const focused = document.activeElement;
+			if (focused && (focused.tagName === "TEXTAREA" || focused.tagName === "INPUT")) {
+				requestAnimationFrame(() => focused.scrollIntoView({ block: "nearest" }));
+			}
 		};
 		update();
 		vv.addEventListener("resize", update);
@@ -45,6 +51,22 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 			vv.removeEventListener("scroll", update);
 		};
 	}, []);
+
+	// Fallback for browsers/webviews that don't fire visualViewport resize
+	// (e.g. some in-app browsers): scroll focused element into view after keyboard delay.
+	useEffect(() => {
+		const el = cardContentRef?.current;
+		if (!el) return;
+		const handleFocusIn = (e) => {
+			const target = e.target;
+			if (target.tagName === "TEXTAREA" || target.tagName === "INPUT") {
+				// 350ms lets the keyboard finish animating open before we scroll
+				setTimeout(() => target.scrollIntoView({ block: "nearest" }), 350);
+			}
+		};
+		el.addEventListener("focusin", handleFocusIn);
+		return () => el.removeEventListener("focusin", handleFocusIn);
+	}, [cardContentRef]);
 
 	return (
 		<div className="card">
@@ -74,10 +96,10 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 
 			<SlideDrawer
 				isOpen={helpDrawerOpen}
-				onClose={() => setHelpDrawerOpen(false)}
+				onClose={() => { setHelpDrawerOpen(false); setHelpDrawerOverride(null); }}
 				title={`Help: ${title}`}
 				showBrowse>
-				{helpContent}
+				{helpDrawerOverride ?? helpContent}
 			</SlideDrawer>
 
 			{!hideNav && !hideMainNav && <MenuBar />}

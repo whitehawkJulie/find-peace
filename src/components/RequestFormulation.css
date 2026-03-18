@@ -1,14 +1,4 @@
-.step-whats-changed {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
-
-.request-formulation {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
+/* .step-whats-changed and .request-formulation layout provided by .step-container in App.css */
 
 .request-section {
 	display: flex;

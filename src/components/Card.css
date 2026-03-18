@@ -27,7 +27,7 @@
 
 /* ── Header band ── */
 .card-header {
-	background: #5a9e6d;
+	background: var(--color-green);
 	border-radius: 0;
 	padding: 1rem 1.25rem 0.75rem;
 	/* Bleed to card edges, counteracting card-content's padding */
@@ -70,7 +70,6 @@
 	padding: 0.2rem 0.65rem 0.2rem 0.25rem;
 	cursor: pointer;
 	color: white;
-	float: none;
 	flex-shrink: 0;
 	transition: background 0.15s ease;
 }
@@ -141,24 +140,4 @@
 	pointer-events: none;
 	transition: opacity 0.25s ease;
 	z-index: 2;
-}
-
-/* Optional step variant */
-.optional-card {
-	background-color: #fcfcf6;
-	border: 2px dashed #ccc;
-	padding: 2rem;
-	border-radius: 12px;
-	position: relative;
-}
-
-.invitation-badge {
-	position: absolute;
-	top: 1rem;
-	right: 1rem;
-	background-color: #eee;
-	color: #555;
-	padding: 0.3rem 0.6rem;
-	font-size: 0.75rem;
-	border-radius: 999px;
 }

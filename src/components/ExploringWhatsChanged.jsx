@@ -10,7 +10,7 @@ const ExploringWhatsChanged = () => {
 	};
 
 	return (
-		<div className="step-whats-changed">
+		<div className="step-whats-changed step-container">
 			<p>Let's take a moment to see what's changed inside you.</p>
 			<p>
 				This page isn't about finding solutions we plan to use, yet - it's just about noticing the shift, if

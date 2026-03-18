@@ -10,13 +10,13 @@ const MakingGuesses = () => {
 		useWizard();
 
 	return (
-		<div className="making-guesses">
+		<div className="making-guesses step-container">
 			<p>
 				When you're ready, we can gently turn toward the other person. Not to agree — just to widen the view. As
 				we imagine what they might be feeling or needing, we often see more of what's happening. Sometimes that
 				brings a little more space inside you, and it can feel less like a verdict about you.
 			</p>
-			<p className="guesses-reminder">
+			<p className="guesses-reminder highlight-box">
 				<em>Remember: The point isn't to guess correctly. It's simply to widen the frame.</em>
 			</p>
 

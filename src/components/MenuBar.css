@@ -24,7 +24,7 @@
 }
 
 .nav-button {
-	background: #5a9e6d;
+	background: var(--color-green);
 	color: white;
 	border: none;
 	border-radius: 6px;
@@ -35,7 +35,7 @@
 }
 
 .nav-button:hover {
-	background: #4a8c5c;
+	background: var(--color-green-hover);
 }
 
 /* Disabled: invisible but still takes space for layout */
@@ -131,4 +131,64 @@
 
 .settings-radio input[type="radio"] {
 	accent-color: #5a9e6d;
+}
+
+/* ========== Start Over / Reset ========== */
+
+.settings-group--reset {
+	border-bottom: none;
+}
+
+.settings-reset-btn {
+	background: none;
+	border: 1px solid #c9776a;
+	color: #c9776a;
+	border-radius: 6px;
+	padding: 0.4rem 0.9rem;
+	font-size: 0.88rem;
+	cursor: pointer;
+	float: none;
+	transition: background 0.15s, color 0.15s;
+}
+
+.settings-reset-btn:hover {
+	background: #c9776a;
+	color: white;
+}
+
+.settings-reset-confirm p {
+	margin: 0 0 0.75rem;
+	font-size: 0.88rem;
+	color: #555;
+}
+
+.settings-reset-confirm-buttons {
+	display: flex;
+	gap: 0.6rem;
+}
+
+.settings-reset-confirm-yes {
+	background: #c9776a;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	padding: 0.4rem 0.9rem;
+	font-size: 0.88rem;
+	cursor: pointer;
+	float: none;
+}
+
+.settings-reset-confirm-yes:hover {
+	background: #b5695d;
+}
+
+.settings-reset-cancel {
+	background: none;
+	border: 1px solid #ccc;
+	color: #666;
+	border-radius: 6px;
+	padding: 0.4rem 0.9rem;
+	font-size: 0.88rem;
+	cursor: pointer;
+	float: none;
 }

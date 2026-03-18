@@ -488,7 +488,7 @@ const Review = () => {
 			<div className="feedback">
 				<p>
 					If you have any feedback, questions, comments or if you found any bugs, please let me know, by
-					emailing me at julielawrencenvc@gmail.com, or using the contact form on my website,
+					emailing me at julielawrencenvc@gmail.com, or using the contact form on my website,{" "}
 					<a href="https://makinglifemorewonderful.com.au" target="_blank" rel="noopener noreferrer">
 						Making Life More Wonderful
 					</a>
