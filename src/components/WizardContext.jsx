@@ -147,6 +147,12 @@ export const WizardProvider = ({ children }) => {
 	const [helpDrawerOpen, setHelpDrawerOpen] = useState(false);
 	// Override content: when set, the drawer shows this instead of the step's helpContent
 	const [helpDrawerOverride, setHelpDrawerOverride] = useState(null);
+	// Deep-link to a specific help topic by id (opens drawer in browse mode)
+	const [helpTopic, setHelpTopic] = useState(null);
+	const openHelpTopic = (topicId) => {
+		setHelpTopic(topicId);
+		setHelpDrawerOpen(true);
+	};
 
 	// Settings (persisted in localStorage)
 	const [settings, setSettings] = useState(() => {
@@ -361,6 +367,9 @@ export const WizardProvider = ({ children }) => {
 		setHelpDrawerOpen,
 		helpDrawerOverride,
 		setHelpDrawerOverride,
+		helpTopic,
+		setHelpTopic,
+		openHelpTopic,
 		hideMainNav,
 		setHideMainNav,
 		savedEntries,

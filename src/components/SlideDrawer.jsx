@@ -1,16 +1,26 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
+import { useWizard } from "./WizardContext";
 import "./SlideDrawer.css";
 
 // Dynamically import HelpBrowser to avoid circular dependency at module load time
 const HelpBrowser = lazy(() => import("./HelpBrowser"));
 
 const SlideDrawer = ({ isOpen, onClose, title, children, showBrowse = false }) => {
+	const { helpTopic, setHelpTopic } = useWizard();
 	const [browsing, setBrowsing] = useState(false);
 
-	// Reset browsing state when drawer closes
+	// Auto-enter browse mode when a specific topic is requested
 	useEffect(() => {
-		if (!isOpen) setBrowsing(false);
-	}, [isOpen]);
+		if (helpTopic && isOpen) setBrowsing(true);
+	}, [helpTopic, isOpen]);
+
+	// Reset browsing state and clear topic when drawer closes
+	useEffect(() => {
+		if (!isOpen) {
+			setBrowsing(false);
+			setHelpTopic(null);
+		}
+	}, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
@@ -25,7 +35,7 @@ const SlideDrawer = ({ isOpen, onClose, title, children, showBrowse = false }) =
 				<div className="slide-panel-content">
 					{browsing ? (
 						<Suspense fallback={<p style={{ color: "#999", fontSize: "0.9rem" }}>Loading…</p>}>
-							<HelpBrowser onBack={() => setBrowsing(false)} />
+							<HelpBrowser initialTopic={helpTopic} onBack={() => setBrowsing(false)} />
 						</Suspense>
 					) : (
 						<>
