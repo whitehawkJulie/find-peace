@@ -5,7 +5,16 @@ import { useWizard } from "./WizardContext";
 import "./Card.css";
 
 const Card = ({ title, children, showHelp = false, helpContent = null, hideNav = false }) => {
-	const { hideMainNav, helpDrawerOpen, setHelpDrawerOpen, helpDrawerOverride, setHelpDrawerOverride, cardContentRef } = useWizard();
+	const {
+		hideMainNav,
+		helpDrawerOpen,
+		setHelpDrawerOpen,
+		helpDrawerOverride,
+		setHelpDrawerOverride,
+		helpTopic,
+		setHelpTopic,
+		cardContentRef,
+	} = useWizard();
 	const [hasMoreBelow, setHasMoreBelow] = useState(false);
 
 	const checkScroll = useCallback(() => {
@@ -96,9 +105,14 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 
 			<SlideDrawer
 				isOpen={helpDrawerOpen}
-				onClose={() => { setHelpDrawerOpen(false); setHelpDrawerOverride(null); }}
-				title={`Help: ${title}`}
-				showBrowse>
+				onClose={() => {
+					setHelpDrawerOpen(false);
+					setHelpDrawerOverride(null);
+				}}
+				title={`${title}`}
+				showBrowse
+				helpTopic={helpTopic}
+				setHelpTopic={setHelpTopic}>
 				{helpDrawerOverride ?? helpContent}
 			</SlideDrawer>
 

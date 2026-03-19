@@ -11,7 +11,7 @@ import MakingGuesses from "./MakingGuesses";
 import RequestFormulation from "./RequestFormulation";
 import Review from "./Review";
 import NeedExploration from "./NeedExploration";
-import StandaloneHelpTopics from "../data/StandaloneHelpTopics";
+import StandaloneHelpTopics from "../data/StandaloneHelpTopics.jsx";
 
 let _topics = null;
 

@@ -1,33 +1,53 @@
 import React, { useState, useEffect } from "react";
-import { useWizard } from "./WizardContext";
 import { getHelpTopics } from "./HelpIndex";
 import "./HelpBrowser.css";
 
-const HelpBrowser = ({ initialTopic, onBack }) => {
-	const { setHelpTopic } = useWizard();
+// Recursively extract plain text from a React element tree for full-content search
+const extractText = (node) => {
+	if (!node) return "";
+	if (typeof node === "string" || typeof node === "number") return String(node);
+	if (Array.isArray(node)) return node.map(extractText).join(" ");
+	if (node.props?.children) return extractText(node.props.children);
+	return "";
+};
+
+const HelpBrowser = ({ initialTopic, onBack, onTopicClear, onTopicChange }) => {
 	const [query, setQuery] = useState("");
 	const [selected, setSelected] = useState(null);
 
 	const topics = getHelpTopics();
 
+	const selectTopic = (topic) => {
+		setSelected(topic);
+		onTopicChange?.(topic?.title ?? null);
+	};
+
 	// Auto-select topic when opened via a deep link
 	useEffect(() => {
 		if (initialTopic) {
 			const match = topics.find((t) => t.id === initialTopic);
-			if (match) setSelected(match);
+			if (match) selectTopic(match);
 		}
 	}, [initialTopic]); // eslint-disable-line react-hooks/exhaustive-deps
+
 	const filtered = query.trim()
-		? topics.filter((t) => t.title.toLowerCase().includes(query.toLowerCase()))
+		? topics.filter((t) => {
+				const q = query.toLowerCase();
+				return t.title.toLowerCase().includes(q) || extractText(t.content).toLowerCase().includes(q);
+		  })
 		: topics;
 
 	if (selected) {
 		return (
 			<div className="help-browser">
-				<button className="help-browser-back" onClick={() => { setSelected(null); setHelpTopic(null); }}>
-					← Back to topics
+				<button
+					className="help-browser-back"
+					onClick={() => {
+						selectTopic(null);
+						onTopicClear?.();
+					}}>
+					← See all topics
 				</button>
-				<h4 className="help-browser-topic-title">{selected.title}</h4>
 				<div className="help-browser-content">{selected.content}</div>
 			</div>
 		);
@@ -47,14 +67,10 @@ const HelpBrowser = ({ initialTopic, onBack }) => {
 				autoFocus
 			/>
 			<ul className="help-browser-list">
-				{filtered.length === 0 && (
-					<li className="help-browser-empty">No topics match "{query}"</li>
-				)}
+				{filtered.length === 0 && <li className="help-browser-empty">No topics match "{query}"</li>}
 				{filtered.map((topic) => (
 					<li key={topic.title}>
-						<button
-							className="help-browser-item"
-							onClick={() => setSelected(topic)}>
+						<button className="help-browser-item" onClick={() => selectTopic(topic)}>
 							{topic.title}
 						</button>
 					</li>

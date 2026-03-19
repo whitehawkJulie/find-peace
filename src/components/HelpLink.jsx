@@ -8,7 +8,7 @@ const HelpLink = ({ topic, children }) => {
 	return (
 		<a
 			href="#"
-			className="help-link"
+			className="inline-help-link"
 			onClick={(e) => {
 				e.preventDefault();
 				openHelpTopic(topic);

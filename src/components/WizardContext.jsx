@@ -132,9 +132,11 @@ export const WizardProvider = ({ children }) => {
 	// True once the user has unsaved changes; cleared when saveSession() is called.
 	// Using a ref so beforeunload always reads the current value without a re-render.
 	const dirtyRef = useRef(false);
+	const isMountedRef = useRef(false);
 
-	// Mark dirty whenever any meaningful data changes
+	// Mark dirty whenever any meaningful data changes (skip the initial mount firing)
 	useEffect(() => {
+		if (!isMountedRef.current) { isMountedRef.current = true; return; }
 		dirtyRef.current = true;
 	}, [
 		jackalTalk, observation, feelings, needs, needExplorations, strategies,

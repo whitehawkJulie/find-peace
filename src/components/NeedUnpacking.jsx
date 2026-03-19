@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useWizard } from "./WizardContext";
+import HelpLink from "./HelpLink";
 import { getNeedData, resolveNeedUnpackingType } from "../utils/renderHelpers";
 import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
 import AudioPlayer from "./AudioPlayer";
@@ -297,21 +298,22 @@ const NeedUnpacking = () => {
 								value={currentData.metFeeling || ""}
 								onChange={(e) => updateField("metFeeling", e.target.value)}
 							/>
-							<button
+							<HelpLink topic="mourning">Can't remember a single time?</HelpLink>
+							{/* <button
 								className="unpacking-cant-remember-toggle"
 								onClick={() => {
 									setHelpDrawerOverride(NeedUnpacking.cantRememberContent);
 									setHelpDrawerOpen(true);
 								}}>
 								Can't remember a single time?
-							</button>
+							</button> */}
 						</div>
 
 						<div className="unpacking-prompt">
 							<p className="unpacking-prompt-text">
-								If you <em>were</em> able to remember or imagine the need being met, what was present
-								that helped it be met? What would it have to look like for this need to feel fulfilled
-								for <em>you</em>?
+								If you <strong>were</strong> able to remember or imagine the need being met, what was
+								present that helped it be met? What would it have to look like for this need to feel
+								fulfilled for <em>you</em>?
 							</p>
 							<textarea
 								className="unpacking-textarea"
@@ -368,60 +370,7 @@ NeedUnpacking.title = "Explore a Need";
 // Shown when user clicks "Can't remember a single time?" inline button
 NeedUnpacking.cantRememberContent = (
 	<>
-		<div>
-			<h2>Help: When a need has never been met</h2>
-
-			<p>
-				If you can’t remember a time this need was ever met, you’re not doing anything wrong. For some needs,
-				this is a very real and painful discovery.
-			</p>
-
-			<p>
-				To get a sense of connection to this need, it can be powerful to <em>imagine</em> the need being met.
-			</p>
-
-			<ul>
-				<li>
-					What might it look like if this need <em>were</em> met?
-				</li>
-				<li>How might it feel in your body?</li>
-				<li>How might you move, speak, or relate to others?</li>
-			</ul>
-
-			<p>If that’s hard, you could imagine it for someone else:</p>
-
-			<ul>
-				<li>What would it look like for another person to have this need met?</li>
-				<li>How would you recognise it in them?</li>
-			</ul>
-
-			<p>And if even that feels out of reach, it may be that what’s here is something else entirely.</p>
-
-			<p>
-				Sometimes, when a need hasn’t been met for a long time — or ever — what arises is <strong>grief</strong>
-				.
-			</p>
-
-			<p>Rather than trying to solve it right now, you might pause and gently make space for that.</p>
-
-			<ul>
-				<li>Notice any sadness, heaviness, or aching that’s present</li>
-				<li>See if you can stay with it, just for a few moments</li>
-				<li>Let it be there, without needing to change it</li>
-			</ul>
-
-			<p>
-				You might also notice that even when a need hasn’t been met, it still lives in you — as a kind of
-				longing, a forward-moving energy that hasn’t disappeared.
-			</p>
-
-			<p>That longing isn’t a mistake. It’s part of you reaching toward what matters.</p>
-
-			<p>
-				You don’t have to resolve this here. Simply recognising it, and allowing some space for it, can be
-				enough for now.
-			</p>
-		</div>
+		<h2>MOVED to StandaloneHelpTopics</h2>
 	</>
 );
 
