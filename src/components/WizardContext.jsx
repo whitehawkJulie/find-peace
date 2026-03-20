@@ -54,7 +54,7 @@ const allSteps = [
 	{ component: Introduction, title: "Intro", optional: true, color: "#9a5a50", icon: introIcon },
 	{
 		component: Observation,
-		title: "Observation",
+		title: "What was the moment?",
 		color: "#8a6a40",
 		icon: observationIcon,
 		pause: (
@@ -70,7 +70,7 @@ const allSteps = [
 	},
 	{
 		component: Feelings,
-		title: "Feelings",
+		title: "What am I feeling?",
 		color: "#886075",
 		icon: feelingsIcon,
 		pause: (
@@ -88,11 +88,12 @@ const allSteps = [
 		color: "#6a4a60",
 		icon: exploreFeelingsIcon,
 		optional: true,
-		condition: (state) => Object.values(state.feelings || {}).some((s) => s === "clicked" || s === "double-clicked"),
+		condition: (state) =>
+			Object.values(state.feelings || {}).some((s) => s === "clicked" || s === "double-clicked"),
 	},
 	{
 		component: Needs,
-		title: "Needs",
+		title: "What matters to me?",
 		color: "#5a9e6d",
 		icon: needsIcon,
 		pause: "Now that you've named what you're feeling, let's look at what those feelings are pointing to — \
@@ -100,7 +101,7 @@ const allSteps = [
 	},
 	{
 		component: NeedUnpacking,
-		title: "Explore a Need",
+		title: "Explore what matters",
 		color: "#3a7058",
 		icon: exploreNeedIcon,
 		optional: true,
@@ -108,8 +109,20 @@ const allSteps = [
 	},
 	{ component: MakingGuesses, title: "Their View", optional: true, color: "#3a5e80", icon: theirViewIcon },
 	// { component: RequestFormulation, title: "Request", optional: true },
-	{ component: ExploringWhatsChanged, title: "Exploring what's changed", optional: true, color: "#484878", icon: whatsChangedIcon },
-	{ component: ConversationsAndCollaboration, title: "Conversations and Collaboration", optional: true, color: "#584070", icon: conversationsIcon },
+	{
+		component: ExploringWhatsChanged,
+		title: "Notice what's changed",
+		optional: true,
+		color: "#484878",
+		icon: whatsChangedIcon,
+	},
+	{
+		component: ConversationsAndCollaboration,
+		title: "Conversations",
+		optional: true,
+		color: "#584070",
+		icon: conversationsIcon,
+	},
 	{ component: Review, title: "Review", optional: true, color: "#804050", icon: reviewIcon },
 ];
 
@@ -160,13 +173,28 @@ export const WizardProvider = ({ children }) => {
 
 	// Mark dirty whenever any meaningful data changes (skip the initial mount firing)
 	useEffect(() => {
-		if (!isMountedRef.current) { isMountedRef.current = true; return; }
+		if (!isMountedRef.current) {
+			isMountedRef.current = true;
+			return;
+		}
 		dirtyRef.current = true;
 	}, [
-		jackalTalk, observation, feelings, needs, needExplorations, strategies,
-		feelingsExploreResponses, guessObservation, guessFeelings, guessNeeds,
-		requestOfSelf, requestOfOther, whatsChangedResponses, simpleRequest,
-		wantsConversation, reviewReflection,
+		jackalTalk,
+		observation,
+		feelings,
+		needs,
+		needExplorations,
+		strategies,
+		feelingsExploreResponses,
+		guessObservation,
+		guessFeelings,
+		guessNeeds,
+		requestOfSelf,
+		requestOfOther,
+		whatsChangedResponses,
+		simpleRequest,
+		wantsConversation,
+		reviewReflection,
 	]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Help drawer open state (lifted so step components can trigger it)
@@ -297,9 +325,7 @@ export const WizardProvider = ({ children }) => {
 	// Decrypt all sessions and save plaintext back to localStorage
 	const removePassphrase = async () => {
 		const decrypted = await Promise.all(
-			savedEntries.map((s) =>
-				isEncryptedSession(s) ? decryptSession(s, passphraseRef.current) : s,
-			),
+			savedEntries.map((s) => (isEncryptedSession(s) ? decryptSession(s, passphraseRef.current) : s)),
 		);
 		localStorage.setItem("findPeaceSessions", JSON.stringify(decrypted));
 		setSavedEntries(decrypted);
@@ -477,6 +503,8 @@ export const WizardProvider = ({ children }) => {
 		deleteSession,
 		hasSessionData,
 		visibleSteps,
+		allSteps,
+		totalSteps: allSteps.length,
 		currentStep,
 		cardContentRef,
 	};

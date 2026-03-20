@@ -34,16 +34,15 @@ for (const section of Object.values(FeelingsData.sections)) {
 // Only offer deeper exploration for these three types
 const EXPLORE_TYPES = ["fear", "anger", "distress"];
 
-const renderOrderedFeelings = (feelings, onMurkyClick) => {
+const renderOrderedFeelings = (feelings, onMurkyClick, onRemove) => {
 	const entries = Object.entries(feelings).filter(([, s]) => s === "clicked" || s === "double-clicked");
 	if (entries.length === 0) return null;
 	return (
-		<p className="feelings-selected-box">
-			{entries.map(([name], i) => {
+		<div className="pill-grid cloud feelings-selected-pills">
+			{entries.map(([name]) => {
 				const isMurky = name in murkyFeelingLookup;
 				return (
-					<React.Fragment key={name}>
-						{i > 0 && ", "}
+					<div key={name} className="pill feeling clicked feeling-removable">
 						{isMurky ? (
 							<span
 								title="Click to explore further"
@@ -54,10 +53,17 @@ const renderOrderedFeelings = (feelings, onMurkyClick) => {
 						) : (
 							name
 						)}
-					</React.Fragment>
+						<button
+							className="pill-remove-x"
+							onClick={(e) => { e.stopPropagation(); onRemove(name); }}
+							title={`Remove ${name}`}
+							aria-label={`Remove ${name}`}>
+							×
+						</button>
+					</div>
 				);
 			})}
-		</p>
+		</div>
 	);
 };
 
@@ -67,6 +73,15 @@ const FeelingsExploreCard = () => {
 
 	const [expandedTypes, setExpandedTypes] = useState(new Set());
 	const [popupItem, setPopupItem] = useState(null);
+	const [pendingRemoveFeeling, setPendingRemoveFeeling] = useState(null);
+
+	const removeFeeling = (name) => {
+		setFeelings((prev) => {
+			const updated = { ...prev };
+			delete updated[name];
+			return updated;
+		});
+	};
 
 	// Detect which of fear/anger/distress have any selected feelings
 	const detectedTypes = useMemo(() => {
@@ -182,7 +197,25 @@ const FeelingsExploreCard = () => {
 				distinguish the early feelings, from the "thought-feelings" that came in response to those?
 			</p>
 
-			{renderOrderedFeelings(feelings, setPopupItem)}
+			{renderOrderedFeelings(feelings, setPopupItem, setPendingRemoveFeeling)}
+
+			{pendingRemoveFeeling && (
+				<div className="feeling-remove-confirm">
+					<span>Remove <strong>{pendingRemoveFeeling}</strong> from your feelings?</span>
+					<div className="feeling-remove-confirm-btns">
+						<button
+							className="feeling-remove-confirm-yes"
+							onClick={() => { removeFeeling(pendingRemoveFeeling); setPendingRemoveFeeling(null); }}>
+							Yes, remove
+						</button>
+						<button
+							className="feeling-remove-confirm-cancel"
+							onClick={() => setPendingRemoveFeeling(null)}>
+							Cancel
+						</button>
+					</div>
+				</div>
+			)}
 
 			{detectedTypes.length > 0 && (
 				<div className="feelings-explore-categories">

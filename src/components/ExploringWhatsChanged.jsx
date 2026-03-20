@@ -45,7 +45,7 @@ const ExploringWhatsChanged = () => {
 	);
 };
 
-ExploringWhatsChanged.title = "Exploring what's changed";
+ExploringWhatsChanged.title = "Notice what's changed";
 ExploringWhatsChanged.helpContent = null;
 
 export default ExploringWhatsChanged;

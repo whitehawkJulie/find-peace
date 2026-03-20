@@ -64,7 +64,7 @@ const Review = () => {
 	const hasRequests = requestOfSelf || requestOfOther || simpleRequest?.trim();
 	const hasWhatsChanged = whatsChangedResponses?.before?.trim() || whatsChangedResponses?.differently?.trim();
 	// Show the conversation guide section if the user visited and initialised the collab script
-	const hasCollabScript = collabScript?.permissionLine !== undefined;
+	const hasCollabScript = collabScript?.step1 !== undefined;
 	const hasAnyData =
 		obsText ||
 		jackalTalk ||
@@ -186,24 +186,20 @@ const Review = () => {
 
 		if (hasCollabScript) {
 			heading("Conversation guide");
-			if (collabScript.collabFinalScript?.trim()) {
-				lines.push(collabScript.collabFinalScript.trim(), "");
+			if (collabScript.finalScript?.trim()) {
+				lines.push(collabScript.finalScript.trim(), "");
 			} else {
-				const { permissionLine, guessFeelingsLine, guessNeedsLine, selfObsLine, selfFeelingsLine, selfNeedsLine, selfRequestLine } = collabScript || {};
-				if (permissionLine) lines.push(`1. Get permission: Would you be willing to have a conversation about ${permissionLine}? When might be a good time for you?`, "");
-				if (guessFeelingsLine || guessNeedsLine) {
-					const guessParts = [];
-					if (guessFeelingsLine) guessParts.push(`feeling ${guessFeelingsLine}`);
-					if (guessNeedsLine) guessParts.push(`wanting ${guessNeedsLine}`);
-					lines.push(`2. Your guesses about them: I'm wondering if you might have been ${guessParts.join(", and ")}.`, "");
-				}
-				if (selfObsLine || selfFeelingsLine || selfNeedsLine) {
-					lines.push("3. Your perspective:");
-					if (selfObsLine) lines.push(`   When I remember ${selfObsLine}`);
-					if (selfFeelingsLine) lines.push(`   I feel ${selfFeelingsLine}`);
-					if (selfNeedsLine) lines.push(`   because I'm really longing for ${selfNeedsLine}`);
-					if (selfRequestLine) lines.push(`   ${selfRequestLine}`);
-					lines.push("");
+				// Fallback: individual steps if final script not yet compiled
+				const steps = [
+					["1. Start with permission", collabScript.step1],
+					["2. Understand them first", collabScript.step2],
+					["3. Check they're open to hearing you", collabScript.step3],
+					["4. Share your experience", collabScript.step4],
+					["5. Check they got it", collabScript.step5],
+					["6. Find a way forward", collabScript.step6],
+				];
+				for (const [label, text] of steps) {
+					if (text?.trim()) lines.push(`${label}: ${text.trim()}`, "");
 				}
 			}
 		}
@@ -468,56 +464,45 @@ const Review = () => {
 						{hasCollabScript && (
 							<div className="review-section">
 								<h3>Conversation guide</h3>
-								{collabScript.collabFinalScript?.trim() ? (
-									<p className="review-text review-convo-text">{collabScript.collabFinalScript}</p>
+								{collabScript.finalScript?.trim() ? (
+									<p className="review-text review-convo-text" style={{ whiteSpace: "pre-wrap" }}>
+										{collabScript.finalScript.trim()}
+									</p>
 								) : (
-									// Fallback: structured display if finalScript not yet generated
+									// Fallback: individual steps if final script not yet compiled
 									<div className="review-convo-script">
-										{collabScript.permissionLine && (
-											<div className="review-convo-step">
-												<p className="review-convo-step-label">1. Get permission</p>
-												<p className="review-convo-step-text">Would you be willing to have a conversation about {collabScript.permissionLine}? When might be a good time for you?</p>
-											</div>
-										)}
-										{(collabScript.guessFeelingsLine || collabScript.guessNeedsLine) && (
-											<div className="review-convo-step">
-												<p className="review-convo-step-label">2. Your guesses about them</p>
-												{collabScript.guessFeelingsLine && (
-													<p className="review-convo-step-text">I'm wondering if you might have been feeling {collabScript.guessFeelingsLine}</p>
-												)}
-												{collabScript.guessNeedsLine && (
-													<p className="review-convo-step-text">and wanting {collabScript.guessNeedsLine}</p>
-												)}
-											</div>
-										)}
-										{(collabScript.selfObsLine || collabScript.selfFeelingsLine || collabScript.selfNeedsLine) && (
-											<div className="review-convo-step">
-												<p className="review-convo-step-label">3. Your perspective</p>
-												{collabScript.selfObsLine && <p className="review-convo-step-text">When I remember {collabScript.selfObsLine}</p>}
-												{collabScript.selfFeelingsLine && <p className="review-convo-step-text">I feel {collabScript.selfFeelingsLine}</p>}
-												{collabScript.selfNeedsLine && <p className="review-convo-step-text">because I'm really longing for {collabScript.selfNeedsLine}</p>}
-												{collabScript.selfRequestLine && <p className="review-convo-step-text">{collabScript.selfRequestLine}</p>}
-											</div>
-										)}
+										{[
+											["1. Start with permission", collabScript.step1],
+											["2. Understand them first", collabScript.step2],
+											["3. Check they\u2019re open to hearing you", collabScript.step3],
+											["4. Share your experience", collabScript.step4],
+											["5. Check they got it", collabScript.step5],
+											["6. Find a way forward", collabScript.step6],
+										]
+											.filter(([, text]) => text?.trim())
+											.map(([label, text]) => (
+												<div key={label} className="review-convo-step">
+													<p className="review-convo-step-label">{label}</p>
+													<p className="review-convo-step-text">{text}</p>
+												</div>
+											))}
 									</div>
 								)}
 								<button
 									className="review-action-btn review-action-btn-secondary review-action-btn-small"
 									onClick={() => {
-										const text = collabScript.collabFinalScript?.trim()
-											? collabScript.collabFinalScript
-											: (() => {
-												const { permissionLine, guessFeelingsLine, guessNeedsLine, selfObsLine, selfFeelingsLine, selfNeedsLine, selfRequestLine } = collabScript || {};
-												const ls = [];
-												if (permissionLine) ls.push(`Would you be willing to have a conversation about ${permissionLine}? When might be a good time for you?`);
-												if (guessFeelingsLine) ls.push(`I'm wondering if you might have been feeling ${guessFeelingsLine}`);
-												if (guessNeedsLine) ls.push(`and wanting ${guessNeedsLine}`);
-												if (selfObsLine) ls.push(`When I remember ${selfObsLine}`);
-												if (selfFeelingsLine) ls.push(`I feel ${selfFeelingsLine}`);
-												if (selfNeedsLine) ls.push(`because I'm really longing for ${selfNeedsLine}`);
-												if (selfRequestLine) ls.push(selfRequestLine);
-												return ls.join("\n");
-											  })();
+										const text = collabScript.finalScript?.trim()
+											? collabScript.finalScript.trim()
+											: [
+												collabScript.step1,
+												collabScript.step2,
+												collabScript.step3,
+												collabScript.step4,
+												collabScript.step5,
+												collabScript.step6,
+											  ]
+												.filter(Boolean)
+												.join("\n\n");
 										navigator.clipboard.writeText(text).then(() => {
 											setCopiedConvo(true);
 											setTimeout(() => setCopiedConvo(false), 2500);

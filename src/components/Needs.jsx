@@ -80,7 +80,7 @@ const Needs = () => {
 		<div className="step-needs">
 			<p>
 				Needs are what we’re hoping to experience when things go well — and what we’re longing for when they
-				don’t.
+				don’t. They're the core of what matters to us.
 			</p>
 
 			{renderOrderedFeelings(feelings)}

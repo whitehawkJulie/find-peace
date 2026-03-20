@@ -6,16 +6,107 @@
 	gap: 1rem;
 }
 
+/* ===== Selected feelings as removable pills ===== */
+
+.feelings-selected-pills {
+	margin: 0;
+}
+
+.pill.feeling-removable {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.15rem;
+}
+
+/* pill-remove-x — duplicated here so this component is self-contained */
+.feelings-selected-pills .pill-remove-x {
+	float: none;
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	font-size: 0.8rem;
+	line-height: 1;
+	color: rgba(255, 255, 255, 0.65);
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1rem;
+	height: 1rem;
+	border-radius: 50%;
+	flex-shrink: 0;
+	transition: background 0.15s, color 0.15s;
+}
+
+.feelings-selected-pills .pill-remove-x:hover {
+	background: rgba(0, 0, 0, 0.15);
+	color: #fff;
+}
+
+/* ===== Remove confirmation bar ===== */
+
+.feeling-remove-confirm {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 1rem;
+	background: #fff8f5;
+	border: 1px solid #e8c8b8;
+	border-radius: 8px;
+	padding: 0.6rem 0.9rem;
+	font-size: 0.88rem;
+	color: #555;
+}
+
+.feeling-remove-confirm-btns {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.feeling-remove-confirm-yes {
+	float: none;
+	background: #c0524a;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	padding: 0.3rem 0.75rem;
+	font-size: 0.82rem;
+	cursor: pointer;
+	transition: background 0.15s;
+}
+
+.feeling-remove-confirm-yes:hover {
+	background: #a84040;
+}
+
+.feeling-remove-confirm-cancel {
+	float: none;
+	background: none;
+	color: #888;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 0.3rem 0.75rem;
+	font-size: 0.82rem;
+	cursor: pointer;
+	transition: background 0.15s, color 0.15s;
+}
+
+.feeling-remove-confirm-cancel:hover {
+	background: #f0f0f0;
+	color: #555;
+}
+
 /* ===== Murky feeling indicator in the selected feelings list ===== */
 
 .feelings-explore-murky {
-	border-bottom: 1px dashed #b88;
+	border-bottom: 1px dashed rgba(255, 255, 255, 0.6);
 	cursor: pointer;
-	transition: color 0.15s;
+	transition: opacity 0.15s;
 }
 
 .feelings-explore-murky:hover {
-	color: #944;
+	opacity: 0.8;
 }
 
 /* ===== Category accordion ===== */

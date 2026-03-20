@@ -185,7 +185,10 @@ const NeedUnpacking = () => {
 						{name}
 						<button
 							className="pill-remove-x"
-							onClick={(e) => { e.stopPropagation(); setPendingRemoveNeed(name); }}
+							onClick={(e) => {
+								e.stopPropagation();
+								setPendingRemoveNeed(name);
+							}}
 							title={`Remove ${name}`}
 							aria-label={`Remove ${name}`}>
 							×
@@ -206,7 +209,10 @@ const NeedUnpacking = () => {
 								{name}
 								<button
 									className="pill-remove-x"
-									onClick={(e) => { e.stopPropagation(); setPendingRemoveNeed(name); }}
+									onClick={(e) => {
+										e.stopPropagation();
+										setPendingRemoveNeed(name);
+									}}
 									title={`Remove ${name}`}
 									aria-label={`Remove ${name}`}>
 									×
@@ -219,16 +225,19 @@ const NeedUnpacking = () => {
 
 			{pendingRemoveNeed && (
 				<div className="need-remove-confirm">
-					<span>Remove <strong>{pendingRemoveNeed}</strong> from your needs?</span>
+					<span>
+						Remove <strong>{pendingRemoveNeed}</strong> from your needs?
+					</span>
 					<div className="need-remove-confirm-btns">
 						<button
 							className="need-remove-confirm-yes"
-							onClick={() => { unselectNeed(pendingRemoveNeed); setPendingRemoveNeed(null); }}>
+							onClick={() => {
+								unselectNeed(pendingRemoveNeed);
+								setPendingRemoveNeed(null);
+							}}>
 							Yes, remove
 						</button>
-						<button
-							className="need-remove-confirm-cancel"
-							onClick={() => setPendingRemoveNeed(null)}>
+						<button className="need-remove-confirm-cancel" onClick={() => setPendingRemoveNeed(null)}>
 							Cancel
 						</button>
 					</div>
@@ -414,7 +423,7 @@ const NeedUnpacking = () => {
 	);
 };
 
-NeedUnpacking.title = "Explore a Need";
+NeedUnpacking.title = "Explore what matters";
 
 // Shown when user clicks the ? Help button in the card header
 NeedUnpacking.helpContent = (

@@ -132,6 +132,17 @@
 	color: #666;
 }
 
+.page-picker-item--locked {
+	opacity: 0.38;
+	cursor: default;
+	font-style: italic;
+}
+
+.page-picker-item--locked:hover {
+	background: none;
+	color: #444;
+}
+
 /* ========== Settings cog ========== */
 
 .settings-cog {

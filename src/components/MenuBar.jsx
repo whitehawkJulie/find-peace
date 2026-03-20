@@ -305,7 +305,7 @@ const SettingsContent = ({ settings, updateSettings, onSessionLoaded, onReset })
 };
 
 const MenuBar = () => {
-	const { stepIndex, setStepIndex, visibleSteps, settings, updateSettings, resetSession, currentStep } = useWizard();
+	const { stepIndex, setStepIndex, visibleSteps, allSteps, totalSteps, settings, updateSettings, resetSession, currentStep } = useWizard();
 	const [showSettings, setShowSettings] = useState(false);
 	const [showPageMenu, setShowPageMenu] = useState(false);
 	const pagePickerRef = useRef(null);
@@ -354,24 +354,30 @@ const MenuBar = () => {
 							title="Choose page"
 							aria-label="Choose page"
 							onClick={() => setShowPageMenu((v) => !v)}>
-							{stepIndex + 1} / {visibleSteps.length}
+							{allSteps.findIndex((s) => s.component === currentStep?.component) + 1} / {totalSteps}
 						</button>
 						{showPageMenu && (
 							<div className="page-picker-menu" role="menu">
-								{visibleSteps.map((step, i) => (
-									<button
-										key={i}
-										className={`page-picker-item${i === stepIndex ? " page-picker-item--active" : ""}`}
-										role="menuitem"
-										onClick={() => {
-											setStepIndex(i);
-											setShowPageMenu(false);
-										}}>
-										<span className="page-picker-dot" style={{ background: step.color }} />
-										<span className="page-picker-num">{i + 1}</span>
-										{step.title}
-									</button>
-								))}
+								{allSteps.map((step, allIdx) => {
+									const visIdx = visibleSteps.findIndex((s) => s.component === step.component);
+									const isUnlocked = visIdx !== -1;
+									const isActive = isUnlocked && visIdx === stepIndex;
+									return (
+										<button
+											key={allIdx}
+											className={`page-picker-item${isActive ? " page-picker-item--active" : ""}${!isUnlocked ? " page-picker-item--locked" : ""}`}
+											role="menuitem"
+											disabled={!isUnlocked}
+											onClick={() => {
+												setStepIndex(visIdx);
+												setShowPageMenu(false);
+											}}>
+											<span className="page-picker-dot" style={{ background: step.color }} />
+											<span className="page-picker-num">{allIdx + 1}</span>
+											{step.title}
+										</button>
+									);
+								})}
 							</div>
 						)}
 					</span>
