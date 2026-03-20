@@ -6,16 +6,10 @@ import HelpLink from "./HelpLink";
 
 // Build a single combined script string from all the collabScript fields
 const buildFinalScript = (fields) => {
-	const {
-		permissionLine,
-		guessFeelingsLine,
-		guessNeedsLine,
-		selfObsLine,
-		selfFeelingsLine,
-		selfNeedsLine,
-		selfRequestLine,
-	} = fields;
+	const { permissionLine, guessFeelingsLine, guessNeedsLine, selfObsLine, selfFeelingsLine, selfNeedsLine } = fields;
 	const parts = [];
+
+	parts.push("=== CHECK WILLINGNESS FOR CONVERSATION ===");
 
 	if (permissionLine) {
 		parts.push(
@@ -24,29 +18,40 @@ const buildFinalScript = (fields) => {
 		parts.push("");
 	}
 
+	parts.push("=== EXPRESS GUESSES FOR THEM ===");
+
 	if (guessFeelingsLine || guessNeedsLine) {
 		if (guessFeelingsLine) parts.push(`I'm wondering if you might have been feeling ${guessFeelingsLine}`);
 		if (guessNeedsLine) parts.push(`and wanting ${guessNeedsLine}`);
 		parts.push("");
 	}
 
-	parts.push(`[Need to check you've understood them? "Have I heard you correctly? Is this what you're saying?"]`);
+	parts.push(`=== Need to check you've understood them? ===`);
+	parts.push(` - "Have I heard you correctly? Is this what you're saying?"`);
 	parts.push("");
+
+	parts.push("=== CHECK FOR WILLINGESS TO HEAR YOU ===");
 
 	parts.push("Are you willing to hear what came up for me?");
 	parts.push("");
+	parts.push("=== EXPRESS OWN FEELINGS AND NEEDS ===");
 
 	if (selfObsLine || selfFeelingsLine || selfNeedsLine) {
 		if (selfObsLine) parts.push(`When I remember ${selfObsLine}`);
-		if (selfFeelingsLine) parts.push(`I feel ${selfFeelingsLine}`);
+		if (selfFeelingsLine) parts.push(`I feel ${selfFeelingsLine}()`);
 		if (selfNeedsLine) parts.push(`because I'm really longing for ${selfNeedsLine}`);
-		if (selfRequestLine) parts.push(selfRequestLine);
 		parts.push("");
 	}
 
-	parts.push(
-		`[Need to check they've understood you? "Can you tell me how that landed for you?" / "Can you tell me how you are, having heard that?"]`,
-	);
+	parts.push(`=== Need to check they've understood you? ===`);
+	parts.push(` - "Can you tell me how that landed for you?"`);
+	parts.push(` - "Can you tell me how you are, having heard that?"`);
+	parts.push("");
+
+	parts.push("=== FIND A MUTUAL SOLUTION ===");
+	parts.push(`How do you think we can meet both/all of our needs`);
+	parts.push(`One solution could be ... would that meet your needs also?`);
+	parts.push("");
 
 	return parts.join("\n");
 };
@@ -96,8 +101,8 @@ const ConversationsAndCollaboration = () => {
 		const permissionLine = guessObservation;
 
 		// Guess fields: feelings and needs as separate editable boxes
-		const guessFeelingsLine = guessFeelingsAll.join(", ");
-		const guessNeedsLine = guessNeedsAll.join(", ");
+		const guessFeelingsLine = guessFeelingsAll.join(", ").toLowerCase();
+		const guessNeedsLine = guessNeedsAll.join(", ").toLowerCase();
 
 		const fields = {
 			permissionLine,
@@ -105,9 +110,8 @@ const ConversationsAndCollaboration = () => {
 			guessNeedsLine,
 			theyAreReady: false,
 			selfObsLine: observation?.refined?.trim() || "",
-			selfFeelingsLine: allFeelings.join(", "),
-			selfNeedsLine: allNeeds.join(", "),
-			selfRequestLine: requestOfSelf || "",
+			selfFeelingsLine: allFeelings.join(", ").toLowerCase(),
+			selfNeedsLine: allNeeds.join(", ").toLowerCase(),
 		};
 
 		setCollabScript({
@@ -263,8 +267,8 @@ const ConversationsAndCollaboration = () => {
 					</ul>
 
 					<p>
-						When both people's needs are visible, it becomes much easier to look for solutions that everyone
-						can willingly support.
+						When both people's needs are "on the table", it becomes much easier to look for solutions that
+						everyone can willingly support.
 					</p>
 
 					<div className="collab-input-group">
@@ -352,19 +356,16 @@ const ConversationsAndCollaboration = () => {
 									placeholder="e.g. respect, connection, understanding…"
 								/>
 							</div>
-						</div>
-
-						<div className="collab-script-step collab-script-step--static">
-							<p className="collab-script-heading">
-								<strong>Use connection requests to check you've heard correctly</strong>
+							<p>
+								At this point, if any of your guesses are wrong, they will usually very quickly correct
+								you! And that's great ... we simply want to get clear on what's up for them.
 							</p>
 							<p>
-								If it's not 100% clear that they feel heard, you can try reflecting back your
-								understanding of what they've said.
+								This stage might take a lot of listening ... try to keep your focus on guessing what
+								they might be feeling and needing, underneath what they're saying, and reflecting those
+								back to them - "Oh right, so it's about ... ". This takes practice - you'll get better
+								at it with time!
 							</p>
-							<ul>
-								<li>"Have I heard you correctly? Is this what you're saying?"</li>
-							</ul>
 						</div>
 
 						<div className="collab-script-step">
@@ -373,13 +374,31 @@ const ConversationsAndCollaboration = () => {
 							</p>
 							<p className="collab-script-hint">
 								Once you sense that they feel heard, and aren't defensive any more, then you can ask
-								"Are you willing to hear what came up for me?" If they're not ready to listen yet, it's
-								usually because they still don't trust you're not about to attack them, so you could
-								address that (like "Are you worried I'm going to say something mean?"). If they're still
-								not willing, it's usually best to give up for the moment, and try again another day.
-								Pushing usually makes things harder.
+								"Are you willing to hear what came up for me?"{" "}
 							</p>
-							<p>If they DO feel heard and signal they're ready, you can share your own perspective.</p>
+							<p>
+								If they're not ready to listen yet, it's usually because they still don't trust you're
+								not about to attack them, so you could address that (like "Are you worried I'm going to
+								say something mean?").{" "}
+							</p>
+							<p>
+								If they're still not willing, it's usually best to give up for the moment, and try again
+								another day. Pushing usually makes things harder.
+							</p>
+						</div>
+
+						<div className="collab-script-step">
+							<p className="collab-script-heading">
+								<strong>4. Share what's true for you.</strong>
+							</p>
+							<p>
+								If they DO feel heard and signal they're ready, THEN you can share your own perspective.
+							</p>
+							<p>
+								I tend to be fairly selective about what I share, choosing the words that are least
+								likely to trigger the other person unnecessarily, whilst still keeping the authentic
+								heart of what I'm saying.
+							</p>
 
 							<div className="collab-self-ofn">
 								<div className="collab-phrase">
@@ -417,7 +436,7 @@ const ConversationsAndCollaboration = () => {
 
 						<div className="collab-script-step collab-script-step--static">
 							<p className="collab-script-heading">
-								<strong>Check they've heard you</strong>
+								<strong>5. Check they've heard you</strong>
 							</p>
 							<p>If you're not sure how what you've said has landed for them, you can ask!</p>
 							<ul>
@@ -426,8 +445,8 @@ const ConversationsAndCollaboration = () => {
 								<li>"Would you be willing to tell me what you're hearing me say?"</li>
 							</ul>
 							<p>
-								This is where having lots of NVC practice until your belt comes in useful! If, for
-								example, they say something like "Well, you're saying I'm an asshole!", we can respond
+								Again, having lots of NVC practice until your belt comes in useful here! If, for
+								example, they say something like "Well, you're saying I'm an asshole!", you can respond
 								with something like, "Thanks for letting me know that's what you heard, it's really
 								important to me that I've expressed myself clearly, and it's not actually what I was
 								saying. Can I try again?"
@@ -436,14 +455,14 @@ const ConversationsAndCollaboration = () => {
 
 						<div className="collab-script-step collab-script-step--static">
 							<p className="collab-script-heading">
-								<strong>5. Co-create a solution only after both of you have been heard</strong>
+								<strong>6. Co-create a solution only after both of you feel heard</strong>
 							</p>
 							<p>
 								Once you're at the point where you both feel connected, and safe, then it's possible to
 								find solutions that work to meet both of your needs. You might ask{" "}
 							</p>
 							<ul>
-								<li>"How do you think can meet both of our needs"</li>
+								<li>"How do you think we can meet both/all of our needs"</li>
 							</ul>
 
 							<p>or, if you have some ideas, you could say </p>
@@ -463,16 +482,22 @@ const ConversationsAndCollaboration = () => {
 							</p>
 							<p>
 								Now, having built all that ... for heaven's sake, don't use these exact words, ha ha.
-								It's way too formal, and people often hear it as inauthentic and manipulative. So the
-								idea is to say it in a way that's as normal-to-you as possible. For example, I might say
-								"Yeah, I imagine the other day was hard for you too. Were you wanting some down time and
-								it was annoying when I asked for help?" ("down time" being a casual way of phrasing the
-								needs for rest and ease.) Same of course with check ins - rather than "can you tell me
-								back what I've said", it might be more like noticing they're reacting and asking "Oh, I
-								can see that's pissed you off, what are you taking from what I said?"
+								It's way too formal, and people often hear it as inauthentic and manipulative.
+							</p>
+							<p>
+								{" "}
+								So the idea is to say it in a way that's as normal-to-you as possible. For example, I
+								might say "Yeah, I imagine the other day was hard for you too. Were you wanting some
+								down time and it was annoying when I asked for help?" ("down time" being a casual way of
+								phrasing the needs for rest and ease.){" "}
+							</p>
+							<p>
+								Same of course with check ins - rather than "can you tell me back what I've said", it
+								might be more like noticing they're reacting and asking "Oh, I can see that's pissed you
+								off, what are you taking from what I said?"
 							</p>
 							<p className="collab-final-script-intro">
-								Here's your whole script — edit it here to get it just right before your conversation.
+								Here's your whole script — edit it here to make it sounds more like YOU.
 							</p>
 							<textarea
 								className="collab-final-script-textarea"

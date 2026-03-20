@@ -159,7 +159,7 @@
 }
 
 .collab-script-step p,
-collab-script-step ul > li {
+.collab-script-step ul > li {
 	font-size: 0.85rem;
 	color: #777;
 }
@@ -206,7 +206,7 @@ collab-script-step ul > li {
 .collab-phrase {
 	display: flex;
 	flex-direction: column;
-	border: 1px solid #ccc;
+	/* border: 1px solid #ccc; */
 	border-radius: 8px;
 	overflow: hidden;
 	background: #fefefe;
@@ -302,7 +302,9 @@ collab-script-step ul > li {
 	font-family: inherit;
 	color: #777;
 	cursor: pointer;
-	transition: background 0.15s, color 0.15s;
+	transition:
+		background 0.15s,
+		color 0.15s;
 }
 
 .collab-regenerate-btn:hover {

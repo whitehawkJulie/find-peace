@@ -27,8 +27,9 @@ const Introduction = () => {
 			</p>
 
 			<p>
-				When we do that, our brain can move out of threat mode and into the seeking and care circuits — the
-				parts that are much better at finding creative solutions, often ones that work for everyone involved.
+				When you do that, your brain is able to move out of threat mode and into the seeking and care circuits —
+				the parts that are much better at finding creative solutions, often ones that work for everyone
+				involved.
 			</p>
 			<p>Would you like to walk through it together?</p>
 		</div>
