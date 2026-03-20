@@ -5,9 +5,11 @@ import React from "react";
 
 // Link to one from anywhere with: openHelpTopic("topic-id")
 // eg
+// import { useWizard } from "./WizardContext";
 // const { openHelpTopic } = useWizard();
 // <button onClick={() => openHelpTopic("Mourning")}>What is mourning?</button>
-// or:
+// ===== or =====
+// import HelpLink from "./HelpLink";
 // <HelpLink topic="topic-id">link text</HelpLink> ... just embed that in text anywhere
 
 const StandaloneHelpTopics = [
@@ -76,11 +78,96 @@ const StandaloneHelpTopics = [
 		),
 	},
 
+	{
+		id: "differences",
+		title: "What's different here from 'standard' NVC?",
+		content: (
+			<>
+				<h3>TO DO</h3>
+				<p>
+					I've taught NVC for 15 years, and I've come to see some aspects that haven't worked so well for me,
+					or for the people I've taught. This section will explain some of the differences in this app, and
+					the reasoning behind them.
+				</p>
+				<p>
+					Threat, seeking and care motivation circuits - plus how it guides different pathways through the
+					process
+				</p>
+				<p>
+					Beauty of the needs as VITAL, and how Marshall said "Get as quickly as you can from need to
+					request", and how he saw grief as always being the blocker (care circuit), whereas sometimes it's
+					agency (seeking circuit).
+				</p>
+				<p>Explain about including 'faux feelings'.</p>
+			</>
+		),
+	},
+
+	{
+		id: "needs-tanks",
+		title: "Needs Tanks",
+		content: (
+			<>
+				<p>TODO</p>
+			</>
+		),
+	},
+
+	{
+		id: "black-hole-needs",
+		title: "Black Hole Needs",
+		content: (
+			<>
+				<p>TODO</p>
+			</>
+		),
+	},
+
+	{
+		id: "thought-feelings",
+		title: "Thought Feelings",
+		content: (
+			<>
+				<p>TODO</p>
+			</>
+		),
+	},
+
+	{
+		id: "beauty-of-needs",
+		title: "The Beauty of the Needs",
+		content: (
+			<>
+				<p>TODO</p>
+			</>
+		),
+	},
+
+	{
+		id: "acceptance",
+		title: "Acceptance vs Approval",
+		content: (
+			<>
+				<p>
+					<strong>B.J. Loridan</strong> said: My spiritual teacher told me, “If you don’t accept something,
+					you don’t fully recognize that it exists. If you don’t fully recognize that something exists, then
+					you can’t take steps to change it.” So we might say that acceptance is the willingness to fully
+					recognize what is. As I see it, acceptance is the precursor to change. ... When we accept, we allow
+					what is there to be there, and thus we become aware of what choices are available to us.
+				</p>
+			</>
+		),
+	},
+
 	// Add more topics here as needed. Example:
 	// {
 	// 	id: "empathy",
 	// 	title: "Empathy",
-	// 	content: <p>...</p>,
+	// 	content: (
+	// 		<>
+	// 			<p></p>
+	// 		</>
+	// 	),
 	// },
 ];
 

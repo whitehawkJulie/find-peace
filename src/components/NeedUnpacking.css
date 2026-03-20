@@ -222,6 +222,151 @@
 	color: #555;
 }
 
+/* ── Exploration popup overlay ── */
+
+.need-explore-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.35);
+	z-index: 1100;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	padding: 1.5rem 1rem 2rem;
+	box-sizing: border-box;
+	overflow-y: auto;
+}
+
+.need-explore-popup {
+	background: #fffdf5;
+	border-radius: 14px;
+	padding: 1.25rem 1.4rem 1.4rem;
+	max-width: 480px;
+	width: 100%;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+	display: flex;
+	flex-direction: column;
+	gap: 0.9rem;
+}
+
+.need-explore-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+
+.need-explore-title {
+	margin: 0;
+	font-size: 1.15rem;
+	color: #2e5236;
+	text-transform: capitalize;
+}
+
+.need-explore-close {
+	background: none;
+	border: none;
+	font-size: 1.4rem;
+	line-height: 1;
+	color: #aaa;
+	cursor: pointer;
+	padding: 0 0.25rem;
+	float: none;
+	flex-shrink: 0;
+}
+
+.need-explore-close:hover {
+	color: #666;
+}
+
+/* ── Pills with remove button ── */
+.pill.need-removable {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.15rem;
+}
+
+.pill-remove-x {
+	float: none;
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	font-size: 0.8rem;
+	line-height: 1;
+	color: #999;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1rem;
+	height: 1rem;
+	border-radius: 50%;
+	flex-shrink: 0;
+	transition: background 0.15s, color 0.15s;
+}
+
+.pill-remove-x:hover {
+	background: rgba(0, 0, 0, 0.12);
+	color: #555;
+}
+
+/* ── Remove confirmation bar ── */
+.need-remove-confirm {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6rem;
+	padding: 0.65rem 0.9rem;
+	background: #fdf5f4;
+	border: 1px solid #e8c8c4;
+	border-radius: 8px;
+	font-size: 0.88rem;
+	color: #555;
+}
+
+.need-remove-confirm-btns {
+	display: flex;
+	gap: 0.4rem;
+}
+
+.need-remove-confirm-yes {
+	float: none;
+	background: #c9776a;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	padding: 0.3rem 0.75rem;
+	font-size: 0.85rem;
+	font-family: inherit;
+	cursor: pointer;
+	transition: background 0.15s;
+}
+
+.need-remove-confirm-yes:hover {
+	background: #b5695d;
+}
+
+.need-remove-confirm-cancel {
+	float: none;
+	background: none;
+	border: 1px solid #ccc;
+	color: #888;
+	border-radius: 6px;
+	padding: 0.3rem 0.75rem;
+	font-size: 0.85rem;
+	font-family: inherit;
+	cursor: pointer;
+	transition: background 0.15s;
+}
+
+.need-remove-confirm-cancel:hover {
+	background: #f5f5f5;
+}
+
 /* ── Picker ── */
 .explored-section {
 	margin-top: 0.5rem;

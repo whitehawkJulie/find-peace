@@ -237,6 +237,15 @@
 	margin-top: 0.75rem;
 }
 
+/* ===== Privacy note ===== */
+
+.review-privacy-note {
+	margin: 0;
+	font-size: 0.8rem;
+	color: #aaa;
+	line-height: 1.5;
+}
+
 /* ===== Saved notice ===== */
 
 .review-saved-notice {
@@ -262,6 +271,150 @@
 	background: #f0ede8;
 	padding: 0.75rem 1rem;
 	border-radius: 6px;
+}
+
+.review-convo-script {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin: 0.25rem 0 0;
+}
+
+.review-convo-step {
+	padding: 0.6rem 0.85rem;
+	background: #f0ede8;
+	border-radius: 6px;
+	border-left: 3px solid #c8bfb0;
+}
+
+.review-convo-step--static {
+	background: #f5f3ef;
+	border-left-color: #ddd8d0;
+}
+
+.review-convo-step-label {
+	margin: 0 0 0.2rem;
+	font-size: 0.78rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #8a7a6a;
+}
+
+.review-convo-step-text {
+	margin: 0;
+	font-size: 0.9rem;
+	color: #333;
+	line-height: 1.5;
+}
+
+/* Plain text display of the combined conversation script */
+.review-convo-text {
+	white-space: pre-wrap;
+	font-size: 0.9rem;
+	line-height: 1.65;
+	color: #333;
+}
+
+/* ===== Session-end actions (Close / Restart) ===== */
+
+.review-session-end {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	padding: 1.1rem 1.25rem;
+	background: #f7f4ef;
+	border-radius: 10px;
+	border: 1px solid #e0d8ce;
+}
+
+.review-session-end-label {
+	margin: 0;
+	font-size: 0.88rem;
+	color: #888;
+}
+
+.review-session-end-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+	align-items: center;
+}
+
+.review-end-btn {
+	padding: 0.5rem 1.1rem;
+	border-radius: 8px;
+	font-size: 0.9rem;
+	font-family: inherit;
+	cursor: pointer;
+	transition: background 0.15s, border-color 0.15s;
+	float: none;
+}
+
+.review-end-btn--close {
+	background: white;
+	border: 1.5px solid #aaa;
+	color: #555;
+}
+
+.review-end-btn--close:hover {
+	background: #f0f0f0;
+	border-color: #888;
+}
+
+.review-end-btn--restart {
+	background: white;
+	border: 1.5px solid #5a9e6d;
+	color: #5a9e6d;
+}
+
+.review-end-btn--restart:hover {
+	background: #f0f8f2;
+}
+
+.review-restart-confirm {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.88rem;
+	color: #555;
+}
+
+.review-restart-confirm-btns {
+	display: flex;
+	gap: 0.4rem;
+}
+
+.review-end-btn--restart-yes {
+	background: #c9776a;
+	border: none;
+	color: white;
+	padding: 0.35rem 0.8rem;
+	font-size: 0.85rem;
+}
+
+.review-end-btn--restart-yes:hover {
+	background: #b5695d;
+}
+
+.review-end-btn--cancel {
+	background: none;
+	border: 1px solid #ccc;
+	color: #888;
+	padding: 0.35rem 0.8rem;
+	font-size: 0.85rem;
+}
+
+.review-end-btn--cancel:hover {
+	background: #f5f5f5;
+}
+
+.review-close-hint {
+	margin: 0;
+	font-size: 0.78rem;
+	color: #bbb;
+	line-height: 1.4;
 }
 
 .feedback {

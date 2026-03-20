@@ -3,6 +3,8 @@ import { useWizard } from "./WizardContext";
 import Checklist from "./Checklist";
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
 import { Needs as NeedsData } from "../data/AllNeedsData";
+import HelpLink from "./HelpLink";
+
 import "./MakingGuesses.css";
 
 const MakingGuesses = () => {
@@ -71,7 +73,8 @@ MakingGuesses.helpContent = (
 	<>
 		<p>
 			This is one of the most powerful moves in NVC: trying to see the world through the other person's eyes. Not
-			to agree with them, not to excuse anything — just to understand.
+			to agree with them, not to excuse anything — just to understand. See{" "}
+			<HelpLink topic="acceptance">Acceptance vs Approval</HelpLink>
 		</p>
 
 		<h4>Why empathy guesses matter</h4>

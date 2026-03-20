@@ -69,6 +69,11 @@
 	color: #444;
 }
 
+.saved-preview--locked {
+	color: #aaa;
+	font-style: italic;
+}
+
 .saved-stats {
 	display: flex;
 	gap: 0.75rem;

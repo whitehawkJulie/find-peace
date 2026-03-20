@@ -127,17 +127,17 @@ const Needs = () => {
 				</button>
 			</div> */}
 
-			<SlideDrawer
+			{/* <SlideDrawer
 				isOpen={showPatriarchy}
 				onClose={() => setShowPatriarchy(false)}
 				title="Needs Shaped by Culture">
 				<PatriarchyNeeds />
-			</SlideDrawer>
+			</SlideDrawer> */}
 		</div>
 	);
 };
 
-Needs.title = "Needs";
+Needs.title = "What matters to me?";
 Needs.helpContent = (
 	<>
 		<h3>What Is a Need?</h3>

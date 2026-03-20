@@ -315,7 +315,7 @@ const Feelings = () => {
 	);
 };
 
-Feelings.title = "Feelings";
+Feelings.title = "What am I feeling?";
 Feelings.helpContent = (
 	<>
 		<h3>Feelings</h3>

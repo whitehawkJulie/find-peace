@@ -2,12 +2,12 @@ import React, { useState, useRef } from "react";
 import { useWizard } from "./WizardContext";
 import { filterByState } from "../utils/renderHelpers";
 import { feelingTypes } from "../data/FeelingTypes";
-import { COLLABORATE_TIPS_TEXT } from "./ConversationsAndCollaboration";
 import "./Review.css";
 
 const Review = () => {
 	const {
 		observation,
+		jackalTalk,
 		feelings,
 		needs,
 		needExplorations,
@@ -21,10 +21,11 @@ const Review = () => {
 		requestOfOther,
 		whatsChangedResponses,
 		simpleRequest,
-		wantsConversation,
+		collabScript,
 		reviewReflection,
 		setReviewReflection,
 		saveSession,
+		resetSession,
 	} = useWizard();
 
 	const [saved, setSaved] = useState(false);
@@ -32,6 +33,7 @@ const Review = () => {
 	const [copied, setCopied] = useState(false);
 	const [copiedConvo, setCopiedConvo] = useState(false);
 	const [whatHappenedOpen, setWhatHappenedOpen] = useState(false);
+	const [confirmRestart, setConfirmRestart] = useState(false);
 	const actionsRef = useRef(null);
 
 	const openAndScrollToSave = (e) => {
@@ -61,8 +63,11 @@ const Review = () => {
 	const hasGuesses = guessObservation || guessFeelingsAll.length > 0 || guessNeedsAll.length > 0;
 	const hasRequests = requestOfSelf || requestOfOther || simpleRequest?.trim();
 	const hasWhatsChanged = whatsChangedResponses?.before?.trim() || whatsChangedResponses?.differently?.trim();
+	// Show the conversation guide section if the user visited and initialised the collab script
+	const hasCollabScript = collabScript?.permissionLine !== undefined;
 	const hasAnyData =
 		obsText ||
+		jackalTalk ||
 		allFeelings.length > 0 ||
 		hasFeelingsExplore ||
 		hasBodySensations ||
@@ -73,7 +78,7 @@ const Review = () => {
 		hasGuesses ||
 		hasWhatsChanged ||
 		hasRequests ||
-		wantsConversation;
+		hasCollabScript;
 
 	const generateSummaryText = () => {
 		const lines = [];
@@ -83,8 +88,21 @@ const Review = () => {
 
 		heading("What was happening for you?");
 
+		if (jackalTalk) {
+			lines.push("Letting it all out:", jackalTalk, "");
+		}
+
 		if (obsText) {
 			lines.push("Observation:", obsText, "");
+		}
+
+		heading("Feelings");
+
+		if (hasBodySensations) {
+			const parts = [];
+			if (bodySensations.selected.length > 0) parts.push(bodySensations.selected.join(", "));
+			if (bodySensations.custom?.trim()) parts.push(bodySensations.custom.trim());
+			lines.push(`Body sensations: ${parts.join("; ")}`, "");
 		}
 
 		if (allFeelings.length > 0) {
@@ -109,20 +127,13 @@ const Review = () => {
 			}
 			lines.push("");
 		}
-
-		if (hasBodySensations) {
-			const parts = [];
-			if (bodySensations.selected.length > 0) parts.push(bodySensations.selected.join(", "));
-			if (bodySensations.custom?.trim()) parts.push(bodySensations.custom.trim());
-			lines.push(`Body sensations: ${parts.join("; ")}`, "");
+		heading("Needs");
+		if (unmetNeeds.length > 0) {
+			lines.push(`Unmet needs: ${unmetNeeds.join(", ")}`, "");
 		}
 
 		if (metNeeds.length > 0) {
 			lines.push(`Met needs: ${metNeeds.join(", ")}`, "");
-		}
-
-		if (unmetNeeds.length > 0) {
-			lines.push(`Unmet needs: ${unmetNeeds.join(", ")}`, "");
 		}
 
 		if (exploredNeeds.length > 0) {
@@ -173,9 +184,28 @@ const Review = () => {
 			if (requestOfOther) lines.push(`Of them: ${requestOfOther}`);
 		}
 
-		if (wantsConversation) {
+		if (hasCollabScript) {
 			heading("Conversation guide");
-			lines.push(COLLABORATE_TIPS_TEXT);
+			if (collabScript.collabFinalScript?.trim()) {
+				lines.push(collabScript.collabFinalScript.trim(), "");
+			} else {
+				const { permissionLine, guessFeelingsLine, guessNeedsLine, selfObsLine, selfFeelingsLine, selfNeedsLine, selfRequestLine } = collabScript || {};
+				if (permissionLine) lines.push(`1. Get permission: Would you be willing to have a conversation about ${permissionLine}? When might be a good time for you?`, "");
+				if (guessFeelingsLine || guessNeedsLine) {
+					const guessParts = [];
+					if (guessFeelingsLine) guessParts.push(`feeling ${guessFeelingsLine}`);
+					if (guessNeedsLine) guessParts.push(`wanting ${guessNeedsLine}`);
+					lines.push(`2. Your guesses about them: I'm wondering if you might have been ${guessParts.join(", and ")}.`, "");
+				}
+				if (selfObsLine || selfFeelingsLine || selfNeedsLine) {
+					lines.push("3. Your perspective:");
+					if (selfObsLine) lines.push(`   When I remember ${selfObsLine}`);
+					if (selfFeelingsLine) lines.push(`   I feel ${selfFeelingsLine}`);
+					if (selfNeedsLine) lines.push(`   because I'm really longing for ${selfNeedsLine}`);
+					if (selfRequestLine) lines.push(`   ${selfRequestLine}`);
+					lines.push("");
+				}
+			}
 		}
 
 		if (reviewReflection?.trim()) {
@@ -201,9 +231,9 @@ const Review = () => {
 		});
 	};
 
-	const handleSave = () => {
+	const handleSave = async () => {
 		logSelections();
-		saveSession();
+		await saveSession();
 		setSaved(true);
 		setSavedNotice(true);
 		setTimeout(() => setSavedNotice(false), 10000);
@@ -435,14 +465,60 @@ const Review = () => {
 							</div>
 						)}
 
-						{wantsConversation && (
+						{hasCollabScript && (
 							<div className="review-section">
 								<h3>Conversation guide</h3>
-								<pre className="review-convo-tips">{COLLABORATE_TIPS_TEXT}</pre>
+								{collabScript.collabFinalScript?.trim() ? (
+									<p className="review-text review-convo-text">{collabScript.collabFinalScript}</p>
+								) : (
+									// Fallback: structured display if finalScript not yet generated
+									<div className="review-convo-script">
+										{collabScript.permissionLine && (
+											<div className="review-convo-step">
+												<p className="review-convo-step-label">1. Get permission</p>
+												<p className="review-convo-step-text">Would you be willing to have a conversation about {collabScript.permissionLine}? When might be a good time for you?</p>
+											</div>
+										)}
+										{(collabScript.guessFeelingsLine || collabScript.guessNeedsLine) && (
+											<div className="review-convo-step">
+												<p className="review-convo-step-label">2. Your guesses about them</p>
+												{collabScript.guessFeelingsLine && (
+													<p className="review-convo-step-text">I'm wondering if you might have been feeling {collabScript.guessFeelingsLine}</p>
+												)}
+												{collabScript.guessNeedsLine && (
+													<p className="review-convo-step-text">and wanting {collabScript.guessNeedsLine}</p>
+												)}
+											</div>
+										)}
+										{(collabScript.selfObsLine || collabScript.selfFeelingsLine || collabScript.selfNeedsLine) && (
+											<div className="review-convo-step">
+												<p className="review-convo-step-label">3. Your perspective</p>
+												{collabScript.selfObsLine && <p className="review-convo-step-text">When I remember {collabScript.selfObsLine}</p>}
+												{collabScript.selfFeelingsLine && <p className="review-convo-step-text">I feel {collabScript.selfFeelingsLine}</p>}
+												{collabScript.selfNeedsLine && <p className="review-convo-step-text">because I'm really longing for {collabScript.selfNeedsLine}</p>}
+												{collabScript.selfRequestLine && <p className="review-convo-step-text">{collabScript.selfRequestLine}</p>}
+											</div>
+										)}
+									</div>
+								)}
 								<button
 									className="review-action-btn review-action-btn-secondary review-action-btn-small"
 									onClick={() => {
-										navigator.clipboard.writeText(COLLABORATE_TIPS_TEXT).then(() => {
+										const text = collabScript.collabFinalScript?.trim()
+											? collabScript.collabFinalScript
+											: (() => {
+												const { permissionLine, guessFeelingsLine, guessNeedsLine, selfObsLine, selfFeelingsLine, selfNeedsLine, selfRequestLine } = collabScript || {};
+												const ls = [];
+												if (permissionLine) ls.push(`Would you be willing to have a conversation about ${permissionLine}? When might be a good time for you?`);
+												if (guessFeelingsLine) ls.push(`I'm wondering if you might have been feeling ${guessFeelingsLine}`);
+												if (guessNeedsLine) ls.push(`and wanting ${guessNeedsLine}`);
+												if (selfObsLine) ls.push(`When I remember ${selfObsLine}`);
+												if (selfFeelingsLine) ls.push(`I feel ${selfFeelingsLine}`);
+												if (selfNeedsLine) ls.push(`because I'm really longing for ${selfNeedsLine}`);
+												if (selfRequestLine) ls.push(selfRequestLine);
+												return ls.join("\n");
+											  })();
+										navigator.clipboard.writeText(text).then(() => {
 											setCopiedConvo(true);
 											setTimeout(() => setCopiedConvo(false), 2500);
 										});
@@ -453,7 +529,7 @@ const Review = () => {
 						)}
 
 						<div className="review-reflection">
-							<p className="review-reflection-prompt">Something that stands out to me here is ...</p>
+							<p className="review-reflection-prompt">What feels most important or surprising here?</p>
 							<textarea
 								className="review-reflection-textarea"
 								rows={3}
@@ -475,6 +551,12 @@ const Review = () => {
 							</button>
 						</div>
 
+						<p className="review-privacy-note">
+							🔒 Your data stays on this device and is never sent to any server. Saving or copying shares
+							your feelings and needs word selections anonymously to help improve this tool. Manage your
+							data in ⚙ Settings.
+						</p>
+
 						{savedNotice && (
 							<p className="review-saved-notice">
 								✓ Saved to your browser. To reload it later, tap the ⚙ cog icon in the menu bar at the
@@ -483,6 +565,44 @@ const Review = () => {
 						)}
 					</div>
 				)}
+			</div>
+
+			<div className="review-session-end">
+				<p className="review-session-end-label">When you're ready:</p>
+				<div className="review-session-end-buttons">
+					<button className="review-end-btn review-end-btn--close" onClick={() => window.close()}>
+						Close
+					</button>
+					{confirmRestart ? (
+						<div className="review-restart-confirm">
+							<span>Clear all your answers and start fresh?</span>
+							<div className="review-restart-confirm-btns">
+								<button
+									className="review-end-btn review-end-btn--restart-yes"
+									onClick={() => {
+										resetSession();
+										setConfirmRestart(false);
+									}}>
+									Yes, start over
+								</button>
+								<button
+									className="review-end-btn review-end-btn--cancel"
+									onClick={() => setConfirmRestart(false)}>
+									Cancel
+								</button>
+							</div>
+						</div>
+					) : (
+						<button
+							className="review-end-btn review-end-btn--restart"
+							onClick={() => setConfirmRestart(true)}>
+							↺ Start a new session
+						</button>
+					)}
+				</div>
+				<p className="review-close-hint">
+					If Close doesn't work in your browser, you can simply close this tab or window.
+				</p>
 			</div>
 
 			<div className="feedback">

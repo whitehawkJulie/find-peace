@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useRef, useEffect } from "react";
+import { encryptSession, decryptSession, isEncryptedSession } from "../utils/crypto";
 
 // Create context
 const WizardContext = createContext();
@@ -19,6 +20,18 @@ import ConversationsAndCollaboration from "./ConversationsAndCollaboration";
 import Review from "./Review";
 import FeelingsExploreCard from "./FeelingsExploreCard";
 
+// Step icons
+import introIcon from "../images/icons/intro.svg";
+import observationIcon from "../images/icons/observation.svg";
+import feelingsIcon from "../images/icons/feelings.svg";
+import exploreFeelingsIcon from "../images/icons/explore-feelings.svg";
+import needsIcon from "../images/icons/needs.svg";
+import exploreNeedIcon from "../images/icons/explore-need.svg";
+import theirViewIcon from "../images/icons/their-view.svg";
+import whatsChangedIcon from "../images/icons/whats-changed.svg";
+import conversationsIcon from "../images/icons/conversations.svg";
+import reviewIcon from "../images/icons/review.svg";
+
 // Data for feeling type regulation step condition
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
 import { pickDominantFeelingType } from "../data/FeelingTypes";
@@ -38,10 +51,12 @@ if (unmetSection?.groups) {
 
 // Full list of steps
 const allSteps = [
-	{ component: Introduction, title: "Intro", optional: true },
+	{ component: Introduction, title: "Intro", optional: true, color: "#9a5a50", icon: introIcon },
 	{
 		component: Observation,
 		title: "Observation",
+		color: "#8a6a40",
+		icon: observationIcon,
 		pause: (
 			<>
 				<p>When something feels important or threatening, our systems respond.</p>
@@ -56,6 +71,8 @@ const allSteps = [
 	{
 		component: Feelings,
 		title: "Feelings",
+		color: "#886075",
+		icon: feelingsIcon,
 		pause: (
 			<>
 				<p>
@@ -68,26 +85,32 @@ const allSteps = [
 	{
 		component: FeelingsExploreCard,
 		title: "Explore Feelings",
+		color: "#6a4a60",
+		icon: exploreFeelingsIcon,
 		optional: true,
 		condition: (state) => Object.values(state.feelings || {}).some((s) => s === "clicked" || s === "double-clicked"),
 	},
 	{
 		component: Needs,
 		title: "Needs",
+		color: "#5a9e6d",
+		icon: needsIcon,
 		pause: "Now that you've named what you're feeling, let's look at what those feelings are pointing to — \
 		to what really matters to you here...",
 	},
 	{
 		component: NeedUnpacking,
 		title: "Explore a Need",
+		color: "#3a7058",
+		icon: exploreNeedIcon,
 		optional: true,
 		condition: (state) => Object.values(state.needs || {}).includes("clicked"),
 	},
-	{ component: MakingGuesses, title: "Their View", optional: true },
+	{ component: MakingGuesses, title: "Their View", optional: true, color: "#3a5e80", icon: theirViewIcon },
 	// { component: RequestFormulation, title: "Request", optional: true },
-	{ component: ExploringWhatsChanged, title: "Exploring what's changed", optional: true },
-	{ component: ConversationsAndCollaboration, title: "Conversations and Collaboration", optional: true },
-	{ component: Review, title: "Review", optional: true },
+	{ component: ExploringWhatsChanged, title: "Exploring what's changed", optional: true, color: "#484878", icon: whatsChangedIcon },
+	{ component: ConversationsAndCollaboration, title: "Conversations and Collaboration", optional: true, color: "#584070", icon: conversationsIcon },
+	{ component: Review, title: "Review", optional: true, color: "#804050", icon: reviewIcon },
 ];
 
 export const WizardProvider = ({ children }) => {
@@ -127,6 +150,7 @@ export const WizardProvider = ({ children }) => {
 	// Conversations and Collaboration
 	const [simpleRequest, setSimpleRequest] = useState("");
 	const [wantsConversation, setWantsConversation] = useState(false);
+	const [collabScript, setCollabScript] = useState({});
 	const [reviewReflection, setReviewReflection] = useState("");
 
 	// True once the user has unsaved changes; cleared when saveSession() is called.
@@ -177,7 +201,15 @@ export const WizardProvider = ({ children }) => {
 	// Sub-step navigation: when true, Card hides the main MenuBar
 	const [hideMainNav, setHideMainNav] = useState(false);
 
-	// Saved entries (loaded from localStorage)
+	// Tracks which saved entry is currently loaded (shown as "Loaded ✓" in SavedEntries)
+	const [loadedId, setLoadedId] = useState(null);
+
+	// Passphrase for optional encryption — held in a ref so it never appears in
+	// React DevTools. passphraseActive drives re-renders when it changes.
+	const passphraseRef = useRef(null);
+	const [passphraseActive, setPassphraseActive] = useState(false);
+
+	// Saved entries (loaded from localStorage — may contain encrypted objects)
 	const [savedEntries, setSavedEntries] = useState(() => {
 		try {
 			const saved = localStorage.getItem("findPeaceSessions");
@@ -187,14 +219,16 @@ export const WizardProvider = ({ children }) => {
 		}
 	});
 
+	const hasEncryptedSessions = savedEntries.some(isEncryptedSession);
+
 	// Build state object for step conditions
 	const state = { observation, feelings, needs, needExplorations, strategies };
 	const visibleSteps = allSteps.filter((step) => (step.condition ? step.condition(state) : true));
 
 	const currentStep = visibleSteps[stepIndex];
 
-	// Save current session to localStorage
-	const saveSession = () => {
+	// Save current session to localStorage (async when passphrase is active)
+	const saveSession = async () => {
 		const session = {
 			id: Date.now(),
 			date: new Date().toISOString(),
@@ -215,13 +249,62 @@ export const WizardProvider = ({ children }) => {
 			whatsChangedResponses,
 			simpleRequest,
 			wantsConversation,
+			collabScript,
 			reviewReflection,
 		};
-		const updated = [...savedEntries, session];
-		setSavedEntries(updated);
-		localStorage.setItem("findPeaceSessions", JSON.stringify(updated));
+
+		if (passphraseRef.current) {
+			// Re-encrypt all sessions (existing plaintext in state + new session)
+			const allPlain = [...savedEntries, session];
+			const encrypted = await Promise.all(allPlain.map((s) => encryptSession(s, passphraseRef.current)));
+			localStorage.setItem("findPeaceSessions", JSON.stringify(encrypted));
+			setSavedEntries(allPlain); // keep plaintext in state for display
+		} else {
+			const updated = [...savedEntries, session];
+			setSavedEntries(updated);
+			localStorage.setItem("findPeaceSessions", JSON.stringify(updated));
+		}
+
 		dirtyRef.current = false;
 		return session;
+	};
+
+	// Delete all saved sessions
+	const clearAllSessions = () => {
+		setSavedEntries([]);
+		localStorage.removeItem("findPeaceSessions");
+	};
+
+	// Encrypt all existing sessions with a new passphrase
+	const enableEncryption = async (phrase) => {
+		const encrypted = await Promise.all(savedEntries.map((s) => encryptSession(s, phrase)));
+		localStorage.setItem("findPeaceSessions", JSON.stringify(encrypted));
+		// Keep plaintext in state — user just set the passphrase, they know it
+		passphraseRef.current = phrase;
+		setPassphraseActive(true);
+	};
+
+	// Unlock encrypted sessions in memory (they stay encrypted in localStorage)
+	const unlockSessions = async (phrase) => {
+		const decrypted = await Promise.all(
+			savedEntries.map((s) => (isEncryptedSession(s) ? decryptSession(s, phrase) : s)),
+		);
+		setSavedEntries(decrypted);
+		passphraseRef.current = phrase;
+		setPassphraseActive(true);
+	};
+
+	// Decrypt all sessions and save plaintext back to localStorage
+	const removePassphrase = async () => {
+		const decrypted = await Promise.all(
+			savedEntries.map((s) =>
+				isEncryptedSession(s) ? decryptSession(s, passphraseRef.current) : s,
+			),
+		);
+		localStorage.setItem("findPeaceSessions", JSON.stringify(decrypted));
+		setSavedEntries(decrypted);
+		passphraseRef.current = null;
+		setPassphraseActive(false);
 	};
 
 	// Load a past session back into the wizard
@@ -255,6 +338,7 @@ export const WizardProvider = ({ children }) => {
 		setWhatsChangedResponses(session.whatsChangedResponses || {});
 		setSimpleRequest(session.simpleRequest || "");
 		setWantsConversation(session.wantsConversation || false);
+		setCollabScript(session.collabScript || {});
 		setReviewReflection(session.reviewReflection || "");
 		setStepIndex(1); // Go straight to Observation (index 1 is always Observation)
 	};
@@ -262,6 +346,7 @@ export const WizardProvider = ({ children }) => {
 	// Start a fresh session
 	const resetSession = () => {
 		dirtyRef.current = false;
+		setLoadedId(null);
 		setStepIndex(0);
 		setJackalTalk("");
 		setObservation({ moment: "", actions: "", camera: "", refined: "" });
@@ -283,6 +368,7 @@ export const WizardProvider = ({ children }) => {
 		setWhatsChangedResponses({});
 		setSimpleRequest("");
 		setWantsConversation(false);
+		setCollabScript({});
 		setReviewReflection("");
 	};
 
@@ -360,6 +446,8 @@ export const WizardProvider = ({ children }) => {
 		setSimpleRequest,
 		wantsConversation,
 		setWantsConversation,
+		collabScript,
+		setCollabScript,
 		reviewReflection,
 		setReviewReflection,
 		settings,
@@ -374,8 +462,16 @@ export const WizardProvider = ({ children }) => {
 		openHelpTopic,
 		hideMainNav,
 		setHideMainNav,
+		passphraseActive,
+		hasEncryptedSessions,
+		enableEncryption,
+		unlockSessions,
+		removePassphrase,
+		loadedId,
+		setLoadedId,
 		savedEntries,
 		saveSession,
+		clearAllSessions,
 		loadSession,
 		resetSession,
 		deleteSession,

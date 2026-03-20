@@ -6,7 +6,7 @@ const Introduction = () => {
 		<div className="step-introduction step-container">
 			<p>
 				Life sure throws some curve balls, doesn’t it? We do our best, but things don’t always go the way we
-				expected.
+				expected. This tool helps you navigate curve balls.
 			</p>
 
 			<p>
@@ -159,6 +159,20 @@ Introduction.helpContent = (
 			When we focus only on what’s wrong, we tend to repeat the same patterns.
 			<br />
 			When we focus on what <strong>matters</strong>, new possibilities often appear.
+		</p>
+
+		<h2>Your privacy</h2>
+
+		<p>
+			Everything you enter into this tool stays on your device. Your responses are stored only in your browser’s
+			local storage and are <strong>never sent to any server</strong>. When you save or copy a session, your
+			feelings and needs word selections are shared anonymously to help improve this tool — no personal
+			observations, reflections, or free text is included.
+		</p>
+
+		<p>
+			You can clear all your saved data at any time, or protect it with a passphrase, from the Settings menu (the
+			⚙ icon in the menu bar at the bottom).
 		</p>
 	</>
 );

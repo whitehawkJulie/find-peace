@@ -14,6 +14,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		helpTopic,
 		setHelpTopic,
 		cardContentRef,
+		currentStep,
 	} = useWizard();
 	const [hasMoreBelow, setHasMoreBelow] = useState(false);
 
@@ -83,19 +84,24 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 			    a position:relative container that exactly matches the scrollable area */}
 			<div className="card-content-wrapper">
 				<div className="card-content" ref={cardContentRef}>
-					<div className="card-header">
-						<div className="card-app-title">Wait, What?!</div>
-						<div className="card-title-row">
-							<h2>{title}</h2>
-							{showHelp && (
-								<button
-									className="help-icon"
-									title={helpDrawerOpen ? "Close help" : "Open help"}
-									onClick={() => setHelpDrawerOpen((prev) => !prev)}>
-									<span className="help-icon-q">?</span>
-									<span className="help-icon-label">Help</span>
-								</button>
-							)}
+					<div className="card-header" style={currentStep?.color ? { background: currentStep.color } : undefined}>
+						{currentStep?.icon && (
+							<img src={currentStep.icon} className="card-header-icon" alt="" aria-hidden="true" />
+						)}
+						<div className="card-header-text">
+							<div className="card-app-title">Wait, What?!</div>
+							<div className="card-title-row">
+								<h2>{title}</h2>
+								{showHelp && (
+									<button
+										className="help-icon"
+										title={helpDrawerOpen ? "Close help" : "Open help"}
+										onClick={() => setHelpDrawerOpen((prev) => !prev)}>
+										<span className="help-icon-q">?</span>
+										<span className="help-icon-label">Help</span>
+									</button>
+								)}
+							</div>
 						</div>
 					</div>
 					{children}

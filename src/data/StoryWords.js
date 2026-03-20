@@ -14,7 +14,7 @@
 
 export const StoryWords = {
 	ui: {
-		heading: "Story Words",
+		heading: "Story Words (optional)",
 		helpText:
 			"These words make sense — they often tell a story about what happened <em>out there</em>. And at the same time, there’s something happening <em>in here</em>, inside you, in response to that. Let’s pause and gently feel it.",
 	},

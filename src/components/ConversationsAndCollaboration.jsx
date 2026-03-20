@@ -1,27 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useWizard } from "./WizardContext";
+import { filterByState } from "../utils/renderHelpers";
 import "./ConversationsAndCollaboration.css";
+import HelpLink from "./HelpLink";
 
-export const COLLABORATE_TIPS_TEXT = `Tips for starting a conversation:
+// Build a single combined script string from all the collabScript fields
+const buildFinalScript = (fields) => {
+	const {
+		permissionLine,
+		guessFeelingsLine,
+		guessNeedsLine,
+		selfObsLine,
+		selfFeelingsLine,
+		selfNeedsLine,
+		selfRequestLine,
+	} = fields;
+	const parts = [];
 
-1. Get permission first
-   Ask before diving in: "Would you be willing to talk about something that came up for me?"
+	if (permissionLine) {
+		parts.push(
+			`Would you be willing to have a conversation about ${permissionLine}? When might be a good time for you?`,
+		);
+		parts.push("");
+	}
 
-2. Begin with your guesses about them
-   When people feel understood, their nervous system settles. Try: "I'm wondering if when that happened you might have been needing…"
+	if (guessFeelingsLine || guessNeedsLine) {
+		if (guessFeelingsLine) parts.push(`I'm wondering if you might have been feeling ${guessFeelingsLine}`);
+		if (guessNeedsLine) parts.push(`and wanting ${guessNeedsLine}`);
+		parts.push("");
+	}
 
-3. Wait for their genuine willingness
-   If they're not ready, wait. Pushing usually makes things harder.
+	parts.push(`[Need to check you've understood them? "Have I heard you correctly? Is this what you're saying?"]`);
+	parts.push("");
 
-4. Check you're both being heard
-   "Have I heard you correctly? Is that what you meant?"
-   "Would you be willing to tell me what you're hearing me say?"
+	parts.push("Are you willing to hear what came up for me?");
+	parts.push("");
 
-5. Co-create a solution after both of you have been heard
-   When everyone's needs are visible, it's much easier to find strategies that work for both of you.`;
+	if (selfObsLine || selfFeelingsLine || selfNeedsLine) {
+		if (selfObsLine) parts.push(`When I remember ${selfObsLine}`);
+		if (selfFeelingsLine) parts.push(`I feel ${selfFeelingsLine}`);
+		if (selfNeedsLine) parts.push(`because I'm really longing for ${selfNeedsLine}`);
+		if (selfRequestLine) parts.push(selfRequestLine);
+		parts.push("");
+	}
+
+	parts.push(
+		`[Need to check they've understood you? "Can you tell me how that landed for you?" / "Can you tell me how you are, having heard that?"]`,
+	);
+
+	return parts.join("\n");
+};
 
 const ConversationsAndCollaboration = () => {
-	const { simpleRequest, setSimpleRequest, wantsConversation, setWantsConversation } = useWizard();
+	const {
+		simpleRequest,
+		setSimpleRequest,
+		collabScript,
+		setCollabScript,
+		guessObservation,
+		guessFeelings,
+		guessNeeds,
+		observation,
+		feelings,
+		needs,
+		requestOfSelf,
+	} = useWizard();
 	const [expanded, setExpanded] = useState(new Set());
 
 	const toggle = (id) => {
@@ -32,6 +75,47 @@ const ConversationsAndCollaboration = () => {
 		});
 	};
 
+	const updateCollabScript = (field, value) => {
+		setCollabScript((prev) => ({ ...prev, [field]: value }));
+	};
+
+	// Initialise collabScript from context data the first time the component mounts
+	// (only if it hasn't been set yet — undefined means uninitialised, "" means user cleared it)
+	useEffect(() => {
+		if (collabScript.permissionLine !== undefined) return;
+
+		const guessFeelingsAll = [
+			...filterByState(guessFeelings, "clicked"),
+			...filterByState(guessFeelings, "double-clicked"),
+		];
+		const guessNeedsAll = [...filterByState(guessNeeds, "clicked"), ...filterByState(guessNeeds, "double-clicked")];
+		const allFeelings = filterByState(feelings, "clicked");
+		const allNeeds = filterByState(needs, "clicked");
+
+		// permissionLine stores just the topic (the observation part), not the full sentence
+		const permissionLine = guessObservation;
+
+		// Guess fields: feelings and needs as separate editable boxes
+		const guessFeelingsLine = guessFeelingsAll.join(", ");
+		const guessNeedsLine = guessNeedsAll.join(", ");
+
+		const fields = {
+			permissionLine,
+			guessFeelingsLine,
+			guessNeedsLine,
+			theyAreReady: false,
+			selfObsLine: observation?.refined?.trim() || "",
+			selfFeelingsLine: allFeelings.join(", "),
+			selfNeedsLine: allNeeds.join(", "),
+			selfRequestLine: requestOfSelf || "",
+		};
+
+		setCollabScript({
+			...fields,
+			collabFinalScript: buildFinalScript(fields),
+		});
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
 	const SECTIONS = [
 		{
 			id: "despair",
@@ -40,7 +124,7 @@ const ConversationsAndCollaboration = () => {
 				<>
 					<p>
 						Sometimes, after identifying a need, we realise the pain is not just that the need is unmet in
-						this situation — it’s that we can’t see any way for it to be met at all.
+						this situation — it's that we can't see any way for it to be met at all.
 					</p>
 
 					<p>The first question I ask myself is:</p>
@@ -68,7 +152,7 @@ const ConversationsAndCollaboration = () => {
 					<h3>1. Let it percolate</h3>
 
 					<p>
-						I ask myself whether I’m willing to sit with the unmet need for a few days and give it time. I
+						I ask myself whether I'm willing to sit with the unmet need for a few days and give it time. I
 						let myself wonder what this need really means to me, and what would actually help me feel it had
 						been met. I put it on the back burner for a while and let it unfold.
 					</p>
@@ -87,11 +171,11 @@ const ConversationsAndCollaboration = () => {
 						help meet it in my own life.
 					</p>
 
-					<p>And finally, if I’m still completely stuck, I find it helpful to remember this:</p>
+					<p>And finally, if I'm still completely stuck, I find it helpful to remember this:</p>
 
 					<p>
 						<strong>
-							Even if I can’t see how this need could be met right now, I do not know what the future
+							Even if I can't see how this need could be met right now, I do not know what the future
 							holds.
 						</strong>
 					</p>
@@ -99,6 +183,10 @@ const ConversationsAndCollaboration = () => {
 					<p>
 						I can still honour the need. I can hold it gently, value it, and let it matter — even before I
 						know what to do about it.
+					</p>
+					<p>
+						You might like to read more about{" "}
+						<HelpLink topic="mourning">connecting with, and mourning, unmet needs</HelpLink>.
 					</p>
 				</>
 			),
@@ -208,51 +296,198 @@ const ConversationsAndCollaboration = () => {
 						well.
 					</p>
 
-					<p>A few things tend to make these conversations easier and safer for both people:</p>
+					<p>
+						Below is a guide for the conversation. The text boxes are pre-filled from what you've explored —
+						feel free to edit them before you have the conversation.
+					</p>
 
-					<ul>
-						<li>
-							<strong>Start by getting permission.</strong> Rather than launching straight into the issue,
-							make a simple request first, such as: "Would you be willing to talk about something that
-							came up for me earlier?"
-						</li>
+					<div className="collab-script">
+						<div className="collab-script-step">
+							<p className="collab-script-heading">
+								<strong>1. Start by getting permission</strong>
+							</p>
+							<p className="collab-script-hint">
+								Rather than launching straight into the issue, make a simple request first.
+							</p>
+							<div className="collab-phrase">
+								<div className="collab-phrase-prefix">
+									Would you be willing to have a conversation about
+								</div>
+								<textarea
+									className="collab-phrase-textarea"
+									rows={2}
+									value={collabScript.permissionLine ?? ""}
+									onChange={(e) => updateCollabScript("permissionLine", e.target.value)}
+									placeholder="what you'd like to talk about…"
+								/>
+								<div className="collab-phrase-suffix">? When might be a good time for you?</div>
+							</div>
+						</div>
 
-						<li>
-							<strong>Begin with your guesses about them.</strong> When people feel that you're trying to
-							understand them, their nervous system tends to settle. You might start with something like:
-							"I'm wondering if when that happened you might have been needing…"
-						</li>
+						<div className="collab-script-step">
+							<p className="collab-script-heading">
+								<strong>2. Begin with your guesses about them</strong>
+							</p>
+							<p className="collab-script-hint">
+								When people feel that you're trying to understand them, their nervous system tends to
+								settle. Try starting with your guesses about what was happening for them.
+							</p>
+							<div className="collab-phrase">
+								<div className="collab-phrase-prefix">I'm wondering if you might have been feeling</div>
+								<textarea
+									className="collab-phrase-textarea"
+									rows={2}
+									value={collabScript.guessFeelingsLine ?? ""}
+									onChange={(e) => updateCollabScript("guessFeelingsLine", e.target.value)}
+									placeholder="e.g. hurt, frustrated, anxious…"
+								/>
+							</div>
+							<div className="collab-phrase">
+								<div className="collab-phrase-prefix">and wanting</div>
+								<textarea
+									className="collab-phrase-textarea"
+									rows={2}
+									value={collabScript.guessNeedsLine ?? ""}
+									onChange={(e) => updateCollabScript("guessNeedsLine", e.target.value)}
+									placeholder="e.g. respect, connection, understanding…"
+								/>
+							</div>
+						</div>
 
-						<li>
-							<strong>Wait for their willingness to hear you.</strong> If they're not ready to listen yet,
-							pushing usually makes things harder. It's often better to wait until there's genuine
-							openness on both sides.
-						</li>
-
-						<li>
-							<strong>Use connection requests to make sure you're both being heard.</strong>
+						<div className="collab-script-step collab-script-step--static">
+							<p className="collab-script-heading">
+								<strong>Use connection requests to check you've heard correctly</strong>
+							</p>
+							<p>
+								If it's not 100% clear that they feel heard, you can try reflecting back your
+								understanding of what they've said.
+							</p>
 							<ul>
 								<li>"Have I heard you correctly? Is this what you're saying?"</li>
+							</ul>
+						</div>
+
+						<div className="collab-script-step">
+							<p className="collab-script-heading">
+								<strong>3. Ask for their willingness to hear you</strong>
+							</p>
+							<p className="collab-script-hint">
+								Once you sense that they feel heard, and aren't defensive any more, then you can ask
+								"Are you willing to hear what came up for me?" If they're not ready to listen yet, it's
+								usually because they still don't trust you're not about to attack them, so you could
+								address that (like "Are you worried I'm going to say something mean?"). If they're still
+								not willing, it's usually best to give up for the moment, and try again another day.
+								Pushing usually makes things harder.
+							</p>
+							<p>If they DO feel heard and signal they're ready, you can share your own perspective.</p>
+
+							<div className="collab-self-ofn">
+								<div className="collab-phrase">
+									<div className="collab-phrase-prefix">When I remember</div>
+									<textarea
+										className="collab-phrase-textarea"
+										rows={2}
+										value={collabScript.selfObsLine ?? ""}
+										onChange={(e) => updateCollabScript("selfObsLine", e.target.value)}
+										placeholder="what happened…"
+									/>
+								</div>
+								<div className="collab-phrase">
+									<div className="collab-phrase-prefix">I feel</div>
+									<textarea
+										className="collab-phrase-textarea"
+										rows={2}
+										value={collabScript.selfFeelingsLine ?? ""}
+										onChange={(e) => updateCollabScript("selfFeelingsLine", e.target.value)}
+										placeholder="e.g. hurt, worried, sad…"
+									/>
+								</div>
+								<div className="collab-phrase">
+									<div className="collab-phrase-prefix">because I'm really longing for</div>
+									<textarea
+										className="collab-phrase-textarea"
+										rows={2}
+										value={collabScript.selfNeedsLine ?? ""}
+										onChange={(e) => updateCollabScript("selfNeedsLine", e.target.value)}
+										placeholder="e.g. connection, respect, safety…"
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div className="collab-script-step collab-script-step--static">
+							<p className="collab-script-heading">
+								<strong>Check they've heard you</strong>
+							</p>
+							<p>If you're not sure how what you've said has landed for them, you can ask!</p>
+							<ul>
+								<li>"Can you tell me how that landed for you?"</li>
+								<li>"Can you tell me how you are, having heard that?"</li>
 								<li>"Would you be willing to tell me what you're hearing me say?"</li>
 							</ul>
-						</li>
+							<p>
+								This is where having lots of NVC practice until your belt comes in useful! If, for
+								example, they say something like "Well, you're saying I'm an asshole!", we can respond
+								with something like, "Thanks for letting me know that's what you heard, it's really
+								important to me that I've expressed myself clearly, and it's not actually what I was
+								saying. Can I try again?"
+							</p>
+						</div>
 
-						<li>
-							<strong>Co-create a solution only after both of you have been heard.</strong> When
-							everyone's needs are visible, it becomes much easier to look for strategies that could work
-							for both of you.
-						</li>
-					</ul>
+						<div className="collab-script-step collab-script-step--static">
+							<p className="collab-script-heading">
+								<strong>5. Co-create a solution only after both of you have been heard</strong>
+							</p>
+							<p>
+								Once you're at the point where you both feel connected, and safe, then it's possible to
+								find solutions that work to meet both of your needs. You might ask{" "}
+							</p>
+							<ul>
+								<li>"How do you think can meet both of our needs"</li>
+							</ul>
 
-					<div className="collab-checkbox-group">
-						<label className="collab-checkbox-label">
-							<input
-								type="checkbox"
-								checked={wantsConversation}
-								onChange={(e) => setWantsConversation(e.target.checked)}
+							<p>or, if you have some ideas, you could say </p>
+							<ul>
+								<li>"One solution could be ... would that meet your needs also?"</li>
+							</ul>
+
+							<p>
+								The point is, we only want the other person to meet our needs if they can do so
+								willingly. We all know what's it's like when someone isn't genuinely willing - it
+								doesn't work for anyone.
+							</p>
+						</div>
+						<div className="collab-script-step collab-final-script-section">
+							<p className="collab-script-heading">
+								<strong>Say it in your own words!</strong>
+							</p>
+							<p>
+								Now, having built all that ... for heaven's sake, don't use these exact words, ha ha.
+								It's way too formal, and people often hear it as inauthentic and manipulative. So the
+								idea is to say it in a way that's as normal-to-you as possible. For example, I might say
+								"Yeah, I imagine the other day was hard for you too. Were you wanting some down time and
+								it was annoying when I asked for help?" ("down time" being a casual way of phrasing the
+								needs for rest and ease.) Same of course with check ins - rather than "can you tell me
+								back what I've said", it might be more like noticing they're reacting and asking "Oh, I
+								can see that's pissed you off, what are you taking from what I said?"
+							</p>
+							<p className="collab-final-script-intro">
+								Here's your whole script — edit it here to get it just right before your conversation.
+							</p>
+							<textarea
+								className="collab-final-script-textarea"
+								rows={16}
+								value={collabScript.collabFinalScript ?? ""}
+								onChange={(e) => updateCollabScript("collabFinalScript", e.target.value)}
+								placeholder="Your conversation script will appear here…"
 							/>
-							I'd like to have a conversation with this person
-						</label>
+							<button
+								className="collab-regenerate-btn"
+								onClick={() => updateCollabScript("collabFinalScript", buildFinalScript(collabScript))}>
+								↺ Regenerate from fields above
+							</button>
+						</div>
+						<p className="collab-save-hint">You can save or copy all this on the next page.</p>
 					</div>
 				</>
 			),
@@ -287,10 +522,5 @@ const ConversationsAndCollaboration = () => {
 
 ConversationsAndCollaboration.title = "Conversations and Collaboration";
 ConversationsAndCollaboration.helpContent = null;
-// ConversationsAndCollaboration.helpContent = (
-// 	<>
-// 		<p>Help content for conversations and collaboration will go here.</p>
-// 	</>
-// );
 
 export default ConversationsAndCollaboration;

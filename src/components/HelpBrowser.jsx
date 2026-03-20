@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { getHelpTopics } from "./HelpIndex";
 import "./HelpBrowser.css";
 
@@ -11,24 +11,57 @@ const extractText = (node) => {
 	return "";
 };
 
-const HelpBrowser = ({ initialTopic, onBack, onTopicClear, onTopicChange }) => {
+const HelpBrowser = ({ initialTopic, onBack, onTopicChange }) => {
 	const [query, setQuery] = useState("");
-	const [selected, setSelected] = useState(null);
-
 	const topics = getHelpTopics();
 
-	const selectTopic = (topic) => {
-		setSelected(topic);
-		onTopicChange?.(topic?.title ?? null);
+	// Initialise directly from initialTopic (avoids mount effect + StrictMode double-invoke)
+	const [selected, setSelected] = useState(() =>
+		initialTopic ? (topics.find((t) => t.id === initialTopic) || null) : null
+	);
+	const [history, setHistory] = useState([]);
+
+	// Ref so change-effect can read current selected without stale closure
+	const selectedRef = useRef(selected);
+	selectedRef.current = selected;
+
+	// Ref to detect genuine changes to initialTopic (not StrictMode remounts)
+	const prevInitialTopicRef = useRef(initialTopic);
+
+	// Notify parent of the initial topic title (if opened directly to a topic)
+	useEffect(() => {
+		if (selected) onTopicChange?.(selected.title);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	// When initialTopic changes after mount (HelpLink clicked from inside a topic)
+	useEffect(() => {
+		if (initialTopic === prevInitialTopicRef.current) return;
+		prevInitialTopicRef.current = initialTopic;
+		if (!initialTopic) return;
+		const match = topics.find((t) => t.id === initialTopic);
+		if (!match) return;
+		setHistory((h) => [...h, selectedRef.current]);
+		setSelected(match);
+		onTopicChange?.(match.title);
+	}, [initialTopic]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	const goBack = () => {
+		if (history.length === 0) {
+			onBack?.();
+			return;
+		}
+		const prev = history[history.length - 1];
+		setHistory((h) => h.slice(0, -1));
+		setSelected(prev);
+		onTopicChange?.(prev?.title ?? null);
 	};
 
-	// Auto-select topic when opened via a deep link
-	useEffect(() => {
-		if (initialTopic) {
-			const match = topics.find((t) => t.id === initialTopic);
-			if (match) selectTopic(match);
-		}
-	}, [initialTopic]); // eslint-disable-line react-hooks/exhaustive-deps
+	const backLabel =
+		history.length === 0
+			? "← Back"
+			: history[history.length - 1] === null
+			? "← All topics"
+			: `← ${history[history.length - 1].title}`;
 
 	const filtered = query.trim()
 		? topics.filter((t) => {
@@ -40,13 +73,8 @@ const HelpBrowser = ({ initialTopic, onBack, onTopicClear, onTopicChange }) => {
 	if (selected) {
 		return (
 			<div className="help-browser">
-				<button
-					className="help-browser-back"
-					onClick={() => {
-						selectTopic(null);
-						onTopicClear?.();
-					}}>
-					← See all topics
+				<button className="help-browser-back" onClick={goBack}>
+					{backLabel}
 				</button>
 				<div className="help-browser-content">{selected.content}</div>
 			</div>
@@ -70,7 +98,13 @@ const HelpBrowser = ({ initialTopic, onBack, onTopicClear, onTopicChange }) => {
 				{filtered.length === 0 && <li className="help-browser-empty">No topics match "{query}"</li>}
 				{filtered.map((topic) => (
 					<li key={topic.title}>
-						<button className="help-browser-item" onClick={() => selectTopic(topic)}>
+						<button
+							className="help-browser-item"
+							onClick={() => {
+								setHistory((h) => [...h, selected]);
+								setSelected(topic);
+								onTopicChange?.(topic.title);
+							}}>
 							{topic.title}
 						</button>
 					</li>

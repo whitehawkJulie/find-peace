@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useWizard } from "./WizardContext";
 import { filterByState } from "../utils/renderHelpers";
 import "./SavedEntries.css";
 
 export default function SavedEntries({ onSessionLoaded }) {
-	const { savedEntries, loadSession, deleteSession, hasSessionData } = useWizard();
-	const [loadedId, setLoadedId] = useState(null);
+	const { savedEntries, loadSession, deleteSession, hasSessionData, loadedId, setLoadedId } = useWizard();
 
 	const handleLoad = (entry) => {
 		if (
@@ -40,6 +39,33 @@ export default function SavedEntries({ onSessionLoaded }) {
 						hour: "2-digit",
 						minute: "2-digit",
 					});
+
+					// Encrypted session — show a locked placeholder
+					if (entry._encrypted) {
+						return (
+							<div className="saved-card" key={entry.id}>
+								<div className="saved-card-header">
+									<span className="saved-date">{date}</span>
+									<div className="saved-card-actions">
+										<button
+											className="saved-action-btn delete-btn"
+											onClick={() => {
+												if (window.confirm("Delete this saved session?")) {
+													deleteSession(entry.id);
+												}
+											}}
+											title="Delete this session">
+											×
+										</button>
+									</div>
+								</div>
+								<p className="saved-preview saved-preview--locked">
+									🔒 Encrypted — enter your passphrase above to access
+								</p>
+							</div>
+						);
+					}
+
 					const obsText = typeof entry.observation === "string"
 						? entry.observation
 						: (entry.observation?.refined || entry.observation?.moment || entry.observation?.actions || "");
@@ -58,8 +84,7 @@ export default function SavedEntries({ onSessionLoaded }) {
 									<button
 										className={`saved-action-btn load-btn${isLoaded ? " load-btn-loaded" : ""}`}
 										onClick={() => handleLoad(entry)}
-										title="Load this session"
-									>
+										title="Load this session">
 										{isLoaded ? "Loaded ✓" : "Open"}
 									</button>
 									<button
@@ -69,8 +94,7 @@ export default function SavedEntries({ onSessionLoaded }) {
 												deleteSession(entry.id);
 											}
 										}}
-										title="Delete this session"
-									>
+										title="Delete this session">
 										×
 									</button>
 								</div>

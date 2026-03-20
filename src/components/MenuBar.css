@@ -35,13 +35,101 @@
 }
 
 .nav-button:hover {
-	background: var(--color-green-hover);
+	filter: brightness(0.88);
 }
 
 /* Disabled: invisible but still takes space for layout */
 .nav-button:disabled {
 	opacity: 0;
 	pointer-events: none;
+}
+
+/* ========== Page picker ========== */
+
+.page-picker-wrap {
+	position: relative;
+}
+
+.page-picker-btn {
+	background: none;
+	border: none;
+	padding: 0.15rem 0.35rem;
+	font-size: 0.8rem;
+	color: #999;
+	cursor: pointer;
+	border-radius: 4px;
+	float: none;
+	font-variant-numeric: tabular-nums;
+	transition: background 0.15s, color 0.15s;
+}
+
+.page-picker-btn:hover {
+	background: #eae8e3;
+	color: #555;
+}
+
+.page-picker-menu {
+	position: absolute;
+	bottom: calc(100% + 6px);
+	left: 50%;
+	transform: translateX(-50%);
+	background: white;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+	min-width: 180px;
+	z-index: 200;
+	overflow: hidden;
+	padding: 0.3rem 0;
+}
+
+.page-picker-item {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	width: 100%;
+	background: none;
+	border: none;
+	padding: 0.45rem 0.85rem;
+	font-size: 0.85rem;
+	color: #444;
+	text-align: left;
+	cursor: pointer;
+	float: none;
+	transition: background 0.1s;
+}
+
+.page-picker-item:hover {
+	background: #f5f5f2;
+	color: #222;
+}
+
+.page-picker-item--active {
+	background: #eef6f1;
+	color: #3d7a52;
+	font-weight: 600;
+}
+
+.page-picker-item--active:hover {
+	background: #e4f0ea;
+}
+
+.page-picker-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+.page-picker-num {
+	font-size: 0.75rem;
+	color: #aaa;
+	min-width: 1.2rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.page-picker-item--active .page-picker-num {
+	color: #666;
 }
 
 /* ========== Settings cog ========== */
@@ -191,4 +279,126 @@
 	font-size: 0.88rem;
 	cursor: pointer;
 	float: none;
+}
+
+/* ========== Privacy notice ========== */
+
+.settings-privacy-note {
+	font-size: 0.85rem;
+	color: #666;
+	line-height: 1.5;
+	margin: 0 0 0.75rem;
+}
+
+.settings-privacy-status {
+	font-size: 0.88rem;
+	color: #444;
+	margin: 0 0 0.75rem;
+}
+
+/* ========== Passphrase encryption ========== */
+
+.settings-passphrase-intro {
+	font-size: 0.85rem;
+	color: #666;
+	line-height: 1.5;
+	margin: 0 0 0.75rem;
+}
+
+.settings-passphrase-hint {
+	font-size: 0.85rem;
+	color: #666;
+	margin: 0 0 0.6rem;
+}
+
+.settings-passphrase-input {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0.45rem 0.7rem;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 0.88rem;
+	font-family: inherit;
+	color: #333;
+	background: white;
+	margin-bottom: 0.5rem;
+}
+
+.settings-passphrase-input:focus {
+	outline: none;
+	border-color: #5a9e6d;
+	box-shadow: 0 0 0 2px rgba(90, 158, 109, 0.15);
+}
+
+.settings-passphrase-show {
+	margin-bottom: 0.65rem;
+}
+
+.settings-passphrase-actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 0.1rem;
+}
+
+.settings-passphrase-btn {
+	background: #5a9e6d;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	padding: 0.4rem 0.9rem;
+	font-size: 0.88rem;
+	cursor: pointer;
+	float: none;
+	transition: background 0.15s;
+}
+
+.settings-passphrase-btn:hover:not(:disabled) {
+	background: #4d8a5e;
+}
+
+.settings-passphrase-btn:disabled {
+	opacity: 0.55;
+	cursor: default;
+}
+
+.settings-passphrase-btn--secondary {
+	background: white;
+	color: #5a9e6d;
+	border: 1.5px solid #5a9e6d;
+}
+
+.settings-passphrase-btn--secondary:hover {
+	background: #f0f8f2;
+}
+
+.settings-passphrase-btn--danger {
+	background: #c9776a;
+}
+
+.settings-passphrase-btn--danger:hover:not(:disabled) {
+	background: #b5695d;
+}
+
+.settings-passphrase-forgot {
+	background: none;
+	border: none;
+	padding: 0;
+	font-size: 0.8rem;
+	color: #aaa;
+	cursor: pointer;
+	float: none;
+	margin-top: 0.75rem;
+	text-decoration: underline;
+	display: block;
+}
+
+.settings-passphrase-forgot:hover {
+	color: #c9776a;
+}
+
+.settings-error {
+	font-size: 0.83rem;
+	color: #c9776a;
+	margin: 0.25rem 0 0.5rem;
 }
