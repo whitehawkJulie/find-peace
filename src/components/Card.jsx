@@ -19,6 +19,8 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		setShowSettings,
 		cardContentRef,
 		currentStep,
+		stepIndex,
+		visibleSteps,
 	} = useWizard();
 	const [hasMoreBelow, setHasMoreBelow] = useState(false);
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -106,6 +108,11 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 						)}
 						<div className="card-header-text">
 							<div className="card-app-title">Wait, What?!</div>
+						{visibleSteps?.length > 0 && (
+							<div className="card-page-num">
+								{stepIndex + 1} of {visibleSteps.length}
+							</div>
+						)}
 							<div className="card-title-row">
 								<h2>{title}</h2>
 								<div className="card-menu-wrap" ref={menuRef}>

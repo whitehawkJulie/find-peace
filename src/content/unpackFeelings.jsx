@@ -10,7 +10,8 @@ export const unpackFeelingsContent = {
 	},
 	purpose: {
 		// We’re doing [the task] , so that we can [psychological shift]
-		default: "Here we’re staying with what you’re feeling, so that it can soften and show you what’s underneath.",
+		default:
+			"Here we’re staying with what you’re feeling, so that it can soften and show you more about what matters to you.",
 	},
 
 	beWith: {

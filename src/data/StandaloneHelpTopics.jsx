@@ -180,6 +180,62 @@ const StandaloneHelpTopics = [
 		),
 	},
 
+	{
+		id: "what-are-needs",
+		title: "What are needs?",
+		content: (
+			<div>
+				<h2>What Is a Need?</h2>
+
+				<p>
+					Needs are qualities that all human beings long for — things that help us thrive, like safety,
+					respect, understanding, choice, or connection.
+				</p>
+
+				<p>
+					A need isn’t a demand and it isn’t a specific outcome. It’s simply a word for what matters most to
+					us.
+				</p>
+
+				<p>Needs are universal. Strategies are personal.</p>
+
+				<p>
+					<strong>Need:</strong> Respect
+					<br />
+					<strong>Strategy:</strong> “I want this particular person to act in this particular way.”
+				</p>
+
+				<p>When we focus on the need instead of one strategy, many more possibilities open up.</p>
+
+				<h2>Why Naming Needs Helps</h2>
+
+				<p>
+					Feelings are signals that something important is happening. When we identify the need underneath,
+					the intensity often softens — even before anything changes externally.
+				</p>
+
+				<p>
+					If the need isn’t clear, we often reach for strategies that promise relief — arguing, withdrawing,
+					blaming, or trying to control the situation.
+				</p>
+
+				<p>
+					Marshall Rosenberg called these “tragic strategies for unmet needs.” They’re tragic not because
+					we’re wrong, but because the strategy aims for relief while missing the real source of the pain.
+				</p>
+
+				<h2>Hold Tightly to the Need, Loosely to the Strategy</h2>
+
+				<p>
+					The need is what matters. Any specific strategy — a particular person acting in a particular way —
+					is just one possible way to meet it.
+				</p>
+
+				<p>When we loosen our grip on one strategy, we open the door to many other ways forward.</p>
+			</div>
+		),
+	},
+
 	// Add more topics here as needed. Example:
 	// {
 	// 	id: "empathy",

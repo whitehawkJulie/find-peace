@@ -1,5 +1,6 @@
 // Body copy and help content for the Needs step.
 // Wire up useContent() in Needs.jsx to use these.
+import HelpLink from "../components/HelpLink";
 
 export const needsContent = {
 	navTitle: "What matters to me?",
@@ -9,8 +10,13 @@ export const needsContent = {
 		tone: { sweary: "What actually matters here?" },
 	},
 	purpose: {
-		// We’re doing [the task] , so that we can [psychological shift]
-		default: "",
+		default: (
+			<p>
+				Here we’re exploring what you’re{" "}
+				<HelpLink topic="what-are-needs">needing at a fundamental levelt</HelpLink>, so that we can understand
+				what really matters to you in this situation.
+			</p>
+		),
 	},
 
 	intro1: {
@@ -31,7 +37,7 @@ export const needsContent = {
 
 	selectPrompt: {
 		default:
-			"Just notice what feels alive. Select all that feel relevant. Tap ? on any selected need to explore it more deeply.",
+			"Just notice what feels alive. Select all that feel relevant. Tap ? on any selected need if you'd like to explore it more deeply.",
 		tone: {
 			sweary: "Just notice what feels alive. Grab everything that resonates. Hit ? on any of them to dig deeper.",
 		},

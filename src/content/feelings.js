@@ -16,7 +16,7 @@ export const feelingsContent = {
 
 	intro1: {
 		default:
-			"Feelings exist to tell us what we want and need. Sadly, we've been taught to ignore them, and then we lose all the information that they're trying to give us about how to feel better. We have to feel, before we feel better. Naming them specifically is crucial.",
+			"Feelings point us toward what we’re wanting and needing, but many of us have learned to ignore them. Noticing and naming them — as specifically as you can — helps bring that information back online. We have to feel, before we can feel better.",
 		tone: {
 			sweary: "Feelings exist to tell us what WE actually want and need. You actually have to feel it (sorry) before you can move through it. Naming them specifically is where the magic happens.",
 		},

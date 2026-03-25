@@ -10,21 +10,19 @@ export const makingGuessesContent = {
 
 	purpose: {
 		// We’re doing [the task] , so that we can [psychological shift]
-		default: "",
+		default:
+			"Here we’re getting curious about what might be going on for them, so that we can open the door to understanding and connection.",
 	},
 
 	intro: {
 		default:
-			"When you're ready, we can gently turn toward the other person. Not to agree — just to widen the view. As we imagine what they might be feeling or needing, we often see more of what's happening. Sometimes that brings a little more space inside you, and it can feel less like a verdict about you.",
-		tone: {
-			sweary: "When you're ready, let's take a look at what might have been going on for them. Not to excuse it — just to see the full picture. Sometimes it takes a bit of the heat out of it.",
-		},
+			"When you’re ready, we can gently turn toward the other person — not to agree, just to widen the view. As we imagine what they might be feeling or needing, we often begin to see more of what’s happening. Sometimes that brings a little more space inside you, and it can feel less like a verdict about you.",
 	},
 
 	reminder: {
 		default: "Remember: The point isn't to guess correctly. It's simply to widen the frame.",
 		tone: {
-			sweary: "You don't need to get this right. It's just about widening the frame a bit.",
+			sweary: "They might still be an asshole. We're just exploring, OK?",
 		},
 	},
 

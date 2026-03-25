@@ -166,19 +166,17 @@ const UnpackNeeds = () => {
 
 	return (
 		<div className="need-unpacking">
-			{/* ════════════════════════════════════════
-			    Step 0 — Need picker (always rendered)
-			    ════════════════════════════════════════ */}
-			<p>{t("unpackNeeds.purpose")}</p>
-			<p>{t("unpackNeeds.intro")}</p>
+			<div className="keyStepLabel">This is where things often shift - take your time here</div>
 
+			{/* intentionally back to front!!! purpose usually goes first */}
+			<p>{t("unpackNeeds.intro")}</p>
+			<p>{t("unpackNeeds.purpose")}</p>
 			<AudioPlayer
 				src={meditationAudio}
 				title={t("unpackNeeds.meditationTitle")}
 				description={t("unpackNeeds.meditationDescription")}
 			/>
 			<p>{t("unpackNeeds.clickPrompt")}</p>
-
 			<div className="pill-grid cloud">
 				{unexploredNeeds.map((name) => (
 					<div key={name} className="pill need clicked need-removable" onClick={() => startExploring(name)}>
@@ -196,7 +194,6 @@ const UnpackNeeds = () => {
 					</div>
 				))}
 			</div>
-
 			{exploredNeeds.length > 0 && (
 				<div className="explored-section">
 					<p className="explored-label">{t("unpackNeeds.exploredLabel")}</p>
@@ -222,7 +219,6 @@ const UnpackNeeds = () => {
 					</div>
 				</div>
 			)}
-
 			{pendingRemoveNeed && (
 				<div className="need-remove-confirm">
 					<span>
@@ -243,7 +239,6 @@ const UnpackNeeds = () => {
 					</div>
 				</div>
 			)}
-
 			{/* ════════════════════════════════════════
 			    Step 1 — Exploration popup overlay
 			    ════════════════════════════════════════ */}

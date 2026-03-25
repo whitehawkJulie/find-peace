@@ -121,3 +121,12 @@ textarea {
 	border: 1px dashed grey;
 	padding: 10px;
 }
+
+/* used to indicate a step is very important, unpacking needs for a start */
+.keyStepLabel {
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	opacity: 0.6;
+	margin-bottom: 8px;
+}

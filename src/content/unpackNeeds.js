@@ -8,8 +8,8 @@ export const unpackNeedsContent = {
 		default: "Explore what matters",
 	},
 	purpose: {
-		// We’re doing [the task] , so that we can [psychological shift]
-		default: "",
+		default:
+			"Here we’re staying with the need, so that it becomes more real and easier to recognise what would truly meet it.",
 	},
 
 	// ── Step 0 — Need picker ──────────────────────────────────────────────────

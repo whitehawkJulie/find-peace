@@ -12,7 +12,7 @@ import { introductionContent } from "./introduction.jsx";
 import { makingGuessesContent } from "./makingGuesses.js";
 import { feelingsContent } from "./feelings.js";
 import { unpackFeelingsContent } from "./unpackFeelings.jsx";
-import { needsContent } from "./needs.js";
+import { needsContent } from "./needs.jsx";
 import { unpackNeedsContent } from "./unpackNeeds.js";
 import { exploringWhatsChangedContent } from "./exploringWhatsChanged.js";
 import { requestFormulationContent } from "./requestFormulation.js";

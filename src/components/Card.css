@@ -61,6 +61,13 @@
 	margin-bottom: 0.2rem;
 }
 
+.card-page-num {
+	font-size: 0.7rem;
+	color: rgba(255, 255, 255, 0.55);
+	margin-bottom: 0.15rem;
+	letter-spacing: 0.03em;
+}
+
 .card-title-row {
 	display: flex;
 	align-items: center;
