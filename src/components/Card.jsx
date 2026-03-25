@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import SlideDrawer from "./SlideDrawer";
 import MenuBar from "./MenuBar";
+import SettingsDrawer from "./SettingsDrawer";
+import SummaryModal from "./SummaryModal";
 import { useWizard } from "./WizardContext";
 import "./Card.css";
 
@@ -13,10 +15,14 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		setHelpDrawerOverride,
 		helpTopic,
 		setHelpTopic,
+		setShowSummary,
+		setShowSettings,
 		cardContentRef,
 		currentStep,
 	} = useWizard();
 	const [hasMoreBelow, setHasMoreBelow] = useState(false);
+	const [menuOpen, setMenuOpen] = useState(false);
+	const menuRef = useRef(null);
 
 	const checkScroll = useCallback(() => {
 		const el = cardContentRef?.current;
@@ -78,6 +84,16 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		return () => el.removeEventListener("focusin", handleFocusIn);
 	}, [cardContentRef]);
 
+	// Close the header menu on click-outside
+	useEffect(() => {
+		if (!menuOpen) return;
+		const handler = (e) => {
+			if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
+		};
+		document.addEventListener("mousedown", handler);
+		return () => document.removeEventListener("mousedown", handler);
+	}, [menuOpen]);
+
 	return (
 		<div className="card">
 			{/* Wrapper gives the fade a reliable anchor: position:absolute inside
@@ -92,15 +108,40 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 							<div className="card-app-title">Wait, What?!</div>
 							<div className="card-title-row">
 								<h2>{title}</h2>
-								{showHelp && (
+								<div className="card-menu-wrap" ref={menuRef}>
 									<button
-										className="help-icon"
-										title={helpDrawerOpen ? "Close help" : "Open help"}
-										onClick={() => setHelpDrawerOpen((prev) => !prev)}>
-										<span className="help-icon-q">?</span>
-										<span className="help-icon-label">Help</span>
+										className="card-menu-btn"
+										title="Menu"
+										aria-label="Menu"
+										aria-expanded={menuOpen}
+										onClick={() => setMenuOpen((v) => !v)}>
+										&#9776;
 									</button>
-								)}
+									{menuOpen && (
+										<div className="card-menu-dropdown" role="menu">
+											<button
+												className="card-menu-item"
+												role="menuitem"
+												onClick={() => { setShowSummary(true); setMenuOpen(false); }}>
+												📋 Summary
+											</button>
+											{showHelp && (
+												<button
+													className="card-menu-item"
+													role="menuitem"
+													onClick={() => { setHelpDrawerOpen((prev) => !prev); setMenuOpen(false); }}>
+													? Help
+												</button>
+											)}
+											<button
+												className="card-menu-item"
+												role="menuitem"
+												onClick={() => { setShowSettings(true); setMenuOpen(false); }}>
+												⚙ Settings
+											</button>
+										</div>
+									)}
+								</div>
 							</div>
 						</div>
 					</div>
@@ -123,6 +164,8 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 			</SlideDrawer>
 
 			{!hideNav && !hideMainNav && <MenuBar />}
+		<SummaryModal />
+		<SettingsDrawer />
 		</div>
 	);
 };

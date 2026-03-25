@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useWizard } from "./WizardContext";
 import { filterByState } from "../utils/renderHelpers";
 import { feelingTypes } from "../data/FeelingTypes";
@@ -27,6 +27,11 @@ const Review = () => {
 		saveSession,
 		resetSession,
 	} = useWizard();
+
+	// Track when a user reaches the Review page (fires once on mount)
+	useEffect(() => {
+		fetch("/api/visit.php");
+	}, []);
 
 	const [saved, setSaved] = useState(false);
 	const [savedNotice, setSavedNotice] = useState(false);
@@ -217,7 +222,7 @@ const Review = () => {
 
 	// analytics - recording JUST feelings and needs, no personal data
 	const logSelections = () => {
-		fetch("/log-selections.php", {
+		fetch("/api/log-selections.php", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
@@ -265,6 +270,12 @@ const Review = () => {
 				{whatHappenedOpen && (
 					<div className="review-accordion-body">
 						{!hasAnyData && <p className="review-no-data">No data entered yet.</p>}
+						{jackalTalk && (
+							<div className="review-section">
+								<h3>Letting it all out</h3>
+								<p className="review-text" style={{ whiteSpace: "pre-wrap" }}>{jackalTalk}</p>
+							</div>
+						)}
 						{obsText && (
 							<div className="review-section">
 								<h3>Observation</h3>
@@ -494,15 +505,15 @@ const Review = () => {
 										const text = collabScript.finalScript?.trim()
 											? collabScript.finalScript.trim()
 											: [
-												collabScript.step1,
-												collabScript.step2,
-												collabScript.step3,
-												collabScript.step4,
-												collabScript.step5,
-												collabScript.step6,
-											  ]
-												.filter(Boolean)
-												.join("\n\n");
+													collabScript.step1,
+													collabScript.step2,
+													collabScript.step3,
+													collabScript.step4,
+													collabScript.step5,
+													collabScript.step6,
+												]
+													.filter(Boolean)
+													.join("\n\n");
 										navigator.clipboard.writeText(text).then(() => {
 											setCopiedConvo(true);
 											setTimeout(() => setCopiedConvo(false), 2500);
@@ -538,14 +549,12 @@ const Review = () => {
 
 						<p className="review-privacy-note">
 							🔒 Your data stays on this device and is never sent to any server. Saving or copying shares
-							your feelings and needs word selections anonymously to help improve this tool. Manage your
-							data in ⚙ Settings.
+							your feelings and needs word selections anonymously to help improve this tool. Manage your data in ☰ Menu → ⚙ Settings.
 						</p>
 
 						{savedNotice && (
 							<p className="review-saved-notice">
-								✓ Saved to your browser. To reload it later, tap the ⚙ cog icon in the menu bar at the
-								bottom.
+								✓ Saved to your browser. To reload it later, tap ☰ Menu → ⚙ Settings.
 							</p>
 						)}
 					</div>

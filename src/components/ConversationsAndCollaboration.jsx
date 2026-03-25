@@ -116,7 +116,7 @@ const STEP_DEFAULTS = {
 	step2: "I'd really like to understand what was going on for you earlier.",
 	step3: "Would you be open to hearing what was going on for me?",
 	step4: "When [what happened], I felt [feeling], because I was needing [need].",
-	step5: "Could you tell me what you heard me say?",
+	step5: "Could you tell me what you think I'm trying to say?",
 	step6: "What could we do next time that would work better for both of us?",
 	finalScript: "",
 };
@@ -133,7 +133,7 @@ const buildFinalScript = (script) => {
 	parts.push("");
 
 	parts.push("=== Need to check you've understood them? ===");
-	parts.push(' - "Have I heard you correctly? Is this what you\'re saying?"');
+	parts.push("Have I heard you correctly? Is this what you're saying?");
 	parts.push("");
 
 	parts.push("=== CHECK FOR WILLINGNESS TO HEAR YOU ===");

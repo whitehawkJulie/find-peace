@@ -79,12 +79,15 @@ const Needs = () => {
 	return (
 		<div className="step-needs">
 			<p>
+				If we dont' know what we're actually needing, everything we do misses the mark. This is the missing
+				information in our lives.
+			</p>
+			<p>
 				Needs are what we’re hoping to experience when things go well — and what we’re longing for when they
-				don’t. They're the core of what matters to us.
+				don’t. They're the core of what matters to us, and our feelings directly point to what they are.
 			</p>
 
 			{renderOrderedFeelings(feelings)}
-			<p>Each feeling you selected is an indication of something that matters to you here.</p>
 
 			<p>
 				Just notice what feels alive. Select all that feel relevant. Tap{" "}

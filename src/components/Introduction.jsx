@@ -5,11 +5,18 @@ const Introduction = () => {
 	return (
 		<div className="step-introduction step-container">
 			<p>
-				Life sure throws some curve balls, doesn’t it? We do our best, but things don’t always go the way we
-				expected. This tool helps you navigate curve balls.
+				If you're feeling anything like this:
+				<ul>
+					<li>confused, frustrated, annoyed, judged, blamed</li>
+					<li>not feeling heard or understood</li>
+					<li>STUCK with no way to move forward</li>
+					<li>like your self identity is being criticized</li>
+				</ul>
+				... this is the tool for you. It will help you find a way forward that works for you, and feel much
+				better in the process.
 			</p>
 
-			<p>
+			{/* <p>
 				When something painful happens, we might feel hurt, angry, or scared. Our brain flips into threat mode
 				and quickly creates a story about what happened, who’s to blame, and how to stop it — a story we can
 				feel very certain is the truth.
@@ -19,24 +26,27 @@ const Introduction = () => {
 				But in threat mode, our ability to think clearly shrinks. We reach for quick reactions like arguing,
 				blaming, defending, controlling, or shutting down. Those reactions usually don’t solve the problem —
 				because we haven’t yet slowed down enough to understand what’s really going on.
-			</p>
+			</p> */}
+
+			<p>This process helps you pause and get clear on four things:</p>
+			<ol>
+				<li>what actually happened</li>
+				<li>how it landed in you (your feelings)</li>
+				<li>what mattered to you (your needs)</li>
+				<li>what you'd like to do next</li>
+			</ol>
 
 			<p>
-				This tool helps you pause and get clear on four things: what actually happened, how it landed in you
-				(your feelings), what mattered to you (your needs), and what you'd like to do next.
+				When you do that, your brain is able to move out of threat mode, where your brain is not firing on all
+				cylinders, and into the seeking and care circuits, which are much better at finding creative solutions,
+				often ones that work for everyone involved.
 			</p>
-
-			<p>
-				When you do that, your brain is able to move out of threat mode and into the seeking and care circuits —
-				the parts that are much better at finding creative solutions, often ones that work for everyone
-				involved.
-			</p>
-			<p>Would you like to walk through it together?</p>
+			<p>This makes a huge difference. Things shift.</p>
 		</div>
 	);
 };
 
-Introduction.title = "WTF just happened?!";
+Introduction.title = "Feel Better";
 
 Introduction.helpContent = (
 	<>

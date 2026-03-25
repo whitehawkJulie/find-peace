@@ -168,6 +168,12 @@ const Feelings = () => {
 	return (
 		<div className="step-feelings step-container">
 			<p>
+				Feelings exist to tell us what we want and need. Sadly, we've been taught to ignore them, and then we
+				lose all the information that they're trying to give us about how to feel better. We have to feel,
+				before we feel better. Naming them specifically is crucial.
+			</p>
+			<p>TODO: maybe another section about HOW to feel feelings?!!! That whole "being with a feeling" thing!</p>
+			<p>
 				Now take a moment and return to that situation:{" "}
 				<strong>{observation?.refined || observation?.moment || observation?.actions || ""}</strong>
 			</p>

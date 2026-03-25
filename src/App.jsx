@@ -7,10 +7,6 @@ const NeedsAuditPage = import.meta.env.DEV ? lazy(() => import("./dev/NeedsAudit
 const showAudit = import.meta.env.DEV && new URLSearchParams(window.location.search).has("audit");
 
 const App = () => {
-	// tiny call to track App usage!! results in file visits.txt on the server.
-	useEffect(() => {
-		fetch("/visit.php");
-	}, []);
 
 	if (showAudit)
 		return (

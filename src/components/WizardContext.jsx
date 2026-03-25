@@ -226,6 +226,12 @@ export const WizardProvider = ({ children }) => {
 		});
 	};
 
+	// Summary modal open state — accessible from any page via the top menu
+	const [showSummary, setShowSummary] = useState(false);
+
+	// Settings drawer open state — lifted so the top menu in Card can trigger it
+	const [showSettings, setShowSettings] = useState(false);
+
 	// Sub-step navigation: when true, Card hides the main MenuBar
 	const [hideMainNav, setHideMainNav] = useState(false);
 
@@ -486,6 +492,10 @@ export const WizardProvider = ({ children }) => {
 		helpTopic,
 		setHelpTopic,
 		openHelpTopic,
+		showSummary,
+		setShowSummary,
+		showSettings,
+		setShowSettings,
 		hideMainNav,
 		setHideMainNav,
 		passphraseActive,

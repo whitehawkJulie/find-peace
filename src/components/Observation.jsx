@@ -127,46 +127,32 @@ const Observation = () => {
 
 	return (
 		<div className="step-observation step-container">
-			<button type="button" className="obs-jackal-trigger" onClick={() => setShowJackalPopup(true)}>
-				💬 Want space to let it all out first?
-			</button>
+			<div className="obs-panel-body">
+				<p>Before we try to make sense of it, you're allowed to say it the raw way.</p>
+				<p>This isn't about being fair or accurate — just letting the first wave out.</p>
+				<p className="obs-panel-intro">If you said the uncensored version in one breath, what would it be?</p>
+				<textarea
+					value={jackalTalk}
+					onChange={(e) => setJackalTalk(e.target.value)}
+					placeholder="They ALWAYS do this! I'm so over it..."
+					rows={6}
+				/>
+			</div>
 
-			{showJackalPopup && (
-				<div className="obs-panel-backdrop" onClick={() => setShowJackalPopup(false)}>
-					<div className="obs-panel" onClick={(e) => e.stopPropagation()}>
-						<div className="obs-panel-header">
-							<h3>Let it all out</h3>
-							<button
-								type="button"
-								className="obs-panel-close"
-								onClick={() => setShowJackalPopup(false)}
-								aria-label="Close">
-								×
-							</button>
-						</div>
-						<div className="obs-panel-body">
-							<p>Before we try to make sense of it, you're allowed to say it the raw way.</p>
-							<p>This isn't about being fair or accurate — just letting the first wave out.</p>
-							<p className="obs-panel-intro">
-								If you said the uncensored version in one breath, what would it be?
-							</p>
-							<textarea
-								value={jackalTalk}
-								onChange={(e) => setJackalTalk(e.target.value)}
-								placeholder="They ALWAYS do this! I'm so over it..."
-								rows={6}
-							/>
-						</div>
-						<div className="obs-panel-footer">
-							<button type="button" className="obs-panel-done" onClick={() => setShowJackalPopup(false)}>
-								Done
-							</button>
-						</div>
-					</div>
-				</div>
-			)}
+			<p>
+				TODO: add questions and text boxes about, what's your interpretation of what this means about you, or
+				about the other person, or anything else? (because that's the actual pain point) (judgements etc) ...
+				then, is there any possibility that these aren't facts? This and the above might need to be a separate
+				previous page. Could bring in so much else here - when's the earliest time you remember feeling this? Is
+				it something from the past ... maybe a button like "Might this be about ealier stuff?" ... it's all
+				about the underlying wounds.
+			</p>
 
-			<p>Getting curious about the moment helps our brain move out of reaction and into understanding.</p>
+			<p>
+				Now, reading back over what you wrote, let's look for any of the following, because getting to the CORE
+				of what actually happened will help to move through the rest of the process. TODO: move the 4 checks
+				here, that are currently in section below.
+			</p>
 			<p>
 				To understand the situation more clearly, we’ll slow down and look at the specific moment itself — just
 				what someone could have seen or heard, before any interpretations, or assumptions about motives.
