@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from "react";
 import { useWizard } from "./WizardContext";
+import { useContent } from "../content/useContent";
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
 import { feelingTypes } from "../data/FeelingTypes";
 import ClarifyFeelings from "./ClarifyFeelings";
-import "./FeelingsExploreCard.css";
+import "./UnpackFeelings.css";
 
 // Build a lookup: item name → full item data (only for unmet feelings with a feelingType tag)
 const itemLookup = {};
@@ -55,7 +56,10 @@ const renderOrderedFeelings = (feelings, onMurkyClick, onRemove) => {
 						)}
 						<button
 							className="pill-remove-x"
-							onClick={(e) => { e.stopPropagation(); onRemove(name); }}
+							onClick={(e) => {
+								e.stopPropagation();
+								onRemove(name);
+							}}
 							title={`Remove ${name}`}
 							aria-label={`Remove ${name}`}>
 							×
@@ -67,9 +71,10 @@ const renderOrderedFeelings = (feelings, onMurkyClick, onRemove) => {
 	);
 };
 
-const FeelingsExploreCard = () => {
+const UnpackFeelings = () => {
 	const { feelings, setFeelings, needs, setNeeds, feelingsExploreResponses, setFeelingsExploreResponses } =
 		useWizard();
+	const { t } = useContent();
 
 	const [expandedTypes, setExpandedTypes] = useState(new Set());
 	const [popupItem, setPopupItem] = useState(null);
@@ -83,16 +88,26 @@ const FeelingsExploreCard = () => {
 		});
 	};
 
-	// Detect which of fear/anger/distress have any selected feelings
-	const detectedTypes = useMemo(() => {
-		const selectedNames = new Set(
-			Object.entries(feelings)
-				.filter(([, s]) => s === "clicked" || s === "double-clicked")
-				.map(([name]) => name),
-		);
-		return EXPLORE_TYPES.filter((type) =>
-			[...selectedNames].some((name) => itemLookup[name]?.feelingType === type),
-		);
+	// Detect which of fear/anger/distress have any selected feelings,
+	// and record which feeling names belong to each type
+	const { detectedTypes, feelingsForType } = useMemo(() => {
+		const selectedNames = Object.entries(feelings)
+			.filter(([, s]) => s === "clicked" || s === "double-clicked")
+			.map(([name]) => name);
+
+		const byType = {};
+		for (const name of selectedNames) {
+			const type = itemLookup[name]?.feelingType;
+			if (type) {
+				if (!byType[type]) byType[type] = [];
+				byType[type].push(name);
+			}
+		}
+
+		return {
+			detectedTypes: EXPLORE_TYPES.filter((type) => byType[type]?.length > 0),
+			feelingsForType: byType,
+		};
 	}, [feelings]);
 
 	const toggleType = (type) => {
@@ -192,25 +207,31 @@ const FeelingsExploreCard = () => {
 
 	return (
 		<div className="feelings-explore-regulation">
-			<p>
-				We often feel something vulnerable first, quickly followed by more defended feelings. Can you
-				distinguish the early feelings, from the "thought-feelings" that came in response to those?
-			</p>
+			<p>{t("unpackFeelings.purpose")}</p>
 
 			{renderOrderedFeelings(feelings, setPopupItem, setPendingRemoveFeeling)}
 
+			<div className="page-section">
+				{t("unpackFeelings.beWith")}
+
+				{/* TODO: add text box so user can note anything that came up for them here! */}
+			</div>
+
 			{pendingRemoveFeeling && (
 				<div className="feeling-remove-confirm">
-					<span>Remove <strong>{pendingRemoveFeeling}</strong> from your feelings?</span>
+					<span>
+						Remove <strong>{pendingRemoveFeeling}</strong> from your feelings?
+					</span>
 					<div className="feeling-remove-confirm-btns">
 						<button
 							className="feeling-remove-confirm-yes"
-							onClick={() => { removeFeeling(pendingRemoveFeeling); setPendingRemoveFeeling(null); }}>
+							onClick={() => {
+								removeFeeling(pendingRemoveFeeling);
+								setPendingRemoveFeeling(null);
+							}}>
 							Yes, remove
 						</button>
-						<button
-							className="feeling-remove-confirm-cancel"
-							onClick={() => setPendingRemoveFeeling(null)}>
+						<button className="feeling-remove-confirm-cancel" onClick={() => setPendingRemoveFeeling(null)}>
 							Cancel
 						</button>
 					</div>
@@ -219,10 +240,7 @@ const FeelingsExploreCard = () => {
 
 			{detectedTypes.length > 0 && (
 				<div className="feelings-explore-categories">
-					<p className="feelings-explore-categories-intro">
-						You've chosen feelings in these categories. Would you like to have a deeper look? Start with the
-						one that's loudest.
-					</p>
+					<p className="feelings-explore-categories-intro">{t("unpackFeelings.categoriesIntro")}</p>
 					{detectedTypes.map((type) => {
 						const card = feelingTypes[type];
 						const isExpanded = expandedTypes.has(type);
@@ -231,7 +249,14 @@ const FeelingsExploreCard = () => {
 								<button
 									className={`feelings-explore-category-toggle ${isExpanded ? "expanded" : ""}`}
 									onClick={() => toggleType(type)}>
-									{card.title}
+									<span className="feelings-explore-category-title">
+										{card.title}
+										{feelingsForType[type]?.length > 0 && (
+											<span className="feelings-explore-category-matches">
+												{feelingsForType[type].join(", ")}
+											</span>
+										)}
+									</span>
 									<span className="feelings-explore-category-chevron">{isExpanded ? "▲" : "▼"}</span>
 								</button>
 								{isExpanded && (
@@ -245,6 +270,10 @@ const FeelingsExploreCard = () => {
 					})}
 				</div>
 			)}
+
+			<div className="page-section">
+				<p>{t("unpackFeelings.intro")}</p>
+			</div>
 
 			{popupItem && (
 				<ClarifyFeelings
@@ -261,8 +290,9 @@ const FeelingsExploreCard = () => {
 	);
 };
 
-FeelingsExploreCard.title = "Explore Feelings";
-FeelingsExploreCard.helpContent = (
+UnpackFeelings.titleKey = "unpackFeelings.title";
+UnpackFeelings.title = "Explore Feelings"; // polite fallback
+UnpackFeelings.helpContent = (
 	<>
 		<div>
 			<h2>Help: Explore Feelings</h2>
@@ -284,15 +314,15 @@ FeelingsExploreCard.helpContent = (
 
 			<p>
 				Some feelings arise <strong>directly from the body</strong>, before the mind has had time to interpret
-				what’s happening. These are often the <em>first feelings</em> — things like surprise, confusion, hurt,
-				fear, or anger. They’re fast, instinctive, and based on a huge amount of information your nervous system
+				what's happening. These are often the <em>first feelings</em> — things like surprise, confusion, hurt,
+				fear, or anger. They're fast, instinctive, and based on a huge amount of information your nervous system
 				is processing outside of conscious awareness.
 			</p>
 
-			<p>You can think of these as the body’s wisdom — a different kind of intelligence to the thinking mind.</p>
+			<p>You can think of these as the body's wisdom — a different kind of intelligence to the thinking mind.</p>
 
 			<p>
-				Then, very quickly, the mind starts trying to make sense of what’s happening. It creates a story: what
+				Then, very quickly, the mind starts trying to make sense of what's happening. It creates a story: what
 				this means, why it happened, and what it says about you or the other person.
 			</p>
 
@@ -303,12 +333,12 @@ FeelingsExploreCard.helpContent = (
 
 			<p>
 				For example, someone might initially feel surprised or a bit hurt when a friend suddenly takes a phone
-				call. But if the mind creates a story like “they don’t respect me” or “they’re playing with me,” that
+				call. But if the mind creates a story like "they don't respect me" or "they're playing with me," that
 				can quickly turn into much stronger anger.
 			</p>
 
 			<p>
-				There’s nothing wrong with these thought-generated feelings. They often point to important things —
+				There's nothing wrong with these thought-generated feelings. They often point to important things —
 				including past experiences, sensitivities, or old hurts that still matter and may need care.
 			</p>
 
@@ -325,15 +355,15 @@ FeelingsExploreCard.helpContent = (
 
 			<p>
 				This helps you respond more clearly to <strong>this situation</strong>, while also recognising that some
-				of what’s been stirred up may belong to other experiences that deserve attention in their own way.
+				of what's been stirred up may belong to other experiences that deserve attention in their own way.
 			</p>
 
 			<p>
-				You don’t need to get this perfectly right. Even a small sense of “what came first” can help bring more
-				clarity to what you’re feeling and what you might need.
+				You don't need to get this perfectly right. Even a small sense of "what came first" can help bring more
+				clarity to what you're feeling and what you might need.
 			</p>
 		</div>
 	</>
 );
 
-export default FeelingsExploreCard;
+export default UnpackFeelings;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useWizard } from "./WizardContext";
+import { getText } from "../content/resolver";
 import "./MenuBar.css";
 
 const MenuBar = () => {
@@ -62,7 +63,7 @@ const MenuBar = () => {
 										}}>
 										<span className="page-picker-dot" style={{ background: step.color }} />
 										<span className="page-picker-num">{allIdx + 1}</span>
-										{step.title}
+										{step.navTitleKey ? getText(step.navTitleKey) : step.title}
 									</button>
 								);
 							})}

@@ -3,8 +3,9 @@ import Card from "./Card";
 /* Pause screens imports — kept for when pauses are re-enabled:
 import PauseInterstitial from "./PauseInterstitial";
 */
-import NeedUnpacking from "./NeedUnpacking";
+import UnpackNeeds from "./UnpackNeeds";
 import { useWizard } from "./WizardContext";
+import { getText } from "../content/resolver";
 
 const NvcWizard = () => {
 	const {
@@ -18,6 +19,7 @@ const NvcWizard = () => {
 		explorationStep,
 		cardContentRef,
 		dirtyRef,
+		settings,
 	} = useWizard();
 	const prevStepIndex = useRef(stepIndex);
 	const isPopState = useRef(false);
@@ -73,14 +75,20 @@ const NvcWizard = () => {
 
 	const currentStep = visibleSteps[stepIndex];
 
-	// When the need exploration overlay is open, render NeedUnpacking instead of the current step
-	const CurrentStepComponent = needExplorationOpen ? NeedUnpacking : currentStep.component;
+	// When the need exploration overlay is open, render UnpackNeeds instead of the current step
+	const CurrentStepComponent = needExplorationOpen ? UnpackNeeds : currentStep.component;
+
+	// Resolve the page title: prefer titleKey (tone-sensitive) over the plain .title fallback
+	const toneContext = { tone: settings?.tone ?? "polite" };
 	const title = needExplorationOpen
 		? currentExploringNeed && explorationStep > 0
 			? `Exploring "${currentExploringNeed}"?`
-			: NeedUnpacking.title || ""
-		: CurrentStepComponent.title || "";
-	const helpContent = needExplorationOpen ? NeedUnpacking.helpContent : CurrentStepComponent.helpContent || null;
+			: UnpackNeeds.title || ""
+		: CurrentStepComponent.titleKey
+			? getText(CurrentStepComponent.titleKey, toneContext)
+			: CurrentStepComponent.title || "";
+
+	const helpContent = needExplorationOpen ? UnpackNeeds.helpContent : CurrentStepComponent.helpContent || null;
 
 	/* To re-enable pause screens:
 	   1. Restore `useState` to the React import

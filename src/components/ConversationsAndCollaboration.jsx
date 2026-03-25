@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useWizard } from "./WizardContext";
+import { useContent } from "../content/useContent";
 import { filterByState } from "../utils/renderHelpers";
 import "./ConversationsAndCollaboration.css";
+import { getText } from "../content/resolver";
 import HelpLink from "./HelpLink";
 
 // ── Conversation step definitions (inside Collaborate accordion) ─────────────
@@ -169,6 +171,7 @@ const ConversationsAndCollaboration = () => {
 		feelings,
 		needs,
 	} = useWizard();
+	const { t } = useContent();
 
 	// Accordion open/close state
 	const [expanded, setExpanded] = useState(new Set());
@@ -318,10 +321,7 @@ const ConversationsAndCollaboration = () => {
 						You can still honour the need. Hold it gently, value it, and let it matter — even before you
 						know what to do about it.
 					</p>
-					<p>
-						You might like to read more about{" "}
-						<HelpLink topic="mourning">connecting with, and mourning, unmet needs</HelpLink>.
-					</p>
+					<p>{getText("collaboration.sections.despair.percolate")}</p>
 				</>
 			),
 		},
@@ -500,11 +500,8 @@ const ConversationsAndCollaboration = () => {
 
 	return (
 		<div className="step-collab step-container">
-			<p>
-				Many people find that doing this process resolves a lot of their issues, and when it's done, it's done!
-				But sometimes it's more complicated, and you want to figure out how to move forward with the other
-				person.
-			</p>
+			{t("collaboration.purpose") && <p className="step-purpose">{t("collaboration.purpose")}</p>}
+			<p>{t("collaboration.intro")}</p>
 
 			<div className="collab-accordion">
 				{SECTIONS.map(({ id, title, content }) => {
@@ -524,7 +521,8 @@ const ConversationsAndCollaboration = () => {
 	);
 };
 
-ConversationsAndCollaboration.title = "Conversations and Collaboration";
+ConversationsAndCollaboration.titleKey = "collaboration.title";
+ConversationsAndCollaboration.title = "Conversations and Collaboration"; // polite fallback
 
 ConversationsAndCollaboration.helpContent = (
 	<>

@@ -245,7 +245,7 @@ const PassphraseSection = () => {
 
 // ── Main settings panel ────────────────────────────────────────────────────
 const SettingsContent = ({ onClose }) => {
-	const { savedEntries, hasSessionData, resetSession } = useWizard();
+	const { savedEntries, hasSessionData, resetSession, settings, updateSettings } = useWizard();
 	const [confirmReset, setConfirmReset] = useState(false);
 
 	const handleReset = () => {
@@ -256,6 +256,19 @@ const SettingsContent = ({ onClose }) => {
 
 	return (
 		<div className="settings-content">
+			<div className="settings-group">
+				<h4>Language style</h4>
+				<label className="settings-toggle">
+					<input
+						type="checkbox"
+						checked={(settings?.tone ?? "polite") === "sweary"}
+						onChange={(e) => updateSettings({ tone: e.target.checked ? "sweary" : "polite" })}
+					/>
+					Sweary mode
+				</label>
+				<p className="settings-hint">Uses more colourful language throughout.</p>
+			</div>
+
 			{savedEntries.length > 0 && (
 				<div className="settings-group">
 					<h4>Saved Sessions</h4>

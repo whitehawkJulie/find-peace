@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useWizard } from "./WizardContext";
+import { useContent } from "../content/useContent";
 import HelpLink from "./HelpLink";
 import { getNeedData, resolveNeedUnpackingType } from "../utils/renderHelpers";
 import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
 import AudioPlayer from "./AudioPlayer";
 import meditationAudio from "../assets/Beauty_of_need.mp3";
-import "./NeedUnpacking.css";
+import "./UnpackNeeds.css";
 
 const PRACTICAL = UNPACKING_TYPE.PRACTICAL;
 
 // ─────────────────────────────────────────────
-// NeedUnpacking
+// UnpackNeeds
 // ─────────────────────────────────────────────
-const NeedUnpacking = () => {
+const UnpackNeeds = () => {
 	const {
 		needs,
 		setNeeds,
@@ -24,6 +25,7 @@ const NeedUnpacking = () => {
 		setExplorationStep,
 		setNeedExplorationOpen,
 	} = useWizard();
+	const { t } = useContent();
 
 	// Accordion open state
 	const [openStage1, setOpenStage1] = useState(false);
@@ -167,17 +169,15 @@ const NeedUnpacking = () => {
 			{/* ════════════════════════════════════════
 			    Step 0 — Need picker (always rendered)
 			    ════════════════════════════════════════ */}
-			<p>
-				Knowing your needs at a head level is one thing ... what makes the absolute difference is actually
-				connecting to them, truly getting to know how they live in you. This page helps you do just that.
-			</p>
+			<p>{t("unpackNeeds.purpose")}</p>
+			<p>{t("unpackNeeds.intro")}</p>
 
 			<AudioPlayer
 				src={meditationAudio}
-				title="The beauty of a need"
-				description="A short guided meditation to connect with what matters most."
+				title={t("unpackNeeds.meditationTitle")}
+				description={t("unpackNeeds.meditationDescription")}
 			/>
-			<p>Click on a need to explore more deeply, starting with the one that's loudest for you.</p>
+			<p>{t("unpackNeeds.clickPrompt")}</p>
 
 			<div className="pill-grid cloud">
 				{unexploredNeeds.map((name) => (
@@ -199,7 +199,7 @@ const NeedUnpacking = () => {
 
 			{exploredNeeds.length > 0 && (
 				<div className="explored-section">
-					<p className="explored-label">Already explored:</p>
+					<p className="explored-label">{t("unpackNeeds.exploredLabel")}</p>
 					<div className="pill-grid cloud">
 						{exploredNeeds.map((name) => (
 							<div
@@ -264,15 +264,12 @@ const NeedUnpacking = () => {
 						{/* Stage 1 accordion — only for non-PRACTICAL needs */}
 						{!isPractical && (
 							<>
-								<p>
-									First, let’s make sure we’re with what matters most. Sometimes the first need we
-									find is just the surface — something deeper may be calling.
-								</p>
+								<p>{t("unpackNeeds.stage1Intro")}</p>
 								<div className="unpacking-section">
 									<button
 										className="unpacking-section-toggle"
 										onClick={() => setOpenStage1((o) => !o)}>
-										<span>Might there be a deeper need underneath this?</span>
+										<span>{t("unpackNeeds.stage1Toggle")}</span>
 										<span className="unpacking-toggle-chevron">{openStage1 ? "▲" : "▼"}</span>
 									</button>
 									{openStage1 && (
@@ -285,7 +282,7 @@ const NeedUnpacking = () => {
 											{stage1Guesses.length > 0 && (
 												<>
 													<p className="unpacking-guesses-label">
-														Are any of these up for you as well?
+														{t("unpackNeeds.stage1GuessesLabel")}
 													</p>
 													<div className="pill-grid cloud">
 														{stage1Guesses.map((name) => (
@@ -306,14 +303,10 @@ const NeedUnpacking = () => {
 						)}
 
 						{/* Stage 2 accordion */}
-						<p>
-							Next, we’ll explore how this need shows up and how it wants to be met. This is where the
-							real shift happens — the more you connect with the lived experience of the need, the more
-							power you have to meet it in ways that truly satisfy you.
-						</p>
+						<p>{t("unpackNeeds.stage2Intro")}</p>
 						<div className="unpacking-section unpacking-section-stage2">
 							<button className="unpacking-section-toggle" onClick={() => setOpenStage2((o) => !o)}>
-								<span>Get to know the need</span>
+								<span>{t("unpackNeeds.stage2Toggle")}</span>
 								<span className="unpacking-toggle-chevron">{openStage2 ? "▲" : "▼"}</span>
 							</button>
 							{openStage2 && (
@@ -340,10 +333,7 @@ const NeedUnpacking = () => {
 									)}
 
 									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">
-											Notice in your <em>body</em> how it feels when the need isn't met - what
-											happens when you focus on the "un-met-ness" of the need?
-										</p>
+										<p className="unpacking-prompt-text">{t("unpackNeeds.unmetPrompt")}</p>
 										<textarea
 											className="unpacking-textarea"
 											rows={3}
@@ -353,10 +343,7 @@ const NeedUnpacking = () => {
 									</div>
 
 									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">
-											Now remember when the need was most met for you - even if that was just a
-											little - and how that felt.
-										</p>
+										<p className="unpacking-prompt-text">{t("unpackNeeds.metPrompt")}</p>
 										<textarea
 											className="unpacking-textarea"
 											rows={3}
@@ -368,9 +355,7 @@ const NeedUnpacking = () => {
 
 									<div className="unpacking-prompt">
 										<p className="unpacking-prompt-text">
-											If you <strong>were</strong> able to remember or imagine the need being met,
-											what was present that helped it be met? What would it have to look like for
-											this need to feel fulfilled for <em>you</em>?
+											{t("unpackNeeds.metCircumstancesPrompt")}
 										</p>
 										<textarea
 											className="unpacking-textarea"
@@ -381,10 +366,7 @@ const NeedUnpacking = () => {
 									</div>
 
 									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">
-											Is this a need that often goes unmet in your life? Are there small ways you
-											could move towards it, top up the tank, even a little?
-										</p>
+										<p className="unpacking-prompt-text">{t("unpackNeeds.oftenUnmetPrompt")}</p>
 										<textarea
 											className="unpacking-textarea"
 											rows={3}
@@ -394,11 +376,7 @@ const NeedUnpacking = () => {
 									</div>
 
 									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">
-											Back to the issue at hand: <em>could</em> this need be met in the current
-											situation? Is the other person capable of meeting it — or is there a better
-											place to get it met?
-										</p>
+										<p className="unpacking-prompt-text">{t("unpackNeeds.whereToMeetPrompt")}</p>
 										<textarea
 											className="unpacking-textarea"
 											rows={3}
@@ -423,10 +401,11 @@ const NeedUnpacking = () => {
 	);
 };
 
-NeedUnpacking.title = "Explore what matters";
+UnpackNeeds.titleKey = "unpackNeeds.title";
+UnpackNeeds.title = "Explore what matters"; // polite fallback
 
 // Shown when user clicks the ? Help button in the card header
-NeedUnpacking.helpContent = (
+UnpackNeeds.helpContent = (
 	<>
 		<h3>Why explore your needs more deeply?</h3>
 		<p>
@@ -435,4 +414,4 @@ NeedUnpacking.helpContent = (
 	</>
 );
 
-export default NeedUnpacking;
+export default UnpackNeeds;

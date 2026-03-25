@@ -152,6 +152,22 @@
 	background: #ece8e2;
 }
 
+.feelings-explore-category-title {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+	min-width: 0;
+}
+
+.feelings-explore-category-matches {
+	font-size: 0.75rem;
+	color: #888;
+	font-weight: normal;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .feelings-explore-category-chevron {
 	font-size: 0.7rem;
 	color: #888;

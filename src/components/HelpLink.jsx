@@ -1,10 +1,10 @@
 import React from "react";
-import { useWizard } from "./WizardContext";
+import { useHelp } from "./HelpContext";
 
 // Renders an inline link that opens a specific help topic in the drawer.
 // Usage: <HelpLink topic="mourning">mourning</HelpLink>
 const HelpLink = ({ topic, children }) => {
-	const { openHelpTopic } = useWizard();
+	const { openHelpTopic } = useHelp();
 	return (
 		<a
 			href="#"

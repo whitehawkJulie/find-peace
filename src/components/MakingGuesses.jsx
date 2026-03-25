@@ -1,45 +1,42 @@
 import React from "react";
 import { useWizard } from "./WizardContext";
+import { useContent } from "../content/useContent";
 import Checklist from "./Checklist";
+import HelpLink from "./HelpLink";
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
 import { Needs as NeedsData } from "../data/AllNeedsData";
-import HelpLink from "./HelpLink";
 
 import "./MakingGuesses.css";
 
 const MakingGuesses = () => {
 	const { guessObservation, setGuessObservation, guessFeelings, setGuessFeelings, guessNeeds, setGuessNeeds } =
 		useWizard();
+	const { t } = useContent();
 
 	return (
 		<div className="making-guesses step-container">
-			<p>
-				When you're ready, we can gently turn toward the other person. Not to agree — just to widen the view. As
-				we imagine what they might be feeling or needing, we often see more of what's happening. Sometimes that
-				brings a little more space inside you, and it can feel less like a verdict about you.
-			</p>
+			<p>{t("makingGuesses.purpose")}</p>
+
+			<p>{t("makingGuesses.intro")}</p>
 			<p className="guesses-reminder highlight-box">
-				<em>Remember: The point isn't to guess correctly. It's simply to widen the frame.</em>
+				<em>{t("makingGuesses.reminder")}</em>
 			</p>
 
 			<div className="guesses-section">
-				<h3>What might they have observed?</h3>
-				<p>What do you think the other person saw or heard? Just the facts, from their point of view.</p>
+				<h3>{t("makingGuesses.sections.observation.heading")}</h3>
+				<p>{t("makingGuesses.sections.observation.description")}</p>
 				<textarea
 					className="guesses-textarea"
 					value={guessObservation}
 					onChange={(e) => setGuessObservation(e.target.value)}
-					placeholder="They might have seen/heard..."
+					placeholder={t("makingGuesses.sections.observation.placeholder")}
 					rows={3}
 				/>
 			</div>
 
 			<div className="guesses-section">
-				<h3>How might they be feeling?</h3>
-				<p>
-					What emotions might be alive in them? Select any that seem possible, even if they seem to conflict
-					with each other.
-				</p>
+				<h3>{t("makingGuesses.sections.feelings.heading")}</h3>
+				<p>{t("makingGuesses.sections.feelings.description")}</p>
 				<Checklist
 					data={[FeelingsData.sections.feelings, FeelingsData.sections.feelingsMet]}
 					selectedItems={guessFeelings}
@@ -50,8 +47,8 @@ const MakingGuesses = () => {
 			</div>
 
 			<div className="guesses-section">
-				<h3>What might they be needing?</h3>
-				<p>What needs of theirs might not be met in this situation?</p>
+				<h3>{t("makingGuesses.sections.needs.heading")}</h3>
+				<p>{t("makingGuesses.sections.needs.description")}</p>
 				<Checklist
 					data={[
 						NeedsData.sections.subsistence,
@@ -68,7 +65,10 @@ const MakingGuesses = () => {
 	);
 };
 
+MakingGuesses.titleKey = "makingGuesses.title";
 MakingGuesses.title = "What might have been happening for them?";
+
+// Help content kept inline — it references HelpLink and is concise.
 MakingGuesses.helpContent = (
 	<>
 		<p>

@@ -10,6 +10,7 @@ import React from "react";
 // <button onClick={() => openHelpTopic("Mourning")}>What is mourning?</button>
 // ===== or =====
 // import HelpLink from "./HelpLink";
+// import HelpLink from "../components/HelpLink";
 // <HelpLink topic="topic-id">link text</HelpLink> ... just embed that in text anywhere
 
 const StandaloneHelpTopics = [
@@ -155,6 +156,26 @@ const StandaloneHelpTopics = [
 					recognize what is. As I see it, acceptance is the precursor to change. ... When we accept, we allow
 					what is there to be there, and thus we become aware of what choices are available to us.
 				</p>
+			</>
+		),
+	},
+
+	{
+		id: "stay-with-it",
+		title: "Stay with the feeling",
+		content: (
+			<>
+				<p>
+					Most of us have been taught to push feelings away, to put them aside. It's so helpful to learn how
+					to actually stay with them, welcome them.
+				</p>
+				<p>Add all the stuff here about "message delivered", and HOW to be with a feeling</p>
+				<ul>
+					<li>attention to body sensations</li>
+					<li>allowing without changing</li>
+					<li>short time frames (“just 10 seconds”)</li>
+					<li>naming without analysing</li>
+				</ul>
 			</>
 		),
 	},

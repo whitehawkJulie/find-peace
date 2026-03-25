@@ -4,7 +4,7 @@
 
 import Observation from "./Observation";
 import Feelings from "./Feelings";
-import FeelingsExploreCard from "./FeelingsExploreCard";
+import UnpackFeelings from "./UnpackFeelings";
 import Needs from "./Needs";
 import StrategyDiscovery from "./StrategyDiscovery";
 import MakingGuesses from "./MakingGuesses";
@@ -20,7 +20,7 @@ export const getHelpTopics = () => {
 		const stepTopics = [
 			{ id: "observation", title: Observation.title || "Observation", content: Observation.helpContent },
 			{ id: "feelings", title: Feelings.title || "Feelings", content: Feelings.helpContent },
-			{ id: "explore-feelings", title: FeelingsExploreCard.title || "Settling", content: FeelingsExploreCard.helpContent },
+			{ id: "explore-feelings", title: UnpackFeelings.title || "Settling", content: UnpackFeelings.helpContent },
 			{ id: "needs", title: Needs.title || "Needs", content: Needs.helpContent },
 			{ id: "strategies", title: StrategyDiscovery.title || "Strategies", content: StrategyDiscovery.helpContent },
 			{ id: "their-view", title: MakingGuesses.title || "Their View", content: MakingGuesses.helpContent },

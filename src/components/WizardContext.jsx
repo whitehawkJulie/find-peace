@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useRef, useEffect } from "react";
 import { encryptSession, decryptSession, isEncryptedSession } from "../utils/crypto";
+import { HelpContext } from "./HelpContext";
 
 // Create context
 const WizardContext = createContext();
@@ -12,13 +13,13 @@ import Introduction from "./Introduction";
 import Observation from "./Observation";
 import Feelings from "./Feelings";
 import Needs from "./Needs";
-import NeedUnpacking from "./NeedUnpacking";
+import UnpackNeeds from "./UnpackNeeds";
 import MakingGuesses from "./MakingGuesses";
 import RequestFormulation from "./RequestFormulation";
 import ExploringWhatsChanged from "./ExploringWhatsChanged";
 import ConversationsAndCollaboration from "./ConversationsAndCollaboration";
 import Review from "./Review";
-import FeelingsExploreCard from "./FeelingsExploreCard";
+import UnpackFeelings from "./UnpackFeelings";
 
 // Step icons
 import introIcon from "../images/icons/intro.svg";
@@ -51,10 +52,10 @@ if (unmetSection?.groups) {
 
 // Full list of steps
 const allSteps = [
-	{ component: Introduction, title: "Intro", optional: true, color: "#9a5a50", icon: introIcon },
+	{ component: Introduction, navTitleKey: "introduction.navTitle", optional: true, color: "#9a5a50", icon: introIcon },
 	{
 		component: Observation,
-		title: "What was the moment?",
+		navTitleKey: "observation.navTitle",
 		color: "#8a6a40",
 		icon: observationIcon,
 		pause: (
@@ -70,7 +71,7 @@ const allSteps = [
 	},
 	{
 		component: Feelings,
-		title: "What am I feeling?",
+		navTitleKey: "feelings.navTitle",
 		color: "#886075",
 		icon: feelingsIcon,
 		pause: (
@@ -83,8 +84,8 @@ const allSteps = [
 		),
 	},
 	{
-		component: FeelingsExploreCard,
-		title: "Explore Feelings",
+		component: UnpackFeelings,
+		navTitleKey: "unpackFeelings.navTitle",
 		color: "#6a4a60",
 		icon: exploreFeelingsIcon,
 		optional: true,
@@ -93,37 +94,37 @@ const allSteps = [
 	},
 	{
 		component: Needs,
-		title: "What matters to me?",
+		navTitleKey: "needs.navTitle",
 		color: "#5a9e6d",
 		icon: needsIcon,
 		pause: "Now that you've named what you're feeling, let's look at what those feelings are pointing to — \
 		to what really matters to you here...",
 	},
 	{
-		component: NeedUnpacking,
-		title: "Explore what matters",
+		component: UnpackNeeds,
+		navTitleKey: "unpackNeeds.navTitle",
 		color: "#3a7058",
 		icon: exploreNeedIcon,
 		optional: true,
 		condition: (state) => Object.values(state.needs || {}).includes("clicked"),
 	},
-	{ component: MakingGuesses, title: "Their View", optional: true, color: "#3a5e80", icon: theirViewIcon },
-	// { component: RequestFormulation, title: "Request", optional: true },
+	{ component: MakingGuesses, navTitleKey: "makingGuesses.navTitle", optional: true, color: "#3a5e80", icon: theirViewIcon },
+	// { component: RequestFormulation, navTitleKey: "requestFormulation.navTitle", optional: true },
 	{
 		component: ExploringWhatsChanged,
-		title: "Notice what's changed",
+		navTitleKey: "exploringWhatsChanged.navTitle",
 		optional: true,
 		color: "#484878",
 		icon: whatsChangedIcon,
 	},
 	{
 		component: ConversationsAndCollaboration,
-		title: "Conversations",
+		navTitleKey: "collaboration.navTitle",
 		optional: true,
 		color: "#584070",
 		icon: conversationsIcon,
 	},
-	{ component: Review, title: "Review", optional: true, color: "#804050", icon: reviewIcon },
+	{ component: Review, navTitleKey: "review.navTitle", optional: true, color: "#804050", icon: reviewIcon },
 ];
 
 export const WizardProvider = ({ children }) => {
@@ -519,5 +520,11 @@ export const WizardProvider = ({ children }) => {
 		cardContentRef,
 	};
 
-	return <WizardContext.Provider value={value}>{children}</WizardContext.Provider>;
+	return (
+		<WizardContext.Provider value={value}>
+			<HelpContext.Provider value={{ openHelpTopic }}>
+				{children}
+			</HelpContext.Provider>
+		</WizardContext.Provider>
+	);
 };

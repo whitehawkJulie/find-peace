@@ -115,3 +115,9 @@ textarea {
 .inline-help-link:hover {
 	color: #555;
 }
+
+/* a border to hold a particular "section" of a page */
+.page-section {
+	border: 1px dashed grey;
+	padding: 10px;
+}

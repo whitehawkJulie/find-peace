@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import Checklist from "./Checklist";
 import { Needs as NeedsData } from "../data/AllNeedsData";
 import { useWizard } from "./WizardContext";
+import { useContent } from "../content/useContent";
 import SlideDrawer from "./SlideDrawer";
 import PatriarchyNeeds from "./PatriarchyNeeds";
 import "./Needs.css";
@@ -68,6 +69,7 @@ const Needs = () => {
 			return result;
 		});
 	};
+	const { t } = useContent();
 	const [showPatriarchy, setShowPatriarchy] = useState(false);
 
 	const handleNeedInfoClick = (needName) => {
@@ -78,37 +80,13 @@ const Needs = () => {
 
 	return (
 		<div className="step-needs">
-			<p>
-				If we dont' know what we're actually needing, everything we do misses the mark. This is the missing
-				information in our lives.
-			</p>
-			<p>
-				Needs are what we’re hoping to experience when things go well — and what we’re longing for when they
-				don’t. They're the core of what matters to us, and our feelings directly point to what they are.
-			</p>
+			{t("needs.purpose") && <p className="step-purpose">{t("needs.purpose")}</p>}
+			<p>{t("needs.intro1")}</p>
+			<p>{t("needs.intro2")}</p>
 
 			{renderOrderedFeelings(feelings)}
 
-			<p>
-				Just notice what feels alive. Select all that feel relevant. Tap{" "}
-				<span
-					style={{
-						display: "inline-flex",
-						alignItems: "center",
-						justifyContent: "center",
-						width: "1rem",
-						height: "1rem",
-						fontSize: "0.65rem",
-						fontWeight: 700,
-						color: "#888",
-						background: "rgba(0,0,0,0.08)",
-						borderRadius: "50%",
-						verticalAlign: "middle",
-					}}>
-					?
-				</span>{" "}
-				on any selected need to explore it more deeply.
-			</p>
+			<p>{t("needs.selectPrompt")}</p>
 
 			<Checklist
 				data={[
@@ -140,7 +118,8 @@ const Needs = () => {
 	);
 };
 
-Needs.title = "What matters to me?";
+Needs.titleKey = "needs.title";
+Needs.title = "What matters to me?"; // polite fallback
 Needs.helpContent = (
 	<>
 		<h3>What Is a Need?</h3>
