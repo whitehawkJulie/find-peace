@@ -2,7 +2,6 @@ import React, { useState, useMemo } from "react";
 import Checklist from "./Checklist";
 import { Needs as NeedsData } from "../data/AllNeedsData";
 import { useWizard } from "./WizardContext";
-import { useContent } from "../content/useContent";
 import SlideDrawer from "./SlideDrawer";
 import PatriarchyNeeds from "./PatriarchyNeeds";
 import "./Needs.css";
@@ -69,7 +68,6 @@ const Needs = () => {
 			return result;
 		});
 	};
-	const { t } = useContent();
 	const [showPatriarchy, setShowPatriarchy] = useState(false);
 
 	const handleNeedInfoClick = (needName) => {
@@ -80,13 +78,12 @@ const Needs = () => {
 
 	return (
 		<div className="step-needs">
-			{t("needs.purpose") && <p className="step-purpose">{t("needs.purpose")}</p>}
-			<p>{t("needs.intro1")}</p>
-			<p>{t("needs.intro2")}</p>
+			<p>{"If we don't know what we're actually needing, everything we do misses the mark. This is the missing information in our lives."}</p>
+			<p>{"Needs are what we're hoping to experience when things go well — and what we're longing for when they don't. They're the core of what matters to us, and our feelings directly point to what they are."}</p>
 
 			{renderOrderedFeelings(feelings)}
 
-			<p>{t("needs.selectPrompt")}</p>
+			<p>{"Just notice what feels alive. Select all that feel relevant. Tap ? on any selected need if you'd like to explore it more deeply."}</p>
 
 			<Checklist
 				data={[
@@ -118,8 +115,9 @@ const Needs = () => {
 	);
 };
 
-Needs.titleKey = "needs.title";
-Needs.title = "What matters to me?"; // polite fallback
+Needs.title = "What matters to me?";
+Needs.titleSweary = "What actually matters here?";
+Needs.navTitle = "What matters to me?";
 Needs.helpContent = (
 	<>
 		<h3>What Is a Need?</h3>

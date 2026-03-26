@@ -1,8 +1,49 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useWizard } from "./WizardContext";
-import { useContent } from "../content/useContent";
-import { observationChecks, observationHelpContent } from "../content/observation.jsx";
+import ObservationExample from "./ObservationExample";
 import "./Observation.css";
+
+const observationChecks = [
+	{
+		icon: "⏳",
+		heading: "One specific moment",
+		description: "Choose a single instance — not the whole history.",
+		extraInfo: (
+			<>
+				Words like "always," "never," or "every time" often signal that multiple events are bundled together.
+				<br />
+				Try narrowing to one moment: <em>"On Tuesday evening when…"</em> instead of{" "}
+				<em>"Every time we talk about this…"</em>
+			</>
+		),
+	},
+	{
+		icon: "🔎",
+		heading: "Just what happened — not what it meant",
+		description: `Are we describing what was actually said or done, rather than interpretations like "disrespectful," "uncaring," "manipulative"?`,
+		extraInfo: (
+			<>
+				Try stripping out words that carry a judgment or meaning, and rewriting in terms of actions, words, and
+				what was physically present. Instead of <em>"she was dismissive"</em>, try{" "}
+				<em>"she looked at her phone while I was speaking."</em>
+				<br />
+				If it helps, imagine what someone else in the room might have noticed happening. What might they say
+				they saw or heard?
+			</>
+		),
+	},
+	{
+		icon: "🧠",
+		heading: `Leave the "why" aside just for now`,
+		description: `Have we removed any assumptions about motive? (e.g., "to control me," "to hurt me," "because he doesn't care")`,
+		extraInfo: (
+			<>
+				Our minds fill in meaning very quickly — that's normal. Try leaving out the "because" for now. Just
+				describe what happened. The question of why can come later.
+			</>
+		),
+	},
+];
 
 // ── Check panel ────────────────────────────────────────────────────────────
 
@@ -50,7 +91,6 @@ const CheckPanel = ({ title }) => {
 
 const Observation = () => {
 	const { observation, setObservation, jackalTalk, setJackalTalk } = useWizard();
-	const { t } = useContent();
 	const [showCheckPanel, setShowCheckPanel] = useState(false);
 	const checkPanelRef = useRef(null);
 
@@ -62,24 +102,24 @@ const Observation = () => {
 
 	return (
 		<div className="step-observation step-container">
-			<p>{t("observation.purpose")}</p>
-			<p>{t("observation.intro")}</p>
+			<p>{"Here we're separating what happened from the story, so that we can start to move out of reaction and into clearer understanding."}</p>
+			<p>{"Let's slow down and look at the specific moment itself — just what someone could have seen or heard, before any interpretations, or assumptions about motives."}</p>
 
 			<div>
-				<p>{t("observation.jackalSection.intro")}</p>
-				<p className="obs-panel-intro">{t("observation.jackalSection.prompt")}</p>
+				<p>{"Before we try to make sense of it, say it the raw way. This isn't about being fair or accurate — just letting the first wave out."}</p>
+				<p className="obs-panel-intro">{"If you said the uncensored version in one breath, what would it be?"}</p>
 				<textarea
 					value={jackalTalk}
 					onChange={(e) => setJackalTalk(e.target.value)}
-					placeholder={t("observation.jackalSection.placeholder")}
+					placeholder="They ALWAYS do this! I'm so over it..."
 					rows={3}
 				/>
 			</div>
 
 			<p>Now, reading what you've just written, can you check for the following?</p>
-			<CheckPanel title={t("observation.checkPanel.title")} />
+			<CheckPanel title="From threat mode to curiosity" />
 
-			<p>{t("observation.refinedIntro")}</p>
+			<p>{"Now, if you were to remove all those parts, what would you write?"}</p>
 			<textarea
 				className="obs-main-textarea"
 				value={observation.refined || ""}
@@ -90,14 +130,40 @@ const Observation = () => {
 					}))
 				}
 				rows={4}
-				placeholder={t("observation.refinedPlaceholder")}
+				placeholder={"Example:\nYesterday evening,\nwhile I was telling you about my day,\nyou looked at your phone and didn't respond."}
 			/>
 		</div>
 	);
 };
 
-Observation.titleKey = "observation.title";
-Observation.title = "What was the moment that upset you?";
-Observation.helpContent = observationHelpContent;
+Observation.title = "What just happened?";
+Observation.titleSweary = "What the hell just happened?";
+Observation.navTitle = "What was the moment?";
+Observation.helpContent = (
+	<>
+		<h4>What is an observation?</h4>
+		<>
+			An observation is a description of a specific moment — something that could have been seen or heard by
+			someone in the room. It avoids interpretation, judgment, motive-guessing, and time collapse.
+		</>
+
+		<h4>How to write one</h4>
+		<ul>
+			<li>
+				<strong>Be specific</strong> — one moment, not "you always…"
+			</li>
+			<li>
+				<strong>Stick to actions and words</strong> — what was said or done
+			</li>
+			<li>
+				<strong>Leave out the "why"</strong> — motives can come later
+			</li>
+		</ul>
+
+		<h4>Interactive Example</h4>
+		<p>Click the buttons to see it change.</p>
+		<ObservationExample />
+	</>
+);
 
 export default Observation;

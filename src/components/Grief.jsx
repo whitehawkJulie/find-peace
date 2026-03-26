@@ -1,38 +1,50 @@
 import React from "react";
-import { useContent } from "../content/useContent";
+import HelpLink from "./HelpLink";
 
 const Grief = () => {
-	const { t } = useContent();
-
 	return (
 		<div className="step-container">
-			<p>{t("grief.stuck")}</p>
-			{t("grief.purpose") && <p className="step-purpose">{t("grief.purpose")}</p>}
+			<p>{"It's very common in this process that people become aware of one or more needs that have not been met in a long time, if ever, and there's grief around that. If that's the case, this page is for you (otherwise, skip it)."}</p>
+			<p className="step-purpose">{"Here we're making space for that grief, so that it can be felt and begin to settle before coming back to what's possible now."}</p>
 
-			<p>{t("grief.firstQuestion")}</p>
-			<p>{t("grief.firstQuestionBody")}</p>
-			<p>{t("grief.onceYouStop")}</p>
-			<p>{t("grief.deeper")}</p>
-
-			<h3>{t("grief.percolateHeading")}</h3>
-			<p>{t("grief.percolate1")}</p>
-			<p>{t("grief.percolate2")}</p>
-
-			<h3>{t("grief.giveHeading")}</h3>
-			<p>{t("grief.give1")}</p>
-			<p>{t("grief.give2")}</p>
-
-			<p>{t("grief.stillStuck")}</p>
+			<p>{"The first question to ask yourself is:"}</p>
 			<p>
-				<strong>{t("grief.cantSeeStrong")}</strong>
+				<strong>Am I stuck on one particular strategy?</strong>
+				<br />
+				Am I believing there is only <em>one</em> way for this need to be met?
+				<br />
+				Do I need to loosen my grip on my preferred strategy and become willing to explore other possibilities?
 			</p>
-			<p>{t("grief.honour")}</p>
+			<p>{"Sometimes that is enough. Once you stop treating one strategy as the only path, other options begin to appear."}</p>
+			<p>{"Very occasionally, though, something deeper surfaces: this need feels unmet not just here, but more broadly — and you genuinely have no idea how to change that. When that happens, there are usually two helpful approaches."}</p>
+
+			<h3>{"1. Let it percolate"}</h3>
+			<p>{"Are you willing to sit with the unmet need for a few days and give it time? Let yourself wonder what this need really means to you, and what would actually help you feel it had been met. Put it on the back burner for a while and let it unfold."}</p>
+			<p>
+				You might like to read more about{" "}
+				<HelpLink topic="mourning">connecting with, and mourning, unmet needs</HelpLink>.
+			</p>
+
+			<h3>{"2. Try giving it"}</h3>
+			<p>{"This can feel counter-intuitive, but sometimes, when you feel desperate and lost, stopping trying to get the need met for yourself and instead looking for a way to offer it to someone else can be surprisingly powerful."}</p>
+			<p>
+				For example, if the need is <strong>love</strong>, you might look for someone even more starved of love
+				and find a way to offer them some. Strangely, this can teach you a lot about the need itself — what it
+				really is, what it looks like in practice, and sometimes even what might help meet it in your own life.
+			</p>
+
+			<p>{"And finally, if you're still completely stuck, it can help to remember this:"}</p>
+			<p>
+				<strong>{"Even if you can't see how this need could be met right now, you do not know what the future holds."}</strong>
+			</p>
+			<p>{"You can still honour the need. Hold it gently, value it, and let it matter — even before you know what to do about it."}</p>
 		</div>
 	);
 };
 
-Grief.titleKey = "grief.title";
-Grief.title = "Grief";
+Grief.title = "Grief and Mourning";
+Grief.titleSweary = "When it just feels shit";
+Grief.navTitle = "Grief";
 
 Grief.helpContent = (
 	<>

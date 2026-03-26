@@ -1,11 +1,9 @@
 import React from "react";
 import { useWizard } from "./WizardContext";
-import { useContent } from "../content/useContent";
 import "./RequestFormulation.css";
 
 const ExploringWhatsChanged = () => {
 	const { whatsChangedResponses, setWhatsChangedResponses } = useWizard();
-	const { t } = useContent();
 
 	const handleChange = (key, value) => {
 		setWhatsChangedResponses((prev) => ({ ...prev, [key]: value }));
@@ -13,11 +11,19 @@ const ExploringWhatsChanged = () => {
 
 	return (
 		<div className="step-whats-changed step-container">
-			{t("exploringWhatsChanged.purpose")}
+			<>
+				<p>Let's take a moment to notice what's changed inside you.</p>
+
+				<p>
+					This isn't about finding solutions yet — it's simply a chance to notice any shift, if there is one.
+				</p>
+
+				<p>Here we're noticing what's different, so that you can recognise the shift before moving on.</p>
+			</>
 
 			<div className="request-section">
 				<h3>Before this process</h3>
-				<p>{t("exploringWhatsChanged.beforePrompt")}</p>
+				<p>{"How might you have handled this situation before doing this process? If you approached the person from the place you were in at the beginning… what would likely happen?"}</p>
 				<textarea
 					className="request-textarea"
 					value={whatsChangedResponses.before || ""}
@@ -28,7 +34,7 @@ const ExploringWhatsChanged = () => {
 
 			<div className="request-section">
 				<h3>Now</h3>
-				<p>{t("exploringWhatsChanged.differentlyPrompt")}</p>
+				<p>{"What might you want to do differently now? If you approached from where you are now… what might be different? What's changed?"}</p>
 				<textarea
 					className="request-textarea"
 					value={whatsChangedResponses.differently || ""}
@@ -40,8 +46,9 @@ const ExploringWhatsChanged = () => {
 	);
 };
 
-ExploringWhatsChanged.titleKey = "exploringWhatsChanged.title";
-ExploringWhatsChanged.title = "Notice what's changed"; // polite fallback
+ExploringWhatsChanged.title = "Exploring what's changed";
+ExploringWhatsChanged.titleSweary = "So... what's different now?";
+ExploringWhatsChanged.navTitle = "Notice what's changed";
 ExploringWhatsChanged.helpContent = null;
 
 export default ExploringWhatsChanged;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useWizard } from "./WizardContext";
-import { getText } from "../content/resolver";
 import "./SideMenu.css";
 
 const GROUP_LABELS = {
@@ -64,7 +63,7 @@ const SideMenu = ({ isOpen, onClose }) => {
 									const isPast = !isLocked && visIdx < stepIndex;
 									// isFuture = !isLocked && visIdx > stepIndex
 
-									const label = step.navTitleKey ? getText(step.navTitleKey) : step.title || "";
+									const label = step.component?.navTitle || step.component?.title || "";
 									const stateClass = isCurrent
 										? "side-menu-step--current"
 										: isPast
@@ -73,7 +72,7 @@ const SideMenu = ({ isOpen, onClose }) => {
 
 									return (
 										<button
-											key={step.navTitleKey ?? label}
+											key={step.component?.navTitle ?? label}
 											className={`side-menu-step ${stateClass}`}
 											disabled={!isPast}
 											onClick={() => isPast && handleStepClick(visIdx)}

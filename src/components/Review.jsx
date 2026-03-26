@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useWizard } from "./WizardContext";
-import { useContent } from "../content/useContent";
 import { filterByState } from "../utils/renderHelpers";
 import { feelingTypes } from "../data/FeelingTypes";
 import "./Review.css";
@@ -28,8 +27,6 @@ const Review = () => {
 		saveSession,
 		resetSession,
 	} = useWizard();
-	const { t } = useContent();
-
 	// Track when a user reaches the Review page (fires once on mount)
 	useEffect(() => {
 		fetch("/api/visit.php");
@@ -93,31 +90,31 @@ const Review = () => {
 			lines.push("", `— ${text} —`, "");
 		};
 
-		heading(t("review.summaryHeadings.whatWasHappening"));
+		heading("What was happening for you?");
 
 		if (jackalTalk) {
-			lines.push(`${t("review.summaryLabels.lettingItOut")}`, jackalTalk, "");
+			lines.push(`Letting it all out:`, jackalTalk, "");
 		}
 
 		if (obsText) {
-			lines.push(`${t("review.summaryLabels.observation")}`, obsText, "");
+			lines.push(`Observation:`, obsText, "");
 		}
 
-		heading(t("review.summaryHeadings.feelings"));
+		heading("Feelings");
 
 		if (hasBodySensations) {
 			const parts = [];
 			if (bodySensations.selected.length > 0) parts.push(bodySensations.selected.join(", "));
 			if (bodySensations.custom?.trim()) parts.push(bodySensations.custom.trim());
-			lines.push(`${t("review.summaryLabels.bodySensations")} ${parts.join("; ")}`, "");
+			lines.push(`Body sensations: ${parts.join("; ")}`, "");
 		}
 
 		if (allFeelings.length > 0) {
-			lines.push(`${t("review.summaryLabels.feelings")} ${allFeelings.join(", ")}`, "");
+			lines.push(`Feelings: ${allFeelings.join(", ")}`, "");
 		}
 
 		if (hasFeelingsExplore) {
-			lines.push(`${t("review.summaryLabels.feelingExploration")}`);
+			lines.push(`Feeling exploration:`);
 			for (const [typeKey, typeData] of Object.entries(feelingTypes)) {
 				const filledPrompts = typeData.prompts.filter((p) => {
 					const val = feelingsExploreResponses[p.id];
@@ -134,33 +131,33 @@ const Review = () => {
 			}
 			lines.push("");
 		}
-		heading(t("review.summaryHeadings.needs"));
+		heading("Needs");
 		if (unmetNeeds.length > 0) {
-			lines.push(`${t("review.summaryLabels.unmetNeeds")} ${unmetNeeds.join(", ")}`, "");
+			lines.push(`Unmet needs: ${unmetNeeds.join(", ")}`, "");
 		}
 
 		if (metNeeds.length > 0) {
-			lines.push(`${t("review.summaryLabels.metNeeds")} ${metNeeds.join(", ")}`, "");
+			lines.push(`Met needs: ${metNeeds.join(", ")}`, "");
 		}
 
 		if (exploredNeeds.length > 0) {
-			lines.push(`${t("review.summaryLabels.needExplorations")}`);
+			lines.push(`Need explorations:`);
 			for (const [name, exp] of exploredNeeds) {
 				lines.push(`  ${name}:`);
-				if (exp.coreSpecific) lines.push(`    ${t("review.labels.aboutThisNeed")} ${exp.coreSpecific}`);
-				if (exp.differentiation) lines.push(`    ${t("review.labels.whichFlavour")} ${exp.differentiation}`);
-				if (exp.whereMetResponse) lines.push(`    ${t("review.labels.whereToFind")} ${exp.whereMetResponse}`);
-				if (exp.unmetFeeling) lines.push(`    ${t("review.labels.whenNotMet")} ${exp.unmetFeeling}`);
-				if (exp.metFeeling) lines.push(`    ${t("review.labels.whenMet")} ${exp.metFeeling}`);
-				if (exp.metCircumstances) lines.push(`    ${t("review.labels.whatHelped")} ${exp.metCircumstances}`);
-				if (exp.oftenUnmet) lines.push(`    ${t("review.labels.oftenUnmet")} ${exp.oftenUnmet}`);
-				if (exp.whereToMeet) lines.push(`    ${t("review.labels.whereToGetMet")} ${exp.whereToMeet}`);
+				if (exp.coreSpecific) lines.push(`    About this need: ${exp.coreSpecific}`);
+				if (exp.differentiation) lines.push(`    Which flavour: ${exp.differentiation}`);
+				if (exp.whereMetResponse) lines.push(`    Where to find it: ${exp.whereMetResponse}`);
+				if (exp.unmetFeeling) lines.push(`    When it's not met: ${exp.unmetFeeling}`);
+				if (exp.metFeeling) lines.push(`    When it is met: ${exp.metFeeling}`);
+				if (exp.metCircumstances) lines.push(`    What helped: ${exp.metCircumstances}`);
+				if (exp.oftenUnmet) lines.push(`    Often unmet / topping up: ${exp.oftenUnmet}`);
+				if (exp.whereToMeet) lines.push(`    Where to get it met: ${exp.whereToMeet}`);
 			}
 			lines.push("");
 		}
 
 		if (hasStrategies) {
-			lines.push(`${t("review.summaryLabels.strategies")}`);
+			lines.push(`Strategies:`);
 			for (const [need, strats] of Object.entries(strategies)) {
 				if (strats.length > 0) {
 					lines.push(`  ${need}:`);
@@ -171,28 +168,28 @@ const Review = () => {
 		}
 
 		if (hasGuesses) {
-			heading(t("review.summaryHeadings.otherPerspective"));
-			if (guessObservation) lines.push(`${t("review.labels.theyMightHaveObserved")} ${guessObservation}`, "");
-			if (guessFeelingsAll.length > 0) lines.push(`${t("review.labels.theyMightBeFeeling")} ${guessFeelingsAll.join(", ")}`, "");
-			if (guessNeedsAll.length > 0) lines.push(`${t("review.labels.theirNeedsMight")} ${guessNeedsAll.join(", ")}`, "");
+			heading("The Other Person's Perspective");
+			if (guessObservation) lines.push(`They might have observed: ${guessObservation}`, "");
+			if (guessFeelingsAll.length > 0) lines.push(`They might be feeling: ${guessFeelingsAll.join(", ")}`, "");
+			if (guessNeedsAll.length > 0) lines.push(`Their needs might include: ${guessNeedsAll.join(", ")}`, "");
 		}
 
 		if (hasWhatsChanged) {
-			heading(t("review.summaryHeadings.whatsChanged"));
-			if (whatsChangedResponses?.before?.trim()) lines.push(`${t("review.summaryLabels.before")} ${whatsChangedResponses.before.trim()}`, "");
+			heading("Exploring what's changed");
+			if (whatsChangedResponses?.before?.trim()) lines.push(`Before: ${whatsChangedResponses.before.trim()}`, "");
 			if (whatsChangedResponses?.differently?.trim())
-				lines.push(`${t("review.summaryLabels.whatsDifferentNow")} ${whatsChangedResponses.differently.trim()}`, "");
+				lines.push(`What's different now: ${whatsChangedResponses.differently.trim()}`, "");
 		}
 
 		if (hasRequests) {
-			heading(t("review.summaryHeadings.requests"));
-			if (simpleRequest?.trim()) lines.push(`${t("review.summaryLabels.request")} ${simpleRequest.trim()}`, "");
-			if (requestOfSelf) lines.push(`${t("review.summaryLabels.ofMyself")} ${requestOfSelf}`);
-			if (requestOfOther) lines.push(`${t("review.summaryLabels.ofThem")} ${requestOfOther}`);
+			heading("Requests");
+			if (simpleRequest?.trim()) lines.push(`Request: ${simpleRequest.trim()}`, "");
+			if (requestOfSelf) lines.push(`Of myself: ${requestOfSelf}`);
+			if (requestOfOther) lines.push(`Of them: ${requestOfOther}`);
 		}
 
 		if (hasCollabScript) {
-			heading(t("review.summaryHeadings.conversationGuide"));
+			heading("Conversation guide");
 			if (collabScript.finalScript?.trim()) {
 				lines.push(collabScript.finalScript.trim(), "");
 			} else {
@@ -212,7 +209,7 @@ const Review = () => {
 		}
 
 		if (reviewReflection?.trim()) {
-			lines.push("", `${t("review.summaryLabels.somethingStandsOut")} ${reviewReflection.trim()}`);
+			lines.push("", `Something that stands out to me: ${reviewReflection.trim()}`);
 		}
 
 		logSelections();
@@ -244,7 +241,7 @@ const Review = () => {
 
 	return (
 		<div className="review">
-			<p>{t("review.intro")}</p>
+			<p>{"This page gathers together what you explored. You might like to read it through and notice what stands out. What feels most important or surprising?"}</p>
 
 			<div className="review-accordion">
 				<div
@@ -254,7 +251,7 @@ const Review = () => {
 					title={whatHappenedOpen ? "Click to collapse" : "Click to open"}
 					onKeyDown={(e) => e.key === "Enter" && setWhatHappenedOpen((o) => !o)}
 					onClick={() => setWhatHappenedOpen((o) => !o)}>
-					<span>{t("review.accordionTitle")}</span>
+					<span>{"What emerged?"}</span>
 					<span className="review-accordion-header-right">
 						<button
 							disabled={!hasAnyData}
@@ -268,30 +265,30 @@ const Review = () => {
 				</div>
 				{whatHappenedOpen && (
 					<div className="review-accordion-body">
-						{!hasAnyData && <p className="review-no-data">{t("review.noData")}</p>}
+						{!hasAnyData && <p className="review-no-data">{"No data entered yet."}</p>}
 						{jackalTalk && (
 							<div className="review-section">
-								<h3>{t("review.sections.lettingItOut")}</h3>
+								<h3>{"Letting it all out"}</h3>
 								<p className="review-text" style={{ whiteSpace: "pre-wrap" }}>{jackalTalk}</p>
 							</div>
 						)}
 						{obsText && (
 							<div className="review-section">
-								<h3>{t("review.sections.observation")}</h3>
+								<h3>{"Observation"}</h3>
 								<p className="review-text">{obsText}</p>
 							</div>
 						)}
 
 						{allFeelings.length > 0 && (
 							<div className="review-section">
-								<h3>{t("review.sections.feelings")}</h3>
+								<h3>{"Feelings"}</h3>
 								<p>{allFeelings.join(", ")}</p>
 							</div>
 						)}
 
 						{hasFeelingsExplore && (
 							<div className="review-section">
-								<h3>{t("review.sections.feelingExploration")}</h3>
+								<h3>{"Feeling exploration"}</h3>
 								{Object.entries(feelingTypes).map(([typeKey, typeData]) => {
 									const filledPrompts = typeData.prompts.filter((p) => {
 										const val = feelingsExploreResponses[p.id];
@@ -319,7 +316,7 @@ const Review = () => {
 
 						{hasBodySensations && (
 							<div className="review-section">
-								<h3>{t("review.sections.bodySensations")}</h3>
+								<h3>{"Body sensations"}</h3>
 								{bodySensations.selected.length > 0 && <p>{bodySensations.selected.join(", ")}</p>}
 								{bodySensations.custom?.trim() && <p>{bodySensations.custom.trim()}</p>}
 							</div>
@@ -327,62 +324,62 @@ const Review = () => {
 
 						{unmetNeeds.length > 0 && (
 							<div className="review-section">
-								<h3>{t("review.sections.unmetNeeds")}</h3>
+								<h3>{"Unmet needs"}</h3>
 								<p>{unmetNeeds.join(", ")}</p>
 							</div>
 						)}
 
 						{metNeeds.length > 0 && (
 							<div className="review-section">
-								<h3>{t("review.sections.metNeeds")}</h3>
+								<h3>{"Met needs"}</h3>
 								<p>{metNeeds.join(", ")}</p>
 							</div>
 						)}
 
 						{exploredNeeds.length > 0 && (
 							<div className="review-section">
-								<h3>{t("review.sections.needExplorations")}</h3>
+								<h3>{"Need explorations"}</h3>
 								{exploredNeeds.map(([name, exp]) => (
 									<div key={name} className="review-exploration">
 										<strong>{name}</strong>
 										{exp.coreSpecific && (
 											<p>
-												<em>{t("review.labels.aboutThisNeed")}</em> {exp.coreSpecific}
+												<em>{"About this need:"}</em> {exp.coreSpecific}
 											</p>
 										)}
 										{exp.differentiation && (
 											<p>
-												<em>{t("review.labels.whichFlavour")}</em> {exp.differentiation}
+												<em>{"Which flavour:"}</em> {exp.differentiation}
 											</p>
 										)}
 										{exp.whereMetResponse && (
 											<p>
-												<em>{t("review.labels.whereToFind")}</em> {exp.whereMetResponse}
+												<em>{"Where to find it:"}</em> {exp.whereMetResponse}
 											</p>
 										)}
 										{exp.unmetFeeling && (
 											<p>
-												<em>{t("review.labels.whenNotMet")}</em> {exp.unmetFeeling}
+												<em>{"When it's not met:"}</em> {exp.unmetFeeling}
 											</p>
 										)}
 										{exp.metFeeling && (
 											<p>
-												<em>{t("review.labels.whenMet")}</em> {exp.metFeeling}
+												<em>{"When it is met:"}</em> {exp.metFeeling}
 											</p>
 										)}
 										{exp.metCircumstances && (
 											<p>
-												<em>{t("review.labels.whatHelped")}</em> {exp.metCircumstances}
+												<em>{"What helped:"}</em> {exp.metCircumstances}
 											</p>
 										)}
 										{exp.oftenUnmet && (
 											<p>
-												<em>{t("review.labels.oftenUnmet")}</em> {exp.oftenUnmet}
+												<em>{"Often unmet / topping up:"}</em> {exp.oftenUnmet}
 											</p>
 										)}
 										{exp.whereToMeet && (
 											<p>
-												<em>{t("review.labels.whereToGetMet")}</em> {exp.whereToMeet}
+												<em>{"Where to get it met:"}</em> {exp.whereToMeet}
 											</p>
 										)}
 									</div>
@@ -392,7 +389,7 @@ const Review = () => {
 
 						{hasStrategies && (
 							<div className="review-section">
-								<h3>{t("review.sections.strategies")}</h3>
+								<h3>{"Strategies"}</h3>
 								{Object.entries(strategies)
 									.filter(([_, strats]) => strats.length > 0)
 									.map(([need, strats]) => (
@@ -410,22 +407,22 @@ const Review = () => {
 
 						{hasGuesses && (
 							<div className="review-section">
-								<h3>{t("review.sections.otherPerspective")}</h3>
+								<h3>{"Your guesses for the other person"}</h3>
 								{guessObservation && (
 									<p>
-										<span className="review-label">{t("review.labels.theyMightHaveObserved")}</span>{" "}
+										<span className="review-label">{"They might have observed:"}</span>{" "}
 										{guessObservation}
 									</p>
 								)}
 								{guessFeelingsAll.length > 0 && (
 									<p>
-										<span className="review-label">{t("review.labels.theyMightBeFeeling")}</span>{" "}
+										<span className="review-label">{"They might be feeling:"}</span>{" "}
 										{guessFeelingsAll.join(", ")}
 									</p>
 								)}
 								{guessNeedsAll.length > 0 && (
 									<p>
-										<span className="review-label">{t("review.labels.theirNeedsMight")}</span>{" "}
+										<span className="review-label">{"Their needs might include:"}</span>{" "}
 										{guessNeedsAll.join(", ")}
 									</p>
 								)}
@@ -434,16 +431,16 @@ const Review = () => {
 
 						{hasWhatsChanged && (
 							<div className="review-section">
-								<h3>{t("review.sections.whatsChanged")}</h3>
+								<h3>{"Exploring what's changed"}</h3>
 								{whatsChangedResponses?.before?.trim() && (
 									<p>
-										<span className="review-label">{t("review.labels.beforeProcess")}</span>{" "}
+										<span className="review-label">{"Before this process:"}</span>{" "}
 										{whatsChangedResponses.before}
 									</p>
 								)}
 								{whatsChangedResponses?.differently?.trim() && (
 									<p>
-										<span className="review-label">{t("review.labels.whatsDifferentNow")}</span>{" "}
+										<span className="review-label">{"What's different now:"}</span>{" "}
 										{whatsChangedResponses.differently}
 									</p>
 								)}
@@ -452,20 +449,20 @@ const Review = () => {
 
 						{hasRequests && (
 							<div className="review-section">
-								<h3>{t("review.sections.requests")}</h3>
+								<h3>{"What you might like to do next"}</h3>
 								{simpleRequest?.trim() && (
 									<p>
-										<span className="review-label">{t("review.labels.request")}</span> {simpleRequest.trim()}
+										<span className="review-label">{"Request:"}</span> {simpleRequest.trim()}
 									</p>
 								)}
 								{requestOfSelf && (
 									<p>
-										<span className="review-label">{t("review.labels.ofMyself")}</span> {requestOfSelf}
+										<span className="review-label">{"Of myself:"}</span> {requestOfSelf}
 									</p>
 								)}
 								{requestOfOther && (
 									<p>
-										<span className="review-label">{t("review.labels.ofThem")}</span> {requestOfOther}
+										<span className="review-label">{"Of them:"}</span> {requestOfOther}
 									</p>
 								)}
 							</div>
@@ -473,7 +470,7 @@ const Review = () => {
 
 						{hasCollabScript && (
 							<div className="review-section">
-								<h3>{t("review.sections.conversationGuide")}</h3>
+								<h3>{"Conversation guide"}</h3>
 								{collabScript.finalScript?.trim() ? (
 									<p className="review-text review-convo-text" style={{ whiteSpace: "pre-wrap" }}>
 										{collabScript.finalScript.trim()}
@@ -518,13 +515,13 @@ const Review = () => {
 											setTimeout(() => setCopiedConvo(false), 2500);
 										});
 									}}>
-									{copiedConvo ? t("review.copiedButton") : t("review.copyConvoButton")}
+									{copiedConvo ? "Copied!" : "Copy conversation guide"}
 								</button>
 							</div>
 						)}
 
 						<div className="review-reflection">
-							<p className="review-reflection-prompt">{t("review.reflectionPrompt")}</p>
+							<p className="review-reflection-prompt">{"What feels most important or surprising here?"}</p>
 							<textarea
 								className="review-reflection-textarea"
 								rows={3}
@@ -535,24 +532,24 @@ const Review = () => {
 
 						<div className="review-actions" ref={actionsRef}>
 							<button onClick={generateSummaryText} disabled={!hasAnyData} className="review-action-btn">
-								{copied ? t("review.copiedButton") : t("review.copyButton")}
+								{copied ? "Copied!" : "Copy to Clipboard"}
 							</button>
 							<button
 								onClick={handleSave}
 								disabled={saved || !hasAnyData}
 								className="review-action-btn review-action-btn-secondary"
 								title="Save to local browser storage, can reload from Settings">
-								{saved ? t("review.savedButton") : t("review.saveButton")}
+								{saved ? "Saved to Journal" : "Save to Journal"}
 							</button>
 						</div>
 
 						<p className="review-privacy-note">
-							{t("review.privacyNote")}
+							{"🔒 Your data stays on this device and is never sent to any server. Saving or copying shares your feelings and needs word selections anonymously to help improve this tool. Manage your data in ☰ Menu → ⚙ Settings."}
 						</p>
 
 						{savedNotice && (
 							<p className="review-saved-notice">
-								{t("review.savedNotice")}
+								{"✓ Saved to your browser. To reload it later, tap ☰ Menu → ⚙ Settings."}
 							</p>
 						)}
 					</div>
@@ -560,14 +557,14 @@ const Review = () => {
 			</div>
 
 			<div className="review-session-end">
-				<p className="review-session-end-label">{t("review.whenReady")}</p>
+				<p className="review-session-end-label">{"When you're ready:"}</p>
 				<div className="review-session-end-buttons">
 					<button className="review-end-btn review-end-btn--close" onClick={() => window.close()}>
-						{t("review.closeButton")}
+						{"Close"}
 					</button>
 					{confirmRestart ? (
 						<div className="review-restart-confirm">
-							<span>{t("review.confirmRestartPrompt")}</span>
+							<span>{"Clear all your answers and start fresh?"}</span>
 							<div className="review-restart-confirm-btns">
 								<button
 									className="review-end-btn review-end-btn--restart-yes"
@@ -575,12 +572,12 @@ const Review = () => {
 										resetSession();
 										setConfirmRestart(false);
 									}}>
-									{t("review.confirmYes")}
+									{"Yes, start over"}
 								</button>
 								<button
 									className="review-end-btn review-end-btn--cancel"
 									onClick={() => setConfirmRestart(false)}>
-									{t("review.confirmCancel")}
+									{"Cancel"}
 								</button>
 							</div>
 						</div>
@@ -588,12 +585,12 @@ const Review = () => {
 						<button
 							className="review-end-btn review-end-btn--restart"
 							onClick={() => setConfirmRestart(true)}>
-							{t("review.restartButton")}
+							{"↺ Start a new session"}
 						</button>
 					)}
 				</div>
 				<p className="review-close-hint">
-					{t("review.closeHint")}
+					{"If Close doesn't work in your browser, you can simply close this tab or window."}
 				</p>
 			</div>
 
@@ -611,8 +608,8 @@ const Review = () => {
 	);
 };
 
-Review.titleKey = "review.title";
-Review.title = "Review"; // polite fallback
+Review.title = "Review";
+Review.navTitle = "Review";
 Review.helpContent = null;
 
 export default Review;

@@ -53,11 +53,10 @@ if (unmetSection?.groups) {
 
 // Full list of steps
 const allSteps = [
-	{ component: Introduction, group: "understand", navTitleKey: "introduction.navTitle", optional: true, color: "#9a5a50", icon: introIcon },
+	{ component: Introduction, group: "understand", optional: true, color: "#9a5a50", icon: introIcon },
 	{
 		component: Observation,
 		group: "understand",
-		navTitleKey: "observation.navTitle",
 		color: "#8a6a40",
 		icon: observationIcon,
 		pause: (
@@ -74,7 +73,6 @@ const allSteps = [
 	{
 		component: Feelings,
 		group: "understand",
-		navTitleKey: "feelings.navTitle",
 		color: "#886075",
 		icon: feelingsIcon,
 		pause: (
@@ -89,7 +87,6 @@ const allSteps = [
 	{
 		component: UnpackFeelings,
 		group: "understand",
-		navTitleKey: "unpackFeelings.navTitle",
 		color: "#6a4a60",
 		icon: exploreFeelingsIcon,
 		optional: true,
@@ -97,7 +94,6 @@ const allSteps = [
 	{
 		component: Needs,
 		group: "find",
-		navTitleKey: "needs.navTitle",
 		color: "#5a9e6d",
 		icon: needsIcon,
 		pause: "Now that you've named what you're feeling, let's look at what those feelings are pointing to — \
@@ -106,18 +102,16 @@ const allSteps = [
 	{
 		component: UnpackNeeds,
 		group: "find",
-		navTitleKey: "unpackNeeds.navTitle",
 		color: "#3a7058",
 		icon: exploreNeedIcon,
 		optional: true,
 	},
-	{ component: MakingGuesses, group: "find", navTitleKey: "makingGuesses.navTitle", optional: true, color: "#3a5e80", icon: theirViewIcon },
-	// { component: RequestFormulation, navTitleKey: "requestFormulation.navTitle", optional: true },
-	{ component: Grief, group: "move", navTitleKey: "grief.navTitle", optional: true, color: "#4e3872" },
+	{ component: MakingGuesses, group: "find", optional: true, color: "#3a5e80", icon: theirViewIcon },
+	// { component: RequestFormulation, optional: true },
+	{ component: Grief, group: "move", optional: true, color: "#4e3872" },
 	{
 		component: ExploringWhatsChanged,
 		group: "move",
-		navTitleKey: "exploringWhatsChanged.navTitle",
 		optional: true,
 		color: "#484878",
 		icon: whatsChangedIcon,
@@ -125,12 +119,11 @@ const allSteps = [
 	{
 		component: ConversationsAndCollaboration,
 		group: "move",
-		navTitleKey: "collaboration.navTitle",
 		optional: true,
 		color: "#584070",
 		icon: conversationsIcon,
 	},
-	{ component: Review, group: "move", navTitleKey: "review.navTitle", optional: true, color: "#804050", icon: reviewIcon },
+	{ component: Review, group: "move", optional: true, color: "#804050", icon: reviewIcon },
 ];
 
 export const WizardProvider = ({ children }) => {

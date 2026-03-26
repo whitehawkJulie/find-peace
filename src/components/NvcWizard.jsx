@@ -5,8 +5,6 @@ import PauseInterstitial from "./PauseInterstitial";
 */
 import UnpackNeeds from "./UnpackNeeds";
 import { useWizard } from "./WizardContext";
-import { getText } from "../content/resolver";
-
 const NvcWizard = () => {
 	const {
 		stepIndex,
@@ -78,14 +76,14 @@ const NvcWizard = () => {
 	// When the need exploration overlay is open, render UnpackNeeds instead of the current step
 	const CurrentStepComponent = needExplorationOpen ? UnpackNeeds : currentStep.component;
 
-	// Resolve the page title: prefer titleKey (tone-sensitive) over the plain .title fallback
-	const toneContext = { tone: settings?.tone ?? "polite" };
+	// Resolve the page title using .title / .titleSweary static properties
+	const tone = settings?.tone ?? "polite";
 	const title = needExplorationOpen
 		? currentExploringNeed && explorationStep > 0
 			? `Exploring "${currentExploringNeed}"?`
 			: UnpackNeeds.title || ""
-		: CurrentStepComponent.titleKey
-			? getText(CurrentStepComponent.titleKey, toneContext)
+		: (tone === "sweary" && CurrentStepComponent.titleSweary)
+			? CurrentStepComponent.titleSweary
 			: CurrentStepComponent.title || "";
 
 	const helpContent = needExplorationOpen ? UnpackNeeds.helpContent : CurrentStepComponent.helpContent || null;

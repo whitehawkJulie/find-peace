@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useWizard } from "./WizardContext";
-import { useContent } from "../content/useContent";
 import HelpLink from "./HelpLink";
 import { getNeedData, resolveNeedUnpackingType } from "../utils/renderHelpers";
 import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
@@ -26,8 +25,6 @@ const UnpackNeeds = () => {
 		setNeedExplorationOpen,
 		needExplorationOpen,
 	} = useWizard();
-	const { t } = useContent();
-
 	// Accordion open state
 	const [openStage1, setOpenStage1] = useState(false);
 	const [openStage2, setOpenStage2] = useState(false);
@@ -178,14 +175,14 @@ const UnpackNeeds = () => {
 			<div className="keyStepLabel">This is where things often shift - take your time here</div>
 
 			{/* intentionally back to front!!! purpose usually goes first */}
-			<p>{t("unpackNeeds.intro")}</p>
-			<p>{t("unpackNeeds.purpose")}</p>
+			<p>{"Knowing your needs at a head level is one thing ... what makes the absolute difference is actually connecting to them, truly getting to know how they live in you. This page helps you do just that."}</p>
+			<p>{"Here we're staying with the need, so that it becomes more real and easier to recognise what would truly meet it."}</p>
 			<AudioPlayer
 				src={meditationAudio}
-				title={t("unpackNeeds.meditationTitle")}
-				description={t("unpackNeeds.meditationDescription")}
+				title="The beauty of a need"
+				description="A short guided meditation to connect with what matters most."
 			/>
-			<p>{t("unpackNeeds.clickPrompt")}</p>
+			<p>{"Click on a need to explore more deeply, starting with the one that's loudest for you."}</p>
 			<div className="pill-grid cloud">
 				{unexploredNeeds.map((name) => (
 					<div key={name} className="pill need clicked need-removable" onClick={() => startExploring(name)}>
@@ -205,7 +202,7 @@ const UnpackNeeds = () => {
 			</div>
 			{exploredNeeds.length > 0 && (
 				<div className="explored-section">
-					<p className="explored-label">{t("unpackNeeds.exploredLabel")}</p>
+					<p className="explored-label">{"Already explored:"}</p>
 					<div className="pill-grid cloud">
 						{exploredNeeds.map((name) => (
 							<div
@@ -268,12 +265,12 @@ const UnpackNeeds = () => {
 						{/* Stage 1 accordion — only for non-PRACTICAL needs */}
 						{!isPractical && (
 							<>
-								<p>{t("unpackNeeds.stage1Intro")}</p>
+								<p>{"First, let's make sure we're with what matters most. Sometimes the first need we find is just the surface — something deeper may be calling."}</p>
 								<div className="unpacking-section">
 									<button
 										className="unpacking-section-toggle"
 										onClick={() => setOpenStage1((o) => !o)}>
-										<span>{t("unpackNeeds.stage1Toggle")}</span>
+										<span>{"Might there be a deeper need underneath this?"}</span>
 										<span className="unpacking-toggle-chevron">{openStage1 ? "▲" : "▼"}</span>
 									</button>
 									{openStage1 && (
@@ -286,7 +283,7 @@ const UnpackNeeds = () => {
 											{stage1Guesses.length > 0 && (
 												<>
 													<p className="unpacking-guesses-label">
-														{t("unpackNeeds.stage1GuessesLabel")}
+														{"Are any of these up for you as well?"}
 													</p>
 													<div className="pill-grid cloud">
 														{stage1Guesses.map((name) => (
@@ -307,10 +304,10 @@ const UnpackNeeds = () => {
 						)}
 
 						{/* Stage 2 accordion */}
-						<p>{t("unpackNeeds.stage2Intro")}</p>
+						<p>{"Next, we'll explore how this need shows up and how it wants to be met. This is where the real shift happens — the more you connect with the lived experience of the need, the more power you have to meet it in ways that truly satisfy you."}</p>
 						<div className="unpacking-section unpacking-section-stage2">
 							<button className="unpacking-section-toggle" onClick={() => setOpenStage2((o) => !o)}>
-								<span>{t("unpackNeeds.stage2Toggle")}</span>
+								<span>{"Get to know the need"}</span>
 								<span className="unpacking-toggle-chevron">{openStage2 ? "▲" : "▼"}</span>
 							</button>
 							{openStage2 && (
@@ -337,7 +334,7 @@ const UnpackNeeds = () => {
 									)}
 
 									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">{t("unpackNeeds.unmetPrompt")}</p>
+										<p className="unpacking-prompt-text">{"Notice in your body how it feels when the need isn't met — what happens when you focus on the un-met-ness of the need?"}</p>
 										<textarea
 											className="unpacking-textarea"
 											rows={3}
@@ -347,7 +344,7 @@ const UnpackNeeds = () => {
 									</div>
 
 									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">{t("unpackNeeds.metPrompt")}</p>
+										<p className="unpacking-prompt-text">{"Now remember when the need was most met for you — even if that was just a little — and how that felt."}</p>
 										<textarea
 											className="unpacking-textarea"
 											rows={3}
@@ -359,7 +356,7 @@ const UnpackNeeds = () => {
 
 									<div className="unpacking-prompt">
 										<p className="unpacking-prompt-text">
-											{t("unpackNeeds.metCircumstancesPrompt")}
+											{"If you were able to remember or imagine the need being met, what was present that helped it be met? What would it have to look like for this need to feel fulfilled for you?"}
 										</p>
 										<textarea
 											className="unpacking-textarea"
@@ -370,7 +367,7 @@ const UnpackNeeds = () => {
 									</div>
 
 									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">{t("unpackNeeds.oftenUnmetPrompt")}</p>
+										<p className="unpacking-prompt-text">{"Is this a need that often goes unmet in your life? Are there small ways you could move towards it, top up the tank, even a little?"}</p>
 										<textarea
 											className="unpacking-textarea"
 											rows={3}
@@ -380,7 +377,7 @@ const UnpackNeeds = () => {
 									</div>
 
 									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">{t("unpackNeeds.whereToMeetPrompt")}</p>
+										<p className="unpacking-prompt-text">{"Back to the issue at hand: could this need be met in the current situation? Is the other person capable of meeting it — or is there a better place to get it met?"}</p>
 										<textarea
 											className="unpacking-textarea"
 											rows={3}
@@ -405,8 +402,8 @@ const UnpackNeeds = () => {
 	);
 };
 
-UnpackNeeds.titleKey = "unpackNeeds.title";
-UnpackNeeds.title = "Explore what matters"; // polite fallback
+UnpackNeeds.title = "Explore what matters";
+UnpackNeeds.navTitle = "Explore what matters";
 
 // Shown when user clicks the ? Help button in the card header
 UnpackNeeds.helpContent = (

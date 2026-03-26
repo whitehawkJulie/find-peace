@@ -89,6 +89,12 @@ textarea {
 	gap: 1rem;
 }
 
+/* Strip default browser margins from lists so gap alone controls spacing */
+.step-container > ul,
+.step-container > ol {
+	margin: 0;
+}
+
 /* Callout / highlight box — used as a shared utility for info callouts */
 .highlight-box {
 	background: #f9f7f2;

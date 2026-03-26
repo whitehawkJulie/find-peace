@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Checklist from "./Checklist";
 import { AllFeelingsData as FeelingsData, regulationMeta } from "../data/AllFeelingsData";
 import { useWizard } from "./WizardContext";
-import { useContent } from "../content/useContent";
 import SlideDrawer from "./SlideDrawer";
 import ClarifyFeelings from "./ClarifyFeelings";
 import BodySensationsPopup from "./BodySensationsPopup";
@@ -96,7 +95,6 @@ const RegulationHelpContent = () => {
 const Feelings = () => {
 	const { observation, feelings, setFeelings, needs, setNeeds, settings, bodySensations, setBodySensations } =
 		useWizard();
-	const { t } = useContent();
 	const [showStoryHelp, setShowStoryHelp] = useState(false);
 	const [showBodySensations, setShowBodySensations] = useState(false);
 	const [popupItem, setPopupItem] = useState(null);
@@ -169,23 +167,51 @@ const Feelings = () => {
 
 	return (
 		<div className="step-feelings step-container">
-			{t("feelings.purpose") && <p className="step-purpose">{t("feelings.purpose")}</p>}
-			<p>{t("feelings.intro1")}</p>
 			<p>
-				{t("feelings.returnToMoment")}{" "}
+				Here we’re tuning into what you’re feeling, so that we can get more information about what’s going on
+				for you.
+			</p>
+
+			<p>
+				When something happens, your body reacts before your mind has worked it out. If we skip that step, we
+				often act on the first story our mind creates — which can lead us in the wrong direction.
+			</p>
+
+			<p>
+				You don’t have to get this perfect. Just notice what’s there — you might find that naming feelings gives
+				you information you didn’t realise you had.
+			</p>
+
+			<p>Now return to that moment.</p>
+
+			<p>
+				What do you notice inside you?
+				<br />
+				Where do you feel it in your body?{" "}
+				<button className="feelings-body-sens-link" onClick={() => setShowBodySensations(true)}>
+					{"Not sure? →"}
+				</button>
+				<br />
+				What feelings are there?
+			</p>
+			{/* <p className="step-purpose">				
+				{"Here we're tuning into what you're feeling, so that we can reconnect with what your body is trying to tell you about what matters. (Our bodies contain wisdom that we've been taught to ignore.)"}</p>
+			<p>{"Feelings point us toward what we're wanting and needing, but many of us have learned to ignore them. Noticing and naming them — as specifically as you can — helps bring that information back online. We have to feel, before we can feel better."}</p>
+			<p>
+				{"Now take a moment and return to that situation:"}{" "}
 				<strong>{observation?.refined || observation?.moment || observation?.actions || ""}</strong>
 			</p>
 
-			<p>{t("feelings.bodyPrompt")}</p>
+			<p>{"When you remember that moment, what happens inside you?"}</p>
 
 			<p>
-				{t("feelings.bodySensationPrompt")}{" "}
+				{"You might notice where it shows up in your body. Where do you feel it?"}{" "}
 				<button className="feelings-body-sens-link" onClick={() => setShowBodySensations(true)}>
-					{t("feelings.bodySensationButton")}
+					{"Want some help? →"}
 				</button>
 			</p>
 
-			<p>{t("feelings.feelingsPrompt")}</p>
+			<p>{"And as you stay with that moment, what feelings begin to emerge? Was there a particular feeling there before the threat circuit fully kicked in?"}</p> */}
 
 			<Checklist
 				data={[FeelingsData.sections.feelings, FeelingsData.sections.story]}
@@ -315,8 +341,9 @@ const Feelings = () => {
 	);
 };
 
-Feelings.titleKey = "feelings.title";
-Feelings.title = "What am I feeling?"; // polite fallback
+Feelings.title = "What am I feeling?";
+Feelings.titleSweary = "Fuck them, what's going on in ME?";
+Feelings.navTitle = "What am I feeling?";
 Feelings.helpContent = (
 	<>
 		<h3>Feelings</h3>

@@ -1,72 +1,119 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useWizard } from "./WizardContext";
-import { useContent } from "../content/useContent";
 import { filterByState } from "../utils/renderHelpers";
-import { getText } from "../content/resolver";
 
 const STEP_IDS = ["step1", "step2", "step3", "step4", "step5", "step6"];
 const STEPS_WITH_EXTRA_HELP = new Set(["step2", "step3", "step4", "step5", "step6"]);
 
-// Per-step extraHelp JSX, built from content keys
-const renderExtraHelp = (stepId, t) => {
-	const s = (key) => t(`collaborate.steps.${stepId}.extraHelp.${key}`);
+const STEP_DATA = {
+	step1: {
+		title: "Start with permission",
+		desc: "Gently check if they're open.",
+		hint: "This helps both of you feel safer before you begin.",
+		scriptDefault: "Hey, is now a good time to talk about something?",
+	},
+	step2: {
+		title: "Understand them first",
+		desc: "Let them know you want to understand their side.",
+		hint: "When people feel understood, things often soften.",
+		scriptDefault: "I'd really like to understand what was going on for you earlier.",
+	},
+	step3: {
+		title: "Check they're open to hearing you",
+		desc: "Before sharing, make sure they're willing to listen.",
+		hint: "If they're not ready yet, that's okay — you can come back to this later.",
+		scriptDefault: "Would you be open to hearing what was going on for me?",
+	},
+	step4: {
+		title: "Share your experience",
+		desc: "Keep it simple and grounded in your experience.",
+		hint: "You don't have to get this exactly right.",
+		scriptDefault: "When [what happened], I felt [feeling], because I was needing [need].",
+	},
+	step5: {
+		title: "Check they got it",
+		desc: "Invite them to reflect back what they heard.",
+		hint: "This isn't a test — it just helps you both feel clearer.",
+		scriptDefault: "Could you tell me what you think I'm trying to say?",
+	},
+	step6: {
+		title: "Find a way forward",
+		desc: "Work together on what might help.",
+		hint: "It doesn't have to be perfect — just a step that feels okay for both of you.",
+		scriptDefault: "What could we do next time that would work better for both of us?",
+	},
+};
+
+const SCRIPT_HEADINGS = {
+	checkWillingness: "=== CHECK WILLINGNESS FOR CONVERSATION ===",
+	expressGuesses: "=== EXPRESS GUESSES FOR THEM ===",
+	checkUnderstood: "=== Need to check you've understood them? ===",
+	checkUnderstoodPrompt: "Have I heard you correctly? Is this what you're saying?",
+	checkWillingnessHear: "=== CHECK FOR WILLINGNESS TO HEAR YOU ===",
+	expressOwn: "=== EXPRESS OWN FEELINGS AND NEEDS ===",
+	checkTheyUnderstood: "=== Need to check they've understood you? ===",
+	mutualSolution: "=== FIND A MUTUAL SOLUTION ===",
+};
+
+// Per-step extraHelp JSX
+const renderExtraHelp = (stepId) => {
 	switch (stepId) {
 		case "step2":
 			return (
 				<>
-					<p>{s("intro")}</p>
-					<p>{s("ifNotSure")}</p>
+					<p>{"This might take a bit of listening. You don't have to agree with them — just focus on understanding what it was like for them."}</p>
+					<p>{"If you're not sure, you can gently guess:"}</p>
 					<ul>
-						<li>{s("guess1")}</li>
-						<li>{s("guess2")}</li>
+						<li>{'"Were you feeling…?"'}</li>
+						<li>{'"Was it because you were needing…?"'}</li>
 					</ul>
-					<p>{s("ifWrong")}</p>
+					<p>{"If your guess is off, that's okay — they'll usually correct you, and that helps you get closer."}</p>
 				</>
 			);
 		case "step3":
 			return (
 				<>
-					<p>{s("intro")}</p>
-					<p>{s("youMight")}</p>
+					<p>{"If they say no, or seem defensive, it usually means they're not ready yet."}</p>
+					<p>{"You might:"}</p>
 					<ul>
-						<li>{s("option1")}</li>
-						<li>{s("option2")}</li>
+						<li>{"Come back to listening to them a bit more"}</li>
+						<li>{"Take a break and return later"}</li>
 					</ul>
-					<p>{s("note")}</p>
+					<p>{"This isn't failure — it's pacing."}</p>
 				</>
 			);
 		case "step4":
 			return (
 				<>
-					<p>{s("tryTo")}</p>
+					<p>{"Try to stay with:"}</p>
 					<ul>
-						<li>{s("item1")}</li>
-						<li>{s("item2")}</li>
-						<li>{s("item3")}</li>
+						<li>{"What actually happened (not interpretations)"}</li>
+						<li>{"How you felt"}</li>
+						<li>{"What you were needing"}</li>
 					</ul>
-					<p>{s("blame")}</p>
+					<p>{'If you notice blame or "you always / you never" creeping in, gently come back to talking about your own internal experience, rather than your thoughts about them.'}</p>
 				</>
 			);
 		case "step5":
 			return (
 				<>
-					<p>{s("ifMissed")}</p>
-					<p>{s("youMightSay")}</p>
+					<p>{"If they didn't quite get it, that's okay — you can try again more simply."}</p>
+					<p>{"You might say:"}</p>
 					<ul>
-						<li>{s("example")}</li>
+						<li>{'"Not quite — what I meant was…"'}</li>
 					</ul>
-					<p>{s("helps")}</p>
+					<p>{"This step helps reduce misunderstandings before moving forward."}</p>
 				</>
 			);
 		case "step6":
 			return (
 				<>
-					<p>{s("lookingFor")}</p>
-					<p>{s("keepIt")}</p>
+					<p>{'You\'re looking for something that works for both of you — not just one person "winning".'}</p>
+					<p>{"It can help to keep it:"}</p>
 					<ul>
-						<li>{s("item1")}</li>
-						<li>{s("item2")}</li>
-						<li>{s("item3")}</li>
+						<li>{"Specific"}</li>
+						<li>{"Doable"}</li>
+						<li>{"Open to adjustment"}</li>
 					</ul>
 				</>
 			);
@@ -76,7 +123,7 @@ const renderExtraHelp = (stepId, t) => {
 };
 
 const buildFinalScript = (script) => {
-	const h = (key) => getText(`collaborate.scriptHeadings.${key}`);
+	const h = (key) => SCRIPT_HEADINGS[key];
 	const parts = [];
 
 	parts.push(h("checkWillingness"));
@@ -113,7 +160,6 @@ const buildFinalScript = (script) => {
 const Collaborate = () => {
 	const { collabScript, setCollabScript, guessObservation, guessFeelings, guessNeeds, observation, feelings, needs } =
 		useWizard();
-	const { t } = useContent();
 
 	const [openHelp, setOpenHelp] = useState(new Set());
 	const textareaRefs = useRef({});
@@ -165,7 +211,7 @@ const Collaborate = () => {
 
 		const defaults = {};
 		STEP_IDS.forEach((id) => {
-			defaults[id] = getText(`collaborate.steps.${id}.scriptDefault`);
+			defaults[id] = STEP_DATA[id].scriptDefault;
 		});
 
 		const fields = {
@@ -187,24 +233,24 @@ const Collaborate = () => {
 
 	return (
 		<div>
-			{t("collaborate.purpose") && <p className="step-purpose">{t("collaborate.purpose")}</p>}
-			<p>{t("collaborate.intro1")}</p>
-			<p>{t("collaborate.intro2")}</p>
-			<p className="collab-intro-note">{t("collaborate.introNote")}</p>
+			<p>{"If you'd like to talk this through with the other person, this can help you plan the conversation."}</p>
+			<p>{"There's no perfect way to do this — just something honest and human."}</p>
+			<p className="collab-intro-note">{"Use these as prompts, not a script. Let it sound like you."}</p>
 
 			<div className="collab-steps">
 				{STEP_IDS.map((stepId, idx) => {
-					const value = collabScript[stepId] ?? getText(`collaborate.steps.${stepId}.scriptDefault`) ?? "";
+					const stepData = STEP_DATA[stepId];
+					const value = collabScript[stepId] ?? stepData.scriptDefault ?? "";
 					const helpOpen = openHelp.has(stepId);
 					const hasExtraHelp = STEPS_WITH_EXTRA_HELP.has(stepId);
 					return (
 						<div className="collab-step" key={stepId}>
 							<h3 className="collab-step-title">
 								<span className="collab-step-num">{idx + 1}.</span>
-								{t(`collaborate.steps.${stepId}.title`)}
+								{stepData.title}
 							</h3>
-							<p className="collab-step-desc">{t(`collaborate.steps.${stepId}.desc`)}</p>
-							<p className="collab-step-hint">{t(`collaborate.steps.${stepId}.hint`)}</p>
+							<p className="collab-step-desc">{stepData.desc}</p>
+							<p className="collab-step-hint">{stepData.hint}</p>
 							<textarea
 								className="collab-step-textarea"
 								ref={(el) => {
@@ -221,9 +267,9 @@ const Collaborate = () => {
 										className="collab-help-toggle"
 										onClick={() => toggleHelp(stepId)}
 										aria-expanded={helpOpen}>
-										{helpOpen ? t("collaborate.stepHelpToggle.hide") : t("collaborate.stepHelpToggle.show")}
+										{helpOpen ? "▲ Hide extra help" : "Need a bit more help with this step?"}
 									</button>
-									{helpOpen && <div className="collab-help-extra">{renderExtraHelp(stepId, t)}</div>}
+									{helpOpen && <div className="collab-help-extra">{renderExtraHelp(stepId)}</div>}
 								</>
 							)}
 						</div>
@@ -231,12 +277,12 @@ const Collaborate = () => {
 				})}
 
 				<div className="collab-step collab-step--final">
-					<h3 className="collab-step-title">{t("collaborate.finalScript.title")}</h3>
-					<p className="collab-step-desc">{t("collaborate.finalScript.desc")}</p>
-					<p className="collab-step-hint">{t("collaborate.finalScript.hint")}</p>
+					<h3 className="collab-step-title">{"Say it in your own words"}</h3>
+					<p className="collab-step-desc">{"Here's your whole script — edit it to make it sound more like you."}</p>
+					<p className="collab-step-hint">{"For heaven's sake, don't use these exact words! Too formal. Let it sound natural."}</p>
 					<textarea
 						className="collab-step-textarea collab-step-textarea--very-tall"
-						placeholder={t("collaborate.finalScript.placeholder")}
+						placeholder="Your conversation script will appear here…"
 						ref={(el) => {
 							textareaRefs.current["finalScript"] = el;
 							autoResize(el);
@@ -248,12 +294,12 @@ const Collaborate = () => {
 					<button
 						className="collab-regenerate-btn"
 						onClick={() => updateCollabScript("finalScript", buildFinalScript(collabScript))}>
-						{t("collaborate.finalScript.regenerateButton")}
+						{"↺ Regenerate from fields above"}
 					</button>
 				</div>
 			</div>
 
-			<p className="collab-save-hint">{t("collaborate.saveHint")}</p>
+			<p className="collab-save-hint">{"You can save or copy all this on the next page."}</p>
 		</div>
 	);
 };

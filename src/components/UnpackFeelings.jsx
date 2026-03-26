@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { useWizard } from "./WizardContext";
-import { useContent } from "../content/useContent";
+import HelpLink from "./HelpLink";
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
 import { feelingTypes } from "../data/FeelingTypes";
 import ClarifyFeelings from "./ClarifyFeelings";
@@ -74,8 +74,6 @@ const renderOrderedFeelings = (feelings, onMurkyClick, onRemove) => {
 const UnpackFeelings = () => {
 	const { feelings, setFeelings, needs, setNeeds, feelingsExploreResponses, setFeelingsExploreResponses } =
 		useWizard();
-	const { t } = useContent();
-
 	const [expandedTypes, setExpandedTypes] = useState(new Set());
 	const [popupItem, setPopupItem] = useState(null);
 	const [pendingRemoveFeeling, setPendingRemoveFeeling] = useState(null);
@@ -205,9 +203,7 @@ const UnpackFeelings = () => {
 		</div>
 	);
 
-	const hasSelectedFeelings = Object.values(feelings).some(
-		(s) => s === "clicked" || s === "double-clicked",
-	);
+	const hasSelectedFeelings = Object.values(feelings).some((s) => s === "clicked" || s === "double-clicked");
 
 	return (
 		<div className="feelings-explore-regulation">
@@ -218,12 +214,21 @@ const UnpackFeelings = () => {
 				</p>
 			)}
 
-			<p>{t("unpackFeelings.purpose")}</p>
+			<p>
+				{
+					"Here we're staying with what you're feeling, so that it can soften and show you more about what matters to you."
+				}
+			</p>
 
 			{renderOrderedFeelings(feelings, setPopupItem, setPendingRemoveFeeling)}
 
 			<div className="page-section">
-				{t("unpackFeelings.beWith")}
+				<p>
+					There's nothing to solve here — just notice what happens when you choose one of these feelings and
+					just <HelpLink topic="stay-with-it">stay with it for a moment</HelpLink>, without digging or
+					forcing. Is there something it wants to tell you? Can you pause long enough to hear the answer from
+					your body, rather than your mind?
+				</p>
 
 				{/* TODO: add text box so user can note anything that came up for them here! */}
 			</div>
@@ -251,7 +256,11 @@ const UnpackFeelings = () => {
 
 			{detectedTypes.length > 0 && (
 				<div className="feelings-explore-categories">
-					<p className="feelings-explore-categories-intro">{t("unpackFeelings.categoriesIntro")}</p>
+					<p className="feelings-explore-categories-intro">
+						{
+							"You've chosen feelings in these categories. Would you like to have a deeper look? Start with the one that's loudest."
+						}
+					</p>
 					{detectedTypes.map((type) => {
 						const card = feelingTypes[type];
 						const isExpanded = expandedTypes.has(type);
@@ -282,8 +291,12 @@ const UnpackFeelings = () => {
 				</div>
 			)}
 
-			<div className="page-section">
-				<p>{t("unpackFeelings.intro")}</p>
+			<div>
+				<h3>Lastly ... </h3>
+				<p>
+					We often feel something vulnerable first, quickly followed by more defended feelings. Can you
+					distinguish the early feelings, from the more defended feelings that came in response to those?
+				</p>
 			</div>
 
 			{popupItem && (
@@ -301,8 +314,8 @@ const UnpackFeelings = () => {
 	);
 };
 
-UnpackFeelings.titleKey = "unpackFeelings.title";
-UnpackFeelings.title = "Explore Feelings"; // polite fallback
+UnpackFeelings.title = "Explore Feelings";
+UnpackFeelings.navTitle = "Explore Feelings";
 UnpackFeelings.helpContent = (
 	<>
 		<div>
