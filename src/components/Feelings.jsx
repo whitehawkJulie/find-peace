@@ -196,13 +196,13 @@ const Feelings = () => {
 			</p>
 			{/* <p className="step-purpose">				
 				{"Here we're tuning into what you're feeling, so that we can reconnect with what your body is trying to tell you about what matters. (Our bodies contain wisdom that we've been taught to ignore.)"}</p>
-			<p>{"Feelings point us toward what we're wanting and needing, but many of us have learned to ignore them. Noticing and naming them — as specifically as you can — helps bring that information back online. We have to feel, before we can feel better."}</p>
+			<p>Feelings point us toward what we're wanting and needing, but many of us have learned to ignore them. Noticing and naming them — as specifically as you can — helps bring that information back online. We have to feel, before we can feel better.</p>
 			<p>
 				{"Now take a moment and return to that situation:"}{" "}
 				<strong>{observation?.refined || observation?.moment || observation?.actions || ""}</strong>
 			</p>
 
-			<p>{"When you remember that moment, what happens inside you?"}</p>
+			<p>When you remember that moment, what happens inside you?</p>
 
 			<p>
 				{"You might notice where it shows up in your body. Where do you feel it?"}{" "}
@@ -211,7 +211,7 @@ const Feelings = () => {
 				</button>
 			</p>
 
-			<p>{"And as you stay with that moment, what feelings begin to emerge? Was there a particular feeling there before the threat circuit fully kicked in?"}</p> */}
+			<p>And as you stay with that moment, what feelings begin to emerge? Was there a particular feeling there before the threat circuit fully kicked in?</p> */}
 
 			<Checklist
 				data={[FeelingsData.sections.feelings, FeelingsData.sections.story]}

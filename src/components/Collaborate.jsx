@@ -61,55 +61,67 @@ const renderExtraHelp = (stepId) => {
 		case "step2":
 			return (
 				<>
-					<p>{"This might take a bit of listening. You don't have to agree with them — just focus on understanding what it was like for them."}</p>
-					<p>{"If you're not sure, you can gently guess:"}</p>
+					<p>
+						{
+							"This might take a bit of listening. You don't have to agree with them — just focus on understanding what it was like for them."
+						}
+					</p>
+					<p>If you're not sure, you can gently guess:</p>
 					<ul>
 						<li>{'"Were you feeling…?"'}</li>
 						<li>{'"Was it because you were needing…?"'}</li>
 					</ul>
-					<p>{"If your guess is off, that's okay — they'll usually correct you, and that helps you get closer."}</p>
+					<p>
+						{
+							"If your guess is off, that's okay — they'll usually correct you, and that helps you get closer."
+						}
+					</p>
 				</>
 			);
 		case "step3":
 			return (
 				<>
-					<p>{"If they say no, or seem defensive, it usually means they're not ready yet."}</p>
-					<p>{"You might:"}</p>
+					<p>If they say no, or seem defensive, it usually means they're not ready yet.</p>
+					<p>You might:</p>
 					<ul>
 						<li>{"Come back to listening to them a bit more"}</li>
 						<li>{"Take a break and return later"}</li>
 					</ul>
-					<p>{"This isn't failure — it's pacing."}</p>
+					<p>This isn't failure — it's pacing.</p>
 				</>
 			);
 		case "step4":
 			return (
 				<>
-					<p>{"Try to stay with:"}</p>
+					<p>Try to stay with:</p>
 					<ul>
 						<li>{"What actually happened (not interpretations)"}</li>
 						<li>{"How you felt"}</li>
 						<li>{"What you were needing"}</li>
 					</ul>
-					<p>{'If you notice blame or "you always / you never" creeping in, gently come back to talking about your own internal experience, rather than your thoughts about them.'}</p>
+					<p>
+						{
+							'If you notice blame or "you always / you never" creeping in, gently come back to talking about your own internal experience, rather than your thoughts about them.'
+						}
+					</p>
 				</>
 			);
 		case "step5":
 			return (
 				<>
-					<p>{"If they didn't quite get it, that's okay — you can try again more simply."}</p>
-					<p>{"You might say:"}</p>
+					<p>If they didn't quite get it, that's okay — you can try again more simply.</p>
+					<p>You might say:</p>
 					<ul>
 						<li>{'"Not quite — what I meant was…"'}</li>
 					</ul>
-					<p>{"This step helps reduce misunderstandings before moving forward."}</p>
+					<p>This step helps reduce misunderstandings before moving forward.</p>
 				</>
 			);
 		case "step6":
 			return (
 				<>
 					<p>{'You\'re looking for something that works for both of you — not just one person "winning".'}</p>
-					<p>{"It can help to keep it:"}</p>
+					<p>It can help to keep it:</p>
 					<ul>
 						<li>{"Specific"}</li>
 						<li>{"Doable"}</li>
@@ -158,8 +170,18 @@ const buildFinalScript = (script) => {
 };
 
 const Collaborate = () => {
-	const { collabScript, setCollabScript, guessObservation, guessFeelings, guessNeeds, observation, feelings, needs } =
-		useWizard();
+	const {
+		collabScript,
+		setCollabScript,
+		includeCollabInSummary,
+		setIncludeCollabInSummary,
+		guessObservation,
+		guessFeelings,
+		guessNeeds,
+		observation,
+		feelings,
+		needs,
+	} = useWizard();
 
 	const [openHelp, setOpenHelp] = useState(new Set());
 	const textareaRefs = useRef({});
@@ -178,7 +200,10 @@ const Collaborate = () => {
 		});
 	};
 
-	const updateCollabScript = (field, value) => setCollabScript((prev) => ({ ...prev, [field]: value }));
+	const updateCollabScript = (field, value) => {
+		setCollabScript((prev) => ({ ...prev, [field]: value }));
+		setIncludeCollabInSummary(true);
+	};
 
 	// Initialise step fields from context data on first visit
 	useEffect(() => {
@@ -233,8 +258,10 @@ const Collaborate = () => {
 
 	return (
 		<div>
-			<p>{"If you'd like to talk this through with the other person, this can help you plan the conversation."}</p>
-			<p>{"There's no perfect way to do this — just something honest and human."}</p>
+			<p>
+				{"If you'd like to talk this through with the other person, this can help you plan the conversation."}
+			</p>
+			<p>There's no perfect way to do this — just something honest and human.</p>
 			<p className="collab-intro-note">{"Use these as prompts, not a script. Let it sound like you."}</p>
 
 			<div className="collab-steps">
@@ -278,8 +305,12 @@ const Collaborate = () => {
 
 				<div className="collab-step collab-step--final">
 					<h3 className="collab-step-title">{"Say it in your own words"}</h3>
-					<p className="collab-step-desc">{"Here's your whole script — edit it to make it sound more like you."}</p>
-					<p className="collab-step-hint">{"For heaven's sake, don't use these exact words! Too formal. Let it sound natural."}</p>
+					<p className="collab-step-desc">
+						{"Here's your whole script — edit it to make it sound more like you."}
+					</p>
+					<p className="collab-step-hint">
+						{"This is just a guide, not the exact words to use. If you speak it, let it sound natural."}
+					</p>
 					<textarea
 						className="collab-step-textarea collab-step-textarea--very-tall"
 						placeholder="Your conversation script will appear here…"
@@ -299,7 +330,15 @@ const Collaborate = () => {
 				</div>
 			</div>
 
-			<p className="collab-save-hint">{"You can save or copy all this on the next page."}</p>
+			<label className="collab-include-label">
+				<input
+					type="checkbox"
+					className="collab-include-checkbox"
+					checked={includeCollabInSummary}
+					onChange={(e) => setIncludeCollabInSummary(e.target.checked)}
+				/>
+				<span className="collab-include-text">Include this conversation guide in my summary</span>
+			</label>
 		</div>
 	);
 };

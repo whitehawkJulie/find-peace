@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useWizard } from "./WizardContext";
 import SlideDrawer from "./SlideDrawer";
-import SavedEntries from "./SavedEntries";
 import "./MenuBar.css";
 
 // ── Privacy & Data section ─────────────────────────────────────────────────
@@ -245,7 +244,7 @@ const PassphraseSection = () => {
 
 // ── Main settings panel ────────────────────────────────────────────────────
 const SettingsContent = ({ onClose }) => {
-	const { savedEntries, hasSessionData, resetSession, settings, updateSettings } = useWizard();
+	const { hasSessionData, resetSession, settings, updateSettings } = useWizard();
 	const [confirmReset, setConfirmReset] = useState(false);
 
 	const handleReset = () => {
@@ -268,13 +267,6 @@ const SettingsContent = ({ onClose }) => {
 				</label>
 				<p className="settings-hint">Uses more colourful language throughout.</p>
 			</div>
-
-			{savedEntries.length > 0 && (
-				<div className="settings-group">
-					<h4>Saved Sessions</h4>
-					<SavedEntries onSessionLoaded={onClose} />
-				</div>
-			)}
 
 			<PrivacySection />
 

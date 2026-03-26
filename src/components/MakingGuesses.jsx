@@ -12,16 +12,23 @@ const MakingGuesses = () => {
 		useWizard();
 	return (
 		<div className="making-guesses step-container">
-			<p>{"Here we're getting curious about what might be going on for them, so that we can open the door to understanding and connection."}</p>
+			<p>
+				Here we're getting curious about what might be going on for them, so that we can open the door to
+				understanding and connection.
+			</p>
 
-			<p>{"When you're ready, we can gently turn toward the other person — not to agree, just to widen the view. As we imagine what they might be feeling or needing, we often begin to see more of what's happening. Sometimes that brings a little more space inside you, and it can feel less like a verdict about you."}</p>
+			<p>
+				When you're ready, we can gently turn toward the other person — not to agree, just to widen the view. As
+				we imagine what they might be feeling or needing, we often begin to see more of what's happening.
+				Sometimes that brings a little more space inside you, and it can feel less like a verdict about you.
+			</p>
 			<p className="guesses-reminder highlight-box">
 				<em>{"Remember: The point isn't to guess correctly. It's simply to widen the frame."}</em>
 			</p>
 
 			<div className="guesses-section">
 				<h3>{"What might they have observed?"}</h3>
-				<p>{"What do you think the other person saw or heard? Just the facts, from their point of view."}</p>
+				<p>What do you think the other person saw or heard? Just the facts, from their point of view.</p>
 				<textarea
 					className="guesses-textarea"
 					value={guessObservation}
@@ -33,7 +40,10 @@ const MakingGuesses = () => {
 
 			<div className="guesses-section">
 				<h3>{"How might they be feeling?"}</h3>
-				<p>{"What emotions might be alive in them? Select any that seem possible, even if they seem to conflict with each other."}</p>
+				<p>
+					What emotions might be alive in them? Select any that seem possible, even if they seem to conflict
+					with each other.
+				</p>
 				<Checklist
 					data={[FeelingsData.sections.feelings, FeelingsData.sections.feelingsMet]}
 					selectedItems={guessFeelings}
@@ -45,7 +55,7 @@ const MakingGuesses = () => {
 
 			<div className="guesses-section">
 				<h3>{"What might they be needing?"}</h3>
-				<p>{"What needs of theirs might not be met in this situation?"}</p>
+				<p>What needs of theirs might not be met in this situation?</p>
 				<Checklist
 					data={[
 						NeedsData.sections.subsistence,

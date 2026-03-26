@@ -102,12 +102,26 @@ const Observation = () => {
 
 	return (
 		<div className="step-observation step-container">
-			<p>{"Here we're separating what happened from the story, so that we can start to move out of reaction and into clearer understanding."}</p>
-			<p>{"Let's slow down and look at the specific moment itself — just what someone could have seen or heard, before any interpretations, or assumptions about motives."}</p>
+			<p>
+				{
+					"Here we're separating what happened from the story, so that we can start to move out of reaction and into clearer understanding."
+				}
+			</p>
+			<p>
+				{
+					"Let's slow down and look at the specific moment itself — just what someone could have seen or heard, before any interpretations, or assumptions about motives."
+				}
+			</p>
 
 			<div>
-				<p>{"Before we try to make sense of it, say it the raw way. This isn't about being fair or accurate — just letting the first wave out."}</p>
-				<p className="obs-panel-intro">{"If you said the uncensored version in one breath, what would it be?"}</p>
+				<p>
+					{
+						"Before we try to make sense of it, say it the raw way. This isn't about being fair or accurate — just letting the first wave out."
+					}
+				</p>
+				<p className="obs-panel-intro">
+					{"If you said the uncensored version in one breath, what would it be?"}
+				</p>
 				<textarea
 					value={jackalTalk}
 					onChange={(e) => setJackalTalk(e.target.value)}
@@ -119,7 +133,10 @@ const Observation = () => {
 			<p>Now, reading what you've just written, can you check for the following?</p>
 			<CheckPanel title="From threat mode to curiosity" />
 
-			<p>{"Now, if you were to remove all those parts, what would you write?"}</p>
+			<p>
+				Now, if you were to remove all those parts, and replace them with what a camera would have seen and
+				heard, what would you write?
+			</p>
 			<textarea
 				className="obs-main-textarea"
 				value={observation.refined || ""}
@@ -130,7 +147,9 @@ const Observation = () => {
 					}))
 				}
 				rows={4}
-				placeholder={"Example:\nYesterday evening,\nwhile I was telling you about my day,\nyou looked at your phone and didn't respond."}
+				placeholder={
+					"Example:\nYesterday evening,\nwhile I was telling you about my day,\nyou looked at your phone and didn't respond."
+				}
 			/>
 		</div>
 	);

@@ -23,7 +23,10 @@ const ExploringWhatsChanged = () => {
 
 			<div className="request-section">
 				<h3>Before this process</h3>
-				<p>{"How might you have handled this situation before doing this process? If you approached the person from the place you were in at the beginning… what would likely happen?"}</p>
+				<p>
+					How might you have handled this situation before doing this process? If you approached the person
+					from the place you were in at the beginning… what would likely happen?
+				</p>
 				<textarea
 					className="request-textarea"
 					value={whatsChangedResponses.before || ""}
@@ -34,7 +37,10 @@ const ExploringWhatsChanged = () => {
 
 			<div className="request-section">
 				<h3>Now</h3>
-				<p>{"What might you want to do differently now? If you approached from where you are now… what might be different? What's changed?"}</p>
+				<p>
+					What might you want to do differently now? If you approached from where you are now… what might be
+					different? What's changed?
+				</p>
 				<textarea
 					className="request-textarea"
 					value={whatsChangedResponses.differently || ""}

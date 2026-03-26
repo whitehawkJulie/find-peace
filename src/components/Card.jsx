@@ -86,21 +86,17 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		<div className="card">
 			{/* Header sits outside the scrollable area so it stays pinned at the top */}
 			<div className="card-header" style={currentStep?.color ? { background: currentStep.color } : undefined}>
+				<button
+					className="card-menu-btn"
+					title="Menu"
+					aria-label="Menu"
+					aria-expanded={sideMenuOpen}
+					onClick={() => setSideMenuOpen((v) => !v)}>
+					&#9776;
+				</button>
 				<div className="card-header-text">
 					<div className="card-app-title">Wait, What?!</div>
-					<div className="card-title-row">
-						<div className="card-menu-wrap">
-							<button
-								className="card-menu-btn"
-								title="Menu"
-								aria-label="Menu"
-								aria-expanded={sideMenuOpen}
-								onClick={() => setSideMenuOpen((v) => !v)}>
-								&#9776;
-							</button>
-						</div>
-						<h2>{title}</h2>
-					</div>
+					<h2 className="card-page-title">{title}</h2>
 				</div>
 			</div>
 

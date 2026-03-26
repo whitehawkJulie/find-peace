@@ -2,7 +2,7 @@ import React from "react";
 import { useWizard } from "./WizardContext";
 import { filterByState } from "../utils/renderHelpers";
 import { feelingTypes } from "../data/FeelingTypes";
-import "./Review.css";
+import "./SummaryContent.css";
 
 /**
  * Renders the summary sections for all data entered so far.
@@ -27,11 +27,11 @@ const SummaryContent = () => {
 		whatsChangedResponses,
 		simpleRequest,
 		collabScript,
+		includeCollabInSummary,
 	} = useWizard();
 
 	const obsText =
-		observation?.refined?.trim() ||
-		[observation?.moment, observation?.actions].filter((s) => s?.trim()).join("\n");
+		observation?.refined?.trim() || [observation?.moment, observation?.actions].filter((s) => s?.trim()).join("\n");
 
 	const allFeelings = filterByState(feelings, "clicked");
 	const metNeeds = filterByState(needs, "double-clicked");
@@ -50,7 +50,7 @@ const SummaryContent = () => {
 	const hasGuesses = guessObservation || guessFeelingsAll.length > 0 || guessNeedsAll.length > 0;
 	const hasRequests = requestOfSelf || requestOfOther || simpleRequest?.trim();
 	const hasWhatsChanged = whatsChangedResponses?.before?.trim() || whatsChangedResponses?.differently?.trim();
-	const hasCollabScript = collabScript?.step1 !== undefined;
+	const hasCollabScript = includeCollabInSummary && collabScript?.step1 !== undefined;
 
 	const hasAnyData =
 		obsText ||
@@ -68,15 +68,23 @@ const SummaryContent = () => {
 		hasCollabScript;
 
 	if (!hasAnyData) {
-		return <p className="review-no-data">Nothing entered yet — work through the pages and come back to see your summary here.</p>;
+		return (
+			<p className="review-no-data">
+				Nothing entered yet — work through the pages and come back to see your summary here.
+			</p>
+		);
 	}
 
 	return (
 		<>
+			<p className="summary-intro">This is what was happening for you.</p>
+
 			{jackalTalk && (
 				<div className="review-section">
 					<h3>Letting it all out</h3>
-					<p className="review-text" style={{ whiteSpace: "pre-wrap" }}>{jackalTalk}</p>
+					<p className="review-text" style={{ whiteSpace: "pre-wrap" }}>
+						{jackalTalk}
+					</p>
 				</div>
 			)}
 
@@ -150,14 +158,46 @@ const SummaryContent = () => {
 					{exploredNeeds.map(([name, exp]) => (
 						<div key={name} className="review-exploration">
 							<strong>{name}</strong>
-							{exp.coreSpecific && <p><em>About this need:</em> {exp.coreSpecific}</p>}
-							{exp.differentiation && <p><em>Which flavour:</em> {exp.differentiation}</p>}
-							{exp.whereMetResponse && <p><em>Where to find it:</em> {exp.whereMetResponse}</p>}
-							{exp.unmetFeeling && <p><em>When it's not met:</em> {exp.unmetFeeling}</p>}
-							{exp.metFeeling && <p><em>When it is met:</em> {exp.metFeeling}</p>}
-							{exp.metCircumstances && <p><em>What helped:</em> {exp.metCircumstances}</p>}
-							{exp.oftenUnmet && <p><em>Often unmet / topping up:</em> {exp.oftenUnmet}</p>}
-							{exp.whereToMeet && <p><em>Where to get it met:</em> {exp.whereToMeet}</p>}
+							{exp.coreSpecific && (
+								<p>
+									<em>About this need:</em> {exp.coreSpecific}
+								</p>
+							)}
+							{exp.differentiation && (
+								<p>
+									<em>Which flavour:</em> {exp.differentiation}
+								</p>
+							)}
+							{exp.whereMetResponse && (
+								<p>
+									<em>Where to find it:</em> {exp.whereMetResponse}
+								</p>
+							)}
+							{exp.unmetFeeling && (
+								<p>
+									<em>When it's not met:</em> {exp.unmetFeeling}
+								</p>
+							)}
+							{exp.metFeeling && (
+								<p>
+									<em>When it is met:</em> {exp.metFeeling}
+								</p>
+							)}
+							{exp.metCircumstances && (
+								<p>
+									<em>What helped:</em> {exp.metCircumstances}
+								</p>
+							)}
+							{exp.oftenUnmet && (
+								<p>
+									<em>Often unmet / topping up:</em> {exp.oftenUnmet}
+								</p>
+							)}
+							{exp.whereToMeet && (
+								<p>
+									<em>Where to get it met:</em> {exp.whereToMeet}
+								</p>
+							)}
 						</div>
 					))}
 				</div>
@@ -172,7 +212,9 @@ const SummaryContent = () => {
 							<div key={need} className="review-strategies">
 								<strong>{need}:</strong>
 								<ul>
-									{strats.map((s, i) => <li key={i}>{s}</li>)}
+									{strats.map((s, i) => (
+										<li key={i}>{s}</li>
+									))}
 								</ul>
 							</div>
 						))}
@@ -210,7 +252,8 @@ const SummaryContent = () => {
 					)}
 					{whatsChangedResponses?.differently?.trim() && (
 						<p>
-							<span className="review-label">What's different now:</span> {whatsChangedResponses.differently}
+							<span className="review-label">What's different now:</span>{" "}
+							{whatsChangedResponses.differently}
 						</p>
 					)}
 				</div>

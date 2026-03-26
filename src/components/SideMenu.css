@@ -19,15 +19,36 @@
 	border-right: 1px solid #e0d8cc;
 	box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
 	z-index: 1201;
-	overflow-y: auto;
+	overflow: hidden; /* clips the sliding panels */
 	transform: translateX(-100%);
 	transition: transform 0.28s ease-in-out;
-	display: flex;
-	flex-direction: column;
 }
 
 .side-menu.show {
 	transform: translateX(0);
+}
+
+/* ===== Two-panel sliding container ===== */
+
+.side-menu-panels {
+	display: flex;
+	width: 200%;
+	height: 100%;
+	transition: transform 0.25s ease-in-out;
+}
+
+.side-menu-panels--slide {
+	transform: translateX(-50%); /* = -280px, show second panel */
+}
+
+/* Each panel is exactly the side-menu width and scrolls independently */
+.side-menu-panel {
+	width: 50%; /* = 280px */
+	height: 100%;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
 }
 
 /* ===== Header ===== */
@@ -38,6 +59,19 @@
 	padding: 0.75rem 1rem 0.5rem;
 	border-bottom: 1px solid #ece8e0;
 	flex-shrink: 0;
+}
+
+/* Sub-panel header: back + title + close */
+.side-menu-header--sub {
+	gap: 0.5rem;
+}
+
+.side-menu-sub-title {
+	flex: 1;
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: #333;
+	text-align: center;
 }
 
 .side-menu-close {
@@ -56,6 +90,33 @@
 .side-menu-close:hover {
 	color: #333;
 	background: #ece8e0;
+}
+
+.side-menu-back {
+	background: none;
+	border: none;
+	font-size: 0.9rem;
+	color: #666;
+	cursor: pointer;
+	padding: 0.2rem 0.4rem;
+	border-radius: 4px;
+	line-height: 1;
+	float: none;
+	white-space: nowrap;
+	transition: color 0.15s, background 0.15s;
+}
+
+.side-menu-back:hover {
+	color: #111;
+	background: #ece8e0;
+}
+
+/* ===== Sub-panel body ===== */
+
+.side-menu-sub-body {
+	flex: 1;
+	padding: 0.75rem 0.75rem 1.5rem;
+	overflow-y: auto;
 }
 
 /* ===== Navigation (step groups) ===== */
@@ -155,6 +216,10 @@
 	flex-shrink: 0;
 }
 
+.side-menu-actions--top {
+	padding: 0.35rem 0 0.35rem;
+}
+
 .side-menu-action {
 	display: block;
 	width: 100%;
@@ -186,4 +251,54 @@
 .side-menu-action--saved {
 	color: #3d7a52;
 	font-weight: 500;
+}
+
+/* ===== New session confirmation ===== */
+
+.side-menu-confirm-new {
+	padding: 0.55rem 1rem;
+	font-size: 0.85rem;
+	color: #555;
+}
+
+.side-menu-confirm-new > span {
+	display: block;
+	margin-bottom: 0.5rem;
+}
+
+.side-menu-confirm-btns {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.side-menu-confirm-yes,
+.side-menu-confirm-cancel {
+	flex: 1;
+	padding: 0.35rem 0.5rem;
+	font-size: 0.8rem;
+	border-radius: 5px;
+	border: 1px solid;
+	cursor: pointer;
+	float: none;
+	transition: background 0.12s;
+}
+
+.side-menu-confirm-yes {
+	background: #7a3030;
+	border-color: #7a3030;
+	color: #fff;
+}
+
+.side-menu-confirm-yes:hover {
+	background: #5e2020;
+}
+
+.side-menu-confirm-cancel {
+	background: #fff;
+	border-color: #ccc;
+	color: #444;
+}
+
+.side-menu-confirm-cancel:hover {
+	background: #f0ece6;
 }

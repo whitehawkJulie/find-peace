@@ -108,7 +108,7 @@ const allSteps = [
 	},
 	{ component: MakingGuesses, group: "find", optional: true, color: "#3a5e80", icon: theirViewIcon },
 	// { component: RequestFormulation, optional: true },
-	{ component: Grief, group: "move", optional: true, color: "#4e3872" },
+	{ component: Grief, group: "find", optional: true, color: "#4e3872" },
 	{
 		component: ExploringWhatsChanged,
 		group: "move",
@@ -164,6 +164,7 @@ export const WizardProvider = ({ children }) => {
 	const [simpleRequest, setSimpleRequest] = useState("");
 	const [wantsConversation, setWantsConversation] = useState(false);
 	const [collabScript, setCollabScript] = useState({});
+	const [includeCollabInSummary, setIncludeCollabInSummary] = useState(false);
 	const [reviewReflection, setReviewReflection] = useState("");
 
 	// True once the user has unsaved changes; cleared when saveSession() is called.
@@ -232,6 +233,9 @@ export const WizardProvider = ({ children }) => {
 	// Settings drawer open state — lifted so the top menu in Card can trigger it
 	const [showSettings, setShowSettings] = useState(false);
 
+	// Open (saved entries) drawer
+	const [showOpen, setShowOpen] = useState(false);
+
 	// Sub-step navigation: when true, Card hides the main MenuBar
 	const [hideMainNav, setHideMainNav] = useState(false);
 
@@ -288,6 +292,7 @@ export const WizardProvider = ({ children }) => {
 			simpleRequest,
 			wantsConversation,
 			collabScript,
+			includeCollabInSummary,
 			reviewReflection,
 		};
 
@@ -381,6 +386,7 @@ export const WizardProvider = ({ children }) => {
 		setSimpleRequest(session.simpleRequest || "");
 		setWantsConversation(session.wantsConversation || false);
 		setCollabScript(session.collabScript || {});
+		setIncludeCollabInSummary(session.includeCollabInSummary ?? false);
 		setReviewReflection(session.reviewReflection || "");
 		setStepIndex(1); // Go straight to Observation (index 1 is always Observation)
 	};
@@ -411,6 +417,7 @@ export const WizardProvider = ({ children }) => {
 		setSimpleRequest("");
 		setWantsConversation(false);
 		setCollabScript({});
+		setIncludeCollabInSummary(false);
 		setReviewReflection("");
 	};
 
@@ -490,6 +497,8 @@ export const WizardProvider = ({ children }) => {
 		setWantsConversation,
 		collabScript,
 		setCollabScript,
+		includeCollabInSummary,
+		setIncludeCollabInSummary,
 		reviewReflection,
 		setReviewReflection,
 		settings,
@@ -506,6 +515,8 @@ export const WizardProvider = ({ children }) => {
 		setShowSummary,
 		showSettings,
 		setShowSettings,
+		showOpen,
+		setShowOpen,
 		hideMainNav,
 		setHideMainNav,
 		passphraseActive,
@@ -531,9 +542,7 @@ export const WizardProvider = ({ children }) => {
 
 	return (
 		<WizardContext.Provider value={value}>
-			<HelpContext.Provider value={{ openHelpTopic }}>
-				{children}
-			</HelpContext.Provider>
+			<HelpContext.Provider value={{ openHelpTopic }}>{children}</HelpContext.Provider>
 		</WizardContext.Provider>
 	);
 };

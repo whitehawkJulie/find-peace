@@ -1,0 +1,124 @@
+/* ===== Summary sections (used in SummaryModal and Review accordion) ===== */
+
+.review-section {
+	background: #ffffff;
+	border-radius: 10px;
+	padding: 1rem 1.25rem;
+	border-left: 3px solid #7a9ec0;
+	margin-bottom: 1rem;
+}
+
+.review-section h3 {
+	margin: 0 0 0.5rem;
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.07em;
+	color: #5a7fa8;
+	font-weight: 700;
+}
+
+.review-section p {
+	margin: 0.25rem 0;
+	line-height: 1.55;
+	color: #1e2b3a;
+}
+
+.review-text {
+	white-space: pre-wrap;
+}
+
+.review-label {
+	font-weight: 600;
+	color: #3a5270;
+}
+
+.review-no-data {
+	color: #8a9aaa;
+	font-style: italic;
+	font-size: 0.9rem;
+	margin: 0;
+}
+
+/* ===== Exploration blocks ===== */
+
+.review-exploration {
+	margin-bottom: 0.75rem;
+}
+
+.review-exploration strong {
+	display: block;
+	margin-bottom: 0.25rem;
+	color: #1a2535;
+	font-weight: 600;
+}
+
+.review-exploration p {
+	margin: 0.2rem 0;
+	font-size: 0.95rem;
+}
+
+/* ===== Strategies ===== */
+
+.review-strategies strong {
+	color: #1a2535;
+}
+
+.review-strategies ul {
+	margin: 0.25rem 0 0.75rem 1.25rem;
+}
+
+.review-strategies li {
+	margin: 0.2rem 0;
+	color: #2c3d50;
+}
+
+/* ===== Conversation guide ===== */
+
+.review-convo-text {
+	white-space: pre-wrap;
+	font-size: 0.9rem;
+	line-height: 1.65;
+	color: #1e2b3a;
+}
+
+.review-convo-script {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin: 0.25rem 0 0;
+}
+
+.review-convo-step {
+	padding: 0.6rem 0.85rem;
+	background: #edf1f7;
+	border-radius: 6px;
+	border-left: 3px solid #9ab5d0;
+}
+
+.review-convo-step--static {
+	background: #f3f5f9;
+	border-left-color: #c0cedc;
+}
+
+.review-convo-step-label {
+	margin: 0 0 0.2rem;
+	font-size: 0.78rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #5a7fa8;
+}
+
+.review-convo-step-text {
+	margin: 0;
+	font-size: 0.9rem;
+	color: #1e2b3a;
+	line-height: 1.5;
+}
+
+.summary-intro {
+	margin: 6px 0 1rem 0;
+	color: #888;
+	font-size: 1rem;
+	line-height: 1.5;
+}

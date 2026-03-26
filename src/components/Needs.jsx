@@ -78,12 +78,21 @@ const Needs = () => {
 
 	return (
 		<div className="step-needs">
-			<p>{"If we don't know what we're actually needing, everything we do misses the mark. This is the missing information in our lives."}</p>
-			<p>{"Needs are what we're hoping to experience when things go well — and what we're longing for when they don't. They're the core of what matters to us, and our feelings directly point to what they are."}</p>
+			<p>
+				If we don't know what we're actually needing, everything we do misses the mark. This is the missing
+				information in our lives.
+			</p>
+			<p>
+				Needs are what we're hoping to experience when things go well — and what we're longing for when they
+				don't. They're the core of what matters to us, and our feelings directly point to what they are.
+			</p>
 
 			{renderOrderedFeelings(feelings)}
 
-			<p>{"Just notice what feels alive. Select all that feel relevant. Tap ? on any selected need if you'd like to explore it more deeply."}</p>
+			<p>
+				Just notice what feels alive. Select all that feel relevant. Tap ? on any selected need if you'd like to
+				explore it more deeply.
+			</p>
 
 			<Checklist
 				data={[

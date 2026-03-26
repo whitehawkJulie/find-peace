@@ -18,23 +18,31 @@ const introductionFourSteps = [
 const Introduction = () => {
 	return (
 		<div className="step-introduction step-container">
-			<p>{"If you're feeling anything like this:"}</p>
+			<p>If you're feeling anything like this:</p>
 			<ul>
 				{introductionFeelingList.map((item, i) => (
 					<li key={i}>{item}</li>
 				))}
 			</ul>
-			<p>{"… this process is for you. It will help you find a way forward that works for you, and you'll feel much better in the process."}</p>
+			<p>
+				{
+					"… this process is for you. It will help you find a way forward that works for you, and you'll feel much better in the process."
+				}
+			</p>
 
-			<p>{"This process helps you pause and get clear on four things:"}</p>
+			<p>This process helps you pause and get clear on four things:</p>
 			<ol>
 				{introductionFourSteps.map((step, i) => (
 					<li key={i}>{step}</li>
 				))}
 			</ol>
 
-			<p>{"When you do that, your brain is able to move out of threat mode, where it's not firing on all cylinders, and into the seeking and care circuits, which are much better at finding creative solutions, often ones that work for everyone involved."}</p>
-			<p>{"This makes a huge difference. Things shift."}</p>
+			<p>
+				{
+					"When you do that, your brain is able to move out of threat mode, where it's not firing on all cylinders, and into the seeking and care circuits, which are much better at finding creative solutions, often ones that work for everyone involved."
+				}
+			</p>
+			<p>This makes a huge difference. Things shift.</p>
 		</div>
 	);
 };

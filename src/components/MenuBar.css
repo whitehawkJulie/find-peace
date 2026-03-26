@@ -357,3 +357,56 @@
 	color: #c9776a;
 	margin: 0.25rem 0 0.5rem;
 }
+
+/* ── New session (replaces Next on last page) ── */
+
+.nav-button--new {
+	background: #6b7a8d;
+	opacity: 1;
+}
+
+.nav-button--new:hover {
+	filter: brightness(0.88);
+}
+
+.nav-new-session {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	min-width: 5.5rem;
+	justify-content: flex-end;
+}
+
+.nav-new-confirm-text {
+	font-size: 0.8rem;
+	color: #666;
+	white-space: nowrap;
+}
+
+.nav-new-yes,
+.nav-new-cancel {
+	padding: 0.3rem 0.6rem;
+	border-radius: 5px;
+	font-size: 0.78rem;
+	cursor: pointer;
+	float: none;
+	border: 1px solid;
+	font-family: inherit;
+	transition: background 0.12s;
+}
+
+.nav-new-yes {
+	background: #7a3030;
+	border-color: #7a3030;
+	color: white;
+}
+
+.nav-new-yes:hover { background: #5e2020; }
+
+.nav-new-cancel {
+	background: white;
+	border-color: #ccc;
+	color: #555;
+}
+
+.nav-new-cancel:hover { background: #f0f0f0; }
