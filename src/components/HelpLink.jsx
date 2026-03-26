@@ -3,12 +3,12 @@ import { useHelp } from "./HelpContext";
 
 // Renders an inline link that opens a specific help topic in the drawer.
 // Usage: <HelpLink topic="mourning">mourning</HelpLink>
-const HelpLink = ({ topic, children }) => {
+const HelpLink = ({ topic, children, aside }) => {
 	const { openHelpTopic } = useHelp();
 	return (
 		<a
 			href="#"
-			className="inline-help-link"
+			className={aside ? "inline-help-link inline-help-link--aside" : "inline-help-link"}
 			onClick={(e) => {
 				e.preventDefault();
 				openHelpTopic(topic);

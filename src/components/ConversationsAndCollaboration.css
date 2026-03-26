@@ -217,26 +217,6 @@
 
 /* ===== Per-step expandable help ===== */
 
-.collab-help-toggle {
-	float: none;
-	display: inline;
-	background: none;
-	border: none;
-	padding: 0;
-	font-size: 0.8rem;
-	color: #9ab8a8;
-	cursor: pointer;
-	text-decoration: underline;
-	font-family: inherit;
-	text-align: left;
-	margin-top: 0.15rem;
-	transition: color 0.15s;
-}
-
-.collab-help-toggle:hover {
-	color: #5a9e6d;
-}
-
 .collab-help-extra {
 	background: #f0f6f2;
 	border-radius: 6px;

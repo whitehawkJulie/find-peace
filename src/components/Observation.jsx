@@ -68,7 +68,7 @@ const CheckPanel = ({ title }) => {
 
 						<button
 							type="button"
-							className="button-styled-as-link"
+							className="expand-text-toggle"
 							aria-expanded={expanded[i]}
 							onClick={() =>
 								setExpanded((prev) => ({

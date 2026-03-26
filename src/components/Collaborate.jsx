@@ -286,7 +286,7 @@ const Collaborate = () => {
 							{hasExtraHelp && (
 								<>
 									<button
-										className="collab-help-toggle"
+										className="expand-text-toggle"
 										onClick={() => toggleHelp(stepId)}
 										aria-expanded={helpOpen}>
 										{helpOpen ? "▲ Hide extra help" : "Need a bit more help with this step?"}

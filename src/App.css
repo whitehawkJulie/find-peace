@@ -66,8 +66,10 @@ textarea {
 	color: #000;
 }
 
-/* Button that visually looks like a link, for use inline in text */
-.button-styled-as-link {
+/* Button that expands/collapses additional text */
+.expand-text-toggle {
+	float: none;
+	display: inline;
 	background: none;
 	border: none;
 	padding: 0;
@@ -76,9 +78,10 @@ textarea {
 	color: #6b7280;
 	text-decoration: underline;
 	cursor: pointer;
-	display: inline;
+	text-align: left;
+	transition: color 0.15s;
 }
-.button-styled-as-link:hover {
+.expand-text-toggle:hover {
 	color: #374151;
 }
 
@@ -104,22 +107,34 @@ textarea {
 	color: #555;
 }
 
-/* "Can't remember?" — opens help drawer */
+/* Inline help link — matches surrounding text, solid underline */
 .inline-help-link {
 	background: none;
 	border: none;
 	padding: 0;
+	font-size: inherit;
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-color: currentColor;
+	cursor: pointer;
+}
+
+.inline-help-link:hover {
+	opacity: 0.7;
+}
+
+/* Aside variant — smaller, muted, dotted; for links after text or on their own line */
+.inline-help-link--aside {
 	font-size: 0.82rem;
 	color: #888;
-	text-decoration: underline;
 	text-decoration-style: dotted;
-	cursor: pointer;
 	align-self: flex-start;
 	margin-top: 0.1rem;
 }
 
-.inline-help-link:hover {
+.inline-help-link--aside:hover {
 	color: #555;
+	opacity: 1;
 }
 
 /* a border to hold a particular "section" of a page */

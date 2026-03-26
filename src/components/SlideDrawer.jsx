@@ -45,6 +45,7 @@ const SlideDrawer = ({
 						<Suspense fallback={<p style={{ color: "#999", fontSize: "0.9rem" }}>Loading…</p>}>
 							<HelpBrowser
 								initialTopic={helpTopic}
+								directOpen={!!helpTopic}
 								onBack={() => { setBrowsing(false); setBrowseTitle(null); setHelpTopic?.(null); }}
 								onTopicChange={(t) => setBrowseTitle(t)}
 							/>

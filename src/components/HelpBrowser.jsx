@@ -11,7 +11,7 @@ const extractText = (node) => {
 	return "";
 };
 
-const HelpBrowser = ({ initialTopic, onBack, onTopicChange }) => {
+const HelpBrowser = ({ initialTopic, directOpen, onBack, onTopicChange }) => {
 	const [query, setQuery] = useState("");
 	const topics = getHelpTopics();
 
@@ -71,11 +71,14 @@ const HelpBrowser = ({ initialTopic, onBack, onTopicChange }) => {
 		: topics;
 
 	if (selected) {
+		const showBack = history.length > 0 || !directOpen;
 		return (
 			<div className="help-browser">
-				<button className="help-browser-back" onClick={goBack}>
-					{backLabel}
-				</button>
+				{showBack && (
+					<button className="help-browser-back" onClick={goBack}>
+						{backLabel}
+					</button>
+				)}
 				<div className="help-browser-content">{selected.content}</div>
 			</div>
 		);
