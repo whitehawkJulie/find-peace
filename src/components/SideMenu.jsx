@@ -23,6 +23,7 @@ const SideMenu = ({ isOpen, onClose }) => {
 		hasSessionData,
 		savedEntries,
 		loadedId,
+		openHelpTopic,
 	} = useWizard();
 
 	const [subPanel, setSubPanel] = useState(null); // null | "open"
@@ -158,6 +159,11 @@ const SideMenu = ({ isOpen, onClose }) => {
 								className="side-menu-action"
 								onClick={() => { setShowSettings(true); onClose(); }}>
 								⚙ Settings
+							</button>
+							<button
+								className="side-menu-action"
+								onClick={() => { openHelpTopic("about"); onClose(); }}>
+								ℹ About
 							</button>
 						</div>
 					</div>

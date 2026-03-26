@@ -15,6 +15,77 @@ import React from "react";
 
 const StandaloneHelpTopics = [
 	{
+		id: "about",
+		title: "About this tool",
+		content: (
+			<>
+				<h2>What this tool is designed to do</h2>
+
+				<p>
+					This tool builds on the four steps of <strong>Nonviolent Communication</strong>, developed by
+					Marshall Rosenberg, and integrates newer understandings from affective neuroscience and nervous
+					system regulation.
+				</p>
+				<p>
+					This app helps you slow down enough to reconnect with the deeper signal underneath the surface
+					reactions.
+				</p>
+
+				<p>By separating:</p>
+
+				<ul>
+					<li>
+						<strong>what happened</strong>
+					</li>
+					<li>
+						<strong>what you felt</strong>
+					</li>
+					<li>
+						<strong>what mattered to you</strong>
+					</li>
+				</ul>
+
+				<p>
+					the underlying need often becomes clearer. From that place, it becomes much easier to find
+					strategies that actually move the situation forward.
+				</p>
+
+				<p>
+					<strong>React → Get curious → Understand → Connect → Solve</strong>
+				</p>
+
+				<p>
+					When we focus only on what's wrong, we tend to repeat the same patterns.
+					<br />
+					When we focus on what <strong>matters</strong>, new possibilities often appear.
+				</p>
+			</>
+		),
+	},
+
+	{
+		id: "privacy",
+		title: "Your privacy",
+		content: (
+			<>
+				<h2>Your privacy</h2>
+
+				<p>
+					Everything you enter into this tool stays on your device. Your responses are stored only in your
+					browser's local storage and are <strong>never sent to any server</strong>. When you save or copy a
+					session, your feelings and needs word selections are shared anonymously to help improve this tool —
+					no personal observations, reflections, or free text is included.
+				</p>
+
+				<p>
+					You can clear all your saved data at any time, or protect it with a passphrase, from ☰ Menu → ⚙
+					Settings.
+				</p>
+			</>
+		),
+	},
+
+	{
 		id: "mourning",
 		title: "Connecting with and mourning unmet needs",
 		content: (
@@ -265,10 +336,213 @@ const StandaloneHelpTopics = [
 		title: "Threat, Seeking and Care circuits",
 		content: (
 			<>
-				<p></p>
+				<h2>Threat, Seeking and Care circuits</h2>
+
+				<p>
+					We mammals seem to all share three core aversive emotional systems:{" "}
+					<strong>fear, anger, and distress</strong>. Jaak Panksepp, an affective neuroscience researcher,
+					calls these the <strong>FEAR</strong>, <strong>RAGE</strong>, and <strong>PANIC/GRIEF</strong>{" "}
+					systems.
+				</p>
+
+				<p>
+					When one of these systems activates, the brain shifts into a threat-focused mode. In this state,
+					flexibility decreases so the brain can focus on immediate protection. The mind quickly generates
+					explanations about what's happening — often centred on{" "}
+					<strong>who is responsible and how to stop the problem</strong>.
+				</p>
+
+				<p>
+					These "explanations" or stories often lead to what Marshall Rosenberg (creator of NVC) called{" "}
+					<em>tragic strategies</em>: attempts to protect what matters, expressed through blame, control, or
+					withdrawal, which are almost guaranteed to backfire.
+				</p>
+
+				<p>
+					The NVC process helps the nervous system move out of this narrowed threat state and into two other
+					systems that support clearer thinking:
+				</p>
+
+				<ul>
+					<li>
+						the <strong>SEEKING system</strong>, which brings curiosity about what matters to us
+					</li>
+					<li>
+						the <strong>CARE system</strong>, which allows empathy for ourselves and others
+					</li>
+				</ul>
+
+				<p>
+					When these systems are active, people are far more able to discover solutions that genuinely address
+					what matters.
+				</p>
 			</>
 		),
 	},
+
+	{
+		id: "first-feeling",
+		title: "Catching the FIRST feeling",
+		content: (
+			<>
+				<h2>Why people sometimes get stuck</h2>
+
+				<p>
+					Sometimes the process doesn't seem to work. One common reason is that the{" "}
+					<strong>first emotional signal gets missed</strong>.
+				</p>
+
+				<p>
+					When the nervous system detects something important, it produces an initial feeling signal — often
+					fear, anger, or distress. But many people have learned regulation strategies that move them away
+					from that signal very quickly.
+				</p>
+
+				<p>Broadly speaking, humans tend to regulate emotions in three ways:</p>
+
+				<ul>
+					<li>
+						<strong>Expressing the feeling and moving toward it</strong>
+					</li>
+					<li>
+						<strong>Suppressing the feeling and moving away from it</strong>
+					</li>
+					<li>
+						<strong>Reframing the feeling cognitively</strong>
+					</li>
+				</ul>
+
+				<p>
+					If the original signal gets bypassed, we may end up identifying the wrong need underneath the
+					situation.
+				</p>
+
+				<p>
+					For example, someone might feel anger when a boundary is crossed. If they quickly move away from
+					that anger through cognitive reframing, they may mainly notice a vague discomfort instead. When they
+					look for the need underneath that discomfort, they might conclude the need is <em>peace</em>.
+				</p>
+
+				<p>
+					But the original signal might actually have been pointing toward needs like <strong>agency</strong>,{" "}
+					<strong>respect</strong>, or <strong>self-protection</strong>. When the underlying need is
+					misidentified, attempts to resolve the situation rarely bring the sense of relief or clarity people
+					expect.
+				</p>
+
+				<p>
+					When the <strong>real signal</strong> is recognised, however, people often experience a profound
+					shift both in how they feel, and their ability to move forward.
+				</p>
+			</>
+		),
+	},
+	{
+		id: "story-words",
+		title: "Story Words",
+		content: (
+			<>
+				<p>
+					Many of the words we use as "feelings" actually contain a story about what someone else did. We call
+					these <strong>Story Words</strong>. This isn't wrong — it's just how we're taught to speak. Story
+					Words often show up more strongly when we’re activated or hurt, because our system is trying to make
+					sense of what happened. (Traditional NVC called these "Faux Feelings".)
+				</p>
+				<p>For example:</p>
+				<ul>
+					<li>
+						<strong>"I feel ignored"</strong> — carries a story that someone ignored you.
+					</li>
+					<li>
+						<strong>"I feel rejected"</strong> — carries a story that someone rejected you.
+					</li>
+					<li>
+						<strong>"I feel attacked"</strong> — carries a story that someone attacked you.
+					</li>
+				</ul>
+				<p>
+					Underneath these words are usually clearer body-feelings — lonely, hurt, scared, angry, sad,
+					unsettled.
+				</p>
+				<p>
+					When we speak in story words, we often stay focused on what the other person did. When we name the
+					underlying feeling, we move closer to ourselves. Clear feelings point more directly to clear needs.
+				</p>
+				<p>
+					If you choose a Story Word, you’ll be gently guided to look underneath it. We’ll help you translate
+					from the story about what happened to the clearer feelings living in your body.
+				</p>
+				<p>
+					This isn’t about being more “correct.” It’s about getting closer to your own experience — the
+					sensations, emotions, and needs that are present when the story falls away.
+				</p>
+				<p>
+					When the story softens, what remains is usually something more vulnerable, more precise, and more
+					useful for understanding what you need.
+				</p>
+			</>
+		),
+	},
+
+	// {
+	// 	id: "empathy",
+	// 	title: "Empathy",
+	// 	content: (
+	// 		<>
+	// 			<p></p>
+	// 		</>
+	// 	),
+	// },
+
+	// {
+	// 	id: "empathy",
+	// 	title: "Empathy",
+	// 	content: (
+	// 		<>
+	// 			<p></p>
+	// 		</>
+	// 	),
+	// },
+
+	// {
+	// 	id: "empathy",
+	// 	title: "Empathy",
+	// 	content: (
+	// 		<>
+	// 			<p></p>
+	// 		</>
+	// 	),
+	// },
+
+	// {
+	// 	id: "empathy",
+	// 	title: "Empathy",
+	// 	content: (
+	// 		<>
+	// 			<p></p>
+	// 		</>
+	// 	),
+	// },
+
+	// {
+	// 	id: "empathy",
+	// 	title: "Empathy",
+	// 	content: (
+	// 		<>
+	// 			<p></p>
+	// 		</>
+	// 	),
+	// },
+
+	// {
+	// 	id: "empathy",
+	// 	title: "Empathy",
+	// 	content: (
+	// 		<>
+	// 			<p></p>
+	// 		</>
+	// 	),
+	// },
 
 	// Add more topics here as needed. Example:
 	// {

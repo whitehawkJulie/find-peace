@@ -93,9 +93,8 @@ const RegulationHelpContent = () => {
 };
 
 const Feelings = () => {
-	const { observation, feelings, setFeelings, needs, setNeeds, settings, bodySensations, setBodySensations } =
+	const { observation, feelings, setFeelings, needs, setNeeds, settings, bodySensations, setBodySensations, openHelpTopic } =
 		useWizard();
-	const [showStoryHelp, setShowStoryHelp] = useState(false);
 	const [showBodySensations, setShowBodySensations] = useState(false);
 	const [popupItem, setPopupItem] = useState(null);
 	const [showRegulationOverlay, setShowRegulationOverlay] = useState(settings.regulationOverlay ?? false);
@@ -228,7 +227,7 @@ const Feelings = () => {
 						: null
 				}
 				categoryHelpIcons={{
-					[FeelingsData.sections.story.ui.heading]: () => setShowStoryHelp(true),
+					[FeelingsData.sections.story.ui.heading]: () => openHelpTopic("story-words"),
 				}}
 			/>
 
@@ -272,46 +271,6 @@ const Feelings = () => {
 					onClose={() => setPopupItem(null)}
 				/>
 			)}
-
-			<SlideDrawer isOpen={showStoryHelp} onClose={() => setShowStoryHelp(false)} title="About Story Words">
-				<>
-					<h3 id="#story-words-help">About Story Words</h3>
-
-					<p>
-						Some words sound like feelings but actually point to what happened or what someone else did.
-						These are what we call <strong>Story Words</strong>. (Traditional NVC calls them Faux Feelings.)
-						{/* TODO: put that last bit in a footnote */}
-					</p>
-
-					<p>
-						For example, words like <em>ignored</em>, <em>rejected</em>, or <em>attacked</em> carry an
-						interpretation about another person’s behaviour.
-					</p>
-
-					<p>
-						There’s nothing wrong with using these words — it’s how most of us were taught to speak. Story
-						Words often show up more strongly when we’re activated or hurt, because our system is trying to
-						make sense of what happened.
-					</p>
-
-					<h4>What Happens If You Select One?</h4>
-
-					<p>
-						If you choose a Story Word, you’ll be gently guided to look underneath it. We’ll help you
-						translate from the story about what happened to the clearer feelings living in your body.
-					</p>
-
-					<p>
-						This isn’t about being more “correct.” It’s about getting closer to your own experience — the
-						sensations, emotions, and needs that are present when the story falls away.
-					</p>
-
-					<p>
-						When the story softens, what remains is usually something more vulnerable, more precise, and
-						more useful for understanding what you need.
-					</p>
-				</>
-			</SlideDrawer>
 
 			<SlideDrawer
 				isOpen={showRegulationHelp}

@@ -293,8 +293,9 @@ const UnpackFeelings = () => {
 			<div>
 				<h3>Lastly ... </h3>
 				<p>
-					We often feel something vulnerable first, quickly followed by more defended feelings. Can you
-					distinguish the early feelings, from the more defended feelings that came in response to those?
+					We often feel <HelpLink topic="first-feeling">something vulnerable first</HelpLink>, quickly
+					followed by more defended feelings. Can you distinguish the early feelings, from the more defended
+					feelings that came in response to those?
 				</p>
 			</div>
 
