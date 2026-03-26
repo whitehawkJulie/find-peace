@@ -72,7 +72,7 @@ const Observation = () => {
 					value={jackalTalk}
 					onChange={(e) => setJackalTalk(e.target.value)}
 					placeholder={t("observation.jackalSection.placeholder")}
-					rows={6}
+					rows={3}
 				/>
 			</div>
 
@@ -89,7 +89,7 @@ const Observation = () => {
 						refined: e.target.value,
 					}))
 				}
-				rows={6}
+				rows={4}
 				placeholder={t("observation.refinedPlaceholder")}
 			/>
 		</div>

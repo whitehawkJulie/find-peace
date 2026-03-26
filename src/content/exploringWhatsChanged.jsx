@@ -1,5 +1,4 @@
 // Content for the ExploringWhatsChanged step.
-// Wire up useContent() in ExploringWhatsChanged.jsx — already done.
 
 export const exploringWhatsChangedContent = {
 	navTitle: "Notice what's changed",
@@ -11,23 +10,17 @@ export const exploringWhatsChangedContent = {
 		},
 	},
 	purpose: {
-		// We’re doing [the task] , so that we can [psychological shift]
-		default: "",
-	},
+		default: (
+			<>
+				<p>Let’s take a moment to notice what’s changed inside you.</p>
 
-	intro1: {
-		default: "Let's take a moment to see what's changed inside you.",
-		tone: {
-			sweary: "Let's see what's actually shifted in you.",
-		},
-	},
+				<p>
+					This isn’t about finding solutions yet — it’s simply a chance to notice any shift, if there is one.
+				</p>
 
-	intro2: {
-		default:
-			"This page isn't about finding solutions we plan to use, yet — it's just about noticing the shift, if any.",
-		tone: {
-			sweary: "We're not planning anything yet — just checking in on what's moved.",
-		},
+				<p>Here we’re noticing what’s different, so that you can recognise the shift before moving on.</p>
+			</>
+		),
 	},
 
 	beforePrompt: {

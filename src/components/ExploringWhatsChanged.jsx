@@ -13,11 +13,10 @@ const ExploringWhatsChanged = () => {
 
 	return (
 		<div className="step-whats-changed step-container">
-			<p>{t("exploringWhatsChanged.purpose")}</p>
+			{t("exploringWhatsChanged.purpose")}
 
-			<p>{t("exploringWhatsChanged.intro1")}</p>
-			<p>{t("exploringWhatsChanged.intro2")}</p>
 			<div className="request-section">
+				<h3>Before this process</h3>
 				<p>{t("exploringWhatsChanged.beforePrompt")}</p>
 				<textarea
 					className="request-textarea"
@@ -28,6 +27,7 @@ const ExploringWhatsChanged = () => {
 			</div>
 
 			<div className="request-section">
+				<h3>Now</h3>
 				<p>{t("exploringWhatsChanged.differentlyPrompt")}</p>
 				<textarea
 					className="request-textarea"

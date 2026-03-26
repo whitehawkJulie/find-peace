@@ -205,8 +205,19 @@ const UnpackFeelings = () => {
 		</div>
 	);
 
+	const hasSelectedFeelings = Object.values(feelings).some(
+		(s) => s === "clicked" || s === "double-clicked",
+	);
+
 	return (
 		<div className="feelings-explore-regulation">
+			{!hasSelectedFeelings && (
+				<p className="empty-state-notice">
+					No feelings selected yet — this page isn't useful until you've chosen some feelings on the previous
+					step.
+				</p>
+			)}
+
 			<p>{t("unpackFeelings.purpose")}</p>
 
 			{renderOrderedFeelings(feelings, setPopupItem, setPendingRemoveFeeling)}

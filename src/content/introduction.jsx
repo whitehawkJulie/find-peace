@@ -40,7 +40,7 @@ export const introductionContent = {
 
 	feelingListOutro: {
 		default:
-			"… this is the tool for you. It will help you find a way forward that works for you, and feel much better in the process.",
+			"… this process is for you. It will help you find a way forward that works for you, and you'll feel much better in the process.",
 		tone: {
 			sweary: "… this is the tool for you. Let's figure out what's really going on and actually do something about it.",
 		},
@@ -53,7 +53,7 @@ export const introductionContent = {
 
 	brainCircuits: {
 		default:
-			"When you do that, your brain is able to move out of threat mode, where your brain is not firing on all cylinders, and into the seeking and care circuits, which are much better at finding creative solutions, often ones that work for everyone involved.",
+			"When you do that, your brain is able to move out of threat mode, where it's not firing on all cylinders, and into the seeking and care circuits, which are much better at finding creative solutions, often ones that work for everyone involved.",
 		tone: {
 			sweary: "When you do that, your brain can shift out of threat mode — where it's barely firing on all cylinders — and into the parts that are actually good at finding real solutions.",
 		},

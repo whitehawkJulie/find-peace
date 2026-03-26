@@ -9,7 +9,6 @@ export const feelingsContent = {
 		tone: { sweary: "Fuck them, what's going on in ME?" },
 	},
 	purpose: {
-		// We’re doing [the task] , so that we can [psychological shift]
 		default:
 			"Here we’re tuning into what you’re feeling, so that we can reconnect with what your body is trying to tell you about what matters. (Our bodies contain wisdom that we've been taught to ignore.)",
 	},

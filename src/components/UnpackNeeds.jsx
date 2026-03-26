@@ -24,6 +24,7 @@ const UnpackNeeds = () => {
 		explorationStep,
 		setExplorationStep,
 		setNeedExplorationOpen,
+		needExplorationOpen,
 	} = useWizard();
 	const { t } = useContent();
 
@@ -164,8 +165,16 @@ const UnpackNeeds = () => {
 		});
 	};
 
+	const hasSelectedNeeds = Object.values(needs).some((s) => s === "clicked");
+
 	return (
 		<div className="need-unpacking">
+			{!hasSelectedNeeds && !needExplorationOpen && (
+				<p className="empty-state-notice">
+					No needs selected yet — this page isn't useful until you've chosen some needs on the previous step.
+				</p>
+			)}
+
 			<div className="keyStepLabel">This is where things often shift - take your time here</div>
 
 			{/* intentionally back to front!!! purpose usually goes first */}

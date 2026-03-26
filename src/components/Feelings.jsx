@@ -265,19 +265,43 @@ const Feelings = () => {
 				/>
 			)}
 
-			<SlideDrawer isOpen={showStoryHelp} onClose={() => setShowStoryHelp(false)} title={t("feelings.storyWords.drawerTitle")}>
+			<SlideDrawer isOpen={showStoryHelp} onClose={() => setShowStoryHelp(false)} title="About Story Words">
 				<>
-					<h3>{t("feelings.storyWords.drawerTitle")}</h3>
-					<p>{t("feelings.storyWords.intro")}</p>
+					<h3 id="#story-words-help">About Story Words</h3>
+
+					<p>
+						Some words sound like feelings but actually point to what happened or what someone else did.
+						These are what we call <strong>Story Words</strong>. (Traditional NVC calls them Faux Feelings.)
+						{/* TODO: put that last bit in a footnote */}
+					</p>
+
 					<p>
 						For example, words like <em>ignored</em>, <em>rejected</em>, or <em>attacked</em> carry an
 						interpretation about another person’s behaviour.
 					</p>
-					<p>{t("feelings.storyWords.normal")}</p>
-					<h4>{t("feelings.storyWords.whatHappensHeading")}</h4>
-					<p>{t("feelings.storyWords.popupIntro")}</p>
-					<p>{t("feelings.storyWords.notAboutCorrect")}</p>
-					<p>{t("feelings.storyWords.result")}</p>
+
+					<p>
+						There’s nothing wrong with using these words — it’s how most of us were taught to speak. Story
+						Words often show up more strongly when we’re activated or hurt, because our system is trying to
+						make sense of what happened.
+					</p>
+
+					<h4>What Happens If You Select One?</h4>
+
+					<p>
+						If you choose a Story Word, you’ll be gently guided to look underneath it. We’ll help you
+						translate from the story about what happened to the clearer feelings living in your body.
+					</p>
+
+					<p>
+						This isn’t about being more “correct.” It’s about getting closer to your own experience — the
+						sensations, emotions, and needs that are present when the story falls away.
+					</p>
+
+					<p>
+						When the story softens, what remains is usually something more vulnerable, more precise, and
+						more useful for understanding what you need.
+					</p>
 				</>
 			</SlideDrawer>
 
@@ -307,7 +331,7 @@ Feelings.helpContent = (
 			</a>{" "}
 			says that our body’s job is to signal what’s happening inside us. When we ignore those signals, the body
 			can’t fully relax — it’s still trying to deliver the message. But when we notice and acknowledge what it’s
-			telling us, it’s as if the body says, "Message delivered!," and it can finally relax.
+			telling us, it’s as if the body says, “Message delivered!,” and it can finally relax.
 		</p>
 		<p>
 			When you can name what you're actually feeling, intensity often shifts. Clarity opens the doorway to

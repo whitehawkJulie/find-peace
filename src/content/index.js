@@ -10,13 +10,17 @@
 import { observationContent } from "./observation.jsx";
 import { introductionContent } from "./introduction.jsx";
 import { makingGuessesContent } from "./makingGuesses.js";
-import { feelingsContent } from "./feelings.js";
+import { feelingsContent } from "./feelings.jsx";
 import { unpackFeelingsContent } from "./unpackFeelings.jsx";
 import { needsContent } from "./needs.jsx";
 import { unpackNeedsContent } from "./unpackNeeds.js";
-import { exploringWhatsChangedContent } from "./exploringWhatsChanged.js";
+import { exploringWhatsChangedContent } from "./exploringWhatsChanged.jsx";
 import { requestFormulationContent } from "./requestFormulation.js";
 import { collaborationContent } from "./collaboration.jsx";
+import { griefContent } from "./grief.jsx";
+import { whetherContent } from "./whether.js";
+import { simpleRequestContent } from "./simpleRequest.js";
+import { collaborateContent } from "./collaborate.js";
 import { reviewContent } from "./review.js";
 import { sharedContent } from "./shared.js";
 
@@ -31,6 +35,10 @@ export const registry = {
 	exploringWhatsChanged: exploringWhatsChangedContent,
 	requestFormulation: requestFormulationContent,
 	collaboration: collaborationContent,
+	grief: griefContent,
+	whether: whetherContent,
+	simpleRequest: simpleRequestContent,
+	collaborate: collaborateContent,
 	review: reviewContent,
 	shared: sharedContent,
 };

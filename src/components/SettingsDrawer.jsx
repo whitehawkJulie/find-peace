@@ -269,12 +269,13 @@ const SettingsContent = ({ onClose }) => {
 				<p className="settings-hint">Uses more colourful language throughout.</p>
 			</div>
 
-			{savedEntries.length > 0 && (
+			{/* Saved settings now show in LHS menu */}
+			{/* {savedEntries.length > 0 && (
 				<div className="settings-group">
 					<h4>Saved Sessions</h4>
 					<SavedEntries onSessionLoaded={onClose} />
 				</div>
-			)}
+			)} */}
 
 			<PrivacySection />
 

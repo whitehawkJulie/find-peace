@@ -16,6 +16,7 @@ import Needs from "./Needs";
 import UnpackNeeds from "./UnpackNeeds";
 import MakingGuesses from "./MakingGuesses";
 import RequestFormulation from "./RequestFormulation";
+import Grief from "./Grief";
 import ExploringWhatsChanged from "./ExploringWhatsChanged";
 import ConversationsAndCollaboration from "./ConversationsAndCollaboration";
 import Review from "./Review";
@@ -92,8 +93,6 @@ const allSteps = [
 		color: "#6a4a60",
 		icon: exploreFeelingsIcon,
 		optional: true,
-		condition: (state) =>
-			Object.values(state.feelings || {}).some((s) => s === "clicked" || s === "double-clicked"),
 	},
 	{
 		component: Needs,
@@ -111,10 +110,10 @@ const allSteps = [
 		color: "#3a7058",
 		icon: exploreNeedIcon,
 		optional: true,
-		condition: (state) => Object.values(state.needs || {}).includes("clicked"),
 	},
 	{ component: MakingGuesses, group: "find", navTitleKey: "makingGuesses.navTitle", optional: true, color: "#3a5e80", icon: theirViewIcon },
 	// { component: RequestFormulation, navTitleKey: "requestFormulation.navTitle", optional: true },
+	{ component: Grief, group: "move", navTitleKey: "grief.navTitle", optional: true, color: "#4e3872" },
 	{
 		component: ExploringWhatsChanged,
 		group: "move",

@@ -118,8 +118,21 @@ textarea {
 
 /* a border to hold a particular "section" of a page */
 .page-section {
-	border: 1px dashed grey;
+	border: 1px dashed rgb(197, 197, 197);
 	padding: 10px;
+}
+
+/* Shown at the top of a page when it has no useful content yet */
+.empty-state-notice {
+	background: #fff8e8;
+	border: 1px solid #e8c84a;
+	border-left: 4px solid #e8c84a;
+	border-radius: 6px;
+	padding: 0.75rem 1rem;
+	margin-bottom: 1.25rem;
+	font-size: 0.9rem;
+	color: #6b5800;
+	line-height: 1.4;
 }
 
 /* used to indicate a step is very important, unpacking needs for a start */
