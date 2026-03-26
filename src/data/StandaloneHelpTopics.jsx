@@ -236,6 +236,40 @@ const StandaloneHelpTopics = [
 		),
 	},
 
+	{
+		id: "feedback",
+		title: "How did this go for you?",
+		content: (
+			<div>
+				<p>
+					I'd genuinely love to hear how this went for you — what helped, what felt off, what you wish was
+					different.
+				</p>
+				<p>This tool is a work in progress, and your experience shapes how it grows.</p>
+				<p>
+					You can reach me by email at{" "}
+					<a href="mailto:julielawrencenvc@gmail.com">julielawrencenvc@gmail.com</a>, or via the contact form
+					on my website,{" "}
+					<a href="https://makinglifemorewonderful.com.au" target="_blank" rel="noopener noreferrer">
+						Making Life More Wonderful
+					</a>
+					.
+				</p>
+				<p>Bugs, suggestions, reflections — all welcome. Thank you for using this. 💚</p>
+			</div>
+		),
+	},
+
+	{
+		id: "threat-mode",
+		title: "Threat, Seeking and Care circuits",
+		content: (
+			<>
+				<p></p>
+			</>
+		),
+	},
+
 	// Add more topics here as needed. Example:
 	// {
 	// 	id: "empathy",
@@ -246,24 +280,5 @@ const StandaloneHelpTopics = [
 	// 		</>
 	// 	),
 	// },
-	{
-		id: 'feedback',
-		title: 'How did this go for you?',
-		content: (
-			<div>
-				<p>I'd genuinely love to hear how this went for you — what helped, what felt off, what you wish was different.</p>
-				<p>This tool is a work in progress, and your experience shapes how it grows.</p>
-				<p>
-					You can reach me by email at{' '}
-					<a href="mailto:julielawrencenvc@gmail.com">julielawrencenvc@gmail.com</a>,
-					{' '}or via the contact form on my website,{' '}
-					<a href="https://makinglifemorewonderful.com.au" target="_blank" rel="noopener noreferrer">
-						Making Life More Wonderful
-					</a>.
-				</p>
-				<p>Bugs, suggestions, reflections — all welcome. Thank you for using this. 💚</p>
-			</div>
-		),
-	},
 ];
 export default StandaloneHelpTopics;

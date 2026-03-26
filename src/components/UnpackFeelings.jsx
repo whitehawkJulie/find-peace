@@ -215,9 +215,8 @@ const UnpackFeelings = () => {
 			)}
 
 			<p>
-				{
-					"Here we're staying with what you're feeling, so that it can soften and show you more about what matters to you."
-				}
+				Here we're staying with what you're feeling, so that it can soften and show you more about what matters
+				to you.
 			</p>
 
 			{renderOrderedFeelings(feelings, setPopupItem, setPendingRemoveFeeling)}

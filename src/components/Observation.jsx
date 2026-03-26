@@ -103,21 +103,18 @@ const Observation = () => {
 	return (
 		<div className="step-observation step-container">
 			<p>
-				{
-					"Here we're separating what happened from the story, so that we can start to move out of reaction and into clearer understanding."
-				}
+				Here we're separating what happened from the story, so that we can start to move out of reaction and
+				into clearer understanding.
 			</p>
 			<p>
-				{
-					"Let's slow down and look at the specific moment itself — just what someone could have seen or heard, before any interpretations, or assumptions about motives."
-				}
+				Let's slow down and look at the specific moment itself — just what someone could have seen or heard,
+				before any interpretations, or assumptions about motives.
 			</p>
 
 			<div>
 				<p>
-					{
-						"Before we try to make sense of it, say it the raw way. This isn't about being fair or accurate — just letting the first wave out."
-					}
+					Before we try to make sense of it, say it the raw way. This isn't about being fair or accurate —
+					just letting the first wave out.
 				</p>
 				<p className="obs-panel-intro">
 					{"If you said the uncensored version in one breath, what would it be?"}

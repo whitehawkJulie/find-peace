@@ -62,9 +62,8 @@ const renderExtraHelp = (stepId) => {
 			return (
 				<>
 					<p>
-						{
-							"This might take a bit of listening. You don't have to agree with them — just focus on understanding what it was like for them."
-						}
+						This might take a bit of listening. You don't have to agree with them — just focus on
+						understanding what it was like for them.
 					</p>
 					<p>If you're not sure, you can gently guess:</p>
 					<ul>
@@ -72,9 +71,7 @@ const renderExtraHelp = (stepId) => {
 						<li>{'"Was it because you were needing…?"'}</li>
 					</ul>
 					<p>
-						{
-							"If your guess is off, that's okay — they'll usually correct you, and that helps you get closer."
-						}
+						If your guess is off, that's okay — they'll usually correct you, and that helps you get closer.
 					</p>
 				</>
 			);
@@ -120,7 +117,7 @@ const renderExtraHelp = (stepId) => {
 		case "step6":
 			return (
 				<>
-					<p>{'You\'re looking for something that works for both of you — not just one person "winning".'}</p>
+					<p>You're looking for something that works for both of you — not just one person "winning".</p>
 					<p>It can help to keep it:</p>
 					<ul>
 						<li>{"Specific"}</li>
@@ -258,9 +255,7 @@ const Collaborate = () => {
 
 	return (
 		<div>
-			<p>
-				{"If you'd like to talk this through with the other person, this can help you plan the conversation."}
-			</p>
+			<p>If you'd like to talk this through with the other person, this can help you plan the conversation.</p>
 			<p>There's no perfect way to do this — just something honest and human.</p>
 			<p className="collab-intro-note">{"Use these as prompts, not a script. Let it sound like you."}</p>
 

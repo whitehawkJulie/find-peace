@@ -36,9 +36,9 @@ const RequestFormulation = () => {
 			<div className="request-section">
 				<h3>{"A request of the other person"}</h3>
 				<p>
-					{
-						"Is there something specific you'd like to ask of them? Remember, a true request allows them to say no — and is easy to do when you're really clear that there are MANY ways to meet your needs, and what you're requesting is just ONE of them. Try starting with \"Would you be willing to...\""
-					}
+					Is there something specific you'd like to ask of them? Remember, a true request allows them to say
+					no — and is easy to do when you're really clear that there are MANY ways to meet your needs, and
+					what you're requesting is just ONE of them. Try starting with \"Would you be willing to...\"
 				</p>
 				<textarea
 					className="request-textarea"

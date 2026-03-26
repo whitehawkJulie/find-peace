@@ -25,9 +25,8 @@ const Introduction = () => {
 				))}
 			</ul>
 			<p>
-				{
-					"… this process is for you. It will help you find a way forward that works for you, and you'll feel much better in the process."
-				}
+				… this process is for you. It will help you find a way forward that works for you, and you'll feel much
+				better in the process.
 			</p>
 
 			<p>This process helps you pause and get clear on four things:</p>
@@ -38,9 +37,9 @@ const Introduction = () => {
 			</ol>
 
 			<p>
-				{
-					"When you do that, your brain is able to move out of threat mode, where it's not firing on all cylinders, and into the seeking and care circuits, which are much better at finding creative solutions, often ones that work for everyone involved."
-				}
+				When you do that, your brain is able to move out of threat mode, where it's not firing on all cylinders,
+				and into the seeking and care circuits, which are much better at finding creative solutions, often ones
+				that work for everyone involved.
 			</p>
 			<p>This makes a huge difference. Things shift.</p>
 		</div>
