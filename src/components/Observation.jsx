@@ -7,7 +7,7 @@ const observationChecks = [
 	{
 		icon: "⏳",
 		heading: "One specific moment",
-		description: "Choose a single instance — not the whole history.",
+		description: "Choose a single moment — not the whole history. It's just easier to work with.",
 		extraInfo: (
 			<>
 				Words like "always," "never," or "every time" often signal that multiple events are bundled together.
@@ -20,7 +20,7 @@ const observationChecks = [
 	{
 		icon: "🔎",
 		heading: "Just what happened — not what it meant",
-		description: `Are we describing what was actually said or done, rather than interpretations like "disrespectful," "uncaring," "manipulative"?`,
+		description: `Can you describe what was actually said or done, rather than interpretations like "disrespectful," "uncaring," "manipulative"?`,
 		extraInfo: (
 			<>
 				Try stripping out words that carry a judgment or meaning, and rewriting in terms of actions, words, and
@@ -35,7 +35,7 @@ const observationChecks = [
 	{
 		icon: "🧠",
 		heading: `Leave the "why" aside just for now`,
-		description: `Have we removed any assumptions about motive? (e.g., "to control me," "to hurt me," "because he doesn't care")`,
+		description: `Can you remove any assumptions about motive? (e.g., "to control me," "to hurt me," "because he doesn't care")`,
 		extraInfo: (
 			<>
 				Our minds fill in meaning very quickly — that's normal. Try leaving out the "because" for now. Just
