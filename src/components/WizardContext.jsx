@@ -52,9 +52,10 @@ if (unmetSection?.groups) {
 
 // Full list of steps
 const allSteps = [
-	{ component: Introduction, navTitleKey: "introduction.navTitle", optional: true, color: "#9a5a50", icon: introIcon },
+	{ component: Introduction, group: "understand", navTitleKey: "introduction.navTitle", optional: true, color: "#9a5a50", icon: introIcon },
 	{
 		component: Observation,
+		group: "understand",
 		navTitleKey: "observation.navTitle",
 		color: "#8a6a40",
 		icon: observationIcon,
@@ -71,6 +72,7 @@ const allSteps = [
 	},
 	{
 		component: Feelings,
+		group: "understand",
 		navTitleKey: "feelings.navTitle",
 		color: "#886075",
 		icon: feelingsIcon,
@@ -85,6 +87,7 @@ const allSteps = [
 	},
 	{
 		component: UnpackFeelings,
+		group: "understand",
 		navTitleKey: "unpackFeelings.navTitle",
 		color: "#6a4a60",
 		icon: exploreFeelingsIcon,
@@ -94,6 +97,7 @@ const allSteps = [
 	},
 	{
 		component: Needs,
+		group: "find",
 		navTitleKey: "needs.navTitle",
 		color: "#5a9e6d",
 		icon: needsIcon,
@@ -102,16 +106,18 @@ const allSteps = [
 	},
 	{
 		component: UnpackNeeds,
+		group: "find",
 		navTitleKey: "unpackNeeds.navTitle",
 		color: "#3a7058",
 		icon: exploreNeedIcon,
 		optional: true,
 		condition: (state) => Object.values(state.needs || {}).includes("clicked"),
 	},
-	{ component: MakingGuesses, navTitleKey: "makingGuesses.navTitle", optional: true, color: "#3a5e80", icon: theirViewIcon },
+	{ component: MakingGuesses, group: "find", navTitleKey: "makingGuesses.navTitle", optional: true, color: "#3a5e80", icon: theirViewIcon },
 	// { component: RequestFormulation, navTitleKey: "requestFormulation.navTitle", optional: true },
 	{
 		component: ExploringWhatsChanged,
+		group: "move",
 		navTitleKey: "exploringWhatsChanged.navTitle",
 		optional: true,
 		color: "#484878",
@@ -119,12 +125,13 @@ const allSteps = [
 	},
 	{
 		component: ConversationsAndCollaboration,
+		group: "move",
 		navTitleKey: "collaboration.navTitle",
 		optional: true,
 		color: "#584070",
 		icon: conversationsIcon,
 	},
-	{ component: Review, navTitleKey: "review.navTitle", optional: true, color: "#804050", icon: reviewIcon },
+	{ component: Review, group: "move", navTitleKey: "review.navTitle", optional: true, color: "#804050", icon: reviewIcon },
 ];
 
 export const WizardProvider = ({ children }) => {
@@ -262,10 +269,14 @@ export const WizardProvider = ({ children }) => {
 
 	const currentStep = visibleSteps[stepIndex];
 
-	// Save current session to localStorage (async when passphrase is active)
+	// Save current session to localStorage (async when passphrase is active).
+	// If loadedId is set (session was previously saved or loaded), overwrites
+	// that same entry. Otherwise appends a new entry and sets loadedId so
+	// subsequent saves also overwrite rather than accumulate.
 	const saveSession = async () => {
+		const id = loadedId ?? Date.now();
 		const session = {
-			id: Date.now(),
+			id,
 			date: new Date().toISOString(),
 			jackalTalk,
 			observation,
@@ -288,16 +299,22 @@ export const WizardProvider = ({ children }) => {
 			reviewReflection,
 		};
 
+		// Build the updated entries list: overwrite existing or append new
+		let allPlain;
+		if (loadedId) {
+			allPlain = savedEntries.map((e) => (e.id === loadedId ? session : e));
+		} else {
+			allPlain = [...savedEntries, session];
+			setLoadedId(id);
+		}
+
 		if (passphraseRef.current) {
-			// Re-encrypt all sessions (existing plaintext in state + new session)
-			const allPlain = [...savedEntries, session];
 			const encrypted = await Promise.all(allPlain.map((s) => encryptSession(s, passphraseRef.current)));
 			localStorage.setItem("findPeaceSessions", JSON.stringify(encrypted));
 			setSavedEntries(allPlain); // keep plaintext in state for display
 		} else {
-			const updated = [...savedEntries, session];
-			setSavedEntries(updated);
-			localStorage.setItem("findPeaceSessions", JSON.stringify(updated));
+			setSavedEntries(allPlain);
+			localStorage.setItem("findPeaceSessions", JSON.stringify(allPlain));
 		}
 
 		dirtyRef.current = false;

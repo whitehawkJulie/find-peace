@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import SlideDrawer from "./SlideDrawer";
 import MenuBar from "./MenuBar";
 import SettingsDrawer from "./SettingsDrawer";
 import SummaryModal from "./SummaryModal";
+import SideMenu from "./SideMenu";
 import { useWizard } from "./WizardContext";
 import "./Card.css";
 
@@ -15,16 +16,11 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		setHelpDrawerOverride,
 		helpTopic,
 		setHelpTopic,
-		setShowSummary,
-		setShowSettings,
 		cardContentRef,
 		currentStep,
-		stepIndex,
-		visibleSteps,
 	} = useWizard();
 	const [hasMoreBelow, setHasMoreBelow] = useState(false);
-	const [menuOpen, setMenuOpen] = useState(false);
-	const menuRef = useRef(null);
+	const [sideMenuOpen, setSideMenuOpen] = useState(false);
 
 	const checkScroll = useCallback(() => {
 		const el = cardContentRef?.current;
@@ -86,72 +82,32 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		return () => el.removeEventListener("focusin", handleFocusIn);
 	}, [cardContentRef]);
 
-	// Close the header menu on click-outside
-	useEffect(() => {
-		if (!menuOpen) return;
-		const handler = (e) => {
-			if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
-		};
-		document.addEventListener("mousedown", handler);
-		return () => document.removeEventListener("mousedown", handler);
-	}, [menuOpen]);
-
 	return (
 		<div className="card">
+			{/* Header sits outside the scrollable area so it stays pinned at the top */}
+			<div className="card-header" style={currentStep?.color ? { background: currentStep.color } : undefined}>
+				<div className="card-header-text">
+					<div className="card-app-title">Wait, What?!</div>
+					<div className="card-title-row">
+						<div className="card-menu-wrap">
+							<button
+								className="card-menu-btn"
+								title="Menu"
+								aria-label="Menu"
+								aria-expanded={sideMenuOpen}
+								onClick={() => setSideMenuOpen((v) => !v)}>
+								&#9776;
+							</button>
+						</div>
+						<h2>{title}</h2>
+					</div>
+				</div>
+			</div>
+
 			{/* Wrapper gives the fade a reliable anchor: position:absolute inside
 			    a position:relative container that exactly matches the scrollable area */}
 			<div className="card-content-wrapper">
 				<div className="card-content" ref={cardContentRef}>
-					<div className="card-header" style={currentStep?.color ? { background: currentStep.color } : undefined}>
-						{currentStep?.icon && (
-							<img src={currentStep.icon} className="card-header-icon" alt="" aria-hidden="true" />
-						)}
-						<div className="card-header-text">
-							<div className="card-app-title">Wait, What?!</div>
-						{visibleSteps?.length > 0 && (
-							<div className="card-page-num">
-								{stepIndex + 1} of {visibleSteps.length}
-							</div>
-						)}
-							<div className="card-title-row">
-								<h2>{title}</h2>
-								<div className="card-menu-wrap" ref={menuRef}>
-									<button
-										className="card-menu-btn"
-										title="Menu"
-										aria-label="Menu"
-										aria-expanded={menuOpen}
-										onClick={() => setMenuOpen((v) => !v)}>
-										&#9776;
-									</button>
-									{menuOpen && (
-										<div className="card-menu-dropdown" role="menu">
-											<button
-												className="card-menu-item"
-												role="menuitem"
-												onClick={() => { setShowSummary(true); setMenuOpen(false); }}>
-												📋 Summary
-											</button>
-											{showHelp && (
-												<button
-													className="card-menu-item"
-													role="menuitem"
-													onClick={() => { setHelpDrawerOpen((prev) => !prev); setMenuOpen(false); }}>
-													? Help
-												</button>
-											)}
-											<button
-												className="card-menu-item"
-												role="menuitem"
-												onClick={() => { setShowSettings(true); setMenuOpen(false); }}>
-												⚙ Settings
-											</button>
-										</div>
-									)}
-								</div>
-							</div>
-						</div>
-					</div>
 					{children}
 				</div>
 				<div className="card-scroll-fade" aria-hidden="true" style={{ opacity: hasMoreBelow ? 1 : 0 }} />
@@ -171,8 +127,9 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 			</SlideDrawer>
 
 			{!hideNav && !hideMainNav && <MenuBar />}
-		<SummaryModal />
-		<SettingsDrawer />
+			<SummaryModal />
+			<SettingsDrawer />
+			<SideMenu isOpen={sideMenuOpen} onClose={() => setSideMenuOpen(false)} />
 		</div>
 	);
 };

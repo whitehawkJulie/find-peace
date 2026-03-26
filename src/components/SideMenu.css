@@ -1,0 +1,189 @@
+/* ===== Backdrop ===== */
+
+.side-menu-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.2);
+	z-index: 1200;
+}
+
+/* ===== Panel ===== */
+
+.side-menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 280px;
+	background: #faf8f4;
+	border-right: 1px solid #e0d8cc;
+	box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
+	z-index: 1201;
+	overflow-y: auto;
+	transform: translateX(-100%);
+	transition: transform 0.28s ease-in-out;
+	display: flex;
+	flex-direction: column;
+}
+
+.side-menu.show {
+	transform: translateX(0);
+}
+
+/* ===== Header ===== */
+
+.side-menu-header {
+	display: flex;
+	align-items: center;
+	padding: 0.75rem 1rem 0.5rem;
+	border-bottom: 1px solid #ece8e0;
+	flex-shrink: 0;
+}
+
+.side-menu-close {
+	background: none;
+	border: none;
+	font-size: 1rem;
+	color: #888;
+	cursor: pointer;
+	padding: 0.2rem 0.4rem;
+	border-radius: 4px;
+	line-height: 1;
+	float: none;
+	transition: color 0.15s, background 0.15s;
+}
+
+.side-menu-close:hover {
+	color: #333;
+	background: #ece8e0;
+}
+
+/* ===== Navigation (step groups) ===== */
+
+.side-menu-nav {
+	flex: 1;
+	padding: 0.5rem 0;
+}
+
+.side-menu-group {
+	margin-bottom: 0.25rem;
+}
+
+.side-menu-group-heading {
+	font-size: 0.65rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.09em;
+	color: #aaa;
+	padding: 0.75rem 1rem 0.3rem;
+}
+
+/* ===== Step buttons ===== */
+
+.side-menu-step {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	width: 100%;
+	background: none;
+	border: none;
+	padding: 0.45rem 1rem;
+	font-size: 0.88rem;
+	text-align: left;
+	cursor: default;
+	float: none;
+	border-radius: 0;
+	transition: background 0.12s;
+}
+
+.side-menu-step-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+.side-menu-step-label {
+	flex: 1;
+	min-width: 0;
+}
+
+.side-menu-step-arrow {
+	font-size: 0.6rem;
+	flex-shrink: 0;
+	opacity: 0.7;
+}
+
+/* Current step — highlighted */
+.side-menu-step--current {
+	font-weight: 600;
+	color: #333;
+	background: rgba(0, 0, 0, 0.05);
+	cursor: default;
+}
+
+/* Past steps — clickable */
+.side-menu-step--past {
+	color: #555;
+	cursor: pointer;
+}
+
+.side-menu-step--past:hover {
+	background: #ece8e0;
+	color: #111;
+}
+
+/* Future / locked steps — greyed out */
+.side-menu-step--unavailable {
+	color: #c0bbb4;
+	font-style: italic;
+}
+
+/* ===== Divider ===== */
+
+.side-menu-divider {
+	border: none;
+	border-top: 1px solid #e0d8cc;
+	margin: 0.5rem 0;
+	flex-shrink: 0;
+}
+
+/* ===== Action buttons ===== */
+
+.side-menu-actions {
+	padding: 0 0 1rem;
+	flex-shrink: 0;
+}
+
+.side-menu-action {
+	display: block;
+	width: 100%;
+	background: none;
+	border: none;
+	padding: 0.55rem 1rem;
+	font-size: 0.9rem;
+	color: #444;
+	text-align: left;
+	cursor: pointer;
+	float: none;
+	transition: background 0.12s, color 0.12s;
+}
+
+.side-menu-action:hover {
+	background: #ece8e0;
+	color: #111;
+}
+
+.side-menu-action:disabled {
+	color: #c0bbb4;
+	cursor: default;
+}
+
+.side-menu-action:disabled:hover {
+	background: none;
+}
+
+.side-menu-action--saved {
+	color: #3d7a52;
+	font-weight: 500;
+}

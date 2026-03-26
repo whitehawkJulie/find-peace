@@ -1,37 +1,62 @@
 /* Bottom navigation bar */
 .menu-bar {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	flex-direction: column;
 	flex-shrink: 0;
 
 	background: #f5f5f2;
 	border-top: 1px solid #e0ddd6;
-	padding: 0.6rem 1.25rem;
 
 	width: 100%;
 	box-sizing: border-box;
 	border-radius: 0 0 14px 14px;
 }
 
-.step-indicator {
-	font-size: 0.8rem;
-	color: #999;
-	font-variant-numeric: tabular-nums;
+/* ── Progress bar ── */
+.menu-bar-progress {
+	width: 100%;
+	height: 3px;
+	background: rgba(0, 0, 0, 0.07);
+	flex-shrink: 0;
+}
+
+.menu-bar-progress-fill {
+	height: 100%;
+	transition: width 0.35s ease;
+	opacity: 0.5;
+}
+
+/* ── Prev / Next controls ── */
+.menu-bar-controls {
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
-	gap: 0.4rem;
+	width: 100%;
+	padding: 0.45rem 1.25rem 0.5rem;
+	box-sizing: border-box;
 }
 
 .nav-button {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1rem;
 	background: var(--color-green);
 	color: white;
 	border: none;
 	border-radius: 6px;
-	padding: 0.5rem 1rem;
-	font-size: 0.9rem;
+	padding: 0.4rem 0.85rem;
 	cursor: pointer;
 	transition: background-color 0.15s ease;
+	float: none;
+	min-width: 5.5rem;
+}
+
+.nav-button--prev {
+	align-items: flex-start;
+}
+
+.nav-button--next {
+	align-items: flex-end;
 }
 
 .nav-button:hover {
@@ -44,104 +69,23 @@
 	pointer-events: none;
 }
 
-/* ========== Page picker ========== */
-
-.page-picker-wrap {
-	position: relative;
-}
-
-.page-picker-btn {
-	background: none;
-	border: none;
-	padding: 0.15rem 0.35rem;
-	font-size: 0.8rem;
-	color: #999;
-	cursor: pointer;
-	border-radius: 4px;
-	float: none;
-	font-variant-numeric: tabular-nums;
-	transition: background 0.15s, color 0.15s;
-}
-
-.page-picker-btn:hover {
-	background: #eae8e3;
-	color: #555;
-}
-
-.page-picker-menu {
-	position: absolute;
-	bottom: calc(100% + 6px);
-	left: 50%;
-	transform: translateX(-50%);
-	background: white;
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	box-shadow: 0 4px 16px rgba(0,0,0,0.13);
-	min-width: 180px;
-	z-index: 200;
-	overflow: hidden;
-	padding: 0.3rem 0;
-}
-
-.page-picker-item {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	width: 100%;
-	background: none;
-	border: none;
-	padding: 0.45rem 0.85rem;
-	font-size: 0.85rem;
-	color: #444;
-	text-align: left;
-	cursor: pointer;
-	float: none;
-	transition: background 0.1s;
-}
-
-.page-picker-item:hover {
-	background: #f5f5f2;
-	color: #222;
-}
-
-.page-picker-item--active {
-	background: #eef6f1;
-	color: #3d7a52;
+.nav-button-label {
+	font-size: 0.9rem;
 	font-weight: 600;
+	line-height: 1;
 }
 
-.page-picker-item--active:hover {
-	background: #e4f0ea;
+.nav-button-sub {
+	font-size: 0.68rem;
+	font-weight: 400;
+	line-height: 1;
+	opacity: 0.8;
+	max-width: 8rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-.page-picker-dot {
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	flex-shrink: 0;
-}
-
-.page-picker-num {
-	font-size: 0.75rem;
-	color: #aaa;
-	min-width: 1.2rem;
-	font-variant-numeric: tabular-nums;
-}
-
-.page-picker-item--active .page-picker-num {
-	color: #666;
-}
-
-.page-picker-item--locked {
-	opacity: 0.38;
-	cursor: default;
-	font-style: italic;
-}
-
-.page-picker-item--locked:hover {
-	background: none;
-	color: #444;
-}
 
 /* ========== Settings cog ========== */
 
