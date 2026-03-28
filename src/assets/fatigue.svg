@@ -1,0 +1,13 @@
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="24" cy="24" r="20"/>
+  <!-- Heavy-lidded eyes — barely open slit -->
+  <path d="M13 22 Q17 20 21 22"/>
+  <line x1="13" y1="22" x2="21" y2="22"/>
+  <path d="M27 22 Q31 20 35 22"/>
+  <line x1="27" y1="22" x2="35" y2="22"/>
+  <!-- Drooped brows -->
+  <path d="M13 18 Q17 17 21 18"/>
+  <path d="M27 18 Q31 17 35 18"/>
+  <!-- Drooping slack mouth -->
+  <path d="M18 33 Q24 30 30 33"/>
+</svg>

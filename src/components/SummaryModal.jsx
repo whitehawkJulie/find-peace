@@ -212,6 +212,12 @@ const SummaryModal = () => {
 				<span className="summary-action-label">{copied ? "✓ Copied!" : "📋 Copy"}</span>
 				<span className="summary-action-sub">as plain text</span>
 			</button>
+			<button
+				className="summary-modal-action-btn summary-modal-close-btn"
+				onClick={() => setShowSummary(false)}>
+				<span className="summary-action-label">✕ Close</span>
+				<span className="summary-action-sub">summary</span>
+			</button>
 		</div>
 	);
 

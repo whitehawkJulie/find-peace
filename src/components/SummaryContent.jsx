@@ -28,6 +28,7 @@ const SummaryContent = () => {
 		simpleRequest,
 		collabScript,
 		includeCollabInSummary,
+		reviewReflection,
 	} = useWizard();
 
 	const obsText =
@@ -65,7 +66,8 @@ const SummaryContent = () => {
 		hasGuesses ||
 		hasWhatsChanged ||
 		hasRequests ||
-		hasCollabScript;
+		hasCollabScript ||
+		reviewReflection?.trim();
 
 	if (!hasAnyData) {
 		return (
@@ -306,6 +308,14 @@ const SummaryContent = () => {
 								))}
 						</div>
 					)}
+				</div>
+			)}
+			{reviewReflection?.trim() && (
+				<div className="review-section">
+					<h3>Final reflection</h3>
+					<p className="review-text" style={{ whiteSpace: "pre-wrap" }}>
+						{reviewReflection.trim()}
+					</p>
 				</div>
 			)}
 		</>

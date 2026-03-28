@@ -1,0 +1,14 @@
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="24" cy="24" r="20"/>
+  <!-- Downcast eyes — arcs open upward (looking down) -->
+  <path d="M13 22 Q17 19 21 22"/>
+  <path d="M27 22 Q31 19 35 22"/>
+  <!-- Raised brows -->
+  <path d="M13 17 Q17 14 21 17"/>
+  <path d="M27 17 Q31 14 35 17"/>
+  <!-- Tight awkward expression — asymmetric, neither smile nor frown -->
+  <path d="M18 32 Q21 35 25 32 Q28 29 31 32"/>
+  <!-- Blush marks -->
+  <line x1="9" y1="25" x2="14" y2="24"/>
+  <line x1="34" y1="24" x2="39" y2="25"/>
+</svg>

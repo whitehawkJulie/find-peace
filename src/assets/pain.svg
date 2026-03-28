@@ -1,0 +1,14 @@
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="24" cy="24" r="20"/>
+  <!-- Eyes screwed shut -->
+  <path d="M13 21 Q17 18 21 21"/>
+  <path d="M27 21 Q31 18 35 21"/>
+  <!-- Tension lines from outer eyes -->
+  <line x1="10" y1="19" x2="14" y2="22"/>
+  <line x1="38" y1="19" x2="34" y2="22"/>
+  <!-- Strong V-brows -->
+  <path d="M11 15 L22 19"/>
+  <path d="M37 15 L26 19"/>
+  <!-- Wavy grimace -->
+  <path d="M15 33 Q19 30 24 33 Q29 36 33 33"/>
+</svg>

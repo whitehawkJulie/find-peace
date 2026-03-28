@@ -1,0 +1,11 @@
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="24" cy="24" r="20"/>
+  <!-- Squinted/glaring eyes -->
+  <line x1="12" y1="22" x2="22" y2="21"/>
+  <line x1="26" y1="21" x2="36" y2="22"/>
+  <!-- Sharp V-brows, strongly angled inward -->
+  <path d="M11 15 L22 19"/>
+  <path d="M37 15 L26 19"/>
+  <!-- Strong deep frown -->
+  <path d="M15 34 Q24 27 33 34"/>
+</svg>

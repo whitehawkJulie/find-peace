@@ -13,6 +13,7 @@ const introductionFourSteps = [
 	"what actually happened",
 	"how it landed in you (your feelings)",
 	"what mattered to you (your needs)",
+	"what might have been happening for them",
 	"what you'd like to do next",
 ];
 
@@ -31,13 +32,13 @@ const Introduction = () => {
 			</p>
 
 			<p>
-				<HelpLink topic="about">This process</HelpLink> helps you pause and get clear on four things:
+				<HelpLink topic="about">This process</HelpLink> helps you pause and get clear on a few things:
 			</p>
-			<ol>
+			<ul>
 				{introductionFourSteps.map((step, i) => (
 					<li key={i}>{step}</li>
 				))}
-			</ol>
+			</ul>
 
 			<p>
 				When you do that, your brain is able to move out of <HelpLink topic="threat-mode">threat mode</HelpLink>

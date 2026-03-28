@@ -23,6 +23,7 @@ const Checklist = ({
 	setSelectedItems,
 	type = "feelings",
 	categoryHelpIcons = {},
+	subcategoryIcons = {},
 	onItemClick = null,
 	onIndicatorClick = null,
 	onInfoClick = null,
@@ -363,7 +364,10 @@ const Checklist = ({
 
 									return (
 										<div key={groupKey} className="subcategory">
-											<h4 className="subcategory-title">{groupHeading}</h4>
+											<h4 className="subcategory-title">
+										{subcategoryIcons[groupKey] && React.createElement(subcategoryIcons[groupKey], { className: "subcategory-icon", "aria-hidden": true })}
+										{groupHeading}
+									</h4>
 											<div className="pill-grid">{resolvedItems.map(renderPill)}</div>
 											{afterGroupContent &&
 												visibleItems.some((it) => it.item === afterGroupContent.itemName) &&

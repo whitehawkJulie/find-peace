@@ -9,9 +9,9 @@ import React from "react";
 // const { openHelpTopic } = useWizard();
 // <button onClick={() => openHelpTopic("Mourning")}>What is mourning?</button>
 // ===== or =====
-// import HelpLink from "./HelpLink";
-// import HelpLink from "../components/HelpLink";
+
 // <HelpLink topic="topic">text</HelpLink> ... just embed that in text anywhere
+import HelpLink from "../components/HelpLink";
 
 const StandaloneHelpTopics = [
 	{
@@ -20,7 +20,6 @@ const StandaloneHelpTopics = [
 		content: (
 			<>
 				<h2>What this process is designed to do</h2>
-
 				<p>
 					This process builds on the four steps of <strong>Nonviolent Communication</strong>, developed by
 					Marshall Rosenberg, and integrates newer understandings from affective neuroscience and nervous
@@ -30,9 +29,7 @@ const StandaloneHelpTopics = [
 					This app helps you slow down enough to reconnect with the deeper signal underneath the surface
 					reactions.
 				</p>
-
 				<p>By separating:</p>
-
 				<ul>
 					<li>
 						<strong>what happened</strong>
@@ -44,21 +41,25 @@ const StandaloneHelpTopics = [
 						<strong>what mattered to you</strong>
 					</li>
 				</ul>
-
 				<p>
 					the underlying need often becomes clearer. From that place, it becomes much easier to find
 					strategies that actually move the situation forward.
 				</p>
-
 				<p>
 					<strong>React → Get curious → Understand → Connect → Solve</strong>
 				</p>
-
 				<p>
 					When we focus only on what's wrong, we tend to repeat the same patterns.
 					<br />
 					When we focus on what <strong>matters</strong>, new possibilities often appear.
 				</p>
+				<h2>For example...</h2>
+				This is a tiny example, just for show ... note that the process can be used for anything, from the
+				smallest conflict to the largest war.
+				<h3>It might start like this...</h3>
+				<img src="/conflict.png" alt="" style={{ width: "100%", display: "block", marginTop: "1rem" }} />
+				<h3>... but it can end up like this</h3>
+				<img src="/field-of-needs.jpg" alt="" style={{ width: "100%", display: "block" }} />
 			</>
 		),
 	},
@@ -89,56 +90,72 @@ const StandaloneHelpTopics = [
 		id: "mourning",
 		title: "Connecting with and mourning unmet needs",
 		content: (
-			<div>
-				<h3>Connecting</h3>
+			<>
+				<h3>Connecting with and mourning unmet needs</h3>
+
 				<p>
-					If you can’t remember a time this need was ever met, you’re not doing anything wrong. For some
-					needs, this is a very real and painful discovery.
+					Sometimes identifying a need brings up grief — not just about this situation, but about how long
+					this need has gone unmet, or how little hope there seems to be.
 				</p>
 
 				<p>
-					To get a sense of connection to this need, it can be powerful to <em>imagine</em> the need being
-					met. This isn't about "faking it until you make it" or trying to trick yourself into feeling
-					something. It's about using your imagination to explore what this need means to you, and how it
-					might show up in your life if it were met.
+					This kind of grief is real, and worth acknowledging. It doesn’t mean nothing can change — but it may
+					mean something in you needs care before moving on.
 				</p>
+
+				<h3>Needs and strategies</h3>
+
+				<p>
+					Our minds often latch onto one specific way for a need to be met — one person, one outcome, one
+					path.
+				</p>
+
+				<p>When that path feels blocked, it can start to feel like the need itself is impossible.</p>
+
+				<p>But it’s usually the strategy that’s stuck — not the need.</p>
+
+				<p>When we loosen our grip on the “how,” other possibilities often begin to appear.</p>
+
+				<h3>Gently connecting with the need</h3>
+				<p>If it feels accessible, you might explore what this need actually means to you.</p>
 
 				<ul>
-					<li>
-						What might it look like if this need <em>were</em> met? What would it actually take to genuinely
-						feel like this need has been met?
-					</li>
+					<li>What might it look like if this need were met?</li>
+					<li>What would it take to genuinely feel it had been met?</li>
 					<li>How might that feel in your body?</li>
-					<li>How might you then move, speak, or relate to others?</li>
 				</ul>
 
-				<p>If that’s still too hard, can you imagine it for someone else?</p>
+				<p>If that’s too hard, you might imagine it for someone else:</p>
 
 				<ul>
 					<li>What would it look like for another person to have this need met?</li>
-					<li>How do you imagine they might feel?</li>
 					<li>How would you recognise it in them?</li>
 				</ul>
 
-				<h3>Mourning</h3>
-
+				<h3>Making space for what’s here</h3>
 				<p>
-					Sometimes, when a need hasn’t been met for a long time — or ever — what arises is{" "}
-					<strong>grief</strong>.
+					Sometimes the most helpful thing is simply to let yourself feel the weight of the unmet need,
+					without rushing to fix it.
 				</p>
 
-				<p>Rather than trying to solve it right now, you might pause and gently make space for that.</p>
+				<p>
+					You might notice sadness, heaviness, or an ache. See if you can{" "}
+					<HelpLink topic="stay-with-it">stay with it</HelpLink>, even for a few moments, without needing to
+					change it.
+				</p>
 
-				<ul>
-					<li>Notice any sadness, heaviness, or aching that’s present</li>
-					<li>See if you can stay with it, just for a few moments</li>
-					<li>Let it be there, without needing to change it</li>
-				</ul>
+				<p>This can take courage. And often, something begins to shift when it’s given space.</p>
+
+				<h3>Acceptance</h3>
+				<p>Part of this process can be acknowledging that, right now, this need isn’t met.</p>
 
 				<p>
-					You might also notice that even when a need hasn’t been met, it still lives in you — as a kind of
-					longing, a forward-moving energy that hasn’t disappeared.
+					Acceptance doesn’t mean giving up. It means fully recognising what is — which is often what allows
+					new possibilities to emerge.
 				</p>
+
+				<h3>A different way to relate to the need</h3>
+				<p>Even when a need hasn’t been met, it still lives in you — as a kind of longing.</p>
 
 				<p>That longing isn’t a mistake. It’s part of you reaching toward what matters.</p>
 
@@ -146,7 +163,7 @@ const StandaloneHelpTopics = [
 					You don’t have to resolve this here. Simply recognising it, and allowing some space for it, can be
 					enough for now.
 				</p>
-			</div>
+			</>
 		),
 	},
 
@@ -267,22 +284,6 @@ const StandaloneHelpTopics = [
 		content: (
 			<>
 				<p>TODO</p>
-			</>
-		),
-	},
-
-	{
-		id: "acceptance",
-		title: "Acceptance vs Approval",
-		content: (
-			<>
-				<p>
-					<strong>B.J. Loridan</strong> said: My spiritual teacher told me, “If you don’t accept something,
-					you don’t fully recognize that it exists. If you don’t fully recognize that something exists, then
-					you can’t take steps to change it.” So we might say that acceptance is the willingness to fully
-					recognize what is. As I see it, acceptance is the precursor to change. ... When we accept, we allow
-					what is there to be there, and thus we become aware of what choices are available to us.
-				</p>
 			</>
 		),
 	},
@@ -428,58 +429,37 @@ const StandaloneHelpTopics = [
 		title: "Catching the FIRST feeling",
 		content: (
 			<>
-				<h2>Why people sometimes get stuck</h2>
-
-				<p>
-					Sometimes the process doesn't seem to work. One common reason is that the{" "}
-					<strong>first emotional signal gets missed</strong>.
-				</p>
-
-				<p>
-					When the nervous system detects something important, it produces an initial feeling signal — often
-					fear, anger, or distress. But many people have learned regulation strategies that move them away
-					from that signal very quickly.
-				</p>
-
-				<p>Broadly speaking, humans tend to regulate emotions in three ways:</p>
-
+				<h3>Catching the first feeling</h3>
 				<ul>
-					<li>
-						<strong>Expressing the feeling and moving toward it</strong>
-					</li>
-					<li>
-						<strong>Suppressing the feeling and moving away from it</strong>
-					</li>
-					<li>
-						<strong>Reframing the feeling cognitively</strong>
-					</li>
+					<li>Your body gives a fast, initial signal (fear, anger, distress)</li>
+					<li>We often move away from it quickly (suppress, reframe, distract)</li>
+					<li>If you miss it, you may identify the wrong need</li>
+					<li>When you catch it, things often click and move forward</li>
 				</ul>
 
-				<p>
-					If the original signal gets bypassed, we may end up identifying the wrong need underneath the
-					situation.
-				</p>
+				<h3>Why people get stuck</h3>
+				<ul>
+					<li>The original feeling gets bypassed</li>
+					<li>You work with a secondary or vague feeling instead</li>
+					<li>This can lead to misaligned needs and no real relief</li>
+				</ul>
 
-				<p>
-					For example, someone might feel anger when a boundary is crossed. If they quickly move away from
-					that anger through cognitive reframing, they may mainly notice a vague discomfort instead. When they
-					look for the need underneath that discomfort, they might conclude the need is <em>peace</em>.
-				</p>
+				<h3>First vs later feelings</h3>
+				<ul>
+					<li>First feelings: fast, body-based, instinctive</li>
+					<li>Later feelings: shaped by the mind’s story about what happened</li>
+					<li>Both matter, but separating them brings clarity</li>
+				</ul>
 
-				<p>
-					But the original signal might actually have been pointing toward needs like <strong>agency</strong>,{" "}
-					<strong>respect</strong>, or <strong>self-protection</strong>. When the underlying need is
-					misidentified, attempts to resolve the situation rarely bring the sense of relief or clarity people
-					expect.
-				</p>
-
-				<p>
-					When the <strong>real signal</strong> is recognised, however, people often experience a profound
-					shift both in how they feel, and their ability to move forward.
-				</p>
+				<h3>Try this</h3>
+				<ul>
+					<li>Ask: “What did I feel first?”</li>
+					<li>Even a rough sense can help you get back on track</li>
+				</ul>
 			</>
 		),
 	},
+
 	{
 		id: "story-words",
 		title: "Story Words",
@@ -661,15 +641,147 @@ const StandaloneHelpTopics = [
 		),
 	},
 
-	// {
-	// 	id: "empathy",
-	// 	title: "Empathy",
-	// 	content: (
-	// 		<>
-	// 			<p></p>
-	// 		</>
-	// 	),
-	// },
+	// ---- Collaborate step help topics ----
+
+	{
+		id: "nervous",
+		title: "Nervous about the conversation?",
+		content: (
+			<>
+				<section>
+					<h3>You don't have to get this right</h3>
+					<p>There's no perfect way to do this.</p>
+					<p>What matters most is sincerity — being real about your experience, and open to theirs.</p>
+					<p>Even a messy, human version of this can shift things.</p>
+				</section>
+
+				<section>
+					<h3>This is a practice</h3>
+					<p>This kind of conversation takes practice.</p>
+					<p>It's normal to forget steps, get tangled, or slip back into old patterns.</p>
+					<p>Each time you try, you're building a new way of relating.</p>
+				</section>
+			</>
+		),
+	},
+
+	{
+		id: "collab-understand-them",
+		title: "Why start with expressing our guesses for them?",
+		content: (
+			<>
+				<h3>Why start with expressing our guesses for them?</h3>
+				<p>
+					Even if your guesses are completely wrong, the fact that you've made them indicates that you CARE
+					about what it happening for them - and that does most of the work.
+				</p>
+				<p>When someone feels understood, their nervous system often settles.</p>
+				<p>That makes it much more likely they'll be able to hear you in return.</p>
+				<p>This doesn't mean their perspective is "right" — just that understanding comes before resolution.</p>
+				<p>
+					If you guesses were wrong, they'll quickly correct you here ... it's really important to stay with
+					it and make sure they get that you GET it. It can be helpful to reflect them back: "Oh! you were
+					wanting..."
+				</p>
+				<p>
+					This might take a bit of listening. You don't have to agree with them — just focus on understanding
+					what it was like for them.
+				</p>
+			</>
+		),
+	},
+
+	{
+		id: "collab-check-willingness",
+		title: "What if they're not ready to listen?",
+		content: (
+			<>
+				<h3>What if they're not ready to listen?</h3>
+				<p>If they say no, or seem defensive, it usually means they don't feel fully heard yet.</p>
+				<p>You might:</p>
+				<ul>
+					<li>Come back to listening to them a bit more</li>
+					<li>Take a break and return later</li>
+				</ul>
+
+				<h3>If they say yes, but they're not really ready</h3>
+				<p>Sometimes the other person isn't in a place where they can have this kind of conversation.</p>
+				<p>That might look like:</p>
+				<ul>
+					<li>Interrupting or arguing</li>
+					<li>Shutting down</li>
+					<li>Dismissing what you're saying</li>
+				</ul>
+				<p>
+					If that happens, it's often more effective to pause and come back later, rather than pushing
+					through. You might also want to go through this whole process again, to make sure you're expressing
+					needs rather than blame. Very few people are able to hear blame (even if it's only implied) without
+					rushing to self-defence.
+				</p>
+			</>
+		),
+	},
+
+	{
+		id: "collab-share-experience",
+		title: "How do I share without it coming out as blame?",
+		content: (
+			<>
+				<h3>How do I share without it coming out as blame?</h3>
+				<p>Try to stay with:</p>
+				<ul>
+					<li>What actually happened (not interpretations)</li>
+					<li>How you felt</li>
+					<li>What you were needing</li>
+				</ul>
+				<p>
+					If you notice blame or "you always / you never" creeping in, gently come back to talking about your
+					own internal experience, rather than your thoughts about them.
+				</p>
+				<p>
+					If it gets too hard, take a break, and go through this online process again from the start, to see
+					if you can find more clarity, and more ease in yourself, before trying the conversation again.
+				</p>
+			</>
+		),
+	},
+
+	{
+		id: "collab-check-understood",
+		title: "What if they didn't quite get it?",
+		content: (
+			<>
+				<h3>What if they didn't quite get it?</h3>
+				<p>If they didn't quite get it, that's okay — you can try again more simply.</p>
+				<p>You might say:</p>
+				<ul>
+					<li>"Not quite — what I meant was…"</li>
+				</ul>
+				<p>This step helps reduce misunderstandings before moving forward.</p>
+			</>
+		),
+	},
+
+	{
+		id: "collab-way-forward",
+		title: "How do we find something that works for both of us?",
+		content: (
+			<>
+				<h3>How do we find something that works for both of us?</h3>
+				<p>You're looking for something that works for both of you — not just one person "winning".</p>
+				<p>
+					This process generally helps you move to a place where you genuinely care about the other person's
+					needs as well, and WANT to find mutual solutions. That energy comes across.
+				</p>
+				<p>It can help to keep it:</p>
+				<ul>
+					<li>Specific</li>
+					<li>Doable</li>
+					<li>Open to adjustment</li>
+				</ul>
+			</>
+		),
+	},
 
 	// {
 	// 	id: "empathy",
@@ -691,7 +803,16 @@ const StandaloneHelpTopics = [
 	// 	),
 	// },
 
-	// Add more topics here as needed. Example:
+	// {
+	// 	id: "empathy",
+	// 	title: "Empathy",
+	// 	content: (
+	// 		<>
+	// 			<p></p>
+	// 		</>
+	// 	),
+	// },
+
 	// {
 	// 	id: "empathy",
 	// 	title: "Empathy",

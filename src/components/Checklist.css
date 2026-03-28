@@ -101,6 +101,12 @@
 	gap: 0.4rem;
 }
 
+.subcategory-icon {
+	width: 2.2rem;
+	height: 2.2rem;
+	flex-shrink: 0;
+}
+
 /* less padding on mobile to fit more feelings and needs */
 @media (max-width: 768px) {
 	.subcategory {

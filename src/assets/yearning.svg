@@ -1,0 +1,11 @@
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="24" cy="24" r="20"/>
+  <!-- Eyes positioned higher — looking upward -->
+  <circle cx="17" cy="19" r="3" fill="currentColor"/>
+  <circle cx="31" cy="19" r="3" fill="currentColor"/>
+  <!-- Softly arched hopeful brows, high up -->
+  <path d="M12 13 Q17 10 22 13"/>
+  <path d="M26 13 Q31 10 36 13"/>
+  <!-- Slightly open mouth of longing/wonder -->
+  <ellipse cx="24" cy="33" rx="4" ry="2.5"/>
+</svg>

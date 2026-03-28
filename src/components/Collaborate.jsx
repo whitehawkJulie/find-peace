@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { useWizard } from "./WizardContext";
 import { filterByState } from "../utils/renderHelpers";
+import HelpLink from "../components/HelpLink";
 
 const STEP_IDS = ["step1", "step2", "step3", "step4", "step5", "step6"];
-const STEPS_WITH_EXTRA_HELP = new Set(["step2", "step3", "step4", "step5", "step6"]);
 
 const STEP_DATA = {
 	step1: {
 		title: "Start with permission",
 		desc: "Gently check if they're open.",
-		hint: "This helps both of you feel safer before you begin.",
+		hint: "This makes it much more likely to go well!",
 		scriptDefault: "Hey, is now a good time to talk about something?",
 	},
 	step2: {
@@ -17,30 +17,40 @@ const STEP_DATA = {
 		desc: "Let them know you want to understand their side.",
 		hint: "When people feel understood, things often soften.",
 		scriptDefault: "I'd really like to understand what was going on for you earlier.",
+		helpQuestion: "Why express guesses first?",
+		helpTopicId: "collab-understand-them",
 	},
 	step3: {
 		title: "Check they're open to hearing you",
-		desc: "Before sharing, make sure they're willing to listen.",
+		desc: "Before sharing your side of things, make sure they're willing to listen.",
 		hint: "If they're not ready yet, that's okay — you can come back to this later.",
 		scriptDefault: "Would you be open to hearing what was going on for me?",
+		helpQuestion: "What if they're not ready to listen?",
+		helpTopicId: "collab-check-willingness",
 	},
 	step4: {
 		title: "Share your experience",
 		desc: "Keep it simple and grounded in your experience.",
 		hint: "You don't have to get this exactly right.",
 		scriptDefault: "When [what happened], I felt [feeling], because I was needing [need].",
+		helpQuestion: "How do I share without it coming out as blame?",
+		helpTopicId: "collab-share-experience",
 	},
 	step5: {
 		title: "Check they got it",
 		desc: "Invite them to reflect back what they heard.",
 		hint: "This isn't a test — it just helps you both feel clearer.",
 		scriptDefault: "Could you tell me what you think I'm trying to say?",
+		helpQuestion: "What if they didn't quite get it?",
+		helpTopicId: "collab-check-understood",
 	},
 	step6: {
 		title: "Find a way forward",
 		desc: "Work together on what might help.",
 		hint: "It doesn't have to be perfect — just a step that feels okay for both of you.",
 		scriptDefault: "What could we do next time that would work better for both of us?",
+		helpQuestion: "How do we find something that works for both of us?",
+		helpTopicId: "collab-way-forward",
 	},
 };
 
@@ -55,81 +65,81 @@ const SCRIPT_HEADINGS = {
 	mutualSolution: "=== FIND A MUTUAL SOLUTION ===",
 };
 
-// Per-step extraHelp JSX
-const renderExtraHelp = (stepId) => {
-	switch (stepId) {
-		case "step2":
-			return (
-				<>
-					<p>
-						This might take a bit of listening. You don't have to agree with them — just focus on
-						understanding what it was like for them.
-					</p>
-					<p>If you're not sure, you can gently guess:</p>
-					<ul>
-						<li>{'"Were you feeling…?"'}</li>
-						<li>{'"Was it because you were needing…?"'}</li>
-					</ul>
-					<p>
-						If your guess is off, that's okay — they'll usually correct you, and that helps you get closer.
-					</p>
-				</>
-			);
-		case "step3":
-			return (
-				<>
-					<p>If they say no, or seem defensive, it usually means they're not ready yet.</p>
-					<p>You might:</p>
-					<ul>
-						<li>{"Come back to listening to them a bit more"}</li>
-						<li>{"Take a break and return later"}</li>
-					</ul>
-					<p>This isn't failure — it's pacing.</p>
-				</>
-			);
-		case "step4":
-			return (
-				<>
-					<p>Try to stay with:</p>
-					<ul>
-						<li>{"What actually happened (not interpretations)"}</li>
-						<li>{"How you felt"}</li>
-						<li>{"What you were needing"}</li>
-					</ul>
-					<p>
-						{
-							'If you notice blame or "you always / you never" creeping in, gently come back to talking about your own internal experience, rather than your thoughts about them.'
-						}
-					</p>
-				</>
-			);
-		case "step5":
-			return (
-				<>
-					<p>If they didn't quite get it, that's okay — you can try again more simply.</p>
-					<p>You might say:</p>
-					<ul>
-						<li>{'"Not quite — what I meant was…"'}</li>
-					</ul>
-					<p>This step helps reduce misunderstandings before moving forward.</p>
-				</>
-			);
-		case "step6":
-			return (
-				<>
-					<p>You're looking for something that works for both of you — not just one person "winning".</p>
-					<p>It can help to keep it:</p>
-					<ul>
-						<li>{"Specific"}</li>
-						<li>{"Doable"}</li>
-						<li>{"Open to adjustment"}</li>
-					</ul>
-				</>
-			);
-		default:
-			return null;
-	}
-};
+// Per-step extraHelp JSX — kept for reference; content moved to StandaloneHelpTopics
+// const renderExtraHelp = (stepId) => {
+// 	switch (stepId) {
+// 		case "step2":
+// 			return (
+// 				<>
+// 					<p>
+// 						This might take a bit of listening. You don't have to agree with them — just focus on
+// 						understanding what it was like for them.
+// 					</p>
+// 					<p>If you're not sure, you can gently guess:</p>
+// 					<ul>
+// 						<li>{'"Were you feeling…?"'}</li>
+// 						<li>{'"Was it because you were needing…?"'}</li>
+// 					</ul>
+// 					<p>
+// 						If your guess is off, that's okay — they'll usually correct you, and that helps you get closer.
+// 					</p>
+// 				</>
+// 			);
+// 		case "step3":
+// 			return (
+// 				<>
+// 					<p>If they say no, or seem defensive, it usually means they're not ready yet.</p>
+// 					<p>You might:</p>
+// 					<ul>
+// 						<li>{"Come back to listening to them a bit more"}</li>
+// 						<li>{"Take a break and return later"}</li>
+// 					</ul>
+// 					<p>This isn't failure — it's pacing.</p>
+// 				</>
+// 			);
+// 		case "step4":
+// 			return (
+// 				<>
+// 					<p>Try to stay with:</p>
+// 					<ul>
+// 						<li>{"What actually happened (not interpretations)"}</li>
+// 						<li>{"How you felt"}</li>
+// 						<li>{"What you were needing"}</li>
+// 					</ul>
+// 					<p>
+// 						{
+// 							'If you notice blame or "you always / you never" creeping in, gently come back to talking about your own internal experience, rather than your thoughts about them.'
+// 						}
+// 					</p>
+// 				</>
+// 			);
+// 		case "step5":
+// 			return (
+// 				<>
+// 					<p>If they didn't quite get it, that's okay — you can try again more simply.</p>
+// 					<p>You might say:</p>
+// 					<ul>
+// 						<li>{'"Not quite — what I meant was…"'}</li>
+// 					</ul>
+// 					<p>This step helps reduce misunderstandings before moving forward.</p>
+// 				</>
+// 			);
+// 		case "step6":
+// 			return (
+// 				<>
+// 					<p>You're looking for something that works for both of you — not just one person "winning".</p>
+// 					<p>It can help to keep it:</p>
+// 					<ul>
+// 						<li>{"Specific"}</li>
+// 						<li>{"Doable"}</li>
+// 						<li>{"Open to adjustment"}</li>
+// 					</ul>
+// 				</>
+// 			);
+// 		default:
+// 			return null;
+// 	}
+// };
 
 const buildFinalScript = (script) => {
 	const h = (key) => SCRIPT_HEADINGS[key];
@@ -178,9 +188,9 @@ const Collaborate = () => {
 		observation,
 		feelings,
 		needs,
+		openHelpTopic,
 	} = useWizard();
 
-	const [openHelp, setOpenHelp] = useState(new Set());
 	const textareaRefs = useRef({});
 
 	const autoResize = useCallback((el) => {
@@ -188,14 +198,6 @@ const Collaborate = () => {
 		el.style.height = "auto";
 		el.style.height = el.scrollHeight + "px";
 	}, []);
-
-	const toggleHelp = (id) => {
-		setOpenHelp((prev) => {
-			const next = new Set(prev);
-			next.has(id) ? next.delete(id) : next.add(id);
-			return next;
-		});
-	};
 
 	const updateCollabScript = (field, value) => {
 		setCollabScript((prev) => ({ ...prev, [field]: value }));
@@ -257,14 +259,16 @@ const Collaborate = () => {
 		<div>
 			<p>If you'd like to talk this through with the other person, this can help you plan the conversation.</p>
 			<p>There's no perfect way to do this — just something honest and human.</p>
+			<p>
+				If it still feels urgent in you to explain, defend, or fix things quickly, this might not work so
+				well... try going through the process again, until you feel more settled.
+			</p>
 			<p className="collab-intro-note">{"Use these as prompts, not a script. Let it sound like you."}</p>
 
 			<div className="collab-steps">
 				{STEP_IDS.map((stepId, idx) => {
 					const stepData = STEP_DATA[stepId];
 					const value = collabScript[stepId] ?? stepData.scriptDefault ?? "";
-					const helpOpen = openHelp.has(stepId);
-					const hasExtraHelp = STEPS_WITH_EXTRA_HELP.has(stepId);
 					return (
 						<div className="collab-step" key={stepId}>
 							<h3 className="collab-step-title">
@@ -283,16 +287,12 @@ const Collaborate = () => {
 								onInput={(e) => autoResize(e.target)}
 								onChange={(e) => updateCollabScript(stepId, e.target.value)}
 							/>
-							{hasExtraHelp && (
-								<>
-									<button
-										className="expand-text-toggle"
-										onClick={() => toggleHelp(stepId)}
-										aria-expanded={helpOpen}>
-										{helpOpen ? "▲ Hide extra help" : "Need a bit more help with this step?"}
-									</button>
-									{helpOpen && <div className="collab-help-extra">{renderExtraHelp(stepId)}</div>}
-								</>
+							{stepData.helpTopicId && (
+								<button
+									className="expand-text-toggle"
+									onClick={() => openHelpTopic(stepData.helpTopicId)}>
+									{stepData.helpQuestion}
+								</button>
 							)}
 						</div>
 					);
@@ -324,6 +324,10 @@ const Collaborate = () => {
 					</button>
 				</div>
 			</div>
+
+			<button className="expand-text-toggle" onClick={() => openHelpTopic("nervous")}>
+				{"Nervous about having the conversation?"}
+			</button>
 
 			<label className="collab-include-label">
 				<input

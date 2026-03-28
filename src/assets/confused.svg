@@ -1,0 +1,11 @@
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="24" cy="24" r="20"/>
+  <!-- Normal eyes -->
+  <circle cx="17" cy="21" r="2.5" fill="currentColor"/>
+  <circle cx="31" cy="21" r="2.5" fill="currentColor"/>
+  <!-- Asymmetric brows — one raised high, one lower -->
+  <path d="M12 17 L20 14"/>
+  <path d="M27 19 L35 18"/>
+  <!-- Twisted questioning mouth -->
+  <path d="M16 32 Q20 29 24 31 Q28 33 32 30"/>
+</svg>

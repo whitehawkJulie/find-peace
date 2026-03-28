@@ -7,7 +7,39 @@ import ClarifyFeelings from "./ClarifyFeelings";
 import BodySensationsPopup from "./BodySensationsPopup";
 import HelpLink from "./HelpLink";
 
+import AfraidIcon from "../assets/afraid.svg?react";
+import TenseIcon from "../assets/tense.svg?react";
+import DisquietIcon from "../assets/disquiet.svg?react";
+import AnnoyedIcon from "../assets/annoyed.svg?react";
+import AngryIcon from "../assets/angry.svg?react";
+import AversionIcon from "../assets/aversion.svg?react";
+import VulnerableIcon from "../assets/vulnerable.svg?react";
+import EmbarrassedIcon from "../assets/embarrassed.svg?react";
+import SadIcon from "../assets/sad.svg?react";
+import PainIcon from "../assets/pain.svg?react";
+import DisconnectedIcon from "../assets/disconnected.svg?react";
+import FatigueIcon from "../assets/fatigue.svg?react";
+import ConfusedIcon from "../assets/confused.svg?react";
+import YearningIcon from "../assets/yearning.svg?react";
+
 import "./Feelings.css";
+
+const FEELINGS_ICONS = {
+	Afraid: AfraidIcon,
+	Tense: TenseIcon,
+	Disquiet: DisquietIcon,
+	Annoyed: AnnoyedIcon,
+	Angry: AngryIcon,
+	Aversion: AversionIcon,
+	Vulnerable: VulnerableIcon,
+	Embarrassed: EmbarrassedIcon,
+	Sad: SadIcon,
+	Pain: PainIcon,
+	Disconnected: DisconnectedIcon,
+	Fatigue: FatigueIcon,
+	Confused: ConfusedIcon,
+	Yearning: YearningIcon,
+};
 
 const REGULATION_TYPES = ["activated", "threat", "contracted", "collapsed", "cognitive"];
 
@@ -237,7 +269,8 @@ const Feelings = () => {
 							}
 						: null
 				}
-				categoryHelpIcons={{
+				subcategoryIcons={FEELINGS_ICONS}
+			categoryHelpIcons={{
 					[FeelingsData.sections.story.ui.heading]: () => openHelpTopic("story-words"),
 				}}
 			/>
