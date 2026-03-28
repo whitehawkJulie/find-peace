@@ -29,9 +29,7 @@ const Review = () => {
 			</button>
 
 			<p className="review-feedback-prompt">
-				<button
-					className="review-feedback-link"
-					onClick={() => openHelpTopic("feedback")}>
+				<button className="review-feedback-link" onClick={() => openHelpTopic("feedback")}>
 					How did this go for you?
 				</button>
 			</p>
@@ -41,6 +39,5 @@ const Review = () => {
 
 Review.title = "Review";
 Review.navTitle = "Review";
-Review.helpContent = null;
 
 export default Review;

@@ -33,7 +33,7 @@ const Grief = () => {
 				helpful approaches.
 			</p>
 
-			<h3>{"1. Let it percolate"}</h3>
+			<h3>{"Sit with it"}</h3>
 			<p>
 				Are you willing to sit with the unmet need for a few days and give it time? Let yourself wonder what
 				this need really means to you, and what would actually help you feel it had been met. Put it on the back
@@ -67,6 +67,10 @@ const Grief = () => {
 			<p>
 				You can still honour the need. Hold it gently, value it, and let it matter — even before you know what
 				to do about it.
+			</p>
+			<p>
+				The incredibly <strong>good</strong> news here is that you now know precisely what's been causing you
+				pain all this time. And now you can be much more clear in finding ways to meet that need.
 			</p>
 		</div>
 	);

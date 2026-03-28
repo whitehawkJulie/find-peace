@@ -30,7 +30,9 @@ const Introduction = () => {
 				better in the process.
 			</p>
 
-			<p>This process helps you pause and get clear on four things:</p>
+			<p>
+				<HelpLink topic="about">This process</HelpLink> helps you pause and get clear on four things:
+			</p>
 			<ol>
 				{introductionFourSteps.map((step, i) => (
 					<li key={i}>{step}</li>
@@ -38,8 +40,8 @@ const Introduction = () => {
 			</ol>
 
 			<p>
-				When you do that, your brain is able to move out of <HelpLink topic="threat-mode">threat mode</HelpLink>,
-				where it's not firing on all cylinders, and into the seeking and care circuits, which are much better
+				When you do that, your brain is able to move out of <HelpLink topic="threat-mode">threat mode</HelpLink>
+				, where it's not firing on all cylinders, and into the seeking and care circuits, which are much better
 				at finding creative solutions, often ones that work for everyone involved.
 			</p>
 			<p>This makes a huge difference. Things shift.</p>
@@ -47,9 +49,8 @@ const Introduction = () => {
 	);
 };
 
-Introduction.title = "Feel Better";
+Introduction.title = "Feel better, understand what’s happening, and know what to do";
 Introduction.titleSweary = "WTF just happened and how do I make it stop?!";
 Introduction.navTitle = "Intro";
-Introduction.helpContent = null;
 
 export default Introduction;

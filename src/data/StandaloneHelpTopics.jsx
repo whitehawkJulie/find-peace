@@ -11,18 +11,18 @@ import React from "react";
 // ===== or =====
 // import HelpLink from "./HelpLink";
 // import HelpLink from "../components/HelpLink";
-// <HelpLink topic="topic-id">link text</HelpLink> ... just embed that in text anywhere
+// <HelpLink topic="topic">text</HelpLink> ... just embed that in text anywhere
 
 const StandaloneHelpTopics = [
 	{
 		id: "about",
-		title: "About this tool",
+		title: "About this process",
 		content: (
 			<>
-				<h2>What this tool is designed to do</h2>
+				<h2>What this process is designed to do</h2>
 
 				<p>
-					This tool builds on the four steps of <strong>Nonviolent Communication</strong>, developed by
+					This process builds on the four steps of <strong>Nonviolent Communication</strong>, developed by
 					Marshall Rosenberg, and integrates newer understandings from affective neuroscience and nervous
 					system regulation.
 				</p>
@@ -174,13 +174,69 @@ const StandaloneHelpTopics = [
 			</>
 		),
 	},
+	{ id: "needs-tanks", title: "Needs tanks", content: "" },
 
 	{
-		id: "needs-tanks",
-		title: "Needs Tanks",
+		id: "needs",
+		title: "Shared Fundamental Human Needs",
 		content: (
 			<>
-				<p>TODO</p>
+				<h3>What Is a Need?</h3>
+
+				<p>
+					Needs are what every human being longs for — things that help us thrive, like safety, respect,
+					understanding, choice, or connection. They’re our common ground, something we all share.
+				</p>
+
+				<p>
+					Needs are not about any specific person or situation. They’re more like qualities of life we’re
+					wanting to experience — like feeling heard, having space to choose, or knowing we matter.
+				</p>
+
+				<p>
+					When something is painful or upsetting, it’s often because one or more of these deeper needs isn’t
+					being met. And when we can connect with the need underneath what’s happening, something begins to
+					shift — we move out of blame and into understanding what really matters to us.
+				</p>
+				<p>
+					This is different from the solutions or actions we think will meet those needs — we’ll come to that
+					next.
+				</p>
+
+				<h3>Needs vs Strategies</h3>
+				<p>
+					A need isn’t a demand and it isn’t a specific outcome. It’s simply a word for what matters most to
+					us. A strategy is something we DO to meet a need.
+				</p>
+
+				<p>Needs are universal. Strategies are personal.</p>
+
+				<p>
+					<strong>Need:</strong> Respect
+					<br />
+					<strong>Strategy:</strong> “I want this particular person to act in this particular way.”
+				</p>
+
+				<p>When we focus on the need instead of one strategy, many more possibilities open up.</p>
+
+				<p>
+					If the need isn’t clear, we often reach for strategies that promise relief — arguing, withdrawing,
+					blaming, or trying to control the situation.
+				</p>
+
+				<p>
+					Marshall Rosenberg called these “tragic strategies for unmet needs.” They’re tragic not because
+					we’re wrong, but because the strategy aims for relief while missing the real source of the pain.
+				</p>
+
+				<h3>Hold Tightly to the Need, Loosely to the Strategy</h3>
+
+				<p>
+					The need is what matters. Any specific strategy — a particular person acting in a particular way —
+					is just one possible way to meet it.
+				</p>
+
+				<p>When we loosen our grip on one strategy, we open the door to many other ways forward.</p>
 			</>
 		),
 	},
@@ -236,74 +292,61 @@ const StandaloneHelpTopics = [
 		title: "Stay with the feeling",
 		content: (
 			<>
-				<p>
-					Most of us have been taught to push feelings away, to put them aside. It's so helpful to learn how
-					to actually stay with them, welcome them.
-				</p>
-				<p>Add all the stuff here about "message delivered", and HOW to be with a feeling</p>
-				<ul>
-					<li>attention to body sensations</li>
-					<li>allowing without changing</li>
-					<li>short time frames (“just 10 seconds”)</li>
-					<li>naming without analysing</li>
-				</ul>
+				<div>
+					<p>
+						Most of us have been taught to push feelings away, distract from them, or try to fix them
+						quickly. It can be surprisingly helpful to do the opposite — to stay with a feeling, and gently
+						welcome it.
+					</p>
+
+					<p>
+						Your body is constantly signalling what’s happening inside you. When those signals are ignored,
+						the body keeps trying to get your attention. But when you notice and acknowledge what’s there,
+						it’s as if the body says, “Message received,” and the intensity can begin to settle.
+					</p>
+
+					<p>
+						<strong>How to stay with a feeling</strong>
+					</p>
+					<p>
+						A technique called{" "}
+						<a href="https://focusingresources.com/more-information-about-focusing" target="_blank">
+							Inner Relationship Focusing
+						</a>{" "}
+						taught me how to be with a feeling, in a way that feels pretty great.
+					</p>
+					<ul>
+						<li>
+							<strong>Locate the "something":</strong> When you notice a tight, anxious, or uncomfortable
+							feeling, try saying “something in me is [feeling]” rather than “I am [feeling]”.
+						</li>
+						<li>
+							<strong>Pause and turn toward it:</strong> Take a breath, gently bring your attention
+							inward, and notice the sensation with a curious, friendly attitude.
+						</li>
+						<li>
+							<strong>Say hello:</strong> Gently say, “Hello, I know you’re there”. You could place a
+							gentle, supportive hand on the place where you feel it.
+						</li>
+						<li>
+							Can you trust that there's a good reason for this feeling to be here? Can you say to it, "No
+							wonder you feel this way! You make sense!"
+						</li>
+						<li>
+							<strong>Wait and listen:</strong> After saying hello, give it a moment. Let it show you
+							more, while you stay present as a kind, non-judging listener.
+						</li>
+					</ul>
+					<p>
+						Notice that <em>it’s not about fixing</em>. The goal is not to make the feeling go away, but to
+						get to know it.
+					</p>
+					<p>
+						You don’t need to do this perfectly. Even a brief moment of noticing can help your system settle
+						and make space for something new to emerge.
+					</p>
+				</div>
 			</>
-		),
-	},
-
-	{
-		id: "what-are-needs",
-		title: "What are needs?",
-		content: (
-			<div>
-				<h2>What Is a Need?</h2>
-
-				<p>
-					Needs are qualities that all human beings long for — things that help us thrive, like safety,
-					respect, understanding, choice, or connection.
-				</p>
-
-				<p>
-					A need isn’t a demand and it isn’t a specific outcome. It’s simply a word for what matters most to
-					us.
-				</p>
-
-				<p>Needs are universal. Strategies are personal.</p>
-
-				<p>
-					<strong>Need:</strong> Respect
-					<br />
-					<strong>Strategy:</strong> “I want this particular person to act in this particular way.”
-				</p>
-
-				<p>When we focus on the need instead of one strategy, many more possibilities open up.</p>
-
-				<h2>Why Naming Needs Helps</h2>
-
-				<p>
-					Feelings are signals that something important is happening. When we identify the need underneath,
-					the intensity often softens — even before anything changes externally.
-				</p>
-
-				<p>
-					If the need isn’t clear, we often reach for strategies that promise relief — arguing, withdrawing,
-					blaming, or trying to control the situation.
-				</p>
-
-				<p>
-					Marshall Rosenberg called these “tragic strategies for unmet needs.” They’re tragic not because
-					we’re wrong, but because the strategy aims for relief while missing the real source of the pain.
-				</p>
-
-				<h2>Hold Tightly to the Need, Loosely to the Strategy</h2>
-
-				<p>
-					The need is what matters. Any specific strategy — a particular person acting in a particular way —
-					is just one possible way to meet it.
-				</p>
-
-				<p>When we loosen our grip on one strategy, we open the door to many other ways forward.</p>
-			</div>
 		),
 	},
 
@@ -484,35 +527,139 @@ const StandaloneHelpTopics = [
 		),
 	},
 
-	// {
-	// 	id: "empathy",
-	// 	title: "Empathy",
-	// 	content: (
-	// 		<>
-	// 			<p></p>
-	// 		</>
-	// 	),
-	// },
+	{
+		id: "feelings",
+		title: "Feelings",
+		content: (
+			<>
+				<p>
+					Feelings live in your body - they are part of your body's signal system. They let you know whether
+					something important is happening — often connected to your needs being met or unmet.
+				</p>
+				<p>
+					<a href="https://sarahpeyton.com/" target="_blank" rel="noopener noreferrer">
+						Sarah Peyton
+					</a>{" "}
+					says that our body’s job is to signal what’s happening inside us. When we ignore those signals, the
+					body can’t fully relax — it’s still trying to deliver the message. But when we notice and
+					acknowledge what it’s telling us, it’s as if the body says, “Message delivered!,” and it can finally
+					relax.
+				</p>
+				<p>
+					This shift has even been observed in brain imaging studies. When people are exposed to emotionally
+					evocative stimuli, activity increases across regions involved in threat and emotional reactivity.
+					But when they are asked to identify and name the feeling — especially finding a word that fits
+					closely — that activity decreases, and areas involved in regulation become more active. In other
+					words, accurately naming what we feel appears to help the brain settle. It’s as if the brain
+					recognises, “Ah — that’s what this is,” and no longer needs to keep sounding the alarm.
+				</p>
+				<p>
+					So, when you can name what you're actually feeling, intensity often shifts. Clarity opens the
+					doorway to understanding what you need.
+				</p>
+				<p>
+					It's really useful to look through the entire feelings list, checking for every feeling inside
+					yourself, rather than just scanning the list looking for words for feelings you already know. The
+					surprising ones hold a LOT of power to shift your experience.
+				</p>
+				<p>
+					It's completely normal to feel lots of different things at once, some of them contradictory! Select
+					any feelings in the list that jump out at you.
+				</p>
+			</>
+		),
+	},
 
-	// {
-	// 	id: "empathy",
-	// 	title: "Empathy",
-	// 	content: (
-	// 		<>
-	// 			<p></p>
-	// 		</>
-	// 	),
-	// },
+	{
+		id: "observation",
+		title: "How to Make a Clear Observation",
+		content: (
+			<>
+				<p>
+					An observation is a description of a specific moment — something that could have been seen or heard
+					by someone in the room. It avoids interpretation, judgment, motive-guessing, and time collapse.
+				</p>
+				<p>It's actually quite a skill to learn to make a clear observation.</p>
+				<p>
+					It helps us start to move out of threat mode and into curiosity, which brings our brains back
+					online.
+				</p>
 
-	// {
-	// 	id: "empathy",
-	// 	title: "Empathy",
-	// 	content: (
-	// 		<>
-	// 			<p></p>
-	// 		</>
-	// 	),
-	// },
+				<p>
+					👁️<strong>What actually happened?</strong>
+				</p>
+				<ul>
+					<li>Without labels like "rude," "selfish," or "asshole," what did they actually say or do?</li>
+				</ul>
+
+				<p>
+					⏳<strong>One specific moment</strong>
+				</p>
+				<ul>
+					<li>Choose a single moment — not the whole history. It's just easier to work with.</li>
+					<li>
+						Words like "always," "never," or "every time" often signal that multiple events are bundled
+						together.
+					</li>
+					<li>
+						Try narrowing to one moment: "On Tuesday evening when…" instead of "Every time we talk about
+						this…"
+					</li>
+				</ul>
+
+				<p>
+					🖼️<strong>Could someone picture this happening?</strong>
+				</p>
+				<ul>
+					<li>If someone else watched it, would they see what you’ve described?</li>
+				</ul>
+
+				<p>
+					🔎<strong>Just what happened — not what it meant</strong>
+				</p>
+				<ul>
+					<li>
+						Can you describe what was actually said or done, rather than interpretations like
+						"disrespectful," "uncaring," "manipulative"?
+					</li>
+					<li>
+						Try stripping out words that carry a judgment or meaning, and rewriting in terms of actions,
+						words, and what was physically present.
+					</li>
+					<li>Instead of "she was dismissive", try "she looked at her phone while I was speaking."</li>
+					<li>
+						If it helps, imagine what someone else in the room might have noticed happening. What might they
+						say they saw or heard?
+					</li>
+				</ul>
+
+				<p>
+					🧠<strong>Leave the "why" aside just for now</strong>
+				</p>
+				<ul>
+					<li>
+						Can you remove any assumptions about motive? (e.g., "to control me," "to hurt me," "because he
+						doesn't care")
+					</li>
+					<li>Our minds fill in meaning very quickly — that's normal.</li>
+					<li>
+						Try leaving out the "because" for now. Just describe what happened. The question of why can come
+						later.
+					</li>
+				</ul>
+			</>
+		),
+	},
+
+	{
+		id: "focusing",
+		title: "Inner Relationship Focusing",
+		content: (
+			<>
+				<p>https://focusingresources.com/more-information-about-focusing</p>
+			</>
+		),
+	},
 
 	// {
 	// 	id: "empathy",

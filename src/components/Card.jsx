@@ -95,7 +95,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 					&#9776;
 				</button>
 				<div className="card-header-text">
-					<div className="card-app-title">Wait, What?!</div>
+					<div className="card-app-title">Untangle This</div>
 					<h2 className="card-page-title">{title}</h2>
 				</div>
 			</div>

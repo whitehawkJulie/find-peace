@@ -55,6 +55,5 @@ const ExploringWhatsChanged = () => {
 ExploringWhatsChanged.title = "Exploring what's changed";
 ExploringWhatsChanged.titleSweary = "So... what's different now?";
 ExploringWhatsChanged.navTitle = "Notice what's changed";
-ExploringWhatsChanged.helpContent = null;
 
 export default ExploringWhatsChanged;

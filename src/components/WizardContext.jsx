@@ -106,9 +106,9 @@ const allSteps = [
 		icon: exploreNeedIcon,
 		optional: true,
 	},
+	{ component: Grief, group: "find", optional: true, color: "#3a676c" },
 	{ component: MakingGuesses, group: "find", optional: true, color: "#3a5e80", icon: theirViewIcon },
 	// { component: RequestFormulation, optional: true },
-	{ component: Grief, group: "find", optional: true, color: "#4e3872" },
 	{
 		component: ExploringWhatsChanged,
 		group: "move",

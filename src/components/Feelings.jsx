@@ -5,6 +5,8 @@ import { useWizard } from "./WizardContext";
 import SlideDrawer from "./SlideDrawer";
 import ClarifyFeelings from "./ClarifyFeelings";
 import BodySensationsPopup from "./BodySensationsPopup";
+import HelpLink from "./HelpLink";
+
 import "./Feelings.css";
 
 const REGULATION_TYPES = ["activated", "threat", "contracted", "collapsed", "cognitive"];
@@ -93,8 +95,17 @@ const RegulationHelpContent = () => {
 };
 
 const Feelings = () => {
-	const { observation, feelings, setFeelings, needs, setNeeds, settings, bodySensations, setBodySensations, openHelpTopic } =
-		useWizard();
+	const {
+		observation,
+		feelings,
+		setFeelings,
+		needs,
+		setNeeds,
+		settings,
+		bodySensations,
+		setBodySensations,
+		openHelpTopic,
+	} = useWizard();
 	const [showBodySensations, setShowBodySensations] = useState(false);
 	const [popupItem, setPopupItem] = useState(null);
 	const [showRegulationOverlay, setShowRegulationOverlay] = useState(settings.regulationOverlay ?? false);
@@ -177,8 +188,8 @@ const Feelings = () => {
 			</p>
 
 			<p>
-				You don’t have to get this perfect. Just notice what’s there — you might find that naming feelings gives
-				you information you didn’t realise you had.
+				You don’t have to get this perfect. Just notice what’s there — you might find that{" "}
+				<HelpLink topic="feelings">naming feelings</HelpLink> gives you information you didn’t realise you had.
 			</p>
 
 			<p>Now return to that moment.</p>
@@ -285,69 +296,5 @@ const Feelings = () => {
 Feelings.title = "What am I feeling?";
 Feelings.titleSweary = "Fuck them, what's going on in ME?";
 Feelings.navTitle = "What am I feeling?";
-Feelings.helpContent = (
-	<>
-		<h3>Feelings</h3>
-
-		<p>
-			Feelings live in your body - they are part of your body's signal system. They let you know whether something
-			important is happening — often connected to your needs being met or unmet.
-		</p>
-		<p>
-			<a href="https://sarahpeyton.com/" target="_blank" rel="noopener noreferrer">
-				Sarah Peyton
-			</a>{" "}
-			says that our body’s job is to signal what’s happening inside us. When we ignore those signals, the body
-			can’t fully relax — it’s still trying to deliver the message. But when we notice and acknowledge what it’s
-			telling us, it’s as if the body says, “Message delivered!,” and it can finally relax.
-		</p>
-		<p>
-			When you can name what you're actually feeling, intensity often shifts. Clarity opens the doorway to
-			understanding what you need.
-		</p>
-
-		<p>
-			It's really useful to look through the entire feelings list, checking for every feeling inside yourself,
-			rather than just scanning the list looking for words for feelings you already know. The surprising ones hold
-			a LOT of power to shift your experience.
-		</p>
-
-		<p>
-			It's completely normal to feel lots of different things at once, some of them contradictory! Select any
-			feelings in the list that jump out at you.
-		</p>
-
-		<h3>Story Words</h3>
-
-		<p>
-			Many of the words we use as "feelings" actually contain a story about what someone else did. We call these{" "}
-			<strong>Story Words</strong>. This isn't wrong — it's just how we're taught to speak. (Traditional NVC
-			called these "Faux Feelings".)
-		</p>
-
-		<p>For example:</p>
-
-		<ul>
-			<li>
-				<strong>"I feel ignored"</strong> — carries a story that someone ignored you.
-			</li>
-			<li>
-				<strong>"I feel rejected"</strong> — carries a story that someone rejected you.
-			</li>
-			<li>
-				<strong>"I feel attacked"</strong> — carries a story that someone attacked you.
-			</li>
-		</ul>
-
-		<p>Underneath these words are usually clearer body-feelings — lonely, hurt, scared, angry, sad, unsettled.</p>
-
-		<p>
-			When we speak in story words, we often stay focused on what the other person did. When we name the
-			underlying feeling, we move closer to ourselves. Clear feelings point more directly to clear needs.
-		</p>
-
-		<p>If you select a Story Word, you'll be gently guided to unpack it. There's no pressure to get it perfect.</p>
-	</>
-);
 
 export default Feelings;
