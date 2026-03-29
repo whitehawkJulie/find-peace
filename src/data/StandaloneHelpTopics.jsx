@@ -58,7 +58,7 @@ const StandaloneHelpTopics = [
 				smallest conflict to the largest war.
 				<h3>It might start like this...</h3>
 				<img src="/conflict.jpg" alt="" style={{ width: "100%", display: "block", marginTop: "1rem" }} />
-				<h3>... but it can end up like this</h3>
+				<h3>... but we can get to this</h3>
 				<img src="/field-of-needs.jpg" alt="" style={{ width: "100%", display: "block" }} />
 			</>
 		),

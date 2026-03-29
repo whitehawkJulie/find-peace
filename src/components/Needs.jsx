@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Checklist from "./Checklist";
 import { Needs as NeedsData } from "../data/AllNeedsData";
 import { useWizard } from "./WizardContext";
@@ -7,74 +7,31 @@ import HelpLink from "./HelpLink";
 import "./Needs.css";
 
 const renderOrderedFeelings = (feelings) => {
-	const entries = Object.entries(feelings).filter(([, s]) => s === "clicked" || s === "double-clicked");
+	const entries = Object.entries(feelings)
+		.filter(([, s]) => s === "clicked" || s === "double-clicked")
+		.sort(([, a], [, b]) => (a === "double-clicked" ? 0 : 1) - (b === "double-clicked" ? 0 : 1));
 
-	if (entries.length === 0) {
-		return "(no feelings selected)";
-	}
+	if (entries.length === 0) return null;
 
 	return (
-		<p className="feelings-selected-box">
-			{entries.map(([feeling], i) => (
-				<React.Fragment key={feeling}>
-					{i > 0 && ", "}
+		<>
+			<p className="cloud-label">The feelings you chose</p>
+			<div className="pill-grid cloud feelings-selected-pills">
+			{entries.map(([feeling, state]) => (
+				<div key={feeling} className={`pill feeling ${state}`}>
+					{state === "double-clicked" && <span className="pill-strong-badge">●</span>}
 					{feeling}
-				</React.Fragment>
+				</div>
 			))}
-		</p>
+		</div>
+		</>
 	);
 };
 
 const Needs = () => {
-	const {
-		needs,
-		setNeeds,
-		feelings,
-		needExplorations,
-		setCurrentExploringNeed,
-		setExplorationStep,
-		setNeedExplorationOpen,
-	} = useWizard();
+	const { needs, setNeeds, feelings } = useWizard();
 
-	// Show explored+unmet needs as green ("double-clicked") visually
-	const displayNeeds = useMemo(() => {
-		const result = {};
-		for (const [name, state] of Object.entries(needs)) {
-			if (state === "clicked" && needExplorations[name]?.completed) {
-				result[name] = "double-clicked";
-			} else {
-				result[name] = state;
-			}
-		}
-		return result;
-	}, [needs, needExplorations]);
-
-	// Wrapper to prevent explored needs from being saved as "double-clicked"
-	const handleSetNeeds = (updaterOrValue) => {
-		setNeeds((prev) => {
-			// Build a display version of prev (what Checklist sees)
-			const prevDisplay = {};
-			for (const [name, state] of Object.entries(prev)) {
-				prevDisplay[name] = state === "clicked" && needExplorations[name]?.completed ? "double-clicked" : state;
-			}
-			const next = typeof updaterOrValue === "function" ? updaterOrValue(prevDisplay) : updaterOrValue;
-			// Convert any "double-clicked" back to "clicked" for explored needs
-			const result = { ...next };
-			for (const name of Object.keys(result)) {
-				if (result[name] === "double-clicked" && needExplorations[name]?.completed) {
-					result[name] = "clicked";
-				}
-			}
-			return result;
-		});
-	};
 	const [showPatriarchy, setShowPatriarchy] = useState(false);
-
-	const handleNeedInfoClick = (needName) => {
-		setCurrentExploringNeed(needName);
-		setExplorationStep(1);
-		setNeedExplorationOpen(true);
-	};
 
 	return (
 		<div className="step-needs">
@@ -90,22 +47,19 @@ const Needs = () => {
 
 			{renderOrderedFeelings(feelings)}
 
-			<p>
-				Just notice what feels alive. Select all that feel relevant. Tap ? on any selected need if you'd like to
-				explore it more deeply.
-			</p>
+			<p>Just notice what feels alive. Select all that feel relevant.</p>
+			<p className="checklist-hint">Tap twice on any need that feels especially strong or urgent.</p>
 
 			<Checklist
 				data={[
-					NeedsData.sections.subsistence,
 					NeedsData.sections.connection,
 					NeedsData.sections.meaning,
 					NeedsData.sections.freedom,
+					NeedsData.sections.subsistence,
 				]}
-				selectedItems={displayNeeds}
-				setSelectedItems={handleSetNeeds}
+				selectedItems={needs}
+				setSelectedItems={setNeeds}
 				type="needs"
-				onInfoClick={handleNeedInfoClick}
 			/>
 
 			{/* <SlideDrawer

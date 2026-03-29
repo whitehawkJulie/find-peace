@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import { getHelpTopics } from "./HelpIndex";
 import "./HelpBrowser.css";
 
@@ -11,7 +11,7 @@ const extractText = (node) => {
 	return "";
 };
 
-const HelpBrowser = ({ initialTopic, directOpen, onBack, onTopicChange }) => {
+const HelpBrowser = forwardRef(({ initialTopic, directOpen, onBack, onTopicChange }, ref) => {
 	const [query, setQuery] = useState("");
 	const topics = getHelpTopics();
 
@@ -55,6 +55,11 @@ const HelpBrowser = ({ initialTopic, directOpen, onBack, onTopicChange }) => {
 		setSelected(prev);
 		onTopicChange?.(prev?.title ?? null);
 	};
+
+	useImperativeHandle(ref, () => ({
+		historyLength: history.length,
+		goBack,
+	}), [history]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const backLabel =
 		history.length === 0
@@ -115,6 +120,6 @@ const HelpBrowser = ({ initialTopic, directOpen, onBack, onTopicChange }) => {
 			</ul>
 		</div>
 	);
-};
+});
 
 export default HelpBrowser;

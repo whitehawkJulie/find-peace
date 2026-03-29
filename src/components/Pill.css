@@ -7,10 +7,15 @@
 }
 
 .pill-grid.cloud {
-	background: radial-gradient(circle, #f5faff, #e0f0ff);
+	background: radial-gradient(circle, var(--feelings-cloud-start), var(--feelings-cloud-end));
 	padding: 2rem;
 	border-radius: 2rem;
-	box-shadow: 0 0 60px rgba(200, 220, 255, 0.5);
+	box-shadow: 0 0 60px var(--feelings-cloud-shadow);
+}
+
+.pill-grid.cloud.needs-selected-pills {
+	background: radial-gradient(circle, var(--needs-cloud-start), var(--needs-cloud-end));
+	box-shadow: 0 0 60px var(--needs-cloud-shadow);
 }
 
 .pill {
@@ -56,11 +61,12 @@
 	font-weight: 600;
 }
 
-/* met needs */
+/* strongly unmet needs */
 .pill.double-clicked.need,
 .step-needs .pill.double-clicked {
-	background-color: #c6e6c3;
-	border: 1px solid #96cb92;
+	background-color: #d6d6d6;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+	font-weight: 600;
 }
 
 /* unmet needs */
@@ -79,6 +85,21 @@
 	color: #999;
 	vertical-align: super;
 	line-height: 1;
+}
+
+/* Strong intensity badge (●) for double-tapped feelings and needs */
+.pill-strong-badge {
+	display: inline-block;
+	margin-right: 0.25rem;
+	font-size: 0.5rem;
+	color: rgba(200, 140, 40, 0.85);
+	vertical-align: middle;
+	line-height: 1;
+}
+
+/* Hide the badge when regulation overlay is active — body state colours already communicate enough */
+.pill.reg-overlay .pill-strong-badge {
+	display: none;
 }
 
 .pill:hover .pill-expand-hint {

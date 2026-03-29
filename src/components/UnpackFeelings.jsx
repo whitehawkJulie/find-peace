@@ -36,14 +36,19 @@ for (const section of Object.values(FeelingsData.sections)) {
 const EXPLORE_TYPES = ["fear", "anger", "distress"];
 
 const renderOrderedFeelings = (feelings, onMurkyClick, onRemove) => {
-	const entries = Object.entries(feelings).filter(([, s]) => s === "clicked" || s === "double-clicked");
+	const entries = Object.entries(feelings)
+		.filter(([, s]) => s === "clicked" || s === "double-clicked")
+		.sort(([, a], [, b]) => (a === "double-clicked" ? 0 : 1) - (b === "double-clicked" ? 0 : 1));
 	if (entries.length === 0) return null;
 	return (
-		<div className="pill-grid cloud feelings-selected-pills">
-			{entries.map(([name]) => {
+		<>
+			<p className="cloud-label">The feelings you chose</p>
+			<div className="pill-grid cloud feelings-selected-pills">
+			{entries.map(([name, state]) => {
 				const isMurky = name in murkyFeelingLookup;
 				return (
-					<div key={name} className="pill feeling clicked feeling-removable">
+					<div key={name} className={`pill feeling ${state} feeling-removable`}>
+						{state === "double-clicked" && <span className="pill-strong-badge">●</span>}
 						{isMurky ? (
 							<span
 								title="Click to explore further"
@@ -68,6 +73,7 @@ const renderOrderedFeelings = (feelings, onMurkyClick, onRemove) => {
 				);
 			})}
 		</div>
+		</>
 	);
 };
 
@@ -221,19 +227,6 @@ const UnpackFeelings = () => {
 
 			{renderOrderedFeelings(feelings, setPopupItem, setPendingRemoveFeeling)}
 
-			{/* <div className="page-section"> */}
-			<div className="feelings-explore-categories">
-				<h3>Pause</h3>
-				<p>
-					There's nothing to solve here — just notice what happens when you choose the strongest of these
-					feelings and just <HelpLink topic="stay-with-it">stay with it for a moment</HelpLink>, without
-					digging or forcing. Is there something it wants to tell you? Can you pause long enough to hear the
-					answer from your body, rather than your mind?
-				</p>
-
-				{/* TODO: add text box so user can note anything that came up for them here! */}
-			</div>
-
 			{pendingRemoveFeeling && (
 				<div className="feeling-remove-confirm">
 					<span>
@@ -254,6 +247,19 @@ const UnpackFeelings = () => {
 					</div>
 				</div>
 			)}
+
+			{/* <div className="page-section"> */}
+			<div className="feelings-explore-categories">
+				<h3>Pause</h3>
+				<p>
+					There's nothing to solve here — just notice what happens when you choose the strongest of these
+					feelings and just <HelpLink topic="stay-with-it">stay with it for a moment</HelpLink>, without
+					digging or forcing. Is there something it wants to tell you? Can you pause long enough to hear the
+					answer from your body, rather than your mind?
+				</p>
+
+				{/* TODO: add text box so user can note anything that came up for them here! */}
+			</div>
 
 			{detectedTypes.length > 0 && (
 				<div className="feelings-explore-categories">

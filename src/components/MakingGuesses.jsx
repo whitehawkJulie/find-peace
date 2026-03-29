@@ -58,7 +58,10 @@ const MakingGuesses = () => {
 
 			<div className="guesses-section">
 				<h3>{"What might they be needing?"}</h3>
-				<p>What needs of theirs might not be met in this situation?</p>
+				<p>
+					What needs of theirs might not be met in this situation? Or, alternately, what needs might they have
+					been trying to meet, in what they said or did?
+				</p>
 				<Checklist
 					data={[
 						NeedsData.sections.subsistence,

@@ -64,7 +64,7 @@ const SummaryModal = () => {
 			observation?.refined?.trim() ||
 			[observation?.moment, observation?.actions].filter((s) => s?.trim()).join("\n");
 
-		const allFeelings = filterByState(feelings, "clicked");
+		const allFeelings = [...filterByState(feelings, "clicked"), ...filterByState(feelings, "double-clicked")];
 		const metNeeds = filterByState(needs, "double-clicked");
 		const unmetNeeds = filterByState(needs, "clicked");
 		const exploredNeeds = Object.entries(needExplorations).filter(([, v]) => v.completed);
@@ -117,8 +117,8 @@ const SummaryModal = () => {
 		}
 
 		heading("Needs");
+		if (metNeeds.length > 0) lines.push(`Strongly unmet needs: ${metNeeds.join(", ")}`, "");
 		if (unmetNeeds.length > 0) lines.push(`Unmet needs: ${unmetNeeds.join(", ")}`, "");
-		if (metNeeds.length > 0) lines.push(`Met needs: ${metNeeds.join(", ")}`, "");
 		if (exploredNeeds.length > 0) {
 			lines.push("Need explorations:");
 			for (const [name, exp] of exploredNeeds) {

@@ -59,22 +59,13 @@ const Checklist = ({
 
 		const newState = { ...selectedItems };
 
-		if (type === "needs" || type === "feelings") {
-			// Simple toggle: selected ↔ unselected (no double-click)
-			if (newState[item]) {
-				delete newState[item];
-			} else {
-				newState[item] = "clicked";
-			}
+		// Click cycle: unselected → clicked → double-clicked (strong) → unselected
+		if (newState[item] === "double-clicked") {
+			delete newState[item];
+		} else if (newState[item] === "clicked") {
+			newState[item] = "double-clicked";
 		} else {
-			// Click cycle: unselected → clicked → double-clicked → unselected
-			if (newState[item] === "double-clicked") {
-				delete newState[item];
-			} else if (newState[item] === "clicked") {
-				newState[item] = "double-clicked";
-			} else {
-				newState[item] = "clicked";
-			}
+			newState[item] = "clicked";
 		}
 
 		setSelectedItems(newState);
@@ -134,8 +125,6 @@ const Checklist = ({
 			indicator = "plus";
 		} else if (itemData.clarify?.type === "murky" && selectedItems[item]) {
 			indicator = "chevron";
-		} else if (type === "needs" && selectedItems[item] && onInfoClick) {
-			indicator = "info";
 		}
 
 		return (
@@ -150,11 +139,7 @@ const Checklist = ({
 				regulationOverlay={regulationOverlay}
 				onClick={() => handleClick(item, itemData)}
 				onIndicatorClick={
-					indicator === "chevron"
-						? () => onIndicatorClick?.(itemData)
-						: indicator === "info"
-						? () => onInfoClick?.(item)
-						: undefined
+					indicator === "chevron" ? () => onIndicatorClick?.(itemData) : undefined
 				}
 			/>
 		);

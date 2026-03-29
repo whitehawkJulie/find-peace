@@ -237,6 +237,8 @@ const Feelings = () => {
 				What feelings are there?
 			</p>
 
+			<p className="checklist-hint">Tap twice on any feeling that's especially strong.</p>
+
 			<Checklist
 				data={[FeelingsData.sections.feelings, FeelingsData.sections.story]}
 				selectedItems={feelings}

@@ -19,10 +19,39 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		cardContentRef,
 		currentStep,
 		stepIndex,
+		setStepIndex,
+		visibleSteps,
 	} = useWizard();
 	const isIntro = stepIndex === 0;
 	const [hasMoreBelow, setHasMoreBelow] = useState(false);
 	const [sideMenuOpen, setSideMenuOpen] = useState(false);
+
+	// Swipe left/right to navigate between pages
+	useEffect(() => {
+		const el = cardContentRef?.current;
+		if (!el) return;
+		let startX = 0;
+		let startY = 0;
+		const onTouchStart = (e) => {
+			startX = e.touches[0].clientX;
+			startY = e.touches[0].clientY;
+		};
+		const onTouchEnd = (e) => {
+			if (helpDrawerOpen) return; // let the drawer handle its own gestures
+			const dx = e.changedTouches[0].clientX - startX;
+			const dy = e.changedTouches[0].clientY - startY;
+			// Require 60px horizontal movement and horizontal clearly dominant over vertical
+			if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.8) return;
+			if (dx < 0 && stepIndex < visibleSteps.length - 1) setStepIndex(stepIndex + 1);
+			if (dx > 0 && stepIndex > 0) setStepIndex(stepIndex - 1);
+		};
+		el.addEventListener("touchstart", onTouchStart, { passive: true });
+		el.addEventListener("touchend", onTouchEnd, { passive: true });
+		return () => {
+			el.removeEventListener("touchstart", onTouchStart);
+			el.removeEventListener("touchend", onTouchEnd);
+		};
+	}, [cardContentRef, helpDrawerOpen, stepIndex, visibleSteps, setStepIndex]);
 
 	// Refs for back-button drawer management
 	const drawerHistoryRef = useRef(false); // true when we've pushed a drawer history entry

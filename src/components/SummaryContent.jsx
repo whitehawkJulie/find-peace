@@ -34,7 +34,9 @@ const SummaryContent = () => {
 	const obsText =
 		observation?.refined?.trim() || [observation?.moment, observation?.actions].filter((s) => s?.trim()).join("\n");
 
-	const allFeelings = filterByState(feelings, "clicked");
+	const strongFeelings = filterByState(feelings, "double-clicked");
+	const normalFeelings = filterByState(feelings, "clicked");
+	const allFeelings = [...strongFeelings, ...normalFeelings];
 	const metNeeds = filterByState(needs, "double-clicked");
 	const unmetNeeds = filterByState(needs, "clicked");
 	const exploredNeeds = Object.entries(needExplorations).filter(([_, v]) => v.completed);
@@ -100,7 +102,16 @@ const SummaryContent = () => {
 			{allFeelings.length > 0 && (
 				<div className="review-section">
 					<h3>Feelings</h3>
-					<p>{allFeelings.join(", ")}</p>
+					<p>
+						{strongFeelings.map((f, i) => (
+							<React.Fragment key={f}>
+								{i > 0 && ", "}
+								<strong>{f}</strong>
+							</React.Fragment>
+						))}
+						{strongFeelings.length > 0 && normalFeelings.length > 0 && ", "}
+						{normalFeelings.join(", ")}
+					</p>
 				</div>
 			)}
 
@@ -140,19 +151,22 @@ const SummaryContent = () => {
 				</div>
 			)}
 
-			{unmetNeeds.length > 0 && (
+			{metNeeds.length > 0 && (
 				<div className="review-section">
 					<h3>Unmet needs</h3>
+					<p>
+						<strong>{metNeeds.join(", ")}</strong>
+					</p>
 					<p>{unmetNeeds.join(", ")}</p>
 				</div>
 			)}
 
-			{metNeeds.length > 0 && (
+			{/* {unmetNeeds.length > 0 && (
 				<div className="review-section">
-					<h3>Met needs</h3>
-					<p>{metNeeds.join(", ")}</p>
+					<h3>Unmet needs</h3>
+					<p>{unmetNeeds.join(", ")}</p>
 				</div>
-			)}
+			)} */}
 
 			{exploredNeeds.length > 0 && (
 				<div className="review-section">

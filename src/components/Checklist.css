@@ -23,6 +23,11 @@
 	--body-bg: #faf2fb;
 }
 
+/* Needs sections all share the same header color */
+.step-needs .category-header {
+	background-color: var(--needs-header-bg);
+}
+
 /* ========== CheckList STYLING ========== */
 
 .checklist {

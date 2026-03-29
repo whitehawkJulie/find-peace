@@ -61,7 +61,8 @@ const UnpackNeeds = () => {
 
 	// ── Unmet needs lists ──
 	const unmetNeeds = Object.entries(needs)
-		.filter(([, s]) => s === "clicked")
+		.filter(([, s]) => s === "clicked" || s === "double-clicked")
+		.sort(([, a], [, b]) => (a === "double-clicked" ? 0 : 1) - (b === "double-clicked" ? 0 : 1))
 		.map(([name]) => name);
 
 	const exploredNeeds = Object.keys(needExplorations).filter((n) => needExplorations[n]?.completed);
@@ -189,9 +190,11 @@ const UnpackNeeds = () => {
 				description="A short guided meditation to connect with what matters most."
 			/>
 			<p>Click on a need to explore more deeply, starting with the one that's loudest for you.</p>
-			<div className="pill-grid cloud">
+			<p className="cloud-label">Your needs</p>
+			<div className="pill-grid cloud needs-selected-pills">
 				{unexploredNeeds.map((name) => (
-					<div key={name} className="pill need clicked need-removable" onClick={() => startExploring(name)}>
+					<div key={name} className={`pill need ${needs[name]} need-removable`} onClick={() => startExploring(name)}>
+						{needs[name] === "double-clicked" && <span className="pill-strong-badge">●</span>}
 						{name}
 						<button
 							className="pill-remove-x"
@@ -209,12 +212,13 @@ const UnpackNeeds = () => {
 			{exploredNeeds.length > 0 && (
 				<div className="explored-section">
 					<p className="explored-label">{"Already explored:"}</p>
-					<div className="pill-grid cloud">
+					<div className="pill-grid cloud needs-selected-pills">
 						{exploredNeeds.map((name) => (
 							<div
 								key={name}
-								className="pill need double-clicked need-removable"
+								className={`pill need ${needs[name] || "clicked"} need-removable`}
 								onClick={() => startExploring(name)}>
+								{needs[name] === "double-clicked" && <span className="pill-strong-badge">●</span>}
 								{name}
 								<button
 									className="pill-remove-x"

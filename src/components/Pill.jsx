@@ -88,6 +88,9 @@ const Pill = ({
 			onTouchEnd={handleTouchEnd}
 			onTouchMove={handleTouchMove}
 			{...(meaning ? { "data-tooltip": meaning } : {})}>
+			{state === "double-clicked" && (type === "feeling" || type === "feelings" || type === "need" || type === "needs") && (
+				<span className="pill-strong-badge">●</span>
+			)}
 			{item}
 			{indicator === "plus" && <span className="pill-expand-hint">+</span>}
 			{indicator === "chevron" && (
