@@ -55,7 +55,9 @@ const Introduction = () => {
 	);
 };
 
-Introduction.title = "Feel better, understand what’s happening, and know what to do";
+// Introduction.title = "Feel better, understand what’s happening, and know what to do";
+Introduction.title = "Make sense of what’s happening, feel relief, and find a way forward";
+
 Introduction.titleSweary = "WTF just happened and how do I make it stop?!";
 Introduction.navTitle = "Intro";
 

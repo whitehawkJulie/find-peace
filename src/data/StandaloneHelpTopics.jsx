@@ -57,7 +57,7 @@ const StandaloneHelpTopics = [
 				This is a tiny example, just for show ... note that the process can be used for anything, from the
 				smallest conflict to the largest war.
 				<h3>It might start like this...</h3>
-				<img src="/conflict.png" alt="" style={{ width: "100%", display: "block", marginTop: "1rem" }} />
+				<img src="/conflict.jpg" alt="" style={{ width: "100%", display: "block", marginTop: "1rem" }} />
 				<h3>... but it can end up like this</h3>
 				<img src="/field-of-needs.jpg" alt="" style={{ width: "100%", display: "block" }} />
 			</>

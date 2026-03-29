@@ -53,11 +53,11 @@ if (unmetSection?.groups) {
 
 // Full list of steps
 const allSteps = [
-	{ component: Introduction, group: "understand", optional: true, color: "#9a5a50", icon: introIcon },
+	{ component: Introduction, group: "understand", optional: true, color: "#5F8F82", icon: introIcon },
 	{
 		component: Observation,
 		group: "understand",
-		color: "#8a6a40",
+		color: "#5F8F82",
 		icon: observationIcon,
 		pause: (
 			<>
@@ -73,7 +73,7 @@ const allSteps = [
 	{
 		component: Feelings,
 		group: "understand",
-		color: "#886075",
+		color: "#5F8F82",
 		icon: feelingsIcon,
 		pause: (
 			<>
@@ -87,14 +87,14 @@ const allSteps = [
 	{
 		component: UnpackFeelings,
 		group: "understand",
-		color: "#6a4a60",
+		color: "#5F8F82",
 		icon: exploreFeelingsIcon,
 		optional: true,
 	},
 	{
 		component: Needs,
 		group: "find",
-		color: "#5a9e6d",
+		color: "#6E9B6A",
 		icon: needsIcon,
 		pause: "Now that you've named what you're feeling, let's look at what those feelings are pointing to — \
 		to what really matters to you here...",
@@ -102,28 +102,28 @@ const allSteps = [
 	{
 		component: UnpackNeeds,
 		group: "find",
-		color: "#3a7058",
+		color: "#6E9B6A",
 		icon: exploreNeedIcon,
 		optional: true,
 	},
-	{ component: Grief, group: "find", optional: true, color: "#3a676c" },
-	{ component: MakingGuesses, group: "find", optional: true, color: "#3a5e80", icon: theirViewIcon },
+	{ component: Grief, group: "find", optional: true, color: "#6E9B6A" },
+	{ component: MakingGuesses, group: "find", optional: true, color: "#6E9B6A", icon: theirViewIcon },
 	// { component: RequestFormulation, optional: true },
 	{
 		component: ExploringWhatsChanged,
 		group: "move",
 		optional: true,
-		color: "#484878",
+		color: "#7A9E5A",
 		icon: whatsChangedIcon,
 	},
 	{
 		component: ConversationsAndCollaboration,
 		group: "move",
 		optional: true,
-		color: "#584070",
+		color: "#7A9E5A",
 		icon: conversationsIcon,
 	},
-	{ component: Review, group: "move", optional: true, color: "#804050", icon: reviewIcon },
+	{ component: Review, group: "move", optional: true, color: "#7A9E5A", icon: reviewIcon },
 ];
 
 export const WizardProvider = ({ children }) => {
