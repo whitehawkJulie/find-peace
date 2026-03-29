@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import SlideDrawer from "./SlideDrawer";
 import MenuBar from "./MenuBar";
 import SettingsDrawer from "./SettingsDrawer";
@@ -23,6 +23,35 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 	const isIntro = stepIndex === 0;
 	const [hasMoreBelow, setHasMoreBelow] = useState(false);
 	const [sideMenuOpen, setSideMenuOpen] = useState(false);
+
+	// Refs for back-button drawer management
+	const drawerHistoryRef = useRef(false); // true when we've pushed a drawer history entry
+	const suppressPopRef = useRef(false);   // suppresses our popstate handler once (X-close path)
+
+	// Push a history entry when the drawer opens so the back button can close it
+	useEffect(() => {
+		if (helpDrawerOpen) {
+			history.pushState({ helpDrawerOpen: true }, "");
+			drawerHistoryRef.current = true;
+		}
+	}, [helpDrawerOpen]);
+
+	// Intercept the back button to close the drawer instead of navigating
+	useEffect(() => {
+		const handlePopState = () => {
+			if (suppressPopRef.current) {
+				suppressPopRef.current = false;
+				return;
+			}
+			if (drawerHistoryRef.current) {
+				drawerHistoryRef.current = false;
+				setHelpDrawerOpen(false);
+				setHelpDrawerOverride(null);
+			}
+		};
+		window.addEventListener("popstate", handlePopState);
+		return () => window.removeEventListener("popstate", handlePopState);
+	}, [setHelpDrawerOpen, setHelpDrawerOverride]);
 
 	const checkScroll = useCallback(() => {
 		const el = cardContentRef?.current;
@@ -126,6 +155,11 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 				onClose={() => {
 					setHelpDrawerOpen(false);
 					setHelpDrawerOverride(null);
+					if (drawerHistoryRef.current) {
+						drawerHistoryRef.current = false;
+						suppressPopRef.current = true;
+						history.back(); // pop the entry we pushed on open
+					}
 				}}
 				title={`${title}`}
 				showBrowse
