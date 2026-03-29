@@ -436,14 +436,4 @@ const UnpackNeeds = () => {
 UnpackNeeds.title = "Explore what matters";
 UnpackNeeds.navTitle = "Explore what matters";
 
-// Shown when user clicks the ? Help button in the card header
-UnpackNeeds.helpContent = (
-	<>
-		<h3>Why explore your needs more deeply?</h3>
-		<p>
-			<em>Help content coming soon.</em>
-		</p>
-	</>
-);
-
 export default UnpackNeeds;

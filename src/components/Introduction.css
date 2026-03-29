@@ -1,1 +1,9 @@
 /* .step-introduction layout provided by .step-container in App.css */
+
+.intro-tagline {
+	font-size: 1.3rem;
+	font-weight: 800;
+	color: #9a5a50;
+	margin: 1rem 0 !important;
+	line-height: 1.3;
+}

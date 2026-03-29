@@ -99,20 +99,24 @@
 	background: rgba(255, 255, 255, 0.15);
 	border: 1px solid rgba(255, 255, 255, 0.35);
 	border-radius: 6px;
-	padding: 0.2rem 0.55rem;
+	/* padding: 0.15rem 0.35rem 0.2rem; */
+	padding: 0.05rem 0.35rem 0.3rem;
 	color: white;
-	font-size: 1.75rem;
+	font-size: 1.25rem;
 	cursor: pointer;
 	line-height: 1;
 	float: none;
 	flex-shrink: 0;
+	align-self: flex-start;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	transition: background 0.15s ease;
 }
 
 .card-menu-btn:hover {
 	background: rgba(255, 255, 255, 0.28);
 }
-
 
 /* ── Content wrapper — fills remaining card space, anchors the fade ── */
 .card-content-wrapper {
@@ -159,3 +163,30 @@
 	transition: opacity 0.25s ease;
 	z-index: 2;
 }
+.untangle-logo-wrap {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 0;
+}
+
+.untangle-logo {
+	display: block;
+	max-width: 100%;
+	height: auto;
+
+	/* makes it stand out on dark backgrounds */
+	filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 2px rgba(255, 255, 255, 0.9))
+		drop-shadow(0 0 4px rgba(255, 255, 255, 0.75));
+
+	/* optional: helps very fine pencil lines read better */
+	opacity: 0.98;
+}
+
+/* .untangle-logo {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	filter: drop-shadow(0 0 1px rgba(255, 255, 255, 1)) drop-shadow(0 0 3px rgba(255, 255, 255, 0.95))
+		drop-shadow(0 0 6px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.55));
+} */

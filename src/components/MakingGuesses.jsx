@@ -14,7 +14,10 @@ const MakingGuesses = () => {
 		<div className="making-guesses step-container">
 			<p>
 				Here we're getting curious about what might be going on for them, so that we can open the door to
-				understanding and connection.
+				understanding and connection.{" "}
+				<HelpLink topic="making-guesses" aside>
+					Why on earth would I want to do that???
+				</HelpLink>
 			</p>
 
 			<p>
@@ -77,51 +80,5 @@ MakingGuesses.titleSweary = "Where the hell were they coming from?";
 MakingGuesses.navTitle = "Their View";
 
 // Help content kept inline — it references HelpLink and is concise.
-MakingGuesses.helpContent = (
-	<>
-		<p>
-			This is one of the most powerful moves in NVC: trying to see the world through the other person's eyes. Not
-			to agree with them, not to excuse anything — just to understand. See{" "}
-			<HelpLink topic="acceptance">Acceptance vs Approval</HelpLink>
-		</p>
-
-		<h4>Why empathy guesses matter</h4>
-		<p>
-			Marshall Rosenberg taught that behind every action — no matter how hurtful — is a person trying to meet a
-			need. When we can guess what that need might be, something shifts. We start to see them not as the enemy,
-			but as a fellow human in pain.
-		</p>
-
-		<h4>How to make guesses</h4>
-		<ul>
-			<li>
-				<strong>You don't need to be right.</strong> The act of guessing is what opens your heart. Even wrong
-				guesses create connection.
-			</li>
-			<li>
-				Start with their observation — what did <em>they</em> see or experience? Their version of events might
-				be very different from yours.
-			</li>
-			<li>
-				Guess at their feelings — not what they think, but what they might be feeling in their body. Angry?
-				Scared? Hurt? Overwhelmed?
-			</li>
-			<li>Then guess at their needs — what were they longing for? Connection? Respect? To matter? Safety?</li>
-		</ul>
-
-		<h4>A surprise to watch for</h4>
-		<p>
-			You might discover that the other person has some of the same unmet needs as you. That's a powerful place to
-			stand — shared humanity, even in conflict.
-		</p>
-
-		<h4>If it feels too hard</h4>
-		<p>
-			If you're not ready to consider what might have been going on in them yet, that's completely fine. It
-			usually means you haven't fully received empathy for yourself first. You can skip this and come back to it
-			later if you like.
-		</p>
-	</>
-);
 
 export default MakingGuesses;

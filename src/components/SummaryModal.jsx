@@ -49,15 +49,15 @@ const SummaryModal = () => {
 		return () => document.removeEventListener("keydown", handler);
 	}, [showSummary, setShowSummary]);
 
-	const logSelections = () => {
-		const allFeelings = filterByState(feelings, "clicked");
-		const unmetNeeds = filterByState(needs, "clicked");
-		fetch("/api/log-selections.php", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ feelings: allFeelings, needs: unmetNeeds }),
-		});
-	};
+	// const logSelections = () => {
+	// 	const allFeelings = filterByState(feelings, "clicked");
+	// 	const unmetNeeds = filterByState(needs, "clicked");
+	// 	fetch("/api/log-selections.php", {
+	// 		method: "POST",
+	// 		headers: { "Content-Type": "application/json" },
+	// 		body: JSON.stringify({ feelings: allFeelings, needs: unmetNeeds }),
+	// 	});
+	// };
 
 	const handleCopy = () => {
 		const obsText =
@@ -189,7 +189,7 @@ const SummaryModal = () => {
 			lines.push("", `Something that stands out to me: ${reviewReflection.trim()}`);
 		}
 
-		logSelections();
+		// logSelections();
 		navigator.clipboard.writeText(lines.join("\n")).then(() => {
 			setCopied(true);
 			setTimeout(() => setCopied(false), 2500);
@@ -212,9 +212,7 @@ const SummaryModal = () => {
 				<span className="summary-action-label">{copied ? "✓ Copied!" : "📋 Copy"}</span>
 				<span className="summary-action-sub">as plain text</span>
 			</button>
-			<button
-				className="summary-modal-action-btn summary-modal-close-btn"
-				onClick={() => setShowSummary(false)}>
+			<button className="summary-modal-action-btn summary-modal-close-btn" onClick={() => setShowSummary(false)}>
 				<span className="summary-action-label">✕ Close</span>
 				<span className="summary-action-sub">summary</span>
 			</button>

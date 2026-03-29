@@ -256,29 +256,4 @@ const StrategyDiscovery = () => {
 	);
 };
 
-StrategyDiscovery.title = "Finding Strategies";
-StrategyDiscovery.helpContent = (
-	<>
-		<p>
-			A <strong>need</strong> is universal and internal — like connection, safety, or meaning.
-		</p>
-		<p>
-			A <strong>strategy</strong> is a specific action you could take to meet that need. The beautiful thing is,
-			every need can be met in countless ways!
-		</p>
-		<p>
-			For example, a need for "connection" could be met by calling a friend, joining a class, writing in a
-			journal, or even sitting with a pet.
-		</p>
-		<p>Feeling stuck is often a sign that we've confused a need with one specific strategy.</p>
-		<h4>Finding the deeper need</h4>
-		<p>
-			Sometimes the need you've named is actually a stepping stone to a deeper need. The test: if you feel
-			self-righteous about the need, there's probably something underneath. Keep asking "If I had that, then what
-			would I have?" until you find the one that brings tears or a deep softening — that's the more valuable one
-			to work with.
-		</p>
-	</>
-);
-
 export default StrategyDiscovery;

@@ -18,7 +18,9 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		setHelpTopic,
 		cardContentRef,
 		currentStep,
+		stepIndex,
 	} = useWizard();
+	const isIntro = stepIndex === 0;
 	const [hasMoreBelow, setHasMoreBelow] = useState(false);
 	const [sideMenuOpen, setSideMenuOpen] = useState(false);
 
@@ -95,8 +97,18 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 					&#9776;
 				</button>
 				<div className="card-header-text">
-					<div className="card-app-title">Untangle This</div>
-					<h2 className="card-page-title">{title}</h2>
+					{!isIntro && <div className="card-app-title">Untangle This</div>}
+					{isIntro && (
+						<div className="untangle-logo-wrap">
+							<img
+								src="./untangle-trans-sm.png"
+								alt="Untangle This"
+								className="untangle-logo"
+								style={{ width: "100%" }}
+							/>
+						</div>
+					)}
+					{!isIntro && <h2 className="card-page-title">{title}</h2>}
 				</div>
 			</div>
 

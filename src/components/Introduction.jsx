@@ -1,5 +1,6 @@
 import React from "react";
 import HelpLink from "./HelpLink";
+import { useWizard } from "./WizardContext";
 import "./Introduction.css";
 
 const introductionFeelingList = [
@@ -18,8 +19,12 @@ const introductionFourSteps = [
 ];
 
 const Introduction = () => {
+	const { settings } = useWizard();
 	return (
 		<div className="step-introduction step-container">
+			<h2 className="intro-tagline">
+				{settings.tone === "sweary" ? Introduction.titleSweary : Introduction.title}
+			</h2>
 			<p>If you're feeling anything like this:</p>
 			<ul>
 				{introductionFeelingList.map((item, i) => (
@@ -32,7 +37,7 @@ const Introduction = () => {
 			</p>
 
 			<p>
-				<HelpLink topic="about">This process</HelpLink> helps you pause and get clear on a few things:
+				<HelpLink topic="this-process">This process</HelpLink> helps you pause and get clear on a few things:
 			</p>
 			<ul>
 				{introductionFourSteps.map((step, i) => (
