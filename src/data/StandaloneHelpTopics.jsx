@@ -87,6 +87,7 @@ const StandaloneHelpTopics = [
 	{
 		id: "mourning",
 		title: "Connecting with and mourning unmet needs",
+
 		content: (
 			<>
 				<p>This need matters — even if how it might be met isn’t clear yet.</p>
@@ -282,97 +283,8 @@ const StandaloneHelpTopics = [
 	{
 		id: "needs",
 		title: "Shared Fundamental Human Needs",
+
 		content: (
-			<div>
-				<h3>When a need feels unmet</h3>
-
-				<p>
-					Sometimes recognising a need can bring up a lot — frustration, sadness, or a sense of how much this
-					matters.
-				</p>
-
-				<p>You might feel a push to change things, or a softer ache underneath — or both.</p>
-
-				<p>You don’t have to fix it right away.</p>
-
-				<p>You can stay with what’s here, or gently explore it — even for a few moments.</p>
-
-				<p>The need still matters — even if how it’s met isn’t clear yet.</p>
-			</div>
-		),
-		more: (
-			<div>
-				<p>
-					You might notice both a push to change things and a softer ache underneath. You don’t have to choose
-					— both are welcome here.
-				</p>
-
-				<h3>Staying with what’s here</h3>
-
-				<p>
-					Sometimes the most helpful thing is simply to let yourself feel what’s present, without rushing to
-					fix it.
-				</p>
-
-				<p>
-					You might notice tension, urgency, sadness, or heaviness. See if you can stay with it, even for a
-					few moments, without needing to change it.
-				</p>
-
-				<p>This can take courage. Often, something begins to shift when it’s given space.</p>
-
-				<h3>If you want to explore further</h3>
-
-				<p>If it feels accessible, you might gently turn toward the need itself:</p>
-
-				<ul>
-					<li>What might it look like if this need were met?</li>
-					<li>What would it take to genuinely feel it had been met?</li>
-					<li>How might that feel in your body?</li>
-				</ul>
-
-				<p>If that feels hard, you might imagine it for someone else:</p>
-
-				<ul>
-					<li>What would it look like for another person to have this need met?</li>
-					<li>How would you recognise it in them?</li>
-				</ul>
-
-				<h3>When things feel stuck</h3>
-
-				<p>
-					Our minds often latch onto one specific way a need should be met — one person, one outcome, one
-					path.
-				</p>
-
-				<p>When that path feels blocked, it can seem like the need itself is impossible.</p>
-
-				<p>But it’s usually the strategy that’s stuck — not the need.</p>
-
-				<p>Loosening the “how” can open up other possibilities.</p>
-
-				<h3>Acceptance</h3>
-
-				<p>Part of this process can be acknowledging that, right now, this need isn’t met.</p>
-
-				<p>
-					Acceptance doesn’t mean giving up. It means fully recognising what is — which often allows new
-					possibilities to emerge.
-				</p>
-
-				<h3>A different way to relate to the need</h3>
-
-				<p>Even when a need hasn’t been met, it still lives in you as a kind of longing.</p>
-
-				<p>That longing isn’t a mistake. It’s part of you reaching toward what matters.</p>
-
-				<p>
-					You don’t have to resolve this here. Simply recognising it, and allowing some space for it, can be
-					enough for now.
-				</p>
-			</div>
-		),
-		original: (
 			<>
 				<h3>What Is a Need?</h3>
 
