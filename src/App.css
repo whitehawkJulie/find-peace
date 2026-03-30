@@ -190,6 +190,115 @@ textarea {
 	line-height: 1.4;
 }
 
+/* ── Brain Mode Diagram — threat-mode help topic ── */
+.brain-mode-diagram {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	font-size: 0.875rem;
+	line-height: 1.5;
+}
+
+.brain-mode-box {
+	border-radius: 6px;
+	overflow: hidden;
+	border: 1.5px solid #bbb;
+}
+
+.brain-mode-box.threat  { border-color: #c47878; }
+.brain-mode-box.seeking { border-color: #7a9fc4; }
+.brain-mode-box.care    { border-color: #7ab494; }
+
+.brain-mode-header {
+	padding: 0.55rem 1rem;
+	text-align: center;
+	border-bottom: 1.5px solid inherit;
+}
+
+.brain-mode-box.threat  .brain-mode-header { background: #fce8e8; border-bottom-color: #c47878; }
+.brain-mode-box.seeking .brain-mode-header { background: #e8f0fa; border-bottom-color: #7a9fc4; }
+.brain-mode-box.care    .brain-mode-header { background: #e8f4ec; border-bottom-color: #7ab494; }
+
+.brain-mode-header strong {
+	display: block;
+	font-size: 0.9rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.brain-mode-header span {
+	font-size: 0.78rem;
+	color: #666;
+}
+
+.brain-mode-body {
+	padding: 0.75rem 1rem;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 0.5rem 0.75rem;
+	background: #fff;
+}
+
+.brain-mode-section-label {
+	font-weight: 600;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #777;
+	margin: 0 0 0.2rem;
+}
+
+.brain-mode-section ul {
+	margin: 0;
+	padding-left: 1.1rem;
+	color: #333;
+}
+
+.brain-mode-section li {
+	margin: 0;
+}
+
+/* Connector between boxes */
+.brain-mode-connector {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0.35rem 0;
+	gap: 0.1rem;
+}
+
+.brain-mode-connector-line {
+	width: 1.5px;
+	height: 0.75rem;
+	background: #bbb;
+}
+
+.brain-mode-connector-note {
+	font-size: 0.78rem;
+	font-style: italic;
+	color: #888;
+	text-align: center;
+}
+
+.brain-mode-connector-prompt {
+	font-size: 0.8rem;
+	color: #666;
+}
+
+.brain-mode-connector-arrow {
+	font-size: 1.1rem;
+	color: #aaa;
+	line-height: 1;
+}
+
+.brain-mode-end-note {
+	font-size: 0.82rem;
+	font-style: italic;
+	color: #777;
+	text-align: center;
+	padding: 0.4rem 0 0;
+}
+
 /* used to indicate a step is very important, unpacking needs for a start */
 .keyStepLabel {
 	font-size: 12px;

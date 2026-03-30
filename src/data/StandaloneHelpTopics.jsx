@@ -135,7 +135,7 @@ const StandaloneHelpTopics = [
 				<p>When that path feels blocked, it can seem like the need itself is impossible.</p>
 
 				<p>
-					But it’s usually the strategy that’s stuck — not the need. When we loosen our grip on the “how,”
+					But it’s usually the strategy that’s stuck — not the need. When we loosen our grip on the “how,"
 					other possibilities can begin to appear.
 				</p>
 
@@ -166,7 +166,7 @@ const StandaloneHelpTopics = [
 				</p>
 				<p>When that path feels blocked, it can start to feel like the need itself is impossible.</p>
 				<p>But it’s usually the strategy that’s stuck — not the need.</p>
-				<p>When we loosen our grip on the “how,” other possibilities often begin to appear.</p>
+				<p>When we loosen our grip on the “how," other possibilities often begin to appear.</p>
 				<h3>Gently connecting with the need</h3>
 				<p>If it feels accessible, you might explore what this need actually means to you.</p>
 				<ul>
@@ -319,7 +319,7 @@ const StandaloneHelpTopics = [
 				<p>
 					<strong>Need:</strong> Respect
 					<br />
-					<strong>Strategy:</strong> “I want this particular person to act in this particular way.”
+					<strong>Strategy:</strong> “I want this particular person to act in this particular way."
 				</p>
 
 				<p>When we focus on the need instead of one strategy, many more possibilities open up.</p>
@@ -330,7 +330,7 @@ const StandaloneHelpTopics = [
 				</p>
 
 				<p>
-					Marshall Rosenberg called these “tragic strategies for unmet needs.” They’re tragic not because
+					Marshall Rosenberg called these “tragic strategies for unmet needs." They’re tragic not because
 					we’re wrong, but because the strategy aims for relief while missing the real source of the pain.
 				</p>
 
@@ -428,7 +428,7 @@ const StandaloneHelpTopics = [
 					<p>
 						Your body is constantly signalling what’s happening inside you. When those signals are ignored,
 						the body keeps trying to get your attention. But when you notice and acknowledge what’s there,
-						it’s as if the body says, “Message received,” and the intensity can begin to settle.
+						it’s as if the body says, “Message received," and the intensity can begin to settle.
 					</p>
 
 					<p>
@@ -444,8 +444,8 @@ const StandaloneHelpTopics = [
 					<ul>
 						<li>
 							<strong>Locate the "something":</strong> When you notice a tight, anxious, or uncomfortable
-							feeling, try saying “something in me is feeling [eg sad]” rather than “I am feeling [eg
-							sad]”.
+							feeling, try saying “something in me is feeling [eg sad]" rather than “I am feeling [eg
+							sad]".
 						</li>
 						<li>
 							<strong>Find it in your body:</strong> Notice where in your body you feel this sensation. Is
@@ -456,7 +456,7 @@ const StandaloneHelpTopics = [
 							inward, and notice the sensation with a curious, friendly attitude.
 						</li>
 						<li>
-							<strong>Say hello:</strong> Gently say, “Hello, I know you’re there”. You could place a
+							<strong>Say hello:</strong> Gently say, “Hello, I know you’re there". You could place a
 							gentle, supportive hand on the place where you feel it.
 						</li>
 						<li>
@@ -532,35 +532,166 @@ const StandaloneHelpTopics = [
 		),
 		more: (
 			<>
-				<h3>What’s happening in your brain</h3>
+				<div>
+					<h3>What’s happening in your brain</h3>
 
-				<p>
-					When something feels threatening or painful, the brain shifts into a more protective mode. This
-					narrows attention so it can focus on immediate safety.
-				</p>
+					<p>
+						When something feels threatening or painful, the brain shifts into a more protective mode. This
+						narrows attention so it can focus on immediate safety.
+					</p>
 
-				<p>
-					Jaak Panksepp, an affective neuroscience researcher, described core emotional systems like FEAR,
-					RAGE, and PANIC/GRIEF that drive these reactions.
-				</p>
+					<p>
+						Jaak Panksepp, an affective neuroscience researcher, described core emotional systems like FEAR,
+						RAGE, and PANIC/GRIEF that drive these reactions.
+					</p>
 
-				<p>
-					In this state, the mind quickly generates explanations about what’s happening — often centred on who
-					is responsible and how to stop the problem.
-				</p>
+					<p>
+						In this state, the mind quickly generates explanations about what’s happening — often centred on
+						who is responsible and how to stop the problem.
+					</p>
 
-				<p>
-					Marshall Rosenberg called many of the resulting reactions “tragic strategies” — attempts to protect
-					what matters through blame, control, or withdrawal, which often backfire.
-				</p>
+					<p>
+						Marshall Rosenberg called many of the resulting reactions “tragic strategies” — attempts to
+						protect what matters through blame, control, or withdrawal, which often backfire.
+					</p>
 
-				<p>
-					As the system settles, other capacities come back online — including curiosity about what matters
-					(sometimes called the SEEKING system) and the ability to care about ourselves and others (the CARE
-					system).
-				</p>
+					<p>
+						As the system settles, other capacities come back online — including curiosity about what
+						matters (sometimes called the SEEKING system) and the ability to care about ourselves and others
+						(the CARE system).
+					</p>
 
-				<p>These states make it much easier to find responses that genuinely address what matters.</p>
+					<p>These states make it much easier to find responses that genuinely address what matters.</p>
+				</div>
+				<div className="brain-mode-diagram">
+					{/* ── THREAT ── */}
+					<div className="brain-mode-box threat">
+						<div className="brain-mode-header">
+							<strong>Threat Mode</strong>
+							<span>survival / protection</span>
+						</div>
+						<div className="brain-mode-body">
+							<div className="brain-mode-section">
+								<p className="brain-mode-section-label">Focus</p>
+								<ul>
+									<li>Blame</li>
+									<li>Fault-finding</li>
+									<li>Certainty</li>
+									<li>Right / wrong</li>
+								</ul>
+							</div>
+							<div className="brain-mode-section">
+								<p className="brain-mode-section-label">Experience</p>
+								<ul>
+									<li>Anger / fear / urgency</li>
+									<li>Tightness</li>
+									<li>Reactivity</li>
+								</ul>
+							</div>
+							<div className="brain-mode-section">
+								<p className="brain-mode-section-label">Behaviour</p>
+								<ul>
+									<li>Attack / defend</li>
+									<li>Control / withdraw</li>
+									<li>Argue / shut down</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					{/* ── Connector ── */}
+					<div className="brain-mode-connector">
+						<div className="brain-mode-connector-line" />
+						<span className="brain-mode-connector-note">Pause · naming · clarity</span>
+						<span className="brain-mode-connector-prompt">→ “what actually happened?"</span>
+						<div className="brain-mode-connector-line" />
+						<span className="brain-mode-connector-arrow">↓</span>
+					</div>
+
+					{/* ── SEEKING ── */}
+					<div className="brain-mode-box seeking">
+						<div className="brain-mode-header">
+							<strong>Seeking Mode</strong>
+							<span>curiosity / problem-solving</span>
+						</div>
+						<div className="brain-mode-body">
+							<div className="brain-mode-section">
+								<p className="brain-mode-section-label">Focus</p>
+								<ul>
+									<li>Curiosity</li>
+									<li>What matters?</li>
+									<li>What’s needed?</li>
+								</ul>
+							</div>
+							<div className="brain-mode-section">
+								<p className="brain-mode-section-label">Experience</p>
+								<ul>
+									<li>Interest</li>
+									<li>Openness</li>
+									<li>Mental flexibility</li>
+								</ul>
+							</div>
+							<div className="brain-mode-section">
+								<p className="brain-mode-section-label">Behaviour</p>
+								<ul>
+									<li>Exploring options</li>
+									<li>Making sense</li>
+									<li>Generating strategies</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					{/* ── Connector ── */}
+					<div className="brain-mode-connector">
+						<div className="brain-mode-connector-line" />
+						<span className="brain-mode-connector-note">empathy / connection</span>
+						<span className="brain-mode-connector-prompt">→ “what’s happening for me / them?"</span>
+						<div className="brain-mode-connector-line" />
+						<span className="brain-mode-connector-arrow">↓</span>
+					</div>
+
+					{/* ── CARE ── */}
+					<div className="brain-mode-box care">
+						<div className="brain-mode-header">
+							<strong>Care Mode</strong>
+							<span>connection / attachment</span>
+						</div>
+						<div className="brain-mode-body">
+							<div className="brain-mode-section">
+								<p className="brain-mode-section-label">Focus</p>
+								<ul>
+									<li>Understanding</li>
+									<li>Shared humanity</li>
+									<li>Connection</li>
+								</ul>
+							</div>
+							<div className="brain-mode-section">
+								<p className="brain-mode-section-label">Experience</p>
+								<ul>
+									<li>Warmth</li>
+									<li>Softness</li>
+									<li>Tenderness</li>
+								</ul>
+							</div>
+							<div className="brain-mode-section">
+								<p className="brain-mode-section-label">Behaviour</p>
+								<ul>
+									<li>Listening</li>
+									<li>Empathy</li>
+									<li>Collaborative requests</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					{/* ── End note ── */}
+					<div className="brain-mode-connector">
+						<div className="brain-mode-connector-line" />
+						<div className="brain-mode-connector-arrow">↓</div>
+					</div>
+					<p className="brain-mode-end-note">Restored safety → threat settles</p>
+				</div>
 			</>
 		),
 		old: (
@@ -638,7 +769,7 @@ const StandaloneHelpTopics = [
 
 				<h3>Try this</h3>
 				<ul>
-					<li>Ask: “What did I feel first?”</li>
+					<li>Ask: “What did I feel first?"</li>
 					<li>Even a rough sense can help you get back on track</li>
 				</ul>
 			</>
@@ -681,7 +812,7 @@ const StandaloneHelpTopics = [
 					from the story about what happened to the clearer feelings living in your body.
 				</p>
 				<p>
-					This isn’t about being more “correct.” It’s about getting closer to your own experience — the
+					This isn’t about being more “correct." It’s about getting closer to your own experience — the
 					sensations, emotions, and needs that are present when the story falls away.
 				</p>
 				<p>
@@ -703,7 +834,7 @@ const StandaloneHelpTopics = [
 
 				<p>You can simply notice what’s present, or take a moment to tune in more closely.</p>
 
-				<p>Naming what you feel can help your system settle — like your body saying “message received.”</p>
+				<p>Naming what you feel can help your system settle — like your body saying “message received."</p>
 
 				<p>It’s normal to feel several things at once — even contradictory ones.</p>
 
@@ -722,7 +853,7 @@ const StandaloneHelpTopics = [
 						Sarah Peyton
 					</a>{" "}
 					describes how the body keeps signalling until it feels heard. When you notice and name what you’re
-					feeling, it’s as if the body says “message received,” and the intensity can begin to settle.
+					feeling, it’s as if the body says “message received," and the intensity can begin to settle.
 				</p>
 
 				<p>
@@ -765,7 +896,7 @@ const StandaloneHelpTopics = [
 					</a>{" "}
 					says that our body’s job is to signal what’s happening inside us. When we ignore those signals, the
 					body can’t fully relax — it’s still trying to deliver the message. But when we notice and
-					acknowledge what it’s telling us, it’s as if the body says, “Message delivered!,” and it can finally
+					acknowledge what it’s telling us, it’s as if the body says, “Message delivered!," and it can finally
 					relax.
 				</p>
 				<p>
@@ -774,7 +905,7 @@ const StandaloneHelpTopics = [
 					But when they are asked to identify and name the feeling — especially finding a word that fits
 					closely — that activity decreases, and areas involved in regulation become more active. In other
 					words, accurately naming what we feel appears to help the brain settle. It’s as if the brain
-					recognises, “Ah — that’s what this is,” and no longer needs to keep sounding the alarm.
+					recognises, “Ah — that’s what this is," and no longer needs to keep sounding the alarm.
 				</p>
 				<p>
 					So, when you can name what you're actually feeling, intensity often shifts. Clarity opens the
