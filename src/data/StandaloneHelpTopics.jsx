@@ -510,6 +510,61 @@ const StandaloneHelpTopics = [
 		title: "Threat, Seeking and Care circuits",
 		content: (
 			<>
+				<h3>When things feel intense</h3>
+
+				<p>When something matters a lot, your system can become more reactive and focused on what’s wrong.</p>
+
+				<p>
+					In that state, the mind often moves quickly into stories — especially about who’s responsible and
+					how to stop the problem.
+				</p>
+
+				<p>
+					This can lead to reactions like blaming, pushing, or withdrawing — ways of trying to protect
+					something important, even if they don’t quite work.
+				</p>
+
+				<p>
+					As things begin to settle, it becomes easier to get curious about what really matters and to find a
+					way forward.
+				</p>
+			</>
+		),
+		more: (
+			<>
+				<h3>What’s happening in your brain</h3>
+
+				<p>
+					When something feels threatening or painful, the brain shifts into a more protective mode. This
+					narrows attention so it can focus on immediate safety.
+				</p>
+
+				<p>
+					Jaak Panksepp, an affective neuroscience researcher, described core emotional systems like FEAR,
+					RAGE, and PANIC/GRIEF that drive these reactions.
+				</p>
+
+				<p>
+					In this state, the mind quickly generates explanations about what’s happening — often centred on who
+					is responsible and how to stop the problem.
+				</p>
+
+				<p>
+					Marshall Rosenberg called many of the resulting reactions “tragic strategies” — attempts to protect
+					what matters through blame, control, or withdrawal, which often backfire.
+				</p>
+
+				<p>
+					As the system settles, other capacities come back online — including curiosity about what matters
+					(sometimes called the SEEKING system) and the ability to care about ourselves and others (the CARE
+					system).
+				</p>
+
+				<p>These states make it much easier to find responses that genuinely address what matters.</p>
+			</>
+		),
+		old: (
+			<>
 				<h2>Threat, Seeking and Care circuits</h2>
 
 				<p>
