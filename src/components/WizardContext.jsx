@@ -170,15 +170,30 @@ export const WizardProvider = ({ children }) => {
 	// True once the user has unsaved changes; cleared when saveSession() is called.
 	// Using a ref so beforeunload always reads the current value without a re-render.
 	const dirtyRef = useRef(false);
-	const isMountedRef = useRef(false);
 
-	// Mark dirty whenever any meaningful data changes (skip the initial mount firing)
+	// Mark dirty only when there is actual non-empty data — this avoids false
+	// positives from React StrictMode's double-mount, which fires the effect
+	// twice on page load even before the user has entered anything.
 	useEffect(() => {
-		if (!isMountedRef.current) {
-			isMountedRef.current = true;
-			return;
-		}
-		dirtyRef.current = true;
+		const hasData =
+			jackalTalk?.trim() ||
+			observation?.moment?.trim() ||
+			observation?.actions?.trim() ||
+			observation?.refined?.trim() ||
+			Object.keys(feelings).length > 0 ||
+			Object.keys(needs).length > 0 ||
+			Object.keys(needExplorations).length > 0 ||
+			Object.keys(feelingsExploreResponses).length > 0 ||
+			guessObservation?.trim() ||
+			Object.keys(guessFeelings).length > 0 ||
+			Object.keys(guessNeeds).length > 0 ||
+			requestOfSelf?.trim() ||
+			requestOfOther?.trim() ||
+			whatsChangedResponses?.before?.trim() ||
+			whatsChangedResponses?.differently?.trim() ||
+			simpleRequest?.trim() ||
+			reviewReflection?.trim();
+		if (hasData) dirtyRef.current = true;
 	}, [
 		jackalTalk,
 		observation,

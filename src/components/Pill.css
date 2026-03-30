@@ -8,14 +8,15 @@
 
 .pill-grid.cloud {
 	background: radial-gradient(circle, var(--feelings-cloud-start), var(--feelings-cloud-end));
-	padding: 2rem;
+	padding: 1.5rem;
 	border-radius: 2rem;
-	box-shadow: 0 0 60px var(--feelings-cloud-shadow);
+	box-shadow: 0 0 20px var(--feelings-cloud-shadow);
+	margin: 0 0 1rem;
 }
 
 .pill-grid.cloud.needs-selected-pills {
 	background: radial-gradient(circle, var(--needs-cloud-start), var(--needs-cloud-end));
-	box-shadow: 0 0 60px var(--needs-cloud-shadow);
+	box-shadow: 0 0 20px var(--needs-cloud-shadow);
 }
 
 .pill {

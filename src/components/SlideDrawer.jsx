@@ -98,7 +98,10 @@ const SlideDrawer = ({
 						</>
 					)}
 				</div>
+			<div className="slide-panel-footer">
+				<button className="slide-panel-close-btn" onClick={onClose}>Close</button>
 			</div>
+		</div>
 		</>
 	);
 };

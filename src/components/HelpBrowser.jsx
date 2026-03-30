@@ -11,6 +11,18 @@ const extractText = (node) => {
 	return "";
 };
 
+const MoreSection = ({ more }) => {
+	const [expanded, setExpanded] = useState(false);
+	return (
+		<div className="help-more-section">
+			{expanded && <div className="help-more-content">{more}</div>}
+			<button className="help-more-btn" onClick={() => setExpanded((v) => !v)}>
+				{expanded ? "Show less ▲" : "Show more ▼"}
+			</button>
+		</div>
+	);
+};
+
 const HelpBrowser = forwardRef(({ initialTopic, directOpen, onBack, onTopicChange }, ref) => {
 	const [query, setQuery] = useState("");
 	const topics = getHelpTopics();
@@ -85,6 +97,7 @@ const HelpBrowser = forwardRef(({ initialTopic, directOpen, onBack, onTopicChang
 					</button>
 				)}
 				<div className="help-browser-content">{selected.content}</div>
+				{selected.more && <MoreSection more={selected.more} />}
 			</div>
 		);
 	}

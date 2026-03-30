@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useWizard } from "./WizardContext";
-import HelpLink from "./HelpLink";
 import { getNeedData, resolveNeedUnpackingType } from "../utils/renderHelpers";
 import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
+import HelpLink from "../components/HelpLink";
+
 import AudioPlayer from "./AudioPlayer";
 import meditationAudio from "../assets/Beauty_of_need.mp3";
 import "./UnpackNeeds.css";
@@ -44,6 +45,7 @@ const UnpackNeeds = () => {
 					whereMetResponse: "",
 					unmetFeeling: "",
 					metFeeling: "",
+					imaginedMet: "",
 					metCircumstances: "",
 					oftenUnmet: "",
 					whereToMeet: "",
@@ -126,6 +128,7 @@ const UnpackNeeds = () => {
 					whereMetResponse: "",
 					unmetFeeling: "",
 					metFeeling: "",
+					imaginedMet: "",
 					metCircumstances: "",
 					oftenUnmet: "",
 					whereToMeet: "",
@@ -193,7 +196,10 @@ const UnpackNeeds = () => {
 			<p className="cloud-label">Your needs</p>
 			<div className="pill-grid cloud needs-selected-pills">
 				{unexploredNeeds.map((name) => (
-					<div key={name} className={`pill need ${needs[name]} need-removable`} onClick={() => startExploring(name)}>
+					<div
+						key={name}
+						className={`pill need ${needs[name]} need-removable`}
+						onClick={() => startExploring(name)}>
 						{needs[name] === "double-clicked" && <span className="pill-strong-badge">●</span>}
 						{name}
 						<button
@@ -376,7 +382,20 @@ const UnpackNeeds = () => {
 											value={currentData.metFeeling || ""}
 											onChange={(e) => updateField("metFeeling", e.target.value)}
 										/>
-										<HelpLink topic="mourning">Can't remember a single time?</HelpLink>
+									</div>
+
+									<div className="unpacking-prompt">
+										<p className="unpacking-prompt-text">
+											If you can't remember a single time the need was met, can you{" "}
+											<em>imagine</em> what it might look like if it was met? If still not, can
+											you imagine what it would look like for someone else?
+										</p>
+										<textarea
+											className="unpacking-textarea"
+											rows={3}
+											value={currentData.imaginedMet || ""}
+											onChange={(e) => updateField("imaginedMet", e.target.value)}
+										/>
 									</div>
 
 									<div className="unpacking-prompt">
@@ -420,6 +439,11 @@ const UnpackNeeds = () => {
 											onChange={(e) => updateField("whereToMeet", e.target.value)}
 										/>
 									</div>
+									<p className="help-callout">
+										If this has left you feeling like you{"\u2019"}ve never had the need met, you can see
+										more about{" "}
+										<HelpLink topic="mourning">being with an unmet need, here.</HelpLink>
+									</p>
 								</div>
 							)}
 						</div>

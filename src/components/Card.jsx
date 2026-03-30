@@ -186,8 +186,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 					setHelpDrawerOverride(null);
 					if (drawerHistoryRef.current) {
 						drawerHistoryRef.current = false;
-						suppressPopRef.current = true;
-						history.back(); // pop the entry we pushed on open
+						history.replaceState({ stepIndex }, ""); // replace drawer entry without firing popstate
 					}
 				}}
 				title={`${title}`}

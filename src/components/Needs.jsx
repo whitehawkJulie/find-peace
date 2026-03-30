@@ -17,13 +17,13 @@ const renderOrderedFeelings = (feelings) => {
 		<>
 			<p className="cloud-label">The feelings you chose</p>
 			<div className="pill-grid cloud feelings-selected-pills">
-			{entries.map(([feeling, state]) => (
-				<div key={feeling} className={`pill feeling ${state}`}>
-					{state === "double-clicked" && <span className="pill-strong-badge">●</span>}
-					{feeling}
-				</div>
-			))}
-		</div>
+				{entries.map(([feeling, state]) => (
+					<div key={feeling} className={`pill feeling ${state}`}>
+						{state === "double-clicked" && <span className="pill-strong-badge">●</span>}
+						{feeling}
+					</div>
+				))}
+			</div>
 		</>
 	);
 };

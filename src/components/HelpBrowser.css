@@ -89,3 +89,35 @@
 .help-browser-content ul {
 	margin-bottom: 0.6rem;
 }
+
+/* ===== Show more / show less ===== */
+
+.help-more-section {
+	margin-top: 1.25rem;
+	border-top: 1px solid #e8e0cc;
+	padding-top: 0.75rem;
+}
+
+.help-more-content {
+	margin-bottom: 0.75rem;
+	color: #444;
+}
+
+.help-more-btn {
+	background: none;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	padding: 0.3rem 1rem;
+	font-size: 0.85rem;
+	color: #666;
+	cursor: pointer;
+	font-family: inherit;
+	float: none;
+	transition: background 0.15s, border-color 0.15s;
+}
+
+.help-more-btn:hover {
+	background: rgba(0, 0, 0, 0.04);
+	border-color: #aaa;
+	color: #444;
+}

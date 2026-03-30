@@ -20,11 +20,6 @@ const MakingGuesses = () => {
 				</HelpLink>
 			</p>
 
-			<p>
-				When you're ready, we can gently turn toward the other person — not to agree, just to widen the view. As
-				we imagine what they might be feeling or needing, we often begin to see more of what's happening.
-				Sometimes that brings a little more space inside you, and it can feel less like a verdict about you.
-			</p>
 			<p className="guesses-reminder highlight-box">
 				<em>{"Remember: The point isn't to guess correctly. It's simply to widen the frame."}</em>
 			</p>

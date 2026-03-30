@@ -101,6 +101,19 @@ textarea {
 	margin: 0;
 }
 
+/* Soft support callout — standalone paragraph linking to extra help/resources */
+.help-callout {
+	font-size: 0.875rem;
+	font-style: italic;
+	color: #5a6875;
+	background: #f2f6f9;
+	border-left: 2px solid #9ab5c8;
+	border-radius: 0 6px 6px 0;
+	padding: 0.5rem 0.85rem;
+	margin: 0;
+	line-height: 1.5;
+}
+
 /* Callout / highlight box — used as a shared utility for info callouts */
 .highlight-box {
 	background: #f9f7f2;

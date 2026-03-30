@@ -199,6 +199,11 @@ const SummaryContent = () => {
 									<em>When it is met:</em> {exp.metFeeling}
 								</p>
 							)}
+							{exp.imaginedMet && (
+								<p>
+									<em>Imagined for someone else:</em> {exp.imaginedMet}
+								</p>
+							)}
 							{exp.metCircumstances && (
 								<p>
 									<em>What helped:</em> {exp.metCircumstances}

@@ -89,74 +89,115 @@ const StandaloneHelpTopics = [
 		title: "Connecting with and mourning unmet needs",
 		content: (
 			<>
-				<h3>Connecting with and mourning unmet needs</h3>
-
+				<p>This need matters — even if how it might be met isn’t clear yet.</p>
 				<p>
-					Sometimes identifying a need brings up grief — not just about this situation, but about how long
-					this need has gone unmet, or how little hope there seems to be.
+					It can feel urgent to "fix this", in this moment of discovering it... and the first step is to slow
+					down and get to know it.
 				</p>
-
+				<p>If you’d like to engage with this more actively, here are some gentle ways to explore:</p>
+				<h3>Staying with it</h3>
 				<p>
-					This kind of grief is real, and worth acknowledging. It doesn’t mean nothing can change — but it may
-					mean something in you needs care before moving on.
+					You might spend some time with this need. Let yourself feel it, be curious about it, and allow it to
+					unfold without needing to solve it right away.
 				</p>
-
-				<h3>Needs and strategies</h3>
-
 				<p>
-					Our minds often latch onto one specific way for a need to be met — one person, one outcome, one
-					path.
+					You might notice sadness, heaviness, or an ache. See if you can{" "}
+					<HelpLink topic="stay-with-it">stay with these feelings</HelpLink>, even for a few moments, without
+					needing to change them.
 				</p>
-
-				<p>When that path feels blocked, it can start to feel like the need itself is impossible.</p>
-
-				<p>But it’s usually the strategy that’s stuck — not the need.</p>
-
-				<p>When we loosen our grip on the “how,” other possibilities often begin to appear.</p>
-
-				<h3>Gently connecting with the need</h3>
-				<p>If it feels accessible, you might explore what this need actually means to you.</p>
-
+				<p>This can take courage. Often, something begins to shift when it’s given space to be truly heard.</p>
+				<h3>Exploring the need</h3>
 				<ul>
 					<li>What might it look like if this need were met?</li>
 					<li>What would it take to genuinely feel it had been met?</li>
 					<li>How might that feel in your body?</li>
 				</ul>
-
-				<p>If that’s too hard, you might imagine it for someone else:</p>
-
+				<p>If that feels hard, you might imagine it for someone else:</p>
 				<ul>
 					<li>What would it look like for another person to have this need met?</li>
 					<li>How would you recognise it in them?</li>
 				</ul>
+				<h3>When things feel stuck</h3>
 
+				<p>
+					Our minds often latch onto one specific way a need should be met — one person, one outcome, one
+					path.
+				</p>
+
+				<p>Before going further, you might gently check:</p>
+
+				<ul>
+					<li>Am I holding onto one particular way this need has to be met?</li>
+					<li>Am I believing there is only one path forward?</li>
+				</ul>
+
+				<p>When that path feels blocked, it can seem like the need itself is impossible.</p>
+
+				<p>
+					But it’s usually the strategy that’s stuck — not the need. When we loosen our grip on the “how,”
+					other possibilities can begin to appear.
+				</p>
+
+				<h3>A different way to relate to the need</h3>
+				<p>Even when a need hasn’t been met, it still lives in you as a kind of longing.</p>
+				<p>That longing isn’t a mistake. It’s part of you reaching toward what matters.</p>
+				<p>
+					You don’t have to resolve this here. Simply recognising it, and allowing some space for it, can be
+					enough for now.
+				</p>
+			</>
+		),
+		old: (
+			<>
+				<h3>Connecting with and mourning unmet needs</h3>
+				<p>
+					Sometimes identifying a need brings up grief — not just about this situation, but about how long
+					this need has gone unmet, or how little hope there seems to be.
+				</p>
+				<p>
+					This kind of grief is real, and worth acknowledging. It doesn’t mean nothing can change — but it may
+					mean something in you needs care before moving on.
+				</p>
+				<h3>Needs and strategies</h3>
+				<p>
+					Our minds often latch onto one specific way for a need to be met — one person, one outcome, one
+					path.
+				</p>
+				<p>When that path feels blocked, it can start to feel like the need itself is impossible.</p>
+				<p>But it’s usually the strategy that’s stuck — not the need.</p>
+				<p>When we loosen our grip on the “how,” other possibilities often begin to appear.</p>
+				<h3>Gently connecting with the need</h3>
+				<p>If it feels accessible, you might explore what this need actually means to you.</p>
+				<ul>
+					<li>What might it look like if this need were met?</li>
+					<li>What would it take to genuinely feel it had been met?</li>
+					<li>How might that feel in your body?</li>
+				</ul>
+				<p>If that’s too hard, you might imagine it for someone else:</p>
+				<ul>
+					<li>What would it look like for another person to have this need met?</li>
+					<li>How would you recognise it in them?</li>
+				</ul>
 				<h3>Making space for what’s here</h3>
 				<p>
 					Sometimes the most helpful thing is simply to let yourself feel the weight of the unmet need,
 					without rushing to fix it.
 				</p>
-
 				<p>
 					You might notice sadness, heaviness, or an ache. See if you can{" "}
 					<HelpLink topic="stay-with-it">stay with it</HelpLink>, even for a few moments, without needing to
 					change it.
 				</p>
-
 				<p>This can take courage. And often, something begins to shift when it’s given space.</p>
-
 				<h3>Acceptance</h3>
 				<p>Part of this process can be acknowledging that, right now, this need isn’t met.</p>
-
 				<p>
 					Acceptance doesn’t mean giving up. It means fully recognising what is — which is often what allows
 					new possibilities to emerge.
 				</p>
-
 				<h3>A different way to relate to the need</h3>
 				<p>Even when a need hasn’t been met, it still lives in you — as a kind of longing.</p>
-
 				<p>That longing isn’t a mistake. It’s part of you reaching toward what matters.</p>
-
 				<p>
 					You don’t have to resolve this here. Simply recognising it, and allowing some space for it, can be
 					enough for now.
@@ -242,6 +283,96 @@ const StandaloneHelpTopics = [
 		id: "needs",
 		title: "Shared Fundamental Human Needs",
 		content: (
+			<div>
+				<h3>When a need feels unmet</h3>
+
+				<p>
+					Sometimes recognising a need can bring up a lot — frustration, sadness, or a sense of how much this
+					matters.
+				</p>
+
+				<p>You might feel a push to change things, or a softer ache underneath — or both.</p>
+
+				<p>You don’t have to fix it right away.</p>
+
+				<p>You can stay with what’s here, or gently explore it — even for a few moments.</p>
+
+				<p>The need still matters — even if how it’s met isn’t clear yet.</p>
+			</div>
+		),
+		more: (
+			<div>
+				<p>
+					You might notice both a push to change things and a softer ache underneath. You don’t have to choose
+					— both are welcome here.
+				</p>
+
+				<h3>Staying with what’s here</h3>
+
+				<p>
+					Sometimes the most helpful thing is simply to let yourself feel what’s present, without rushing to
+					fix it.
+				</p>
+
+				<p>
+					You might notice tension, urgency, sadness, or heaviness. See if you can stay with it, even for a
+					few moments, without needing to change it.
+				</p>
+
+				<p>This can take courage. Often, something begins to shift when it’s given space.</p>
+
+				<h3>If you want to explore further</h3>
+
+				<p>If it feels accessible, you might gently turn toward the need itself:</p>
+
+				<ul>
+					<li>What might it look like if this need were met?</li>
+					<li>What would it take to genuinely feel it had been met?</li>
+					<li>How might that feel in your body?</li>
+				</ul>
+
+				<p>If that feels hard, you might imagine it for someone else:</p>
+
+				<ul>
+					<li>What would it look like for another person to have this need met?</li>
+					<li>How would you recognise it in them?</li>
+				</ul>
+
+				<h3>When things feel stuck</h3>
+
+				<p>
+					Our minds often latch onto one specific way a need should be met — one person, one outcome, one
+					path.
+				</p>
+
+				<p>When that path feels blocked, it can seem like the need itself is impossible.</p>
+
+				<p>But it’s usually the strategy that’s stuck — not the need.</p>
+
+				<p>Loosening the “how” can open up other possibilities.</p>
+
+				<h3>Acceptance</h3>
+
+				<p>Part of this process can be acknowledging that, right now, this need isn’t met.</p>
+
+				<p>
+					Acceptance doesn’t mean giving up. It means fully recognising what is — which often allows new
+					possibilities to emerge.
+				</p>
+
+				<h3>A different way to relate to the need</h3>
+
+				<p>Even when a need hasn’t been met, it still lives in you as a kind of longing.</p>
+
+				<p>That longing isn’t a mistake. It’s part of you reaching toward what matters.</p>
+
+				<p>
+					You don’t have to resolve this here. Simply recognising it, and allowing some space for it, can be
+					enough for now.
+				</p>
+			</div>
+		),
+		original: (
 			<>
 				<h3>What Is a Need?</h3>
 
@@ -401,7 +532,12 @@ const StandaloneHelpTopics = [
 					<ul>
 						<li>
 							<strong>Locate the "something":</strong> When you notice a tight, anxious, or uncomfortable
-							feeling, try saying “something in me is [feeling]” rather than “I am [feeling]”.
+							feeling, try saying “something in me is feeling [eg sad]” rather than “I am feeling [eg
+							sad]”.
+						</li>
+						<li>
+							<strong>Find it in your body:</strong> Notice where in your body you feel this sensation. Is
+							it in your chest, stomach, shoulders?
 						</li>
 						<li>
 							<strong>Pause and turn toward it:</strong> Take a breath, gently bring your attention
@@ -412,8 +548,8 @@ const StandaloneHelpTopics = [
 							gentle, supportive hand on the place where you feel it.
 						</li>
 						<li>
-							Can you trust that there's a good reason for this feeling to be here? Can you say to it, "No
-							wonder you feel this way! You make sense!"
+							<strong>No wonder:</strong> Can you trust that there's a good reason for this feeling to be
+							here? Can you say to it, "No wonder you feel this way! You make sense!"
 						</li>
 						<li>
 							<strong>Wait and listen:</strong> After saying hello, give it a moment. Let it show you
@@ -593,6 +729,64 @@ const StandaloneHelpTopics = [
 		id: "feelings",
 		title: "Feelings",
 		content: (
+			<div>
+				<h4>Noticing what you feel</h4>
+
+				<p>You might notice a lot here — strong reactions, mixed feelings, or something harder to name.</p>
+
+				<p>You can simply notice what’s present, or take a moment to tune in more closely.</p>
+
+				<p>Naming what you feel can help your system settle — like your body saying “message received.”</p>
+
+				<p>It’s normal to feel several things at once — even contradictory ones.</p>
+
+				<p>Try looking through the whole list. The unexpected ones often shift the most.</p>
+			</div>
+		),
+		more: (
+			<>
+				<p>
+					Feelings live in your body — they’re part of your body’s signal system, letting you know when
+					something important is happening.
+				</p>
+
+				<p>
+					<a href="https://sarahpeyton.com/" target="_blank" rel="noopener noreferrer">
+						Sarah Peyton
+					</a>{" "}
+					describes how the body keeps signalling until it feels heard. When you notice and name what you’re
+					feeling, it’s as if the body says “message received,” and the intensity can begin to settle.
+				</p>
+
+				<p>
+					This effect has also been observed in brain studies: when a feeling is accurately named, activity in
+					areas linked to emotional reactivity decreases, and regulation increases. It’s as if the brain
+					recognises what’s happening and no longer needs to keep sounding the alarm.
+				</p>
+
+				<p>
+					So when you can name what you’re actually feeling, something often shifts. That clarity opens the
+					door to understanding what you need.
+				</p>
+
+				<p>
+					It can help to look through the whole list, rather than just for feelings you already know. The
+					unexpected ones often create the biggest shift.
+				</p>
+
+				<p>
+					It’s completely normal to feel several things at once — even contradictory ones. Select any feelings
+					that jump out at you.
+				</p>
+
+				<p>
+					If you’d like support staying with a feeling once you’ve found it, you can explore that
+					<HelpLink href="/help/feelings">here</HelpLink>. We'll do more of that in the next step, Exploring
+					Feelings.
+				</p>
+			</>
+		),
+		older: (
 			<>
 				<p>
 					Feelings live in your body - they are part of your body's signal system. They let you know whether
@@ -870,6 +1064,83 @@ const StandaloneHelpTopics = [
 		title: "Making Guesses for the Other Person",
 		content: (
 			<>
+				<h3>Making guesses for the other person</h3>
+
+				<p>
+					This can be a surprisingly powerful step: trying to see the situation through the other person’s
+					eyes.
+				</p>
+
+				<p>Not to agree with them or excuse anything — just to understand.</p>
+
+				<p>
+					If it feels hard or you’re still angry, that’s completely normal. You can come back to this later if
+					you need to.
+				</p>
+
+				<p>You might simply wonder:</p>
+
+				<ul>
+					<li>What might they have experienced?</li>
+					<li>What might they have felt?</li>
+					<li>What might they have needed?</li>
+				</ul>
+			</>
+		),
+		more: (
+			<>
+				<h3>Why empathy guesses matter</h3>
+
+				<p>
+					Marshall Rosenberg taught that behind every action — no matter how hurtful — is a person trying to
+					meet a need.
+				</p>
+
+				<p>
+					When we begin to guess what that need might be, something often shifts. We start to see them not
+					just as the problem, but as another human being trying to cope.
+				</p>
+
+				<h3>How to make guesses</h3>
+
+				<ul>
+					<li>
+						You don’t need to be right. The act of wondering is what matters — even imperfect guesses can
+						open something.
+					</li>
+					<li>
+						Start with their observation — what might they have seen or experienced? Their version may be
+						very different from yours.
+					</li>
+					<li>
+						Then their feelings — not what they think, but what they might be feeling in their body: angry,
+						scared, hurt, overwhelmed.
+					</li>
+					<li>
+						Then their needs — what might they have been longing for? Connection, respect, safety, to
+						matter?
+					</li>
+				</ul>
+
+				<h3>A surprise to watch for</h3>
+
+				<p>
+					You might discover that the other person has some of the same unmet needs as you. That can be a
+					powerful place to stand — shared humanity, even in conflict.
+				</p>
+
+				<h3>If it feels too hard</h3>
+
+				<p>
+					If you’re not ready to consider their experience yet, that’s okay. It often means you need more
+					empathy for yourself first.
+				</p>
+
+				<p>You can come back to this later, or return to your own experience again.</p>
+			</>
+		),
+		OLD: (
+			<>
 				<p>
 					This is a surprisingly powerful move: trying to see the world through the other person's eyes. Not
 					to agree with them, not to excuse anything — just to understand.
@@ -1046,7 +1317,7 @@ const StandaloneHelpTopics = [
 					journal, or even sitting with a pet.
 				</p>
 				<p>Feeling stuck is often a sign that we've confused a need with one specific strategy.</p>
-				<h4>Finding the deeper need</h4>
+				<h3>Finding the deeper need</h3>
 				<p>
 					Sometimes the need you've named is actually a stepping stone to a deeper need. The test: if you feel
 					self-righteous about the need, there's probably something underneath. Keep asking "If I had that,
@@ -1085,34 +1356,35 @@ const StandaloneHelpTopics = [
 		),
 	},
 
+	{
+		id: "empathy",
+		title: "Empathy",
+		content: <></>,
+		more: <></>,
+	},
+
 	// {
 	// 	id: "empathy",
 	// 	title: "Empathy",
-	// 	content: (
-	// 		<>
-	// 			<p></p>
-	// 		</>
-	// 	),
+	// 	content: (<></>),
+	// more: (<></>)
 	// },
 
 	// {
 	// 	id: "empathy",
 	// 	title: "Empathy",
-	// 	content: (
-	// 		<>
-	// 			<p></p>
-	// 		</>
-	// 	),
+	// 	content: (<></>),
+	// more: (<></>)
 	// },
 
 	// {
 	// 	id: "empathy",
 	// 	title: "Empathy",
-	// 	content: (
-	// 		<>
-	// 			<p></p>
-	// 		</>
-	// 	),
+	// 	content: (<></>),
+	// more: (<></>)
 	// },
 ];
 export default StandaloneHelpTopics;
+
+// content: (<></>),
+// more: (<></>)
