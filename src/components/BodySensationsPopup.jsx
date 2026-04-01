@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { bodySensationGroups } from "../data/BodySensationsData";
+import AudioPlayer from "./AudioPlayer";
+import BodyScanAudio from "../assets/BodyScan.mp3";
 import "./BodySensationsPopup.css";
 
 const BodySensationsPopup = ({ selected, onToggle, onCustomChange, customText, onClose }) => {
@@ -13,6 +15,12 @@ const BodySensationsPopup = ({ selected, onToggle, onCustomChange, customText, o
 
 				<p>
 					<strong>Take a moment and notice what your body is doing right now.</strong>
+
+					<AudioPlayer
+						src={BodyScanAudio}
+						title="Guided body scan"
+						description="Would you like help connecting with your body?"
+					/>
 				</p>
 
 				<p>

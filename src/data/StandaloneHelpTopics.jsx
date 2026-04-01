@@ -1,4 +1,5 @@
-import React from "react";
+import AudioPlayer from "../components/AudioPlayer";
+import itsok from "../assets/itsok.mp3";
 
 // Standalone help topics — not tied to any specific step/page.
 // Each entry: { id, title, content (JSX) }
@@ -141,63 +142,6 @@ const StandaloneHelpTopics = [
 
 				<h3>A different way to relate to the need</h3>
 				<p>Even when a need hasn’t been met, it still lives in you as a kind of longing.</p>
-				<p>That longing isn’t a mistake. It’s part of you reaching toward what matters.</p>
-				<p>
-					You don’t have to resolve this here. Simply recognising it, and allowing some space for it, can be
-					enough for now.
-				</p>
-			</>
-		),
-		old: (
-			<>
-				<h3>Connecting with and mourning unmet needs</h3>
-				<p>
-					Sometimes identifying a need brings up grief — not just about this situation, but about how long
-					this need has gone unmet, or how little hope there seems to be.
-				</p>
-				<p>
-					This kind of grief is real, and worth acknowledging. It doesn’t mean nothing can change — but it may
-					mean something in you needs care before moving on.
-				</p>
-				<h3>Needs and strategies</h3>
-				<p>
-					Our minds often latch onto one specific way for a need to be met — one person, one outcome, one
-					path.
-				</p>
-				<p>When that path feels blocked, it can start to feel like the need itself is impossible.</p>
-				<p>But it’s usually the strategy that’s stuck — not the need.</p>
-				<p>When we loosen our grip on the “how," other possibilities often begin to appear.</p>
-				<h3>Gently connecting with the need</h3>
-				<p>If it feels accessible, you might explore what this need actually means to you.</p>
-				<ul>
-					<li>What might it look like if this need were met?</li>
-					<li>What would it take to genuinely feel it had been met?</li>
-					<li>How might that feel in your body?</li>
-				</ul>
-				<p>If that’s too hard, you might imagine it for someone else:</p>
-				<ul>
-					<li>What would it look like for another person to have this need met?</li>
-					<li>How would you recognise it in them?</li>
-				</ul>
-				<h3>Making space for what’s here</h3>
-				<p>
-					Sometimes the most helpful thing is simply to let yourself feel the weight of the unmet need,
-					without rushing to fix it.
-				</p>
-				<p>
-					You might notice sadness, heaviness, or an ache. See if you can{" "}
-					<HelpLink topic="stay-with-it">stay with it</HelpLink>, even for a few moments, without needing to
-					change it.
-				</p>
-				<p>This can take courage. And often, something begins to shift when it’s given space.</p>
-				<h3>Acceptance</h3>
-				<p>Part of this process can be acknowledging that, right now, this need isn’t met.</p>
-				<p>
-					Acceptance doesn’t mean giving up. It means fully recognising what is — which is often what allows
-					new possibilities to emerge.
-				</p>
-				<h3>A different way to relate to the need</h3>
-				<p>Even when a need hasn’t been met, it still lives in you — as a kind of longing.</p>
 				<p>That longing isn’t a mistake. It’s part of you reaching toward what matters.</p>
 				<p>
 					You don’t have to resolve this here. Simply recognising it, and allowing some space for it, can be
@@ -694,50 +638,6 @@ const StandaloneHelpTopics = [
 				</div>
 			</>
 		),
-		old: (
-			<>
-				<h2>Threat, Seeking and Care circuits</h2>
-
-				<p>
-					We mammals seem to all share three core aversive emotional systems:{" "}
-					<strong>fear, anger, and distress</strong>. Jaak Panksepp, an affective neuroscience researcher,
-					calls these the <strong>FEAR</strong>, <strong>RAGE</strong>, and <strong>PANIC/GRIEF</strong>{" "}
-					systems.
-				</p>
-
-				<p>
-					When one of these systems activates, the brain shifts into a threat-focused mode. In this state,
-					flexibility decreases so the brain can focus on immediate protection. The mind quickly generates
-					explanations about what's happening — often centred on{" "}
-					<strong>who is responsible and how to stop the problem</strong>.
-				</p>
-
-				<p>
-					These "explanations" or stories often lead to what Marshall Rosenberg (creator of NVC) called{" "}
-					<em>tragic strategies</em>: attempts to protect what matters, expressed through blame, control, or
-					withdrawal, which are almost guaranteed to backfire.
-				</p>
-
-				<p>
-					The NVC process helps the nervous system move out of this narrowed threat state and into two other
-					systems that support clearer thinking:
-				</p>
-
-				<ul>
-					<li>
-						the <strong>SEEKING system</strong>, which brings curiosity about what matters to us
-					</li>
-					<li>
-						the <strong>CARE system</strong>, which allows empathy for ourselves and others
-					</li>
-				</ul>
-
-				<p>
-					When these systems are active, people are far more able to discover solutions that genuinely address
-					what matters.
-				</p>
-			</>
-		),
 	},
 
 	{
@@ -884,44 +784,6 @@ const StandaloneHelpTopics = [
 				</p>
 			</>
 		),
-		older: (
-			<>
-				<p>
-					Feelings live in your body - they are part of your body's signal system. They let you know whether
-					something important is happening — often connected to your needs being met or unmet.
-				</p>
-				<p>
-					<a href="https://sarahpeyton.com/" target="_blank" rel="noopener noreferrer">
-						Sarah Peyton
-					</a>{" "}
-					says that our body’s job is to signal what’s happening inside us. When we ignore those signals, the
-					body can’t fully relax — it’s still trying to deliver the message. But when we notice and
-					acknowledge what it’s telling us, it’s as if the body says, “Message delivered!," and it can finally
-					relax.
-				</p>
-				<p>
-					This shift has even been observed in brain imaging studies. When people are exposed to emotionally
-					evocative stimuli, activity increases across regions involved in threat and emotional reactivity.
-					But when they are asked to identify and name the feeling — especially finding a word that fits
-					closely — that activity decreases, and areas involved in regulation become more active. In other
-					words, accurately naming what we feel appears to help the brain settle. It’s as if the brain
-					recognises, “Ah — that’s what this is," and no longer needs to keep sounding the alarm.
-				</p>
-				<p>
-					So, when you can name what you're actually feeling, intensity often shifts. Clarity opens the
-					doorway to understanding what you need.
-				</p>
-				<p>
-					It's really useful to look through the entire feelings list, checking for every feeling inside
-					yourself, rather than just scanning the list looking for words for feelings you already know. The
-					surprising ones hold a LOT of power to shift your experience.
-				</p>
-				<p>
-					It's completely normal to feel lots of different things at once, some of them contradictory! Select
-					any feelings in the list that jump out at you.
-				</p>
-			</>
-		),
 	},
 
 	{
@@ -1001,16 +863,6 @@ const StandaloneHelpTopics = [
 						later.
 					</li>
 				</ul>
-			</>
-		),
-	},
-
-	{
-		id: "focusing",
-		title: "Inner Relationship Focusing",
-		content: (
-			<>
-				<p>https://focusingresources.com/more-information-about-focusing</p>
 			</>
 		),
 	},
@@ -1237,64 +1089,6 @@ const StandaloneHelpTopics = [
 				<p>You can come back to this later, or return to your own experience again.</p>
 			</>
 		),
-		OLD: (
-			<>
-				<p>
-					This is a surprisingly powerful move: trying to see the world through the other person's eyes. Not
-					to agree with them, not to excuse anything — just to understand.
-				</p>
-				<p>
-					Sometimes we feel resistant to doing it, if we're still angry with the other person, but the results
-					often surprise us.
-				</p>
-				<p>The process is basically the same as what we just did for ourselves - we make guesses about:</p>
-				<ul>
-					<li>What might they have seen or experienced?</li>
-					<li>What might they have felt?</li>
-					<li>What might they have needed?</li>
-				</ul>
-
-				<h3>Why empathy guesses matter</h3>
-				<p>
-					Marshall Rosenberg taught that behind every action — no matter how hurtful — is a person trying to
-					meet a need. When we can guess what that need might be, something shifts. We start to see them not
-					as the enemy, but as a fellow human in pain.
-				</p>
-
-				<h3>How to make guesses</h3>
-				<ul>
-					<li>
-						<strong>You don't need to be right.</strong> The act of guessing is what opens your heart. Even
-						wrong guesses create connection.
-					</li>
-					<li>
-						Start with their observation — what did <em>they</em> see or experience? Their version of events
-						might be very different from yours.
-					</li>
-					<li>
-						Guess at their feelings — not what they think, but what they might be feeling in their body.
-						Angry? Scared? Hurt? Overwhelmed?
-					</li>
-					<li>
-						Then guess at their needs — what were they longing for? Connection? Respect? To matter? Safety?
-					</li>
-				</ul>
-
-				<h3>A surprise to watch for</h3>
-				<p>
-					You might discover that the other person has some of the same unmet needs as you. That's a powerful
-					place to stand — shared humanity, even in conflict.
-				</p>
-
-				<h3>If it feels too hard</h3>
-				<p>
-					If you're not ready to consider what might have been going on in them yet, that's completely fine.
-					It usually means you haven't fully received empathy for yourself first. You might need to call a
-					good friend, or maybe even do this process again from the start. You can skip this and come back to
-					it later if you like.
-				</p>
-			</>
-		),
 	},
 
 	{
@@ -1455,9 +1249,17 @@ const StandaloneHelpTopics = [
 	},
 
 	{
-		id: "empathy",
-		title: "Empathy",
-		content: <></>,
+		id: "not-ready",
+		title: "Not Ready?",
+		content: (
+			<>
+				<p>
+					Too distressed for this? That's okay. This is an audio I made for myself when I'm really distressed.
+					See if it helps for you.
+				</p>
+				<AudioPlayer src={itsok} title="It's OK to feel this way" description="Just rest into this." />
+			</>
+		),
 		more: <></>,
 	},
 
@@ -1483,6 +1285,3 @@ const StandaloneHelpTopics = [
 	// },
 ];
 export default StandaloneHelpTopics;
-
-// content: (<></>),
-// more: (<></>)

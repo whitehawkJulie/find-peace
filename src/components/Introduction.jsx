@@ -1,6 +1,7 @@
 import React from "react";
 import HelpLink from "./HelpLink";
 import { useWizard } from "./WizardContext";
+
 import "./Introduction.css";
 
 const introductionFeelingList = [
@@ -25,6 +26,12 @@ const Introduction = () => {
 			<h2 className="intro-tagline">
 				{settings.tone === "sweary" ? Introduction.titleSweary : Introduction.title}
 			</h2>
+			<p>
+				If you’re here, something probably feels off — maybe confusing, frustrating, or just stuck.{" "}
+				<HelpLink topic="not-ready" aside>
+					Too distressed to even read this?
+				</HelpLink>
+			</p>
 			<p>If you're feeling anything like this:</p>
 			<ul>
 				{introductionFeelingList.map((item, i) => (
@@ -32,13 +39,10 @@ const Introduction = () => {
 				))}
 			</ul>
 			<p>
-				… this process is for you. It will help you find a way forward that works for you, and you'll feel much
-				better in the process.
+				… <HelpLink topic="this-process">this process</HelpLink> is for you.
 			</p>
 
-			<p>
-				<HelpLink topic="this-process">This process</HelpLink> helps you pause and get clear on a few things:
-			</p>
+			<p>It helps you pause and get clear on:</p>
 			<ul>
 				{introductionFourSteps.map((step, i) => (
 					<li key={i}>{step}</li>
@@ -46,11 +50,14 @@ const Introduction = () => {
 			</ul>
 
 			<p>
-				When you do that, your brain is able to move out of <HelpLink topic="threat-mode">threat mode</HelpLink>
-				, where it's not firing on all cylinders, and into the seeking and care circuits, which are much better
-				at finding creative solutions, often ones that work for everyone involved.
+				When things feel intense, your brain goes into <HelpLink topic="threat-mode">threat mode</HelpLink> —
+				fast, certain, reactive.
 			</p>
-			<p>This makes a huge difference. Things shift.</p>
+			<p>
+				This process helps you shift out of that, so you can think more clearly and find options that actually
+				work.
+			</p>
+			<p>Things often feel different, quite quickly.</p>
 		</div>
 	);
 };
