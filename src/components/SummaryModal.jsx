@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useWizard } from "./WizardContext";
+import { useOverlayHistory } from "../hooks/useOverlayHistory";
 import SummaryContent from "./SummaryContent";
 import { filterByState } from "../utils/renderHelpers";
 import { feelingTypes } from "../data/FeelingTypes";
@@ -33,6 +34,8 @@ const SummaryModal = () => {
 	const [copied, setCopied] = useState(false);
 	const [saved, setSaved] = useState(false);
 
+	const { closeWithCleanup: closeSummary } = useOverlayHistory(showSummary, () => setShowSummary(false), "summary");
+
 	const handleSave = () => {
 		saveSession();
 		setSaved(true);
@@ -43,11 +46,11 @@ const SummaryModal = () => {
 	useEffect(() => {
 		if (!showSummary) return;
 		const handler = (e) => {
-			if (e.key === "Escape") setShowSummary(false);
+			if (e.key === "Escape") closeSummary();
 		};
 		document.addEventListener("keydown", handler);
 		return () => document.removeEventListener("keydown", handler);
-	}, [showSummary, setShowSummary]);
+	}, [showSummary]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// const logSelections = () => {
 	// 	const allFeelings = filterByState(feelings, "clicked");
@@ -212,7 +215,7 @@ const SummaryModal = () => {
 				<span className="summary-action-label">{copied ? "✓ Copied!" : "📋 Copy"}</span>
 				<span className="summary-action-sub">as plain text</span>
 			</button>
-			<button className="summary-modal-action-btn summary-modal-close-btn" onClick={() => setShowSummary(false)}>
+			<button className="summary-modal-action-btn summary-modal-close-btn" onClick={closeSummary}>
 				<span className="summary-action-label">✕ Close</span>
 				<span className="summary-action-sub">summary</span>
 			</button>
@@ -220,7 +223,7 @@ const SummaryModal = () => {
 	);
 
 	return (
-		<div className="summary-modal-backdrop" onClick={() => setShowSummary(false)}>
+		<div className="summary-modal-backdrop" onClick={closeSummary}>
 			<div
 				className="summary-modal"
 				onClick={(e) => e.stopPropagation()}
@@ -232,7 +235,7 @@ const SummaryModal = () => {
 						<h2>What came up</h2>
 						<button
 							className="summary-modal-close"
-							onClick={() => setShowSummary(false)}
+							onClick={closeSummary}
 							aria-label="Close summary">
 							×
 						</button>

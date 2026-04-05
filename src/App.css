@@ -1,4 +1,4 @@
-@import './styles/colors.css';
+@import "./styles/colors.css";
 
 /* ── App shell ────────────────────────────────────────────────────────────── */
 
@@ -129,7 +129,7 @@ textarea {
 	border: none;
 	padding: 0;
 	font-size: inherit;
-	color: #5F8F82;
+	color: #5f8f82;
 	text-decoration: underline;
 	text-decoration-style: dotted;
 	text-decoration-color: currentColor;
@@ -205,9 +205,15 @@ textarea {
 	border: 1.5px solid #bbb;
 }
 
-.brain-mode-box.threat  { border-color: #c47878; }
-.brain-mode-box.seeking { border-color: #7a9fc4; }
-.brain-mode-box.care    { border-color: #7ab494; }
+.brain-mode-box.threat {
+	border-color: #c47878;
+}
+.brain-mode-box.seeking {
+	border-color: #7a9fc4;
+}
+.brain-mode-box.care {
+	border-color: #7ab494;
+}
 
 .brain-mode-header {
 	padding: 0.55rem 1rem;
@@ -215,9 +221,18 @@ textarea {
 	border-bottom: 1.5px solid inherit;
 }
 
-.brain-mode-box.threat  .brain-mode-header { background: #fce8e8; border-bottom-color: #c47878; }
-.brain-mode-box.seeking .brain-mode-header { background: #e8f0fa; border-bottom-color: #7a9fc4; }
-.brain-mode-box.care    .brain-mode-header { background: #e8f4ec; border-bottom-color: #7ab494; }
+.brain-mode-box.threat .brain-mode-header {
+	background: #fce8e8;
+	border-bottom-color: #c47878;
+}
+.brain-mode-box.seeking .brain-mode-header {
+	background: #e8f0fa;
+	border-bottom-color: #7a9fc4;
+}
+.brain-mode-box.care .brain-mode-header {
+	background: #e8f4ec;
+	border-bottom-color: #7ab494;
+}
 
 .brain-mode-header strong {
 	display: block;
@@ -306,4 +321,10 @@ textarea {
 	letter-spacing: 0.08em;
 	opacity: 0.6;
 	margin-bottom: 8px;
+}
+
+.internal-section {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }

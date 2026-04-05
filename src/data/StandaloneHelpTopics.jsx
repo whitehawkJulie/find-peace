@@ -96,7 +96,7 @@ const StandaloneHelpTopics = [
 					It can feel urgent to "fix this", in this moment of discovering it... and the first step is to slow
 					down and get to know it.
 				</p>
-				<p>If you’d like to engage with this more actively, here are some gentle ways to explore:</p>
+				<p>Here are some ways to explore it:</p>
 				<h3>Staying with it</h3>
 				<p>
 					You might spend some time with this need. Let yourself feel it, be curious about it, and allow it to
@@ -906,8 +906,8 @@ const StandaloneHelpTopics = [
 				<p>This doesn't mean their perspective is "right" — just that understanding comes before resolution.</p>
 				<p>
 					If you guesses were wrong, they'll quickly correct you here ... it's really important to stay with
-					it and make sure they get that you GET it. It can be helpful to reflect them back: "Oh! you were
-					wanting..."
+					it and make sure they get that you GET it. It can be helpful to reflect them back: "Oh! So you were
+					wanting..." or "I can see that [need] really matters to you here".
 				</p>
 				<p>
 					This might take a bit of listening. You don't have to agree with them — just focus on understanding
@@ -1198,23 +1198,89 @@ const StandaloneHelpTopics = [
 		content: (
 			<>
 				<p>
-					A <strong>need</strong> is universal and internal — like connection, safety, or meaning.
+					You can think of each <strong>need</strong> as a small water tank.
 				</p>
+
 				<p>
-					A <strong>strategy</strong> is a specific action you could take to meet that need. The beautiful
-					thing is, every need can be met in countless ways!
+					Some tanks are usually pretty full, so small disturbances don’t affect you much. Others go up and
+					down. And some may feel chronically low — especially if that need wasn’t reliably met earlier in
+					life.
 				</p>
+
 				<p>
-					For example, a need for "connection" could be met by calling a friend, joining a class, writing in a
-					journal, or even sitting with a pet.
+					When a tank is low, your nervous system reacts faster and more intensely. The current situation may
+					not be creating the wound — it may just be touching something that was already tender.
 				</p>
-				<p>Feeling stuck is often a sign that we've confused a need with one specific strategy.</p>
+
+				<p>
+					Naming the need doesn’t instantly fill the tank. But it often steadies the system enough to give you
+					a little more choice.
+				</p>
+
+				<h3>Needs and strategies</h3>
+
+				<p>
+					A <strong>need</strong> is universal and internal — like connection, safety, freedom, rest, or being
+					seen.
+				</p>
+
+				<p>
+					A <strong>strategy</strong> is a specific way of supporting that need. And every need can be
+					supported in many different ways.
+				</p>
+
+				<p>When we’re distressed, we often get stuck on one particular strategy:</p>
+
+				<ul>
+					<li>this person</li>
+					<li>this exact behaviour</li>
+					<li>this one outcome</li>
+				</ul>
+
+				<p>
+					When that strategy isn’t available, we can feel trapped. But once the need is clear, you can start
+					asking:
+					<strong> What are some small ways I could move toward this need, even a little?</strong>
+				</p>
+
+				<p>
+					Think <strong>top-ups</strong>, not perfect solutions.
+				</p>
+
+				<p>
+					For example, a need for connection might be supported by texting a friend, sitting with a pet,
+					joining a group, or writing something honest in a journal. A need for rest might be supported by
+					lying down, doing less, or reducing stimulation for a while.
+				</p>
+
+				<p>
+					Sometimes the strategy is surprisingly indirect. One friend was distressed because her kids wouldn’t
+					tidy up, and she was really needing <strong>order</strong>. Nothing inside the house was changing,
+					so I suggested she step outside and look up at the night sky. The vastness and natural order of it
+					gave her nervous system some of what it was longing for — even though the mess was still there. It
+					topped up the tank just a little, so she didn't feel as reactive around it, with her kids.
+				</p>
+			</>
+		),
+		more: (
+			<>
 				<h3>Finding the deeper need</h3>
+
+				<p>Sometimes the need you’ve named is still a step on the way to something deeper.</p>
+
 				<p>
-					Sometimes the need you've named is actually a stepping stone to a deeper need. The test: if you feel
-					self-righteous about the need, there's probably something underneath. Keep asking "If I had that,
-					then what would I have?" until you find the one that brings tears or a deep softening — that's the
-					more valuable one to work with.
+					A simple clue: if the need feels tight, justified, or self-righteous, there may be something
+					underneath it.
+				</p>
+
+				<p>
+					You can ask:
+					<strong> “If I had that, what would it give me?”</strong>
+				</p>
+
+				<p>
+					Keep following the thread until you reach something that brings tears, a deep breath, or a sense of
+					softening. That deeper need is often the one most worth working with.
 				</p>
 			</>
 		),
@@ -1231,7 +1297,10 @@ const StandaloneHelpTopics = [
 					<a href="https://makinglifemorewonderful.com.au" target="_blank" rel="noopener noreferrer">
 						Making Life More Wonderful
 					</a>
-					. You can find out more about me there.
+					. I'm autistic, ADHD, and have lived with major depression for over 45 years. I built this tool to
+					help myself and others navigate difficult feelings and conversations with more clarity and
+					compassion. As far as I can tell, there's nothing else out there like this app - and it's free, and
+					will stay that way.
 				</p>
 				<p>This tool is a work in progress, and your experience shapes how it grows.</p>
 				<p>
@@ -1255,7 +1324,7 @@ const StandaloneHelpTopics = [
 			<>
 				<p>
 					Too distressed for this? That's okay. This is an audio I made for myself when I'm really distressed.
-					See if it helps for you.
+					See if it helps you.
 				</p>
 				<AudioPlayer src={itsok} title="It's OK to feel this way" description="Just rest into this." />
 			</>
@@ -1263,25 +1332,32 @@ const StandaloneHelpTopics = [
 		more: <></>,
 	},
 
+	{
+		id: "top-up-tank",
+		title: "Top up the Needs Tank",
+		content: <></>,
+		more: <></>,
+	},
+
+	{
+		id: "y",
+		title: "Empathy",
+		content: <></>,
+		more: <></>,
+	},
+
 	// {
 	// 	id: "empathy",
 	// 	title: "Empathy",
-	// 	content: (<></>),
-	// more: (<></>)
+	// 	content: <></>,
+	// 	more: <></>,
 	// },
 
 	// {
 	// 	id: "empathy",
 	// 	title: "Empathy",
-	// 	content: (<></>),
-	// more: (<></>)
-	// },
-
-	// {
-	// 	id: "empathy",
-	// 	title: "Empathy",
-	// 	content: (<></>),
-	// more: (<></>)
+	// 	content: <></>,
+	// 	more: <></>,
 	// },
 ];
 export default StandaloneHelpTopics;

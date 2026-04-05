@@ -8,13 +8,14 @@ const STEP_IDS = ["step1", "step2", "step3", "step4", "step5", "step6"];
 const STEP_DATA = {
 	step1: {
 		title: "Start with permission",
-		desc: "Gently check if they're open.",
+		desc: "Gently check if they're open, and whether this is a good time to talk.",
 		hint: "This makes it much more likely to go well!",
 		scriptDefault: "Hey, is now a good time to talk about something?",
 	},
 	step2: {
 		title: "Understand them first",
-		desc: "Let them know you want to understand their side.",
+		desc: "Let them know you want to understand their side, and offer your guesses about how it might have been for them. \
+		AND be willing to hear their corrections, if you've guessed wrongly.",
 		hint: "When people feel understood, things often soften.",
 		scriptDefault: "I'd really like to understand what was going on for you earlier.",
 		helpQuestion: "Why express guesses first?",
@@ -30,7 +31,8 @@ const STEP_DATA = {
 	},
 	step4: {
 		title: "Share your experience",
-		desc: "Keep it simple and grounded in your experience.",
+		desc: "Keep it simple and grounded in your experience, rather than your thoughts about THEM. You might like to edit the following \
+		down to the 2 or 3 loudest of your feelings, and your and needs, rather than a list of 10 or 20, which can be overwhelming.",
 		hint: "You don't have to get this exactly right.",
 		scriptDefault: "When [what happened], I felt [feeling], because I was needing [need].",
 		helpQuestion: "How do I share without it coming out as blame?",
@@ -38,9 +40,10 @@ const STEP_DATA = {
 	},
 	step5: {
 		title: "Check they got it",
-		desc: "Invite them to reflect back what they heard.",
+		desc: "Invite them to reflect back what they heard - not to test they've heard you, but that you'd expressed yourself clearly enough for them to understand.",
 		hint: "This isn't a test — it just helps you both feel clearer.",
-		scriptDefault: "Could you tell me what you think I'm trying to say?",
+		scriptDefault:
+			"Could you tell me what you think I'm trying to say, so I know I've expressed myself clearly enough?",
 		helpQuestion: "What if they didn't quite get it?",
 		helpTopicId: "collab-check-understood",
 	},

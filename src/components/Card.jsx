@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import SlideDrawer from "./SlideDrawer";
 import MenuBar from "./MenuBar";
 import SettingsDrawer from "./SettingsDrawer";
 import SummaryModal from "./SummaryModal";
 import SideMenu from "./SideMenu";
 import { useWizard } from "./WizardContext";
+import { useOverlayHistory } from "../hooks/useOverlayHistory";
 import "./Card.css";
 
 const Card = ({ title, children, showHelp = false, helpContent = null, hideNav = false }) => {
@@ -25,6 +26,14 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 	const isIntro = stepIndex === 0;
 	const [hasMoreBelow, setHasMoreBelow] = useState(false);
 	const [sideMenuOpen, setSideMenuOpen] = useState(false);
+
+	// Back-button support: closes the help drawer or side menu instead of navigating
+	const closeHelpDrawer = () => {
+		setHelpDrawerOpen(false);
+		setHelpDrawerOverride(null);
+	};
+	const { closeWithCleanup: closeHelpDrawerWithCleanup } = useOverlayHistory(helpDrawerOpen, closeHelpDrawer, "helpDrawer");
+	const { closeWithCleanup: closeSideMenuWithCleanup } = useOverlayHistory(sideMenuOpen, () => setSideMenuOpen(false), "sideMenu");
 
 	// Swipe left/right to navigate between pages
 	useEffect(() => {
@@ -52,35 +61,6 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 			el.removeEventListener("touchend", onTouchEnd);
 		};
 	}, [cardContentRef, helpDrawerOpen, stepIndex, visibleSteps, setStepIndex]);
-
-	// Refs for back-button drawer management
-	const drawerHistoryRef = useRef(false); // true when we've pushed a drawer history entry
-	const suppressPopRef = useRef(false);   // suppresses our popstate handler once (X-close path)
-
-	// Push a history entry when the drawer opens so the back button can close it
-	useEffect(() => {
-		if (helpDrawerOpen) {
-			history.pushState({ helpDrawerOpen: true }, "");
-			drawerHistoryRef.current = true;
-		}
-	}, [helpDrawerOpen]);
-
-	// Intercept the back button to close the drawer instead of navigating
-	useEffect(() => {
-		const handlePopState = () => {
-			if (suppressPopRef.current) {
-				suppressPopRef.current = false;
-				return;
-			}
-			if (drawerHistoryRef.current) {
-				drawerHistoryRef.current = false;
-				setHelpDrawerOpen(false);
-				setHelpDrawerOverride(null);
-			}
-		};
-		window.addEventListener("popstate", handlePopState);
-		return () => window.removeEventListener("popstate", handlePopState);
-	}, [setHelpDrawerOpen, setHelpDrawerOverride]);
 
 	const checkScroll = useCallback(() => {
 		const el = cardContentRef?.current;
@@ -151,7 +131,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 					title="Menu"
 					aria-label="Menu"
 					aria-expanded={sideMenuOpen}
-					onClick={() => setSideMenuOpen((v) => !v)}>
+					onClick={() => { if (sideMenuOpen) closeSideMenuWithCleanup(); else setSideMenuOpen(true); }}>
 					&#9776;
 				</button>
 				<div className="card-header-text">
@@ -181,14 +161,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 
 			<SlideDrawer
 				isOpen={helpDrawerOpen}
-				onClose={() => {
-					setHelpDrawerOpen(false);
-					setHelpDrawerOverride(null);
-					if (drawerHistoryRef.current) {
-						drawerHistoryRef.current = false;
-						history.replaceState({ stepIndex }, ""); // replace drawer entry without firing popstate
-					}
-				}}
+				onClose={closeHelpDrawerWithCleanup}
 				title={`${title}`}
 				showBrowse
 				helpTopic={helpTopic}
@@ -199,7 +172,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 			{!hideNav && !hideMainNav && <MenuBar />}
 			<SummaryModal />
 			<SettingsDrawer />
-			<SideMenu isOpen={sideMenuOpen} onClose={() => setSideMenuOpen(false)} />
+			<SideMenu isOpen={sideMenuOpen} onClose={closeSideMenuWithCleanup} />
 		</div>
 	);
 };

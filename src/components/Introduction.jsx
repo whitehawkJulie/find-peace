@@ -29,7 +29,7 @@ const Introduction = () => {
 			<p>
 				If you’re here, something probably feels off — maybe confusing, frustrating, or just stuck.{" "}
 				<HelpLink topic="not-ready" aside>
-					Too distressed to even read this?
+					Super distressed? Try this instead.
 				</HelpLink>
 			</p>
 			<p>If you're feeling anything like this:</p>

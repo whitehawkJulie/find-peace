@@ -16,7 +16,6 @@ import Needs from "./Needs";
 import UnpackNeeds from "./UnpackNeeds";
 import MakingGuesses from "./MakingGuesses";
 import RequestFormulation from "./RequestFormulation";
-import Grief from "./Grief";
 import ExploringWhatsChanged from "./ExploringWhatsChanged";
 import ConversationsAndCollaboration from "./ConversationsAndCollaboration";
 import Review from "./Review";
@@ -106,7 +105,6 @@ const allSteps = [
 		icon: exploreNeedIcon,
 		optional: true,
 	},
-	{ component: Grief, group: "find", optional: true, color: "#6E9B6A" },
 	{ component: MakingGuesses, group: "find", optional: true, color: "#6E9B6A", icon: theirViewIcon },
 	// { component: RequestFormulation, optional: true },
 	{

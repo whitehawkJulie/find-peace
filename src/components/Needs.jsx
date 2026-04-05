@@ -36,13 +36,19 @@ const Needs = () => {
 	return (
 		<div className="step-needs">
 			<p>
-				If we don't know what we're actually needing, everything we do misses the mark. This is the missing
-				information in our lives.
+				Here we're looking to see what our feelings are pointing to - what we were longing for in that moment
+				(which also often tells us what we're longing for in life, in general).
+			</p>
+
+			<p>
+				We call these longings <HelpLink topic="needs">"fundamental human needs"</HelpLink>, and every single
+				human being on the planet shares them. They're what we all have in common, underneath all our
+				differences. Every thing we do in life is simply an attempt to meet one or more of these very human
+				needs. All our goals and dreams come down to this simple set of longings.
 			</p>
 			<p>
-				<HelpLink topic="needs">Needs</HelpLink> are what we're hoping to experience when things go well — and
-				what we're longing for when they don't. They're the core of what matters to us, and our feelings
-				directly point to what they are.
+				If we don't know what we're actually needing, everything we do misses the mark. This is the missing
+				information in our lives.
 			</p>
 
 			{renderOrderedFeelings(feelings)}

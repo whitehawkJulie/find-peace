@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useWizard } from "./WizardContext";
+import { useOverlayHistory } from "../hooks/useOverlayHistory";
 import { getNeedData, resolveNeedUnpackingType } from "../utils/renderHelpers";
 import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
 import HelpLink from "../components/HelpLink";
@@ -25,6 +26,7 @@ const UnpackNeeds = () => {
 		setExplorationStep,
 		setNeedExplorationOpen,
 		needExplorationOpen,
+		openHelpTopic,
 	} = useWizard();
 	// Accordion open state
 	const [openStage1, setOpenStage1] = useState(false);
@@ -49,6 +51,7 @@ const UnpackNeeds = () => {
 					metCircumstances: "",
 					oftenUnmet: "",
 					whereToMeet: "",
+					mourningViewed: false,
 					completed: false,
 				},
 			}));
@@ -117,6 +120,13 @@ const UnpackNeeds = () => {
 		setNeedExplorationOpen(false);
 	};
 
+	const isPopupOpen = explorationStep > 0 && !!currentExploringNeed;
+	const { closeWithCleanup: closePopup, cleanupHistory: popupCleanupHistory } = useOverlayHistory(
+		isPopupOpen,
+		() => exitExploration(false),
+		"needsPopup",
+	);
+
 	const startExploring = (needName) => {
 		setCurrentExploringNeed(needName);
 		if (!needExplorations[needName]) {
@@ -132,11 +142,21 @@ const UnpackNeeds = () => {
 					metCircumstances: "",
 					oftenUnmet: "",
 					whereToMeet: "",
+					mourningViewed: false,
 					completed: false,
 				},
 			}));
 		}
 		setExplorationStep(1);
+	};
+
+	// Mark mourning as viewed for the need currently being explored
+	const markMourningViewed = () => {
+		if (!currentExploringNeed) return;
+		setNeedExplorations((prev) => ({
+			...prev,
+			[currentExploringNeed]: { ...prev[currentExploringNeed], mourningViewed: true },
+		}));
 	};
 
 	const unselectNeed = (name) => {
@@ -166,7 +186,21 @@ const UnpackNeeds = () => {
 		});
 	};
 
-	const hasSelectedNeeds = Object.values(needs).some((s) => s === "clicked");
+	const hasSelectedNeeds = Object.values(needs).some((s) => s === "clicked" || s === "double-clicked");
+
+	// Which needs has the user opened the mourning help topic for?
+	const mourningViewedNeeds = Object.entries(needExplorations)
+		.filter(([, e]) => e?.mourningViewed)
+		.map(([name]) => name);
+	const anyMourningViewed = mourningViewedNeeds.length > 0;
+
+	// Human-readable list: "Affection", or "Affection and Belonging", or "Affection, Belonging and Safety"
+	const mourningNeedsList =
+		mourningViewedNeeds.length === 1
+			? mourningViewedNeeds[0]
+			: mourningViewedNeeds.slice(0, -1).join(", ") +
+				" and " +
+				mourningViewedNeeds[mourningViewedNeeds.length - 1];
 
 	return (
 		<div className="need-unpacking">
@@ -192,6 +226,7 @@ const UnpackNeeds = () => {
 				title="The beauty of a need"
 				description="A short guided meditation to connect with what matters most."
 			/>
+			<h3>Exploring individual needs</h3>
 			<p>Click on a need to explore more deeply, starting with the one that's loudest for you.</p>
 			<p className="cloud-label">Your needs</p>
 			<div className="pill-grid cloud needs-selected-pills">
@@ -264,16 +299,49 @@ const UnpackNeeds = () => {
 			{/* ════════════════════════════════════════
 			    Step 1 — Exploration popup overlay
 			    ════════════════════════════════════════ */}
+			{/* Grief and mourning section — replaces the former standalone Grief page */}
+			{hasSelectedNeeds && (
+				<div className="internal-section">
+					<h3>Mourning</h3>
+					{!anyMourningViewed ? (
+						<>
+							<p>
+								Sometimes, in this process, a need comes into view that hasn{"\u2019"}t been met for a
+								long time — or perhaps ever. When that happens, it{"\u2019"}s natural for strong
+								feelings to arise, like grief or anger.
+							</p>
+							<p className="help-callout">
+								If that{"\u2019"}s what you{"\u2019"}re noticing, it{"\u2019"}s worth slowing down and
+								making space for it.{" "}
+								<HelpLink topic="mourning">
+									There{"\u2019"}s some support here for sitting with it.
+								</HelpLink>
+							</p>
+						</>
+					) : (
+						<>
+							<p>
+								You{"\u2019"}ve already looked at mourning {mourningNeedsList}. Is there anything else
+								here that still needs to be heard and grieved?
+							</p>
+							<p className="help-callout">
+								<HelpLink topic="mourning">That support is still here whenever you need it.</HelpLink>
+							</p>
+						</>
+					)}
+				</div>
+			)}
+
 			{explorationStep > 0 && currentExploringNeed && (
 				<div
 					className="need-explore-backdrop"
 					onClick={(e) => {
-						if (e.target === e.currentTarget) exitExploration(false);
+						if (e.target === e.currentTarget) closePopup();
 					}}>
 					<div className="need-explore-popup">
 						<div className="need-explore-header">
 							<h3 className="need-explore-title">{currentExploringNeed}</h3>
-							<button className="need-explore-close" onClick={() => exitExploration(false)} title="Close">
+							<button className="need-explore-close" onClick={closePopup} title="Close">
 								×
 							</button>
 						</div>
@@ -414,9 +482,10 @@ const UnpackNeeds = () => {
 
 									<div className="unpacking-prompt">
 										<p className="unpacking-prompt-text">
-											{
-												"Is this a need that often goes unmet in your life? Are there small ways you could move towards it, top up the tank, even a little?"
-											}
+											Is this a need that often goes unmet in your life? Are there small ways you
+											could move towards it,{" "}
+											<HelpLink topic="finding-strategies">top up the tank</HelpLink>, even a
+											little?
 										</p>
 										<textarea
 											className="unpacking-textarea"
@@ -440,9 +509,18 @@ const UnpackNeeds = () => {
 										/>
 									</div>
 									<p className="help-callout">
-										If this has left you feeling like you{"\u2019"}ve never had the need met, you can see
-										more about{" "}
-										<HelpLink topic="mourning">being with an unmet need, here.</HelpLink>
+										If this has left you feeling like you{"\u2019"}ve never had the need met, or
+										never quite enough, you might like to read about{" "}
+										<a
+											href="#"
+											className="inline-help-link"
+											onClick={(e) => {
+												e.preventDefault();
+												markMourningViewed();
+												openHelpTopic("mourning");
+											}}>
+											being with an unmet need, here.
+										</a>
 									</p>
 								</div>
 							)}
@@ -450,7 +528,12 @@ const UnpackNeeds = () => {
 
 						{/* Footer */}
 						<div className="unpacking-footer">
-							<button className="unpacking-done-btn" onClick={() => exitExploration(true)}>
+							<button
+								className="unpacking-done-btn"
+								onClick={() => {
+									popupCleanupHistory();
+									exitExploration(true);
+								}}>
 								Done ✓
 							</button>
 						</div>
