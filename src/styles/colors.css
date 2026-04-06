@@ -1,17 +1,17 @@
 /* ============================================================
-   Find Peace — centralized color tokens
+   Untangle This — centralized color tokens
    Edit values here to change colors app-wide.
    ============================================================ */
 
 :root {
 	/* ── Feelings (blue) ── */
-	--feelings-cloud-start:  #f5faff;
-	--feelings-cloud-end:    #e0f0ff;
+	--feelings-cloud-start: #f5faff;
+	--feelings-cloud-end: #e0f0ff;
 	--feelings-cloud-shadow: rgba(200, 220, 255, 0.5);
 
 	/* ── Needs (sage green) ── */
-	--needs-header-bg:       #e4efe4;   /* unified header bg for all 4 needs sections */
-	--needs-cloud-start:     #f3f9f3;
-	--needs-cloud-end:       #d8edd8;
-	--needs-cloud-shadow:    rgba(160, 200, 160, 0.5);
+	--needs-header-bg: #e4efe4; /* unified header bg for all 4 needs sections */
+	--needs-cloud-start: #f3f9f3;
+	--needs-cloud-end: #d8edd8;
+	--needs-cloud-shadow: rgba(160, 200, 160, 0.5);
 }

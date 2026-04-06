@@ -61,12 +61,16 @@ const SummaryModal = () => {
 			summaryOpenAt.current = Date.now();
 			trackEvent("ui_open", { type: "modal", name: "summary" });
 		} else if (summaryOpenAt.current) {
-			trackEvent("ui_close", { type: "modal", name: "summary",
-				time_open_ms: Date.now() - summaryOpenAt.current });
+			trackEvent("ui_close", {
+				type: "modal",
+				name: "summary",
+				time_open_ms: Date.now() - summaryOpenAt.current,
+			});
 			summaryOpenAt.current = null;
 		}
 	}, [showSummary]); // eslint-disable-line react-hooks/exhaustive-deps
 
+	// - REPLACED with analytics page tracking
 	// const logSelections = () => {
 	// 	const allFeelings = filterByState(feelings, "clicked");
 	// 	const unmetNeeds = filterByState(needs, "clicked");
@@ -249,10 +253,7 @@ const SummaryModal = () => {
 				<div className="summary-modal-header">
 					<div className="summary-modal-header-top">
 						<h2>What came up</h2>
-						<button
-							className="summary-modal-close"
-							onClick={closeSummary}
-							aria-label="Close summary">
+						<button className="summary-modal-close" onClick={closeSummary} aria-label="Close summary">
 							×
 						</button>
 					</div>

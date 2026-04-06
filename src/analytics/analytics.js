@@ -1,5 +1,5 @@
 /**
- * analytics.js — lightweight, privacy-safe analytics for Find Peace
+ * analytics.js — lightweight, privacy-safe analytics for Untangle This
  *
  * Principles:
  *   • No user-entered text is captured or sent
@@ -40,11 +40,20 @@ const DEBUG = (() => {
 	}
 })();
 
+const NO_TRACK = (() => {
+	try {
+		return localStorage.getItem("fp_no_track") === "true";
+	} catch {
+		return false;
+	}
+})();
+
 // ─── Event queue + flush ─────────────────────────────────────────────────────
 const queue = [];
 let flushTimer = null;
 
 export function trackEvent(name, payload = {}) {
+	if (NO_TRACK) return;
 	const event = {
 		event: name,
 		session_id: SESSION_ID,
@@ -99,11 +108,19 @@ let samplerTimer = null;
 
 // Track any user activity
 ["mousemove", "keydown", "scroll", "touchstart"].forEach((evt) =>
-	window.addEventListener(evt, () => { lastActivityTime = Date.now(); }, { passive: true }),
+	window.addEventListener(
+		evt,
+		() => {
+			lastActivityTime = Date.now();
+		},
+		{ passive: true },
+	),
 );
 
 // Also reset idle clock on window focus
-window.addEventListener("focus", () => { lastActivityTime = Date.now(); });
+window.addEventListener("focus", () => {
+	lastActivityTime = Date.now();
+});
 
 export let currentPage = "unknown";
 

@@ -5,10 +5,10 @@ import "./Review.css";
 const Review = () => {
 	const { reviewReflection, setReviewReflection, setShowSummary, openHelpTopic } = useWizard();
 
-	// Track when a user reaches the Review page (fires once on mount)
-	React.useEffect(() => {
-		fetch("/api/visit.php");
-	}, []);
+	// Track when a user reaches the Review page (fires once on mount) - REPLACED with analytics page tracking
+	// React.useEffect(() => {
+	// 	fetch("/api/visit.php");
+	// }, []);
 
 	return (
 		<div className="review">

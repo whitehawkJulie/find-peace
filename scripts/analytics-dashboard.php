@@ -175,7 +175,7 @@ function pct(int $a, int $b): string {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Find Peace — Analytics</title>
+<title>Untangle This — Analytics</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -199,7 +199,7 @@ function pct(int $a, int $b): string {
 </style>
 </head>
 <body>
-<h1>Find Peace — Analytics dashboard</h1>
+<h1>Untangle This — Analytics dashboard</h1>
 <p class="subtitle">
   <?= $total_sessions ?> sessions &nbsp;·&nbsp;
   Generated <?= date('j M Y, g:ia') ?> Brisbane time

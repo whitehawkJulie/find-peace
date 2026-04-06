@@ -1,7 +1,7 @@
 /**
  * validate-nvc-data.mjs
  *
- * Development-only validation script for the Find Peace emotional ontology.
+ * Development-only validation script for the Untangle This emotional ontology.
  *
  * WHY THIS EXISTS:
  * We are working with a large, evolving structured data model
