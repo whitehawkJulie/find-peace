@@ -53,8 +53,11 @@ $safe_payload_keys = [
     'type', 'name',
     // session end
     'last_page', 'feelings_count', 'needs_count', 'needs_unpacked',
+    'feelings_selected', 'feelings_strong', 'needs_selected', 'needs_strong',
     // action
     'action_name', 'setting', 'value', 'track',
+    // story word / clarify popup
+    'word', 'word_type', 'feeling', 'need', 'selected', 'replaced', 'feelings_chosen', 'needs_chosen',
 ];
 
 $log_file = __DIR__ . '/analytics.jsonl';
@@ -78,8 +81,9 @@ foreach ($events as $event) {
     foreach ($safe_payload_keys as $key) {
         if (!isset($event[$key])) continue;
         $val = $event[$key];
-        // needs_unpacked is an array of strings from the fixed NVC vocabulary
-        if ($key === 'needs_unpacked') {
+        // array fields — fixed NVC vocabulary, safe to store
+        $array_keys = ['needs_unpacked', 'feelings_selected', 'feelings_strong', 'needs_selected', 'needs_strong'];
+        if (in_array($key, $array_keys, true)) {
             if (is_array($val)) {
                 $record[$key] = array_map('strval', $val);
             }

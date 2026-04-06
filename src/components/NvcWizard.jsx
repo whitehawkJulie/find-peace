@@ -32,9 +32,11 @@ const NvcWizard = () => {
 	const mounted = useRef(false);
 
 	// Warn before leaving the page if the user has unsaved changes; also fire session_end analytics
+	const sessionEndFiredRef = useRef(false);
 	useEffect(() => {
-		const handleBeforeUnload = (e) => {
-			// Fire session_end regardless of dirty state
+		const fireSessionEnd = () => {
+			if (sessionEndFiredRef.current) return; // only fire once per session
+			sessionEndFiredRef.current = true;
 			const { feelings: f, needs: n, needExplorations: ne } = sessionDataRef.current;
 			const times = endPage();
 			trackEvent("session_end", {
@@ -42,20 +44,42 @@ const NvcWizard = () => {
 				last_page: currentPage,
 				feelings_count: Object.keys(f || {}).length,
 				needs_count: Object.keys(n || {}).length,
+				feelings_selected: Object.entries(f || {}).filter(([, s]) => s === "clicked").map(([name]) => name),
+				feelings_strong:   Object.entries(f || {}).filter(([, s]) => s === "double-clicked").map(([name]) => name),
+				needs_selected:    Object.entries(n || {}).filter(([, s]) => s === "clicked").map(([name]) => name),
+				needs_strong:      Object.entries(n || {}).filter(([, s]) => s === "double-clicked").map(([name]) => name),
 				needs_unpacked: Object.entries(ne || {})
 					.filter(([, v]) => v.completed)
 					.map(([name]) => name),
 				...times,
 			});
 			flush();
+		};
+
+		const handleBeforeUnload = (e) => {
+			fireSessionEnd();
 			if (!dirtyRef.current) return;
 			e.preventDefault();
 			// Modern browsers ignore custom messages and show their own generic text,
 			// but setting returnValue is still required to trigger the dialog.
 			e.returnValue = "";
 		};
+
+		// visibilitychange → hidden is the most reliable signal on mobile (iOS Safari
+		// often skips beforeunload entirely). pagehide catches remaining cases.
+		const handleVisibilityChange = () => {
+			if (document.visibilityState === "hidden") fireSessionEnd();
+		};
+		const handlePageHide = () => fireSessionEnd();
+
 		window.addEventListener("beforeunload", handleBeforeUnload);
-		return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+		document.addEventListener("visibilitychange", handleVisibilityChange);
+		window.addEventListener("pagehide", handlePageHide, { passive: true });
+		return () => {
+			window.removeEventListener("beforeunload", handleBeforeUnload);
+			document.removeEventListener("visibilitychange", handleVisibilityChange);
+			window.removeEventListener("pagehide", handlePageHide);
+		};
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Register popstate listener once on mount

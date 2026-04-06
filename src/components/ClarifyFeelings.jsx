@@ -18,7 +18,9 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 	// Track open/close (fires once on mount/unmount)
 	const openAt = useRef(Date.now());
 	useEffect(() => {
-		trackEvent("ui_open", { type: "modal", name: "clarify-feelings" });
+		const wordType = itemData?.type === "storyWord" ? "story_word" : "murky";
+		trackEvent("ui_open", { type: "modal", name: "clarify-feelings",
+			word: itemData?.item, word_type: wordType });
 		return () => {
 			trackEvent("ui_close", { type: "modal", name: "clarify-feelings",
 				time_open_ms: Date.now() - openAt.current });
@@ -86,7 +88,11 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 													? "clicked"
 													: ""
 											}
-											onClick={() => onToggleFeeling(f)}
+											onClick={() => {
+												trackEvent("action", { action_name: "story_word_feeling_toggle",
+													word: itemData.item, feeling: f, selected: !feelings[f] });
+												onToggleFeeling(f);
+											}}
 										/>
 									))}
 								</div>
@@ -121,7 +127,11 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 											state={
 												needs[n] === "clicked" || needs[n] === "double-clicked" ? "clicked" : ""
 											}
-											onClick={() => onToggleNeed(n)}
+											onClick={() => {
+												trackEvent("action", { action_name: "story_word_need_toggle",
+													word: itemData.item, need: n, selected: !needs[n] });
+												onToggleNeed(n);
+											}}
 										/>
 									))}
 								</div>
@@ -139,7 +149,16 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 							</label>
 						)}
 
-						<button className="clarify-ok" onClick={() => onKeepWord(itemData.item, !replaceWithFeelings)}>
+						<button className="clarify-ok" onClick={() => {
+							trackEvent("action", {
+								action_name: "story_word_ok",
+								word: itemData.item,
+								replaced: replaceWithFeelings,
+								feelings_chosen: (itemData.suggestedFeelings || []).filter((f) => feelings[f]).length,
+								needs_chosen:    (itemData.suggestedNeeds    || []).filter((n) => needs[n]).length,
+							});
+							onKeepWord(itemData.item, !replaceWithFeelings);
+						}}>
 							OK
 						</button>
 					</>
