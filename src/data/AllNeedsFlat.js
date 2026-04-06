@@ -12,6 +12,8 @@
  *   tags.themes          – UNPACKING_TYPE string values (see unpackingTypeData.js)
  *   coreQuestion         – main clarifying question shown in NeedUnpacking (editable)
  *   helpText             – short phrase shown in the need picker
+ *   ui.quickPick         – true → shown in Quick mode (flat, no subheadings)
+ *   ui.tier              – "more" → only shown in Full mode; omit for Short+Full
  */
 
 // ─── WHERE_MET VALUES ────────────────────────────────────────────
@@ -28,6 +30,12 @@ const LIFE = "life";
 // const EXISTENTIAL = "existential_expansive";
 // const IDENTITY = "integrity_identity";
 
+// ─── LIST MODE TIERS ─────────────────────────────────────────────
+// Quick (20): the NVC classics — come up in nearly every difficult interaction
+// Short (~69): Quick + commonly felt needs that arise in emotional/interpersonal difficulty
+// Full (all ~112): everything, including survival basics, philosophical & aspirational needs
+// Unlabelled = Short+Full. ui: { tier: "more" } = Full only. ui: { tier: "simple", quickPick: true } = all modes.
+
 export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	// SUBSISTENCE — Physical sustenance
@@ -40,6 +48,7 @@ export const allNeeds = [
 		tags: { whereMet: [ENV], themes: ["practical"] },
 		coreQuestion: "Is this about the air around you, or about the feeling of being able to breathe easily?",
 		helpText: "Clean air to breathe",
+		ui: { tier: "more" },
 	},
 	{
 		id: "food",
@@ -49,6 +58,7 @@ export const allNeeds = [
 		tags: { whereMet: [ENV], themes: ["practical"] },
 		coreQuestion: "Is this about having enough food, or about the quality and nourishment of what you're eating?",
 		helpText: "Nourishing and satisfying meals",
+		ui: { tier: "more" },
 	},
 	{
 		id: "health",
@@ -79,6 +89,7 @@ export const allNeeds = [
 			[ENV]: "You might explore what practical changes would give you more freedom or room to move.",
 		},
 		helpText: "Freedom to move and be active",
+		ui: { tier: "more" },
 	},
 	{
 		id: "physical_safety",
@@ -89,6 +100,7 @@ export const allNeeds = [
 		coreQuestion:
 			"Is there a specific physical threat, or more of a general need to feel safe in your body and surroundings?",
 		helpText: "Freedom from physical harm",
+		ui: { tier: "more" },
 	},
 	{
 		id: "rest_sleep",
@@ -100,7 +112,7 @@ export const allNeeds = [
 			"Is this about literal sleep, or about a deeper kind of rest — permission to stop and not be productive for a while?",
 		directionPrompts: {
 			[IN_ME]:
-				"You might notice whether what’s most needed is sleep, stillness, permission to stop, or relief from inner pressure.",
+				"You might notice whether what's most needed is sleep, stillness, permission to stop, or relief from inner pressure.",
 			[ENV]: "You might explore what practical conditions would make rest more possible right now.",
 		},
 		helpText: "Deep rest and renewal",
@@ -113,6 +125,7 @@ export const allNeeds = [
 		tags: { whereMet: [ENV], themes: ["practical"] },
 		coreQuestion: "Is this about having a physical place to live, or about feeling at home and settled somewhere?",
 		helpText: "Safe and secure housing",
+		ui: { tier: "more" },
 	},
 	{
 		id: "touch",
@@ -124,8 +137,8 @@ export const allNeeds = [
 			"What kind of touch are you longing for — a hug, a hand on your shoulder, or simply being physically close to someone?",
 		directionPrompts: {
 			[BETWEEN_US]:
-				"You might notice whether you’re longing for comfort, closeness, reassurance, or simple physical presence from someone.",
-			[IN_ME]: "You might explore whether there’s a way to bring your body some comfort or soothing right now.",
+				"You might notice whether you're longing for comfort, closeness, reassurance, or simple physical presence from someone.",
+			[IN_ME]: "You might explore whether there's a way to bring your body some comfort or soothing right now.",
 		},
 		helpText: "Comforting physical contact",
 	},
@@ -137,6 +150,7 @@ export const allNeeds = [
 		tags: { whereMet: [ENV], themes: ["practical"] },
 		coreQuestion: "Is this about literal access to water, or about your basic needs not being met?",
 		helpText: "Clean water for drinking and hygiene",
+		ui: { tier: "more" },
 	},
 
 	// ═══════════════════════════════════════════════════════════
@@ -153,9 +167,10 @@ export const allNeeds = [
 		directionPrompts: {
 			[ENV]: "You might explore what practical structure, order, or support would help things feel more manageable. Might it help to focus on the order that's already inherent in the Universe?",
 			[IN_ME]:
-				"You might notice whether what’s most needed is inner steadiness, predictability, or a clearer sense of what comes next.",
+				"You might notice whether what's most needed is inner steadiness, predictability, or a clearer sense of what comes next.",
 		},
 		helpText: "Clarity and organization",
+		ui: { tier: "more" },
 	},
 	{
 		id: "peace_external",
@@ -166,6 +181,7 @@ export const allNeeds = [
 		coreQuestion:
 			"Is this about wanting the conflict around you to stop, or about finding a way to feel less affected by it?",
 		helpText: "Safety from external conflict",
+		ui: { tier: "more" },
 	},
 	{
 		id: "peace_of_mind",
@@ -174,8 +190,9 @@ export const allNeeds = [
 		category: "Security",
 		tags: { whereMet: [IN_ME], themes: ["protective_safety"] },
 		coreQuestion:
-			"What’s disturbing your peace of mind right now — worry about the future, regret about the past, or something unresolved?",
+			"What's disturbing your peace of mind right now — worry about the future, regret about the past, or something unresolved?",
 		helpText: "Freedom from internal turmoil",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "protection",
@@ -185,6 +202,7 @@ export const allNeeds = [
 		tags: { whereMet: [ENV], themes: ["protective_safety"] },
 		coreQuestion: "What are you wanting protection from — a person, a situation, or your own feelings?",
 		helpText: "Being guarded from harm",
+		ui: { tier: "more" },
 	},
 	{
 		id: "safety_emotional",
@@ -193,7 +211,7 @@ export const allNeeds = [
 		category: "Security",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["protective_safety"] },
 		coreQuestion:
-			"What would emotional safety look like here — being able to say what you feel without being judged, or knowing you won’t be hurt for being open?",
+			"What would emotional safety look like here — being able to say what you feel without being judged, or knowing you won't be hurt for being open?",
 		directionPrompts: {
 			[IN_ME]:
 				"You might notice what would help you feel safer inside yourself right now — self-trust, steadiness, gentleness, or permission.",
@@ -201,6 +219,7 @@ export const allNeeds = [
 				"You might explore what would help this relationship feel safer — more care, less judgment, clearer boundaries, or more openness.",
 		},
 		helpText: "Freedom to be emotionally vulnerable",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "stability",
@@ -221,6 +240,7 @@ export const allNeeds = [
 			[BETWEEN_US]: "You might explore what would make this relationship feel more steady or dependable.",
 		},
 		helpText: "Steadiness in life circumstances",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "trusting",
@@ -238,6 +258,7 @@ export const allNeeds = [
 				"You might notice what would help you feel more able to trust yourself or others or life right now.",
 		},
 		helpText: "Confidence in people and systems",
+		ui: { tier: "simple", quickPick: true },
 	},
 
 	// ═══════════════════════════════════════════════════════════
@@ -252,6 +273,7 @@ export const allNeeds = [
 		coreQuestion:
 			"What kind of affection are you longing for — words, gestures, physical warmth, or simply knowing someone cares?",
 		helpText: "Expressions of emotional warmth and connection",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "appreciation",
@@ -277,6 +299,7 @@ export const allNeeds = [
 		coreQuestion:
 			"When you say you need attention, is it about someone being present with you, or about feeling like you matter enough to be noticed?",
 		helpText: "Being genuinely noticed",
+		ui: { tier: "more" },
 	},
 	{
 		id: "closeness",
@@ -296,6 +319,7 @@ export const allNeeds = [
 		coreQuestion:
 			"Is this connection to a specific person, to a group, or to something bigger — life, nature, or meaning?",
 		helpText: "Feeling linked to others and to life",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "companionship",
@@ -305,6 +329,7 @@ export const allNeeds = [
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
 		coreQuestion: "Is this about having someone to do things with, or about not feeling alone in your experience?",
 		helpText: "Enjoying life with others",
+		ui: { tier: "more" },
 	},
 	{
 		id: "harmony",
@@ -319,6 +344,7 @@ export const allNeeds = [
 			[IN_ME]: "You might notice what would help you feel more at ease or settled in this relationship.",
 		},
 		helpText: "Cooperation and mutual support",
+		ui: { tier: "more" },
 	},
 	{
 		id: "intimacy",
@@ -337,14 +363,15 @@ export const allNeeds = [
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
 		coreQuestion:
-			"When you notice this need for love, is it about receiving it, giving it, or knowing it’s there even when it isn’t being said?",
+			"When you notice this need for love, is it about receiving it, giving it, or knowing it's there even when it isn't being said?",
 		directionPrompts: {
 			[BETWEEN_US]:
-				"You might notice whether you're longing to receive love, express love, or feel reassured that it’s there.",
+				"You might notice whether you're longing to receive love, express love, or feel reassured that it's there.",
 			[IN_ME]:
-				"You might explore whether there’s a way to bring more kindness or care toward yourself right now.",
+				"You might explore whether there's a way to bring more kindness or care toward yourself right now.",
 		},
 		helpText: "Unconditional acceptance and care",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "nurturing",
@@ -354,8 +381,8 @@ export const allNeeds = [
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
 		coreQuestion: "Are you wanting to be nurtured by someone, or noticing a need to nurture yourself?",
 		directionPrompts: {
-			[BETWEEN_US]: "You might notice what kind of care or gentleness you’re hoping to receive from someone.",
-			[IN_ME]: "You might explore whether there’s a way to bring yourself some care or gentleness right now.",
+			[BETWEEN_US]: "You might notice what kind of care or gentleness you're hoping to receive from someone.",
+			[IN_ME]: "You might explore whether there's a way to bring yourself some care or gentleness right now.",
 		},
 		helpText: "Care that supports growth and healing",
 	},
@@ -368,6 +395,7 @@ export const allNeeds = [
 		coreQuestion:
 			"Is this about physical desire, about feeling wanted, or about a deeper sense of aliveness with another person?",
 		helpText: "Authentic physical intimacy",
+		ui: { tier: "more" },
 	},
 	{
 		id: "support",
@@ -385,6 +413,7 @@ export const allNeeds = [
 				"You might notice whether there's a way to support yourself with encouragement, kindness, or clarity.",
 		},
 		helpText: "Practical or emotional backing",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "tenderness",
@@ -395,6 +424,7 @@ export const allNeeds = [
 		coreQuestion:
 			"What would tenderness look like here — a softer tone, a gentle gesture, or someone being especially careful with you?",
 		helpText: "Gentle, caring touch or tone",
+		ui: { tier: "more" },
 	},
 	{
 		id: "having_my_back",
@@ -432,6 +462,7 @@ export const allNeeds = [
 			[IN_ME]: "You might explore what would help you recognise your own worth or significance here.",
 		},
 		helpText: "To know that I am valued",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "acceptance",
@@ -447,6 +478,7 @@ export const allNeeds = [
 			[IN_ME]: "You might explore whether there's a way to bring more acceptance toward yourself right now.",
 		},
 		helpText: "Welcomed just as I am",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "care",
@@ -457,6 +489,7 @@ export const allNeeds = [
 		coreQuestion:
 			"What would care look like in this situation — someone checking in, offering help, or simply noticing that you're struggling?",
 		helpText: "Concern for my well-being",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "compassion",
@@ -493,6 +526,7 @@ export const allNeeds = [
 		coreQuestion:
 			"Is this about someone understanding what it's like for you, or about them feeling emotionally with you?",
 		helpText: "Emotional resonance and understanding",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "respect",
@@ -507,6 +541,7 @@ export const allNeeds = [
 			[IN_ME]: "You might explore how you could honour your own boundaries or values here.",
 		},
 		helpText: "Being valued and honored",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "acknowledgement",
@@ -519,7 +554,7 @@ export const allNeeds = [
 		directionPrompts: {
 			[BETWEEN_US]:
 				"You might notice whether you're longing for someone to recognise your effort, experience, or feelings.",
-			[IN_ME]: "You might explore whether there’s a way to acknowledge your own experience or effort.",
+			[IN_ME]: "You might explore whether there's a way to acknowledge your own experience or effort.",
 		},
 		helpText: "Having your experience or contribution recognised",
 	},
@@ -532,6 +567,7 @@ export const allNeeds = [
 		coreQuestion:
 			"Is this about someone listening all the way through, or about knowing your words are actually landing and influencing what happens next?",
 		helpText: "To know my words are received and taken in",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "to_be_seen",
@@ -547,6 +583,7 @@ export const allNeeds = [
 			[IN_ME]: "You might explore whether there's a way to recognise and honour your own experience.",
 		},
 		helpText: "To have my experience and presence acknowledged",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "to_be_known_understood",
@@ -585,6 +622,7 @@ export const allNeeds = [
 			[IN_ME]: "You might notice what would support your own openness or curiosity here.",
 		},
 		helpText: "Being able to grasp others' experience",
+		ui: { tier: "more" },
 	},
 	{
 		id: "mutual_recognition",
@@ -593,7 +631,7 @@ export const allNeeds = [
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
 		coreQuestion:
-			"Is this about both of you seeing each other clearly, or about the absence of that — feeling invisible while the other person isn’t really looking?",
+			"Is this about both of you seeing each other clearly, or about the absence of that — feeling invisible while the other person isn't really looking?",
 		directionPrompts: {
 			[BETWEEN_US]:
 				"You might explore what would help both of you recognise and understand each other more clearly.",
@@ -601,6 +639,7 @@ export const allNeeds = [
 				"You might notice whether there's a way to hold onto your own sense of self even if the other person doesn't see you clearly.",
 		},
 		helpText: "Seeing and being seen by another",
+		ui: { tier: "more" },
 	},
 	{
 		id: "kindness",
@@ -629,6 +668,7 @@ export const allNeeds = [
 		coreQuestion:
 			"What kind of community are you longing for — people who share your interests, your values, or simply a sense of being part of something?",
 		helpText: "Belonging to a group",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "belonging",
@@ -642,6 +682,7 @@ export const allNeeds = [
 			[IN_ME]: "You might explore what would help you feel more at home or secure within yourself.",
 		},
 		helpText: "Feeling part of something",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "reliability",
@@ -657,6 +698,7 @@ export const allNeeds = [
 			[ENV]: "You might explore what structures or systems would make things feel more dependable.",
 		},
 		helpText: "Steady, predictable follow-through over time",
+		ui: { tier: "more" },
 	},
 	{
 		id: "communication",
@@ -690,6 +732,7 @@ export const allNeeds = [
 			[ENV]: "You might explore what fairness or equality would look like in the wider situation.",
 		},
 		helpText: "Equal worth and rights for all",
+		ui: { tier: "more" },
 	},
 	{
 		id: "inclusion",
@@ -714,6 +757,7 @@ export const allNeeds = [
 		coreQuestion:
 			"Is this about wanting more balance in what you give and receive, or about the other person showing they're invested too?",
 		helpText: "Reciprocal give and take",
+		ui: { tier: "more" },
 	},
 	{
 		id: "participation",
@@ -728,6 +772,7 @@ export const allNeeds = [
 			[ENV]: "You might explore what changes would allow you to participate more fully.",
 		},
 		helpText: "Being involved and engaged",
+		ui: { tier: "more" },
 	},
 	{
 		id: "partnership",
@@ -761,6 +806,7 @@ export const allNeeds = [
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
 		coreQuestion: "Is this about sharing experiences together, sharing resources, or sharing what's in your heart?",
 		helpText: "Mutual giving and receiving",
+		ui: { tier: "more" },
 	},
 
 	// ═══════════════════════════════════════════════════════════
@@ -775,6 +821,7 @@ export const allNeeds = [
 		coreQuestion:
 			"Is there something you're holding back or pretending about? What would it look like to be more yourself here?",
 		helpText: "Being true to myself",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "competence",
@@ -789,6 +836,7 @@ export const allNeeds = [
 			[ENV]: "You might explore what support, tools, or conditions would help your competence come through more easily.",
 		},
 		helpText: "Feeling capable and skilled",
+		ui: { tier: "more" },
 	},
 	{
 		id: "creativity",
@@ -826,7 +874,7 @@ export const allNeeds = [
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, LIFE, ENV], themes: ["integrity_identity", "existential_expansive"] },
 		coreQuestion:
-			"What kind of growth are you wanting — learning something new, becoming more yourself, or moving past something that’s been holding you back?",
+			"What kind of growth are you wanting — learning something new, becoming more yourself, or moving past something that's been holding you back?",
 		directionPrompts: {
 			[IN_ME]: "You might notice what inner shift, learning, or courage is wanting to emerge in you.",
 			[LIFE]: "You might explore how this growth connects to the wider direction or unfolding of your life.",
@@ -861,9 +909,10 @@ export const allNeeds = [
 			"Is this about wanting someone to be honest with you, or about wanting to be more honest yourself?",
 		directionPrompts: {
 			[IN_ME]: "You might notice what truth in you wants to be faced or spoken more clearly.",
-			[BETWEEN_US]: "You might explore what kind of honesty or openness you’re hoping for from this person.",
+			[BETWEEN_US]: "You might explore what kind of honesty or openness you're hoping for from this person.",
 		},
 		helpText: "Telling and facing the truth",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "integrity",
@@ -918,6 +967,7 @@ export const allNeeds = [
 		coreQuestion:
 			"Is there something about yourself you're trying to understand — a pattern, a reaction, or something you keep doing that puzzles you?",
 		helpText: "Understanding myself",
+		ui: { tier: "more" },
 	},
 	{
 		id: "self_realization",
@@ -932,6 +982,7 @@ export const allNeeds = [
 			[LIFE]: "You might explore how this connects to direction, calling, or the wider arc of your life.",
 		},
 		helpText: "Becoming who I am meant to be",
+		ui: { tier: "more" },
 	},
 	{
 		id: "mattering_to_myself",
@@ -975,6 +1026,7 @@ export const allNeeds = [
 			[LIFE]: "You might explore whether you're longing to feel more awake to life, reality, or the bigger picture.",
 		},
 		helpText: "Conscious presence",
+		ui: { tier: "more" },
 	},
 	{
 		id: "clarity",
@@ -983,12 +1035,13 @@ export const allNeeds = [
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["protective_safety", "existential_expansive"] },
 		coreQuestion:
-			"What feels unclear right now — the situation, someone’s intentions, or your own feelings about it?",
+			"What feels unclear right now — the situation, someone's intentions, or your own feelings about it?",
 		directionPrompts: {
 			[IN_ME]: "You might notice what in you wants more inner clarity — feelings, priorities, or next steps.",
 			[LIFE]: "You might explore what part of the wider situation feels confusing or hard to make sense of.",
 		},
 		helpText: "Clear thinking and perception",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "discovery",
@@ -1025,12 +1078,13 @@ export const allNeeds = [
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive"] },
 		coreQuestion:
-			"Is there something specific that doesn’t make sense right now, or a wider feeling of confusion about where life is heading?",
+			"Is there something specific that doesn't make sense right now, or a wider feeling of confusion about where life is heading?",
 		directionPrompts: {
 			[IN_ME]: "You might notice what in you wants a clearer inner story or understanding.",
 			[LIFE]: "You might explore what larger pattern, direction, or meaning feels hard to grasp right now.",
 		},
 		helpText: "Understanding the bigger picture",
+		ui: { tier: "more" },
 	},
 	{
 		id: "stimulation",
@@ -1045,6 +1099,7 @@ export const allNeeds = [
 			[ENV]: "You might explore what activities, inputs, or surroundings would feel more engaging.",
 		},
 		helpText: "Mental engagement and interest",
+		ui: { tier: "more" },
 	},
 
 	// ═══════════════════════════════════════════════════════════
@@ -1062,6 +1117,7 @@ export const allNeeds = [
 			[IN_ME]: "You might notice what feels meaningful to you underneath the noise or confusion.",
 		},
 		helpText: "A sense that something matters",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "challenge",
@@ -1077,6 +1133,7 @@ export const allNeeds = [
 			[IN_ME]: "You might explore what inner courage, energy, or willingness is wanting to come forward.",
 		},
 		helpText: "Opportunities to stretch and grow",
+		ui: { tier: "more" },
 	},
 	{
 		id: "aliveness",
@@ -1091,6 +1148,7 @@ export const allNeeds = [
 			[IN_ME]: "You might notice what inside you is longing to feel more awake, engaged, or vibrant.",
 		},
 		helpText: "Feeling fully vibrant and present",
+		ui: { tier: "more" },
 	},
 	{
 		id: "consciousness",
@@ -1105,6 +1163,7 @@ export const allNeeds = [
 			[LIFE]: "You might explore whether you're longing for a deeper sense of connection with life, reality, or something larger.",
 		},
 		helpText: "Deep awareness of self and life",
+		ui: { tier: "more" },
 	},
 	{
 		id: "contribution",
@@ -1135,6 +1194,7 @@ export const allNeeds = [
 			[IN_ME]: "You might notice what would help you feel more able to act, influence, or follow through.",
 		},
 		helpText: "Capacity to bring about change",
+		ui: { tier: "more" },
 	},
 	{
 		id: "exploration",
@@ -1149,6 +1209,7 @@ export const allNeeds = [
 			[IN_ME]: "You might explore what in you is curious, restless, or ready to discover something new.",
 		},
 		helpText: "Willingness to investigate and try",
+		ui: { tier: "more" },
 	},
 	{
 		id: "integration",
@@ -1163,6 +1224,7 @@ export const allNeeds = [
 			[IN_ME]: "You might notice what parts of you or your experience want more coherence or wholeness.",
 		},
 		helpText: "Wholeness and coherence",
+		ui: { tier: "more" },
 	},
 	{
 		id: "purpose",
@@ -1196,6 +1258,7 @@ export const allNeeds = [
 				"You might explore whether a deeper appreciation or openness to beauty is wanting to awaken in you.",
 		},
 		helpText: "Appreciating harmony and elegance",
+		ui: { tier: "more" },
 	},
 	{
 		id: "celebration_of_life",
@@ -1207,10 +1270,11 @@ export const allNeeds = [
 			"What feels worth celebrating right now — even something small? Or are you missing the feeling of being able to celebrate at all?",
 		directionPrompts: {
 			[LIFE]: "You might explore what in life feels precious, meaningful, or worthy of being honoured.",
-			[BETWEEN_US]: "You might notice whether you’re longing to share celebration or joy with someone.",
+			[BETWEEN_US]: "You might notice whether you're longing to share celebration or joy with someone.",
 			[IN_ME]: "You might explore what would help you reconnect with gratitude, delight, or reverence.",
 		},
 		helpText: "Honoring what's precious",
+		ui: { tier: "more" },
 	},
 	{
 		id: "communion",
@@ -1227,6 +1291,7 @@ export const allNeeds = [
 			[IN_ME]: "You might explore whether a deeper connection with yourself is what's most needed.",
 		},
 		helpText: "Deep spiritual or emotional connection",
+		ui: { tier: "more" },
 	},
 	{
 		id: "faith",
@@ -1241,6 +1306,7 @@ export const allNeeds = [
 			[IN_ME]: "You might notice what would help you feel more trusting, steady, or anchored inside.",
 		},
 		helpText: "Trust in something greater",
+		ui: { tier: "more" },
 	},
 	{
 		id: "flow",
@@ -1256,6 +1322,7 @@ export const allNeeds = [
 			[LIFE]: "You might notice how flow connects to the way you want to live or move through life.",
 		},
 		helpText: "Being fully absorbed in the moment",
+		ui: { tier: "more" },
 	},
 	{
 		id: "hope",
@@ -1270,6 +1337,7 @@ export const allNeeds = [
 			[IN_ME]: "You might notice what would help hope feel more alive inside you right now.",
 		},
 		helpText: "Belief in possibilities",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "inspiration",
@@ -1308,7 +1376,7 @@ export const allNeeds = [
 		category: "Transcendence",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["protective_safety", "existential_expansive"] },
 		coreQuestion:
-			"What’s disturbing your inner peace — racing thoughts, unresolved feelings, or something in life that won’t settle?",
+			"What's disturbing your inner peace — racing thoughts, unresolved feelings, or something in life that won't settle?",
 		directionPrompts: {
 			[IN_ME]: "You might notice what would help you feel calmer, quieter, or more settled inside.",
 			[LIFE]: "You might explore whether something in the larger shape of life feels unresolved or out of harmony.",
@@ -1349,6 +1417,7 @@ export const allNeeds = [
 				"You might notice what in this relationship feels constraining, and what would create more room for choice or self-expression.",
 		},
 		helpText: "Room to choose, move, and be without constraint",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "autonomy",
@@ -1379,6 +1448,7 @@ export const allNeeds = [
 				"You might notice whether pressure, expectation, or guilt in this relationship is making choice harder.",
 		},
 		helpText: "Freedom to decide",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "ease",
@@ -1393,6 +1463,7 @@ export const allNeeds = [
 			[ENV]: "You might explore what support, simplification, or practical changes would make things easier.",
 		},
 		helpText: "Freedom from strain or effort",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "independence",
@@ -1416,8 +1487,9 @@ export const allNeeds = [
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME], themes: ["agency_autonomy"] },
 		coreQuestion:
-			"Is this about feeling powerless in a specific situation, or a wider sense that your actions don’t make a difference?",
+			"Is this about feeling powerless in a specific situation, or a wider sense that your actions don't make a difference?",
 		helpText: "Ability to influence",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "self_responsibility",
@@ -1428,6 +1500,7 @@ export const allNeeds = [
 		coreQuestion:
 			"Is this about wanting to take more ownership of your life, or about others not taking responsibility for theirs?",
 		helpText: "Owning my own choices",
+		ui: { tier: "more" },
 	},
 	{
 		id: "space",
@@ -1456,6 +1529,7 @@ export const allNeeds = [
 			[ENV]: "You might explore what plans, structures, or obligations are crowding out spontaneity.",
 		},
 		helpText: "Freedom to act in the moment",
+		ui: { tier: "more" },
 	},
 
 	// ═══════════════════════════════════════════════════════════
@@ -1507,6 +1581,7 @@ export const allNeeds = [
 			[ENV]: "You might notice what time, space, materials, or conditions would support play.",
 		},
 		helpText: "Fun, imagination and creativity",
+		ui: { tier: "simple", quickPick: true },
 	},
 	{
 		id: "pleasure",
@@ -1522,6 +1597,7 @@ export const allNeeds = [
 			[ENV]: "You might explore what surroundings, activities, or resources would bring in more pleasure.",
 		},
 		helpText: "Enjoyable sensations or experiences",
+		ui: { tier: "more" },
 	},
 	{
 		id: "rejuvenation",

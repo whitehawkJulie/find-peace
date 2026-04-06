@@ -66,6 +66,8 @@ const Needs = () => {
 				selectedItems={needs}
 				setSelectedItems={setNeeds}
 				type="needs"
+				showListModeToggle={true}
+				defaultListMode="short"
 			/>
 
 			{/* <SlideDrawer

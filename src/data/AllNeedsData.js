@@ -44,7 +44,7 @@ function buildSection(familyName) {
 				items: [],
 			};
 		}
-		groups[cat].items.push({ item: need.label, meaning: need.helpText });
+		groups[cat].items.push({ item: need.label, meaning: need.helpText, ...(need.ui ? { ui: need.ui } : {}) });
 	}
 	return {
 		ui: { heading: SECTION_HEADING[familyName] },
