@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useWizard } from "./WizardContext";
 import SlideDrawer from "./SlideDrawer";
+import { trackEvent } from "../analytics/analytics";
 import "./MenuBar.css";
 
 // ── Privacy & Data section ─────────────────────────────────────────────────
@@ -261,7 +262,11 @@ const SettingsContent = ({ onClose }) => {
 					<input
 						type="checkbox"
 						checked={(settings?.tone ?? "polite") === "sweary"}
-						onChange={(e) => updateSettings({ tone: e.target.checked ? "sweary" : "polite" })}
+						onChange={(e) => {
+							const newTone = e.target.checked ? "sweary" : "polite";
+							updateSettings({ tone: newTone });
+							trackEvent("action", { action_name: "settings_change", setting: "tone", value: newTone });
+						}}
 					/>
 					Sweary mode
 				</label>

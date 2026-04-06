@@ -5,6 +5,7 @@ import PauseInterstitial from "./PauseInterstitial";
 */
 import UnpackNeeds from "./UnpackNeeds";
 import { useWizard } from "./WizardContext";
+import { trackEvent, startPage, endPage, flush, consumeNavMethod, SESSION_START, currentPage } from "../analytics/analytics";
 const NvcWizard = () => {
 	const {
 		stepIndex,
@@ -18,14 +19,35 @@ const NvcWizard = () => {
 		cardContentRef,
 		dirtyRef,
 		settings,
+		feelings,
+		needs,
+		needExplorations,
 	} = useWizard();
+
+	// Keep a ref with current session data so the [] beforeunload effect can read it
+	const sessionDataRef = useRef({});
+	sessionDataRef.current = { feelings, needs, needExplorations };
 	const prevStepIndex = useRef(stepIndex);
 	const isPopState = useRef(false);
 	const mounted = useRef(false);
 
-	// Warn before leaving the page if the user has unsaved changes
+	// Warn before leaving the page if the user has unsaved changes; also fire session_end analytics
 	useEffect(() => {
 		const handleBeforeUnload = (e) => {
+			// Fire session_end regardless of dirty state
+			const { feelings: f, needs: n, needExplorations: ne } = sessionDataRef.current;
+			const times = endPage();
+			trackEvent("session_end", {
+				duration_ms: Date.now() - SESSION_START,
+				last_page: currentPage,
+				feelings_count: Object.keys(f || {}).length,
+				needs_count: Object.keys(n || {}).length,
+				needs_unpacked: Object.entries(ne || {})
+					.filter(([, v]) => v.completed)
+					.map(([name]) => name),
+				...times,
+			});
+			flush();
 			if (!dirtyRef.current) return;
 			e.preventDefault();
 			// Modern browsers ignore custom messages and show their own generic text,
@@ -52,20 +74,37 @@ const NvcWizard = () => {
 		cardContentRef.current?.scrollTo(0, 0);
 		setHelpDrawerOpen(false);
 		setHelpDrawerOverride(null);
+
+		// Capture page names BEFORE updating prevStepIndex
+		const pageName = visibleSteps[stepIndex]?.component?.navTitle ?? `step-${stepIndex}`;
+		const prevName = visibleSteps[prevStepIndex.current]?.component?.navTitle ?? `step-${prevStepIndex.current}`;
+
 		prevStepIndex.current = stepIndex;
 
 		// On first render: seed the initial history entry so Back works from step 0
 		if (!mounted.current) {
 			mounted.current = true;
 			history.replaceState({ stepIndex: 0 }, "");
+			startPage(pageName);
+			trackEvent("page_view", { page_name: pageName });
 			return;
 		}
 		// On popstate-driven changes: clear the flag, don't push a duplicate entry
 		if (isPopState.current) {
 			isPopState.current = false;
+			const times = endPage();
+			trackEvent("page_exit", { page_name: prevName, ...times });
+			trackEvent("backtrack", { page_name: pageName });
+			startPage(pageName);
+			trackEvent("page_view", { page_name: pageName });
 			return;
 		}
 		// Normal step change: push a new history entry
+		const times = endPage();
+		trackEvent("page_exit", { page_name: prevName, ...times });
+		trackEvent("navigation", { from_page: prevName, to_page: pageName, method: consumeNavMethod() ?? "button" });
+		startPage(pageName);
+		trackEvent("page_view", { page_name: pageName });
 		history.pushState({ stepIndex }, "");
 	}, [stepIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 

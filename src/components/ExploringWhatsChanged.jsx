@@ -29,6 +29,7 @@ const ExploringWhatsChanged = () => {
 				</p>
 				<textarea
 					className="request-textarea"
+					data-field-id="changed-before"
 					value={whatsChangedResponses.before || ""}
 					onChange={(e) => handleChange("before", e.target.value)}
 					rows={4}
@@ -43,6 +44,7 @@ const ExploringWhatsChanged = () => {
 				</p>
 				<textarea
 					className="request-textarea"
+					data-field-id="changed-differently"
 					value={whatsChangedResponses.differently || ""}
 					onChange={(e) => handleChange("differently", e.target.value)}
 					rows={4}

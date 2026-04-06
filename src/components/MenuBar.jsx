@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useWizard } from "./WizardContext";
+import { trackEvent, currentPage, setPendingNavMethod } from "../analytics/analytics";
 import "./MenuBar.css";
 
 const MenuBar = () => {
@@ -10,8 +11,8 @@ const MenuBar = () => {
 	const hasPrev = stepIndex > 0;
 	const hasNext = stepIndex < visibleSteps.length - 1;
 
-	const goToPrevious = () => { if (hasPrev) setStepIndex(stepIndex - 1); };
-	const goToNext    = () => { if (hasNext)  setStepIndex(stepIndex + 1); };
+	const goToPrevious = () => { if (hasPrev) { setPendingNavMethod("button"); setStepIndex(stepIndex - 1); } };
+	const goToNext    = () => { if (hasNext)  { setPendingNavMethod("button"); setStepIndex(stepIndex + 1); } };
 
 	const prevStep  = hasPrev ? visibleSteps[stepIndex - 1] : null;
 	const nextStep  = hasNext ? visibleSteps[stepIndex + 1] : null;
@@ -26,11 +27,13 @@ const MenuBar = () => {
 		if (hasSessionData()) {
 			setConfirmNew(true);
 		} else {
+			trackEvent("action", { action_name: "new_session", page_name: currentPage });
 			resetSession();
 		}
 	};
 
 	const confirmAndReset = () => {
+		trackEvent("action", { action_name: "new_session", page_name: currentPage });
 		resetSession();
 		setConfirmNew(false);
 	};

@@ -282,6 +282,7 @@ const Collaborate = () => {
 							<p className="collab-step-hint">{stepData.hint}</p>
 							<textarea
 								className="collab-step-textarea"
+								data-field-id={`collab-${stepId}`}
 								ref={(el) => {
 									textareaRefs.current[stepId] = el;
 									autoResize(el);
@@ -311,6 +312,7 @@ const Collaborate = () => {
 					</p>
 					<textarea
 						className="collab-step-textarea collab-step-textarea--very-tall"
+						data-field-id="collab-final-script"
 						placeholder="Your conversation script will appear here…"
 						ref={(el) => {
 							textareaRefs.current["finalScript"] = el;

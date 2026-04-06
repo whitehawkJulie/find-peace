@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { useWizard } from "./WizardContext";
+import { trackEvent } from "../analytics/analytics";
 import HelpLink from "./HelpLink";
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
 import { feelingTypes } from "../data/FeelingTypes";
@@ -117,7 +118,9 @@ const UnpackFeelings = () => {
 	const toggleType = (type) => {
 		setExpandedTypes((prev) => {
 			const next = new Set(prev);
+			const isOpening = !prev.has(type);
 			next.has(type) ? next.delete(type) : next.add(type);
+			if (isOpening) trackEvent("ui_open", { type: "section", name: `feelings-${type}` });
 			return next;
 		});
 	};

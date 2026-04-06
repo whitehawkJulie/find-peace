@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import SlideDrawer from "./SlideDrawer";
 import MenuBar from "./MenuBar";
 import SettingsDrawer from "./SettingsDrawer";
@@ -6,6 +6,7 @@ import SummaryModal from "./SummaryModal";
 import SideMenu from "./SideMenu";
 import { useWizard } from "./WizardContext";
 import { useOverlayHistory } from "../hooks/useOverlayHistory";
+import { trackEvent, setPendingNavMethod } from "../analytics/analytics";
 import "./Card.css";
 
 const Card = ({ title, children, showHelp = false, helpContent = null, hideNav = false }) => {
@@ -26,6 +27,9 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 	const isIntro = stepIndex === 0;
 	const [hasMoreBelow, setHasMoreBelow] = useState(false);
 	const [sideMenuOpen, setSideMenuOpen] = useState(false);
+
+	const helpOpenAt = useRef(null);
+	const sideMenuOpenAt = useRef(null);
 
 	// Back-button support: closes the help drawer or side menu instead of navigating
 	const closeHelpDrawer = () => {
@@ -51,8 +55,14 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 			const dy = e.changedTouches[0].clientY - startY;
 			// Require 60px horizontal movement and horizontal clearly dominant over vertical
 			if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.8) return;
-			if (dx < 0 && stepIndex < visibleSteps.length - 1) setStepIndex(stepIndex + 1);
-			if (dx > 0 && stepIndex > 0) setStepIndex(stepIndex - 1);
+			if (dx < 0 && stepIndex < visibleSteps.length - 1) {
+				setPendingNavMethod("swipe");
+				setStepIndex(stepIndex + 1);
+			}
+			if (dx > 0 && stepIndex > 0) {
+				setPendingNavMethod("swipe");
+				setStepIndex(stepIndex - 1);
+			}
 		};
 		el.addEventListener("touchstart", onTouchStart, { passive: true });
 		el.addEventListener("touchend", onTouchEnd, { passive: true });
@@ -121,6 +131,30 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 		el.addEventListener("focusin", handleFocusIn);
 		return () => el.removeEventListener("focusin", handleFocusIn);
 	}, [cardContentRef]);
+
+	// Help drawer open/close tracking
+	useEffect(() => {
+		if (helpDrawerOpen) {
+			helpOpenAt.current = Date.now();
+			trackEvent("ui_open", { type: "help", name: helpTopic || "page-help" });
+		} else if (helpOpenAt.current) {
+			trackEvent("ui_close", { type: "help", name: helpTopic || "page-help",
+				time_open_ms: Date.now() - helpOpenAt.current });
+			helpOpenAt.current = null;
+		}
+	}, [helpDrawerOpen, helpTopic]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	// Side menu open/close tracking
+	useEffect(() => {
+		if (sideMenuOpen) {
+			sideMenuOpenAt.current = Date.now();
+			trackEvent("ui_open", { type: "menu", name: "side-menu" });
+		} else if (sideMenuOpenAt.current) {
+			trackEvent("ui_close", { type: "menu", name: "side-menu",
+				time_open_ms: Date.now() - sideMenuOpenAt.current });
+			sideMenuOpenAt.current = null;
+		}
+	}, [sideMenuOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<div className="card">

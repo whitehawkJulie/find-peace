@@ -66,6 +66,7 @@ const SimpleRequest = () => {
 				<label className="collab-input-label">{"Is there a request you'd like to make?"}</label>
 				<textarea
 					className="collab-textarea"
+					data-field-id="simple-request"
 					placeholder="e.g. Would you be willing to…"
 					value={simpleRequest}
 					onChange={(e) => setSimpleRequest(e.target.value)}

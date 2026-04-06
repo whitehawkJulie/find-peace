@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { trackEvent } from "../analytics/analytics";
 import Pill from "./Pill";
 import "./ClarifyFeelings.css";
 
@@ -13,6 +14,16 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 		const arr = itemData.clarify.attunement;
 		return arr[Math.floor(Math.random() * arr.length)];
 	}, [itemData?.item]);
+
+	// Track open/close (fires once on mount/unmount)
+	const openAt = useRef(Date.now());
+	useEffect(() => {
+		trackEvent("ui_open", { type: "modal", name: "clarify-feelings" });
+		return () => {
+			trackEvent("ui_close", { type: "modal", name: "clarify-feelings",
+				time_open_ms: Date.now() - openAt.current });
+		};
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Reset internal state when the popup opens for a different item
 	useEffect(() => {

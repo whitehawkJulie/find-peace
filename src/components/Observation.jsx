@@ -28,6 +28,7 @@ const Observation = () => {
 					{"If you said the uncensored version in one breath, what would it be?"}
 				</p>
 				<textarea
+					data-field-id="jackal-talk"
 					value={jackalTalk}
 					onChange={(e) => setJackalTalk(e.target.value)}
 					placeholder="They ALWAYS do this! I'm so over it..."
@@ -45,6 +46,7 @@ const Observation = () => {
 
 			<textarea
 				className="obs-main-textarea"
+				data-field-id="observation-refined"
 				value={observation.refined || ""}
 				onChange={(e) =>
 					setObservation((prev) => ({

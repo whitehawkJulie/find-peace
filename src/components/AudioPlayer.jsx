@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { trackEvent, currentPage } from "../analytics/analytics";
 import "./AudioPlayer.css";
 
 const fmt = (s) => {
@@ -19,6 +20,7 @@ const AudioPlayer = ({ src, title, description }) => {
 			audioRef.current.pause();
 		} else {
 			audioRef.current.play();
+			trackEvent("action", { action_name: "audio_play", page_name: currentPage, track: title || "unknown" });
 		}
 		setPlaying((p) => !p);
 	};

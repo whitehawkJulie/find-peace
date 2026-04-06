@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useWizard } from "./WizardContext";
 import { useOverlayHistory } from "../hooks/useOverlayHistory";
+import { trackEvent, currentPage } from "../analytics/analytics";
 import SummaryContent from "./SummaryContent";
 import { filterByState } from "../utils/renderHelpers";
 import { feelingTypes } from "../data/FeelingTypes";
@@ -33,10 +34,12 @@ const SummaryModal = () => {
 
 	const [copied, setCopied] = useState(false);
 	const [saved, setSaved] = useState(false);
+	const summaryOpenAt = useRef(null);
 
 	const { closeWithCleanup: closeSummary } = useOverlayHistory(showSummary, () => setShowSummary(false), "summary");
 
 	const handleSave = () => {
+		trackEvent("action", { action_name: "save_session", page_name: currentPage });
 		saveSession();
 		setSaved(true);
 		setTimeout(() => setSaved(false), 2500);
@@ -50,6 +53,18 @@ const SummaryModal = () => {
 		};
 		document.addEventListener("keydown", handler);
 		return () => document.removeEventListener("keydown", handler);
+	}, [showSummary]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	// Track summary open/close
+	useEffect(() => {
+		if (showSummary) {
+			summaryOpenAt.current = Date.now();
+			trackEvent("ui_open", { type: "modal", name: "summary" });
+		} else if (summaryOpenAt.current) {
+			trackEvent("ui_close", { type: "modal", name: "summary",
+				time_open_ms: Date.now() - summaryOpenAt.current });
+			summaryOpenAt.current = null;
+		}
 	}, [showSummary]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// const logSelections = () => {
@@ -194,6 +209,7 @@ const SummaryModal = () => {
 
 		// logSelections();
 		navigator.clipboard.writeText(lines.join("\n")).then(() => {
+			trackEvent("action", { action_name: "copy_summary", page_name: currentPage });
 			setCopied(true);
 			setTimeout(() => setCopied(false), 2500);
 		});

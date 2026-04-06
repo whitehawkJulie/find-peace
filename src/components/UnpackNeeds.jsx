@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useWizard } from "./WizardContext";
 import { useOverlayHistory } from "../hooks/useOverlayHistory";
 import { getNeedData, resolveNeedUnpackingType } from "../utils/renderHelpers";
 import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
 import HelpLink from "../components/HelpLink";
+import { trackEvent } from "../analytics/analytics";
 
 import AudioPlayer from "./AudioPlayer";
 import meditationAudio from "../assets/Beauty_of_need.mp3";
@@ -126,6 +127,19 @@ const UnpackNeeds = () => {
 		() => exitExploration(false),
 		"needsPopup",
 	);
+
+	// Track explore-need popup open/close
+	const popupOpenAt = useRef(null);
+	useEffect(() => {
+		if (isPopupOpen) {
+			popupOpenAt.current = Date.now();
+			trackEvent("ui_open", { type: "modal", name: "explore-need" });
+		} else if (popupOpenAt.current) {
+			trackEvent("ui_close", { type: "modal", name: "explore-need",
+				time_open_ms: Date.now() - popupOpenAt.current });
+			popupOpenAt.current = null;
+		}
+	}, [isPopupOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const startExploring = (needName) => {
 		setCurrentExploringNeed(needName);
@@ -417,6 +431,7 @@ const UnpackNeeds = () => {
 											)}
 											<textarea
 												className="unpacking-textarea"
+												data-field-id="unpack-core-specific"
 												rows={3}
 												value={currentData.coreSpecific || ""}
 												onChange={(e) => updateField("coreSpecific", e.target.value)}
@@ -432,6 +447,7 @@ const UnpackNeeds = () => {
 										</p>
 										<textarea
 											className="unpacking-textarea"
+											data-field-id="unpack-unmet-feeling"
 											rows={3}
 											value={currentData.unmetFeeling || ""}
 											onChange={(e) => updateField("unmetFeeling", e.target.value)}
@@ -446,6 +462,7 @@ const UnpackNeeds = () => {
 										</p>
 										<textarea
 											className="unpacking-textarea"
+											data-field-id="unpack-met-feeling"
 											rows={3}
 											value={currentData.metFeeling || ""}
 											onChange={(e) => updateField("metFeeling", e.target.value)}
@@ -460,6 +477,7 @@ const UnpackNeeds = () => {
 										</p>
 										<textarea
 											className="unpacking-textarea"
+											data-field-id="unpack-imagined-met"
 											rows={3}
 											value={currentData.imaginedMet || ""}
 											onChange={(e) => updateField("imaginedMet", e.target.value)}
@@ -474,6 +492,7 @@ const UnpackNeeds = () => {
 										</p>
 										<textarea
 											className="unpacking-textarea"
+											data-field-id="unpack-met-circumstances"
 											rows={3}
 											value={currentData.metCircumstances || ""}
 											onChange={(e) => updateField("metCircumstances", e.target.value)}
@@ -489,6 +508,7 @@ const UnpackNeeds = () => {
 										</p>
 										<textarea
 											className="unpacking-textarea"
+											data-field-id="unpack-often-unmet"
 											rows={3}
 											value={currentData.oftenUnmet || ""}
 											onChange={(e) => updateField("oftenUnmet", e.target.value)}
@@ -503,6 +523,7 @@ const UnpackNeeds = () => {
 										</p>
 										<textarea
 											className="unpacking-textarea"
+											data-field-id="unpack-where-to-meet"
 											rows={3}
 											value={currentData.whereToMeet || ""}
 											onChange={(e) => updateField("whereToMeet", e.target.value)}

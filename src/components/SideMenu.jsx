@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useWizard } from "./WizardContext";
+import { setPendingNavMethod } from "../analytics/analytics";
 import SavedEntries from "./SavedEntries";
 import "./SideMenu.css";
 
@@ -47,6 +48,7 @@ const SideMenu = ({ isOpen, onClose }) => {
 	};
 
 	const handleStepClick = (visIdx) => {
+		setPendingNavMethod("menu");
 		setStepIndex(visIdx);
 		onClose();
 	};
@@ -164,6 +166,11 @@ const SideMenu = ({ isOpen, onClose }) => {
 								className="side-menu-action"
 								onClick={() => { openHelpTopic("about"); onClose(); }}>
 								ℹ About
+							</button>
+							<button
+								className="side-menu-action"
+								onClick={() => { openHelpTopic("privacy"); onClose(); }}>
+								🔒 Privacy
 							</button>
 						</div>
 					</div>
