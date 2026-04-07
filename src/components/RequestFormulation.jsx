@@ -26,6 +26,7 @@ const RequestFormulation = () => {
 				</p>
 				<textarea
 					className="request-textarea"
+					data-field-id="request-of-self"
 					value={requestOfSelf}
 					onChange={(e) => setRequestOfSelf(e.target.value)}
 					placeholder="Might I be willing to..."
@@ -42,6 +43,7 @@ const RequestFormulation = () => {
 				</p>
 				<textarea
 					className="request-textarea"
+					data-field-id="request-of-other"
 					value={requestOfOther}
 					onChange={(e) => setRequestOfOther(e.target.value)}
 					placeholder="Would you be willing to..."

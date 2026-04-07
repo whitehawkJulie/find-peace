@@ -113,11 +113,22 @@ const NvcWizard = () => {
 			trackEvent("page_view", { page_name: pageName });
 			return;
 		}
+		// Helper: derive feelings/needs arrays from context objects for page_exit snapshot
+		const getFNSnapshot = () => {
+			const { feelings: f, needs: n } = sessionDataRef.current;
+			return {
+				feelings_selected: Object.entries(f || {}).filter(([, s]) => s === "clicked").map(([name]) => name),
+				feelings_strong:   Object.entries(f || {}).filter(([, s]) => s === "double-clicked").map(([name]) => name),
+				needs_selected:    Object.entries(n || {}).filter(([, s]) => s === "clicked").map(([name]) => name),
+				needs_strong:      Object.entries(n || {}).filter(([, s]) => s === "double-clicked").map(([name]) => name),
+			};
+		};
+
 		// On popstate-driven changes: clear the flag, don't push a duplicate entry
 		if (isPopState.current) {
 			isPopState.current = false;
 			const times = endPage();
-			trackEvent("page_exit", { page_name: prevName, ...times });
+			trackEvent("page_exit", { page_name: prevName, ...times, ...getFNSnapshot() });
 			trackEvent("backtrack", { page_name: pageName });
 			startPage(pageName);
 			trackEvent("page_view", { page_name: pageName });
@@ -125,7 +136,7 @@ const NvcWizard = () => {
 		}
 		// Normal step change: push a new history entry
 		const times = endPage();
-		trackEvent("page_exit", { page_name: prevName, ...times });
+		trackEvent("page_exit", { page_name: prevName, ...times, ...getFNSnapshot() });
 		trackEvent("navigation", { from_page: prevName, to_page: pageName, method: consumeNavMethod() ?? "button" });
 		startPage(pageName);
 		trackEvent("page_view", { page_name: pageName });

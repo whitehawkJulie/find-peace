@@ -4,7 +4,7 @@ import { useOverlayHistory } from "../hooks/useOverlayHistory";
 import { getNeedData, resolveNeedUnpackingType } from "../utils/renderHelpers";
 import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
 import HelpLink from "../components/HelpLink";
-import { trackEvent } from "../analytics/analytics";
+import { trackEvent, currentPage } from "../analytics/analytics";
 
 import AudioPlayer from "./AudioPlayer";
 import meditationAudio from "../assets/Beauty_of_need.mp3";
@@ -133,7 +133,7 @@ const UnpackNeeds = () => {
 	useEffect(() => {
 		if (isPopupOpen) {
 			popupOpenAt.current = Date.now();
-			trackEvent("ui_open", { type: "modal", name: "explore-need" });
+			trackEvent("ui_open", { type: "modal", name: "explore-need", page_name: currentPage });
 		} else if (popupOpenAt.current) {
 			trackEvent("ui_close", { type: "modal", name: "explore-need",
 				time_open_ms: Date.now() - popupOpenAt.current });

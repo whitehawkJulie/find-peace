@@ -214,6 +214,7 @@ const StrategyDiscovery = () => {
 						<div className="strategy-input-row">
 							<textarea
 								className="strategy-textarea"
+								data-field-id="strategy-discovery"
 								value={newStrategy[needName] || ""}
 								onChange={(e) => setNewStrategy((prev) => ({ ...prev, [needName]: e.target.value }))}
 								placeholder="Type a strategy..."

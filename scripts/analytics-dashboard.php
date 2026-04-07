@@ -18,16 +18,29 @@ if (($_GET['key'] ?? '') !== ACCESS_KEY) {
 
 $log_file = __DIR__ . '/analytics.jsonl';
 
-// ── Delete a session ─────────────────────────────────────────────────────────
+// ── Delete session(s) ────────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST'
-    && ($_POST['action'] ?? '') === 'delete_session'
-    && ($_POST['key'] ?? '') === ACCESS_KEY) {
-    $del_sid = trim($_POST['session_id'] ?? '');
-    if ($del_sid && file_exists($log_file)) {
+    && ($_POST['key'] ?? '') === ACCESS_KEY
+    && (($_POST['action'] ?? '') === 'delete_session' || isset($_POST['del']))) {
+
+    // Collect session IDs to delete
+    $del_sids = [];
+    if (isset($_POST['del']) && is_array($_POST['del'])) {
+        foreach ($_POST['del'] as $v) {
+            $v = trim((string)$v);
+            if ($v) $del_sids[] = $v;
+        }
+    } elseif (($_POST['action'] ?? '') === 'delete_session') {
+        $v = trim($_POST['session_id'] ?? '');
+        if ($v) $del_sids[] = $v;
+    }
+
+    if ($del_sids && file_exists($log_file)) {
+        $del_set = array_flip($del_sids);
         $keep = [];
         foreach (file($log_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
             $obj = json_decode($line, true);
-            if (!is_array($obj) || ($obj['session_id'] ?? '') !== $del_sid) {
+            if (!is_array($obj) || !isset($del_set[$obj['session_id'] ?? ''])) {
                 $keep[] = $line;
             }
         }
@@ -50,8 +63,8 @@ if (file_exists($log_file)) {
 $sessions          = [];
 $page_views        = [];
 $page_active_ms    = [];
-$help_opens        = [];
-$ui_opens          = [];
+$help_opens        = [];   // name → ['count'=>n, 'pages'=>[page=>n]]
+$ui_opens          = [];   // name → ['count'=>n, 'pages'=>[page=>n]]
 $section_opens     = [];
 $field_fills       = [];
 $needs_unpacked    = [];
@@ -61,6 +74,7 @@ $all_feelings_sel  = [];   // feeling name → sessions it was selected in
 $all_feelings_str  = [];   // feeling name → sessions it was strongly felt in
 $all_needs_sel     = [];
 $all_needs_str     = [];
+$session_cur_page  = [];   // sid → current page (tracked during aggregation)
 
 // Session journey: session_id → { start, events[], feelings_*, needs_* }
 $journey = [];
@@ -94,9 +108,12 @@ foreach ($events as $ev) {
     switch ($name) {
         case 'page_view':
             $page = $ev['page_name'] ?? '';
-            if ($page && !in_array($page, $sessions[$sid]['pages'], true)) {
-                $sessions[$sid]['pages'][] = $page;
-                $page_views[$page] = ($page_views[$page] ?? 0) + 1;
+            if ($page) {
+                $session_cur_page[$sid] = $page;
+                if (!in_array($page, $sessions[$sid]['pages'], true)) {
+                    $sessions[$sid]['pages'][] = $page;
+                    $page_views[$page] = ($page_views[$page] ?? 0) + 1;
+                }
             }
             break;
 
@@ -108,14 +125,25 @@ foreach ($events as $ev) {
                 $page_active_ms[$page][0] += $ms;
                 $page_active_ms[$page][1] += 1;
             }
+            // Accumulate per-session active time
+            if (!isset($sessions[$sid]['active_ms'])) $sessions[$sid]['active_ms'] = 0;
+            $sessions[$sid]['active_ms'] += $ms;
             break;
 
         case 'ui_open':
-            $type  = $ev['type'] ?? '';
-            $uname = $ev['name'] ?? '';
-            if ($uname) $ui_opens[$uname] = ($ui_opens[$uname] ?? 0) + 1;
-            if ($type === 'help' && $uname)
-                $help_opens[$uname] = ($help_opens[$uname] ?? 0) + 1;
+            $type     = $ev['type'] ?? '';
+            $uname    = $ev['name'] ?? '';
+            $src_page = $ev['page_name'] ?? ($session_cur_page[$sid] ?? '');
+            if ($uname) {
+                if (!isset($ui_opens[$uname])) $ui_opens[$uname] = ['count' => 0, 'pages' => []];
+                $ui_opens[$uname]['count']++;
+                if ($src_page) $ui_opens[$uname]['pages'][$src_page] = ($ui_opens[$uname]['pages'][$src_page] ?? 0) + 1;
+            }
+            if ($type === 'help' && $uname) {
+                if (!isset($help_opens[$uname])) $help_opens[$uname] = ['count' => 0, 'pages' => []];
+                $help_opens[$uname]['count']++;
+                if ($src_page) $help_opens[$uname]['pages'][$src_page] = ($help_opens[$uname]['pages'][$src_page] ?? 0) + 1;
+            }
             if ($type === 'section' && strpos($uname, 'feelings-') === 0)
                 $section_opens[$uname] = ($section_opens[$uname] ?? 0) + 1;
             break;
@@ -125,7 +153,12 @@ foreach ($events as $ev) {
             if ($fid) {
                 if (!isset($field_fills[$fid])) $field_fills[$fid] = [0, 0];
                 $field_fills[$fid][1] += 1;
-                if ($ev['filled'] ?? false) $field_fills[$fid][0] += 1;
+                if ($ev['filled'] ?? false) {
+                    $field_fills[$fid][0] += 1;
+                    // Count per-session filled fields
+                    if (!isset($sessions[$sid]['fields_filled'])) $sessions[$sid]['fields_filled'] = 0;
+                    $sessions[$sid]['fields_filled']++;
+                }
             }
             break;
 
@@ -157,6 +190,20 @@ foreach ($events as $ev) {
             $feelings_counts[$fc === 0 ? '0' : ($fc <= 3 ? '1–3' : ($fc <= 7 ? '4–7' : '8+'))]++;
             $needs_counts   [$nc === 0 ? '0' : ($nc <= 3 ? '1–3' : ($nc <= 7 ? '4–7' : '8+'))]++;
             break;
+    }
+}
+
+// ── Bot session filtering ────────────────────────────────────────────────────
+// Drop sessions that look like bots:
+//   1. Total active time ≤ 1ms (never actually engaged)
+//   2. Only page_view events — no interactions at all
+foreach (array_keys($journey) as $sid) {
+    $sdata = $journey[$sid];
+    $active_ms = $sessions[$sid]['active_ms'] ?? 0;
+    $event_types = array_unique(array_column($sdata['events'], 'event'));
+    $only_pageviews = (count($event_types) === 0 || ($event_types === ['page_view']));
+    if ($active_ms <= 1 || $only_pageviews) {
+        unset($journey[$sid], $sessions[$sid]);
     }
 }
 
@@ -230,12 +277,18 @@ foreach ($journey as $sid => $sdata) {
                   'time_active_ms','time_idle_ms','time_open_ms','duration_ms','track'] as $k) {
             if (isset($ev[$k])) $e[$k] = $ev[$k];
         }
+        // Include per-page feelings/needs snapshot if present (from page_exit)
+        foreach (['feelings_selected','feelings_strong','needs_selected','needs_strong'] as $k) {
+            if (!empty($ev[$k])) $e[$k] = $ev[$k];
+        }
         $evs[] = $e;
     }
     $journey_js[] = [
         'sid'               => $sid,
         'start'             => $sdata['start'],
         'duration_ms'       => $sdata['duration_ms'],
+        'active_ms'         => $sessions[$sid]['active_ms'] ?? 0,
+        'fields_filled'     => $sessions[$sid]['fields_filled'] ?? 0,
         'events'            => $evs,
         'feelings_selected' => $sdata['feelings_selected'],
         'feelings_strong'   => $sdata['feelings_strong'],
@@ -365,18 +418,76 @@ th { color: #6b7280; font-weight: 600; }
   <?php endforeach; endif; ?>
 </div>
 
-<!-- 4. Help engagement -->
-<div class="card">
+<!-- 4. Help engagement + UI overlays (side-by-side) -->
+<?php
+$known_modals = ['body-sensations', 'summary', 'clarify-feelings', 'explore-need', 'side-menu'];
+$known_help_topics = [
+  'this-process','privacy','mourning','differences','needs-tanks','needs',
+  'black-hole-needs','meeting-a-friend','beauty-of-needs','stay-with-it',
+  'feedback','threat-mode','first-feeling','story-words','feelings',
+  'observation','nervous','collab-understand-them','collab-check-willingness',
+  'collab-share-experience','collab-check-understood','collab-way-forward',
+  'making-guesses','about','not-ready','top-up-tank','y','page-help'
+];
+
+// Merge known lists with found data
+$help_opens_full   = $help_opens;
+$ui_opens_filtered = []; // non-help, non-section overlays only
+foreach ($known_help_topics as $t) {
+    if (!isset($help_opens_full[$t])) $help_opens_full[$t] = ['count'=>0,'pages'=>[]];
+}
+foreach ($known_modals as $m) {
+    if (!isset($ui_opens[$m])) $ui_opens_filtered[$m] = ['count'=>0,'pages'=>[]];
+    else $ui_opens_filtered[$m] = $ui_opens[$m];
+}
+// Also add any unknown overlay names found in data that aren't help/section
+foreach ($ui_opens as $uname => $udata) {
+    $is_help    = isset($help_opens[$uname]);
+    $is_section = strpos($uname, 'feelings-') === 0;
+    if (!$is_help && !$is_section && !isset($ui_opens_filtered[$uname])) {
+        $ui_opens_filtered[$uname] = $udata;
+    }
+}
+// Sort by count desc (zeros at bottom)
+uasort($help_opens_full, fn($a,$b) => ($b['count']??0) <=> ($a['count']??0));
+uasort($ui_opens_filtered, fn($a,$b) => ($b['count']??0) <=> ($a['count']??0));
+$help_max = max(1, ...array_map(fn($v)=>$v['count']??0, $help_opens_full));
+$ui_max   = max(1, ...array_map(fn($v)=>$v['count']??0, $ui_opens_filtered));
+
+function fmt_pages(array $pages): string {
+    arsort($pages);
+    $parts = [];
+    foreach ($pages as $pg => $n) $parts[] = htmlspecialchars($pg) . ($n > 1 ? " ×{$n}" : '');
+    return implode(', ', $parts);
+}
+?>
+<div style="display:flex;gap:1.25rem;margin-bottom:1.25rem;flex-wrap:wrap;align-items:flex-start">
+<div class="card" style="flex:1;min-width:300px">
   <h2>❓ Help topics opened</h2>
-  <?php if (!$help_opens): ?><p class="nodata">No help open events yet.</p><?php else:
-    arsort($help_opens); $max = max($help_opens);
-    foreach ($help_opens as $topic => $cnt): ?>
-    <div class="bar-row">
-      <span class="bar-label" title="<?= htmlspecialchars($topic) ?>"><?= htmlspecialchars($topic) ?></span>
-      <div class="bar-track"><div class="bar-fill" style="width:<?= round($cnt/$max*100) ?>%;background:#8b5cf6"></div></div>
-      <span class="bar-num"><?= $cnt ?></span>
-    </div>
-  <?php endforeach; endif; ?>
+  <?php foreach ($help_opens_full as $topic => $data):
+    $cnt = $data['count'] ?? 0; $pages = $data['pages'] ?? []; ?>
+  <div class="bar-row" style="flex-wrap:wrap;row-gap:0.1rem">
+    <span class="bar-label" title="<?= htmlspecialchars($topic) ?>"
+      style="<?= $cnt === 0 ? 'color:#9ca3af' : '' ?>"><?= htmlspecialchars($topic) ?></span>
+    <div class="bar-track"><div class="bar-fill" style="width:<?= $cnt>0?round($cnt/$help_max*100):0 ?>%;background:#8b5cf6"></div></div>
+    <span class="bar-num"><?= $cnt ?></span>
+    <?php if ($pages): ?><span style="width:100%;padding-left:11.5rem;font-size:0.73rem;color:#9ca3af">from: <?= fmt_pages($pages) ?></span><?php endif; ?>
+  </div>
+  <?php endforeach; ?>
+</div>
+<div class="card" style="flex:1;min-width:300px">
+  <h2>🖥 UI overlay opens</h2>
+  <?php foreach ($ui_opens_filtered as $uname => $data):
+    $cnt = $data['count'] ?? 0; $pages = $data['pages'] ?? []; ?>
+  <div class="bar-row" style="flex-wrap:wrap;row-gap:0.1rem">
+    <span class="bar-label" title="<?= htmlspecialchars($uname) ?>"
+      style="<?= $cnt === 0 ? 'color:#9ca3af' : '' ?>"><?= htmlspecialchars($uname) ?></span>
+    <div class="bar-track"><div class="bar-fill" style="width:<?= $cnt>0?round($cnt/$ui_max*100):0 ?>%"></div></div>
+    <span class="bar-num"><?= $cnt ?></span>
+    <?php if ($pages): ?><span style="width:100%;padding-left:11.5rem;font-size:0.73rem;color:#9ca3af">from: <?= fmt_pages($pages) ?></span><?php endif; ?>
+  </div>
+  <?php endforeach; ?>
+</div>
 </div>
 
 <!-- 5. Feelings depth histogram -->
@@ -494,19 +605,6 @@ th { color: #6b7280; font-weight: 600; }
   <?php endif; ?>
 </div>
 
-<!-- 11. UI opens -->
-<div class="card">
-  <h2>🖥 All UI overlay opens</h2>
-  <?php if (!$ui_opens): ?><p class="nodata">No ui_open events yet.</p><?php else:
-    arsort($ui_opens); $max = max($ui_opens);
-    foreach ($ui_opens as $uname => $cnt): ?>
-    <div class="bar-row">
-      <span class="bar-label" title="<?= htmlspecialchars($uname) ?>"><?= htmlspecialchars($uname) ?></span>
-      <div class="bar-track"><div class="bar-fill" style="width:<?= round($cnt/$max*100) ?>%"></div></div>
-      <span class="bar-num"><?= $cnt ?></span>
-    </div>
-  <?php endforeach; endif; ?>
-</div>
 
 <!-- 12. Story word engagement -->
 <div class="card">
@@ -544,36 +642,78 @@ th { color: #6b7280; font-weight: 600; }
 <div class="card" style="margin-bottom:1.25rem">
   <h2>📋 All sessions</h2>
   <?php if (!$journey): ?><p class="nodata">No sessions yet.</p><?php else: ?>
-  <table class="session-table">
-    <thead><tr>
-      <th>#</th><th>Date / time</th><th>Duration</th>
-      <th>Pages</th><th>Feelings</th><th>Needs</th><th></th>
-    </tr></thead>
-    <tbody>
-    <?php $i = 1; foreach ($journey as $sid => $sdata): ?>
-    <tr>
-      <td><?= $i ?></td>
-      <td><?= $sdata['start'] ? date('j M, g:ia', intval($sdata['start']/1000)) : '–' ?></td>
-      <?php $calc_dur = ($sdata['max_ts'] ?? 0) - ($sdata['start'] ?? 0); ?>
-      <td><?= $calc_dur > 0 ? fmts($calc_dur) : '–' ?></td>
-      <td><?= count(array_unique(array_filter(array_map(fn($e)=>$e['page_name']??'', array_filter($sdata['events'],fn($e)=>$e['event']==='page_view'))))) ?></td>
-      <td><?= count($sdata['feelings_selected']) + count($sdata['feelings_strong']) ?></td>
-      <td><?= count($sdata['needs_selected'])    + count($sdata['needs_strong']) ?></td>
-      <td style="display:flex;gap:0.4rem;justify-content:flex-end">
-        <button class="view-btn" onclick="viewSession(<?= $i-1 ?>)">View journey</button>
-        <form method="post" style="display:inline" onsubmit="return confirm('Delete this session?')">
-          <input type="hidden" name="action" value="delete_session">
-          <input type="hidden" name="key" value="<?= htmlspecialchars(ACCESS_KEY) ?>">
-          <input type="hidden" name="session_id" value="<?= htmlspecialchars($sid) ?>">
-          <button type="submit" class="del-btn">Delete</button>
-        </form>
-      </td>
-    </tr>
-    <?php $i++; endforeach; ?>
-    </tbody>
-  </table>
+  <!-- Hidden form for single-session delete (avoids nesting forms) -->
+  <form method="post" id="single-del-form" style="display:none">
+    <input type="hidden" name="key" value="<?= htmlspecialchars(ACCESS_KEY) ?>">
+    <input type="hidden" name="action" value="delete_session">
+    <input type="hidden" name="session_id" id="single-del-sid">
+  </form>
+  <form method="post" id="bulk-form">
+    <input type="hidden" name="key" value="<?= htmlspecialchars(ACCESS_KEY) ?>">
+    <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.5rem">
+      <button type="submit" class="del-btn" style="float:none"
+        onclick="return document.querySelectorAll('.row-cb:checked').length > 0 && confirm('Delete selected sessions?')">
+        Delete selected
+      </button>
+      <span id="sel-count" style="font-size:0.82rem;color:#6b7280"></span>
+    </div>
+    <table class="session-table">
+      <thead><tr>
+        <th><input type="checkbox" id="sel-all" title="Select all" style="float:none"></th>
+        <th>#</th><th>Date / time</th><th>Active time</th>
+        <th>Pages</th><th>Feelings</th><th>Needs</th><th>Fields filled</th><th></th>
+      </tr></thead>
+      <tbody>
+      <?php $i = 1; foreach ($journey as $sid => $sdata):
+        $active_ms = $sessions[$sid]['active_ms'] ?? 0;
+        // Fallback: use duration_ms from session_end if no active_ms accumulated
+        if ($active_ms <= 0) $active_ms = $sdata['duration_ms'] ?? 0;
+        $fields_filled = $sessions[$sid]['fields_filled'] ?? 0;
+      ?>
+      <tr>
+        <td><input type="checkbox" name="del[]" value="<?= htmlspecialchars($sid) ?>" class="row-cb" style="float:none"></td>
+        <td><?= $i ?></td>
+        <td><?= $sdata['start'] ? date('j M, g:ia', intval($sdata['start']/1000)) : '–' ?></td>
+        <td><?= $active_ms > 0 ? fmts($active_ms) : '–' ?></td>
+        <td><?= count(array_unique(array_filter(array_map(fn($e)=>$e['page_name']??'', array_filter($sdata['events'],fn($e)=>$e['event']==='page_view'))))) ?></td>
+        <td><?= count($sdata['feelings_selected']) + count($sdata['feelings_strong']) ?></td>
+        <td><?= count($sdata['needs_selected'])    + count($sdata['needs_strong']) ?></td>
+        <td><?= $fields_filled ?: '–' ?></td>
+        <td style="display:flex;gap:0.4rem;justify-content:flex-end">
+          <button type="button" class="view-btn" onclick="viewSession(<?= $i-1 ?>)">View journey</button>
+          <button type="button" class="del-btn"
+            onclick="deleteSingle('<?= htmlspecialchars($sid, ENT_QUOTES) ?>')">Delete</button>
+        </td>
+      </tr>
+      <?php $i++; endforeach; ?>
+      </tbody>
+    </table>
+  </form>
   <?php endif; ?>
 </div>
+<script>
+function deleteSingle(sid) {
+  if (!confirm('Delete this session?')) return;
+  document.getElementById('single-del-sid').value = sid;
+  document.getElementById('single-del-form').submit();
+}
+(function() {
+  const selAll = document.getElementById('sel-all');
+  const selCount = document.getElementById('sel-count');
+  if (!selAll) return;
+  function updateCount() {
+    const n = document.querySelectorAll('.row-cb:checked').length;
+    selCount.textContent = n > 0 ? n + ' selected' : '';
+  }
+  selAll.addEventListener('change', () => {
+    document.querySelectorAll('.row-cb').forEach(cb => { cb.checked = selAll.checked; });
+    updateCount();
+  });
+  document.querySelectorAll('.row-cb').forEach(cb => {
+    cb.addEventListener('change', updateCount);
+  });
+})();
+</script>
 
 <!-- ── Journey viewer ───────────────────────────────────────────────────── -->
 <div class="card" id="journey-card">
@@ -604,7 +744,7 @@ function fmtT(ms) {
 }
 function fmtEvent(ev) {
   switch(ev.event) {
-    case 'page_view':  return {label: `Viewed: <b>${ev.page_name||''}</b>`, detail:''};
+    case 'page_view':  return null; // redundant with navigation events — skip
     case 'page_exit':  return {label: `Left: <b>${ev.page_name||''}</b>`,
       detail: ev.time_active_ms ? `active ${fmtT(ev.time_active_ms)}, idle ${fmtT(ev.time_idle_ms||0)}` : ''};
     case 'navigation': return {label: `Navigated → <b>${ev.to_page||''}</b>`,
@@ -623,6 +763,18 @@ function fmtEvent(ev) {
   }
 }
 
+function renderFNPills(ev) {
+  const fs = ev.feelings_strong || [], f = ev.feelings_selected || [];
+  const ns = ev.needs_strong    || [], n = ev.needs_selected    || [];
+  if (!fs.length && !f.length && !ns.length && !n.length) return '';
+  return `<div style="margin-top:0.35rem">
+    ${fs.length ? `<div class="pills">${fs.map(x=>`<span class="pill-fs">●&nbsp;${x}</span>`).join('')}</div>` : ''}
+    ${f.length  ? `<div class="pills" style="margin-top:0.2rem">${f.map(x=>`<span class="pill-f">${x}</span>`).join('')}</div>` : ''}
+    ${ns.length ? `<div class="pills" style="margin-top:0.2rem">${ns.map(x=>`<span class="pill-ns">●&nbsp;${x}</span>`).join('')}</div>` : ''}
+    ${n.length  ? `<div class="pills" style="margin-top:0.2rem">${n.map(x=>`<span class="pill-n">${x}</span>`).join('')}</div>` : ''}
+  </div>`;
+}
+
 function renderJourney(idx) {
   const s = SESSIONS[idx];
   if (!s) return;
@@ -632,36 +784,41 @@ function renderJourney(idx) {
 
   document.getElementById('j-prev').disabled = idx === 0;
   document.getElementById('j-next').disabled = idx === SESSIONS.length - 1;
+  const activeStr = s.active_ms > 0 ? ` · ${fmtT(s.active_ms)} active` : (s.duration_ms ? ` · ${fmtT(s.duration_ms)}` : '');
   document.getElementById('journey-title').textContent =
-    `Session ${idx+1} of ${SESSIONS.length} · ${s.start ? new Date(s.start).toLocaleString('en-AU',{timeZone:'Australia/Brisbane',dateStyle:'medium',timeStyle:'short'}) : ''}`
-    + (s.duration_ms ? ` · ${fmtT(s.duration_ms)}` : '');
+    `Session ${idx+1} of ${SESSIONS.length} · ${s.start ? new Date(s.start).toLocaleString('en-AU',{timeZone:'Australia/Brisbane',dateStyle:'medium',timeStyle:'short'}) : ''}` + activeStr;
+
+  // Check if any page_exit has per-page snapshots (new-style data)
+  const hasPerPageFN = s.events.some(ev => ev.event === 'page_exit' &&
+    ((ev.feelings_selected||[]).length || (ev.feelings_strong||[]).length ||
+     (ev.needs_selected||[]).length    || (ev.needs_strong||[]).length));
 
   const tl = document.getElementById('journey-timeline');
   tl.innerHTML = s.events.map(ev => {
-    const {label, detail} = fmtEvent(ev);
+    const fmt = fmtEvent(ev);
+    if (!fmt) return ''; // skip (e.g. page_view)
+    const {label, detail} = fmt;
     const color = COLORS[ev.event] || '#9ca3af';
+    const pills = ev.event === 'page_exit' ? renderFNPills(ev) : '';
     return `<li class="tl-item">
       <span class="tl-dot" style="background:${color}"></span>
       <span class="tl-time">${fmtT(Math.max(0,ev.t))}</span>
       <span>
         <span class="tl-label">${label}</span>
         ${detail ? `<br><span class="tl-detail">${detail}</span>` : ''}
+        ${pills}
       </span>
     </li>`;
   }).join('');
 
+  // Show session-end summary: always if no per-page snapshots; as fallback otherwise
   const fDiv = document.getElementById('journey-feelings');
   const hasFN = s.feelings_selected.length || s.feelings_strong.length
              || s.needs_selected.length    || s.needs_strong.length;
-  if (hasFN) {
-    fDiv.innerHTML = `
-      ${s.feelings_strong.length ? `<h4>Strongly felt feelings</h4><div class="pills">${s.feelings_strong.map(f=>`<span class="pill-fs">●&nbsp;${f}</span>`).join('')}</div>` : ''}
-      ${s.feelings_selected.length ? `<h4 style="margin-top:0.4rem">Feelings</h4><div class="pills">${s.feelings_selected.map(f=>`<span class="pill-f">${f}</span>`).join('')}</div>` : ''}
-      ${s.needs_strong.length ? `<h4 style="margin-top:0.4rem">Strongly felt needs</h4><div class="pills">${s.needs_strong.map(n=>`<span class="pill-ns">●&nbsp;${n}</span>`).join('')}</div>` : ''}
-      ${s.needs_selected.length ? `<h4 style="margin-top:0.4rem">Needs</h4><div class="pills">${s.needs_selected.map(n=>`<span class="pill-n">${n}</span>`).join('')}</div>` : ''}
-    `;
+  if (hasFN && !hasPerPageFN) {
+    fDiv.innerHTML = `<p style="font-size:0.8rem;color:#9ca3af;margin-bottom:0.35rem">Session totals</p>` + renderFNPills(s);
   } else {
-    fDiv.innerHTML = '<p style="color:#9ca3af;font-size:0.85rem">No feelings/needs recorded for this session.</p>';
+    fDiv.innerHTML = '';
   }
 }
 

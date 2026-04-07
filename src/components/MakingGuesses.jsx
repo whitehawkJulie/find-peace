@@ -29,6 +29,7 @@ const MakingGuesses = () => {
 				<p>What do you think the other person saw or heard? Just the facts, from their point of view.</p>
 				<textarea
 					className="guesses-textarea"
+					data-field-id="making-guesses"
 					value={guessObservation}
 					onChange={(e) => setGuessObservation(e.target.value)}
 					placeholder="They might have seen/heard..."

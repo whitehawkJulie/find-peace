@@ -778,7 +778,7 @@ const StandaloneHelpTopics = [
 				</p>
 
 				<p>
-					If you’d like support staying with a feeling once you’ve found it, you can explore that
+					If you’d like support staying with a feeling once you’ve found it, you can explore that{" "}
 					<HelpLink href="/help/feelings">here</HelpLink>. We'll do more of that in the next step, Exploring
 					Feelings.
 				</p>
@@ -805,7 +805,7 @@ const StandaloneHelpTopics = [
 					👁️<strong>What actually happened?</strong>
 				</p>
 				<ul>
-					<li>Without labels like "rude," "selfish," or "asshole," what did they actually say or do?</li>
+					<li>Without labels like "rude" or "selfish", what did they actually say or do?</li>
 				</ul>
 
 				<p>
@@ -1372,9 +1372,9 @@ const StandaloneHelpTopics = [
 
 				<h3>Your session data stays on your device</h3>
 				<p>
-					Everything you type — observations, reflections, scripts — is stored only in your browser{"\u2019"}
-					s local storage. It is <strong>never sent to any server</strong>. Only you can see it, and only
-					on this device.
+					Everything you type — observations, reflections, scripts — is stored only in your browser{"\u2019"}s
+					local storage. It is <strong>never sent to any server</strong>. Only you can see it, and only on
+					this device.
 				</p>
 				<p>
 					You can delete it at any time via <strong>Settings → Delete all saved sessions</strong>, or by
@@ -1383,19 +1383,21 @@ const StandaloneHelpTopics = [
 
 				<h3>Anonymous usage data</h3>
 				<p>
-					To help improve this tool, we collect anonymous, non-identifiable usage data. This includes
-					things like:
+					To help improve this tool, we collect anonymous, non-identifiable usage data. This includes things
+					like:
 				</p>
 				<ul>
 					<li>which pages you visit and how long you spend on them</li>
 					<li>which features you open (help topics, the summary, need explorations)</li>
-					<li>whether you filled in a text field — but <strong>never what you wrote</strong></li>
+					<li>
+						whether you filled in a text field — but <strong>never what you wrote</strong>
+					</li>
 					<li>which feelings and needs you selected (from the fixed word lists)</li>
 					<li>which needs you explored in depth</li>
 				</ul>
 				<p>
-					This data is tied to a random session ID that is generated fresh each time you open the app in a
-					new tab. It is not linked to your name, device, IP address, or any personal information.
+					This data is tied to a random session ID that is generated fresh each time you open the app in a new
+					tab. It is not linked to your name, device, IP address, or any personal information.
 				</p>
 
 				<h3>What we never collect</h3>
@@ -1408,9 +1410,9 @@ const StandaloneHelpTopics = [
 
 				<h3>Why we collect usage data</h3>
 				<p>
-					Understanding how people move through the app — where they spend time, which tools they use,
-					where they stop — helps us make it more useful and reduce friction. We have no interest in
-					tracking individuals; we just want to build something that genuinely helps.
+					Understanding how people move through the app — where they spend time, which tools they use, where
+					they stop — helps us make it more useful and reduce friction. We have no interest in tracking
+					individuals; we just want to build something that genuinely helps.
 				</p>
 			</>
 		),

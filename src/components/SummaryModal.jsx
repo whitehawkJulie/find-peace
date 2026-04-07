@@ -59,7 +59,7 @@ const SummaryModal = () => {
 	useEffect(() => {
 		if (showSummary) {
 			summaryOpenAt.current = Date.now();
-			trackEvent("ui_open", { type: "modal", name: "summary" });
+			trackEvent("ui_open", { type: "modal", name: "summary", page_name: currentPage });
 		} else if (summaryOpenAt.current) {
 			trackEvent("ui_close", {
 				type: "modal",

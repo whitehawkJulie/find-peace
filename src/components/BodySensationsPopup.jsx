@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { trackEvent } from "../analytics/analytics";
+import { trackEvent, currentPage } from "../analytics/analytics";
 import { bodySensationGroups } from "../data/BodySensationsData";
 import AudioPlayer from "./AudioPlayer";
 import BodyScanAudio from "../assets/BodyScan.mp3";
@@ -10,7 +10,7 @@ const BodySensationsPopup = ({ selected, onToggle, onCustomChange, customText, o
 	const [wordsOpen, setWordsOpen] = useState(false);
 	const openAt = useRef(Date.now());
 	useEffect(() => {
-		trackEvent("ui_open", { type: "modal", name: "body-sensations" });
+		trackEvent("ui_open", { type: "modal", name: "body-sensations", page_name: currentPage });
 		return () => {
 			trackEvent("ui_close", { type: "modal", name: "body-sensations",
 				time_open_ms: Date.now() - openAt.current });
@@ -96,6 +96,7 @@ const BodySensationsPopup = ({ selected, onToggle, onCustomChange, customText, o
 					<label className="body-sens-custom-label">Anything else you noticed?</label>
 					<textarea
 						className="body-sens-custom-input"
+						data-field-id="body-sensations-notes"
 						placeholder="e.g. tight throat, heavy eyelids…"
 						value={customText}
 						onChange={(e) => onCustomChange(e.target.value)}

@@ -6,7 +6,7 @@ import SummaryModal from "./SummaryModal";
 import SideMenu from "./SideMenu";
 import { useWizard } from "./WizardContext";
 import { useOverlayHistory } from "../hooks/useOverlayHistory";
-import { trackEvent, setPendingNavMethod } from "../analytics/analytics";
+import { trackEvent, setPendingNavMethod, currentPage } from "../analytics/analytics";
 import "./Card.css";
 
 const Card = ({ title, children, showHelp = false, helpContent = null, hideNav = false }) => {
@@ -136,7 +136,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 	useEffect(() => {
 		if (helpDrawerOpen) {
 			helpOpenAt.current = Date.now();
-			trackEvent("ui_open", { type: "help", name: helpTopic || "page-help" });
+			trackEvent("ui_open", { type: "help", name: helpTopic || "page-help", page_name: currentPage });
 		} else if (helpOpenAt.current) {
 			trackEvent("ui_close", { type: "help", name: helpTopic || "page-help",
 				time_open_ms: Date.now() - helpOpenAt.current });
@@ -148,7 +148,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 	useEffect(() => {
 		if (sideMenuOpen) {
 			sideMenuOpenAt.current = Date.now();
-			trackEvent("ui_open", { type: "menu", name: "side-menu" });
+			trackEvent("ui_open", { type: "menu", name: "side-menu", page_name: currentPage });
 		} else if (sideMenuOpenAt.current) {
 			trackEvent("ui_close", { type: "menu", name: "side-menu",
 				time_open_ms: Date.now() - sideMenuOpenAt.current });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { trackEvent } from "../analytics/analytics";
+import { trackEvent, currentPage } from "../analytics/analytics";
 import Pill from "./Pill";
 import "./ClarifyFeelings.css";
 
@@ -20,7 +20,7 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 	useEffect(() => {
 		const wordType = itemData?.type === "storyWord" ? "story_word" : "murky";
 		trackEvent("ui_open", { type: "modal", name: "clarify-feelings",
-			word: itemData?.item, word_type: wordType });
+			word: itemData?.item, word_type: wordType, page_name: currentPage });
 		return () => {
 			trackEvent("ui_close", { type: "modal", name: "clarify-feelings",
 				time_open_ms: Date.now() - openAt.current });
@@ -186,6 +186,7 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 								{prompt.type === "text" && (
 									<textarea
 										className="clarify-textarea"
+										data-field-id="clarify-feelings"
 										value={responses[i] || ""}
 										onChange={(e) => setResponse(i, e.target.value)}
 										rows={3}

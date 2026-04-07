@@ -9,6 +9,18 @@
 
 date_default_timezone_set('Australia/Brisbane');
 
+// Block known bots by User-Agent
+$ua = strtolower($_SERVER['HTTP_USER_AGENT'] ?? '');
+$bot_patterns = ['bot', 'crawl', 'spider', 'slurp', 'mediapartners', 'facebookexternalhit',
+                  'ia_archiver', 'python-requests', 'curl', 'wget', 'go-http', 'java/',
+                  'libwww', 'scrapy', 'headlesschrome'];
+foreach ($bot_patterns as $pat) {
+    if (strpos($ua, $pat) !== false) {
+        http_response_code(204);
+        exit;
+    }
+}
+
 // Only allow POST
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
