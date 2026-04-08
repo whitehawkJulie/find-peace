@@ -68,8 +68,8 @@ $ui_opens          = [];   // name → ['count'=>n, 'pages'=>[page=>n]]
 $section_opens     = [];
 $field_fills       = [];
 $needs_unpacked    = [];
-$feelings_counts   = [];
-$needs_counts      = [];
+$feelings_counts   = ['none' => 0, '1–3' => 0, '4–7' => 0, '8+' => 0];
+$needs_counts      = ['none' => 0, '1–3' => 0, '4–7' => 0, '8+' => 0];
 $all_feelings_sel  = [];   // feeling name → sessions it was selected in
 $all_feelings_str  = [];   // feeling name → sessions it was strongly felt in
 $all_needs_sel     = [];
@@ -187,8 +187,8 @@ foreach ($events as $ev) {
 
             $fc = (int)($ev['feelings_count'] ?? 0);
             $nc = (int)($ev['needs_count'] ?? 0);
-            $feelings_counts[$fc === 0 ? '0' : ($fc <= 3 ? '1–3' : ($fc <= 7 ? '4–7' : '8+'))]++;
-            $needs_counts   [$nc === 0 ? '0' : ($nc <= 3 ? '1–3' : ($nc <= 7 ? '4–7' : '8+'))]++;
+            $feelings_counts[$fc === 0 ? 'none' : ($fc <= 3 ? '1–3' : ($fc <= 7 ? '4–7' : '8+'))]++;
+            $needs_counts   [$nc === 0 ? 'none' : ($nc <= 3 ? '1–3' : ($nc <= 7 ? '4–7' : '8+'))]++;
             break;
     }
 }
@@ -233,7 +233,7 @@ foreach ($sessions as $s) {
 }
 arsort($drop_off);
 
-$bucket_order = ['0', '1–3', '4–7', '8+'];
+$bucket_order = ['none', '1–3', '4–7', '8+'];
 $f_hist = []; $n_hist = [];
 foreach ($bucket_order as $b) { $f_hist[$b] = $feelings_counts[$b] ?? 0; $n_hist[$b] = $needs_counts[$b] ?? 0; }
 
@@ -305,6 +305,44 @@ function fmts(int $ms): string {
     $s = round($ms / 1000);
     return $s >= 60 ? floor($s/60) . 'm ' . ($s%60) . 's' : $s . 's';
 }
+function fmt_pages(array $pages): string {
+    arsort($pages);
+    $parts = [];
+    foreach ($pages as $pg => $n) $parts[] = htmlspecialchars($pg) . ($n > 1 ? " \xc3\x97{$n}" : '');
+    return implode(', ', $parts);
+}
+
+// ── Overlay / help topic prep (used in cards 4a & 4b) ────────────────────────
+$known_modals = ['body-sensations', 'summary', 'clarify-feelings', 'explore-need', 'side-menu'];
+// Only topics with active:true in StandaloneHelpTopics.jsx
+$known_help_topics = [
+    'this-process','privacy','mourning','needs','stay-with-it',
+    'feedback','threat-mode','first-feeling','story-words','feelings',
+    'observation','nervous','collab-understand-them','collab-check-willingness',
+    'collab-share-experience','collab-check-understood','collab-way-forward',
+    'making-guesses','finding-strategies','about','not-ready',
+    'page-help', // auto-generated fallback when no specific topic is set
+];
+
+$help_opens_full   = $help_opens;
+$ui_opens_filtered = [];
+foreach ($known_help_topics as $t) {
+    if (!isset($help_opens_full[$t])) $help_opens_full[$t] = ['count' => 0, 'pages' => []];
+}
+foreach ($known_modals as $m) {
+    $ui_opens_filtered[$m] = isset($ui_opens[$m]) ? $ui_opens[$m] : ['count' => 0, 'pages' => []];
+}
+foreach ($ui_opens as $uname => $udata) {
+    if (!isset($help_opens[$uname]) && strpos($uname, 'feelings-') !== 0 && !isset($ui_opens_filtered[$uname])) {
+        $ui_opens_filtered[$uname] = $udata;
+    }
+}
+uasort($help_opens_full,   function($a, $b) { return (isset($b['count']) ? $b['count'] : 0) - (isset($a['count']) ? $a['count'] : 0); });
+uasort($ui_opens_filtered, function($a, $b) { return (isset($b['count']) ? $b['count'] : 0) - (isset($a['count']) ? $a['count'] : 0); });
+$_hc = array_values(array_map(function($v) { return isset($v['count']) ? (int)$v['count'] : 0; }, $help_opens_full));
+$_uc = array_values(array_map(function($v) { return isset($v['count']) ? (int)$v['count'] : 0; }, $ui_opens_filtered));
+$help_max = max(array_merge([1], $_hc));
+$ui_max   = max(array_merge([1], $_uc));
 ?><!doctype html>
 <html lang="en">
 <head>
@@ -419,49 +457,7 @@ th { color: #6b7280; font-weight: 600; }
 </div>
 
 <!-- 4. Help engagement + UI overlays (side-by-side) -->
-<?php
-$known_modals = ['body-sensations', 'summary', 'clarify-feelings', 'explore-need', 'side-menu'];
-$known_help_topics = [
-  'this-process','privacy','mourning','differences','needs-tanks','needs',
-  'black-hole-needs','meeting-a-friend','beauty-of-needs','stay-with-it',
-  'feedback','threat-mode','first-feeling','story-words','feelings',
-  'observation','nervous','collab-understand-them','collab-check-willingness',
-  'collab-share-experience','collab-check-understood','collab-way-forward',
-  'making-guesses','about','not-ready','top-up-tank','y','page-help'
-];
-
-// Merge known lists with found data
-$help_opens_full   = $help_opens;
-$ui_opens_filtered = []; // non-help, non-section overlays only
-foreach ($known_help_topics as $t) {
-    if (!isset($help_opens_full[$t])) $help_opens_full[$t] = ['count'=>0,'pages'=>[]];
-}
-foreach ($known_modals as $m) {
-    if (!isset($ui_opens[$m])) $ui_opens_filtered[$m] = ['count'=>0,'pages'=>[]];
-    else $ui_opens_filtered[$m] = $ui_opens[$m];
-}
-// Also add any unknown overlay names found in data that aren't help/section
-foreach ($ui_opens as $uname => $udata) {
-    $is_help    = isset($help_opens[$uname]);
-    $is_section = strpos($uname, 'feelings-') === 0;
-    if (!$is_help && !$is_section && !isset($ui_opens_filtered[$uname])) {
-        $ui_opens_filtered[$uname] = $udata;
-    }
-}
-// Sort by count desc (zeros at bottom)
-uasort($help_opens_full, fn($a,$b) => ($b['count']??0) <=> ($a['count']??0));
-uasort($ui_opens_filtered, fn($a,$b) => ($b['count']??0) <=> ($a['count']??0));
-$help_max = max(1, ...array_map(fn($v)=>$v['count']??0, $help_opens_full));
-$ui_max   = max(1, ...array_map(fn($v)=>$v['count']??0, $ui_opens_filtered));
-
-function fmt_pages(array $pages): string {
-    arsort($pages);
-    $parts = [];
-    foreach ($pages as $pg => $n) $parts[] = htmlspecialchars($pg) . ($n > 1 ? " ×{$n}" : '');
-    return implode(', ', $parts);
-}
-?>
-<div style="display:flex;gap:1.25rem;margin-bottom:1.25rem;flex-wrap:wrap;align-items:flex-start">
+<div style="display:flex;gap:1.25rem;flex-wrap:wrap;align-items:flex-start;grid-column:1/-1">
 <div class="card" style="flex:1;min-width:300px">
   <h2>❓ Help topics opened</h2>
   <?php foreach ($help_opens_full as $topic => $data):
@@ -497,7 +493,7 @@ function fmt_pages(array $pages): string {
   <canvas id="depthChart"></canvas>
   <script>
   new Chart(document.getElementById('depthChart'),{type:'bar',data:{
-    labels:<?= json_keys($f_hist) ?>,
+    labels:<?= json_encode(array_map(fn($k) => $k === 'none' ? '0' : $k, array_keys($f_hist)), JSON_UNESCAPED_UNICODE) ?>,
     datasets:[
       {label:'Feelings',data:<?= json_vals($f_hist) ?>,backgroundColor:'#f97316'},
       {label:'Needs',   data:<?= json_vals($n_hist) ?>,backgroundColor:'#3b82f6'}

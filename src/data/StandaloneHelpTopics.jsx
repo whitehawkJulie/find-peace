@@ -2,7 +2,9 @@ import AudioPlayer from "../components/AudioPlayer";
 import itsok from "../assets/itsok.mp3";
 
 // Standalone help topics — not tied to any specific step/page.
-// Each entry: { id, title, content (JSX) }
+// Each entry: { id, active, title, content (JSX) }
+// active: true  = linked/used somewhere in the app
+// active: false = written but not yet wired up to anything - now MOVED to StandaloneUnused.jsx
 
 // Link to one from anywhere with: openHelpTopic("topic-id")
 // eg
@@ -17,6 +19,7 @@ import HelpLink from "../components/HelpLink";
 const StandaloneHelpTopics = [
 	{
 		id: "this-process",
+		active: true,
 		title: "About this process",
 		content: (
 			<>
@@ -67,19 +70,58 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "privacy",
-		title: "Your privacy",
+		active: true,
+		title: "Privacy & how we use your data",
 		content: (
 			<>
-				<h2>Your privacy</h2>
-
 				<p>
-					Everything you enter into this tool stays on your device. Your responses are stored only in your
-					browser's local storage and are <strong>never sent to any server</strong>.
+					Your privacy matters. Here{"\u2019"}s a plain-language summary of what this app does and doesn
+					{"\u2019"}t do with your data.
 				</p>
 
+				<h3>Your session data stays on your device</h3>
 				<p>
-					You can clear all your saved data at any time, or protect it with a passphrase, from ☰ Menu → ⚙
-					Settings.
+					Everything you type — observations, reflections, scripts — is stored only in your browser{"\u2019"}s
+					local storage. It is <strong>never sent to any server</strong>. Only you can see it, and only on
+					this device.
+				</p>
+				<p>
+					You can delete it at any time via <strong>Settings → Delete all saved sessions</strong>, or by
+					clearing your browser data.
+				</p>
+
+				<h3>Anonymous usage data</h3>
+				<p>
+					To help improve this tool, we collect anonymous, non-identifiable usage data. This includes things
+					like:
+				</p>
+				<ul>
+					<li>which pages you visit and how long you spend on them</li>
+					<li>which features you open (help topics, the summary, need explorations)</li>
+					<li>
+						whether you filled in a text field — but <strong>never what you wrote</strong>
+					</li>
+					<li>which feelings and needs you selected (from the fixed word lists)</li>
+					<li>which needs you explored in depth</li>
+				</ul>
+				<p>
+					This data is tied to a random session ID that is generated fresh each time you open the app in a new
+					tab. It is not linked to your name, device, IP address, or any personal information.
+				</p>
+
+				<h3>What we never collect</h3>
+				<ul>
+					<li>Any text you type into text fields</li>
+					<li>Your IP address</li>
+					<li>Any information that could identify you</li>
+					<li>Data across separate sessions or devices</li>
+				</ul>
+
+				<h3>Why we collect usage data</h3>
+				<p>
+					Understanding how people move through the app — where they spend time, which tools they use, where
+					they stop — helps us make it more useful and reduce friction. We have no interest in tracking
+					individuals; we just want to build something that genuinely helps.
 				</p>
 			</>
 		),
@@ -87,6 +129,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "mourning",
+		active: true,
 		title: "Connecting with and mourning unmet needs",
 
 		content: (
@@ -152,80 +195,8 @@ const StandaloneHelpTopics = [
 	},
 
 	{
-		id: "differences",
-		title: "What's different here from 'standard' NVC?",
-		content: (
-			<>
-				<h3>TO DO</h3>
-				<p>
-					I've taught NVC for 15 years, and I've come to see some aspects that haven't worked so well for me,
-					or for the people I've taught. This section will explain some of the differences in this app, and
-					the reasoning behind them.
-				</p>
-				<p>
-					Threat, seeking and care motivation circuits - plus how it guides different pathways through the
-					process
-				</p>
-				<p>
-					Beauty of the needs as VITAL, and how Marshall said "Get as quickly as you can from need to
-					request", and how he saw grief as always being the blocker (care circuit), whereas sometimes it's
-					agency (seeking circuit).
-				</p>
-				<p>Explain about including 'faux feelings'.</p>
-			</>
-		),
-	},
-	{
-		id: "needs-tanks",
-		title: "Needs tanks",
-		content: (
-			<>
-				<p>You can imagine your needs as small water tanks.</p>
-
-				<p>
-					Each need — for connection, affection, agency, freedom, safety, being seen — has its own tank. Some
-					tanks are usually full. When they're full, small disturbances don't affect you much.
-				</p>
-
-				<p>Other tanks fluctuate — they fill and drain.</p>
-
-				<p>
-					And some tanks may feel chronically low. If a need wasn't reliably met earlier in life, your nervous
-					system may have learned to stay alert around it.
-				</p>
-
-				<p>
-					When a tank is low, your system reacts faster and more intensely. The current situation may not be
-					creating the wound — it may simply be touching something that was already tender.
-				</p>
-
-				<p>
-					Naming the need doesn't immediately fill the tank. But it often steadies the system enough to
-					respond with more choice.
-				</p>
-				<p>
-					Filling the tank does <strong>not</strong> have to mean:
-				</p>
-
-				<ul>
-					<li>This person</li>
-					<li>This exact behaviour</li>
-					<li>This one solution</li>
-				</ul>
-
-				<p>
-					Once the need is clear, you can look for multiple ways to support it — including outside this
-					relationship. That often reduces pressure and increases freedom. Every need has millions of possible
-					ways to meet it (strategies), and we can get very stuck when we insist on one particular way that
-					isn't actually available, like insisting on a particular person acting in a particular way that
-					they're actually not capable of right now.
-				</p>
-			</>
-		),
-	},
-
-	{
 		id: "needs",
+		active: true,
 		title: "Shared Fundamental Human Needs",
 
 		content: (
@@ -291,74 +262,8 @@ const StandaloneHelpTopics = [
 	},
 
 	{
-		id: "black-hole-needs",
-		title: "Black Hole Needs",
-		content: (
-			<>
-				<h3>Black Hole Tanks</h3>
-
-				<p>
-					Some needs can feel like "black hole" tanks — no matter how much reassurance or effort comes in, it
-					doesn't seem to stay. It's like the tanks have holes in them.
-				</p>
-
-				<p>This can happen when the nervous system learned early that the need wasn't safe to rely on.</p>
-
-				<p>
-					And, sometimes, a need can also look like a black hole because it's standing in for a deeper one.
-					For example, you might work very hard to feel accepted — and still feel unsettled — because what
-					you're really longing for is a deeper sense of mattering in yourself.
-				</p>
-
-				<p>
-					In that case, no amount of reassurance from others fully lands. The surface need keeps feeling
-					urgent and demanding, and you may feel easily triggered around it — not because you're "too much,"
-					but because something deeper is asking to be seen.
-				</p>
-			</>
-		),
-	},
-
-	{
-		id: "meeting-a-friend",
-		title: "Meeting a Need as in Meeting a Friend",
-		content: (
-			<>
-				<p>
-					In everyday language, "meeting a need" usually means fulfilling it. Here, we're using "meet" in a
-					different way, rather as in "meeting a friend".
-				</p>
-
-				<p>
-					To meet this need means to turn toward it — to sense how it lives in you, not just as a word, but as
-					a longing, a forward-driving energy.
-				</p>
-
-				<p>
-					Needs aren't just concepts. They are the movement of life in you — the part that wants connection,
-					safety, truth, contribution.
-				</p>
-
-				<p>
-					Before looking for strategies, pause to recognise that living energy. Not to fix it. Not to analyse
-					it. Just to acknowledge it.
-				</p>
-			</>
-		),
-	},
-
-	{
-		id: "beauty-of-needs",
-		title: "The Beauty of the Needs",
-		content: (
-			<>
-				<p>TODO</p>
-			</>
-		),
-	},
-
-	{
 		id: "stay-with-it",
+		active: true,
 		title: "Stay with the feeling",
 		content: (
 			<>
@@ -427,6 +332,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "feedback",
+		active: true,
 		title: "How did this go for you?",
 		content: (
 			<div>
@@ -451,6 +357,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "threat-mode",
+		active: true,
 		title: "Threat, Seeking and Care circuits",
 		content: (
 			<>
@@ -642,6 +549,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "first-feeling",
+		active: true,
 		title: "Catching the FIRST feeling",
 		content: (
 			<>
@@ -678,6 +586,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "story-words",
+		active: true,
 		title: "Story Words",
 		content: (
 			<>
@@ -725,6 +634,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "feelings",
+		active: true,
 		title: "Feelings",
 		content: (
 			<div>
@@ -788,6 +698,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "observation",
+		active: true,
 		title: "How to Make a Clear Observation",
 		content: (
 			<>
@@ -871,6 +782,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "nervous",
+		active: true,
 		title: "Nervous about the conversation?",
 		content: (
 			<>
@@ -893,6 +805,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "collab-understand-them",
+		active: true,
 		title: "Why start with expressing our guesses for them?",
 		content: (
 			<>
@@ -919,6 +832,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "collab-check-willingness",
+		active: true,
 		title: "What if they're not ready to listen?",
 		content: (
 			<>
@@ -950,6 +864,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "collab-share-experience",
+		active: true,
 		title: "How do I share without it coming out as blame?",
 		content: (
 			<>
@@ -974,6 +889,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "collab-check-understood",
+		active: true,
 		title: "What if they didn't quite get it?",
 		content: (
 			<>
@@ -990,6 +906,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "collab-way-forward",
+		active: true,
 		title: "How do we find something that works for both of us?",
 		content: (
 			<>
@@ -1011,6 +928,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "making-guesses",
+		active: true,
 		title: "Making Guesses for the Other Person",
 		content: (
 			<>
@@ -1092,108 +1010,8 @@ const StandaloneHelpTopics = [
 	},
 
 	{
-		id: "tragic-strategies", // not used yet
-		title: "Tragic Strategies",
-		content: (
-			<>
-				<p>
-					When we're not clear about the need underneath our feelings, we often reach for strategies that we
-					hope will relieve the discomfort.
-				</p>
-
-				<p>
-					We might push harder, withdraw, criticise, demand reassurance, over-explain, shut down,
-					people-please, or try to control the situation.
-				</p>
-
-				<p>
-					Marshall Rosenberg, who developed Nonviolent Communication, called these{" "}
-					<strong>"tragic strategies for unmet needs."</strong>
-				</p>
-
-				<p>
-					They're tragic not because we're bad — but because the strategy is aimed at relief, while missing
-					the real source of the pain.
-				</p>
-
-				<p>
-					Without clarity about the need, we're often shooting in the dark — and sometimes wounding ourselves
-					or others in the process.
-				</p>
-
-				<p>
-					Getting clear about the need changes the quality of our action. Instead of reacting from urgency, we
-					respond from understanding.
-				</p>
-			</>
-		),
-	},
-
-	{
-		id: "requests", // not used yet
-		title: "Making Requests",
-		content: (
-			<>
-				<h3>Requests vs. demands</h3>
-				<p>
-					The key test: if the other person says "no," how do you feel? If you'd be angry or punish them, it
-					was a demand. If you can genuinely accept "no" and look for another strategy — that's a request.
-				</p>
-
-				<h3>Three types of request</h3>
-				<ul>
-					<li>
-						<strong>Connection request</strong> — asking the other person to reflect back what they heard,
-						or how they feel hearing this. E.g. "Would you be willing to tell me what you heard me say?"
-						This is often the most important first step.
-					</li>
-					<li>
-						<strong>Action request</strong> — asking for a specific, doable action. E.g. "Would you be
-						willing to text me if you're going to be more than 15 minutes late?"
-					</li>
-					<li>
-						<strong>Self-request</strong> — a commitment to yourself. E.g. "I'd like to pause and breathe
-						before responding next time I feel triggered."
-					</li>
-				</ul>
-
-				<h3>A good request is:</h3>
-				<ul>
-					<li>
-						<strong>Specific</strong> — not "be nicer" but "would you greet me when I come home?"
-					</li>
-					<li>
-						<strong>Doable</strong> — something the person can actually say yes or no to
-					</li>
-					<li>
-						<strong>Positive</strong> — what you DO want, not what you don't want
-					</li>
-					<li>
-						<strong>Present-tense</strong> — about now or the near future, not forever
-					</li>
-				</ul>
-
-				<h3>Common pitfalls</h3>
-				<ul>
-					<li>
-						"I want you to understand me" — too vague. Try: "Would you be willing to tell me what you're
-						hearing?"
-					</li>
-					<li>
-						"Stop being so critical" — negative and vague. Try: "When you notice something I could do
-						differently, would you be willing to start with what I did well?"
-					</li>
-					<li>
-						"You need to change" — that's a demand about who they are. Focus on a specific, observable
-						action.
-					</li>
-				</ul>
-			</>
-		),
-	},
-
-	{
-		id: "finding-strategies", // not used yet
+		id: "finding-strategies",
+		active: true, // linked from UnpackNeeds
 		title: "Finding Strategies",
 		content: (
 			<>
@@ -1288,6 +1106,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "about",
+		active: true,
 		title: "About this app",
 		content: (
 			<div>
@@ -1319,6 +1138,7 @@ const StandaloneHelpTopics = [
 
 	{
 		id: "not-ready",
+		active: true,
 		title: "Not Ready?",
 		content: (
 			<>
@@ -1332,20 +1152,6 @@ const StandaloneHelpTopics = [
 		more: <></>,
 	},
 
-	{
-		id: "top-up-tank",
-		title: "Top up the Needs Tank",
-		content: <></>,
-		more: <></>,
-	},
-
-	{
-		id: "y",
-		title: "Empathy",
-		content: <></>,
-		more: <></>,
-	},
-
 	// {
 	// 	id: "empathy",
 	// 	title: "Empathy",
@@ -1359,63 +1165,5 @@ const StandaloneHelpTopics = [
 	// 	content: <></>,
 	// 	more: <></>,
 	// },
-
-	{
-		id: "privacy",
-		title: "Privacy & how we use your data",
-		content: (
-			<>
-				<p>
-					Your privacy matters. Here{"\u2019"}s a plain-language summary of what this app does and doesn
-					{"\u2019"}t do with your data.
-				</p>
-
-				<h3>Your session data stays on your device</h3>
-				<p>
-					Everything you type — observations, reflections, scripts — is stored only in your browser{"\u2019"}s
-					local storage. It is <strong>never sent to any server</strong>. Only you can see it, and only on
-					this device.
-				</p>
-				<p>
-					You can delete it at any time via <strong>Settings → Delete all saved sessions</strong>, or by
-					clearing your browser data.
-				</p>
-
-				<h3>Anonymous usage data</h3>
-				<p>
-					To help improve this tool, we collect anonymous, non-identifiable usage data. This includes things
-					like:
-				</p>
-				<ul>
-					<li>which pages you visit and how long you spend on them</li>
-					<li>which features you open (help topics, the summary, need explorations)</li>
-					<li>
-						whether you filled in a text field — but <strong>never what you wrote</strong>
-					</li>
-					<li>which feelings and needs you selected (from the fixed word lists)</li>
-					<li>which needs you explored in depth</li>
-				</ul>
-				<p>
-					This data is tied to a random session ID that is generated fresh each time you open the app in a new
-					tab. It is not linked to your name, device, IP address, or any personal information.
-				</p>
-
-				<h3>What we never collect</h3>
-				<ul>
-					<li>Any text you type into text fields</li>
-					<li>Your IP address</li>
-					<li>Any information that could identify you</li>
-					<li>Data across separate sessions or devices</li>
-				</ul>
-
-				<h3>Why we collect usage data</h3>
-				<p>
-					Understanding how people move through the app — where they spend time, which tools they use, where
-					they stop — helps us make it more useful and reduce friction. We have no interest in tracking
-					individuals; we just want to build something that genuinely helps.
-				</p>
-			</>
-		),
-	},
 ];
 export default StandaloneHelpTopics;
