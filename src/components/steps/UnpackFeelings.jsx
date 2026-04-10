@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { useWizard } from "../WizardContext";
 import { trackEvent, currentPage } from "../../analytics/analytics";
 import HelpLink from "../HelpLink";
+import DismissibleHint from "../DismissibleHint";
 import { AllFeelingsData as FeelingsData } from "../../data/AllFeelingsData";
 import { feelingTypes } from "../../data/FeelingTypes";
 import ClarifyFeelings from "../ClarifyFeelings";
@@ -214,6 +215,10 @@ const UnpackFeelings = () => {
 
 	const hasSelectedFeelings = Object.values(feelings).some((s) => s === "clicked" || s === "double-clicked");
 
+	const hasMurkyFeelings = Object.entries(feelings).some(
+		([name, s]) => (s === "clicked" || s === "double-clicked") && name in murkyFeelingLookup
+	);
+
 	return (
 		<div className="feelings-explore-regulation">
 			{!hasSelectedFeelings && (
@@ -229,6 +234,12 @@ const UnpackFeelings = () => {
 			</p>
 
 			{renderOrderedFeelings(feelings, setPopupItem, setPendingRemoveFeeling)}
+
+			{hasMurkyFeelings && (
+				<DismissibleHint id="murky-feelings-unpack">
+					Some feelings here are underlined — tap them to explore further.
+				</DismissibleHint>
+			)}
 
 			{pendingRemoveFeeling && (
 				<div className="feeling-remove-confirm">

@@ -603,8 +603,7 @@ export const Feelings = {
 						// Attune first — herd energy, without escalation.
 						attunement: [
 							"Ohhh. That surge makes sense. Something in you is really saying no.",
-							"Yeah… anger can come in strong when something doesn’t feel okay.",
-							"Of course something’s fired up. Anger usually means something matters.",
+							"Yeah… anger can come in strong when something feels threatened.",
 						], // UI to randomly select one of these attunement statements to normalize the experience.
 
 						// Normalize protective function.

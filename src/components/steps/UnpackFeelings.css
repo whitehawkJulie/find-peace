@@ -40,7 +40,9 @@
 	height: 0.9rem;
 	border-radius: 50%;
 	flex-shrink: 0;
-	transition: background 0.15s, color 0.15s;
+	transition:
+		background 0.15s,
+		color 0.15s;
 }
 
 .feelings-selected-pills .pill-remove-x:hover {
@@ -93,7 +95,9 @@
 	padding: 0.3rem 0.75rem;
 	font-size: 0.82rem;
 	cursor: pointer;
-	transition: background 0.15s, color 0.15s;
+	transition:
+		background 0.15s,
+		color 0.15s;
 }
 
 .feeling-remove-confirm-cancel:hover {
@@ -104,7 +108,7 @@
 /* ===== Murky feeling indicator in the selected feelings list ===== */
 
 .feelings-explore-murky {
-	border-bottom: 1px dashed rgba(255, 255, 255, 0.6);
+	border-bottom: 1px solid rgb(88, 3, 23);
 	cursor: pointer;
 	transition: opacity 0.15s;
 }
@@ -194,7 +198,6 @@
 	font-size: 0.9rem;
 	color: #555;
 }
-
 
 .feelings-explore-intro {
 	color: #666;

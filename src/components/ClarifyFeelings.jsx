@@ -58,8 +58,10 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 				{isStoryWord && (
 					<>
 						<div className="clarify-popup-header">
-							<h3>{itemData.item}</h3>
+							<h3 className="clarify-popup-title">{itemData.item}</h3>
+							<button className="clarify-popup-close" onClick={onClose} aria-label="Close">×</button>
 						</div>
+						<div className="clarify-popup-body">
 
 						{itemData.storyHint && <p className="clarify-reframe highlight-box">{itemData.storyHint}.</p>}
 
@@ -118,7 +120,7 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 										it. We'll return to it and explore it more deeply in the next step.
 									</p>
 								)}
-								<div className="pill-grid cloud">
+								<div className="pill-grid cloud needs-selected-pills">
 									{itemData.suggestedNeeds.map((n) => (
 										<Pill
 											key={n}
@@ -161,6 +163,7 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 						}}>
 							OK
 						</button>
+						</div>{/* end clarify-popup-body */}
 					</>
 				)}
 
@@ -168,9 +171,10 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 				{isMurky && (
 					<>
 						<div className="clarify-popup-header">
-							<h3>{itemData.clarify.title}</h3>
+							<h3 className="clarify-popup-title">{itemData.clarify.title}</h3>
+							<button className="clarify-popup-close" onClick={onClose} aria-label="Close">×</button>
 						</div>
-
+						<div className="clarify-popup-body">
 						{attunement && <p className="clarify-attunement">{attunement}</p>}
 
 						{itemData.clarify.normalization && (
@@ -247,6 +251,7 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 						<button className="clarify-ok" onClick={onClose}>
 							Done
 						</button>
+						</div>{/* end clarify-popup-body */}
 					</>
 				)}
 			</div>

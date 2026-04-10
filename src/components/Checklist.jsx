@@ -50,8 +50,12 @@ const Checklist = ({
 		setSectionModes((prev) => ({ ...prev, [heading]: mode }));
 	};
 
-	const toggleSelectedOnly = (heading) => {
-		setSectionSelectedOnly((prev) => ({ ...prev, [heading]: !prev[heading] }));
+	const setSelectedOnly = (heading) => {
+		setSectionSelectedOnly((prev) => ({ ...prev, [heading]: true }));
+	};
+
+	const clearSelectedOnly = (heading) => {
+		setSectionSelectedOnly((prev) => ({ ...prev, [heading]: false }));
 	};
 
 	const handleClick = (item, itemData) => {
@@ -174,16 +178,18 @@ const Checklist = ({
 	const renderModeIcons = (sectionHeading, groups) => {
 		if (!showListModeToggle || !sectionHasTiers(groups)) return null;
 		const currentMode = getModeForSection(sectionHeading);
+		const isSelectedOnly = sectionSelectedOnly[sectionHeading] || false;
 		return (
 			<span className="mode-icons">
 				{LIST_MODES.map((mode) => (
 					<button
 						key={mode.key}
-						className={`mode-icon ${currentMode === mode.key ? "mode-icon-active" : ""}`}
+						className={`mode-icon ${!isSelectedOnly && currentMode === mode.key ? "mode-icon-active" : ""}`}
 						title={mode.label}
 						onClick={(e) => {
 							e.stopPropagation();
 							setSectionMode(sectionHeading, mode.key);
+							clearSelectedOnly(sectionHeading);
 							setCollapsedCategories((prev) => ({ ...prev, [sectionHeading]: false }));
 						}}>
 						{mode.icon}
@@ -199,10 +205,11 @@ const Checklist = ({
 		return (
 			<button
 				className={`mode-icon selected-only-toggle ${isActive ? "mode-icon-active" : ""}`}
-				title={isActive ? "Show all" : "Show selected only"}
+				title="Show selected"
 				onClick={(e) => {
 					e.stopPropagation();
-					toggleSelectedOnly(sectionHeading);
+					setSelectedOnly(sectionHeading);
+					setCollapsedCategories((prev) => ({ ...prev, [sectionHeading]: false }));
 				}}>
 				✓
 			</button>
@@ -251,12 +258,10 @@ const Checklist = ({
 					</div>
 				);
 
-				// In quick mode, render flat pills without subcategory headings
-				if (mode === "quick") {
+				// In quick mode, render flat pills without subcategory headings.
+				// If showSelectedOnly is active, skip this branch so the all-items selected view renders instead.
+				if (mode === "quick" && !showSelectedOnly) {
 					let quickPicks = getQuickPicksFlat(groups, sectionRegType);
-					if (showSelectedOnly) {
-						quickPicks = quickPicks.filter((it) => selectedItems[it.item]);
-					}
 					// If no quickPick items exist, fall through to short-mode rendering below
 					if (quickPicks.length > 0) {
 						return (
@@ -358,8 +363,9 @@ const Checklist = ({
 							{sectionHeader}
 							{!collapsedCategories[sectionHeading] && (
 								<div className="subcategories">
-								{index === 0 && headerContent}
-									<div className="pill-grid cloud" style={{ padding: "1rem" }}>
+									{index === 0 && headerContent}
+									<p className="checklist-selected-only-label">Showing selected only</p>
+									<div className="pill-grid" style={{ padding: "1rem" }}>
 										{allSelected.map(renderPill)}
 									</div>
 								</div>

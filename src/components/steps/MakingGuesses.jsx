@@ -38,7 +38,7 @@ const MakingGuesses = () => {
 				/>
 			</div>
 
-			<div className="guesses-section">
+			<div className="guesses-section guesses-section--feelings">
 				<h2>{"How might they be feeling?"}</h2>
 				<p>
 					What emotions might be alive in them? If you have zero idea, have you ever been in a similar
@@ -57,7 +57,7 @@ const MakingGuesses = () => {
 				/>
 			</div>
 
-			<div className="guesses-section">
+			<div className="guesses-section guesses-section--needs">
 				<h2>{"What might they be needing?"}</h2>
 				<p>
 					What needs of theirs might not be met in this situation? Or, alternately, what needs might they have
