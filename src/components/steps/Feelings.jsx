@@ -211,30 +211,29 @@ const Feelings = () => {
 	return (
 		<div className="step-feelings step-container">
 			<p>
-				Here we’re tuning into what you’re feeling, so that we can get more information about what’s going on
-				for you.
-			</p>
-
-			<p>
 				You don’t have to get this perfect. Just notice what’s there — you might find that{" "}
 				<HelpLink topic="feelings">naming feelings</HelpLink> gives you information you didn’t realise you had.
 			</p>
 
-			<p>Now return to that moment.</p>
-
-			<p>
-				What do you notice inside you?
-				<br />
-				Where do you feel it in your body?{" "}
-				<button className="feelings-body-sens-link" onClick={() => setShowBodySensations(true)}>
-					{"Not sure? →"}
-				</button>
-				<br />
-				What feelings are there?
-			</p>
+			<div className="feelings-return-prompt">
+				<span className="feelings-return-arrow">↩</span>
+				<div>
+					<strong>Return to that moment now.</strong>
+					<div className="feelings-return-questions">
+						<span>What do you notice inside you?</span>
+						<span>
+							Where do you feel it in your body?{" "}
+							<button className="feelings-body-sens-link" onClick={() => setShowBodySensations(true)}>
+								{"Not sure? →"}
+							</button>
+						</span>
+						<span>What feelings are there?</span>
+					</div>
+				</div>
+			</div>
 
 			<DismissibleHint id="click-feelings-twice">
-				HINT: Tap twice on any feeling that's especially strong.
+				HINT: Tap twice on any feeling that’s especially strong.
 			</DismissibleHint>
 
 			<Checklist

@@ -4,14 +4,24 @@
    ============================================================ */
 
 :root {
-	/* ── Feelings (blue) ── */
-	--feelings-cloud-start: #f5faff;
-	--feelings-cloud-end: #e0f0ff;
-	--feelings-cloud-shadow: rgba(200, 220, 255, 0.5);
+	/* ── Feelings (clear blue — distinct from the warm-neutral popup headers) ── */
+	--feelings-cloud-start: #f0f8ff;
+	--feelings-cloud-end: #cfe8ff;
+	--feelings-cloud-shadow: rgba(140, 195, 255, 0.45);
+	--feelings-pill-selected: #b8d8f8;
+	--feelings-pill-strong: #90c0f0;
 
-	/* ── Needs (sage green) ── */
-	--needs-header-bg: #e4efe4; /* unified header bg for all 4 needs sections */
-	--needs-cloud-start: #f3f9f3;
-	--needs-cloud-end: #d8edd8;
-	--needs-cloud-shadow: rgba(160, 200, 160, 0.5);
+	/* ── Needs (warm leafy green — distinct from sage app chrome) ── */
+	--needs-header-bg: #ddeecb; /* unified header bg for all 4 needs sections */
+	--needs-cloud-start: #f2f9eb;
+	--needs-cloud-end: #d4ecc4;
+	--needs-cloud-shadow: rgba(140, 195, 120, 0.45);
+	--needs-pill-selected: #bcdda0;
+	--needs-pill-strong: #9dcc7a;
+
+	/* ── Popup / overlay headers (warm neutral — no blue, no green) ── */
+	--popup-header-bg: #f0ede8;
+	--popup-header-border: #ddd8d0;
+	--popup-header-text: #2a2420;
+	--popup-close-color: #7a6a5a;
 }

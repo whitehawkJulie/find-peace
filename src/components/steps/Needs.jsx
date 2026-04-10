@@ -38,24 +38,13 @@ const Needs = () => {
 	return (
 		<div className="step-needs">
 			<p>
-				Here we're looking to see what our feelings are pointing to - what we were longing for in that moment
-				(which also often tells us what we're longing for in life, in general).
-			</p>
-
-			<p>
-				We call these longings <HelpLink topic="needs">"fundamental human needs"</HelpLink>, and every single
-				human being on the planet shares them. They're what we all have in common, underneath all our
-				differences. Every thing we do in life is simply an attempt to meet one or more of these very human
-				needs. All our goals and dreams come down to this simple set of longings.
-			</p>
-			<p>
-				If we don't know what we're actually needing, everything we do misses the mark. This is the missing
-				information in our lives.
+				Your feelings are pointing to something deeper — what you were longing for in that moment.{" "}
+				<HelpLink topic="needs">What are "fundamental human needs"?</HelpLink>
 			</p>
 
 			{renderOrderedFeelings(feelings)}
 
-			<p>Just notice what feels alive. Select all that feel relevant to the moment you described.</p>
+			<p>Select anything that feels true.</p>
 
 			<DismissibleHint id="click-needs-twice">
 				HINT: Tap twice on any need that feels especially strong or urgent.
@@ -72,7 +61,7 @@ const Needs = () => {
 				setSelectedItems={setNeeds}
 				type="needs"
 				showListModeToggle={true}
-				defaultListMode="short"
+				defaultListMode="quick"
 			/>
 
 			{/* <SlideDrawer

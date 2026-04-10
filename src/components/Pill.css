@@ -38,15 +38,15 @@
 /* Feelings — intensity 1 (single click) */
 .pill.clicked.feeling,
 .step-feelings .pill.clicked {
-	background-color: #d6d6d6;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+	background-color: var(--feelings-pill-selected);
+	box-shadow: 0 2px 6px rgba(80, 150, 220, 0.35);
 }
 
-/* Feelings — intensity 2 ( second tap) */
+/* Feelings — intensity 2 (second tap) */
 .pill.double-clicked.feeling,
 .step-feelings .pill.double-clicked {
-	background-color: #d6d6d6;
-	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+	background-color: var(--feelings-pill-strong);
+	box-shadow: 0 3px 10px rgba(80, 150, 220, 0.45);
 	font-weight: 600;
 }
 
@@ -65,16 +65,16 @@
 /* strongly unmet needs */
 .pill.double-clicked.need,
 .step-needs .pill.double-clicked {
-	background-color: #d6d6d6;
-	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+	background-color: var(--needs-pill-strong);
+	box-shadow: 0 3px 10px rgba(80, 170, 80, 0.4);
 	font-weight: 600;
 }
 
 /* unmet needs */
 .pill.clicked.need,
 .step-needs .pill.clicked {
-	background-color: #d6d6d6;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+	background-color: var(--needs-pill-selected);
+	box-shadow: 0 2px 6px rgba(80, 170, 80, 0.3);
 }
 
 /* Expandable hint (+) for story words */
@@ -88,14 +88,9 @@
 	line-height: 1;
 }
 
-/* Strong intensity badge (●) for double-tapped feelings and needs */
+/* Strong intensity badge (●) — hidden now that double-clicked pills use a darker colour */
 .pill-strong-badge {
-	display: inline-block;
-	margin-right: 0.25rem;
-	font-size: 0.5rem;
-	color: rgba(200, 140, 40, 0.85);
-	vertical-align: middle;
-	line-height: 1;
+	display: none;
 }
 
 /* Hide the badge when regulation overlay is active — body state colours already communicate enough */

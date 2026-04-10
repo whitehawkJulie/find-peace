@@ -1,6 +1,15 @@
 /* ── Main observation step ───────────────────────────────────────────────── */
 /* .step-observation layout provided by .step-container in App.css */
 
+.obs-textarea-label {
+	font-size: 0.82rem;
+	font-weight: 700;
+	color: #5a7a62;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	margin: 0.25rem 0 0.2rem !important;
+}
+
 .obs-main-textarea {
 	width: 100%;
 	padding: 0.85rem 1rem;
@@ -37,7 +46,9 @@
 	font-size: 0.88rem;
 	color: #7a6040;
 	cursor: pointer;
-	transition: background 0.15s, border-color 0.15s;
+	transition:
+		background 0.15s,
+		border-color 0.15s;
 }
 
 .obs-jackal-trigger:hover {
@@ -98,7 +109,7 @@
 .obs-panel-backdrop {
 	position: fixed;
 	inset: 0;
-	background: rgba(0, 0, 0, 0.35);
+	background: rgba(0, 0, 0, 0.6);
 	z-index: 800;
 	display: flex;
 	align-items: flex-start;

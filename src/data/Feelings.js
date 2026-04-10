@@ -93,7 +93,7 @@ export const Feelings = {
 					description: "suddenly scared",
 					type: "emotion",
 					feelingType: "fear",
-					ui: { tier: "simple" },
+					ui: { tier: "more" },
 				},
 				{
 					item: "scared",

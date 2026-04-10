@@ -28,6 +28,11 @@
 	background-color: var(--needs-header-bg);
 }
 
+/* Feelings sections use the feelings blue for section headers */
+.step-feelings .category-header {
+	background-color: #daeeff;
+}
+
 /* ========== CheckList STYLING ========== */
 
 .checklist {
@@ -110,6 +115,25 @@
 	width: 2.2rem;
 	height: 2.2rem;
 	flex-shrink: 0;
+}
+
+/* Inline icon shown in short mode — smaller, flows with the pills */
+.subcategory-icon-inline {
+	width: 1.6rem;
+	height: 1.6rem;
+	flex-shrink: 0;
+	opacity: 0.6;
+	align-self: center;
+}
+
+/* Short mode: one row per subcategory, left-aligned, minimal padding */
+.subcategory--compact {
+	padding: 0.3rem 0.75rem;
+}
+
+.pill-grid--row {
+	justify-content: flex-start;
+	flex-wrap: wrap;
 }
 
 /* less padding on mobile to fit more feelings and needs */

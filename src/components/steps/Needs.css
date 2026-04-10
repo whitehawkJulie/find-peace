@@ -4,3 +4,22 @@
 	gap: 1rem;
 }
 
+/* Feelings recap pills shown on the Needs page — keep feelings blue, not needs green */
+.step-needs .pill.clicked.feeling {
+	background-color: var(--feelings-pill-selected);
+	box-shadow: 0 2px 6px rgba(80, 150, 220, 0.35);
+}
+
+.step-needs .pill.double-clicked.feeling {
+	background-color: var(--feelings-pill-strong);
+	box-shadow: 0 3px 10px rgba(80, 150, 220, 0.45);
+	font-weight: 600;
+}
+
+/* Override checklist category body backgrounds — keep all 4 needs sections green-tinted,
+   not the varying blue/amber/purple that category-0/1/2/3 would otherwise apply */
+.step-needs .category {
+	--body-bg: #f7faf4;
+}
+
+

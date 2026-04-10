@@ -1,5 +1,32 @@
 /* .making-guesses layout provided by .step-container in App.css */
-/* .guesses-reminder styling provided by .highlight-box in App.css */
+
+.guesses-reminder {
+	background: #fef9ec;
+	border: 1px solid #f0e4a8;
+	border-left: 3px solid #d4b84a;
+	border-radius: 8px;
+	padding: 0.65rem 0.9rem;
+	font-size: 0.9rem;
+	color: #6a5a1a;
+	line-height: 1.5;
+}
+
+/* All checklist sections on this page use the needs colour, not the rotating category palette */
+.making-guesses .category-header {
+	background-color: var(--needs-header-bg);
+}
+
+.making-guesses .category {
+	--body-bg: #f7faf4;
+}
+
+/* "Show selected only" toggle — plain/neutral when active, no colour tint */
+.making-guesses .selected-only-toggle.mode-icon-active,
+.making-guesses .selected-only-toggle.mode-icon-active:hover {
+	background: rgba(0, 0, 0, 0.07);
+	color: #555;
+	border-color: rgba(0, 0, 0, 0.2);
+}
 
 .guesses-section {
 	display: flex;

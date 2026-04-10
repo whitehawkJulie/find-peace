@@ -20,8 +20,12 @@ const BodySensationsPopup = ({ selected, onToggle, onCustomChange, customText, o
 	return (
 		<div className="body-sens-backdrop" onClick={onClose}>
 			<div className="body-sens-popup" onClick={(e) => e.stopPropagation()}>
-				<h2>Optional body check-in</h2>
+				<div className="body-sens-header">
+					<h2 className="body-sens-title">Optional body check-in</h2>
+					<button className="body-sens-close" onClick={onClose} aria-label="Close">×</button>
+				</div>
 
+				<div className="body-sens-body">
 				<p>
 					<strong>Take a moment and notice what your body is doing right now.</strong>
 
@@ -107,6 +111,7 @@ const BodySensationsPopup = ({ selected, onToggle, onCustomChange, customText, o
 				<button className="body-sens-done" onClick={onClose}>
 					Done
 				</button>
+				</div>
 			</div>
 		</div>
 	);

@@ -12,7 +12,10 @@ const Review = () => {
 
 	return (
 		<div className="review">
-			<p>You've taken the time to slow down and listen to what was happening for you. What did you learn?</p>
+			<div className="review-arrival">
+				<p className="review-arrival-main">You've taken the time to slow down and listen to what was happening for you.</p>
+				<p className="review-arrival-sub">What did you learn?</p>
+			</div>
 
 			<p className="review-reflection-prompt">
 				{"Would you like to make any final notes on what you learned, or what stood out to you?"}

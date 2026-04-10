@@ -1,5 +1,34 @@
 /* .step-feelings layout provided by .step-container in App.css */
 
+/* ── Return-to-moment orienting prompt ── */
+
+.feelings-return-prompt {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+	background: #eef5ee;
+	border-left: 3px solid #7ab88a;
+	border-radius: 8px;
+	padding: 0.75rem 1rem;
+}
+
+.feelings-return-arrow {
+	font-size: 1.3rem;
+	color: #5a9e6d;
+	line-height: 1.2;
+	flex-shrink: 0;
+	margin-top: 0.05rem;
+}
+
+.feelings-return-questions {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+	margin-top: 0.3rem;
+	font-size: 0.88rem;
+	color: #555;
+}
+
 /* Subtle inline link for body sensations helper */
 .feelings-body-sens-link {
 	display: inline;

@@ -1,5 +1,48 @@
 /* .step-whats-changed and .request-formulation layout provided by .step-container in App.css */
 
+/* ── Before / Now sections ── */
+
+.changed-section {
+	border-radius: 10px;
+	padding: 0.9rem 1rem;
+}
+
+.changed-section--before {
+	background: #faf6f2;
+	border: 1px solid #e0d4c8;
+}
+
+.changed-section--now {
+	background: #f2f8f4;
+	border: 1px solid #c0d9c8;
+}
+
+.changed-section-heading {
+	font-size: 0.78rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.07em;
+	margin: 0 0 0.5rem !important;
+}
+
+.changed-section--before .changed-section-heading {
+	color: #8a7060;
+}
+
+.changed-section--now .changed-section-heading {
+	color: #3a6e50;
+}
+
+.changed-bridge {
+	text-align: center;
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: #5a9e6d;
+	margin: -0.25rem 0;
+}
+
 .request-section {
 	display: flex;
 	flex-direction: column;

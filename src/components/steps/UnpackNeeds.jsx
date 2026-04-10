@@ -372,10 +372,12 @@ const UnpackNeeds = () => {
 							</button>
 						</div>
 
+						<div className="need-explore-body">
+
 						{/* Stage 1 accordion — only for non-PRACTICAL needs */}
 						{!isPractical && (
-							<>
-								<h3>Is there a deeper need underneath this?</h3>
+							<div className="unpacking-chunk">
+								<h3 className="unpacking-chunk-heading">Is there a deeper need underneath this?</h3>
 								<p>
 									First, let's make sure we're with what matters most. Sometimes the first need we
 									find is just the surface — something deeper may be calling.
@@ -414,11 +416,12 @@ const UnpackNeeds = () => {
 										</div>
 									)}
 								</div>
-							</>
+							</div>
 						)}
 
 						{/* Stage 2 accordion */}
-						<h3>Get to know how the need lives in YOU</h3>
+						<div className="unpacking-chunk unpacking-chunk--second">
+						<h3 className="unpacking-chunk-heading">Get to know how the need lives in YOU</h3>
 						<p>
 							Next, we'll explore how this need shows up and how it wants to be met. This is where the
 							real shift happens — the more you connect with the lived experience of the need, the more
@@ -560,6 +563,10 @@ const UnpackNeeds = () => {
 								</div>
 							)}
 						</div>
+
+						</div>{/* end unpacking-chunk--second */}
+
+						</div>{/* end need-explore-body */}
 
 						{/* Footer */}
 						<div className="unpacking-footer">

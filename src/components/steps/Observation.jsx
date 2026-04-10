@@ -1,5 +1,6 @@
 import React from "react";
 import { useWizard } from "../WizardContext";
+import OptionalBanner from "../OptionalBanner";
 import "./Observation.css";
 
 // ── Main step component ────────────────────────────────────────────────────
@@ -9,14 +10,14 @@ const Observation = () => {
 
 	return (
 		<div className="step-observation step-container">
+			<OptionalBanner message="Feel free to skim or skip — getting this out can help, but it's not essential." />
 			<div>
 				<p>
-					<strong>OPTIONAL: </strong>Before we try to make sense of it, feel free to just let it all out. This
-					section isn't about being fair or accurate — just letting the first wave out, expressing your raw
-					feelings and thoughts.
+					Before we try to make sense of it, feel free to just let it all out. This section isn't about being
+					fair or accurate — just letting the first wave out, expressing your raw feelings and thoughts.
 				</p>
-				<p className="obs-panel-intro">
-					{"If you said the uncensored version in one breath, what would it be?"}
+				<p className="obs-textarea-label">
+					{"The uncensored version:"}
 				</p>
 				<textarea
 					data-field-id="jackal-talk"

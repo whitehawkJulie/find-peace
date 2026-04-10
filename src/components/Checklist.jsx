@@ -228,6 +228,29 @@ const Checklist = ({
 				const sectionRegType = section.regulationType || null;
 				const showSelectedOnly = sectionSelectedOnly[sectionHeading] || false;
 
+				const sectionHeader = (
+					<div
+						className="category-header"
+						onClick={() => toggleCategory(sectionHeading)}
+						title={collapsedCategories[sectionHeading] ? "Expand section" : "Collapse section"}>
+						<h3 className="category-title">
+							{sectionHeading}
+							{categoryHelpIcons[sectionHeading] && (
+								<button
+									className="category-help-icon"
+									title="What's this?"
+									onClick={(e) => {
+										e.stopPropagation();
+										categoryHelpIcons[sectionHeading]();
+									}}>
+									?
+								</button>
+							)}
+						</h3>
+						{renderHeaderControls(sectionHeading, groups, index)}
+					</div>
+				);
+
 				// In quick mode, render flat pills without subcategory headings
 				if (mode === "quick") {
 					let quickPicks = getQuickPicksFlat(groups, sectionRegType);
@@ -262,7 +285,7 @@ const Checklist = ({
 								{!collapsedCategories[sectionHeading] && (
 									<div className="subcategories">
 										{index === 0 && headerContent}
-										<div className="pill-grid cloud" style={{ padding: "1rem" }}>
+										<div className="pill-grid" style={{ padding: "1rem" }}>
 											{quickPicks.map(renderPill)}
 										</div>
 										{afterGroupContent &&
@@ -275,30 +298,42 @@ const Checklist = ({
 					}
 				}
 
+				// Short mode with subcategory icons — one row per subcategory, icon inline, no heading text
+				if (mode === "short" && Object.keys(subcategoryIcons).length > 0 && !showSelectedOnly) {
+					return (
+						<div key={sectionHeading} className={`category category-${index % 8}`}>
+							{sectionHeader}
+							{!collapsedCategories[sectionHeading] && (
+								<div className="subcategories">
+									{index === 0 && headerContent}
+									{sortedGroups.map(([groupKey, group]) => {
+										const visibleItems = getVisibleItems(group.items, mode);
+										if (visibleItems.length === 0) return null;
+										const groupRegType = group.regulationType || sectionRegType;
+										const resolvedItems = visibleItems.map((it) => ({
+											...it,
+											_resolvedRegType: it.regulationType || groupRegType || null,
+										}));
+										return (
+											<div key={groupKey} className="subcategory subcategory--compact">
+												<div className="pill-grid pill-grid--row">
+													{subcategoryIcons[groupKey] && React.createElement(subcategoryIcons[groupKey], {
+														className: "subcategory-icon-inline",
+														"aria-hidden": true,
+													})}
+													{resolvedItems.map(renderPill)}
+												</div>
+											</div>
+										);
+									})}
+								</div>
+							)}
+						</div>
+					);
+				}
+
 				// Short / full modes — render with subcategory headings.
 				// Exception: when showSelectedOnly, render a flat cloud sorted strong (double-clicked) first.
-				const sectionHeader = (
-					<div
-						className="category-header"
-						onClick={() => toggleCategory(sectionHeading)}
-						title={collapsedCategories[sectionHeading] ? "Expand section" : "Collapse section"}>
-						<h3 className="category-title">
-							{sectionHeading}
-							{categoryHelpIcons[sectionHeading] && (
-								<button
-									className="category-help-icon"
-									title="What's this?"
-									onClick={(e) => {
-										e.stopPropagation();
-										categoryHelpIcons[sectionHeading]();
-									}}>
-									?
-								</button>
-							)}
-						</h3>
-						{renderHeaderControls(sectionHeading, groups, index)}
-					</div>
-				);
 
 				if (showSelectedOnly) {
 					const allSelected = [];

@@ -1,5 +1,6 @@
 import React from "react";
 import { useWizard } from "../WizardContext";
+import OptionalBanner from "../OptionalBanner";
 import "./RequestFormulation.css";
 
 const ExploringWhatsChanged = () => {
@@ -11,20 +12,19 @@ const ExploringWhatsChanged = () => {
 
 	return (
 		<div className="step-whats-changed step-container">
+			<OptionalBanner message="Take what's useful — this section is a gentle check-in, not essential." />
 			<>
 				<p>
-					<strong>OPTIONAL:</strong> Let's take a moment to notice what's changed inside you, if anything.
+					Let's take a moment to notice what's changed inside you, if anything.
 				</p>
 
 				<p>
 					This isn't about finding solutions yet — it's simply a chance to notice any shift, if there is one.
 				</p>
-
-				{/* <p>Here we're noticing what's different, so that you can recognise the shift before moving on.</p> */}
 			</>
 
-			<div className="request-section">
-				<h3>Before this process</h3>
+			<div className="request-section changed-section changed-section--before">
+				<h3 className="changed-section-heading">Before this process</h3>
 				<p>
 					How might you have handled this situation before doing this process? If you approached the person
 					from the place you were in at the beginning… what would likely happen?
@@ -38,8 +38,10 @@ const ExploringWhatsChanged = () => {
 				/>
 			</div>
 
-			<div className="request-section">
-				<h3>Now</h3>
+			<div className="changed-bridge" aria-hidden="true">↓ now</div>
+
+			<div className="request-section changed-section changed-section--now">
+				<h3 className="changed-section-heading">Now</h3>
 				<p>
 					What might you want to do differently now? If you approached from where you are now… what might be
 					different? What's changed?

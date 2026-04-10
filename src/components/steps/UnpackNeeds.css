@@ -185,8 +185,8 @@
 
 /* ── Footer — pushed to bottom ── */
 .unpacking-footer {
-	margin-top: auto;
-	padding-top: 1rem;
+	margin-top: 0.5rem;
+	padding: 0.75rem 1.4rem 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -230,7 +230,7 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, 0.35);
+	background: rgba(0, 0, 0, 0.6);
 	z-index: 1100;
 	display: flex;
 	align-items: flex-start;
@@ -241,15 +241,15 @@
 }
 
 .need-explore-popup {
-	background: #fffdf5;
+	background: #f9f7f4;
 	border-radius: 14px;
-	padding: 1.25rem 1.4rem 1.4rem;
+	padding: 0 0 1.4rem;
 	max-width: 480px;
 	width: 100%;
-	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 	display: flex;
 	flex-direction: column;
-	gap: 0.9rem;
+	overflow: hidden;
 }
 
 .need-explore-header {
@@ -257,29 +257,64 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: 0.5rem;
+	background: var(--popup-header-bg);
+	border-bottom: 1px solid var(--popup-header-border);
+	padding: 1.1rem 1.25rem 0.9rem;
+	flex-shrink: 0;
 }
 
 .need-explore-title {
 	margin: 0;
 	font-size: 1.15rem;
-	color: #2e5236;
+	color: var(--popup-header-text);
 	text-transform: capitalize;
+	font-weight: 700;
+	letter-spacing: 0.01em;
 }
 
 .need-explore-close {
-	background: none;
+	background: rgba(0, 0, 0, 0.07);
 	border: none;
-	font-size: 1.4rem;
+	font-size: 1.2rem;
 	line-height: 1;
-	color: #aaa;
+	color: var(--popup-close-color);
 	cursor: pointer;
-	padding: 0 0.25rem;
+	padding: 0.3rem 0.55rem;
+	border-radius: 50%;
 	float: none;
 	flex-shrink: 0;
+	transition: background 0.15s, color 0.15s;
 }
 
 .need-explore-close:hover {
-	color: #666;
+	background: rgba(0, 0, 0, 0.12);
+	color: var(--popup-header-text);
+}
+
+.need-explore-body {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	padding: 0 1.4rem;
+}
+
+.unpacking-chunk {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	padding: 1.1rem 0 0;
+}
+
+.unpacking-chunk--second {
+	padding-top: 1.4rem;
+	margin-top: 0.75rem;
+	border-top: 1px solid #dde8dd;
+}
+
+.unpacking-chunk-heading {
+	margin: 0;
+	font-size: 1rem;
+	color: #2e5236;
 }
 
 /* ── Pills with remove button ── */
@@ -311,7 +346,9 @@
 	height: 0.9rem;
 	border-radius: 50%;
 	flex-shrink: 0;
-	transition: background 0.15s, color 0.15s;
+	transition:
+		background 0.15s,
+		color 0.15s;
 }
 
 .pill-remove-x:hover {

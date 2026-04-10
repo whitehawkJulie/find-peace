@@ -21,22 +21,9 @@ const MakingGuesses = () => {
 				</HelpLink>
 			</p>
 
-			<p>
-				<em>Remember: The point isn't to guess correctly. It's simply to widen the frame.</em>
-			</p>
-
-			<p>There are three parts:</p>
-			<ul>
-				<li>
-					what they might have <strong>observed</strong>
-				</li>
-				<li>
-					how they might be <strong>feeling</strong>
-				</li>
-				<li>
-					and what they might be <strong>needing</strong>
-				</li>
-			</ul>
+			<div className="guesses-reminder">
+				💡 The point isn't to guess correctly — it's simply to widen the frame.
+			</div>
 
 			<div className="guesses-section">
 				<h2>{"What might they have observed?"}</h2>
