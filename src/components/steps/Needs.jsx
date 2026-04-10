@@ -55,7 +55,7 @@ const Needs = () => {
 
 			{renderOrderedFeelings(feelings)}
 
-			<p>Just notice what feels alive. Select all that feel relevant.</p>
+			<p>Just notice what feels alive. Select all that feel relevant to the moment you described.</p>
 
 			<DismissibleHint id="click-needs-twice">
 				HINT: Tap twice on any need that feels especially strong or urgent.

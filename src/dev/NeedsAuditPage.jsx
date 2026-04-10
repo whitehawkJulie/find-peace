@@ -24,7 +24,19 @@ function flattenedRow(need) {
 	};
 }
 
-const COL_COUNT = 5;
+const COL_COUNT = 6;
+
+function tierLabel(r) {
+	if (r.ui?.quickPick) return "Quick";
+	if (r.ui?.tier === "more") return "Full only";
+	return "Short+";
+}
+
+function tierColor(r) {
+	if (r.ui?.quickPick) return { background: "#d1fae5", color: "#065f46" };
+	if (r.ui?.tier === "more") return { background: "#fef3c7", color: "#92400e" };
+	return { background: "#e0e7ff", color: "#3730a3" };
+}
 
 const cellStyle = {
 	padding: "8px 12px",
@@ -153,6 +165,28 @@ export default function NeedsAuditPage() {
 		}
 	};
 
+	const [copyLabel, setCopyLabel] = useState("Copy needs list");
+
+	const copyNeedsList = () => {
+		const lines = [];
+		let lastFamily = null;
+		for (const { family: fam, category: cat, rows: groupRows } of groupedSorted) {
+			if (fam !== lastFamily) {
+				if (lastFamily !== null) lines.push("");
+				lines.push(fam.toUpperCase());
+				lastFamily = fam;
+			}
+			lines.push(`  ${cat}`);
+			for (const r of groupRows) {
+				lines.push(`    ${r.label}`);
+			}
+		}
+		navigator.clipboard.writeText(lines.join("\n")).then(() => {
+			setCopyLabel("Copied!");
+			setTimeout(() => setCopyLabel("Copy needs list"), 2000);
+		});
+	};
+
 	return (
 		<div style={{ padding: 16, maxWidth: 1600, margin: "0 auto" }}>
 			<h2 style={{ marginBottom: 8 }}>Needs Audit</h2>
@@ -212,8 +246,25 @@ export default function NeedsAuditPage() {
 					/>
 					Missing only
 				</label>
-				<div style={{ marginLeft: "auto", opacity: 0.8 }}>
-					Showing <strong>{sorted.length}</strong> of {allRows.length}
+				<div style={{ marginLeft: "auto", display: "flex", gap: 12, alignItems: "center" }}>
+					<span style={{ opacity: 0.8 }}>
+						Showing <strong>{sorted.length}</strong> of {allRows.length}
+					</span>
+					<button
+						onClick={copyNeedsList}
+						style={{
+							padding: "7px 14px",
+							background: copyLabel === "Copied!" ? "#4a7c59" : "#555",
+							color: "white",
+							border: "none",
+							borderRadius: 6,
+							cursor: "pointer",
+							fontSize: "0.85em",
+							fontWeight: 600,
+							float: "none",
+						}}>
+						{copyLabel}
+					</button>
 				</div>
 			</div>
 
@@ -221,6 +272,7 @@ export default function NeedsAuditPage() {
 				<table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
 					<colgroup>
 						<col style={{ width: "130px" }} />
+						<col style={{ width: "80px" }} />
 						<col style={{ width: "120px" }} />
 						<col style={{ width: "160px" }} />
 						<col />
@@ -230,6 +282,7 @@ export default function NeedsAuditPage() {
 						<tr>
 							{[
 								["label", "Need"],
+								["tier", "Tier"],
 								["whereMetStr", "whereMet"],
 								["themesStr", "themes"],
 								["coreQuestion", "Core question"],
@@ -304,6 +357,18 @@ export default function NeedsAuditPage() {
 													(e.currentTarget.style.background = "white")
 												}>
 												<td style={{ ...cellStyle, fontWeight: 500 }}>{r.label}</td>
+												<td style={cellStyle}>
+													<span style={{
+														...tierColor(r),
+														fontSize: "0.75em",
+														fontWeight: 600,
+														padding: "2px 7px",
+														borderRadius: 10,
+														whiteSpace: "nowrap",
+													}}>
+														{tierLabel(r)}
+													</span>
+												</td>
 												<td style={{ ...cellStyle, fontSize: "0.8em", color: "#555" }}>
 													{r.whereMetStr}
 												</td>

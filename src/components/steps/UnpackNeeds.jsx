@@ -375,6 +375,7 @@ const UnpackNeeds = () => {
 						{/* Stage 1 accordion — only for non-PRACTICAL needs */}
 						{!isPractical && (
 							<>
+								<h3>Is there a deeper need underneath this?</h3>
 								<p>
 									First, let's make sure we're with what matters most. Sometimes the first need we
 									find is just the surface — something deeper may be calling.
@@ -417,6 +418,7 @@ const UnpackNeeds = () => {
 						)}
 
 						{/* Stage 2 accordion */}
+						<h3>Get to know how the need lives in YOU</h3>
 						<p>
 							Next, we'll explore how this need shows up and how it wants to be met. This is where the
 							real shift happens — the more you connect with the lived experience of the need, the more

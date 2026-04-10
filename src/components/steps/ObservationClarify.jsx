@@ -10,8 +10,8 @@ const ObservationClarify = () => {
 		<div className="step-observation step-container">
 			<p>
 				When things feel intense, human brains go into <HelpLink topic="threat-mode">threat mode</HelpLink> —
-				fast, certain, reactive, and creates a story that feels 100% true, but contains assumptions and a lot of
-				blame. This can lead to words and actions that aren't as helpful as they seem at the time.
+				fast, certain, reactive, and we create a story that feels 100% true, but contains assumptions and a lot
+				of blame. This can lead to words and actions that aren't as helpful as they seem at the time.
 			</p>
 			<p>
 				Here we're separating what happened from the story, so that we can start to move out of that reaction

@@ -31,6 +31,18 @@ const NvcWizard = () => {
 	const isPopState = useRef(false);
 	const mounted = useRef(false);
 
+	// Snapshot of feelings/needs at the moment the current page was entered,
+	// so we can diff on exit and report only what changed on this page.
+	const fnEnterSnapshotRef = useRef({ feelings: {}, needs: {} });
+
+	const captureEnterSnapshot = () => {
+		const { feelings: f, needs: n } = sessionDataRef.current;
+		fnEnterSnapshotRef.current = {
+			feelings: { ...(f || {}) },
+			needs: { ...(n || {}) },
+		};
+	};
+
 	// Warn before leaving the page if the user has unsaved changes; also fire session_end analytics
 	const sessionEndFiredRef = useRef(false);
 	useEffect(() => {
@@ -109,18 +121,42 @@ const NvcWizard = () => {
 		if (!mounted.current) {
 			mounted.current = true;
 			history.replaceState({ stepIndex: 0 }, "");
+			captureEnterSnapshot();
 			startPage(pageName);
 			trackEvent("page_view", { page_name: pageName });
 			return;
 		}
-		// Helper: derive feelings/needs arrays from context objects for page_exit snapshot
-		const getFNSnapshot = () => {
+		// Helper: diff feelings/needs against the snapshot taken when this page was entered.
+		// Reports only what changed during this page visit.
+		const getFNDiff = () => {
 			const { feelings: f, needs: n } = sessionDataRef.current;
+			const { feelings: ef, needs: en } = fnEnterSnapshotRef.current;
+
+			const diff = (current, enter) => {
+				const added = [], removed = [], strengthened = [], weakened = [];
+				const allKeys = new Set([...Object.keys(current || {}), ...Object.keys(enter || {})]);
+				for (const key of allKeys) {
+					const was = enter[key] || null;
+					const is = current[key] || null;
+					if (!was && is) added.push(key);
+					else if (was && !is) removed.push(key);
+					else if (was === "clicked" && is === "double-clicked") strengthened.push(key);
+					else if (was === "double-clicked" && is === "clicked") weakened.push(key);
+				}
+				return { added, removed, strengthened, weakened };
+			};
+
+			const fd = diff(f, ef);
+			const nd = diff(n, en);
 			return {
-				feelings_selected: Object.entries(f || {}).filter(([, s]) => s === "clicked").map(([name]) => name),
-				feelings_strong:   Object.entries(f || {}).filter(([, s]) => s === "double-clicked").map(([name]) => name),
-				needs_selected:    Object.entries(n || {}).filter(([, s]) => s === "clicked").map(([name]) => name),
-				needs_strong:      Object.entries(n || {}).filter(([, s]) => s === "double-clicked").map(([name]) => name),
+				feelings_added: fd.added,
+				feelings_removed: fd.removed,
+				feelings_strengthened: fd.strengthened,
+				feelings_weakened: fd.weakened,
+				needs_added: nd.added,
+				needs_removed: nd.removed,
+				needs_strengthened: nd.strengthened,
+				needs_weakened: nd.weakened,
 			};
 		};
 
@@ -128,16 +164,18 @@ const NvcWizard = () => {
 		if (isPopState.current) {
 			isPopState.current = false;
 			const times = endPage();
-			trackEvent("page_exit", { page_name: prevName, ...times, ...getFNSnapshot() });
+			trackEvent("page_exit", { page_name: prevName, ...times, ...getFNDiff() });
 			trackEvent("backtrack", { page_name: pageName });
+			captureEnterSnapshot();
 			startPage(pageName);
 			trackEvent("page_view", { page_name: pageName });
 			return;
 		}
 		// Normal step change: push a new history entry
 		const times = endPage();
-		trackEvent("page_exit", { page_name: prevName, ...times, ...getFNSnapshot() });
+		trackEvent("page_exit", { page_name: prevName, ...times, ...getFNDiff() });
 		trackEvent("navigation", { from_page: prevName, to_page: pageName, method: consumeNavMethod() ?? "button" });
+		captureEnterSnapshot();
 		startPage(pageName);
 		trackEvent("page_view", { page_name: pageName });
 		history.pushState({ stepIndex }, "");

@@ -47,7 +47,10 @@ const Introduction = () => {
 			</ul>
 
 			<p>
-				… this process is for you. <HelpLink topic="this-process">More about this process</HelpLink>
+				… this process is for you.{" "}
+				<HelpLink topic="this-process" aside>
+					More about this process
+				</HelpLink>
 			</p>
 			<p>It helps you pause and get clear on:</p>
 			<ul>
