@@ -1,5 +1,5 @@
 import React from "react";
-import { useWizard } from "./WizardContext";
+import { useWizard } from "../WizardContext";
 
 const SimpleRequest = () => {
 	const { simpleRequest, setSimpleRequest } = useWizard();

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useCallback } from "react";
-import { useWizard } from "./WizardContext";
-import { filterByState } from "../utils/renderHelpers";
-import HelpLink from "../components/HelpLink";
+import { useWizard } from "../WizardContext";
+import { filterByState } from "../../utils/renderHelpers";
+import HelpLink from "../HelpLink";
 
-const STEP_IDS = ["step1", "step2", "step3", "step4", "step5", "step6"];
+const STEP_IDS = ["step1", "step2", "step2a", "step3", "step4", "step5", "step6"];
 
 const STEP_DATA = {
 	step1: {
@@ -13,13 +13,21 @@ const STEP_DATA = {
 		scriptDefault: "Hey, is now a good time to talk about something?",
 	},
 	step2: {
-		title: "Understand them first",
-		desc: "Let them know you want to understand their side, and offer your guesses about how it might have been for them. \
-		AND be willing to hear their corrections, if you've guessed wrongly.",
-		hint: "When people feel understood, things often soften.",
-		scriptDefault: "I'd really like to understand what was going on for you earlier.",
+		title: "Express your guesses for them, first",
+		desc: "Let them know you want to understand their side, and offer your guesses about how it might have been for them \
+			AND be willing to hear their corrections, if you've guessed wrongly.",
+		hint: "Make it clear that they are guesses, not an analysis of them. Also, if you've guessed a lot of feelings and needs, you might want to focus on the most significant ones.",
+		scriptDefault: "I'd really like to understand how it was for you at that time.",
 		helpQuestion: "Why express guesses first?",
 		helpTopicId: "collab-understand-them",
+	},
+	step2a: {
+		title: "Keep checking your understanding of them",
+		desc: "We don't just offer our guesses - we check if we're understanding them right, and invite them to correct us if not.",
+		hint: "When people feel understood, they often soften.",
+		scriptDefault: "Is that right?",
+		// helpQuestion: "What if they're not ready to listen?",
+		// helpTopicId: "collab-check-willingness",
 	},
 	step3: {
 		title: "Check they're open to hearing you",
@@ -29,10 +37,12 @@ const STEP_DATA = {
 		helpQuestion: "What if they're not ready to listen?",
 		helpTopicId: "collab-check-willingness",
 	},
+
 	step4: {
 		title: "Share your experience",
-		desc: "Keep it simple and grounded in your experience, rather than your thoughts about THEM. You might like to edit the following \
-		down to the 2 or 3 loudest of your feelings, and your and needs, rather than a list of 10 or 20, which can be overwhelming.",
+		desc: "Sharing your observation, feels and needs keeps it simple and grounded in your experience, \
+		rather than expressing your thoughts about THEM. You might like to edit the following \
+		down to the 2 or 3 loudest of your feelings, and your and needs.",
 		hint: "You don't have to get this exactly right.",
 		scriptDefault: "When [what happened], I felt [feeling], because I was needing [need].",
 		helpQuestion: "How do I share without it coming out as blame?",
@@ -68,82 +78,6 @@ const SCRIPT_HEADINGS = {
 	mutualSolution: "=== FIND A MUTUAL SOLUTION ===",
 };
 
-// Per-step extraHelp JSX — kept for reference; content moved to StandaloneHelpTopics
-// const renderExtraHelp = (stepId) => {
-// 	switch (stepId) {
-// 		case "step2":
-// 			return (
-// 				<>
-// 					<p>
-// 						This might take a bit of listening. You don't have to agree with them — just focus on
-// 						understanding what it was like for them.
-// 					</p>
-// 					<p>If you're not sure, you can gently guess:</p>
-// 					<ul>
-// 						<li>{'"Were you feeling…?"'}</li>
-// 						<li>{'"Was it because you were needing…?"'}</li>
-// 					</ul>
-// 					<p>
-// 						If your guess is off, that's okay — they'll usually correct you, and that helps you get closer.
-// 					</p>
-// 				</>
-// 			);
-// 		case "step3":
-// 			return (
-// 				<>
-// 					<p>If they say no, or seem defensive, it usually means they're not ready yet.</p>
-// 					<p>You might:</p>
-// 					<ul>
-// 						<li>{"Come back to listening to them a bit more"}</li>
-// 						<li>{"Take a break and return later"}</li>
-// 					</ul>
-// 					<p>This isn't failure — it's pacing.</p>
-// 				</>
-// 			);
-// 		case "step4":
-// 			return (
-// 				<>
-// 					<p>Try to stay with:</p>
-// 					<ul>
-// 						<li>{"What actually happened (not interpretations)"}</li>
-// 						<li>{"How you felt"}</li>
-// 						<li>{"What you were needing"}</li>
-// 					</ul>
-// 					<p>
-// 						{
-// 							'If you notice blame or "you always / you never" creeping in, gently come back to talking about your own internal experience, rather than your thoughts about them.'
-// 						}
-// 					</p>
-// 				</>
-// 			);
-// 		case "step5":
-// 			return (
-// 				<>
-// 					<p>If they didn't quite get it, that's okay — you can try again more simply.</p>
-// 					<p>You might say:</p>
-// 					<ul>
-// 						<li>{'"Not quite — what I meant was…"'}</li>
-// 					</ul>
-// 					<p>This step helps reduce misunderstandings before moving forward.</p>
-// 				</>
-// 			);
-// 		case "step6":
-// 			return (
-// 				<>
-// 					<p>You're looking for something that works for both of you — not just one person "winning".</p>
-// 					<p>It can help to keep it:</p>
-// 					<ul>
-// 						<li>{"Specific"}</li>
-// 						<li>{"Doable"}</li>
-// 						<li>{"Open to adjustment"}</li>
-// 					</ul>
-// 				</>
-// 			);
-// 		default:
-// 			return null;
-// 	}
-// };
-
 const buildFinalScript = (script) => {
 	const h = (key) => SCRIPT_HEADINGS[key];
 	const parts = [];
@@ -154,10 +88,7 @@ const buildFinalScript = (script) => {
 
 	parts.push(h("expressGuesses"));
 	if (script.step2) parts.push(script.step2);
-	parts.push("");
-
-	parts.push(h("checkUnderstood"));
-	parts.push(h("checkUnderstoodPrompt"));
+	if (script.step2a) parts.push(script.step2a);
 	parts.push("");
 
 	parts.push(h("checkWillingnessHear"));
@@ -228,11 +159,11 @@ const Collaborate = () => {
 		let step2 = "";
 		if (guessObservation || guessFeelStr || guessNeedStr) {
 			if (guessObservation && (guessFeelStr || guessNeedStr)) {
-				step2 = `I'm wondering what it was like for you when ${guessObservation}, if you might have been feeling ${guessFeelStr || "[feeling]"}, and wanting ${guessNeedStr || "[need]"}.`;
+				step2 = `I'm wondering what it was like for you when\n${guessObservation}\nif you might have been feeling\n${guessFeelStr || "[feeling]"}\nand wanting\n${guessNeedStr || "[need]"}.`;
 			} else if (guessObservation) {
-				step2 = `I'm wondering what it was like for you when ${guessObservation}.`;
+				step2 = `I'm wondering what it was like for you when\n${guessObservation}.`;
 			} else {
-				step2 = `I'd really like to understand how it was for you earlier, if you might have been feeling ${guessFeelStr || "[feeling]"}, and wanting ${guessNeedStr || "[need]"}.`;
+				step2 = `I'd really like to understand how it was for you earlier, if you might have been feeling\n${guessFeelStr || "[feeling]"}\nand wanting\n${guessNeedStr || "[need]"}.`;
 			}
 		}
 
@@ -244,7 +175,7 @@ const Collaborate = () => {
 		const fields = {
 			...defaults,
 			step2: step2 || defaults.step2,
-			step4: `When ${obs}, I felt ${feelStr}, because I was needing ${needStr}.`,
+			step4: `When\n${obs}\nI felt\n${feelStr}\nbecause I was needing\n${needStr}.`,
 		};
 
 		setCollabScript({
@@ -262,11 +193,10 @@ const Collaborate = () => {
 		<div>
 			<p>If you'd like to talk this through with the other person, this can help you plan the conversation.</p>
 			<p>There's no perfect way to do this — just something honest and human.</p>
-			<p>
-				If it still feels urgent in you to explain, defend, or fix things quickly, this might not work so
-				well... try going through the process again, until you feel more settled.
+			<p className="collab-intro-note">
+				We've used what you entered earlier — your feelings, needs, and your guesses about their perspective —
+				to pre-fill the text boxes below. Edit them until they sound like you.
 			</p>
-			<p className="collab-intro-note">{"Use these as prompts, not a script. Let it sound like you."}</p>
 
 			<div className="collab-steps">
 				{STEP_IDS.map((stepId, idx) => {
@@ -275,7 +205,7 @@ const Collaborate = () => {
 					return (
 						<div className="collab-step" key={stepId}>
 							<h3 className="collab-step-title">
-								<span className="collab-step-num">{idx + 1}.</span>
+								<span className="collab-step-num">{stepId.replace("step", "")}.</span>
 								{stepData.title}
 							</h3>
 							<p className="collab-step-desc">{stepData.desc}</p>

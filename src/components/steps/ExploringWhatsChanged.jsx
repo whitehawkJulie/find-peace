@@ -1,5 +1,5 @@
 import React from "react";
-import { useWizard } from "./WizardContext";
+import { useWizard } from "../WizardContext";
 import "./RequestFormulation.css";
 
 const ExploringWhatsChanged = () => {
@@ -12,13 +12,15 @@ const ExploringWhatsChanged = () => {
 	return (
 		<div className="step-whats-changed step-container">
 			<>
-				<p>Let's take a moment to notice what's changed inside you.</p>
+				<p>
+					<strong>OPTIONAL:</strong> Let's take a moment to notice what's changed inside you, if anything.
+				</p>
 
 				<p>
 					This isn't about finding solutions yet — it's simply a chance to notice any shift, if there is one.
 				</p>
 
-				<p>Here we're noticing what's different, so that you can recognise the shift before moving on.</p>
+				{/* <p>Here we're noticing what's different, so that you can recognise the shift before moving on.</p> */}
 			</>
 
 			<div className="request-section">

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import Checklist from "./Checklist";
-import { Needs as NeedsData } from "../data/AllNeedsData";
-import { useWizard } from "./WizardContext";
-import HelpLink from "./HelpLink";
+import Checklist from "../Checklist";
+import { Needs as NeedsData } from "../../data/AllNeedsData";
+import DismissibleHint from "../DismissibleHint";
+
+import { useWizard } from "../WizardContext";
+import HelpLink from "../HelpLink";
 
 import "./Needs.css";
 
@@ -54,7 +56,10 @@ const Needs = () => {
 			{renderOrderedFeelings(feelings)}
 
 			<p>Just notice what feels alive. Select all that feel relevant.</p>
-			<p className="checklist-hint">Tap twice on any need that feels especially strong or urgent.</p>
+
+			<DismissibleHint id="click-needs-twice">
+				HINT: Tap twice on any need that feels especially strong or urgent.
+			</DismissibleHint>
 
 			<Checklist
 				data={[

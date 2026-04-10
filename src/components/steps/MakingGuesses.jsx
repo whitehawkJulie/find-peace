@@ -1,9 +1,10 @@
 import React from "react";
-import { useWizard } from "./WizardContext";
-import Checklist from "./Checklist";
-import HelpLink from "./HelpLink";
-import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
-import { Needs as NeedsData } from "../data/AllNeedsData";
+import { useWizard } from "../WizardContext";
+import Checklist from "../Checklist";
+import HelpLink from "../HelpLink";
+import DismissibleHint from "../DismissibleHint";
+import { AllFeelingsData as FeelingsData } from "../../data/AllFeelingsData";
+import { Needs as NeedsData } from "../../data/AllNeedsData";
 
 import "./MakingGuesses.css";
 
@@ -20,12 +21,25 @@ const MakingGuesses = () => {
 				</HelpLink>
 			</p>
 
-			<p className="guesses-reminder highlight-box">
-				<em>{"Remember: The point isn't to guess correctly. It's simply to widen the frame."}</em>
+			<p>
+				<em>Remember: The point isn't to guess correctly. It's simply to widen the frame.</em>
 			</p>
 
+			<p>There are three parts:</p>
+			<ul>
+				<li>
+					what they might have <strong>observed</strong>
+				</li>
+				<li>
+					how they might be <strong>feeling</strong>
+				</li>
+				<li>
+					and what they might be <strong>needing</strong>
+				</li>
+			</ul>
+
 			<div className="guesses-section">
-				<h3>{"What might they have observed?"}</h3>
+				<h2>{"What might they have observed?"}</h2>
 				<p>What do you think the other person saw or heard? Just the facts, from their point of view.</p>
 				<textarea
 					className="guesses-textarea"
@@ -38,22 +52,26 @@ const MakingGuesses = () => {
 			</div>
 
 			<div className="guesses-section">
-				<h3>{"How might they be feeling?"}</h3>
+				<h2>{"How might they be feeling?"}</h2>
 				<p>
-					What emotions might be alive in them? Select any that seem possible, even if they seem to conflict
-					with each other.
+					What emotions might be alive in them? If you have zero idea, have you ever been in a similar
+					situation to where they were? What might you have felt?
 				</p>
+				<p>TIP: Select any that seem possible, even if they seem to conflict with each other.</p>
+				<DismissibleHint id="guesses-checklists">Tap a section heading to expand it.</DismissibleHint>
+
 				<Checklist
 					data={[FeelingsData.sections.feelings, FeelingsData.sections.feelingsMet]}
 					selectedItems={guessFeelings}
 					setSelectedItems={setGuessFeelings}
 					type="feeling"
 					showListModeToggle
+					defaultCollapsed={["Feelings", "Feelings when our needs are met"]}
 				/>
 			</div>
 
 			<div className="guesses-section">
-				<h3>{"What might they be needing?"}</h3>
+				<h2>{"What might they be needing?"}</h2>
 				<p>
 					What needs of theirs might not be met in this situation? Or, alternately, what needs might they have
 					been trying to meet, in what they said or did?
@@ -68,6 +86,7 @@ const MakingGuesses = () => {
 					selectedItems={guessNeeds}
 					setSelectedItems={setGuessNeeds}
 					type="need"
+					defaultCollapsed={["Subsistence Needs", "Connection Needs", "Meaning Needs", "Freedom Needs"]}
 				/>
 			</div>
 		</div>

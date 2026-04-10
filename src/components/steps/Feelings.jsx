@@ -1,26 +1,27 @@
 import React, { useState } from "react";
-import Checklist from "./Checklist";
-import { AllFeelingsData as FeelingsData, regulationMeta } from "../data/AllFeelingsData";
-import { useWizard } from "./WizardContext";
-import SlideDrawer from "./SlideDrawer";
-import ClarifyFeelings from "./ClarifyFeelings";
-import BodySensationsPopup from "./BodySensationsPopup";
-import HelpLink from "./HelpLink";
+import Checklist from "../Checklist";
+import { AllFeelingsData as FeelingsData, regulationMeta } from "../../data/AllFeelingsData";
+import { useWizard } from "../WizardContext";
+import SlideDrawer from "../SlideDrawer";
+import ClarifyFeelings from "../ClarifyFeelings";
+import BodySensationsPopup from "../BodySensationsPopup";
+import HelpLink from "../HelpLink";
+import DismissibleHint from "../DismissibleHint";
 
-import AfraidIcon from "../assets/afraid.svg?react";
-import TenseIcon from "../assets/tense.svg?react";
-import DisquietIcon from "../assets/disquiet.svg?react";
-import AnnoyedIcon from "../assets/annoyed.svg?react";
-import AngryIcon from "../assets/angry.svg?react";
-import AversionIcon from "../assets/aversion.svg?react";
-import VulnerableIcon from "../assets/vulnerable.svg?react";
-import EmbarrassedIcon from "../assets/embarrassed.svg?react";
-import SadIcon from "../assets/sad.svg?react";
-import PainIcon from "../assets/pain.svg?react";
-import DisconnectedIcon from "../assets/disconnected.svg?react";
-import FatigueIcon from "../assets/fatigue.svg?react";
-import ConfusedIcon from "../assets/confused.svg?react";
-import YearningIcon from "../assets/yearning.svg?react";
+import AfraidIcon from "../../assets/afraid.svg?react";
+import TenseIcon from "../../assets/tense.svg?react";
+import DisquietIcon from "../../assets/disquiet.svg?react";
+import AnnoyedIcon from "../../assets/annoyed.svg?react";
+import AngryIcon from "../../assets/angry.svg?react";
+import AversionIcon from "../../assets/aversion.svg?react";
+import VulnerableIcon from "../../assets/vulnerable.svg?react";
+import EmbarrassedIcon from "../../assets/embarrassed.svg?react";
+import SadIcon from "../../assets/sad.svg?react";
+import PainIcon from "../../assets/pain.svg?react";
+import DisconnectedIcon from "../../assets/disconnected.svg?react";
+import FatigueIcon from "../../assets/fatigue.svg?react";
+import ConfusedIcon from "../../assets/confused.svg?react";
+import YearningIcon from "../../assets/yearning.svg?react";
 
 import "./Feelings.css";
 
@@ -215,11 +216,6 @@ const Feelings = () => {
 			</p>
 
 			<p>
-				When something happens, your body reacts before your mind has worked it out. If we skip that step, we
-				often act on the first story our mind creates — which can lead us in the wrong direction.
-			</p>
-
-			<p>
 				You don’t have to get this perfect. Just notice what’s there — you might find that{" "}
 				<HelpLink topic="feelings">naming feelings</HelpLink> gives you information you didn’t realise you had.
 			</p>
@@ -237,10 +233,12 @@ const Feelings = () => {
 				What feelings are there?
 			</p>
 
-			<p className="checklist-hint">Tap twice on any feeling that's especially strong.</p>
+			<DismissibleHint id="click-feelings-twice">
+				HINT: Tap twice on any feeling that's especially strong.
+			</DismissibleHint>
 
 			<Checklist
-				data={[FeelingsData.sections.feelings, FeelingsData.sections.story]}
+				data={[FeelingsData.sections.feelings]}
 				selectedItems={feelings}
 				setSelectedItems={setFeelings}
 				type="feelings"
@@ -272,7 +270,19 @@ const Feelings = () => {
 						: null
 				}
 				subcategoryIcons={FEELINGS_ICONS}
-			categoryHelpIcons={{
+			/>
+
+			<DismissibleHint id="feelings-extra-sections">HINT: Tap a section heading to open it.</DismissibleHint>
+
+			<Checklist
+				data={[FeelingsData.sections.story]}
+				selectedItems={feelings}
+				setSelectedItems={setFeelings}
+				type="feelings"
+				onItemClick={handleItemClick}
+				onIndicatorClick={handleIndicatorClick}
+				defaultCollapsed={["Story Words (optional)"]}
+				categoryHelpIcons={{
 					[FeelingsData.sections.story.ui.heading]: () => openHelpTopic("story-words"),
 				}}
 			/>
@@ -285,6 +295,7 @@ const Feelings = () => {
 				onIndicatorClick={handleIndicatorClick}
 				showListModeToggle
 				defaultListMode="quick"
+				defaultCollapsed={["Feelings when our needs are met"]}
 				regulationOverlay={showRegulationOverlay}
 			/>
 

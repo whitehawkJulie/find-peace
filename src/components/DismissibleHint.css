@@ -1,0 +1,33 @@
+.dismissible-hint {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+	margin-top: 1rem;
+	padding: 0.5rem 0.75rem;
+	background: #f5f7f4;
+	border-left: 3px solid #a8c4b8;
+	border-radius: 4px;
+	font-size: 0.875rem;
+	color: #5a7a6e;
+}
+
+.dismissible-hint-content {
+	flex: 1;
+}
+
+.dismissible-hint-close {
+	flex: none;
+	float: none;
+	display: inline;
+	background: none;
+	border: none;
+	color: #9ab8ae;
+	font-size: 1rem;
+	line-height: 1;
+	cursor: pointer;
+	padding: 0 0 0 0.25rem;
+}
+
+.dismissible-hint-close:hover {
+	color: #5a7a6e;
+}

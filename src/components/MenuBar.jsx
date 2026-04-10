@@ -4,7 +4,7 @@ import { trackEvent, currentPage, setPendingNavMethod } from "../analytics/analy
 import "./MenuBar.css";
 
 const MenuBar = () => {
-	const { stepIndex, setStepIndex, visibleSteps, allSteps, currentStep, resetSession, hasSessionData } = useWizard();
+	const { stepIndex, setStepIndex, visibleSteps, allSteps, currentStep, resetSession, hasSessionData, setShowSummary } = useWizard();
 
 	const [confirmNew, setConfirmNew] = useState(false);
 
@@ -59,6 +59,16 @@ const MenuBar = () => {
 					style={currentStep?.color ? { background: currentStep.color } : undefined}>
 					<span className="nav-button-label">← Prev</span>
 					{prevTitle && <span className="nav-button-sub">{prevTitle}</span>}
+				</button>
+
+				<button
+					className="nav-summary-btn"
+					onClick={() => setShowSummary(true)}
+					title="View Summary"
+					aria-label="View Summary"
+				>
+					<span className="nav-summary-icon">📋</span>
+					<span className="nav-summary-label">Summary</span>
 				</button>
 
 				{hasNext ? (

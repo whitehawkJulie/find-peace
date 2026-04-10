@@ -151,7 +151,7 @@ const SummaryContent = () => {
 				</div>
 			)}
 
-			{metNeeds.length > 0 && (
+			{(metNeeds.length > 0 || unmetNeeds.length > 0) && (
 				<div className="review-section">
 					<h3>Unmet needs</h3>
 					<p>
@@ -160,13 +160,6 @@ const SummaryContent = () => {
 					<p>{unmetNeeds.join(", ")}</p>
 				</div>
 			)}
-
-			{/* {unmetNeeds.length > 0 && (
-				<div className="review-section">
-					<h3>Unmet needs</h3>
-					<p>{unmetNeeds.join(", ")}</p>
-				</div>
-			)} */}
 
 			{exploredNeeds.length > 0 && (
 				<div className="review-section">
@@ -312,7 +305,8 @@ const SummaryContent = () => {
 						<div className="review-convo-script">
 							{[
 								["1. Start with permission", collabScript.step1],
-								["2. Understand them first", collabScript.step2],
+								["2. Express your guesses for them, first", collabScript.step2],
+								["2a. Keep checking your understanding of them", collabScript.step2a],
 								["3. Check they're open to hearing you", collabScript.step3],
 								["4. Share your experience", collabScript.step4],
 								["5. Check they got it", collabScript.step5],

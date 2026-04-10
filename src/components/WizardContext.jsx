@@ -9,17 +9,18 @@ const WizardContext = createContext();
 export const useWizard = () => useContext(WizardContext);
 
 // Step components
-import Introduction from "./Introduction";
-import Observation from "./Observation";
-import Feelings from "./Feelings";
-import Needs from "./Needs";
-import UnpackNeeds from "./UnpackNeeds";
-import MakingGuesses from "./MakingGuesses";
-import RequestFormulation from "./RequestFormulation";
-import ExploringWhatsChanged from "./ExploringWhatsChanged";
-import ConversationsAndCollaboration from "./ConversationsAndCollaboration";
-import Review from "./Review";
-import UnpackFeelings from "./UnpackFeelings";
+import Introduction from "./steps/Introduction";
+import Observation from "./steps/Observation";
+import ObservationClarify from "./steps/ObservationClarify";
+import Feelings from "./steps/Feelings";
+import Needs from "./steps/Needs";
+import UnpackNeeds from "./steps/UnpackNeeds";
+import MakingGuesses from "./steps/MakingGuesses";
+import RequestFormulation from "./steps/RequestFormulation";
+import ExploringWhatsChanged from "./steps/ExploringWhatsChanged";
+import ConversationsAndCollaboration from "./steps/ConversationsAndCollaboration";
+import Review from "./steps/Review";
+import UnpackFeelings from "./steps/UnpackFeelings";
 
 // Step icons
 import introIcon from "../images/icons/intro.svg";
@@ -69,6 +70,7 @@ const allSteps = [
 			</>
 		),
 	},
+	{ component: ObservationClarify, group: "understand", color: "#5F8F82", icon: observationIcon },
 	{
 		component: Feelings,
 		group: "understand",

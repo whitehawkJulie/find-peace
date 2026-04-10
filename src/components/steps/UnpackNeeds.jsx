@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useWizard } from "./WizardContext";
-import { useOverlayHistory } from "../hooks/useOverlayHistory";
-import { getNeedData, resolveNeedUnpackingType } from "../utils/renderHelpers";
-import { UNPACKING_TYPE, unpackingTypeData } from "../data/unpackingTypeData";
-import HelpLink from "../components/HelpLink";
-import { trackEvent, currentPage } from "../analytics/analytics";
+import { useWizard } from "../WizardContext";
+import { useOverlayHistory } from "../../hooks/useOverlayHistory";
+import { getNeedData, resolveNeedUnpackingType } from "../../utils/renderHelpers";
+import { UNPACKING_TYPE, unpackingTypeData } from "../../data/unpackingTypeData";
+import HelpLink from "../HelpLink";
+import { trackEvent, currentPage } from "../../analytics/analytics";
+import DismissibleHint from "../DismissibleHint";
 
-import AudioPlayer from "./AudioPlayer";
-import meditationAudio from "../assets/Beauty_of_need.mp3";
+import AudioPlayer from "../AudioPlayer";
+import meditationAudio from "../../assets/Beauty_of_need.mp3";
 import "./UnpackNeeds.css";
 
 const PRACTICAL = UNPACKING_TYPE.PRACTICAL;
@@ -35,6 +36,9 @@ const UnpackNeeds = () => {
 
 	// Pending removal confirmation
 	const [pendingRemoveNeed, setPendingRemoveNeed] = useState(null);
+
+	const { feelings, observation } = useWizard();
+	const hasStarted = Object.keys(feelings).length > 0 || Object.keys(needs).length > 0 || observation?.moment?.trim();
 
 	// Initialise the data record when entering exploration
 	useEffect(() => {
@@ -135,8 +139,11 @@ const UnpackNeeds = () => {
 			popupOpenAt.current = Date.now();
 			trackEvent("ui_open", { type: "modal", name: "explore-need", page_name: currentPage });
 		} else if (popupOpenAt.current) {
-			trackEvent("ui_close", { type: "modal", name: "explore-need",
-				time_open_ms: Date.now() - popupOpenAt.current });
+			trackEvent("ui_close", {
+				type: "modal",
+				name: "explore-need",
+				time_open_ms: Date.now() - popupOpenAt.current,
+			});
 			popupOpenAt.current = null;
 		}
 	}, [isPopupOpen]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -223,7 +230,12 @@ const UnpackNeeds = () => {
 					No needs selected yet — this page isn't useful until you've chosen some needs on the previous step.
 				</p>
 			)}
-
+			{hasStarted && (
+				<DismissibleHint id="summary-intro">
+					Tip: to see all your responses at any time, tap <strong>Summary</strong> in the menu, or at the
+					bottom of the screen.
+				</DismissibleHint>
+			)}
 			<div className="keyStepLabel">This is where things often shift - take your time here</div>
 
 			{/* intentionally back to front!!! purpose usually goes first */}

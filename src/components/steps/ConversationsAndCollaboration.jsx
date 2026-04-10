@@ -6,16 +6,16 @@ import "./ConversationsAndCollaboration.css";
 
 const SECTIONS = [
 	{
-		id: "whether",
-		title: "Whether to have the conversation",
-		subtitle: "For when you're unsure whether talking about this will help or make things harder",
-		Component: WhetherToConverse,
-	},
-	{
 		id: "request",
 		title: "Make a simple request",
 		subtitle: "For when you know what would help and want to ask for it clearly",
 		Component: SimpleRequest,
+	},
+	{
+		id: "whether",
+		title: "Whether to have a longer conversation",
+		subtitle: "For when you're unsure whether talking about this will help or make things harder",
+		Component: WhetherToConverse,
 	},
 	{
 		id: "collaborate",
@@ -43,7 +43,12 @@ const ConversationsAndCollaboration = () => {
 				But sometimes it's more complicated, and you want to figure out how to move forward with the other
 				person.
 			</p>
-
+			<p>
+				This could look like making a simple request of them, if it's already clear to you what you'd like to
+				ask for. Alternately, we might want to have a longer conversation, using all the information we've
+				uncovered, to figure out together how to move forward. The "Collaborate" section will help you build
+				what that might look like, using the data you've already entered.
+			</p>
 			<div className="collab-accordion">
 				{SECTIONS.map(({ id, title, subtitle, Component }) => {
 					const isOpen = expanded.has(id);

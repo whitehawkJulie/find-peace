@@ -2,14 +2,14 @@
 // Each entry has an id (for deep-linking), title (searchable), and content (JSX).
 // Uses lazy initialization to avoid circular dependency issues at module load time.
 
-import Observation from "./Observation";
-import Feelings from "./Feelings";
-import UnpackFeelings from "./UnpackFeelings";
-import Needs from "./Needs";
+import Observation from "./steps/Observation";
+import Feelings from "./steps/Feelings";
+import UnpackFeelings from "./steps/UnpackFeelings";
+import Needs from "./steps/Needs";
 import StrategyDiscovery from "./StrategyDiscovery";
-import MakingGuesses from "./MakingGuesses";
-import RequestFormulation from "./RequestFormulation";
-import Review from "./Review";
+import MakingGuesses from "./steps/MakingGuesses";
+import RequestFormulation from "./steps/RequestFormulation";
+import Review from "./steps/Review";
 import NeedExploration from "./NeedExploration";
 import StandaloneHelpTopics from "../data/StandaloneHelpTopics.jsx";
 

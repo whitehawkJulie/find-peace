@@ -243,6 +243,32 @@ const PassphraseSection = () => {
 	);
 };
 
+// ── Hints reset section ────────────────────────────────────────────────────
+const HintsSection = () => {
+	const hasDismissed = Object.keys(JSON.parse(localStorage.getItem("findPeaceHints") || "{}")).length > 0;
+	const [done, setDone] = useState(false);
+
+	if (!hasDismissed && !done) return null;
+
+	return (
+		<div className="settings-group">
+			<h4>Hints</h4>
+			{done ? (
+				<p className="settings-hint">Hints will reappear as you navigate.</p>
+			) : (
+				<button
+					className="settings-reset-btn"
+					onClick={() => {
+						localStorage.removeItem("findPeaceHints");
+						setDone(true);
+					}}>
+					↺ Show all hints again
+				</button>
+			)}
+		</div>
+	);
+};
+
 // ── Main settings panel ────────────────────────────────────────────────────
 const SettingsContent = ({ onClose }) => {
 	const { hasSessionData, resetSession, settings, updateSettings } = useWizard();
@@ -272,6 +298,8 @@ const SettingsContent = ({ onClose }) => {
 				</label>
 				<p className="settings-hint">Uses more colourful language throughout.</p>
 			</div>
+
+			<HintsSection />
 
 			<PrivacySection />
 

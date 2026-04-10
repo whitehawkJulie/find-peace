@@ -1,5 +1,5 @@
 import React from "react";
-import { useWizard } from "./WizardContext";
+import { useWizard } from "../WizardContext";
 import "./Review.css";
 
 const Review = () => {

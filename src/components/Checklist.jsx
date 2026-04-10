@@ -34,8 +34,11 @@ const Checklist = ({
 	afterGroupContent = null,
 	headerContent = null,
 	tooltipEnhancer = null,
+	defaultCollapsed = [],
 }) => {
-	const [collapsedCategories, setCollapsedCategories] = useState({});
+	const [collapsedCategories, setCollapsedCategories] = useState(() =>
+		Object.fromEntries(defaultCollapsed.map((h) => [h, true]))
+	);
 	// Per-section list mode, keyed by section heading
 	const [sectionModes, setSectionModes] = useState({});
 	// Per-section "show selected only" toggle, keyed by section heading
@@ -181,6 +184,7 @@ const Checklist = ({
 						onClick={(e) => {
 							e.stopPropagation();
 							setSectionMode(sectionHeading, mode.key);
+							setCollapsedCategories((prev) => ({ ...prev, [sectionHeading]: false }));
 						}}>
 						{mode.icon}
 					</button>

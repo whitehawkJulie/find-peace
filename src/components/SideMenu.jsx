@@ -57,14 +57,14 @@ const SideMenu = ({ isOpen, onClose }) => {
 		<>
 			{isOpen && <div className="side-menu-backdrop" onClick={onClose} />}
 			<div className={`side-menu${isOpen ? " show" : ""}`} aria-hidden={!isOpen}>
-
 				{/* ── Sliding panels container ── */}
 				<div className={`side-menu-panels${subPanel ? " side-menu-panels--slide" : ""}`}>
-
 					{/* ── Panel 1: main menu ── */}
 					<div className="side-menu-panel">
 						<div className="side-menu-header">
-							<button className="side-menu-close" onClick={onClose} aria-label="Close menu">✕</button>
+							<button className="side-menu-close" onClick={onClose} aria-label="Close menu">
+								✕
+							</button>
 						</div>
 
 						{/* File operations */}
@@ -75,7 +75,11 @@ const SideMenu = ({ isOpen, onClose }) => {
 									<div className="side-menu-confirm-btns">
 										<button
 											className="side-menu-confirm-yes"
-											onClick={() => { resetSession(); setConfirmNew(false); onClose(); }}>
+											onClick={() => {
+												resetSession();
+												setConfirmNew(false);
+												onClose();
+											}}>
 											Yes, start new
 										</button>
 										<button
@@ -88,7 +92,9 @@ const SideMenu = ({ isOpen, onClose }) => {
 							) : (
 								<button
 									className="side-menu-action"
-									onClick={() => hasSessionData() ? setConfirmNew(true) : (resetSession(), onClose())}>
+									onClick={() =>
+										hasSessionData() ? setConfirmNew(true) : (resetSession(), onClose())
+									}>
 									✦ New
 								</button>
 							)}
@@ -104,6 +110,14 @@ const SideMenu = ({ isOpen, onClose }) => {
 								disabled={!hasSessionData()}>
 								{savedFeedback ? "✓ Saved" : "💾 Save"}
 							</button>
+							<button
+								className="side-menu-action"
+								onClick={() => {
+									setShowSummary(true);
+									onClose();
+								}}>
+								📋 Summary
+							</button>
 						</div>
 
 						<div className="side-menu-divider" />
@@ -117,7 +131,9 @@ const SideMenu = ({ isOpen, onClose }) => {
 									<div key={group} className="side-menu-group">
 										<div className="side-menu-group-heading">{GROUP_LABELS[group]}</div>
 										{groupSteps.map((step) => {
-											const visIdx = visibleSteps.findIndex((s) => s.component === step.component);
+											const visIdx = visibleSteps.findIndex(
+												(s) => s.component === step.component,
+											);
 											const isLocked = visIdx === -1;
 											const isCurrent = !isLocked && visIdx === stepIndex;
 											const isPast = !isLocked && visIdx < stepIndex;
@@ -137,7 +153,10 @@ const SideMenu = ({ isOpen, onClose }) => {
 													disabled={!isAccessible}
 													onClick={() => isAccessible && handleStepClick(visIdx)}
 													aria-current={isCurrent ? "page" : undefined}>
-													<span className="side-menu-step-dot" style={{ background: step.color }} />
+													<span
+														className="side-menu-step-dot"
+														style={{ background: step.color }}
+													/>
 													<span className="side-menu-step-label">{label}</span>
 													{isCurrent && <span className="side-menu-step-arrow">▶</span>}
 												</button>
@@ -154,22 +173,26 @@ const SideMenu = ({ isOpen, onClose }) => {
 						<div className="side-menu-actions">
 							<button
 								className="side-menu-action"
-								onClick={() => { setShowSummary(true); onClose(); }}>
-								📋 Summary
-							</button>
-							<button
-								className="side-menu-action"
-								onClick={() => { setShowSettings(true); onClose(); }}>
+								onClick={() => {
+									setShowSettings(true);
+									onClose();
+								}}>
 								⚙ Settings
 							</button>
 							<button
 								className="side-menu-action"
-								onClick={() => { openHelpTopic("about"); onClose(); }}>
+								onClick={() => {
+									openHelpTopic("about");
+									onClose();
+								}}>
 								ℹ About
 							</button>
 							<button
 								className="side-menu-action"
-								onClick={() => { openHelpTopic("privacy"); onClose(); }}>
+								onClick={() => {
+									openHelpTopic("privacy");
+									onClose();
+								}}>
 								🔒 Privacy
 							</button>
 						</div>
@@ -185,13 +208,14 @@ const SideMenu = ({ isOpen, onClose }) => {
 								‹ Back
 							</button>
 							<span className="side-menu-sub-title">Saved sessions</span>
-							<button className="side-menu-close" onClick={onClose} aria-label="Close menu">✕</button>
+							<button className="side-menu-close" onClick={onClose} aria-label="Close menu">
+								✕
+							</button>
 						</div>
 						<div className="side-menu-sub-body">
 							<SavedEntries onSessionLoaded={onClose} />
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</>

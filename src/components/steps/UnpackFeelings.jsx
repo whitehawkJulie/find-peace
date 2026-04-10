@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from "react";
-import { useWizard } from "./WizardContext";
-import { trackEvent, currentPage } from "../analytics/analytics";
-import HelpLink from "./HelpLink";
-import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
-import { feelingTypes } from "../data/FeelingTypes";
-import ClarifyFeelings from "./ClarifyFeelings";
+import { useWizard } from "../WizardContext";
+import { trackEvent, currentPage } from "../../analytics/analytics";
+import HelpLink from "../HelpLink";
+import { AllFeelingsData as FeelingsData } from "../../data/AllFeelingsData";
+import { feelingTypes } from "../../data/FeelingTypes";
+import ClarifyFeelings from "../ClarifyFeelings";
 import "./UnpackFeelings.css";
 
 // Build a lookup: item name → full item data (only for unmet feelings with a feelingType tag)

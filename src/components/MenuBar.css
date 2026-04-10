@@ -358,6 +358,41 @@
 	margin: 0.25rem 0 0.5rem;
 }
 
+/* ── Summary shortcut ── */
+
+.nav-summary-btn {
+	float: none;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0.4rem 0.5rem;
+	border-radius: 6px;
+	opacity: 0.5;
+	transition: opacity 0.15s, background 0.15s;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.1rem;
+}
+
+.nav-summary-btn:hover {
+	opacity: 1;
+	background: rgba(0, 0, 0, 0.06);
+}
+
+.nav-summary-icon {
+	font-size: 1.1rem;
+	line-height: 1;
+}
+
+.nav-summary-label {
+	font-size: 0.65rem;
+	font-weight: 500;
+	line-height: 1;
+	color: #444;
+	letter-spacing: 0.01em;
+}
+
 /* ── New session (replaces Next on last page) ── */
 
 .nav-button--new {
