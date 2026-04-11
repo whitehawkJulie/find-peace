@@ -171,14 +171,17 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 				<div className="card-header-text">
 					{!isIntro && <div className="card-app-title">Untangle This</div>}
 					{isIntro && (
-						<div className="untangle-logo-wrap">
-							<img
-								src="./untangle-trans-sm.png"
-								alt="Untangle This"
-								className="untangle-logo"
-								style={{ width: "100%" }}
-							/>
-						</div>
+						<>
+							<div className="untangle-logo-wrap">
+								<img
+									src="./untangle-trans-sm.png"
+									alt="Untangle This"
+									className="untangle-logo"
+									style={{ width: "100%" }}
+								/>
+							</div>
+							<p className="card-intro-tagline">{title}</p>
+						</>
 					)}
 					{!isIntro && <h2 className="card-page-title">{title}</h2>}
 				</div>

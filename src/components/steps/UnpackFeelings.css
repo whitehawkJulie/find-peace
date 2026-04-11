@@ -6,6 +6,18 @@
 	gap: 1rem;
 }
 
+/* ===== Label + hint inside the feelings cloud ===== */
+
+.cloud-heading {
+	flex: 0 0 100%;
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.07em;
+	color: rgba(58, 90, 120, 0.7);
+	margin-bottom: 0.1rem;
+}
+
 /* ===== Selected feelings as removable pills ===== */
 
 .feelings-selected-pills {
@@ -265,4 +277,36 @@
 	background: #d4e8d0;
 	border-color: #5a9e6d;
 	color: #2d5a36;
+}
+
+/* ===== Murky feelings sub-section in Go Deeper ===== */
+
+.feelings-explore-murky-section {
+	margin-bottom: 1.25rem;
+}
+
+.feelings-explore-murky-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 0.5rem;
+}
+
+.feelings-explore-murky-btn {
+	float: none;
+	padding: 0.4rem 0.9rem;
+	background: #eef4fb;
+	border: 1px solid #aac8e8;
+	border-radius: 999px;
+	color: #2d5278;
+	font-size: 0.88rem;
+	cursor: pointer;
+	transition:
+		background 0.15s,
+		border-color 0.15s;
+}
+
+.feelings-explore-murky-btn:hover {
+	background: #dbeaf7;
+	border-color: #7aaed4;
 }

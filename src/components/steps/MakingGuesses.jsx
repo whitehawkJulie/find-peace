@@ -21,9 +21,9 @@ const MakingGuesses = () => {
 				</HelpLink>
 			</p>
 
-			<div className="guesses-reminder">
-				💡 The point isn't to guess correctly — it's simply to widen the frame.
-			</div>
+			<DismissibleHint id="making-guesses-reminder">
+				💡 It doesn't matter if you don't guess correctly — this is simply to widen the frame.
+			</DismissibleHint>
 
 			<div className="guesses-section">
 				<h2>{"What might they have observed?"}</h2>

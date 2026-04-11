@@ -42,7 +42,7 @@ const STEP_DATA = {
 		title: "Share your experience",
 		desc: "Sharing your observation, feels and needs keeps it simple and grounded in your experience, \
 		rather than expressing your thoughts about THEM. You might like to edit the following \
-		down to the 2 or 3 loudest of your feelings, and your and needs.",
+		down to the 2 or 3 loudest of your feelings and needs.",
 		hint: "You don't have to get this exactly right.",
 		scriptDefault: "When [what happened], I felt [feeling], because I was needing [need].",
 		helpQuestion: "How do I share without it coming out as blame?",

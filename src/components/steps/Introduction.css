@@ -1,74 +1,104 @@
 /* .step-introduction layout provided by .step-container in App.css */
 
-.intro-tagline {
-	font-size: 1.3rem;
-	font-weight: 800;
-	color: #5F8F82;
-	margin: 0.5rem 0 !important;
-	line-height: 1.3;
+/* ── Scene: person + thought bubbles ── */
+
+.intro-scene {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+	margin: 2rem 2rem 1rem 3rem;
 }
 
-/* ── Thought bubble ── */
+/* Person column — fixed width; SVG scales by aspect ratio.
+   5rem wide × viewBox 70/115 aspect = ~8.2rem tall.
+   Head at ~1.78rem, heart at ~4.78rem from top. */
+.intro-person-col {
+	flex-shrink: 0;
+	width: 7.5rem;
+}
+
+.intro-person-img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* Bubbles column — two rows stacked, gap tuned to align with head + heart */
+.intro-bubbles-col {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+}
+
+.intro-bubble-row {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+/* ── Dot chains ── */
+
+.intro-dot-chain {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	flex-shrink: 0;
+}
+
+.intro-dot-chain span {
+	display: block;
+	border-radius: 50%;
+	background: #eef6f2;
+	border: 2px solid #a8cfc0;
+	flex-shrink: 0;
+}
+
+/* Dots grow larger toward the bubble (thought forming) */
+.intro-dot-chain span:nth-child(1) {
+	width: 0.4rem;
+	height: 0.4rem;
+}
+.intro-dot-chain span:nth-child(2) {
+	width: 0.65rem;
+	height: 0.65rem;
+}
+.intro-dot-chain span:nth-child(3) {
+	width: 0.95rem;
+	height: 0.95rem;
+}
+
+/* Warm/pink variant for the feelings bubble chain */
+.intro-dot-chain--warm span {
+	background: #fdf0f3;
+	border-color: #e8aab8;
+}
+
+/* ── Thought bubbles ── */
 
 .intro-thought-bubble {
-	position: relative;
 	background: #eef6f2;
 	border: 2px solid #a8cfc0;
-	border-radius: 22px;
-	padding: 0.9rem 1.1rem 0.85rem;
-	margin-bottom: 1rem; /* extra space for the dots below */
+	border-radius: 18px;
+	padding: 0.5rem 0.75rem;
 }
 
-/* Large dot */
-.intro-thought-bubble::before {
-	content: "";
-	position: absolute;
-	bottom: -14px;
-	left: 30px;
-	width: 11px;
-	height: 11px;
-	background: #eef6f2;
-	border: 2px solid #a8cfc0;
-	border-radius: 50%;
-}
-
-/* Small dot */
-.intro-thought-bubble::after {
-	content: "";
-	position: absolute;
-	bottom: -24px;
-	left: 21px;
-	width: 7px;
-	height: 7px;
-	background: #eef6f2;
-	border: 2px solid #a8cfc0;
-	border-radius: 50%;
-}
-
-.intro-bubble-label {
-	font-size: 0.75rem;
-	font-weight: 700;
-	color: #4a7261;
-	text-transform: uppercase;
-	letter-spacing: 0.07em;
-	margin: 0 0 0.6rem !important;
-}
-
-.intro-bubble-sub {
-	font-size: 0.78rem;
-	font-weight: 600;
-	color: #6a9a80;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	margin: 0.65rem 0 0.25rem !important;
+.intro-thought-bubble--feelings {
+	background: #fdf0f3;
+	border-color: #e8aab8;
 }
 
 .intro-thought-bubble ul {
 	margin: 0 !important;
-	padding-left: 1.2rem;
-	font-size: 0.92rem;
-	line-height: 1.65;
+	padding-left: 1rem;
+	font-size: 0.82rem;
+	line-height: 1.45;
 	color: #3a4a40;
+}
+
+.intro-thought-bubble--feelings ul {
+	color: #4a2830;
 }
 
 /* ── Punchline callout ── */
@@ -135,4 +165,74 @@
 	margin: 0.25rem 0 0 !important;
 	font-size: 0.85rem;
 	color: #888;
+}
+
+.process-preview {
+	margin-top: 1.5rem;
+	max-width: 480px;
+}
+
+.process-preview .process-intro {
+	margin-bottom: 0.8rem;
+	font-size: 0.95rem;
+	color: #5f726b;
+}
+
+.process-steps {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	position: relative;
+}
+
+.process-steps::before {
+	content: "";
+	position: absolute;
+	left: 14px;
+	top: 8px;
+	bottom: 8px;
+	width: 2px;
+	background: #cfe5dc;
+}
+
+.process-steps li {
+	display: flex;
+	gap: 0.7rem;
+	margin-bottom: 1rem;
+	position: relative;
+}
+
+.process-steps li:last-child {
+	margin-bottom: 0;
+}
+
+.icon {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	background: #edf7f3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	flex-shrink: 0;
+	z-index: 1;
+}
+
+.process-steps strong {
+	font-size: 0.9rem;
+	color: #31473fcf;
+}
+
+.sub {
+	font-size: 0.8rem;
+	color: #6c7c76;
+	margin-top: 2px;
+}
+
+.process-preview {
+	opacity: 0.9;
+}
+.process-steps li {
+	cursor: default;
 }

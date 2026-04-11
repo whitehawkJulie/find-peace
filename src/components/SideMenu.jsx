@@ -5,11 +5,14 @@ import SavedEntries from "./SavedEntries";
 import "./SideMenu.css";
 
 const GROUP_LABELS = {
-	understand: "Understand what happened",
-	find: "Find what matters",
-	move: "Move forward",
+	intro:    "",
+	happened: "👁 What happened",
+	felt:     "💧 What you felt",
+	mattered: "❤️ What mattered",
+	them:     "🔍 What may be going on for them",
+	next:     "🌱 What to do next",
 };
-const GROUPS = ["understand", "find", "move"];
+const GROUPS = ["intro", "happened", "felt", "mattered", "them", "next"];
 
 const SideMenu = ({ isOpen, onClose }) => {
 	const {
@@ -129,7 +132,7 @@ const SideMenu = ({ isOpen, onClose }) => {
 								if (groupSteps.length === 0) return null;
 								return (
 									<div key={group} className="side-menu-group">
-										<div className="side-menu-group-heading">{GROUP_LABELS[group]}</div>
+										{GROUP_LABELS[group] && <div className="side-menu-group-heading">{GROUP_LABELS[group]}</div>}
 										{groupSteps.map((step) => {
 											const visIdx = visibleSteps.findIndex(
 												(s) => s.component === step.component,

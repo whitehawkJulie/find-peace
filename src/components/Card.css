@@ -163,6 +163,17 @@
 	transition: opacity 0.25s ease;
 	z-index: 2;
 }
+/* Tagline shown below the logo on the intro page only */
+.card-intro-tagline {
+	margin: 0.35rem 0 0;
+	font-size: 0.9rem;
+	font-weight: 500;
+	font-style: italic;
+	color: rgba(255, 255, 255, 0.88);
+	text-align: center;
+	line-height: 1.35;
+}
+
 .untangle-logo-wrap {
 	display: flex;
 	align-items: center;

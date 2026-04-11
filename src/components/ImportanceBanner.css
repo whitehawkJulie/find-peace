@@ -2,9 +2,9 @@
    Bleeds edge-to-edge inside card-content (negative margins cancel out
    the 1.25rem card padding on top and sides). */
 
-.optional-banner {
+.importance-banner {
 	margin: -1.25rem -1.25rem 0;
-	padding: 0.5rem 1.25rem;
+	padding: 1rem 1.25rem;
 	background: #eef5ee;
 	border-bottom: 1px solid #c5d9bc;
 	display: flex;
@@ -13,7 +13,7 @@
 	flex-wrap: wrap;
 }
 
-.optional-banner-tag {
+.importance-banner-tag {
 	display: inline-block;
 	padding: 0.15rem 0.55rem;
 	background: #c5d9bc;
@@ -27,7 +27,7 @@
 	flex-shrink: 0;
 }
 
-.optional-banner-text {
+.importance-banner-text {
 	font-size: 0.85rem;
 	color: #4a6a52;
 	font-style: italic;

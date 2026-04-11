@@ -43,12 +43,6 @@ const ConversationsAndCollaboration = () => {
 				But sometimes it's more complicated, and you want to figure out how to move forward with the other
 				person.
 			</p>
-			<p>
-				This could look like making a simple request of them, if it's already clear to you what you'd like to
-				ask for. Alternately, we might want to have a longer conversation, using all the information we've
-				uncovered, to figure out together how to move forward. The "Collaborate" section will help you build
-				what that might look like, using the data you've already entered.
-			</p>
 			<div className="collab-accordion">
 				{SECTIONS.map(({ id, title, subtitle, Component }) => {
 					const isOpen = expanded.has(id);
@@ -74,8 +68,8 @@ const ConversationsAndCollaboration = () => {
 	);
 };
 
-ConversationsAndCollaboration.title = "Conversations and Collaboration";
+ConversationsAndCollaboration.title = "What next?";
 ConversationsAndCollaboration.titleSweary = "So... how do we actually fix this?";
-ConversationsAndCollaboration.navTitle = "Conversations";
+ConversationsAndCollaboration.navTitle = "What next?";
 
 export default ConversationsAndCollaboration;

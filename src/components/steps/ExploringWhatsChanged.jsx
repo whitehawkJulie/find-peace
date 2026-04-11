@@ -1,6 +1,6 @@
 import React from "react";
 import { useWizard } from "../WizardContext";
-import OptionalBanner from "../OptionalBanner";
+import ImportanceBanner from "../ImportanceBanner";
 import "./RequestFormulation.css";
 
 const ExploringWhatsChanged = () => {
@@ -12,11 +12,9 @@ const ExploringWhatsChanged = () => {
 
 	return (
 		<div className="step-whats-changed step-container">
-			<OptionalBanner message="Take what's useful — this section is a gentle check-in, not essential." />
+			<ImportanceBanner message="Take what's useful — this section is a gentle check-in, not essential." />
 			<>
-				<p>
-					Let's take a moment to notice what's changed inside you, if anything.
-				</p>
+				<p>Let's take a moment to notice what's changed inside you, if anything.</p>
 
 				<p>
 					This isn't about finding solutions yet — it's simply a chance to notice any shift, if there is one.
@@ -38,7 +36,9 @@ const ExploringWhatsChanged = () => {
 				/>
 			</div>
 
-			<div className="changed-bridge" aria-hidden="true">↓ now</div>
+			<div className="changed-bridge" aria-hidden="true">
+				↓ now
+			</div>
 
 			<div className="request-section changed-section changed-section--now">
 				<h3 className="changed-section-heading">Now</h3>

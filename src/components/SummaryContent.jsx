@@ -118,6 +118,12 @@ const SummaryContent = () => {
 			{hasFeelingsExplore && (
 				<div className="review-section">
 					<h3>Feeling exploration</h3>
+					{feelingsExploreResponses["what-came-first"]?.trim() && (
+						<div className="review-exploration">
+							<strong>What came first?</strong>
+							<p>{feelingsExploreResponses["what-came-first"]}</p>
+						</div>
+					)}
 					{Object.entries(feelingTypes).map(([typeKey, typeData]) => {
 						const filledPrompts = typeData.prompts.filter((p) => {
 							const val = feelingsExploreResponses[p.id];

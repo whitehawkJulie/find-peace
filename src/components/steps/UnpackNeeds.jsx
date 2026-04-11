@@ -6,6 +6,7 @@ import { UNPACKING_TYPE, unpackingTypeData } from "../../data/unpackingTypeData"
 import HelpLink from "../HelpLink";
 import { trackEvent, currentPage } from "../../analytics/analytics";
 import DismissibleHint from "../DismissibleHint";
+import ImportanceBanner from "../ImportanceBanner";
 
 import AudioPlayer from "../AudioPlayer";
 import meditationAudio from "../../assets/Beauty_of_need.mp3";
@@ -225,6 +226,8 @@ const UnpackNeeds = () => {
 
 	return (
 		<div className="need-unpacking">
+			<ImportanceBanner heading="Important" message="This is where things often shift - take your time here." />
+
 			{!hasSelectedNeeds && !needExplorationOpen && (
 				<p className="empty-state-notice">
 					No needs selected yet — this page isn't useful until you've chosen some needs on the previous step.
@@ -236,16 +239,10 @@ const UnpackNeeds = () => {
 					bottom of the screen.
 				</DismissibleHint>
 			)}
-			<div className="keyStepLabel">This is where things often shift - take your time here</div>
 
-			{/* intentionally back to front!!! purpose usually goes first */}
 			<p>
-				Knowing your needs at a head level is one thing ... what makes the absolute difference is actually
-				connecting to them, truly getting to know how they live in you. This page helps you do just that.
-			</p>
-			<p>
-				Here we're staying with the need, so that it becomes more real and easier to recognise what would truly
-				meet it.
+				Naming a need is a start. Getting clear on how it feels for you — and what it looks like when it’s met —
+				makes the next step much easier to see.
 			</p>
 			<AudioPlayer
 				src={meditationAudio}
@@ -373,200 +370,201 @@ const UnpackNeeds = () => {
 						</div>
 
 						<div className="need-explore-body">
+							{/* Stage 1 accordion — only for non-PRACTICAL needs */}
+							{!isPractical && (
+								<div className="unpacking-chunk">
+									<h3 className="unpacking-chunk-heading">Is there a deeper need underneath this?</h3>
+									<p>
+										First, let's make sure we're with what matters most. Sometimes the first need we
+										find is just the surface — something deeper may be calling.
+									</p>
+									<div className="unpacking-section">
+										<button
+											className="unpacking-section-toggle"
+											onClick={() => setOpenStage1((o) => !o)}>
+											<span>{"Might there be a deeper need underneath this?"}</span>
+											<span className="unpacking-toggle-chevron">{openStage1 ? "▲" : "▼"}</span>
+										</button>
+										{openStage1 && (
+											<div className="unpacking-section-body">
+												{stage1Questions.map((q, i) => (
+													<p key={i} className="unpacking-question">
+														{q}
+													</p>
+												))}
+												{stage1Guesses.length > 0 && (
+													<>
+														<p className="unpacking-guesses-label">
+															{"Are any of these up for you as well?"}
+														</p>
+														<div className="pill-grid cloud">
+															{stage1Guesses.map((name) => (
+																<div
+																	key={name}
+																	className={`pill need ${needs[name] ? "clicked" : ""}`}
+																	onClick={() => toggleGuess(name)}>
+																	{name}
+																</div>
+															))}
+														</div>
+													</>
+												)}
+											</div>
+										)}
+									</div>
+								</div>
+							)}
 
-						{/* Stage 1 accordion — only for non-PRACTICAL needs */}
-						{!isPractical && (
-							<div className="unpacking-chunk">
-								<h3 className="unpacking-chunk-heading">Is there a deeper need underneath this?</h3>
+							{/* Stage 2 accordion */}
+							<div className="unpacking-chunk unpacking-chunk--second">
+								<h3 className="unpacking-chunk-heading">Get to know how the need lives in YOU</h3>
 								<p>
-									First, let's make sure we're with what matters most. Sometimes the first need we
-									find is just the surface — something deeper may be calling.
+									Next, we'll explore how this need shows up and how it wants to be met. This is where
+									the real shift happens — the more you connect with the lived experience of the need,
+									the more power you have to meet it in ways that truly satisfy you.
 								</p>
-								<div className="unpacking-section">
+								<div className="unpacking-section unpacking-section-stage2">
 									<button
 										className="unpacking-section-toggle"
-										onClick={() => setOpenStage1((o) => !o)}>
-										<span>{"Might there be a deeper need underneath this?"}</span>
-										<span className="unpacking-toggle-chevron">{openStage1 ? "▲" : "▼"}</span>
+										onClick={() => setOpenStage2((o) => !o)}>
+										<span>{"Get to know the need"}</span>
+										<span className="unpacking-toggle-chevron">{openStage2 ? "▲" : "▼"}</span>
 									</button>
-									{openStage1 && (
+									{openStage2 && (
 										<div className="unpacking-section-body">
-											{stage1Questions.map((q, i) => (
-												<p key={i} className="unpacking-question">
-													{q}
-												</p>
-											))}
-											{stage1Guesses.length > 0 && (
-												<>
-													<p className="unpacking-guesses-label">
-														{"Are any of these up for you as well?"}
-													</p>
-													<div className="pill-grid cloud">
-														{stage1Guesses.map((name) => (
-															<div
-																key={name}
-																className={`pill need ${needs[name] ? "clicked" : ""}`}
-																onClick={() => toggleGuess(name)}>
-																{name}
-															</div>
-														))}
-													</div>
-												</>
+											{specificQ && (
+												<div className="unpacking-prompt">
+													<p className="unpacking-prompt-text">{specificQ}</p>
+													{directionPrompts.length > 0 && (
+														<ul className="unpacking-direction-list">
+															{directionPrompts.map((prompt, i) => (
+																<li key={i} className="unpacking-direction-item">
+																	{prompt}
+																</li>
+															))}
+														</ul>
+													)}
+													<textarea
+														className="unpacking-textarea"
+														data-field-id="unpack-core-specific"
+														rows={3}
+														value={currentData.coreSpecific || ""}
+														onChange={(e) => updateField("coreSpecific", e.target.value)}
+													/>
+												</div>
 											)}
+
+											<div className="unpacking-prompt">
+												<p className="unpacking-prompt-text">
+													{
+														"Notice in your body how it feels when the need isn't met — what happens when you focus on the un-met-ness of the need?"
+													}
+												</p>
+												<textarea
+													className="unpacking-textarea"
+													data-field-id="unpack-unmet-feeling"
+													rows={3}
+													value={currentData.unmetFeeling || ""}
+													onChange={(e) => updateField("unmetFeeling", e.target.value)}
+												/>
+											</div>
+
+											<div className="unpacking-prompt">
+												<p className="unpacking-prompt-text">
+													{
+														"Now remember when the need was most met for you — even if that was just a little — and how that felt."
+													}
+												</p>
+												<textarea
+													className="unpacking-textarea"
+													data-field-id="unpack-met-feeling"
+													rows={3}
+													value={currentData.metFeeling || ""}
+													onChange={(e) => updateField("metFeeling", e.target.value)}
+												/>
+											</div>
+
+											<div className="unpacking-prompt">
+												<p className="unpacking-prompt-text">
+													If you can't remember a single time the need was met, can you{" "}
+													<em>imagine</em> what it might look like if it was met? If still
+													not, can you imagine what it would look like for someone else?
+												</p>
+												<textarea
+													className="unpacking-textarea"
+													data-field-id="unpack-imagined-met"
+													rows={3}
+													value={currentData.imaginedMet || ""}
+													onChange={(e) => updateField("imaginedMet", e.target.value)}
+												/>
+											</div>
+
+											<div className="unpacking-prompt">
+												<p className="unpacking-prompt-text">
+													{
+														"If you were able to remember or imagine the need being met, what was present that helped it be met? What would it have to look like for this need to feel fulfilled for you?"
+													}
+												</p>
+												<textarea
+													className="unpacking-textarea"
+													data-field-id="unpack-met-circumstances"
+													rows={3}
+													value={currentData.metCircumstances || ""}
+													onChange={(e) => updateField("metCircumstances", e.target.value)}
+												/>
+											</div>
+
+											<div className="unpacking-prompt">
+												<p className="unpacking-prompt-text">
+													Is this a need that often goes unmet in your life? Are there small
+													ways you could move towards it,{" "}
+													<HelpLink topic="finding-strategies">top up the tank</HelpLink>,
+													even a little?
+												</p>
+												<textarea
+													className="unpacking-textarea"
+													data-field-id="unpack-often-unmet"
+													rows={3}
+													value={currentData.oftenUnmet || ""}
+													onChange={(e) => updateField("oftenUnmet", e.target.value)}
+												/>
+											</div>
+
+											<div className="unpacking-prompt">
+												<p className="unpacking-prompt-text">
+													{
+														"Back to the issue at hand: could this need be met in the current situation? Is the other person capable of meeting it — or is there a better place to get it met?"
+													}
+												</p>
+												<textarea
+													className="unpacking-textarea"
+													data-field-id="unpack-where-to-meet"
+													rows={3}
+													value={currentData.whereToMeet || ""}
+													onChange={(e) => updateField("whereToMeet", e.target.value)}
+												/>
+											</div>
+											<p className="help-callout">
+												If this has left you feeling like you{"\u2019"}ve never had the need
+												met, or never quite enough, you might like to read about{" "}
+												<a
+													href="#"
+													className="inline-help-link"
+													onClick={(e) => {
+														e.preventDefault();
+														markMourningViewed();
+														openHelpTopic("mourning");
+													}}>
+													being with an unmet need, here.
+												</a>
+											</p>
 										</div>
 									)}
 								</div>
 							</div>
-						)}
-
-						{/* Stage 2 accordion */}
-						<div className="unpacking-chunk unpacking-chunk--second">
-						<h3 className="unpacking-chunk-heading">Get to know how the need lives in YOU</h3>
-						<p>
-							Next, we'll explore how this need shows up and how it wants to be met. This is where the
-							real shift happens — the more you connect with the lived experience of the need, the more
-							power you have to meet it in ways that truly satisfy you.
-						</p>
-						<div className="unpacking-section unpacking-section-stage2">
-							<button className="unpacking-section-toggle" onClick={() => setOpenStage2((o) => !o)}>
-								<span>{"Get to know the need"}</span>
-								<span className="unpacking-toggle-chevron">{openStage2 ? "▲" : "▼"}</span>
-							</button>
-							{openStage2 && (
-								<div className="unpacking-section-body">
-									{specificQ && (
-										<div className="unpacking-prompt">
-											<p className="unpacking-prompt-text">{specificQ}</p>
-											{directionPrompts.length > 0 && (
-												<ul className="unpacking-direction-list">
-													{directionPrompts.map((prompt, i) => (
-														<li key={i} className="unpacking-direction-item">
-															{prompt}
-														</li>
-													))}
-												</ul>
-											)}
-											<textarea
-												className="unpacking-textarea"
-												data-field-id="unpack-core-specific"
-												rows={3}
-												value={currentData.coreSpecific || ""}
-												onChange={(e) => updateField("coreSpecific", e.target.value)}
-											/>
-										</div>
-									)}
-
-									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">
-											{
-												"Notice in your body how it feels when the need isn't met — what happens when you focus on the un-met-ness of the need?"
-											}
-										</p>
-										<textarea
-											className="unpacking-textarea"
-											data-field-id="unpack-unmet-feeling"
-											rows={3}
-											value={currentData.unmetFeeling || ""}
-											onChange={(e) => updateField("unmetFeeling", e.target.value)}
-										/>
-									</div>
-
-									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">
-											{
-												"Now remember when the need was most met for you — even if that was just a little — and how that felt."
-											}
-										</p>
-										<textarea
-											className="unpacking-textarea"
-											data-field-id="unpack-met-feeling"
-											rows={3}
-											value={currentData.metFeeling || ""}
-											onChange={(e) => updateField("metFeeling", e.target.value)}
-										/>
-									</div>
-
-									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">
-											If you can't remember a single time the need was met, can you{" "}
-											<em>imagine</em> what it might look like if it was met? If still not, can
-											you imagine what it would look like for someone else?
-										</p>
-										<textarea
-											className="unpacking-textarea"
-											data-field-id="unpack-imagined-met"
-											rows={3}
-											value={currentData.imaginedMet || ""}
-											onChange={(e) => updateField("imaginedMet", e.target.value)}
-										/>
-									</div>
-
-									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">
-											{
-												"If you were able to remember or imagine the need being met, what was present that helped it be met? What would it have to look like for this need to feel fulfilled for you?"
-											}
-										</p>
-										<textarea
-											className="unpacking-textarea"
-											data-field-id="unpack-met-circumstances"
-											rows={3}
-											value={currentData.metCircumstances || ""}
-											onChange={(e) => updateField("metCircumstances", e.target.value)}
-										/>
-									</div>
-
-									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">
-											Is this a need that often goes unmet in your life? Are there small ways you
-											could move towards it,{" "}
-											<HelpLink topic="finding-strategies">top up the tank</HelpLink>, even a
-											little?
-										</p>
-										<textarea
-											className="unpacking-textarea"
-											data-field-id="unpack-often-unmet"
-											rows={3}
-											value={currentData.oftenUnmet || ""}
-											onChange={(e) => updateField("oftenUnmet", e.target.value)}
-										/>
-									</div>
-
-									<div className="unpacking-prompt">
-										<p className="unpacking-prompt-text">
-											{
-												"Back to the issue at hand: could this need be met in the current situation? Is the other person capable of meeting it — or is there a better place to get it met?"
-											}
-										</p>
-										<textarea
-											className="unpacking-textarea"
-											data-field-id="unpack-where-to-meet"
-											rows={3}
-											value={currentData.whereToMeet || ""}
-											onChange={(e) => updateField("whereToMeet", e.target.value)}
-										/>
-									</div>
-									<p className="help-callout">
-										If this has left you feeling like you{"\u2019"}ve never had the need met, or
-										never quite enough, you might like to read about{" "}
-										<a
-											href="#"
-											className="inline-help-link"
-											onClick={(e) => {
-												e.preventDefault();
-												markMourningViewed();
-												openHelpTopic("mourning");
-											}}>
-											being with an unmet need, here.
-										</a>
-									</p>
-								</div>
-							)}
+							{/* end unpacking-chunk--second */}
 						</div>
-
-						</div>{/* end unpacking-chunk--second */}
-
-						</div>{/* end need-explore-body */}
+						{/* end need-explore-body */}
 
 						{/* Footer */}
 						<div className="unpacking-footer">

@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { useWizard } from "../WizardContext";
 import { trackEvent, currentPage } from "../../analytics/analytics";
 import HelpLink from "../HelpLink";
-import DismissibleHint from "../DismissibleHint";
+import ImportanceBanner from "../ImportanceBanner";
 import { AllFeelingsData as FeelingsData } from "../../data/AllFeelingsData";
 import { feelingTypes } from "../../data/FeelingTypes";
 import ClarifyFeelings from "../ClarifyFeelings";
@@ -37,45 +37,31 @@ for (const section of Object.values(FeelingsData.sections)) {
 // Only offer deeper exploration for these three types
 const EXPLORE_TYPES = ["fear", "anger", "distress"];
 
-const renderOrderedFeelings = (feelings, onMurkyClick, onRemove) => {
+const renderOrderedFeelings = (feelings, onRemove) => {
 	const entries = Object.entries(feelings)
 		.filter(([, s]) => s === "clicked" || s === "double-clicked")
 		.sort(([, a], [, b]) => (a === "double-clicked" ? 0 : 1) - (b === "double-clicked" ? 0 : 1));
 	if (entries.length === 0) return null;
 	return (
-		<>
-			<p className="cloud-label">The feelings you chose</p>
-			<div className="pill-grid cloud feelings-selected-pills">
-			{entries.map(([name, state]) => {
-				const isMurky = name in murkyFeelingLookup;
-				return (
-					<div key={name} className={`pill feeling ${state} feeling-removable`}>
-						{state === "double-clicked" && <span className="pill-strong-badge">●</span>}
-						{isMurky ? (
-							<span
-								title="Click to explore further"
-								className="feelings-explore-murky"
-								onClick={() => onMurkyClick(murkyFeelingLookup[name])}>
-								{name}
-							</span>
-						) : (
-							name
-						)}
-						<button
-							className="pill-remove-x"
-							onClick={(e) => {
-								e.stopPropagation();
-								onRemove(name);
-							}}
-							title={`Remove ${name}`}
-							aria-label={`Remove ${name}`}>
-							×
-						</button>
-					</div>
-				);
-			})}
+		<div className="pill-grid cloud feelings-selected-pills">
+			<div className="cloud-heading">The feelings you chose</div>
+			{entries.map(([name, state]) => (
+				<div key={name} className={`pill feeling ${state} feeling-removable`}>
+					{state === "double-clicked" && <span className="pill-strong-badge">●</span>}
+					{name}
+					<button
+						className="pill-remove-x"
+						onClick={(e) => {
+							e.stopPropagation();
+							onRemove(name);
+						}}
+						title={`Remove ${name}`}
+						aria-label={`Remove ${name}`}>
+						×
+					</button>
+				</div>
+			))}
 		</div>
-		</>
 	);
 };
 
@@ -115,6 +101,15 @@ const UnpackFeelings = () => {
 			feelingsForType: byType,
 		};
 	}, [feelings]);
+
+	// List of selected murky feelings (for the Go Deeper sub-section)
+	const murkyFeelingNames = useMemo(
+		() =>
+			Object.entries(feelings)
+				.filter(([name, s]) => (s === "clicked" || s === "double-clicked") && name in murkyFeelingLookup)
+				.map(([name]) => name),
+		[feelings]
+	);
 
 	const toggleType = (type) => {
 		setExpandedTypes((prev) => {
@@ -215,10 +210,6 @@ const UnpackFeelings = () => {
 
 	const hasSelectedFeelings = Object.values(feelings).some((s) => s === "clicked" || s === "double-clicked");
 
-	const hasMurkyFeelings = Object.entries(feelings).some(
-		([name, s]) => (s === "clicked" || s === "double-clicked") && name in murkyFeelingLookup
-	);
-
 	return (
 		<div className="feelings-explore-regulation">
 			{!hasSelectedFeelings && (
@@ -230,16 +221,10 @@ const UnpackFeelings = () => {
 
 			<p>
 				Here we're staying with what you're feeling, so that it can soften and show you more about what matters
-				to you.
+				to you. First, a moment to pause — then, if you'd like, a chance to look more closely.
 			</p>
 
-			{renderOrderedFeelings(feelings, setPopupItem, setPendingRemoveFeeling)}
-
-			{hasMurkyFeelings && (
-				<DismissibleHint id="murky-feelings-unpack">
-					Some feelings here are underlined — tap them to explore further.
-				</DismissibleHint>
-			)}
+			{renderOrderedFeelings(feelings, setPendingRemoveFeeling)}
 
 			{pendingRemoveFeeling && (
 				<div className="feeling-remove-confirm">
@@ -262,66 +247,95 @@ const UnpackFeelings = () => {
 				</div>
 			)}
 
-			{/* <div className="page-section"> */}
+			<div>
+				<h3>What came first?</h3>
+				<p>
+					We sometimes feel <HelpLink topic="first-feeling">something vulnerable first</HelpLink>, quickly
+					followed by more defended feelings. Can you distinguish the early feelings, from the more defended
+					feelings that came in response to those?
+				</p>
+				<textarea
+					className="feelings-explore-textarea"
+					placeholder="Note anything that comes up for you…"
+					value={feelingsExploreResponses["what-came-first"] || ""}
+					onChange={(e) => setResponse("what-came-first", e.target.value)}
+					rows={3}
+				/>
+			</div>
+
 			<div className="feelings-explore-categories">
-				<h3>Pause</h3>
+				<h3>Pause with it</h3>
 				<p>
 					There's nothing to solve here — just notice what happens when you choose the strongest of these
 					feelings and just <HelpLink topic="stay-with-it">stay with it for a moment</HelpLink>, without
 					digging or forcing. Is there something it wants to tell you? Can you pause long enough to hear the
 					answer from your body, rather than your mind?
 				</p>
-
-				{/* TODO: add text box so user can note anything that came up for them here! */}
 			</div>
 
-			{detectedTypes.length > 0 && (
+			{(murkyFeelingNames.length > 0 || detectedTypes.length > 0) && (
 				<div className="feelings-explore-categories">
-					<h3>Explore</h3>
+					<ImportanceBanner
+						heading="Optional"
+						message="Only if you want — the sections below help you look more closely at specific feelings."
+					/>
+					<h3>Go deeper</h3>
 
-					<p className="feelings-explore-categories-intro">
-						{
-							"You've chosen feelings in these categories. Would you like to have a deeper look? Start with the one that's loudest."
-						}
-					</p>
-					{detectedTypes.map((type) => {
-						const card = feelingTypes[type];
-						const isExpanded = expandedTypes.has(type);
-						return (
-							<div key={type} className="feelings-explore-category">
-								<button
-									className={`feelings-explore-category-toggle ${isExpanded ? "expanded" : ""}`}
-									onClick={() => toggleType(type)}>
-									<span className="feelings-explore-category-title">
-										{card.title}
-										{feelingsForType[type]?.length > 0 && (
-											<span className="feelings-explore-category-matches">
-												{feelingsForType[type].join(", ")}
-											</span>
-										)}
-									</span>
-									<span className="feelings-explore-category-chevron">{isExpanded ? "▲" : "▼"}</span>
-								</button>
-								{isExpanded && (
-									<div className="feelings-explore-category-content">
-										<p className="feelings-explore-intro">{card.intro}</p>
-										{card.prompts.map(renderPrompt)}
-									</div>
-								)}
+					{murkyFeelingNames.length > 0 && (
+						<div className="feelings-explore-murky-section">
+							<p className="feelings-explore-categories-intro">
+								Some of the feelings you chose are worth exploring further — tap one to look at what's
+								underneath.
+							</p>
+							<div className="feelings-explore-murky-list">
+								{murkyFeelingNames.map((name) => (
+									<button
+										key={name}
+										className="feelings-explore-murky-btn"
+										onClick={() => setPopupItem(murkyFeelingLookup[name])}>
+										{name} →
+									</button>
+								))}
 							</div>
-						);
-					})}
+						</div>
+					)}
+
+					{detectedTypes.length > 0 && (
+						<>
+							<p className="feelings-explore-categories-intro">
+								{"You've chosen feelings in these categories. Start with the one that feels loudest."}
+							</p>
+							{detectedTypes.map((type) => {
+								const card = feelingTypes[type];
+								const isExpanded = expandedTypes.has(type);
+								return (
+									<div key={type} className="feelings-explore-category">
+										<button
+											className={`feelings-explore-category-toggle ${isExpanded ? "expanded" : ""}`}
+											onClick={() => toggleType(type)}>
+											<span className="feelings-explore-category-title">
+												{card.title}
+												{feelingsForType[type]?.length > 0 && (
+													<span className="feelings-explore-category-matches">
+														{feelingsForType[type].join(", ")}
+													</span>
+												)}
+											</span>
+											<span className="feelings-explore-category-chevron">{isExpanded ? "▲" : "▼"}</span>
+										</button>
+										{isExpanded && (
+											<div className="feelings-explore-category-content">
+												<p className="feelings-explore-intro">{card.intro}</p>
+												{card.prompts.map(renderPrompt)}
+											</div>
+										)}
+									</div>
+								);
+							})}
+						</>
+					)}
 				</div>
 			)}
-
-			<div>
-				<h3>Lastly ... </h3>
-				<p>
-					We sometimes feel <HelpLink topic="first-feeling">something vulnerable first</HelpLink>, quickly
-					followed by more defended feelings. Can you distinguish the early feelings, from the more defended
-					feelings that came in response to those?
-				</p>
-			</div>
 
 			{popupItem && (
 				<ClarifyFeelings
