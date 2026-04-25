@@ -194,6 +194,9 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 					{children}
 				</div>
 				<div className="card-scroll-fade" aria-hidden="true" style={{ opacity: hasMoreBelow ? 1 : 0 }} />
+				<div className="card-scroll-label" aria-hidden="true" style={{ opacity: hasMoreBelow ? 1 : 0 }}>
+					scroll for more ↓
+				</div>
 			</div>
 
 			<SlideDrawer

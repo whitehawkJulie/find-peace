@@ -10,8 +10,9 @@ const ObservationClarify = () => {
 		<div className="step-observation step-container">
 			<p>
 				When things feel intense, our brains go into <HelpLink topic="threat-mode">threat mode</HelpLink> — and
-				the story we tell ourselves feels 100% true, but is usually full of assumptions. Separating what
-				actually happened from our interpretation is the first step out of that reaction.
+				the story we tell ourselves can feel 100% true, even though it might be full of assumptions. Separating
+				what actually happened from our interpretation is the vital first step in this process - even if you're
+				sure you don't need to do it.
 			</p>
 
 			<p>

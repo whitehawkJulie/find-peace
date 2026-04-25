@@ -211,6 +211,7 @@ foreach (array_keys($journey) as $sid) {
 foreach ($journey as &$sdata) {
     usort($sdata['events'], fn($a, $b) => ($a['timestamp'] ?? 0) <=> ($b['timestamp'] ?? 0));
 }
+unset($sdata); // break dangling reference before any further iteration over $journey
 uasort($journey, fn($a, $b) => ($b['start'] ?? 0) <=> ($a['start'] ?? 0));
 
 arsort($page_views);
@@ -274,7 +275,8 @@ foreach ($journey as $sid => $sdata) {
         $e = ['event' => $ev['event'] ?? '', 't' => (int)($ev['timestamp'] ?? 0) - $sdata['start']];
         foreach (['page_name','from_page','to_page','method','name','type',
                   'field_id','filled','length_bucket','action_name','setting','value',
-                  'time_active_ms','time_idle_ms','time_open_ms','duration_ms','track'] as $k) {
+                  'time_active_ms','time_idle_ms','time_open_ms','duration_ms','track',
+                  'word','word_type','feelings_chosen','needs_chosen','replaced'] as $k) {
             if (isset($ev[$k])) $e[$k] = $ev[$k];
         }
         // Include per-page feelings/needs snapshot if present (from page_exit)
@@ -637,7 +639,23 @@ th { color: #6b7280; font-weight: 600; }
 <!-- ── Session list ─────────────────────────────────────────────────────── -->
 <div class="card" style="margin-bottom:1.25rem">
   <h2>📋 All sessions</h2>
-  <?php if (!$journey): ?><p class="nodata">No sessions yet.</p><?php else: ?>
+  <?php if (!$journey): ?><p class="nodata">No sessions yet.</p><?php else:
+
+  // Map sid → index in the full SESSIONS JS array (built from $journey in sorted order)
+  $journey_idx_map = [];
+  $ji = 0;
+  foreach ($journey as $sid => $_) { $journey_idx_map[$sid] = $ji++; }
+
+  // Split: engaged = any field filled OR any feeling/need selected
+  $engaged = []; $passive = [];
+  foreach ($journey as $sid => $sdata) {
+      $ff = $sessions[$sid]['fields_filled'] ?? 0;
+      $fc = count($sdata['feelings_selected']) + count($sdata['feelings_strong']);
+      $nc = count($sdata['needs_selected'])    + count($sdata['needs_strong']);
+      if ($ff > 0 || $fc > 0 || $nc > 0) $engaged[$sid] = $sdata;
+      else                                $passive[$sid] = $sdata;
+  }
+  ?>
   <!-- Hidden form for single-session delete (avoids nesting forms) -->
   <form method="post" id="single-del-form" style="display:none">
     <input type="hidden" name="key" value="<?= htmlspecialchars(ACCESS_KEY) ?>">
@@ -646,25 +664,46 @@ th { color: #6b7280; font-weight: 600; }
   </form>
   <form method="post" id="bulk-form">
     <input type="hidden" name="key" value="<?= htmlspecialchars(ACCESS_KEY) ?>">
-    <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.5rem">
+    <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.75rem">
       <button type="submit" class="del-btn" style="float:none"
         onclick="return document.querySelectorAll('.row-cb:checked').length > 0 && confirm('Delete selected sessions?')">
         Delete selected
       </button>
       <span id="sel-count" style="font-size:0.82rem;color:#6b7280"></span>
     </div>
-    <table class="session-table">
+
+    <!-- ── Engaged sessions ── -->
+    <p style="font-size:0.82rem;font-weight:600;color:#374151;margin-bottom:0.4rem">
+      Sessions with data (<?= count($engaged) ?>)
+    </p>
+    <?php if ($engaged): ?>
+    <table class="session-table" style="margin-bottom:1.75rem">
       <thead><tr>
-        <th><input type="checkbox" id="sel-all" title="Select all" style="float:none"></th>
+        <th><input type="checkbox" class="sel-all-hdr" title="Select all" style="float:none"></th>
         <th>#</th><th>Date / time</th><th>Active time</th>
-        <th>Pages</th><th>Feelings</th><th>Needs</th><th>Fields filled</th><th></th>
+        <th>Pages</th><th>Feelings</th><th>Needs</th><th title="Story words confirmed (OK'd)">Words</th><th>Fields</th>
+        <th title="Help screens opened">Help</th>
+        <th title="UI overlay opens (modals, menus, etc.)">UI</th>
+        <th></th>
       </tr></thead>
       <tbody>
-      <?php $i = 1; foreach ($journey as $sid => $sdata):
-        $active_ms = $sessions[$sid]['active_ms'] ?? 0;
-        // Fallback: use duration_ms from session_end if no active_ms accumulated
+      <?php $i = 1; foreach ($engaged as $sid => $sdata):
+        $active_ms     = $sessions[$sid]['active_ms'] ?? 0;
         if ($active_ms <= 0) $active_ms = $sdata['duration_ms'] ?? 0;
         $fields_filled = $sessions[$sid]['fields_filled'] ?? 0;
+        $feelings_n    = count($sdata['feelings_selected']) + count($sdata['feelings_strong']);
+        $needs_n       = count($sdata['needs_selected'])    + count($sdata['needs_strong']);
+        $help_n = 0; $ui_n = 0; $words_n = 0;
+        foreach ($sdata['events'] as $ev) {
+            if (($ev['event'] ?? '') === 'ui_open') {
+                if (($ev['type'] ?? '') === 'help') $help_n++;
+                else $ui_n++;
+            }
+            if (($ev['event'] ?? '') === 'action' && ($ev['action_name'] ?? '') === 'story_word_ok') {
+                $words_n++;
+            }
+        }
+        $js_idx = $journey_idx_map[$sid];
       ?>
       <tr>
         <td><input type="checkbox" name="del[]" value="<?= htmlspecialchars($sid) ?>" class="row-cb" style="float:none"></td>
@@ -672,11 +711,14 @@ th { color: #6b7280; font-weight: 600; }
         <td><?= $sdata['start'] ? date('j M, g:ia', intval($sdata['start']/1000)) : '–' ?></td>
         <td><?= $active_ms > 0 ? fmts($active_ms) : '–' ?></td>
         <td><?= count(array_unique(array_filter(array_map(fn($e)=>$e['page_name']??'', array_filter($sdata['events'],fn($e)=>$e['event']==='page_view'))))) ?></td>
-        <td><?= count($sdata['feelings_selected']) + count($sdata['feelings_strong']) ?></td>
-        <td><?= count($sdata['needs_selected'])    + count($sdata['needs_strong']) ?></td>
+        <td><?= $feelings_n    ?: '–' ?></td>
+        <td><?= $needs_n       ?: '–' ?></td>
+        <td><?= $words_n       ?: '–' ?></td>
         <td><?= $fields_filled ?: '–' ?></td>
+        <td><?= $help_n        ?: '–' ?></td>
+        <td><?= $ui_n          ?: '–' ?></td>
         <td style="display:flex;gap:0.4rem;justify-content:flex-end">
-          <button type="button" class="view-btn" onclick="viewSession(<?= $i-1 ?>)">View journey</button>
+          <button type="button" class="view-btn" onclick="viewSession(<?= $js_idx ?>)">View journey</button>
           <button type="button" class="del-btn"
             onclick="deleteSingle('<?= htmlspecialchars($sid, ENT_QUOTES) ?>')">Delete</button>
         </td>
@@ -684,6 +726,43 @@ th { color: #6b7280; font-weight: 600; }
       <?php $i++; endforeach; ?>
       </tbody>
     </table>
+    <?php else: ?>
+    <p class="nodata" style="margin-bottom:1.5rem">No sessions with data yet.</p>
+    <?php endif; ?>
+
+    <!-- ── Passive sessions (no interaction) ── -->
+    <?php if ($passive): ?>
+    <p style="font-size:0.82rem;font-weight:600;color:#9ca3af;margin-bottom:0.4rem">
+      Sessions with no interaction (<?= count($passive) ?>)
+    </p>
+    <table class="session-table" style="opacity:0.7">
+      <thead><tr>
+        <th><input type="checkbox" class="sel-all-hdr" title="Select all" style="float:none"></th>
+        <th>#</th><th>Date / time</th><th>Active time</th><th>Pages</th><th></th>
+      </tr></thead>
+      <tbody>
+      <?php $i = 1; foreach ($passive as $sid => $sdata):
+        $active_ms = $sessions[$sid]['active_ms'] ?? 0;
+        if ($active_ms <= 0) $active_ms = $sdata['duration_ms'] ?? 0;
+        $js_idx = $journey_idx_map[$sid];
+      ?>
+      <tr>
+        <td><input type="checkbox" name="del[]" value="<?= htmlspecialchars($sid) ?>" class="row-cb" style="float:none"></td>
+        <td><?= $i ?></td>
+        <td><?= $sdata['start'] ? date('j M, g:ia', intval($sdata['start']/1000)) : '–' ?></td>
+        <td><?= $active_ms > 0 ? fmts($active_ms) : '–' ?></td>
+        <td><?= count(array_unique(array_filter(array_map(fn($e)=>$e['page_name']??'', array_filter($sdata['events'],fn($e)=>$e['event']==='page_view'))))) ?></td>
+        <td style="display:flex;gap:0.4rem;justify-content:flex-end">
+          <button type="button" class="view-btn" onclick="viewSession(<?= $js_idx ?>)">View journey</button>
+          <button type="button" class="del-btn"
+            onclick="deleteSingle('<?= htmlspecialchars($sid, ENT_QUOTES) ?>')">Delete</button>
+        </td>
+      </tr>
+      <?php $i++; endforeach; ?>
+      </tbody>
+    </table>
+    <?php endif; ?>
+
   </form>
   <?php endif; ?>
 </div>
@@ -694,16 +773,18 @@ function deleteSingle(sid) {
   document.getElementById('single-del-form').submit();
 }
 (function() {
-  const selAll = document.getElementById('sel-all');
   const selCount = document.getElementById('sel-count');
-  if (!selAll) return;
   function updateCount() {
     const n = document.querySelectorAll('.row-cb:checked').length;
     selCount.textContent = n > 0 ? n + ' selected' : '';
   }
-  selAll.addEventListener('change', () => {
-    document.querySelectorAll('.row-cb').forEach(cb => { cb.checked = selAll.checked; });
-    updateCount();
+  // Each "select all" header checkbox toggles only its own table's rows
+  document.querySelectorAll('.sel-all-hdr').forEach(hdr => {
+    hdr.addEventListener('change', () => {
+      const tbody = hdr.closest('table').querySelector('tbody');
+      tbody.querySelectorAll('.row-cb').forEach(cb => { cb.checked = hdr.checked; });
+      updateCount();
+    });
   });
   document.querySelectorAll('.row-cb').forEach(cb => {
     cb.addEventListener('change', updateCount);
@@ -746,13 +827,25 @@ function fmtEvent(ev) {
     case 'navigation': return {label: `Navigated → <b>${ev.to_page||''}</b>`,
       detail: `from ${ev.from_page||''} · ${ev.method||'button'}`};
     case 'backtrack':  return {label: `Back to <b>${ev.page_name||''}</b>`, detail: 'browser back'};
-    case 'ui_open':    return {label: `Opened: ${ev.name||''}`, detail: ev.type||''};
+    case 'ui_open':
+      if (ev.word_type === 'story_word')
+        return {label: `Story word tapped: <b>${ev.word||ev.name||''}</b>`, detail: 'popup opened'};
+      return {label: `Opened: ${ev.name||''}`, detail: ev.type||''};
     case 'ui_close':   return {label: `Closed: ${ev.name||''}`,
       detail: ev.time_open_ms ? `open for ${fmtT(ev.time_open_ms)}` : ''};
     case 'field_interaction': return {label: `Field: <b>${ev.field_id||''}</b>`,
       detail: (ev.filled ? 'filled' : 'left empty') + (ev.length_bucket ? ` · ${ev.length_bucket} chars` : '')};
-    case 'action':     return {label: `Action: <b>${ev.action_name||''}</b>`,
-      detail: ev.setting ? `${ev.setting} → ${ev.value}` : (ev.track||'')};
+    case 'action':
+      if (ev.action_name === 'story_word_ok') {
+        const parts = [];
+        if ((ev.feelings_chosen||0) > 0) parts.push(`${ev.feelings_chosen} feeling${ev.feelings_chosen>1?'s':''}`);
+        if ((ev.needs_chosen||0)    > 0) parts.push(`${ev.needs_chosen} need${ev.needs_chosen>1?'s':''}`);
+        if (ev.replaced) parts.push('word replaced');
+        return {label: `✓ Story word kept: <b>${ev.word||''}</b>`,
+          detail: parts.length ? parts.join(' · ') : 'no feelings/needs linked'};
+      }
+      return {label: `Action: <b>${ev.action_name||''}</b>`,
+        detail: ev.setting ? `${ev.setting} → ${ev.value}` : (ev.track||'')};
     case 'session_end':return {label: `Session ended`,
       detail: ev.duration_ms ? `total ${fmtT(ev.duration_ms)}` : ''};
     default: return {label: ev.event, detail:''};

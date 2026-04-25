@@ -147,6 +147,8 @@ export const WizardProvider = ({ children }) => {
 
 	// Feelings explore card responses
 	const [feelingsExploreResponses, setFeelingsExploreResponses] = useState({});
+	// First feelings: { feelingName: true } for feelings the user marked as "came first"
+	const [firstFeelings, setFirstFeelings] = useState({});
 
 	// Making Guesses (other person's perspective)
 	const [guessObservation, setGuessObservation] = useState("");
@@ -202,6 +204,7 @@ export const WizardProvider = ({ children }) => {
 		needExplorations,
 		strategies,
 		feelingsExploreResponses,
+		firstFeelings,
 		guessObservation,
 		guessFeelings,
 		guessNeeds,
@@ -392,6 +395,7 @@ export const WizardProvider = ({ children }) => {
 		setFeelingsExploreResponses(
 			session.feelingsExploreResponses || session.feelingTypeResponses || session.familyResponses || {},
 		);
+		setFirstFeelings(session.firstFeelings || {});
 		setGuessObservation(session.guessObservation || "");
 		setGuessFeelings(session.guessFeelings || {});
 		setGuessNeeds(session.guessNeeds || {});
@@ -423,6 +427,7 @@ export const WizardProvider = ({ children }) => {
 		setNeedExplorationOpen(false);
 		setStrategies({});
 		setFeelingsExploreResponses({});
+		setFirstFeelings({});
 		setGuessObservation("");
 		setGuessFeelings({});
 		setGuessNeeds({});
@@ -494,6 +499,8 @@ export const WizardProvider = ({ children }) => {
 		setStrategies,
 		feelingsExploreResponses,
 		setFeelingsExploreResponses,
+		firstFeelings,
+		setFirstFeelings,
 		guessObservation,
 		setGuessObservation,
 		guessFeelings,

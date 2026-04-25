@@ -1,6 +1,8 @@
 import React from "react";
 import { useWizard } from "../WizardContext";
 import ImportanceBanner from "../ImportanceBanner";
+import HelpLink from "../HelpLink";
+
 import "./ObservationJackal.css";
 
 // ── Main step component ────────────────────────────────────────────────────
@@ -24,6 +26,7 @@ const ObservationJackal = () => {
 					placeholder="They ALWAYS do this! I'm so over it..."
 					rows={3}
 				/>
+				<HelpLink topic="privacy" aside>Your data always stays private..</HelpLink>
 			</div>
 		</div>
 	);

@@ -3,6 +3,8 @@ import { useWizard } from "../WizardContext";
 import { useOverlayHistory } from "../../hooks/useOverlayHistory";
 import { getNeedData, resolveNeedUnpackingType } from "../../utils/renderHelpers";
 import { UNPACKING_TYPE, unpackingTypeData } from "../../data/unpackingTypeData";
+import { DEEPENING_BIAS_BY_DOMAIN } from "../../data/AllNeedsFlat";
+import { needSpecificGuesses } from "../../data/NeedsSpecificGuesses";
 import HelpLink from "../HelpLink";
 import { trackEvent, currentPage } from "../../analytics/analytics";
 import DismissibleHint from "../DismissibleHint";
@@ -35,6 +37,9 @@ const UnpackNeeds = () => {
 	const [openStage1, setOpenStage1] = useState(false);
 	const [openStage2, setOpenStage2] = useState(false);
 
+	// Readiness check answer: null (pending) | 'yes' | 'close'
+	const [readinessAnswer, setReadinessAnswer] = useState(null);
+
 	// Pending removal confirmation
 	const [pendingRemoveNeed, setPendingRemoveNeed] = useState(null);
 
@@ -64,10 +69,11 @@ const UnpackNeeds = () => {
 		}
 	}, [currentExploringNeed, explorationStep]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	// Reset accordion state when switching needs
+	// Reset accordion + readiness state when switching needs
 	useEffect(() => {
 		setOpenStage1(false);
 		setOpenStage2(false);
+		setReadinessAnswer(null);
 	}, [currentExploringNeed]);
 
 	// ── Unmet needs lists ──
@@ -97,10 +103,14 @@ const UnpackNeeds = () => {
 			stage1GuessesSet.add(g);
 		}
 	}
-	const stage1Guesses = [...stage1GuessesSet];
+	// Use need-specific guesses if available, otherwise fall back to type-based guesses
+	const specificNeedGuesses = currentExploringNeed ? (needSpecificGuesses[currentExploringNeed] ?? null) : null;
+	const stage1Guesses = specificNeedGuesses ?? [...stage1GuessesSet];
 
 	// Stage 2: questions read directly from the flat need data
 	const currentNeedData = currentExploringNeed ? getNeedData(currentExploringNeed) : null;
+	const skipDeepening = DEEPENING_BIAS_BY_DOMAIN[currentNeedData?.domain] !== "check";
+	const showReadinessCheck = DEEPENING_BIAS_BY_DOMAIN[currentNeedData?.domain] === "check";
 	const specificQ = currentNeedData?.coreQuestion ?? null;
 	const directionPrompts = currentNeedData?.directionPrompts ? Object.values(currentNeedData.directionPrompts) : [];
 
@@ -370,19 +380,37 @@ const UnpackNeeds = () => {
 						</div>
 
 						<div className="need-explore-body">
-							{/* Stage 1 accordion — only for non-PRACTICAL needs */}
-							{!isPractical && (
-								<div className="unpacking-chunk">
-									<h3 className="unpacking-chunk-heading">Is there a deeper need underneath this?</h3>
-									<p>
-										First, let's make sure we're with what matters most. Sometimes the first need we
-										find is just the surface — something deeper may be calling.
+							{/* Readiness check — only for check-type needs, before answering */}
+							{showReadinessCheck && readinessAnswer === null && (
+								<div className="readiness-check">
+									<p className="readiness-check-question">
+										Does this feel like it really fits what matters here?
 									</p>
+									<div className="readiness-check-btns">
+										<button
+											className="readiness-check-btn readiness-check-btn--yes"
+											onClick={() => setReadinessAnswer("yes")}>
+											Yes, that{"'"}s it
+										</button>
+										<button
+											className="readiness-check-btn readiness-check-btn--explore"
+											onClick={() => setReadinessAnswer("close")}>
+											Close, but not quite
+										</button>
+									</div>
+								</div>
+							)}
+
+							{/* Stage 1 — only when user says "close, but not quite" */}
+							{!skipDeepening && readinessAnswer === "close" && (
+								<div className="unpacking-chunk">
+									<h3 className="unpacking-chunk-heading">Want to get a bit more specific?</h3>
+									<p>These questions might help you notice what this need is really pointing at.</p>
 									<div className="unpacking-section">
 										<button
 											className="unpacking-section-toggle"
 											onClick={() => setOpenStage1((o) => !o)}>
-											<span>{"Might there be a deeper need underneath this?"}</span>
+											<span>{"What would having this give you?"}</span>
 											<span className="unpacking-toggle-chevron">{openStage1 ? "▲" : "▼"}</span>
 										</button>
 										{openStage1 && (
@@ -395,7 +423,7 @@ const UnpackNeeds = () => {
 												{stage1Guesses.length > 0 && (
 													<>
 														<p className="unpacking-guesses-label">
-															{"Are any of these up for you as well?"}
+															{"Are any of these also alive for you?"}
 														</p>
 														<div className="pill-grid cloud">
 															{stage1Guesses.map((name) => (
@@ -415,8 +443,9 @@ const UnpackNeeds = () => {
 								</div>
 							)}
 
-							{/* Stage 2 accordion */}
-							<div className="unpacking-chunk unpacking-chunk--second">
+							{/* Stage 2 — shown once deepening is skipped or readiness is answered */}
+							{(skipDeepening || readinessAnswer !== null) && (
+							<div className={`unpacking-chunk${readinessAnswer === "close" ? " unpacking-chunk--second" : ""}`}>
 								<h3 className="unpacking-chunk-heading">Get to know how the need lives in YOU</h3>
 								<p>
 									Next, we'll explore how this need shows up and how it wants to be met. This is where
@@ -562,7 +591,7 @@ const UnpackNeeds = () => {
 									)}
 								</div>
 							</div>
-							{/* end unpacking-chunk--second */}
+							)}
 						</div>
 						{/* end need-explore-body */}
 

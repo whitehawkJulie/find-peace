@@ -10,6 +10,7 @@
  *   category             – group heading (e.g. "Affection", "To matter")
  *   tags.whereMet        – WHERE_MET string values (see whereMetData.js)
  *   tags.themes          – UNPACKING_TYPE string values (see unpackingTypeData.js)
+ *   domain               – "physiological" | "relational" | "existential" | "system" | "social_moral" | "agency"
  *   coreQuestion         – main clarifying question shown in NeedUnpacking (editable)
  *   helpText             – short phrase shown in the need picker
  *   ui.quickPick         – true → shown in Quick mode (flat, no subheadings)
@@ -30,6 +31,32 @@ const LIFE = "life";
 // const EXISTENTIAL = "existential_expansive";
 // const IDENTITY = "integrity_identity";
 
+// ─── DOMAIN & DEEPENING BIAS ─────────────────────────────────────
+// Each need has a `domain` field — one of six values describing what kind
+// of territory the need lives in. The domain drives whether the "look deeper"
+// readiness check is shown in the exploration popup.
+//
+// DEEPENING_BIAS_BY_DOMAIN (exported below) maps domain → "skip" | "check":
+//   skip  — the need is already deep enough; go straight to Stage 2.
+//           (physiological, relational, existential)
+//   check — show a readiness check first: "Does this feel like it really fits?"
+//           If the user says "close, but not quite", reveal deepening prompts.
+//           (system, social_moral, agency)
+//
+// domain is a separate axis from unpackingType. unpackingType describes how a
+// need behaves psychologically (threat-response, self-worth tangles, etc.).
+// domain describes what territory the need lives in — body, relationship,
+// meaning, structure, fairness, or agency.
+
+export const DEEPENING_BIAS_BY_DOMAIN = Object.freeze({
+	physiological: "skip",
+	relational:    "skip",
+	existential:   "skip",
+	system:        "check",
+	social_moral:  "check",
+	agency:        "check",
+});
+
 // ─── LIST MODE TIERS ─────────────────────────────────────────────
 // Quick (20): the NVC classics — come up in nearly every difficult interaction
 // Short (~69): Quick + commonly felt needs that arise in emotional/interpersonal difficulty
@@ -46,6 +73,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [ENV], themes: ["practical"] },
+		domain: "physiological",
 		coreQuestion: "Is this about the air around you, or about the feeling of being able to breathe easily?",
 		helpText: "Clean air to breathe",
 		ui: { tier: "more" },
@@ -56,6 +84,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [ENV], themes: ["practical"] },
+		domain: "physiological",
 		coreQuestion: "Is this about having enough food, or about the quality and nourishment of what you're eating?",
 		helpText: "Nourishing and satisfying meals",
 		ui: { tier: "more" },
@@ -66,6 +95,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical"] },
+		domain: "physiological",
 		coreQuestion:
 			"What aspect of your health feels most present right now — energy, pain, physical capacity, or something else?",
 		directionPrompts: {
@@ -82,6 +112,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical", "agency_autonomy"] },
+		domain: "physiological",
 		coreQuestion:
 			"What kind of movement is calling you — exercise, freedom to go somewhere, or simply not feeling stuck?",
 		directionPrompts: {
@@ -98,6 +129,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [ENV], themes: ["protective_safety"] },
+		domain: "physiological",
 		coreQuestion:
 			"Is there a specific physical threat, or more of a general need to feel safe in your body and surroundings?",
 		helpText: "Freedom from physical harm",
@@ -109,6 +141,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical"] },
+		domain: "physiological",
 		coreQuestion:
 			"Is this about literal sleep, or about a deeper kind of rest — permission to stop and not be productive for a while?",
 		directionPrompts: {
@@ -125,6 +158,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [ENV], themes: ["practical"] },
+		domain: "physiological",
 		coreQuestion: "Is this about having a physical place to live, or about feeling at home and settled somewhere?",
 		helpText: "Safe and secure housing",
 		ui: { tier: "more" },
@@ -135,6 +169,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
+		domain: "physiological",
 		coreQuestion:
 			"What kind of touch are you longing for — a hug, a hand on your shoulder, or simply being physically close to someone?",
 		directionPrompts: {
@@ -151,6 +186,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Physical sustenance",
 		tags: { whereMet: [ENV], themes: ["practical"] },
+		domain: "physiological",
 		coreQuestion: "Is this about literal access to water, or about your basic needs not being met?",
 		helpText: "Clean water for drinking and hygiene",
 		ui: { tier: "more" },
@@ -165,6 +201,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [ENV, IN_ME], themes: ["protective_safety"] },
+		domain: "system",
 		coreQuestion:
 			"Is this about wanting things around you to be organised, or about an inner sense of knowing what comes next?",
 		directionPrompts: {
@@ -181,6 +218,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [ENV], themes: ["protective_safety"] },
+		domain: "system",
 		coreQuestion:
 			"Is this about wanting the conflict around you to stop, or about finding a way to feel less affected by it?",
 		helpText: "Safety from external conflict",
@@ -192,6 +230,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [IN_ME], themes: ["protective_safety"] },
+		domain: "existential",
 		coreQuestion:
 			"What's disturbing your peace of mind right now — worry about the future, regret about the past, or something unresolved?",
 		helpText: "Freedom from internal turmoil",
@@ -203,6 +242,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [ENV], themes: ["protective_safety"] },
+		domain: "system",
 		coreQuestion: "What are you wanting protection from — a person, a situation, or your own feelings?",
 		helpText: "Being guarded from harm",
 		ui: { tier: "more" },
@@ -213,6 +253,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["protective_safety"] },
+		domain: "relational",
 		coreQuestion:
 			"What would emotional safety look like here — being able to say what you feel without being judged, or knowing you won't be hurt for being open?",
 		directionPrompts: {
@@ -233,6 +274,7 @@ export const allNeeds = [
 			whereMet: [ENV, IN_ME, BETWEEN_US],
 			themes: ["protective_safety", "relational_field", "practical"],
 		},
+		domain: "system",
 		coreQuestion:
 			"What part of your life feels unsteady right now — practical things, a relationship, or your own inner state?",
 
@@ -251,6 +293,7 @@ export const allNeeds = [
 		family: "Subsistence",
 		category: "Security",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["protective_safety", "relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"Is this about trusting a specific person, or about a more general sense that things will be okay?",
 
@@ -273,6 +316,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"What kind of affection are you longing for — words, gestures, physical warmth, or simply knowing someone cares?",
 		helpText: "Expressions of emotional warmth and connection",
@@ -284,6 +328,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
+		domain: "social_moral",
 		coreQuestion:
 			"What would appreciation look like here — being thanked, being noticed, or having your effort acknowledged? Is this more about being appreciated by someone else, or about recognising your own worth?",
 		directionPrompts: {
@@ -299,6 +344,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"When you say you need attention, is it about someone being present with you, or about feeling like you matter enough to be noticed?",
 		helpText: "Being genuinely noticed",
@@ -310,6 +356,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion: "Is this about physical closeness, emotional closeness, or both?",
 		helpText: "Emotional and/or physical intimacy",
 		ui: { quickPick: true },
@@ -320,6 +367,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"Is this connection to a specific person, to a group, or to something bigger — life, nature, or meaning?",
 		helpText: "Feeling linked to others and to life",
@@ -331,6 +379,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion: "Is this about having someone to do things with, or about not feeling alone in your experience?",
 		helpText: "Enjoying life with others",
 		ui: { tier: "more" },
@@ -341,6 +390,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "protective_safety"] },
+		domain: "relational",
 		coreQuestion:
 			"Is the harmony you're wanting about people getting along, or about feeling at ease in your relationships?",
 		directionPrompts: {
@@ -356,6 +406,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"What does intimacy mean for you here — emotional openness, physical closeness, or the feeling of being truly known?",
 		helpText: "Mutual vulnerability and closeness",
@@ -366,6 +417,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"When you notice this need for love, is it about receiving it, giving it, or knowing it's there even when it isn't being said?",
 		directionPrompts: {
@@ -383,6 +435,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion: "Are you wanting to be nurtured by someone, or noticing a need to nurture yourself?",
 		directionPrompts: {
 			[BETWEEN_US]: "You might notice what kind of care or gentleness you're hoping to receive from someone.",
@@ -396,6 +449,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"Is this about physical desire, about feeling wanted, or about a deeper sense of aliveness with another person?",
 		helpText: "Authentic physical intimacy",
@@ -407,6 +461,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US, ENV, IN_ME], themes: ["relational_field", "practical"] },
+		domain: "relational",
 		coreQuestion:
 			"What kind of support would help most — someone to listen, practical help, or simply knowing someone has your back?",
 		directionPrompts: {
@@ -425,6 +480,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"What would tenderness look like here — a softer tone, a gentle gesture, or someone being especially careful with you?",
 		helpText: "Gentle, caring touch or tone",
@@ -436,6 +492,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field", "protective_safety"] },
+		domain: "relational",
 		coreQuestion:
 			"Are you wanting to know that someone would stand up for you, support you if things got difficult, or simply be on your side?",
 		helpText: "Knowing someone is on my side and will stand by me",
@@ -446,6 +503,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Affection",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"Is the warmth you're wanting from a specific person, or about the overall atmosphere around you?",
 		helpText: "A sense of friendliness and care",
@@ -460,6 +518,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["integrity_identity", "relational_field"] },
+		domain: "social_moral",
 		coreQuestion: "Who do you most want to matter to right now — someone else, or yourself?",
 		directionPrompts: {
 			[BETWEEN_US]: "You might notice what would help you feel valued or important to this person.",
@@ -474,6 +533,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["integrity_identity", "relational_field"] },
+		domain: "social_moral",
 		coreQuestion:
 			"What part of you is wanting acceptance right now — a decision you made, something you feel, or simply who you are?",
 		directionPrompts: {
@@ -490,6 +550,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"What would care look like in this situation — someone checking in, offering help, or simply noticing that you're struggling?",
 		helpText: "Concern for my well-being",
@@ -501,6 +562,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"Are you wanting compassion from someone else, or noticing you need more compassion toward yourself?",
 		directionPrompts: {
@@ -517,6 +579,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "social_moral",
 		coreQuestion:
 			"Is this about someone thinking of you before acting, or about your needs being included in a decision?",
 		helpText: "Having my needs factored in",
@@ -527,6 +590,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"Is this about someone understanding what it's like for you, or about them feeling emotionally with you?",
 		helpText: "Emotional resonance and understanding",
@@ -538,6 +602,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
+		domain: "social_moral",
 		coreQuestion:
 			"What would respect look like here — being spoken to differently, having your boundaries honoured, or your perspective taken seriously?",
 		directionPrompts: {
@@ -553,6 +618,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
+		domain: "social_moral",
 		coreQuestion:
 			"What would acknowledgement look like — someone recognising what you did, what you went through, or what you're feeling?",
 		directionPrompts: {
@@ -568,6 +634,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"Is this about someone listening all the way through, or about knowing your words are actually landing and influencing what happens next?",
 		helpText: "To know my words are received and taken in",
@@ -579,6 +646,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
+		domain: "relational",
 		coreQuestion:
 			"Is this about being noticed and recognised, or about someone really understanding what it's like to be you right now?",
 		directionPrompts: {
@@ -595,6 +663,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"Is this about being understood in this moment, or about someone understanding you deeply over time?",
 		helpText: "Deep recognition of who I am",
@@ -606,6 +675,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "protective_safety"] },
+		domain: "relational",
 		coreQuestion:
 			"Is this about someone believing in your honesty or capability, or about feeling able to trust yourself?",
 		directionPrompts: {
@@ -620,6 +690,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"Is this about understanding a specific person, or about a more general wish to connect through understanding?",
 		directionPrompts: {
@@ -635,6 +706,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "integrity_identity"] },
+		domain: "social_moral",
 		coreQuestion:
 			"Is this about both of you seeing each other clearly, or about the absence of that — feeling invisible while the other person isn't really looking?",
 		directionPrompts: {
@@ -652,6 +724,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "To matter",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"What would kindness look like right now — a gentle word, a thoughtful action, or simply the absence of harshness?",
 		directionPrompts: {
@@ -670,6 +743,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"What kind of community are you longing for — people who share your interests, your values, or simply a sense of being part of something?",
 		helpText: "Belonging to a group",
@@ -681,6 +755,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["relational_field", "protective_safety"] },
+		domain: "relational",
 		coreQuestion: "Where do you most want to belong right now — a group, a place, or with a particular person?",
 		directionPrompts: {
 			[BETWEEN_US]: "You might notice what would help you feel welcomed or included with these people.",
@@ -695,6 +770,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field", "protective_safety"] },
+		domain: "system",
 		coreQuestion:
 			"Is this about wanting someone to follow through consistently, or about needing systems or conditions you can depend on?",
 		directionPrompts: {
@@ -711,6 +787,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "system",
 		coreQuestion: "Is this about expressing yourself clearly, being heard, or wanting more open dialogue?",
 		helpText: "Sharing and receiving information",
 	},
@@ -720,6 +797,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field", "practical"] },
+		domain: "system",
 		coreQuestion:
 			"Is this about wanting others to work with you, or about feeling like you're pulling in the same direction?",
 		helpText: "Working together toward common goals",
@@ -730,6 +808,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field", "integrity_identity"] },
+		domain: "social_moral",
 		coreQuestion:
 			"Is this about being treated as an equal in a specific relationship, or about fairness in a wider sense?",
 		directionPrompts: {
@@ -745,6 +824,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field"] },
+		domain: "social_moral",
 		coreQuestion:
 			"Is this about being actively invited in, or about not being left out? Is this more about inclusion with particular people, or about wider conditions making participation harder?",
 		directionPrompts: {
@@ -759,6 +839,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"Is this about wanting more balance in what you give and receive, or about the other person showing they're invested too?",
 		helpText: "Reciprocal give and take",
@@ -770,6 +851,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US, ENV], themes: ["relational_field"] },
+		domain: "social_moral",
 		coreQuestion:
 			"Is this about wanting to be included in activities or decisions, or about having a role that matters? Is this mainly about participation with particular people, or about wider conditions that affect whether you can join in?",
 		directionPrompts: {
@@ -785,6 +867,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion:
 			"Is this about sharing the load with someone, making decisions together, or feeling like you're a team?",
 		helpText: "Collaborative and shared efforts",
@@ -795,6 +878,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["integrity_identity", "relational_field"] },
+		domain: "social_moral",
 		coreQuestion:
 			"What part of yourself are you wanting to express — your feelings, your creativity, your opinions, or something you've been holding back?",
 		directionPrompts: {
@@ -809,6 +893,7 @@ export const allNeeds = [
 		family: "Connection",
 		category: "Community",
 		tags: { whereMet: [BETWEEN_US], themes: ["relational_field"] },
+		domain: "relational",
 		coreQuestion: "Is this about sharing experiences together, sharing resources, or sharing what's in your heart?",
 		helpText: "Mutual giving and receiving",
 		ui: { tier: "more" },
@@ -823,6 +908,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
+		domain: "existential",
 		coreQuestion:
 			"Is there something you're holding back or pretending about? What would it look like to be more yourself here?",
 		helpText: "Being true to myself",
@@ -834,6 +920,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, ENV], themes: ["integrity_identity", "practical"] },
+		domain: "social_moral",
 		coreQuestion:
 			"Is this about wanting to feel capable, or about having the conditions and support to act capably?",
 		directionPrompts: {
@@ -849,6 +936,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, LIFE, ENV], themes: ["integrity_identity", "existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"What kind of creativity is calling you — making something, solving a problem in a new way, or simply having space to imagine?",
 		directionPrompts: {
@@ -864,6 +952,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["integrity_identity"] },
+		domain: "social_moral",
 		coreQuestion: "Has something happened that felt undignified? What would help restore your sense of worth here?",
 		directionPrompts: {
 			[IN_ME]: "You might notice what would help you reconnect with your own worth or self-respect.",
@@ -878,6 +967,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, LIFE, ENV], themes: ["integrity_identity", "existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"What kind of growth are you wanting — learning something new, becoming more yourself, or moving past something that's been holding you back?",
 		directionPrompts: {
@@ -894,6 +984,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, ENV, BETWEEN_US], themes: ["integrity_identity", "protective_safety"] },
+		domain: "existential",
 		coreQuestion:
 			"What are you wanting to heal from — something recent, something old, or something you can't quite name yet?",
 		directionPrompts: {
@@ -911,6 +1002,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["integrity_identity", "relational_field"] },
+		domain: "social_moral",
 		coreQuestion:
 			"Is this about wanting someone to be honest with you, or about wanting to be more honest yourself?",
 		directionPrompts: {
@@ -926,6 +1018,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
+		domain: "existential",
 		coreQuestion:
 			"Is there something about this situation that doesn't sit right with you? What would being more in alignment look like here?",
 		helpText: "Living in alignment with values",
@@ -936,6 +1029,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
+		domain: "existential",
 		coreQuestion:
 			"What part of yourself are you struggling to accept right now — something you did, something you feel, or something about who you are?",
 		helpText: "Welcoming all parts of myself",
@@ -946,6 +1040,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical", "integrity_identity"] },
+		domain: "existential",
 		coreQuestion:
 			"What kind of self-care feels most needed — rest, nourishment, time alone, or giving yourself permission to slow down?",
 		directionPrompts: {
@@ -960,6 +1055,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
+		domain: "existential",
 		coreQuestion:
 			"Have you been disconnected from yourself lately — going through the motions, ignoring signals, or not knowing what you feel?",
 		helpText: "Awareness of inner experience",
@@ -971,6 +1067,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
+		domain: "existential",
 		coreQuestion:
 			"Is there something about yourself you're trying to understand — a pattern, a reaction, or something you keep doing that puzzles you?",
 		helpText: "Understanding myself",
@@ -982,6 +1079,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive", "integrity_identity"] },
+		domain: "existential",
 		coreQuestion:
 			"Is there something you feel called to do or become that you haven't been able to move toward? Is this mainly about becoming more fully yourself, or about the wider direction and purpose of your life?",
 		directionPrompts: {
@@ -997,6 +1095,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Sense of self",
 		tags: { whereMet: [IN_ME], themes: ["integrity_identity"] },
+		domain: "existential",
 		coreQuestion:
 			"Have you been putting yourself last? What would it look like to treat your own needs as worthy of attention?",
 		helpText: "Recognizing my own value",
@@ -1011,6 +1110,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, BETWEEN_US, LIFE], themes: ["existential_expansive", "relational_field"] },
+		domain: "existential",
 		coreQuestion: "What are you wanting to understand — yourself, another person, or why something happened?",
 		directionPrompts: {
 			[IN_ME]:
@@ -1026,6 +1126,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"Is this about being more aware of your own inner experience, or more aware of life as it unfolds around you?",
 		directionPrompts: {
@@ -1041,6 +1142,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["protective_safety", "existential_expansive"] },
+		domain: "system",
 		coreQuestion:
 			"What feels unclear right now — the situation, someone's intentions, or your own feelings about it?",
 		directionPrompts: {
@@ -1056,6 +1158,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"Is this about learning something new, or uncovering something that was already there but hidden?",
 		directionPrompts: {
@@ -1070,6 +1173,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, ENV], themes: ["existential_expansive", "practical"] },
+		domain: "existential",
 		coreQuestion:
 			"What are you wanting to learn — a skill, something about yourself, or a better understanding of someone or something?",
 		directionPrompts: {
@@ -1084,6 +1188,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"Is there something specific that doesn't make sense right now, or a wider feeling of confusion about where life is heading?",
 		directionPrompts: {
@@ -1099,6 +1204,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Understanding",
 		tags: { whereMet: [IN_ME, ENV], themes: ["existential_expansive", "practical"] },
+		domain: "existential",
 		coreQuestion:
 			"Is this about boredom, or about wanting something that engages your mind and brings more aliveness?",
 		directionPrompts: {
@@ -1118,6 +1224,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion: "Is this about something specific feeling pointless, or a wider search for what really matters?",
 		directionPrompts: {
 			[LIFE]: "You might explore what part of life is feeling empty, disconnected, or in need of deeper significance.",
@@ -1132,6 +1239,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, ENV, IN_ME], themes: ["existential_expansive", "agency_autonomy"] },
+		domain: "existential",
 		coreQuestion:
 			"Are you feeling under-challenged and wanting more stretch, or facing a challenge you want support to meet?",
 		directionPrompts: {
@@ -1148,6 +1256,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"What tends to help you feel most alive — movement, connection, creativity, nature, or something else?",
 		directionPrompts: {
@@ -1163,6 +1272,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"Is this about becoming more awake to your own experience, or about connecting to something larger than yourself?",
 		directionPrompts: {
@@ -1178,6 +1288,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, BETWEEN_US, ENV], themes: ["existential_expansive", "relational_field"] },
+		domain: "existential",
 		coreQuestion:
 			"What would contribution look like here — helping someone specific, serving something larger, or knowing that what you do matters?",
 		directionPrompts: {
@@ -1194,6 +1305,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [ENV, IN_ME], themes: ["practical", "existential_expansive"] },
+		domain: "agency",
 		coreQuestion:
 			"Is this about wanting your efforts to produce results, or about feeling stuck and unable to make an impact?",
 		directionPrompts: {
@@ -1209,6 +1321,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, ENV, IN_ME], themes: ["existential_expansive", "agency_autonomy"] },
+		domain: "existential",
 		coreQuestion: "What are you wanting to explore — new experiences, new ideas, or new parts of yourself?",
 		directionPrompts: {
 			[LIFE]: "You might explore what new territory in life is calling for your curiosity or engagement.",
@@ -1224,6 +1337,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"Is there a part of your life or experience that feels separate or fragmented? What would more wholeness look like?",
 		directionPrompts: {
@@ -1239,6 +1353,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Meaning",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"Is this about wanting a clearer sense of direction, or about what you're doing not feeling purposeful enough?",
 		directionPrompts: {
@@ -1258,6 +1373,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, ENV, IN_ME], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion: "What kind of beauty are you longing for — in nature, art, people, or the world around you?",
 		directionPrompts: {
 			[LIFE]: "You might explore how beauty connects to your experience of life as a whole.",
@@ -1274,6 +1390,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, BETWEEN_US, IN_ME], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"What feels worth celebrating right now — even something small? Or are you missing the feeling of being able to celebrate at all?",
 		directionPrompts: {
@@ -1290,6 +1407,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, BETWEEN_US, IN_ME], themes: ["existential_expansive", "relational_field"] },
+		domain: "existential",
 		coreQuestion:
 			"Is this communion you're wanting with another person, with life or nature, with something spiritual, or with yourself?",
 		directionPrompts: {
@@ -1307,6 +1425,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"Is this about spiritual or religious faith, or about a more general trust that things can work out?",
 		directionPrompts: {
@@ -1322,6 +1441,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [IN_ME, ENV, LIFE], themes: ["existential_expansive", "practical"] },
+		domain: "existential",
 		coreQuestion:
 			"When did you last feel in flow? What were you doing, and what seems to support that state for you?",
 		directionPrompts: {
@@ -1338,6 +1458,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"Is this about hope for a specific situation, or a wider sense that life could still open in a better direction?",
 		directionPrompts: {
@@ -1353,6 +1474,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, IN_ME], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"What tends to inspire you — ideas, people, nature, art, or something else? What would help you reconnect with that?",
 		directionPrompts: {
@@ -1367,6 +1489,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [LIFE, IN_ME, BETWEEN_US], themes: ["integrity_identity", "existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"What are you mourning — a person, a possibility, something that changed, or something that never was?",
 		directionPrompts: {
@@ -1383,6 +1506,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["protective_safety", "existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"What's disturbing your inner peace — racing thoughts, unresolved feelings, or something in life that won't settle?",
 		directionPrompts: {
@@ -1398,6 +1522,7 @@ export const allNeeds = [
 		family: "Meaning",
 		category: "Transcendence",
 		tags: { whereMet: [IN_ME, LIFE], themes: ["existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"Is this about wanting to be more fully here yourself, or about wanting to feel more connected with life as it is happening?",
 		directionPrompts: {
@@ -1416,6 +1541,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, ENV, BETWEEN_US], themes: ["agency_autonomy"] },
+		domain: "agency",
 		coreQuestion:
 			"When you say freedom, is it more about having options, having room to be yourself, or being able to move and act without constraint? Where does the limitation feel strongest — inside you, in your circumstances, or in a relationship?",
 		directionPrompts: {
@@ -1434,6 +1560,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["agency_autonomy"] },
+		domain: "agency",
 		coreQuestion:
 			"Is this about someone making decisions for you, or about feeling constrained even without anyone actively controlling you?",
 		directionPrompts: {
@@ -1449,6 +1576,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, ENV, BETWEEN_US], themes: ["agency_autonomy"] },
+		domain: "agency",
 		coreQuestion: "Is this about having options, or about feeling free to choose without pressure or guilt?",
 		directionPrompts: {
 			[IN_ME]: "You might notice what inner permission or confidence would help you choose more freely.",
@@ -1465,6 +1593,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical", "agency_autonomy"] },
+		domain: "agency",
 		coreQuestion:
 			"Is this about physical ease, emotional ease, or simply wanting things to be less effortful for a while?",
 		directionPrompts: {
@@ -1480,6 +1609,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, BETWEEN_US], themes: ["agency_autonomy"] },
+		domain: "agency",
 		coreQuestion:
 			"Is this about wanting to manage on your own, or about not wanting to depend on someone who isn't reliable?",
 		directionPrompts: {
@@ -1495,6 +1625,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME], themes: ["agency_autonomy"] },
+		domain: "agency",
 		coreQuestion:
 			"Is this about feeling powerless in a specific situation, or a wider sense that your actions don't make a difference?",
 		helpText: "Ability to influence",
@@ -1506,6 +1637,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME], themes: ["agency_autonomy", "integrity_identity"] },
+		domain: "agency",
 		coreQuestion:
 			"Is this about wanting to take more ownership of your life, or about others not taking responsibility for theirs?",
 		helpText: "Owning my own choices",
@@ -1517,6 +1649,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, ENV, BETWEEN_US], themes: ["agency_autonomy", "practical"] },
+		domain: "agency",
 		coreQuestion: "Is this physical space, emotional space, or time and room to think and be yourself?",
 		directionPrompts: {
 			[IN_ME]: "You might notice what inner spaciousness or breathing room is most needed right now.",
@@ -1532,6 +1665,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		tags: { whereMet: [IN_ME, ENV], themes: ["agency_autonomy", "practical"] },
+		domain: "agency",
 		coreQuestion:
 			"Is this about wanting more freedom to follow impulses, or about feeling too constrained by plans and obligations?",
 		directionPrompts: {
@@ -1551,6 +1685,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		tags: { whereMet: [BETWEEN_US, IN_ME], themes: ["practical", "relational_field"] },
+		domain: "existential",
 		coreQuestion:
 			"Is this about wanting more lightness in your life, or about missing someone specific you laugh with?",
 		directionPrompts: {
@@ -1566,6 +1701,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		tags: { whereMet: [IN_ME, LIFE, BETWEEN_US], themes: ["practical", "existential_expansive"] },
+		domain: "existential",
 		coreQuestion:
 			"When did you last feel genuine joy? What was happening, and what seems closest to that right now?",
 		directionPrompts: {
@@ -1584,6 +1720,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		tags: { whereMet: [IN_ME, BETWEEN_US, ENV], themes: ["practical", "relational_field"] },
+		domain: "existential",
 		coreQuestion:
 			"What does play look like for you — silliness, games, creating something, or doing something just for the fun of it?",
 		directionPrompts: {
@@ -1600,6 +1737,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical"] },
+		domain: "existential",
 		coreQuestion:
 			"What kind of pleasure feels most needed — physical comfort, something delicious, a beautiful experience, or simply relaxation?",
 		directionPrompts: {
@@ -1616,6 +1754,7 @@ export const allNeeds = [
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		tags: { whereMet: [IN_ME, ENV], themes: ["practical"] },
+		domain: "existential",
 		coreQuestion:
 			"What would help you feel renewed — time off, time in nature, doing something you love, or simply having nothing to do?",
 		directionPrompts: {

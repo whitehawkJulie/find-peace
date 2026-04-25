@@ -1,5 +1,5 @@
 import React from "react";
-// import HelpLink from "../HelpLink";
+import HelpLink from "../HelpLink";
 
 import "./Introduction.css";
 
@@ -30,9 +30,9 @@ const Introduction = () => {
 						</div>
 						<div className="intro-thought-bubble">
 							<ul>
-								<li>This isn't fair! They need to change!</li>
+								<li>That's not fair!</li>
 								<li>How could they do/say that?!</li>
-								<li>I'm not being heard or understood</li>
+								<li>They're not hearing me!</li>
 							</ul>
 						</div>
 					</div>
@@ -104,24 +104,14 @@ const Introduction = () => {
 						</div>
 					</li>
 				</ul>
+				<div>
+					<p className="intro-more-link">
+						<HelpLink topic="this-process" aside>
+							More about this process
+						</HelpLink>
+					</p>
+				</div>
 			</div>
-
-			{/* <div className="intro-outcomes-section">
-				<p className="intro-outcomes-label">It helps you pause and get clear on:</p>
-				<ol className="intro-outcomes">
-					{introductionOutcomes.map((step, i) => (
-						<li key={i}>
-							<span className="intro-outcome-num">{i + 1}</span>
-							<span>{step}</span>
-						</li>
-					))}
-				</ol>
-				<p className="intro-more-link">
-					<HelpLink topic="this-process" aside>
-						More about this process
-					</HelpLink>
-				</p>
-			</div> */}
 		</div>
 	);
 };

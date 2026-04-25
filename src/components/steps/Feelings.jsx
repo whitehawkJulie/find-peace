@@ -210,6 +210,7 @@ const Feelings = () => {
 
 	return (
 		<div className="step-feelings step-container">
+			<p>Now we're going to choose feelings words that match the observation you just made.</p>
 			<p>
 				You don’t have to get this perfect. Just notice what’s there — you might find that{" "}
 				<HelpLink topic="feelings">naming feelings</HelpLink> gives you information you didn’t realise you had.
@@ -232,10 +233,6 @@ const Feelings = () => {
 				</div>
 			</div>
 
-			<DismissibleHint id="click-feelings-twice">
-				HINT: Tap twice on any feeling that’s especially strong.
-			</DismissibleHint>
-
 			<Checklist
 				data={[FeelingsData.sections.feelings]}
 				selectedItems={feelings}
@@ -247,6 +244,11 @@ const Feelings = () => {
 				defaultListMode="full"
 				regulationOverlay={showRegulationOverlay}
 				regulationToggle={regulationToggle}
+				selectionHint={
+					<DismissibleHint id="click-feelings-twice">
+						HINT: Tap twice on any feeling that’s especially strong.
+					</DismissibleHint>
+				}
 				headerContent={
 					showRegulationOverlay ? (
 						<RegulationLegend

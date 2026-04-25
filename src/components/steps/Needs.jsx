@@ -8,7 +8,7 @@ import HelpLink from "../HelpLink";
 
 import "./Needs.css";
 
-const renderOrderedFeelings = (feelings) => {
+const renderOrderedFeelings = (feelings, firstFeelings) => {
 	const entries = Object.entries(feelings)
 		.filter(([, s]) => s === "clicked" || s === "double-clicked")
 		.sort(([, a], [, b]) => (a === "double-clicked" ? 0 : 1) - (b === "double-clicked" ? 0 : 1));
@@ -19,36 +19,36 @@ const renderOrderedFeelings = (feelings) => {
 		<>
 			<p className="cloud-label">The feelings you chose</p>
 			<div className="pill-grid cloud feelings-selected-pills">
-				{entries.map(([feeling, state]) => (
-					<div key={feeling} className={`pill feeling ${state}`}>
-						{state === "double-clicked" && <span className="pill-strong-badge">●</span>}
-						{feeling}
-					</div>
-				))}
+				{entries.map(([feeling, state]) => {
+					const isFirst = !!firstFeelings?.[feeling];
+					return (
+						<div key={feeling} className={`pill feeling ${state}${isFirst ? " first-feeling-selected" : ""}`}>
+							{isFirst && <span className="first-feeling-badge">①</span>}
+							{!isFirst && state === "double-clicked" && <span className="pill-strong-badge">●</span>}
+							{feeling}
+						</div>
+					);
+				})}
 			</div>
 		</>
 	);
 };
 
 const Needs = () => {
-	const { needs, setNeeds, feelings } = useWizard();
+	const { needs, setNeeds, feelings, firstFeelings } = useWizard();
 
 	const [showPatriarchy, setShowPatriarchy] = useState(false);
 
 	return (
 		<div className="step-needs">
 			<p>
-				Your feelings are pointing to something deeper — what you were longing for in that moment.{" "}
-				<HelpLink topic="needs">What are "fundamental human needs"?</HelpLink>
+				Your feelings point to something deeper — what you were longing for in that moment. We call these
+				longings <HelpLink topic="needs">"fundamental human needs"?</HelpLink>
 			</p>
 
-			{renderOrderedFeelings(feelings)}
+			{renderOrderedFeelings(feelings, firstFeelings)}
 
-			<p>Select anything that feels true.</p>
-
-			<DismissibleHint id="click-needs-twice">
-				HINT: Tap twice on any need that feels especially strong or urgent.
-			</DismissibleHint>
+			<p>What were you needing in that moment, that you weren't getting?</p>
 
 			<Checklist
 				data={[
@@ -61,7 +61,12 @@ const Needs = () => {
 				setSelectedItems={setNeeds}
 				type="needs"
 				showListModeToggle={true}
-				defaultListMode="quick"
+				defaultListMode="full"
+				selectionHint={
+					<DismissibleHint id="click-needs-twice">
+						HINT: Tap twice on any need that feels especially strong or urgent.
+					</DismissibleHint>
+				}
 			/>
 
 			{/* <SlideDrawer

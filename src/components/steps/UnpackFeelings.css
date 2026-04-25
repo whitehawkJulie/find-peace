@@ -279,6 +279,29 @@
 	color: #2d5a36;
 }
 
+/* ===== First feelings cloud (merged with selected-pills cloud) ===== */
+
+.first-feelings-cloud .pill {
+	cursor: pointer;
+}
+
+.first-feelings-cloud .pill:hover {
+	opacity: 0.85;
+}
+
+.first-feelings-cloud .first-feeling-selected {
+	background: #f5e6c8 !important;
+	border-color: #c99a3a !important;
+	color: #7a5a10 !important;
+	box-shadow: 0 0 0 1px #c99a3a;
+}
+
+.first-feeling-badge {
+	font-size: 0.7rem;
+	margin-right: 0.3rem;
+	opacity: 0.85;
+}
+
 /* ===== Murky feelings sub-section in Go Deeper ===== */
 
 .feelings-explore-murky-section {

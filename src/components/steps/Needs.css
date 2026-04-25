@@ -16,6 +16,20 @@
 	font-weight: 600;
 }
 
+/* First-feelings amber highlight carried over from Explore Feelings page */
+.step-needs .pill.first-feeling-selected {
+	background: #f5e6c8 !important;
+	border-color: #c99a3a !important;
+	color: #7a5a10 !important;
+	box-shadow: 0 0 0 1px #c99a3a;
+}
+
+.step-needs .first-feeling-badge {
+	font-size: 0.7rem;
+	margin-right: 0.3rem;
+	opacity: 0.85;
+}
+
 /* Override checklist category body backgrounds — keep all 4 needs sections green-tinted,
    not the varying blue/amber/purple that category-0/1/2/3 would otherwise apply */
 .step-needs .category {

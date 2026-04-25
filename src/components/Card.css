@@ -163,6 +163,20 @@
 	transition: opacity 0.25s ease;
 	z-index: 2;
 }
+
+.card-scroll-label {
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	font-size: 0.72rem;
+	color: #999;
+	pointer-events: none;
+	transition: opacity 0.25s ease;
+	z-index: 3;
+	letter-spacing: 0.04em;
+}
 /* Tagline shown below the logo on the intro page only */
 .card-intro-tagline {
 	margin: 0.35rem 0 0;

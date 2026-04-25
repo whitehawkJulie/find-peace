@@ -35,6 +35,7 @@ const Checklist = ({
 	headerContent = null,
 	tooltipEnhancer = null,
 	defaultCollapsed = [],
+	selectionHint = null,
 }) => {
 	const [collapsedCategories, setCollapsedCategories] = useState(() =>
 		Object.fromEntries(defaultCollapsed.map((h) => [h, true]))
@@ -293,6 +294,7 @@ const Checklist = ({
 										<div className="pill-grid" style={{ padding: "1rem" }}>
 											{quickPicks.map(renderPill)}
 										</div>
+										{selectionHint && quickPicks.some((it) => selectedItems[it.item]) && selectionHint}
 										{afterGroupContent &&
 											quickPicks.some((it) => it.item === afterGroupContent.itemName) &&
 											afterGroupContent.node}
@@ -305,6 +307,9 @@ const Checklist = ({
 
 				// Short mode with subcategory icons — one row per subcategory, icon inline, no heading text
 				if (mode === "short" && Object.keys(subcategoryIcons).length > 0 && !showSelectedOnly) {
+					const firstSelectedGroupKey = selectionHint
+						? sortedGroups.find(([, g]) => g.items.some((it) => selectedItems[it.item]))?.[0]
+						: null;
 					return (
 						<div key={sectionHeading} className={`category category-${index % 8}`}>
 							{sectionHeader}
@@ -328,6 +333,7 @@ const Checklist = ({
 													})}
 													{resolvedItems.map(renderPill)}
 												</div>
+												{groupKey === firstSelectedGroupKey && selectionHint}
 											</div>
 										);
 									})}
@@ -374,41 +380,47 @@ const Checklist = ({
 					);
 				}
 
-				return (
-					<div key={sectionHeading} className={`category category-${index % 8}`}>
-						{sectionHeader}
+				{
+					const firstSelectedGroupKey = selectionHint
+						? sortedGroups.find(([, g]) => g.items.some((it) => selectedItems[it.item]))?.[0]
+						: null;
+					return (
+						<div key={sectionHeading} className={`category category-${index % 8}`}>
+							{sectionHeader}
 
-						{!collapsedCategories[sectionHeading] && (
-							<div className="subcategories">
-							{index === 0 && headerContent}
-								{sortedGroups.map(([groupKey, group]) => {
-									const groupHeading = group.ui?.heading || groupKey;
-									const visibleItems = getVisibleItems(group.items, mode);
-									if (visibleItems.length === 0) return null;
+							{!collapsedCategories[sectionHeading] && (
+								<div className="subcategories">
+								{index === 0 && headerContent}
+									{sortedGroups.map(([groupKey, group]) => {
+										const groupHeading = group.ui?.heading || groupKey;
+										const visibleItems = getVisibleItems(group.items, mode);
+										if (visibleItems.length === 0) return null;
 
-									const groupRegType = group.regulationType || sectionRegType;
-									const resolvedItems = visibleItems.map((it) => ({
-										...it,
-										_resolvedRegType: it.regulationType || groupRegType || null,
-									}));
+										const groupRegType = group.regulationType || sectionRegType;
+										const resolvedItems = visibleItems.map((it) => ({
+											...it,
+											_resolvedRegType: it.regulationType || groupRegType || null,
+										}));
 
-									return (
-										<div key={groupKey} className="subcategory">
-											<h4 className="subcategory-title">
-										{subcategoryIcons[groupKey] && React.createElement(subcategoryIcons[groupKey], { className: "subcategory-icon", "aria-hidden": true })}
-										{groupHeading}
-									</h4>
-											<div className="pill-grid">{resolvedItems.map(renderPill)}</div>
-											{afterGroupContent &&
-												visibleItems.some((it) => it.item === afterGroupContent.itemName) &&
-												afterGroupContent.node}
-										</div>
-									);
-								})}
-							</div>
-						)}
-					</div>
-				);
+										return (
+											<div key={groupKey} className="subcategory">
+												<h4 className="subcategory-title">
+											{subcategoryIcons[groupKey] && React.createElement(subcategoryIcons[groupKey], { className: "subcategory-icon", "aria-hidden": true })}
+											{groupHeading}
+										</h4>
+												<div className="pill-grid">{resolvedItems.map(renderPill)}</div>
+												{groupKey === firstSelectedGroupKey && selectionHint}
+												{afterGroupContent &&
+													visibleItems.some((it) => it.item === afterGroupContent.itemName) &&
+													afterGroupContent.node}
+											</div>
+										);
+									})}
+								</div>
+							)}
+						</div>
+					);
+				}
 			})}
 		</div>
 	);

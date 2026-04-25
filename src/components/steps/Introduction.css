@@ -162,7 +162,7 @@
 }
 
 .intro-more-link {
-	margin: 0.25rem 0 0 !important;
+	margin: 1rem 0 0 !important;
 	font-size: 0.85rem;
 	color: #888;
 }
@@ -235,4 +235,61 @@
 }
 .process-steps li {
 	cursor: default;
+}
+
+@media (max-width: 530px) {
+	.intro-scene {
+		margin: 0.75rem 0.5rem 0.5rem 0;
+		gap: 0;
+		align-items: flex-start;
+	}
+
+	.intro-person-col {
+		width: 7.5rem;
+		flex-shrink: 0;
+		/* padding-top: 2rem; */
+	}
+
+	/* Bubbles overlap the person image; negative margin-top nudges them up
+	   so first bubble center ≈ head level, second bubble top ≈ heart level */
+	.intro-bubbles-col {
+		margin-left: -2rem;
+		margin-top: -0.5rem;
+		position: relative;
+		z-index: 1;
+	}
+
+	/* Heart aligns with top of second row, not its center */
+	.intro-bubble-row:last-child {
+		align-items: flex-start;
+	}
+
+	/* Semi-opaque so bubbles stay readable over the person image */
+	.intro-thought-bubble {
+		background: rgba(238, 246, 242, 0.93);
+	}
+	.intro-thought-bubble--feelings {
+		background: rgba(253, 240, 243, 0.93);
+	}
+
+	.intro-thought-bubble ul {
+		font-size: 0.74rem;
+	}
+
+	/* Compact dot gap */
+	.intro-bubble-row .intro-dot-chain {
+		gap: 0.15rem;
+	}
+
+	/* Angle upward toward head (first bubble center ≈ head position) */
+	.intro-bubble-row:first-child .intro-dot-chain {
+		transform: rotate(-18deg);
+		transform-origin: right center;
+	}
+
+	/* Slight upward angle — heart is just above the second row top */
+	.intro-bubble-row:last-child .intro-dot-chain {
+		transform: rotate(-10deg);
+		transform-origin: right center;
+	}
 }

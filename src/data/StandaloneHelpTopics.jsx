@@ -74,29 +74,13 @@ const StandaloneHelpTopics = [
 		title: "Privacy & how we use your data",
 		content: (
 			<>
-				<p>
-					Your privacy matters. Here{"\u2019"}s a plain-language summary of what this app does and doesn
-					{"\u2019"}t do with your data.
-				</p>
-
-				<h3>Your session data stays on your device</h3>
-				<p>
-					Everything you type — observations, reflections, scripts — is stored only in your browser{"\u2019"}s
-					local storage. It is <strong>never sent to any server</strong>. Only you can see it, and only on
-					this device.
-				</p>
-				<p>
-					You can delete it at any time via <strong>Settings → Delete all saved sessions</strong>, or by
-					clearing your browser data.
-				</p>
-
 				<h3>Anonymous usage data</h3>
 				<p>
-					To help improve this tool, we collect anonymous, non-identifiable usage data. This includes things
+					To help improve this free tool for everyone, we collect anonymous, non-identifiable usage data. This includes things
 					like:
 				</p>
 				<ul>
-					<li>which pages you visit and how long you spend on them</li>
+					<li>which pages you visit in this app and how long you spend on them</li>
 					<li>which features you open (help topics, the summary, need explorations)</li>
 					<li>
 						whether you filled in a text field — but <strong>never what you wrote</strong>
@@ -105,9 +89,19 @@ const StandaloneHelpTopics = [
 					<li>which needs you explored in depth</li>
 				</ul>
 				<p>
-					This data is tied to a random session ID that is generated fresh each time you open the app in a new
-					tab. It is not linked to your name, device, IP address, or any personal information.
+					The data is not linked to your name, device, IP address, or any personal information.
 				</p>
+
+				<h3>Your session data stays on your device</h3>
+				<p>
+					Text that you enter — observations, reflections, scripts — is stored only in your browser{"\u2019"}s
+					local storage on this device, if you choose to save it. It is <strong>never sent to any server</strong>.
+				</p>
+				<p>
+					You can delete it from your device at any time via the menu entry <strong>Settings → Delete all saved sessions</strong>, or by
+					clearing your browser data.
+				</p>
+
 
 				<h3>What we never collect</h3>
 				<ul>

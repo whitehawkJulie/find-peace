@@ -37,37 +37,18 @@ for (const section of Object.values(FeelingsData.sections)) {
 // Only offer deeper exploration for these three types
 const EXPLORE_TYPES = ["fear", "anger", "distress"];
 
-const renderOrderedFeelings = (feelings, onRemove) => {
-	const entries = Object.entries(feelings)
-		.filter(([, s]) => s === "clicked" || s === "double-clicked")
-		.sort(([, a], [, b]) => (a === "double-clicked" ? 0 : 1) - (b === "double-clicked" ? 0 : 1));
-	if (entries.length === 0) return null;
-	return (
-		<div className="pill-grid cloud feelings-selected-pills">
-			<div className="cloud-heading">The feelings you chose</div>
-			{entries.map(([name, state]) => (
-				<div key={name} className={`pill feeling ${state} feeling-removable`}>
-					{state === "double-clicked" && <span className="pill-strong-badge">●</span>}
-					{name}
-					<button
-						className="pill-remove-x"
-						onClick={(e) => {
-							e.stopPropagation();
-							onRemove(name);
-						}}
-						title={`Remove ${name}`}
-						aria-label={`Remove ${name}`}>
-						×
-					</button>
-				</div>
-			))}
-		</div>
-	);
-};
 
 const UnpackFeelings = () => {
-	const { feelings, setFeelings, needs, setNeeds, feelingsExploreResponses, setFeelingsExploreResponses } =
-		useWizard();
+	const {
+		feelings,
+		setFeelings,
+		needs,
+		setNeeds,
+		feelingsExploreResponses,
+		setFeelingsExploreResponses,
+		firstFeelings,
+		setFirstFeelings,
+	} = useWizard();
 	const [expandedTypes, setExpandedTypes] = useState(new Set());
 	const [popupItem, setPopupItem] = useState(null);
 	const [pendingRemoveFeeling, setPendingRemoveFeeling] = useState(null);
@@ -108,7 +89,7 @@ const UnpackFeelings = () => {
 			Object.entries(feelings)
 				.filter(([name, s]) => (s === "clicked" || s === "double-clicked") && name in murkyFeelingLookup)
 				.map(([name]) => name),
-		[feelings]
+		[feelings],
 	);
 
 	const toggleType = (type) => {
@@ -224,29 +205,6 @@ const UnpackFeelings = () => {
 				to you. First, a moment to pause — then, if you'd like, a chance to look more closely.
 			</p>
 
-			{renderOrderedFeelings(feelings, setPendingRemoveFeeling)}
-
-			{pendingRemoveFeeling && (
-				<div className="feeling-remove-confirm">
-					<span>
-						Remove <strong>{pendingRemoveFeeling}</strong> from your feelings?
-					</span>
-					<div className="feeling-remove-confirm-btns">
-						<button
-							className="feeling-remove-confirm-yes"
-							onClick={() => {
-								removeFeeling(pendingRemoveFeeling);
-								setPendingRemoveFeeling(null);
-							}}>
-							Yes, remove
-						</button>
-						<button className="feeling-remove-confirm-cancel" onClick={() => setPendingRemoveFeeling(null)}>
-							Cancel
-						</button>
-					</div>
-				</div>
-			)}
-
 			<div>
 				<h3>What came first?</h3>
 				<p>
@@ -254,6 +212,64 @@ const UnpackFeelings = () => {
 					followed by more defended feelings. Can you distinguish the early feelings, from the more defended
 					feelings that came in response to those?
 				</p>
+				{hasSelectedFeelings && (
+					<div className="pill-grid cloud feelings-selected-pills first-feelings-cloud">
+						<div className="cloud-heading">Tap any feelings that came first</div>
+						{Object.entries(feelings)
+							.filter(([, s]) => s === "clicked" || s === "double-clicked")
+							.sort(([, a], [, b]) => (a === "double-clicked" ? 0 : 1) - (b === "double-clicked" ? 0 : 1))
+							.map(([name, state]) => {
+								const isFirst = !!firstFeelings[name];
+								return (
+									<div
+										key={name}
+										className={`pill feeling ${state} feeling-removable${isFirst ? " first-feeling-selected" : ""}`}
+										onClick={() =>
+											setFirstFeelings((prev) => {
+												const next = { ...prev };
+												if (next[name]) delete next[name];
+												else next[name] = true;
+												return next;
+											})
+										}>
+										{isFirst && <span className="first-feeling-badge">①</span>}
+										{!isFirst && state === "double-clicked" && <span className="pill-strong-badge">●</span>}
+										{name}
+										<button
+											className="pill-remove-x"
+											onClick={(e) => {
+												e.stopPropagation();
+												setPendingRemoveFeeling(name);
+											}}
+											title={`Remove ${name}`}
+											aria-label={`Remove ${name}`}>
+											×
+										</button>
+									</div>
+								);
+							})}
+					</div>
+				)}
+				{pendingRemoveFeeling && (
+					<div className="feeling-remove-confirm">
+						<span>
+							Remove <strong>{pendingRemoveFeeling}</strong> from your feelings?
+						</span>
+						<div className="feeling-remove-confirm-btns">
+							<button
+								className="feeling-remove-confirm-yes"
+								onClick={() => {
+									removeFeeling(pendingRemoveFeeling);
+									setPendingRemoveFeeling(null);
+								}}>
+								Yes, remove
+							</button>
+							<button className="feeling-remove-confirm-cancel" onClick={() => setPendingRemoveFeeling(null)}>
+								Cancel
+							</button>
+						</div>
+					</div>
+				)}
 				<textarea
 					className="feelings-explore-textarea"
 					placeholder="Note anything that comes up for you…"
@@ -268,8 +284,8 @@ const UnpackFeelings = () => {
 				<p>
 					There's nothing to solve here — just notice what happens when you choose the strongest of these
 					feelings and just <HelpLink topic="stay-with-it">stay with it for a moment</HelpLink>, without
-					digging or forcing. Is there something it wants to tell you? Can you pause long enough to hear the
-					answer from your body, rather than your mind?
+					digging or forcing. Is there something it wants to tell you? Can you pause long enough to hear any
+					answers from your body, rather than your mind?
 				</p>
 			</div>
 
@@ -321,7 +337,9 @@ const UnpackFeelings = () => {
 													</span>
 												)}
 											</span>
-											<span className="feelings-explore-category-chevron">{isExpanded ? "▲" : "▼"}</span>
+											<span className="feelings-explore-category-chevron">
+												{isExpanded ? "▲" : "▼"}
+											</span>
 										</button>
 										{isExpanded && (
 											<div className="feelings-explore-category-content">

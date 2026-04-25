@@ -18,6 +18,7 @@ const SummaryContent = () => {
 		needExplorations,
 		strategies,
 		feelingsExploreResponses,
+		firstFeelings,
 		bodySensations,
 		guessObservation,
 		guessFeelings,
@@ -40,9 +41,11 @@ const SummaryContent = () => {
 	const metNeeds = filterByState(needs, "double-clicked");
 	const unmetNeeds = filterByState(needs, "clicked");
 	const exploredNeeds = Object.entries(needExplorations).filter(([_, v]) => v.completed);
-	const hasFeelingsExplore = Object.values(feelingsExploreResponses).some((v) =>
-		Array.isArray(v) ? v.length > 0 : v && String(v).trim() !== "",
-	);
+	const hasFeelingsExplore =
+		Object.keys(firstFeelings || {}).length > 0 ||
+		Object.values(feelingsExploreResponses).some((v) =>
+			Array.isArray(v) ? v.length > 0 : v && String(v).trim() !== "",
+		);
 	const hasBodySensations = bodySensations?.selected?.length > 0 || bodySensations?.custom?.trim();
 	const hasStrategies = Object.values(strategies).some((s) => s.length > 0);
 	const guessFeelingsAll = [
@@ -118,6 +121,12 @@ const SummaryContent = () => {
 			{hasFeelingsExplore && (
 				<div className="review-section">
 					<h3>Feeling exploration</h3>
+					{Object.keys(firstFeelings || {}).length > 0 && (
+						<div className="review-exploration">
+							<strong>First feelings:</strong>
+							<p>{Object.keys(firstFeelings).join(", ")}</p>
+						</div>
+					)}
 					{feelingsExploreResponses["what-came-first"]?.trim() && (
 						<div className="review-exploration">
 							<strong>What came first?</strong>

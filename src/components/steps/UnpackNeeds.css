@@ -409,6 +409,59 @@
 	background: #f5f5f5;
 }
 
+/* ── Readiness check ── */
+.readiness-check {
+	padding: 1.1rem 0 0.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.readiness-check-question {
+	font-size: 1rem;
+	font-weight: 500;
+	color: #2e5236;
+	margin: 0;
+	line-height: 1.5;
+}
+
+.readiness-check-btns {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.readiness-check-btn {
+	float: none;
+	width: 100%;
+	padding: 0.65rem 1rem;
+	border-radius: 8px;
+	font-size: 0.95rem;
+	font-family: inherit;
+	cursor: pointer;
+	text-align: left;
+	transition: background 0.15s, border-color 0.15s;
+	border: 1px solid #c8d9c8;
+}
+
+.readiness-check-btn--yes {
+	background: #eaf2ea;
+	color: #2e5236;
+}
+
+.readiness-check-btn--yes:hover {
+	background: #ddeedd;
+}
+
+.readiness-check-btn--explore {
+	background: #f4f7f3;
+	color: #4a6e52;
+}
+
+.readiness-check-btn--explore:hover {
+	background: #eaf0e8;
+}
+
 /* ── Picker ── */
 .explored-section {
 	margin-top: 0.5rem;

@@ -25,7 +25,7 @@ const STEP_DATA = {
 		title: "Keep checking your understanding of them",
 		desc: "We don't just offer our guesses - we check if we're understanding them right, and invite them to correct us if not.",
 		hint: "When people feel understood, they often soften.",
-		scriptDefault: "Is that right?",
+		scriptDefault: "Is that right? Am I understanding you correctly?",
 		// helpQuestion: "What if they're not ready to listen?",
 		// helpTopicId: "collab-check-willingness",
 	},
