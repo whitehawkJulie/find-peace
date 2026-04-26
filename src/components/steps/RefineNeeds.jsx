@@ -77,9 +77,7 @@ const RefineNeeds = () => {
 
 						{suggestions.length > 0 && (
 							<div className="refine-need-guesses">
-								<p className="refine-need-guesses-label">
-									Could any of these be closer to what you mean?
-								</p>
+								<p className="refine-need-guesses-label">Do any of these land more deeply for you?</p>
 								<div className="pill-grid cloud">
 									{suggestions.map((guess) => (
 										<div

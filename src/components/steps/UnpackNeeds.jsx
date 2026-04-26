@@ -203,6 +203,10 @@ const UnpackNeeds = () => {
 				description="A short guided meditation to connect with what matters most."
 			/>
 			<h3>Exploring individual needs</h3>
+			<p>
+				The more you connect with the lived experience of a need, the more power you have to actually get it
+				met.
+			</p>
 			<p>Click on a need to explore more deeply, starting with the one that's loudest for you.</p>
 			<p className="cloud-label">Your needs</p>
 			<div className="pill-grid cloud needs-selected-pills">
@@ -320,33 +324,20 @@ const UnpackNeeds = () => {
 						</div>
 
 						<div className="need-explore-body">
-							<div className="unpacking-chunk">
-								<h3 className="unpacking-chunk-heading">Connect to this need</h3>
-								<p>
-									The more you connect with the lived experience of this need — how it feels when it
-									{"'"}s unmet, and what it looks like when it{"'"}s met — the more power you have to
-									actually get it met.
-								</p>
+							{resonantStatement && <p className="unpacking-resonant-statement">{resonantStatement}</p>}
 
-								{resonantStatement && (
-									<p className="unpacking-resonant-statement">{resonantStatement}</p>
-								)}
+							<div className="unpacking-section">
+								<p className="unpacking-section-label">Connect</p>
 
 								{specificQ && (
 									<div className="unpacking-prompt">
 										<p className="unpacking-prompt-text">{specificQ}</p>
 										{directionPrompts.length > 0 && (
-											<ul className="unpacking-direction-list">
-												{directionPrompts.map((prompt, i) => (
-													<li key={i} className="unpacking-direction-item">
-														{prompt}
-													</li>
-												))}
-											</ul>
+											<p className="unpacking-direction-hints">{directionPrompts.join(" · ")}</p>
 										)}
 										<textarea
 											className="unpacking-textarea"
-											rows={3}
+											rows={4}
 											value={currentData.coreSpecific || ""}
 											onChange={(e) => updateField("coreSpecific", e.target.value)}
 										/>
@@ -355,9 +346,7 @@ const UnpackNeeds = () => {
 
 								<div className="unpacking-prompt">
 									<p className="unpacking-prompt-text">
-										{
-											"Notice in your body how it feels when the need isn't met — what happens when you focus on the un-met-ness of the need?"
-										}
+										Notice in your body how it feels when this need isn{"’"}t met.
 									</p>
 									<textarea
 										className="unpacking-textarea"
@@ -366,12 +355,14 @@ const UnpackNeeds = () => {
 										onChange={(e) => updateField("unmetFeeling", e.target.value)}
 									/>
 								</div>
+							</div>
+
+							<div className="unpacking-section">
+								<p className="unpacking-section-label">When it{"’"}s met</p>
 
 								<div className="unpacking-prompt">
 									<p className="unpacking-prompt-text">
-										{
-											"Now remember when the need was most met for you — even if that was just a little — and how that felt."
-										}
+										Remember a time this need was met — even just a little. How did that feel?
 									</p>
 									<textarea
 										className="unpacking-textarea"
@@ -383,9 +374,8 @@ const UnpackNeeds = () => {
 
 								<div className="unpacking-prompt">
 									<p className="unpacking-prompt-text">
-										If you can{"'"}t remember a single time the need was met, can you{" "}
-										<em>imagine</em> what it might look like if it was met? If still not, can you
-										imagine what it would look like for someone else?
+										If you can{"’"}t remember, can you <em>imagine</em> what it might feel like — or
+										picture it for someone else?
 									</p>
 									<textarea
 										className="unpacking-textarea"
@@ -397,9 +387,7 @@ const UnpackNeeds = () => {
 
 								<div className="unpacking-prompt">
 									<p className="unpacking-prompt-text">
-										{
-											"If you were able to remember or imagine the need being met, what was present that helped it be met? What would it have to look like for this need to feel fulfilled for you?"
-										}
+										What needs to be present for this need to feel fulfilled?
 									</p>
 									<textarea
 										className="unpacking-textarea"
@@ -408,6 +396,10 @@ const UnpackNeeds = () => {
 										onChange={(e) => updateField("metCircumstances", e.target.value)}
 									/>
 								</div>
+							</div>
+
+							<div className="unpacking-section">
+								<p className="unpacking-section-label">Moving forward</p>
 
 								{enoughQuestion && (
 									<div className="unpacking-prompt">
@@ -423,9 +415,8 @@ const UnpackNeeds = () => {
 
 								<div className="unpacking-prompt">
 									<p className="unpacking-prompt-text">
-										Is this a need that often goes unmet in your life? Are there small ways you
-										could move towards it,{" "}
-										<HelpLink topic="finding-strategies">top up the tank</HelpLink>, even a little?
+										Is this a need that often goes unmet? Are there small ways you could{" "}
+										<HelpLink topic="finding-strategies">top up the tank</HelpLink>?
 									</p>
 									<textarea
 										className="unpacking-textarea"
@@ -437,9 +428,8 @@ const UnpackNeeds = () => {
 
 								<div className="unpacking-prompt">
 									<p className="unpacking-prompt-text">
-										{
-											"Back to the issue at hand: could this need be met in the current situation? Is the other person capable of meeting it — or is there a better place to get it met?"
-										}
+										Could this need be met in the current situation — or is there a better place to
+										get it met?
 									</p>
 									<textarea
 										className="unpacking-textarea"
@@ -450,8 +440,7 @@ const UnpackNeeds = () => {
 								</div>
 
 								<p className="help-callout">
-									If this has left you feeling like you{"’"}ve never had the need met, or never quite
-									enough, you might like to read about{" "}
+									If this need has never felt met,{" "}
 									<a
 										href="#"
 										className="inline-help-link"
@@ -460,7 +449,7 @@ const UnpackNeeds = () => {
 											markMourningViewed();
 											openHelpTopic("mourning");
 										}}>
-										being with an unmet need, here.
+										there{"’"}s some support here for sitting with that.
 									</a>
 								</p>
 							</div>

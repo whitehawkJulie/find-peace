@@ -165,11 +165,7 @@ export const allNeeds = [
 				"Is the order you're wanting mainly about the outside world — or about your nervous system feeling less scrambled?",
 				"Is this about function (things working smoothly) — or about feeling steady enough to cope?",
 			],
-			suggestions: [
-				"Safety (emotional)",
-				"Peace of mind",
-				"Ease",
-			],
+			suggestions: ["Safety (emotional)", "Peace of mind", "Ease"],
 		},
 		enoughQuestion: "What would be enough structure here for you to feel more settled?",
 		coreQuestion:
@@ -193,12 +189,7 @@ export const allNeeds = [
 				"When you think about peace, is it the absence of noise or conflict — or something you're longing to feel inside?",
 				"If the outside became quiet, would you feel settled — or is there something inside that's still restless?",
 			],
-			suggestions: [
-				"Peace of mind",
-				"Rest / sleep",
-				"Safety (emotional)",
-				"Harmony",
-			],
+			suggestions: ["Peace of mind", "Rest / sleep", "Safety (emotional)", "Harmony"],
 		},
 		enoughQuestion: "What would be enough calm around you for this to feel more manageable?",
 		coreQuestion:
@@ -228,12 +219,7 @@ export const allNeeds = [
 				"What feels at risk right now — something practical, or something more tender than that?",
 				"Is it protection from something happening — or protection from feeling alone with what's happening?",
 			],
-			suggestions: [
-				"Safety (emotional)",
-				"Physical Safety",
-				"Support",
-				"Care",
-			],
+			suggestions: ["Safety (emotional)", "Physical Safety", "Support", "Care"],
 		},
 		enoughQuestion: "What would be enough protection for you to feel supported here?",
 		coreQuestion: "What are you wanting protection from — a person, a situation, or your own feelings?",
@@ -268,12 +254,7 @@ export const allNeeds = [
 				"When you say stability, is it more about things around you staying steady — or about you feeling steady inside?",
 				"Is this about wanting things to stay steady — or about having something solid to lean on when things shift?",
 			],
-			suggestions: [
-				"Safety (emotional)",
-				"Peace of mind",
-				"Rest / sleep",
-				"Support",
-			],
+			suggestions: ["Safety (emotional)", "Peace of mind", "Rest / sleep", "Support"],
 		},
 		enoughQuestion: "What would be enough steadiness here for you to feel more grounded?",
 		coreQuestion:
@@ -332,12 +313,7 @@ export const allNeeds = [
 				"Is it more that you want your effort noticed — or that you want to know it made a difference?",
 				"When appreciation is absent, what hurts most: feeling unseen, or feeling like what you did didn't matter?",
 			],
-			suggestions: [
-				"To be seen",
-				"To matter",
-				"Contribution",
-				"Warmth",
-			],
+			suggestions: ["To be seen", "To matter", "Contribution", "Warmth"],
 		},
 		resonantStatement: "Are you longing for your contribution to be seen and valued?",
 		coreQuestion:
@@ -531,7 +507,7 @@ export const allNeeds = [
 		category: "To matter",
 		domain: "social_moral",
 		coreQuestion:
-			"What part of you is wanting acceptance right now — a decision you made, something you feel, or simply who you are?",
+			"What part of you is wanting acceptance right now — is it about a decision you made, something you feel, or simply who you are?",
 		directionPrompts: {
 			[BETWEEN_US]:
 				"You might notice whether you're longing for someone to accept a part of you that feels vulnerable or exposed.",
@@ -578,12 +554,7 @@ export const allNeeds = [
 				"When you say consideration, is it about being thought of — or about knowing your wellbeing matters to someone?",
 				"Is the feeling when it's absent more like invisibility — or more like not being cared for?",
 			],
-			suggestions: [
-				"Care",
-				"To matter",
-				"Kindness",
-				"Mutuality",
-			],
+			suggestions: ["Care", "To matter", "Kindness", "Mutuality"],
 		},
 		resonantStatement: "Is there something in you wanting your needs to be taken into account?",
 		coreQuestion:
@@ -612,12 +583,7 @@ export const allNeeds = [
 				"Is the lack of respect more like being dismissed — or like being diminished?",
 				"Is this about dignity in how you're treated — or about having your voice carry weight?",
 			],
-			suggestions: [
-				"To be seen",
-				"To be heard",
-				"To matter",
-				"Safety (emotional)",
-			],
+			suggestions: ["To be seen", "To be heard", "To matter", "Safety (emotional)"],
 		},
 		resonantStatement: "Are you longing to be treated in ways that reflect your worth?",
 		coreQuestion:
@@ -640,12 +606,7 @@ export const allNeeds = [
 				"Is this about the facts being recognised (what happened) — or about your experience being received?",
 				"What would acknowledgement give you: a sense that your experience was recognised, or that you're not alone with it?",
 			],
-			suggestions: [
-				"To be seen",
-				"To be heard",
-				"To matter",
-				"Understanding",
-			],
+			suggestions: ["To be seen", "To be heard", "To matter", "Understanding"],
 		},
 		resonantStatement: "Is there something in you wanting your experience to be recognised and received?",
 		coreQuestion:
@@ -795,12 +756,7 @@ export const allNeeds = [
 				"Is this about things working consistently — or about being able to trust that someone has your back?",
 				"When reliability is missing, what suffers most: your ability to plan, or your sense of being cared for?",
 			],
-			suggestions: [
-				"Trusting",
-				"Support",
-				"Peace of mind",
-				"Partnership",
-			],
+			suggestions: ["Trusting", "Support", "Peace of mind", "Partnership"],
 		},
 		enoughQuestion: "What would be enough reliability for you to feel you can count on this?",
 		coreQuestion:
@@ -824,11 +780,7 @@ export const allNeeds = [
 				"When you say communication, is it about information being shared — or about something in you being received?",
 				"What would better communication give you: more understanding, more connection, or something else?",
 			],
-			suggestions: [
-				"To be heard",
-				"To be known & understood",
-				"Connection",
-			],
+			suggestions: ["To be heard", "To be known & understood", "Connection"],
 		},
 		enoughQuestion: "What would be enough shared understanding here for things to move forward?",
 		coreQuestion: "Is this about expressing yourself clearly, being heard, or wanting more open dialogue?",
@@ -845,12 +797,7 @@ export const allNeeds = [
 				"Is this about tasks being shared — or about feeling like you're genuinely in it together with someone?",
 				"When cooperation is missing, what feels most absent: practical help, or a sense of partnership?",
 			],
-			suggestions: [
-				"Partnership",
-				"Mutuality",
-				"Support",
-				"Contribution",
-			],
+			suggestions: ["Partnership", "Mutuality", "Support", "Contribution"],
 		},
 		enoughQuestion: "What would be enough working together for this to feel workable?",
 		coreQuestion:
@@ -908,12 +855,7 @@ export const allNeeds = [
 				"Is this about being included (having a place) — or about feeling like your presence makes a difference?",
 				"When you're left out, what hurts most: not being included, or not being wanted?",
 			],
-			suggestions: [
-				"Inclusion",
-				"Belonging",
-				"Contribution",
-				"To matter",
-			],
+			suggestions: ["Inclusion", "Belonging", "Contribution", "To matter"],
 		},
 		resonantStatement: "Are you wanting a place in what's happening?",
 		coreQuestion:
@@ -946,12 +888,7 @@ export const allNeeds = [
 				"Is this about being understood by others — or about letting something out that's been held in?",
 				"Is there something alive in you that isn't being given space to emerge?",
 			],
-			suggestions: [
-				"Authenticity",
-				"To be known & understood",
-				"Creativity",
-				"Aliveness",
-			],
+			suggestions: ["Authenticity", "To be known & understood", "Creativity", "Aliveness"],
 		},
 		resonantStatement: "Is there something in you wanting to express what's true for you?",
 		coreQuestion:
@@ -998,12 +935,7 @@ export const allNeeds = [
 				"Is this about wanting to do things well — or about wanting your actions to matter?",
 				"When competence feels lacking, is it mostly the practical gap — or does it touch something tender around worth?",
 			],
-			suggestions: [
-				"Contribution",
-				"Growth",
-				"Self-acceptance",
-				"Mattering to myself",
-			],
+			suggestions: ["Contribution", "Growth", "Self-acceptance", "Mattering to myself"],
 		},
 		coreQuestion:
 			"Is this about wanting to feel capable, or about having the conditions and support to act capably?",
@@ -1087,12 +1019,7 @@ export const allNeeds = [
 				"Is honesty important here mainly so you can orient clearly — or because something feels hidden or unsafe?",
 				"Is there a longing for things to feel real and congruent, not just for facts to be correct?",
 			],
-			suggestions: [
-				"Trusting",
-				"Safety (emotional)",
-				"Authenticity",
-				"Integrity",
-			],
+			suggestions: ["Trusting", "Safety (emotional)", "Authenticity", "Integrity"],
 		},
 		resonantStatement: "Are you wanting truth to be shared in a way you can relate to?",
 		coreQuestion:
@@ -1383,12 +1310,7 @@ export const allNeeds = [
 				"Is this about what you achieve — or about knowing your actions made a difference?",
 				"When effectiveness feels absent, is it mostly frustration — or something closer to helplessness?",
 			],
-			suggestions: [
-				"Contribution",
-				"Growth",
-				"Support",
-				"Peace of mind",
-			],
+			suggestions: ["Contribution", "Growth", "Support", "Peace of mind"],
 		},
 		enoughQuestion: "What would be enough impact here for you to feel you're making a difference?",
 		coreQuestion:
@@ -1618,11 +1540,7 @@ export const allNeeds = [
 				"Is the freedom you're wanting more about no longer being constrained — or about being able to live as yourself?",
 				"What would freedom make possible: more choices, or more aliveness?",
 			],
-			suggestions: [
-				"Aliveness",
-				"Authenticity",
-				"Self-expression",
-			],
+			suggestions: ["Aliveness", "Authenticity", "Self-expression"],
 		},
 		enoughQuestion: "What would be enough freedom here for you to feel you have some room to choose?",
 		coreQuestion:
@@ -1648,12 +1566,7 @@ export const allNeeds = [
 				"Is this about having the right to choose — or about being able to act from your own truth?",
 				"When autonomy is missing, does it feel like control — or like losing yourself?",
 			],
-			suggestions: [
-				"Authenticity",
-				"Self-connection",
-				"Integrity",
-				"Mattering to myself",
-			],
+			suggestions: ["Authenticity", "Self-connection", "Integrity", "Mattering to myself"],
 		},
 		enoughQuestion: "What would be enough autonomy for you to move in a way that feels right to you?",
 		coreQuestion:
@@ -1707,12 +1620,7 @@ export const allNeeds = [
 				"Is this about not being dependent practically — or about not being vulnerable to others' choices?",
 				"Is there a part of you that wants to be sure you'll be OK, whatever happens?",
 			],
-			suggestions: [
-				"Safety (emotional)",
-				"Self-connection",
-				"Mattering to myself",
-				"Integrity",
-			],
+			suggestions: ["Safety (emotional)", "Self-connection", "Mattering to myself", "Integrity"],
 		},
 		enoughQuestion: "What would be enough independence here for you to feel OK standing on your own?",
 		coreQuestion:
@@ -1746,12 +1654,7 @@ export const allNeeds = [
 				"Is this about taking ownership of your part — or about not over-carrying others' parts?",
 				"Is there a tendency to blame yourself here that might also want some gentleness?",
 			],
-			suggestions: [
-				"Integrity",
-				"Self-connection",
-				"Mattering to myself",
-				"Peace of mind",
-			],
+			suggestions: ["Integrity", "Self-connection", "Mattering to myself", "Peace of mind"],
 		},
 		enoughQuestion: "What would be enough ownership for you to feel aligned with your part in this?",
 		coreQuestion:
@@ -1785,12 +1688,7 @@ export const allNeeds = [
 				"Is this about doing things unplanned — or about being able to respond to what's alive in the moment?",
 				"Is the spontaneity you're longing for more about lightness and play — or about vitality?",
 			],
-			suggestions: [
-				"Play",
-				"Aliveness",
-				"Creativity",
-				"Flow",
-			],
+			suggestions: ["Play", "Aliveness", "Creativity", "Flow"],
 		},
 		enoughQuestion: "What would be enough openness here for things to feel a bit more natural or alive?",
 		coreQuestion:
