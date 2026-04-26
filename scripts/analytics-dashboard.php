@@ -16,7 +16,24 @@ if (($_GET['key'] ?? '') !== ACCESS_KEY) {
     exit;
 }
 
-$log_file = __DIR__ . '/analytics.jsonl';
+$log_file     = __DIR__ . '/analytics.jsonl';
+$archive_dir  = __DIR__ . '/archives';
+
+// ── Archive data ─────────────────────────────────────────────────────────────
+if ($_SERVER['REQUEST_METHOD'] === 'POST'
+    && ($_POST['key'] ?? '') === ACCESS_KEY
+    && ($_POST['action'] ?? '') === 'archive') {
+
+    if (file_exists($log_file) && filesize($log_file) > 0) {
+        if (!is_dir($archive_dir)) mkdir($archive_dir, 0755, true);
+        $stamp = date('Y-m-d_His');
+        $dest  = $archive_dir . "/analytics_$stamp.jsonl";
+        copy($log_file, $dest);
+        file_put_contents($log_file, '', LOCK_EX); // clear active log
+    }
+    header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?') . '?key=' . urlencode(ACCESS_KEY));
+    exit;
+}
 
 // ── Delete session(s) ────────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST'
@@ -51,12 +68,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'
 }
 
 // ── Load data ────────────────────────────────────────────────────────────────
+// Support ?archive=filename to view a specific archived file
+$viewing_archive = null;
+$active_file = $log_file;
+if (!empty($_GET['archive'])) {
+    $req = basename($_GET['archive']); // strip any path traversal
+    $candidate = $archive_dir . '/' . $req;
+    if (is_file($candidate) && str_ends_with($req, '.jsonl')) {
+        $active_file     = $candidate;
+        $viewing_archive = $req;
+    }
+}
+
 $events = [];
-if (file_exists($log_file)) {
-    foreach (file($log_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
+if (file_exists($active_file)) {
+    foreach (file($active_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
         $obj = json_decode($line, true);
         if (is_array($obj)) $events[] = $obj;
     }
+}
+
+// List available archives for the UI
+$archive_files = [];
+if (is_dir($archive_dir)) {
+    foreach (glob($archive_dir . '/analytics_*.jsonl') as $f) {
+        $archive_files[] = basename($f);
+    }
+    rsort($archive_files); // newest first
 }
 
 // ── Aggregate ────────────────────────────────────────────────────────────────
@@ -151,10 +189,16 @@ foreach ($events as $ev) {
         case 'field_interaction':
             $fid = $ev['field_id'] ?? '';
             if ($fid) {
-                if (!isset($field_fills[$fid])) $field_fills[$fid] = [0, 0];
+                if (!isset($field_fills[$fid])) $field_fills[$fid] = [0, 0, 0]; // [filled, total, est_chars]
                 $field_fills[$fid][1] += 1;
                 if ($ev['filled'] ?? false) {
                     $field_fills[$fid][0] += 1;
+                    if (isset($ev['length'])) {
+                        $field_fills[$fid][2] += (int)$ev['length'];
+                    } else {
+                        $bucket = $ev['length_bucket'] ?? '';
+                        $field_fills[$fid][2] += match($bucket) { '1-20' => 10, '21-100' => 60, '100+' => 150, default => 0 };
+                    }
                     // Count per-session filled fields
                     if (!isset($sessions[$sid]['fields_filled'])) $sessions[$sid]['fields_filled'] = 0;
                     $sessions[$sid]['fields_filled']++;
@@ -207,6 +251,25 @@ foreach (array_keys($journey) as $sid) {
     }
 }
 
+// Pre-compute active vs passive counts (for subtitle) and page action counts (for funnel)
+$_active_count = 0; $_passive_count = 0;
+foreach ($journey as $sid => $sdata) {
+    $ff = $sessions[$sid]['fields_filled'] ?? 0;
+    $fc = count($sdata['feelings_selected']) + count($sdata['feelings_strong']);
+    $nc = count($sdata['needs_selected'])    + count($sdata['needs_strong']);
+    if ($ff > 0 || $fc > 0 || $nc > 0) $_active_count++;
+    else $_passive_count++;
+}
+
+// Page action counts from bot-filtered sessions only (avoids inflating with bot page_views)
+$page_action_counts = [];
+foreach ($sessions as $sid => $sess) {
+    foreach ($sess['pages'] ?? [] as $pg) {
+        $page_action_counts[$pg] = ($page_action_counts[$pg] ?? 0) + 1;
+    }
+}
+arsort($page_action_counts);
+
 // Sort events within each journey session by timestamp, newest sessions first
 foreach ($journey as &$sdata) {
     usort($sdata['events'], fn($a, $b) => ($a['timestamp'] ?? 0) <=> ($b['timestamp'] ?? 0));
@@ -236,7 +299,7 @@ arsort($drop_off);
 
 $bucket_order = ['none', '1–3', '4–7', '8+'];
 $f_hist = []; $n_hist = [];
-foreach ($bucket_order as $b) { $f_hist[$b] = $feelings_counts[$b] ?? 0; $n_hist[$b] = $needs_counts[$b] ?? 0; }
+foreach (['1–3', '4–7', '8+'] as $b) { $f_hist[$b] = $feelings_counts[$b] ?? 0; $n_hist[$b] = $needs_counts[$b] ?? 0; }
 
 $section_counts = [];
 foreach (['feelings-fear','feelings-anger','feelings-distress'] as $s) $section_counts[$s] = $section_opens[$s] ?? 0;
@@ -384,6 +447,10 @@ th { color: #6b7280; font-weight: 600; }
 }
 .session-table .del-btn:hover { background: #fef2f2; }
 
+/* Accordion arrows */
+details[open] > summary .accordion-arrow { transform: rotate(90deg); }
+details > summary::-webkit-details-marker { display: none; }
+
 /* Journey viewer */
 #journey-card { display: none; }
 #journey-nav { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
@@ -408,20 +475,48 @@ th { color: #6b7280; font-weight: 600; }
 </head>
 <body>
 <h1>Find Peace — Analytics</h1>
+<?php if ($viewing_archive): ?>
+<div style="background:#fef3c7;border:1px solid #fbbf24;border-radius:8px;padding:0.6rem 1rem;margin-bottom:0.75rem;font-size:0.875rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+  <span>📦 Viewing archive: <strong><?= htmlspecialchars($viewing_archive) ?></strong></span>
+  <a href="?key=<?= urlencode(ACCESS_KEY) ?>" style="color:#1d4ed8;text-decoration:none;font-weight:600">← Back to live data</a>
+</div>
+<?php endif; ?>
 <p class="subtitle">
-  <strong><?= $total_sessions ?></strong> unique session<?= $total_sessions !== 1 ? 's' : '' ?> &nbsp;·&nbsp;
-  <?= count($events) ?> total events &nbsp;·&nbsp;
-  Generated <?= date('j M Y, g:ia') ?> Brisbane time
+  <?php if ($viewing_archive): ?>
+    <strong><?= $_active_count ?></strong> active session<?= $_active_count !== 1 ? 's' : '' ?>, <strong><?= $_passive_count ?></strong> viewing<?= $_passive_count !== 1 ? 's' : '' ?> &nbsp;·&nbsp;
+    <?= count($events) ?> total events
+  <?php else: ?>
+    <strong><?= $_active_count ?></strong> active session<?= $_active_count !== 1 ? 's' : '' ?>, <strong><?= $_passive_count ?></strong> viewing<?= $_passive_count !== 1 ? 's' : '' ?> &nbsp;·&nbsp;
+    <?= count($events) ?> total events &nbsp;·&nbsp;
+    Generated <?= date('j M Y, g:ia') ?> Brisbane time
+    <?php if ($archive_files): ?>
+      &nbsp;·&nbsp;
+      <select onchange="if(this.value) window.location='?key=<?= urlencode(ACCESS_KEY) ?>&archive='+this.value"
+        style="font-size:0.8rem;border:1px solid #d1d5db;border-radius:4px;padding:0.1rem 0.3rem;background:#fff;cursor:pointer">
+        <option value="">📦 View archive…</option>
+        <?php foreach ($archive_files as $af):
+          $label = preg_replace('/^analytics_(\d{4})-(\d{2})-(\d{2})_(\d{2})(\d{2})(\d{2})\.jsonl$/', '$1-$2-$3 $4:$5:$6', $af); ?>
+        <option value="<?= htmlspecialchars($af) ?>"><?= htmlspecialchars($label) ?></option>
+        <?php endforeach; ?>
+      </select>
+    <?php endif; ?>
+    &nbsp;
+    <form method="post" style="display:inline" onsubmit="return confirm('Are you sure you want to archive all current data and clear the file?')">
+      <input type="hidden" name="key" value="<?= htmlspecialchars(ACCESS_KEY) ?>">
+      <input type="hidden" name="action" value="archive">
+      <button type="submit" style="float:none;background:none;border:1px solid #d1d5db;border-radius:4px;padding:0.1rem 0.5rem;font-size:0.8rem;color:#6b7280;cursor:pointer">Archive &amp; reset</button>
+    </form>
+  <?php endif; ?>
 </p>
 
 <div class="grid">
 
 <!-- 1. Session funnel -->
 <div class="card">
-  <h2>📈 Session funnel — unique sessions per page</h2>
-  <?php if (!$page_views): ?><p class="nodata">No data yet.</p><?php else:
-    $max = max($page_views);
-    foreach ($page_views as $page => $cnt): ?>
+  <h2>📈 Session funnel — active sessions per page</h2>
+  <?php if (!$page_action_counts): ?><p class="nodata">No data yet.</p><?php else:
+    $max = max($page_action_counts);
+    foreach ($page_action_counts as $page => $cnt): ?>
     <div class="bar-row">
       <span class="bar-label" title="<?= htmlspecialchars($page) ?>"><?= htmlspecialchars($page) ?></span>
       <div class="bar-track"><div class="bar-fill" style="width:<?= round($cnt/$max*100) ?>%"></div></div>
@@ -495,7 +590,7 @@ th { color: #6b7280; font-weight: 600; }
   <canvas id="depthChart"></canvas>
   <script>
   new Chart(document.getElementById('depthChart'),{type:'bar',data:{
-    labels:<?= json_encode(array_map(fn($k) => $k === 'none' ? '0' : $k, array_keys($f_hist)), JSON_UNESCAPED_UNICODE) ?>,
+    labels:<?= json_encode(array_keys($f_hist), JSON_UNESCAPED_UNICODE) ?>,
     datasets:[
       {label:'Feelings',data:<?= json_vals($f_hist) ?>,backgroundColor:'#f97316'},
       {label:'Needs',   data:<?= json_vals($n_hist) ?>,backgroundColor:'#3b82f6'}
@@ -590,12 +685,22 @@ th { color: #6b7280; font-weight: 600; }
   <h2>✏️ Field completion rates</h2>
   <?php if (!$field_fills): ?><p class="nodata">No field_interaction events yet.</p><?php else: ?>
   <table>
-    <thead><tr><th>Field</th><th>Interactions</th><th>Filled</th><th>Rate</th></tr></thead>
+    <thead><tr>
+      <th>Field</th>
+      <th title="Sessions that focused this field (tracked once per session)">Interactions</th>
+      <th>Filled</th>
+      <th>Rate</th>
+      <th title="Average character count when filled (older sessions use bucket midpoints as an estimate)">Avg length</th>
+    </tr></thead>
     <tbody>
-    <?php foreach ($field_fills as $fid => [$filled, $total]): ?>
+    <?php foreach ($field_fills as $fid => $ff):
+      [$filled, $total, $est_chars] = array_pad($ff, 3, 0);
+      $avg_len = $filled > 0 ? round($est_chars / $filled) . ' chars' : '–';
+    ?>
       <tr>
         <td><?= htmlspecialchars($fid) ?></td>
         <td><?= $total ?></td><td><?= $filled ?></td><td><?= pct($filled,$total) ?></td>
+        <td style="color:#6b7280"><?= $avg_len ?></td>
       </tr>
     <?php endforeach; ?>
     </tbody>
@@ -673,11 +778,13 @@ th { color: #6b7280; font-weight: 600; }
     </div>
 
     <!-- ── Engaged sessions ── -->
-    <p style="font-size:0.82rem;font-weight:600;color:#374151;margin-bottom:0.4rem">
+    <details open>
+    <summary style="font-size:0.82rem;font-weight:600;color:#374151;margin-bottom:0.4rem;cursor:pointer;list-style:none;display:flex;align-items:center;gap:0.4rem;padding:0.25rem 0">
+      <span class="accordion-arrow" style="font-size:0.7rem;transition:transform 0.15s">▶</span>
       Sessions with data (<?= count($engaged) ?>)
-    </p>
+    </summary>
     <?php if ($engaged): ?>
-    <table class="session-table" style="margin-bottom:1.75rem">
+    <table class="session-table" style="margin-bottom:1.75rem;margin-top:0.5rem">
       <thead><tr>
         <th><input type="checkbox" class="sel-all-hdr" title="Select all" style="float:none"></th>
         <th>#</th><th>Date / time</th><th>Active time</th>
@@ -729,13 +836,16 @@ th { color: #6b7280; font-weight: 600; }
     <?php else: ?>
     <p class="nodata" style="margin-bottom:1.5rem">No sessions with data yet.</p>
     <?php endif; ?>
+    </details>
 
     <!-- ── Passive sessions (no interaction) ── -->
     <?php if ($passive): ?>
-    <p style="font-size:0.82rem;font-weight:600;color:#9ca3af;margin-bottom:0.4rem">
+    <details style="margin-top:0.75rem">
+    <summary style="font-size:0.82rem;font-weight:600;color:#9ca3af;cursor:pointer;list-style:none;display:flex;align-items:center;gap:0.4rem;padding:0.25rem 0">
+      <span class="accordion-arrow" style="font-size:0.7rem;transition:transform 0.15s">▶</span>
       Sessions with no interaction (<?= count($passive) ?>)
-    </p>
-    <table class="session-table" style="opacity:0.7">
+    </summary>
+    <table class="session-table" style="opacity:0.7;margin-top:0.5rem">
       <thead><tr>
         <th><input type="checkbox" class="sel-all-hdr" title="Select all" style="float:none"></th>
         <th>#</th><th>Date / time</th><th>Active time</th><th>Pages</th><th></th>
@@ -761,6 +871,7 @@ th { color: #6b7280; font-weight: 600; }
       <?php $i++; endforeach; ?>
       </tbody>
     </table>
+    </details>
     <?php endif; ?>
 
   </form>

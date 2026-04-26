@@ -140,6 +140,7 @@ const UnpackFeelings = () => {
 				<>
 					<textarea
 						className="feelings-explore-textarea"
+						data-field-id={`feelings-explore-${prompt.id}`}
 						value={feelingsExploreResponses[prompt.id] || ""}
 						onChange={(e) => setResponse(prompt.id, e.target.value)}
 						rows={3}
@@ -272,6 +273,7 @@ const UnpackFeelings = () => {
 				)}
 				<textarea
 					className="feelings-explore-textarea"
+					data-field-id="feelings-explore-what-came-first"
 					placeholder="Note anything that comes up for you…"
 					value={feelingsExploreResponses["what-came-first"] || ""}
 					onChange={(e) => setResponse("what-came-first", e.target.value)}

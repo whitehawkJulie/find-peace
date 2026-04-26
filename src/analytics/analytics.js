@@ -198,6 +198,7 @@ document.addEventListener(
 			page_name: currentPage,
 			field_id: id,
 			filled: val.length > 0,
+			length: val.length,
 			length_bucket: lengthBucket(val),
 		});
 	},
