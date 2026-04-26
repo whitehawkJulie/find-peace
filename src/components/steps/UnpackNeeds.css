@@ -6,82 +6,33 @@
 	gap: 1rem;
 }
 
-/* ── Accordion section ── */
-.unpacking-section {
-	border-radius: 10px;
-	overflow: hidden;
-	border: 1px solid #d8ddd4;
-}
-
-.unpacking-section-toggle {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0.75rem 1rem;
-	background: #f4f7f3;
-	border: none;
-	cursor: pointer;
-	font-size: 0.95rem;
-	font-weight: 500;
-	color: #3a5c42;
-	text-align: left;
-	gap: 0.5rem;
-	transition: background 0.15s ease;
-}
-
-.unpacking-section-toggle:hover {
-	background: #eaf0e8;
-}
-
-.unpacking-toggle-chevron {
-	font-size: 0.7rem;
-	color: #7a9e82;
-	flex-shrink: 0;
-}
-
-.unpacking-section-body {
+/* ── ConnectToNeed chunk ── */
+.unpacking-chunk {
 	display: flex;
 	flex-direction: column;
 	gap: 0.75rem;
-	padding: 0.9rem 1rem 1rem;
-	background: white;
+	padding: 1.1rem 0 0;
 }
 
-/* Stage 2 section gets a subtle tint */
-.unpacking-section-stage2 {
-	border-color: #c8d9c8;
-}
-
-.unpacking-section-stage2 .unpacking-section-toggle {
-	background: #eaf2ea;
+.unpacking-chunk-heading {
+	margin: 0;
+	font-size: 1rem;
 	color: #2e5236;
 }
 
-.unpacking-section-stage2 .unpacking-section-toggle:hover {
-	background: #ddeedd;
-}
-
-.unpacking-section-stage2 .unpacking-section-body {
-	background: #f5faf5;
-}
-
-/* ── Stage 1 content ── */
-.unpacking-question {
-	margin: 0;
-	color: #444;
-	line-height: 1.5;
+/* ── Resonant statement (social_moral needs) ── */
+.unpacking-resonant-statement {
 	font-size: 0.95rem;
-}
-
-.unpacking-guesses-label {
-	font-size: 0.9rem;
-	color: #666;
+	line-height: 1.5;
+	color: #5a6e7f;
 	font-style: italic;
 	margin: 0;
+	padding: 0.5rem 0.75rem;
+	border-left: 3px solid #a8c4b8;
+	background: #f5f9f6;
 }
 
-/* ── Stage 2 content ── */
+/* ── Prompt blocks ── */
 .unpacking-prompt {
 	display: flex;
 	flex-direction: column;
@@ -92,12 +43,6 @@
 	font-size: 0.95rem;
 	line-height: 1.5;
 	color: #444;
-	margin: 0;
-}
-
-.unpacking-prompt-subnote {
-	font-size: 0.85rem;
-	color: #888;
 	margin: 0;
 }
 
@@ -121,7 +66,7 @@
 	box-shadow: 0 0 0 2px rgba(111, 173, 129, 0.15);
 }
 
-/* ── Direction prompts — read-only list after diff questions ── */
+/* ── Direction prompts — read-only list ── */
 .unpacking-direction-list {
 	list-style: none;
 	margin: 0;
@@ -153,37 +98,7 @@
 	line-height: 1.3;
 }
 
-.unpacking-closing-note {
-	font-size: 0.9rem;
-	line-height: 1.6;
-	color: #666;
-	font-style: italic;
-	background: #eef5ee;
-	padding: 0.75rem 1rem;
-	border-radius: 8px;
-	border-left: 3px solid #a8c9a8;
-	margin: 0;
-}
-
-/* "Can't remember?" — opens help drawer */
-.unpacking-cant-remember-toggle {
-	background: none;
-	border: none;
-	padding: 0;
-	font-size: 0.82rem;
-	color: #888;
-	text-decoration: underline;
-	text-decoration-style: dotted;
-	cursor: pointer;
-	align-self: flex-start;
-	margin-top: 0.1rem;
-}
-
-.unpacking-cant-remember-toggle:hover {
-	color: #555;
-}
-
-/* ── Footer — pushed to bottom ── */
+/* ── Footer ── */
 .unpacking-footer {
 	margin-top: 0.5rem;
 	padding: 0.75rem 1.4rem 0;
@@ -206,20 +121,6 @@
 
 .unpacking-done-btn:hover {
 	background: #4a8c5c;
-}
-
-.unpacking-exit-btn {
-	background: none;
-	border: none;
-	color: #999;
-	font-size: 0.85rem;
-	cursor: pointer;
-	padding: 0.2rem 0.5rem;
-	transition: color 0.15s ease;
-}
-
-.unpacking-exit-btn:hover {
-	color: #555;
 }
 
 /* ── Exploration popup overlay ── */
@@ -298,25 +199,6 @@
 	padding: 0 1.4rem;
 }
 
-.unpacking-chunk {
-	display: flex;
-	flex-direction: column;
-	gap: 0.75rem;
-	padding: 1.1rem 0 0;
-}
-
-.unpacking-chunk--second {
-	padding-top: 1.4rem;
-	margin-top: 0.75rem;
-	border-top: 1px solid #dde8dd;
-}
-
-.unpacking-chunk-heading {
-	margin: 0;
-	font-size: 1rem;
-	color: #2e5236;
-}
-
 /* ── Pills with remove button ── */
 .pill.need-removable {
 	display: inline-flex;
@@ -325,7 +207,6 @@
 	padding-right: 0.55rem;
 }
 
-/* badge style: grey ×, floats above top-right corner */
 .pill-remove-x {
 	position: absolute;
 	top: -5px;
@@ -409,60 +290,7 @@
 	background: #f5f5f5;
 }
 
-/* ── Readiness check ── */
-.readiness-check {
-	padding: 1.1rem 0 0.25rem;
-	display: flex;
-	flex-direction: column;
-	gap: 0.75rem;
-}
-
-.readiness-check-question {
-	font-size: 1rem;
-	font-weight: 500;
-	color: #2e5236;
-	margin: 0;
-	line-height: 1.5;
-}
-
-.readiness-check-btns {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-}
-
-.readiness-check-btn {
-	float: none;
-	width: 100%;
-	padding: 0.65rem 1rem;
-	border-radius: 8px;
-	font-size: 0.95rem;
-	font-family: inherit;
-	cursor: pointer;
-	text-align: left;
-	transition: background 0.15s, border-color 0.15s;
-	border: 1px solid #c8d9c8;
-}
-
-.readiness-check-btn--yes {
-	background: #eaf2ea;
-	color: #2e5236;
-}
-
-.readiness-check-btn--yes:hover {
-	background: #ddeedd;
-}
-
-.readiness-check-btn--explore {
-	background: #f4f7f3;
-	color: #4a6e52;
-}
-
-.readiness-check-btn--explore:hover {
-	background: #eaf0e8;
-}
-
-/* ── Picker ── */
+/* ── Already-explored section ── */
 .explored-section {
 	margin-top: 0.5rem;
 }

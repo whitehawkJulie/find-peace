@@ -1,8 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import Card from "./Card";
-/* Pause screens imports — kept for when pauses are re-enabled:
-import PauseInterstitial from "./PauseInterstitial";
-*/
 import UnpackNeeds from "./steps/UnpackNeeds";
 import { useWizard } from "./WizardContext";
 import { trackEvent, startPage, endPage, flush, consumeNavMethod, SESSION_START, currentPage } from "../analytics/analytics";
@@ -198,33 +195,9 @@ const NvcWizard = () => {
 			? CurrentStepComponent.titleSweary
 			: CurrentStepComponent.title || "";
 
-	const helpContent = needExplorationOpen ? UnpackNeeds.helpContent : CurrentStepComponent.helpContent || null;
-
-	/* To re-enable pause screens:
-	   1. Restore `useState` to the React import
-	   2. Restore `PauseInterstitial` import
-	   3. Restore `settings` from useWizard
-	   4. Add: const [showPause, setShowPause] = useState(false);
-	   5. Add: const [pauseMessage, setPauseMessage] = useState("");
-	   6. Add: const skipPauses = settings.skipPauses ?? true;
-	   7. Add to useEffect: if (!skipPauses && movedForward && visibleSteps[stepIndex]?.pause) {
-	           setPauseMessage(visibleSteps[stepIndex].pause); setShowPause(true);
-	       } else { setShowPause(false); }
-	   8. Replace the Card below with:
-	      {showPause ? (
-	          <Card title="" helpContent={null} showHelp={false} hideNav>
-	              <PauseInterstitial message={pauseMessage} onContinue={() => setShowPause(false)} />
-	          </Card>
-	      ) : (
-	          <Card title={title} helpContent={helpContent} showHelp={!!helpContent}>
-	              <CurrentStepComponent />
-	          </Card>
-	      )}
-	*/
-
 	return (
 		<div className="nvc-wizard">
-			<Card title={title} helpContent={helpContent} showHelp={!!helpContent}>
+			<Card title={title}>
 				<CurrentStepComponent />
 			</Card>
 		</div>

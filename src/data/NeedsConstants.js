@@ -127,7 +127,7 @@ export const NEEDS = Object.freeze({
 	EASE: "Ease",
 	INDEPENDENCE: "Independence",
 	AGENCY: "Agency",
-	SELF_RESPONSIBLITY: "Self-responsiblity",
+	SELF_RESPONSIBLITY: "Self-responsibility",
 	SPACE: "Space",
 	SPONTANEITY: "Spontaneity",
 

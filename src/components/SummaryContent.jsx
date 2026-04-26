@@ -16,6 +16,7 @@ const SummaryContent = () => {
 		feelings,
 		needs,
 		needExplorations,
+		needReplacements,
 		strategies,
 		feelingsExploreResponses,
 		firstFeelings,
@@ -173,6 +174,16 @@ const SummaryContent = () => {
 						<strong>{metNeeds.join(", ")}</strong>
 					</p>
 					<p>{unmetNeeds.join(", ")}</p>
+					{needReplacements && Object.keys(needReplacements).length > 0 && (
+						<p className="review-refinements">
+							<em>
+								Refined:{" "}
+								{Object.entries(needReplacements)
+									.map(([orig, repl]) => `${orig} → ${repl}`)
+									.join(", ")}
+							</em>
+						</p>
+					)}
 				</div>
 			)}
 
@@ -182,6 +193,11 @@ const SummaryContent = () => {
 					{exploredNeeds.map(([name, exp]) => (
 						<div key={name} className="review-exploration">
 							<strong>{name}</strong>
+							{needReplacements?.[name] && (
+								<p className="review-refinements">
+									<em>Later refined to: {needReplacements[name]}</em>
+								</p>
+							)}
 							{exp.coreSpecific && (
 								<p>
 									<em>About this need:</em> {exp.coreSpecific}

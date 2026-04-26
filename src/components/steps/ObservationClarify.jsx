@@ -43,6 +43,5 @@ const ObservationClarify = () => {
 
 ObservationClarify.title = "Let's get clear";
 ObservationClarify.navTitle = "Let's get clear";
-ObservationClarify.helpContent = null;
 
 export default ObservationClarify;

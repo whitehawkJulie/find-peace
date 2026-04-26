@@ -3,17 +3,14 @@ import { useWizard } from "./WizardContext";
 import Pill from "./Pill";
 import { strategyIdeas } from "./StrategyIdeas";
 import { getNeedCategory, getNeedMeaning } from "../utils/renderHelpers";
-import { getClarifyPrompts } from "./NeedExploration";
 import "./StrategyDiscovery.css";
 
 const NeedReflectionPanel = ({ needName, exploration }) => {
-	// Determine which flow was used — clarify or old
-	const clarifyPrompts = getClarifyPrompts(needName);
-	const allClarifyPrompts = clarifyPrompts ? [...clarifyPrompts.core, ...clarifyPrompts.deeper] : [];
-	const hasClarifyData = allClarifyPrompts.some(({ key }) => exploration[`clarify_${key}`]?.trim());
-
-	// Old-flow fields
-	const hasOldData = exploration.bodyFeeling || exploration.whenMet || exploration.beauty || exploration.blackHole;
+	const hasData = exploration?.completed && (
+		exploration.coreSpecific || exploration.unmetFeeling || exploration.metFeeling ||
+		exploration.imaginedMet || exploration.metCircumstances || exploration.oftenUnmet ||
+		exploration.whereToMeet || exploration.enoughResponse
+	);
 
 	return (
 		<div className="need-reflection-panel">
@@ -21,55 +18,51 @@ const NeedReflectionPanel = ({ needName, exploration }) => {
 				<>
 					<p className="reflection-panel-intro">Here's what you discovered when you explored this need:</p>
 
-					{/* Old flow fields */}
-					{exploration.bodyFeeling && (
+					{exploration.coreSpecific?.trim() && (
 						<div className="reflection-recall">
-							<strong>In your body:</strong> {exploration.bodyFeeling}
+							<strong>What it means for you:</strong> {exploration.coreSpecific}
 						</div>
 					)}
-					{exploration.whenMet && (
+					{exploration.unmetFeeling?.trim() && (
 						<div className="reflection-recall">
-							<strong>When met:</strong> {exploration.whenMet}
+							<strong>When unmet:</strong> {exploration.unmetFeeling}
 						</div>
 					)}
-					{exploration.beauty && (
+					{exploration.metFeeling?.trim() && (
 						<div className="reflection-recall">
-							<strong>The beauty:</strong> {exploration.beauty}
+							<strong>When met:</strong> {exploration.metFeeling}
 						</div>
 					)}
-					{exploration.blackHole && (
-						<div className="reflection-recall reflection-recall-blackhole">
-							<strong>Black hole need:</strong> {exploration.blackHole}
+					{exploration.imaginedMet?.trim() && (
+						<div className="reflection-recall">
+							<strong>Imagined:</strong> {exploration.imaginedMet}
+						</div>
+					)}
+					{exploration.metCircumstances?.trim() && (
+						<div className="reflection-recall">
+							<strong>What helps it be met:</strong> {exploration.metCircumstances}
+						</div>
+					)}
+					{exploration.enoughResponse?.trim() && (
+						<div className="reflection-recall">
+							<strong>What would be enough:</strong> {exploration.enoughResponse}
+						</div>
+					)}
+					{exploration.oftenUnmet?.trim() && (
+						<div className="reflection-recall">
+							<strong>Small steps:</strong> {exploration.oftenUnmet}
+						</div>
+					)}
+					{exploration.whereToMeet?.trim() && (
+						<div className="reflection-recall">
+							<strong>Where to get it met:</strong> {exploration.whereToMeet}
 						</div>
 					)}
 
-					{/* Clarify flow fields */}
-					{hasClarifyData && (
-						<div className="reflection-recall">
-							<strong>What you noticed:</strong>
-							{allClarifyPrompts.map(({ key, question }) =>
-								exploration[`clarify_${key}`]?.trim() ? (
-									<p key={key} className="reflection-clarify-item">
-										<em>{question}</em>
-										<br />
-										{exploration[`clarify_${key}`]}
-									</p>
-								) : null,
-							)}
-						</div>
-					)}
-
-					{!hasOldData && !hasClarifyData && (
+					{!hasData && (
 						<p className="reflection-panel-intro" style={{ fontStyle: "italic", color: "#888" }}>
 							No notes recorded during exploration.
 						</p>
-					)}
-
-					{/* Self-care answer — always shown if present */}
-					{exploration.selfCare?.trim() && (
-						<div className="reflection-recall reflection-recall-selfcare">
-							<strong>What you could do for yourself:</strong> {exploration.selfCare}
-						</div>
 					)}
 				</>
 			) : (

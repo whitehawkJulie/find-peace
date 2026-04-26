@@ -24,18 +24,6 @@ export const getNeedData = (needName) => {
 	return needLookup[needName] ?? null;
 };
 
-// Return the themes (unpackingType) array for a need — already resolved in the flat data
-export const resolveNeedUnpackingType = (needName) => {
-	const entry = needLookup[needName];
-	return entry ? (entry.tags?.themes ?? []) : [];
-};
-
-// Return the whereMet array for a need — already resolved in the flat data
-export const resolveNeedWhereMet = (needName) => {
-	const entry = needLookup[needName];
-	return entry ? (entry.tags?.whereMet ?? []) : [];
-};
-
 // Utility functions to extract selected items by type
 export const getClickedItems = (selectedItems) =>
 	Object.entries(selectedItems)

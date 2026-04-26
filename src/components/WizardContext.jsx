@@ -14,6 +14,7 @@ import Observation from "./steps/ObservationJackal";
 import ObservationClarify from "./steps/ObservationClarify";
 import Feelings from "./steps/Feelings";
 import Needs from "./steps/Needs";
+import RefineNeeds from "./steps/RefineNeeds";
 import UnpackNeeds from "./steps/UnpackNeeds";
 import MakingGuesses from "./steps/MakingGuesses";
 import RequestFormulation from "./steps/RequestFormulation";
@@ -33,6 +34,10 @@ import theirViewIcon from "../images/icons/their-view.svg";
 import whatsChangedIcon from "../images/icons/whats-changed.svg";
 import conversationsIcon from "../images/icons/conversations.svg";
 import reviewIcon from "../images/icons/review.svg";
+
+// Per-need offerDeepening lookup — truthy (object with questions/suggestions) on 21 needs; undefined on the rest
+import allNeeds from "../data/AllNeedsFlat";
+const needOfferDeepeningMap = Object.fromEntries(allNeeds.map((n) => [n.label, n.offerDeepening]));
 
 // Data for feeling type regulation step condition
 import { AllFeelingsData as FeelingsData } from "../data/AllFeelingsData";
@@ -59,16 +64,6 @@ const allSteps = [
 		group: "happened",
 		color: "#5F8F82",
 		icon: observationIcon,
-		pause: (
-			<>
-				<p>When something feels important or threatening, our systems respond.</p>
-				<p>Your response makes sense in context.</p>
-				<p>Let's slow it down and discover what matters so much here — so we can take good care of it.</p>
-				<p>
-					<em>Let's zoom in on one specific moment.</em>
-				</p>
-			</>
-		),
 	},
 	{ component: ObservationClarify, group: "happened", color: "#5F8F82", icon: observationIcon },
 	{
@@ -76,14 +71,6 @@ const allSteps = [
 		group: "felt",
 		color: "#5F8F82",
 		icon: feelingsIcon,
-		pause: (
-			<>
-				<p>
-					This mattered. Stay with just that one moment. <br />
-					Take one slow breath before we continue.
-				</p>
-			</>
-		),
 	},
 	{
 		component: UnpackFeelings,
@@ -97,8 +84,15 @@ const allSteps = [
 		group: "mattered",
 		color: "#6E9B6A",
 		icon: needsIcon,
-		pause: "Now that you've named what you're feeling, let's look at what those feelings are pointing to — \
-		to what really matters to you here...",
+	},
+	{
+		component: RefineNeeds,
+		group: "mattered",
+		color: "#6E9B6A",
+		icon: exploreNeedIcon,
+		optional: true,
+		condition: ({ needs }) =>
+			needs && Object.keys(needs).some((name) => needOfferDeepeningMap[name]),
 	},
 	{
 		component: UnpackNeeds,
@@ -138,6 +132,7 @@ export const WizardProvider = ({ children }) => {
 
 	// Beauty of the Needs exploration
 	const [needExplorations, setNeedExplorations] = useState({});
+	const [needReplacements, setNeedReplacements] = useState({}); // { [originalNeed]: replacementNeed }
 	const [currentExploringNeed, setCurrentExploringNeed] = useState(null);
 	const [explorationStep, setExplorationStep] = useState(0);
 	const [needExplorationOpen, setNeedExplorationOpen] = useState(false);
@@ -218,7 +213,7 @@ export const WizardProvider = ({ children }) => {
 
 	// Help drawer open state (lifted so step components can trigger it)
 	const [helpDrawerOpen, setHelpDrawerOpen] = useState(false);
-	// Override content: when set, the drawer shows this instead of the step's helpContent
+	// Override content: when set, the drawer shows this JSX instead of the default topic view
 	const [helpDrawerOverride, setHelpDrawerOverride] = useState(null);
 	// Deep-link to a specific help topic by id (opens drawer in browse mode)
 	const [helpTopic, setHelpTopic] = useState(null);
@@ -278,7 +273,7 @@ export const WizardProvider = ({ children }) => {
 	const hasEncryptedSessions = savedEntries.some(isEncryptedSession);
 
 	// Build state object for step conditions
-	const state = { observation, feelings, needs, needExplorations, strategies };
+	const state = { observation, feelings, needs, needExplorations, needReplacements, strategies };
 	const visibleSteps = allSteps.filter((step) => (step.condition ? step.condition(state) : true));
 
 	const currentStep = visibleSteps[stepIndex];
@@ -299,6 +294,7 @@ export const WizardProvider = ({ children }) => {
 			feelings,
 			needs,
 			needExplorations,
+			needReplacements,
 			strategies,
 			feelingsExploreResponses,
 			guessObservation,
@@ -388,6 +384,7 @@ export const WizardProvider = ({ children }) => {
 		setFeelings(session.feelings || {});
 		setNeeds(session.needs || {});
 		setNeedExplorations(session.needExplorations || {});
+		setNeedReplacements(session.needReplacements || {});
 		setCurrentExploringNeed(null);
 		setExplorationStep(0);
 		setStrategies(session.strategies || {});
@@ -422,6 +419,7 @@ export const WizardProvider = ({ children }) => {
 		setFeelings({});
 		setNeeds({});
 		setNeedExplorations({});
+		setNeedReplacements({});
 		setCurrentExploringNeed(null);
 		setExplorationStep(0);
 		setNeedExplorationOpen(false);
@@ -489,6 +487,8 @@ export const WizardProvider = ({ children }) => {
 		setNeeds,
 		needExplorations,
 		setNeedExplorations,
+		needReplacements,
+		setNeedReplacements,
 		currentExploringNeed,
 		setCurrentExploringNeed,
 		explorationStep,

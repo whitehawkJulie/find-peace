@@ -9,7 +9,7 @@ import { useOverlayHistory } from "../hooks/useOverlayHistory";
 import { trackEvent, setPendingNavMethod, currentPage } from "../analytics/analytics";
 import "./Card.css";
 
-const Card = ({ title, children, showHelp = false, helpContent = null, hideNav = false }) => {
+const Card = ({ title, children, hideNav = false }) => {
 	const {
 		hideMainNav,
 		helpDrawerOpen,
@@ -206,7 +206,7 @@ const Card = ({ title, children, showHelp = false, helpContent = null, hideNav =
 				showBrowse
 				helpTopic={helpTopic}
 				setHelpTopic={setHelpTopic}>
-				{helpDrawerOverride ?? helpContent}
+				{helpDrawerOverride}
 			</SlideDrawer>
 
 			{!hideNav && !hideMainNav && <MenuBar />}
