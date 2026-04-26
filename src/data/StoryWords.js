@@ -1852,6 +1852,219 @@ export const StoryWords = {
 				},
 			],
 		},
+
+		// ──────────────────────────────────────────────────────────
+		// SELF-JUDGEMENT
+		// Theme: self-critical words — turned inward rather than
+		// describing what happened out there
+		// Emotional arc: shame → sadness → sometimes fear or despair
+		// ──────────────────────────────────────────────────────────
+
+		selfJudgement: {
+			ui: {
+				heading: "When You're Being Hard on Yourself",
+				order: 110,
+			},
+			items: [
+				{
+					item: "Worthless",
+					type: "storyWord",
+					ruptureType: "selfJudgement",
+
+					storyHint:
+						"This word often carries a painful story that your presence or needs don't matter — like your worth has disappeared or can't be felt right now.",
+
+					empathyGuesses: [
+						"That sounds so heavy… is there sadness here?",
+						"Maybe shame, if something in you is saying you should be different?",
+						"Or loneliness, if it feels like you don't matter right now?",
+						"Is there a longing to know your presence matters?",
+						"Maybe a need for self-acceptance, appreciation, or to matter?",
+						"Let's slow it gently… what feeling feels most alive right now?",
+					],
+
+					suggestedFeelings: ["sad", "heavy", "numb", "despairing"],
+
+					suggestedNeeds: ["To matter", "Mattering to myself", "Self-acceptance", "Appreciation"],
+				},
+
+				{
+					item: "Inadequate / not good enough",
+					type: "storyWord",
+					ruptureType: "selfJudgement",
+
+					storyHint:
+						"This word often carries a sense that you're falling short — like something about you isn't measuring up.",
+
+					empathyGuesses: [
+						"That sounds uncomfortable… is there anxiety here?",
+						"Maybe shame, if part of you feels like you should be better?",
+						"Or discouragement, if it feels hard to meet expectations?",
+						"Is there a longing to feel capable or accepted as you are?",
+						"Maybe a need for competence, growth, or self-acceptance?",
+						"Let's slow it gently… what feeling feels most alive right now?",
+					],
+
+					suggestedFeelings: ["anxious", "ashamed", "discouraged"],
+
+					suggestedNeeds: ["Competence", "Growth", "Self-acceptance", "Support"],
+				},
+
+				{
+					item: "Broken",
+					type: "storyWord",
+					ruptureType: "selfJudgement",
+
+					storyHint:
+						"This word often carries a sense that something in you is damaged or beyond repair — like healing feels far away.",
+
+					empathyGuesses: [
+						"That sounds really painful… is there despair here?",
+						"Maybe grief, if something feels far from how you wish it could be?",
+						"Or shame, if you're judging yourself for struggling?",
+						"Is there a longing for healing or hope?",
+						"Maybe a need for acceptance, self-connection, or gentleness?",
+						"Let's slow it gently… what feeling feels most alive right now?",
+					],
+
+					suggestedFeelings: ["despairing", "ashamed", "hopeless"],
+
+					suggestedNeeds: ["Healing", "Self-acceptance", "Self-connection", "Hope"],
+				},
+
+				{
+					item: "A failure",
+					type: "storyWord",
+					ruptureType: "selfJudgement",
+
+					storyHint:
+						"This word often carries a sense that your efforts haven't led to the outcome you hoped for — and that that means something about you.",
+
+					empathyGuesses: [
+						"That sounds discouraging… is there disappointment here?",
+						"Maybe shame, if you're judging yourself for the outcome?",
+						"Or sadness, if something important didn't work out?",
+						"Is there a longing to feel effective or to make a difference?",
+						"Maybe a need for contribution, growth, or appreciation?",
+						"Let's slow it gently… what feeling feels most alive right now?",
+					],
+
+					suggestedFeelings: ["disappointed", "ashamed", "discouraged"],
+
+					suggestedNeeds: ["Contribution", "Effectiveness", "Appreciation", "Growth"],
+				},
+
+				{
+					item: "Unlovable",
+					type: "storyWord",
+					ruptureType: "selfJudgement",
+
+					storyHint:
+						"This word often carries a fear that love or acceptance isn't available to you — like connection might not be safe or possible.",
+
+					empathyGuesses: [
+						"That sounds really tender… is there sadness here?",
+						"Maybe fear, if connection doesn't feel secure?",
+						"Or shame, if something about you feels 'too much' or 'not enough'?",
+						"Is there a longing for love or belonging?",
+						"Maybe a need for acceptance, warmth, or connection?",
+						"Let's slow it gently… what feeling feels most alive right now?",
+					],
+
+					suggestedFeelings: ["sad", "afraid", "lonely"],
+
+					suggestedNeeds: ["Love", "Acceptance", "Belonging", "Connection"],
+				},
+
+				{
+					item: "Too much",
+					type: "storyWord",
+					ruptureType: "selfJudgement",
+
+					storyHint:
+						"This word often carries a fear that your needs, feelings, or intensity are more than others can welcome.",
+
+					empathyGuesses: [
+						"That sounds exposed… is there anxiety here?",
+						"Maybe shame, if part of you feels you should take up less space?",
+						"Or sadness, if you're longing to be welcomed as you are?",
+						"Is there a need for acceptance or belonging?",
+						"Maybe a longing to be seen without being pushed away?",
+						"Let's slow it gently… what feeling feels most alive right now?",
+					],
+
+					suggestedFeelings: ["anxious", "ashamed"],
+
+					suggestedNeeds: ["Acceptance", "Belonging", "Safety (emotional)", "To be seen"],
+				},
+
+				{
+					item: "Lazy",
+					type: "storyWord",
+					ruptureType: "selfJudgement",
+
+					storyHint:
+						"This word often carries self-blame around capacity — like part of you thinks you should be able to do more than you can right now.",
+
+					empathyGuesses: [
+						"That sounds harsh inside… is there discouragement here?",
+						"Maybe overwhelm, if things feel harder than they 'should'?",
+						"Or shame, if you're judging your capacity?",
+						"Is there a need for rest or support?",
+						"Maybe something in you wants understanding rather than pressure?",
+						"Let's slow it gently… what feeling feels most alive right now?",
+					],
+
+					suggestedFeelings: ["discouraged", "overwhelmed"],
+
+					suggestedNeeds: ["Rest / sleep", "Ease", "Support", "Aliveness"],
+				},
+
+				{
+					item: "Invisible",
+					type: "storyWord",
+					ruptureType: "selfJudgement",
+
+					storyHint:
+						"This word often carries a sense that you're not being noticed or recognised — like your presence isn't landing with others.",
+
+					empathyGuesses: [
+						"That sounds lonely… is there hurt here?",
+						"Maybe sadness, if you're not being seen?",
+						"Or longing, if you want to be recognised?",
+						"Is there a need to be seen or acknowledged?",
+						"Maybe a need for connection or to matter?",
+						"Let's slow it gently… what feeling feels most alive right now?",
+					],
+
+					suggestedFeelings: ["lonely", "hurt"],
+
+					suggestedNeeds: ["To be seen", "To matter", "Connection", "Acknowledgement"],
+				},
+
+				{
+					item: "Replaceable",
+					type: "storyWord",
+					ruptureType: "selfJudgement",
+
+					storyHint:
+						"This word often carries a fear that your presence isn't unique or valued — like you could easily be swapped out.",
+
+					empathyGuesses: [
+						"That sounds unsettling… is there insecurity here?",
+						"Maybe sadness, if you want to feel valued?",
+						"Or fear, if your place doesn't feel secure?",
+						"Is there a longing to know you matter?",
+						"Maybe a need for appreciation or belonging?",
+						"Let's slow it gently… what feeling feels most alive right now?",
+					],
+
+					suggestedFeelings: ["insecure", "sad"],
+
+					suggestedNeeds: ["To matter", "Appreciation", "Contribution", "Belonging"],
+				},
+			],
+		},
 	},
 };
 
