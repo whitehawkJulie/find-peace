@@ -126,6 +126,7 @@ const SideMenu = ({ isOpen, onClose }) => {
 						<div className="side-menu-divider" />
 
 						{/* Page navigation */}
+						<div className="side-menu-nav-heading">Pages</div>
 						<nav className="side-menu-nav">
 							{GROUPS.map((group) => {
 								const groupSteps = allSteps.filter((s) => s.group === group);
@@ -140,7 +141,7 @@ const SideMenu = ({ isOpen, onClose }) => {
 											const isLocked = visIdx === -1;
 											const isCurrent = !isLocked && visIdx === stepIndex;
 											const isPast = !isLocked && visIdx < stepIndex;
-											const isAccessible = !isLocked && (isPast || !!loadedId);
+											const isAccessible = !isLocked;
 
 											const label = step.component?.navTitle || step.component?.title || "";
 											const stateClass = isCurrent

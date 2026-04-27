@@ -172,10 +172,18 @@
 	text-align: center;
 	font-size: 0.72rem;
 	color: #999;
-	pointer-events: none;
-	transition: opacity 0.25s ease;
+	background: none;
+	border: none;
+	padding: 4px 0;
+	float: none;
+	transition: opacity 0.25s ease, color 0.15s ease;
 	z-index: 3;
 	letter-spacing: 0.04em;
+	cursor: pointer;
+}
+
+.card-scroll-label:hover {
+	color: #666;
 }
 /* Tagline shown below the logo on the intro page only */
 .card-intro-tagline {

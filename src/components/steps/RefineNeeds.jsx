@@ -120,6 +120,6 @@ const RefineNeeds = () => {
 };
 
 RefineNeeds.title = "Refine your needs";
-RefineNeeds.navTitle = "Refine";
+RefineNeeds.navTitle = "Refine Needs";
 
 export default RefineNeeds;

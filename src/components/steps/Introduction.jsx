@@ -1,17 +1,25 @@
 import React from "react";
 import HelpLink from "../HelpLink";
+import { useWizard } from "../WizardContext";
 
 import "./Introduction.css";
 
-const introductionOutcomes = [
-	"what actually happened",
-	"how it landed in you (your feelings)",
-	"and why — what mattered to you (your needs)",
-	"what might have been happening for them",
-	"how to resolve things and feel better",
+const STEP_LINKS = [
+	{ icon: "👁", label: "What happened", sub: "just the facts", navTitle: "Let's get clear" },
+	{ icon: "💧", label: "What you felt", sub: "how it landed in you", navTitle: "What am I feeling?" },
+	{ icon: "❤️", label: "What mattered", sub: "your needs", navTitle: "What matters to me?" },
+	{ icon: "🔍", label: "What may be going on for them", sub: "widen the picture", navTitle: "Their View" },
+	{ icon: "🌱", label: "What to do next", sub: "find a way forward", navTitle: "What next?" },
 ];
 
 const Introduction = () => {
+	const { visibleSteps, setStepIndex } = useWizard();
+
+	const navigateTo = (navTitle) => {
+		const idx = visibleSteps.findIndex((s) => s.component?.navTitle === navTitle);
+		if (idx !== -1) setStepIndex(idx);
+	};
+
 	return (
 		<div className="step-introduction step-container">
 			{/* Person + thought bubbles scene */}
@@ -30,9 +38,9 @@ const Introduction = () => {
 						</div>
 						<div className="intro-thought-bubble">
 							<ul>
-								<li>That's not fair!</li>
+								<li>That’s not fair!</li>
 								<li>How could they do/say that?!</li>
-								<li>They're not hearing me!</li>
+								<li>They’re not hearing me!</li>
 							</ul>
 						</div>
 					</div>
@@ -54,55 +62,28 @@ const Introduction = () => {
 				</div>
 			</div>
 
-			{/* <div className="intro-punchline">... this process is for you.</div> */}
-
 			<div className="process-preview">
 				<p className="process-intro">
-					It can feel helpless or hopeless right now. That's OK... we'll take this step by step, and see what
+					It can feel helpless or hopeless right now. That’s OK... we’ll take this step by step, and see what
 					starts to untangle.
 				</p>
 				<p className="process-intro">Here’s a quick preview of the steps we’ll go through.</p>
 
 				<ul className="process-steps">
-					<li>
-						<span className="icon">👁</span>
-						<div>
-							<strong>What happened</strong>
-							<div className="sub">just the facts</div>
-						</div>
-					</li>
-
-					<li>
-						<span className="icon">💧</span>
-						<div>
-							<strong>What you felt</strong>
-							<div className="sub">how it landed in you</div>
-						</div>
-					</li>
-
-					<li>
-						<span className="icon">❤️</span>
-						<div>
-							<strong>What mattered</strong>
-							<div className="sub">your needs</div>
-						</div>
-					</li>
-
-					<li>
-						<span className="icon">🔍</span>
-						<div>
-							<strong>What may be going on for them</strong>
-							<div className="sub">widen the picture</div>
-						</div>
-					</li>
-
-					<li>
-						<span className="icon">🌱</span>
-						<div>
-							<strong>What to do next</strong>
-							<div className="sub">find a way forward</div>
-						</div>
-					</li>
+					{STEP_LINKS.map(({ icon, label, sub, navTitle }) => (
+						<li key={label}>
+							<button
+								className="intro-step-link"
+								onClick={() => navigateTo(navTitle)}
+								aria-label={`Go to ${label}`}>
+								<span className="icon">{icon}</span>
+								<div>
+									<strong>{label}</strong>
+									<div className="sub">{sub}</div>
+								</div>
+							</button>
+						</li>
+					))}
 				</ul>
 				<div>
 					<p className="intro-more-link">

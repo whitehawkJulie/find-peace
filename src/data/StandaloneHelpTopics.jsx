@@ -688,7 +688,7 @@ const StandaloneHelpTopics = [
 
 				<p>
 					If you’d like support staying with a feeling once you’ve found it, you can explore that{" "}
-					<HelpLink href="/help/feelings">here</HelpLink>. We'll do more of that in the next step, Exploring
+					<HelpLink topic="stay-with-it">here</HelpLink>. We'll do more of that in the next step, Exploring
 					Feelings.
 				</p>
 			</>
