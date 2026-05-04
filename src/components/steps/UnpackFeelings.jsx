@@ -8,7 +8,6 @@ import { feelingTypes } from "../../data/FeelingTypes";
 import { storyWordSet } from "../../data/StoryWords";
 import ClarifyFeelings from "../ClarifyFeelings";
 import "./UnpackFeelings.css";
-import DismissibleHint from "../DismissibleHint";
 
 // Build a lookup: item name → full item data (only for unmet feelings with a feelingType tag)
 const itemLookup = {};
@@ -29,6 +28,19 @@ const metSection = FeelingsData.sections.feelingsMet;
 if (metSection?.groups) {
 	for (const group of Object.values(metSection.groups))
 		for (const item of group.items) feelingsMetSet.add(item.item);
+}
+
+// Build a lookup: item name → group heading (for the reduce-list popup)
+const feelingGroupLookup = {};
+if (unmetSection?.groups) {
+	for (const group of Object.values(unmetSection.groups))
+		for (const item of group.items)
+			feelingGroupLookup[item.item] = group.ui.heading;
+}
+if (metSection?.groups) {
+	for (const group of Object.values(metSection.groups))
+		for (const item of group.items)
+			feelingGroupLookup[item.item] = group.ui.heading;
 }
 
 // Build a lookup: murky feeling name → full item data
@@ -61,6 +73,8 @@ const UnpackFeelings = () => {
 	const [expandedTypes, setExpandedTypes] = useState(new Set());
 	const [popupItem, setPopupItem] = useState(null);
 	const [pendingRemoveFeeling, setPendingRemoveFeeling] = useState(null);
+	const [skipRemoveConfirm, setSkipRemoveConfirm] = useState(false);
+	const [showReducePopup, setShowReducePopup] = useState(false);
 
 	const removeFeeling = (name) => {
 		setFeelings((prev) => {
@@ -100,6 +114,18 @@ const UnpackFeelings = () => {
 				.map(([name]) => name),
 		[feelings],
 	);
+
+	// Group all selected feelings by their family (for the reduce-list popup)
+	const groupedSelectedEntries = useMemo(() => {
+		const groups = {};
+		for (const [name, state] of Object.entries(feelings)) {
+			if ((state !== "clicked" && state !== "double-clicked") || storyWordSet.has(name)) continue;
+			const groupName = feelingGroupLookup[name] || "Other";
+			if (!groups[groupName]) groups[groupName] = [];
+			groups[groupName].push([name, state]);
+		}
+		return groups;
+	}, [feelings]);
 
 	const toggleType = (type) => {
 		setExpandedTypes((prev) => {
@@ -232,12 +258,11 @@ const UnpackFeelings = () => {
 								<h3>Feeling Overloaded? (optional)</h3>
 								<p>
 									As you look at this list, does it feel clear and settled, or a bit busy? If it feels
-									busy, you might try removing similar words and keeping the ones that feel most
-									accurate.
+									busy, you might want to remove some similar words.
 								</p>
-								<DismissibleHint id="busy-feelings-hint">
-									💡 Click on the small 'x' to remove a feeling
-								</DismissibleHint>
+								<button className="reduce-list-btn" onClick={() => setShowReducePopup(true)}>
+									Would you like to reduce the list?
+								</button>
 							</div>
 						)}
 						<div className="pill-grid cloud feelings-selected-pills first-feelings-cloud">
@@ -264,7 +289,8 @@ const UnpackFeelings = () => {
 											className="pill-remove-x"
 											onClick={(e) => {
 												e.stopPropagation();
-												setPendingRemoveFeeling(name);
+												if (skipRemoveConfirm) removeFeeling(name);
+												else setPendingRemoveFeeling(name);
 											}}
 											title={`Remove ${name}`}
 											aria-label={`Remove ${name}`}>
@@ -301,7 +327,8 @@ const UnpackFeelings = () => {
 													className="pill-remove-x"
 													onClick={(e) => {
 														e.stopPropagation();
-														setPendingRemoveFeeling(name);
+														if (skipRemoveConfirm) removeFeeling(name);
+														else setPendingRemoveFeeling(name);
 													}}
 													title={`Remove ${name}`}
 													aria-label={`Remove ${name}`}>
@@ -317,23 +344,34 @@ const UnpackFeelings = () => {
 				)}
 
 				{pendingRemoveFeeling && (
-					<div className="feeling-remove-confirm">
-						<span>
-							Remove <strong>{pendingRemoveFeeling}</strong> from your feelings?
-						</span>
-						<div className="feeling-remove-confirm-btns">
+					<div className="feeling-remove-confirm-backdrop" onClick={() => setPendingRemoveFeeling(null)}>
+						<div className="feeling-remove-confirm" onClick={(e) => e.stopPropagation()}>
+							<span>
+								Remove <strong>{pendingRemoveFeeling}</strong> from your feelings?
+							</span>
+							<div className="feeling-remove-confirm-btns">
+								<button
+									className="feeling-remove-confirm-yes"
+									onClick={() => {
+										removeFeeling(pendingRemoveFeeling);
+										setPendingRemoveFeeling(null);
+									}}>
+									Yes, remove
+								</button>
+								<button
+									className="feeling-remove-confirm-cancel"
+									onClick={() => setPendingRemoveFeeling(null)}>
+									Cancel
+								</button>
+							</div>
 							<button
-								className="feeling-remove-confirm-yes"
+								className="feeling-remove-confirm-skip"
 								onClick={() => {
+									setSkipRemoveConfirm(true);
 									removeFeeling(pendingRemoveFeeling);
 									setPendingRemoveFeeling(null);
 								}}>
-								Yes, remove
-							</button>
-							<button
-								className="feeling-remove-confirm-cancel"
-								onClick={() => setPendingRemoveFeeling(null)}>
-								Cancel
+								Remove and don't show again this session
 							</button>
 						</div>
 					</div>
@@ -437,6 +475,44 @@ const UnpackFeelings = () => {
 					onKeepWord={() => setPopupItem(null)}
 					onClose={() => setPopupItem(null)}
 				/>
+			)}
+
+			{showReducePopup && (
+				<div className="reduce-popup-backdrop" onClick={() => setShowReducePopup(false)}>
+					<div className="reduce-popup" onClick={(e) => e.stopPropagation()}>
+						<div className="reduce-popup-header">
+							<h3>Remove similar feelings</h3>
+							<button className="reduce-popup-close" onClick={() => setShowReducePopup(false)}>✕</button>
+						</div>
+						<p className="reduce-popup-intro">
+							Tap × to remove feelings you don't need. Words in the same group are similar — keeping the most accurate one is enough.
+						</p>
+						<div className="reduce-popup-groups">
+							{Object.entries(groupedSelectedEntries).map(([groupName, entries]) => (
+								<div key={groupName} className="reduce-popup-group">
+									<div className="reduce-popup-group-heading">{groupName}</div>
+									<div className="pill-grid cloud">
+										{entries.map(([name, state]) => (
+											<div key={name} className={`pill feeling ${state} feeling-removable`}>
+												{name}
+												<button
+													className="pill-remove-x"
+													onClick={() => removeFeeling(name)}
+													title={`Remove ${name}`}
+													aria-label={`Remove ${name}`}>
+													×
+												</button>
+											</div>
+										))}
+									</div>
+								</div>
+							))}
+						</div>
+						<div className="reduce-popup-footer">
+							<button className="reduce-popup-done" onClick={() => setShowReducePopup(false)}>Done</button>
+						</div>
+					</div>
+				</div>
 			)}
 		</div>
 	);

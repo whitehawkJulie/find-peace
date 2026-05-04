@@ -64,22 +64,39 @@
 
 /* ===== Remove confirmation bar ===== */
 
-.feeling-remove-confirm {
+.feeling-remove-confirm-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.35);
+	z-index: 1000;
 	display: flex;
-	flex-wrap: wrap;
 	align-items: center;
-	gap: 0.5rem 1rem;
+	justify-content: center;
+}
+
+.feeling-remove-confirm {
 	background: #fff8f5;
 	border: 1px solid #e8c8b8;
-	border-radius: 8px;
-	padding: 0.6rem 0.9rem;
-	font-size: 0.88rem;
-	color: #555;
+	border-radius: 12px;
+	padding: 1.2rem 1.4rem;
+	font-size: 0.92rem;
+	color: #444;
+	max-width: 300px;
+	width: 90%;
+	text-align: center;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+}
+
+.feeling-remove-confirm > span {
+	display: block;
+	margin-bottom: 1rem;
+	line-height: 1.4;
 }
 
 .feeling-remove-confirm-btns {
 	display: flex;
 	gap: 0.5rem;
+	justify-content: center;
 }
 
 .feeling-remove-confirm-yes {
@@ -115,6 +132,23 @@
 .feeling-remove-confirm-cancel:hover {
 	background: #f0f0f0;
 	color: #555;
+}
+
+.feeling-remove-confirm-skip {
+	float: none;
+	background: none;
+	border: none;
+	color: #aaa;
+	font-size: 0.78rem;
+	cursor: pointer;
+	margin-top: 0.6rem;
+	padding: 0;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.feeling-remove-confirm-skip:hover {
+	color: #777;
 }
 
 /* ===== Murky feeling indicator in the selected feelings list ===== */
@@ -341,4 +375,142 @@
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
 	margin-top: 0.5rem;
+}
+
+/* ===== Reduce list button ===== */
+
+.reduce-list-btn {
+	float: none;
+	background: #e8ede3;
+	border: 1px solid #7a9a6a;
+	border-radius: 6px;
+	padding: 6px 14px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	margin-top: 6px;
+	transition: background 0.15s;
+}
+
+.reduce-list-btn:hover {
+	background: #d8e6d0;
+}
+
+/* ===== Reduce list popup ===== */
+
+.reduce-popup-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 1200;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+}
+
+.reduce-popup {
+	background: #fff;
+	border-radius: 16px 16px 0 0;
+	padding: 20px;
+	width: 100%;
+	max-width: 600px;
+	max-height: 80vh;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.reduce-popup-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.reduce-popup-header h3 {
+	margin: 0;
+}
+
+.reduce-popup-close {
+	float: none;
+	background: none;
+	border: none;
+	font-size: 1.2rem;
+	cursor: pointer;
+	padding: 4px 8px;
+	color: #888;
+}
+
+.reduce-popup-close:hover {
+	color: #333;
+}
+
+.reduce-popup-intro {
+	font-size: 0.9rem;
+	color: #555;
+	margin: 0;
+	line-height: 1.4;
+}
+
+.reduce-popup-groups {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.reduce-popup-group-heading {
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: #888;
+	margin-bottom: 4px;
+}
+
+.reduce-popup .pill-remove-x {
+	position: absolute;
+	top: -5px;
+	right: -5px;
+	float: none;
+	background: #ddd;
+	border: none;
+	padding: 0;
+	margin: 0;
+	font-size: 0.65rem;
+	line-height: 1;
+	color: #777;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 0.9rem;
+	height: 0.9rem;
+	border-radius: 50%;
+	flex-shrink: 0;
+	transition: background 0.15s, color 0.15s;
+}
+
+.reduce-popup .pill-remove-x:hover {
+	background: #bbb;
+	color: #333;
+}
+
+.reduce-popup-footer {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.reduce-popup-done {
+	float: none;
+	background: #3a5270;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	padding: 8px 20px;
+	cursor: pointer;
+	font-size: 0.95rem;
+	transition: background 0.15s;
+}
+
+.reduce-popup-done:hover {
+	background: #2d4060;
 }
