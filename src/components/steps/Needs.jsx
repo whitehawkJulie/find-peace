@@ -22,7 +22,9 @@ const renderOrderedFeelings = (feelings, firstFeelings) => {
 				{entries.map(([feeling, state]) => {
 					const isFirst = !!firstFeelings?.[feeling];
 					return (
-						<div key={feeling} className={`pill feeling ${state}${isFirst ? " first-feeling-selected" : ""}`}>
+						<div
+							key={feeling}
+							className={`pill feeling ${state}${isFirst ? " first-feeling-selected" : ""}`}>
 							{isFirst && <span className="first-feeling-badge">①</span>}
 							{!isFirst && state === "double-clicked" && <span className="pill-strong-badge">●</span>}
 							{feeling}
@@ -64,7 +66,7 @@ const Needs = () => {
 				defaultListMode="full"
 				selectionHint={
 					<DismissibleHint id="click-needs-twice">
-						HINT: Tap twice on any need that feels especially strong or urgent.
+						HINT: Tap a second time on any need that feels especially strong or urgent.
 					</DismissibleHint>
 				}
 			/>

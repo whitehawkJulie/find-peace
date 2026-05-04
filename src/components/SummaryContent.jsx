@@ -2,6 +2,8 @@ import React from "react";
 import { useWizard } from "./WizardContext";
 import { filterByState } from "../utils/renderHelpers";
 import { feelingTypes } from "../data/FeelingTypes";
+import { storyWordSet, storyWordDataByName } from "../data/StoryWords";
+import { feelingsMetSet } from "../data/FeelingsMet";
 import "./SummaryContent.css";
 
 /**
@@ -36,9 +38,16 @@ const SummaryContent = () => {
 	const obsText =
 		observation?.refined?.trim() || [observation?.moment, observation?.actions].filter((s) => s?.trim()).join("\n");
 
-	const strongFeelings = filterByState(feelings, "double-clicked");
-	const normalFeelings = filterByState(feelings, "clicked");
+	const strongFeelings = filterByState(feelings, "double-clicked").filter((f) => !storyWordSet.has(f));
+	const normalFeelings = filterByState(feelings, "clicked").filter((f) => !storyWordSet.has(f));
 	const allFeelings = [...strongFeelings, ...normalFeelings];
+	const strongUnmet = strongFeelings.filter((f) => !feelingsMetSet.has(f));
+	const normalUnmet = normalFeelings.filter((f) => !feelingsMetSet.has(f));
+	const strongMet = strongFeelings.filter((f) => feelingsMetSet.has(f));
+	const normalMet = normalFeelings.filter((f) => feelingsMetSet.has(f));
+	const unmetFeelings = [...strongUnmet, ...normalUnmet];
+	const metFeelings = [...strongMet, ...normalMet];
+	const selectedStoryWords = Object.keys(feelings).filter((f) => storyWordSet.has(f));
 	const metNeeds = filterByState(needs, "double-clicked");
 	const unmetNeeds = filterByState(needs, "clicked");
 	const exploredNeeds = Object.entries(needExplorations).filter(([_, v]) => v.completed);
@@ -106,16 +115,64 @@ const SummaryContent = () => {
 			{allFeelings.length > 0 && (
 				<div className="review-section">
 					<h3>Feelings</h3>
-					<p>
-						{strongFeelings.map((f, i) => (
-							<React.Fragment key={f}>
-								{i > 0 && ", "}
-								<strong>{f}</strong>
-							</React.Fragment>
-						))}
-						{strongFeelings.length > 0 && normalFeelings.length > 0 && ", "}
-						{normalFeelings.join(", ")}
-					</p>
+					{unmetFeelings.length > 0 && (
+						<p>
+							{strongUnmet.map((f, i) => (
+								<React.Fragment key={f}>
+									{i > 0 && ", "}
+									<strong>{f}</strong>
+								</React.Fragment>
+							))}
+							{strongUnmet.length > 0 && normalUnmet.length > 0 && ", "}
+							{normalUnmet.join(", ")}
+						</p>
+					)}
+					{metFeelings.length > 0 && (
+						<>
+							<p className="summary-and-also-label">And also:</p>
+							<p>
+								{strongMet.map((f, i) => (
+									<React.Fragment key={f}>
+										{i > 0 && ", "}
+										<strong>{f}</strong>
+									</React.Fragment>
+								))}
+								{strongMet.length > 0 && normalMet.length > 0 && ", "}
+								{normalMet.join(", ")}
+							</p>
+						</>
+					)}
+				</div>
+			)}
+
+			{selectedStoryWords.length > 0 && (
+				<div className="review-section">
+					<h3>Story Words</h3>
+					{selectedStoryWords.map((word) => {
+						const data = storyWordDataByName[word];
+						const feltHere = (data?.suggestedFeelings || []).filter((f) => feelings[f]);
+						const neededHere = (data?.suggestedNeeds || []).filter((n) => needs[n]);
+						return (
+							<div key={word} className="summary-story-word">
+								<p className="summary-story-word-name">{word.toUpperCase()}</p>
+								{data?.storyHint && (
+									<p>
+										<strong>What you were telling yourself:</strong> "{data.storyHint}"
+									</p>
+								)}
+								{feltHere.length > 0 && (
+									<p>
+										<strong>What you felt:</strong> {feltHere.join(", ")}
+									</p>
+								)}
+								{neededHere.length > 0 && (
+									<p>
+										<strong>What mattered:</strong> {neededHere.join(", ")}
+									</p>
+								)}
+							</div>
+						);
+					})}
 				</div>
 			)}
 
@@ -128,12 +185,7 @@ const SummaryContent = () => {
 							<p>{Object.keys(firstFeelings).join(", ")}</p>
 						</div>
 					)}
-					{feelingsExploreResponses["what-came-first"]?.trim() && (
-						<div className="review-exploration">
-							<strong>What came first?</strong>
-							<p>{feelingsExploreResponses["what-came-first"]}</p>
-						</div>
-					)}
+
 					{Object.entries(feelingTypes).map(([typeKey, typeData]) => {
 						const filledPrompts = typeData.prompts.filter((p) => {
 							const val = feelingsExploreResponses[p.id];

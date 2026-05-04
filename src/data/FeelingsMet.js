@@ -5,12 +5,10 @@ export const FeelingsMet = {
 		heading: "Feelings when our needs are met",
 		helpText: "",
 	},
-	regulationType: "settled",
 
 	groups: {
 		Affectionate: {
 			ui: { heading: "Affectionate", order: 210 },
-			regulationType: "settled",
 			items: [
 				{ item: "affectionate", description: "warm fondness", ui: { tier: "simple", quickPick: true } },
 				{ item: "compassionate", description: "care for suffering", ui: { tier: "simple" } },
@@ -26,7 +24,6 @@ export const FeelingsMet = {
 
 		Engaged: {
 			ui: { heading: "Engaged", order: 220 },
-			regulationType: "settled",
 			items: [
 				{ item: "engaged", description: "actively involved", ui: { tier: "simple", quickPick: true } },
 				{ item: "absorbed", description: "fully immersed", ui: { tier: "simple" } },
@@ -47,7 +44,6 @@ export const FeelingsMet = {
 
 		Hopeful: {
 			ui: { heading: "Hopeful", order: 230 },
-			regulationType: "settled",
 			items: [
 				{ item: "hopeful", description: "expecting good outcomes", ui: { tier: "simple", quickPick: true } },
 				{ item: "expectant", description: "anticipating something good", ui: { tier: "simple" } },
@@ -58,7 +54,6 @@ export const FeelingsMet = {
 
 		Confident: {
 			ui: { heading: "Confident", order: 240 },
-			regulationType: "settled",
 			items: [
 				{ item: "confident", description: "sure of yourself", ui: { tier: "simple", quickPick: true } },
 				{ item: "empowered", description: "able to influence", ui: { tier: "simple" } },
@@ -72,7 +67,6 @@ export const FeelingsMet = {
 
 		Excited: {
 			ui: { heading: "Excited", order: 250 },
-			regulationType: "settled",
 			items: [
 				{ item: "excited", description: "eager and energized", ui: { tier: "simple", quickPick: true } },
 				{ item: "amazed", description: "filled with wonder", ui: { tier: "simple" } },
@@ -96,7 +90,6 @@ export const FeelingsMet = {
 
 		Grateful: {
 			ui: { heading: "Grateful", order: 260 },
-			regulationType: "settled",
 			items: [
 				{
 					item: "grateful",
@@ -112,7 +105,6 @@ export const FeelingsMet = {
 
 		Inspired: {
 			ui: { heading: "Inspired", order: 270 },
-			regulationType: "settled",
 			items: [
 				{ item: "inspired", description: "uplifted into possibility", ui: { tier: "simple", quickPick: true } },
 				{ item: "amazed", description: "filled with wonder", ui: { tier: "simple" } },
@@ -123,7 +115,6 @@ export const FeelingsMet = {
 
 		Joyful: {
 			ui: { heading: "Joyful", order: 280 },
-			regulationType: "settled",
 			items: [
 				{ item: "joyful", description: "feeling joy", ui: { tier: "simple", quickPick: true } },
 				{ item: "amused", description: "finding it funny", ui: { tier: "simple" } },
@@ -139,7 +130,6 @@ export const FeelingsMet = {
 
 		Exhilarated: {
 			ui: { heading: "Exhilarated", order: 290 },
-			regulationType: "settled",
 			items: [
 				{ item: "exhilarated", description: "energized joy", ui: { tier: "simple", quickPick: true } },
 				{ item: "blissful", description: "deep contentment", ui: { tier: "simple" } },
@@ -156,7 +146,6 @@ export const FeelingsMet = {
 
 		Refreshed: {
 			ui: { heading: "Refreshed", order: 300 },
-			regulationType: "settled",
 			items: [
 				{ item: "refreshed", description: "rested and renewed", ui: { tier: "simple", quickPick: true } },
 				{ item: "enlivened", description: "more alive", ui: { tier: "simple" } },
@@ -171,7 +160,6 @@ export const FeelingsMet = {
 
 		Peaceful: {
 			ui: { heading: "Peaceful", order: 310 },
-			regulationType: "settled",
 			items: [
 				{ item: "peaceful", description: "calm and undisturbed", ui: { tier: "simple", quickPick: true } },
 				{ item: "calm", description: "not agitated", ui: { tier: "simple" } },
@@ -195,5 +183,9 @@ export const FeelingsMet = {
 		},
 	},
 };
+
+export const feelingsMetSet = new Set(
+	Object.values(FeelingsMet.groups).flatMap((g) => g.items.map((i) => i.item)),
+);
 
 export default FeelingsMet;

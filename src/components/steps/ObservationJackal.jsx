@@ -23,10 +23,12 @@ const ObservationJackal = () => {
 					data-field-id="jackal-talk"
 					value={jackalTalk}
 					onChange={(e) => setJackalTalk(e.target.value)}
-					placeholder="They ALWAYS do this! I'm so over it..."
+					placeholder="How could they DO that?! That's not fair! They shouldn't be like that!"
 					rows={3}
 				/>
-				<HelpLink topic="privacy" aside>Your data always stays private..</HelpLink>
+				<HelpLink topic="privacy" aside>
+					Your data always stays private..
+				</HelpLink>
 			</div>
 		</div>
 	);

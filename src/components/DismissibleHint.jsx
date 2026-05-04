@@ -23,11 +23,11 @@ const DismissibleHint = ({ id, children }) => {
 	};
 
 	return (
-		<div className="dismissible-hint">
-			<span className="dismissible-hint-content">{children}</span>
+		<div className="dismissible-hint" onClick={dismiss}>
 			<button className="dismissible-hint-close" onClick={dismiss} aria-label="Dismiss hint">
 				×
 			</button>
+			<span className="dismissible-hint-content">{children}</span>
 		</div>
 	);
 };

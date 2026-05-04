@@ -29,12 +29,6 @@ export const feelingTypes = {
 		skipLabel: "Skip this",
 		prompts: [
 			{
-				id: "anger_body",
-				type: "text",
-				question:
-					"Where can you feel the anger in your body? Can you ask your BODY what it's telling you about this anger, rather than your mind?",
-			},
-			{
 				id: "anger_violation",
 				type: "text",
 				question:
@@ -43,8 +37,7 @@ export const feelingTypes = {
 			{
 				id: "anger_tears",
 				type: "text",
-				question:
-					"Does it feel like there might be hot tears behind the anger? Is there a sense of outrage at emotional rupture?",
+				question: "Is there a sense of outrage at emotional rupture?",
 				suggestFeeling: {
 					name: "hurt",
 					prompt: 'Would you like to add "hurt" to your feeling list?',
@@ -59,6 +52,12 @@ export const feelingTypes = {
 					name: "afraid",
 					prompt: 'Would you like to add "afraid" to your feeling list?',
 				},
+			},
+			{
+				id: "anger_body",
+				type: "text",
+				question:
+					"Where can you feel the anger in your body? It can help to stay with that sensation for a moment, without focusing on the story or reason for the anger.",
 			},
 		],
 	},
@@ -80,9 +79,15 @@ export const feelingTypes = {
 			},
 			{
 				id: "distress_kindness",
-				type: "singleChoice",
-				question: "What would be kind to you right now?",
-				options: ["A warm hug", "Rest", "Reassurance", "Time to feel", "A small step forward", "Not sure"],
+				type: "text",
+				question:
+					"What would be kind to you right now? Can you take a moment to put your hand on your heart and let yourself know that you make sense? That your feelings matter?",
+			},
+			{
+				id: "sit_with",
+				type: "text",
+				question:
+					"If you can, try sitting with the sadness or hurt for a moment. What do you notice about it, when you give it some space?",
 			},
 		],
 	},

@@ -8,7 +8,6 @@ function flattenFeelings() {
 
 	for (const [sectionKey, section] of Object.entries(sections)) {
 		const sectionLabel = section.ui.heading;
-		const sectionRegType = section.regulationType || null;
 
 		const sortedGroups = Object.entries(section.groups).sort(
 			([, a], [, b]) => (a.ui?.order || 0) - (b.ui?.order || 0),
@@ -17,10 +16,8 @@ function flattenFeelings() {
 		for (const [, group] of sortedGroups) {
 			const groupHeading = group.ui?.heading || "(unnamed)";
 			const groupOrder = group.ui?.order || 0;
-			const groupRegType = group.regulationType || null;
 
 			for (const item of group.items) {
-				const resolvedReg = item.regulationType || groupRegType || sectionRegType || null;
 				rows.push({
 					item: item.item,
 					section: sectionLabel,
@@ -32,7 +29,6 @@ function flattenFeelings() {
 					type: item.type || "",
 					feelingType: item.feelingType || "",
 					ruptureType: item.ruptureType || "",
-					regulationType: Array.isArray(resolvedReg) ? resolvedReg.join(", ") : resolvedReg || "",
 					tier: item.ui?.tier || "",
 					quickPick: !!item.ui?.quickPick,
 					interpretationHint: item.interpretationHint || "",
@@ -85,7 +81,7 @@ const smallCellStyle = {
 	color: "#444",
 	lineHeight: 1.45,
 };
-const COL_COUNT = 7;
+const COL_COUNT = 6;
 
 // ─── Section header colours ───────────────────────────────────────────────────
 const SECTION_COLORS = {
@@ -117,7 +113,6 @@ export default function FeelingsAuditPage() {
 	const [sectionFilter, setSectionFilter] = useState("All");
 	const [groupFilter, setGroupFilter] = useState("All");
 	const [typeFilter, setTypeFilter] = useState("All");
-	const [regFilter, setRegFilter] = useState("All");
 	const [tierFilter, setTierFilter] = useState("All");
 	const [missingOnly, setMissingOnly] = useState(false);
 	const [sortKey, setSortKey] = useState(null); // null = natural order
@@ -142,32 +137,19 @@ export default function FeelingsAuditPage() {
 		[allRows],
 	);
 
-	const regTypes = useMemo(() => {
-		const set = new Set();
-		allRows.forEach((r) =>
-			r.regulationType
-				.split(", ")
-				.filter(Boolean)
-				.forEach((x) => set.add(x)),
-		);
-		return ["All", ...Array.from(set).sort()];
-	}, [allRows]);
-
 	const filtered = useMemo(() => {
 		const qLower = q.trim().toLowerCase();
 		return allRows.filter((r) => {
 			if (sectionFilter !== "All" && r.section !== sectionFilter) return false;
 			if (groupFilter !== "All" && r.group !== groupFilter) return false;
 			if (typeFilter !== "All" && r.type !== typeFilter) return false;
-			if (regFilter !== "All" && !r.regulationType.split(", ").includes(regFilter)) return false;
 			if (tierFilter === "Quick" && !r.quickPick) return false;
 			if (tierFilter === "Full only" && r.tier !== "more") return false;
 			if (tierFilter === "Short+" && (r.quickPick || r.tier === "more")) return false;
 			if (missingOnly) {
 				const missingDesc = !r.description && !r.storyHint;
 				const missingType = !r.type;
-				const missingReg = r.sectionKey !== "story" && !r.regulationType;
-				if (!(missingDesc || missingType || missingReg)) return false;
+				if (!(missingDesc || missingType)) return false;
 			}
 			if (qLower) {
 				const haystack = [
@@ -179,7 +161,6 @@ export default function FeelingsAuditPage() {
 					r.type,
 					r.feelingType,
 					r.ruptureType,
-					r.regulationType,
 					r.interpretationHint,
 					r.suggestedFeelings.join(" "),
 					r.suggestedNeeds.join(" "),
@@ -191,7 +172,7 @@ export default function FeelingsAuditPage() {
 			}
 			return true;
 		});
-	}, [allRows, q, sectionFilter, groupFilter, typeFilter, regFilter, tierFilter, missingOnly]);
+	}, [allRows, q, sectionFilter, groupFilter, typeFilter, tierFilter, missingOnly]);
 
 	const sorted = useMemo(
 		() => (sortKey ? sortByKey(filtered, sortKey, sortDir) : filtered),
@@ -278,13 +259,6 @@ export default function FeelingsAuditPage() {
 						</option>
 					))}
 				</select>
-				<select value={regFilter} onChange={(e) => setRegFilter(e.target.value)} style={{ padding: 8 }}>
-					{regTypes.map((x) => (
-						<option key={x} value={x}>
-							reg: {x}
-						</option>
-					))}
-				</select>
 				<select value={tierFilter} onChange={(e) => setTierFilter(e.target.value)} style={{ padding: 8 }}>
 					{["All", "Quick", "Short+", "Full only"].map((x) => (
 						<option key={x} value={x}>
@@ -345,8 +319,7 @@ export default function FeelingsAuditPage() {
 						<col style={{ width: "130px" }} />
 						<col style={{ width: "160px" }} />
 						<col style={{ width: "90px" }} />
-						<col style={{ width: "90px" }} />
-						<col style={{ width: "120px" }} />
+						<col style={{ width: "140px" }} />
 						<col style={{ width: "80px" }} />
 						<col />
 					</colgroup>
@@ -357,7 +330,6 @@ export default function FeelingsAuditPage() {
 								["group", "Group"],
 								["type", "Type"],
 								["feelingType", "Feeling / Rupture"],
-								["regulationType", "Regulation"],
 								["tier", "Tier"],
 								[null, "Extras"],
 							].map(([key, label]) => (
@@ -447,11 +419,6 @@ export default function FeelingsAuditPage() {
 													{r.feelingType || r.ruptureType || (
 														<span style={{ opacity: 0.35 }}>—</span>
 													)}
-												</td>
-
-												{/* Regulation */}
-												<td style={smallCellStyle}>
-													{r.regulationType || <span style={{ opacity: 0.35 }}>—</span>}
 												</td>
 
 												{/* Tier badge */}

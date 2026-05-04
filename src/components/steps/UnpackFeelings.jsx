@@ -5,8 +5,10 @@ import HelpLink from "../HelpLink";
 import ImportanceBanner from "../ImportanceBanner";
 import { AllFeelingsData as FeelingsData } from "../../data/AllFeelingsData";
 import { feelingTypes } from "../../data/FeelingTypes";
+import { storyWordSet } from "../../data/StoryWords";
 import ClarifyFeelings from "../ClarifyFeelings";
 import "./UnpackFeelings.css";
+import DismissibleHint from "../DismissibleHint";
 
 // Build a lookup: item name → full item data (only for unmet feelings with a feelingType tag)
 const itemLookup = {};
@@ -19,6 +21,14 @@ if (unmetSection?.groups) {
 			}
 		}
 	}
+}
+
+// Build a set of all "feelings when needs met" item names (positive feelings)
+const feelingsMetSet = new Set();
+const metSection = FeelingsData.sections.feelingsMet;
+if (metSection?.groups) {
+	for (const group of Object.values(metSection.groups))
+		for (const item of group.items) feelingsMetSet.add(item.item);
 }
 
 // Build a lookup: murky feeling name → full item data
@@ -36,7 +46,6 @@ for (const section of Object.values(FeelingsData.sections)) {
 
 // Only offer deeper exploration for these three types
 const EXPLORE_TYPES = ["fear", "anger", "distress"];
-
 
 const UnpackFeelings = () => {
 	const {
@@ -65,7 +74,7 @@ const UnpackFeelings = () => {
 	// and record which feeling names belong to each type
 	const { detectedTypes, feelingsForType } = useMemo(() => {
 		const selectedNames = Object.entries(feelings)
-			.filter(([, s]) => s === "clicked" || s === "double-clicked")
+			.filter(([name, s]) => (s === "clicked" || s === "double-clicked") && !storyWordSet.has(name))
 			.map(([name]) => name);
 
 		const byType = {};
@@ -87,7 +96,7 @@ const UnpackFeelings = () => {
 	const murkyFeelingNames = useMemo(
 		() =>
 			Object.entries(feelings)
-				.filter(([name, s]) => (s === "clicked" || s === "double-clicked") && name in murkyFeelingLookup)
+				.filter(([name, s]) => (s === "clicked" || s === "double-clicked") && name in murkyFeelingLookup && !storyWordSet.has(name))
 				.map(([name]) => name),
 		[feelings],
 	);
@@ -105,7 +114,8 @@ const UnpackFeelings = () => {
 	const toggleFeeling = (name) => {
 		setFeelings((prev) => {
 			const updated = { ...prev };
-			if (updated[name]) delete updated[name];
+			if (updated[name] === "double-clicked") delete updated[name];
+			else if (updated[name] === "clicked") updated[name] = "double-clicked";
 			else updated[name] = "clicked";
 			return updated;
 		});
@@ -114,7 +124,8 @@ const UnpackFeelings = () => {
 	const toggleNeed = (name) => {
 		setNeeds((prev) => {
 			const updated = { ...prev };
-			if (updated[name]) delete updated[name];
+			if (updated[name] === "double-clicked") delete updated[name];
+			else if (updated[name] === "clicked") updated[name] = "double-clicked";
 			else updated[name] = "clicked";
 			return updated;
 		});
@@ -190,10 +201,17 @@ const UnpackFeelings = () => {
 		</div>
 	);
 
-	const hasSelectedFeelings = Object.values(feelings).some((s) => s === "clicked" || s === "double-clicked");
+	const allSelectedEntries = Object.entries(feelings).filter(
+		([name, s]) => (s === "clicked" || s === "double-clicked") && !storyWordSet.has(name),
+	);
+	const hasSelectedFeelings = allSelectedEntries.length > 0;
+	const selectedFeelingsCount = allSelectedEntries.length;
+	const sortByStrength = ([, a], [, b]) => (a === "double-clicked" ? 0 : 1) - (b === "double-clicked" ? 0 : 1);
+	const unmetEntries = allSelectedEntries.filter(([name]) => !feelingsMetSet.has(name)).sort(sortByStrength);
+	const metEntries = allSelectedEntries.filter(([name]) => feelingsMetSet.has(name)).sort(sortByStrength);
 
 	return (
-		<div className="feelings-explore-regulation">
+		<div className="feelings-explore">
 			{!hasSelectedFeelings && (
 				<p className="empty-state-notice">
 					No feelings selected yet — this page isn't useful until you've chosen some feelings on the previous
@@ -203,23 +221,27 @@ const UnpackFeelings = () => {
 
 			<p>
 				Here we're staying with what you're feeling, so that it can soften and show you more about what matters
-				to you. First, a moment to pause — then, if you'd like, a chance to look more closely.
+				to you.
 			</p>
 
 			<div>
-				<h3>What came first?</h3>
-				<p>
-					We sometimes feel <HelpLink topic="first-feeling">something vulnerable first</HelpLink>, quickly
-					followed by more defended feelings. Can you distinguish the early feelings, from the more defended
-					feelings that came in response to those?
-				</p>
 				{hasSelectedFeelings && (
-					<div className="pill-grid cloud feelings-selected-pills first-feelings-cloud">
-						<div className="cloud-heading">Tap any feelings that came first</div>
-						{Object.entries(feelings)
-							.filter(([, s]) => s === "clicked" || s === "double-clicked")
-							.sort(([, a], [, b]) => (a === "double-clicked" ? 0 : 1) - (b === "double-clicked" ? 0 : 1))
-							.map(([name, state]) => {
+					<div>
+						{selectedFeelingsCount > 8 && (
+							<div>
+								<h3>Feeling Overloaded? (optional)</h3>
+								<p>
+									As you look at this list, does it feel clear and settled, or a bit busy? If it feels
+									busy, you might try removing similar words and keeping the ones that feel most
+									accurate.
+								</p>
+								<DismissibleHint id="busy-feelings-hint">
+									💡 Click on the small 'x' to remove a feeling
+								</DismissibleHint>
+							</div>
+						)}
+						<div className="pill-grid cloud feelings-selected-pills first-feelings-cloud">
+							{unmetEntries.map(([name, state]) => {
 								const isFirst = !!firstFeelings[name];
 								return (
 									<div
@@ -234,7 +256,9 @@ const UnpackFeelings = () => {
 											})
 										}>
 										{isFirst && <span className="first-feeling-badge">①</span>}
-										{!isFirst && state === "double-clicked" && <span className="pill-strong-badge">●</span>}
+										{!isFirst && state === "double-clicked" && (
+											<span className="pill-strong-badge">●</span>
+										)}
 										{name}
 										<button
 											className="pill-remove-x"
@@ -249,8 +273,49 @@ const UnpackFeelings = () => {
 									</div>
 								);
 							})}
+						</div>
+						{metEntries.length > 0 && (
+							<>
+								<div className="feelings-met-cloud-heading">AND you were also feeling</div>
+								<div className="pill-grid cloud feelings-selected-pills">
+									{metEntries.map(([name, state]) => {
+										const isFirst = !!firstFeelings[name];
+										return (
+											<div
+												key={name}
+												className={`pill feeling ${state} feeling-removable${isFirst ? " first-feeling-selected" : ""}`}
+												onClick={() =>
+													setFirstFeelings((prev) => {
+														const next = { ...prev };
+														if (next[name]) delete next[name];
+														else next[name] = true;
+														return next;
+													})
+												}>
+												{isFirst && <span className="first-feeling-badge">①</span>}
+												{!isFirst && state === "double-clicked" && (
+													<span className="pill-strong-badge">●</span>
+												)}
+												{name}
+												<button
+													className="pill-remove-x"
+													onClick={(e) => {
+														e.stopPropagation();
+														setPendingRemoveFeeling(name);
+													}}
+													title={`Remove ${name}`}
+													aria-label={`Remove ${name}`}>
+													×
+												</button>
+											</div>
+										);
+									})}
+								</div>
+							</>
+						)}
 					</div>
 				)}
+
 				{pendingRemoveFeeling && (
 					<div className="feeling-remove-confirm">
 						<span>
@@ -265,29 +330,34 @@ const UnpackFeelings = () => {
 								}}>
 								Yes, remove
 							</button>
-							<button className="feeling-remove-confirm-cancel" onClick={() => setPendingRemoveFeeling(null)}>
+							<button
+								className="feeling-remove-confirm-cancel"
+								onClick={() => setPendingRemoveFeeling(null)}>
 								Cancel
 							</button>
 						</div>
 					</div>
 				)}
-				<textarea
-					className="feelings-explore-textarea"
-					data-field-id="feelings-explore-what-came-first"
-					placeholder="Note anything that comes up for you…"
-					value={feelingsExploreResponses["what-came-first"] || ""}
-					onChange={(e) => setResponse("what-came-first", e.target.value)}
-					rows={3}
-				/>
+				{hasSelectedFeelings && (
+					<div>
+						<h3>What came first? (optional)</h3>
+
+						<p>
+							Looking at your list, can you notice any feelings that feel like they came{" "}
+							<HelpLink topic="first-feeling">first</HelpLink> — before your mind started trying to make
+							sense of things? If so, click on them above.
+						</p>
+					</div>
+				)}
 			</div>
 
 			<div className="feelings-explore-categories">
 				<h3>Pause with it</h3>
 				<p>
-					There's nothing to solve here — just notice what happens when you choose the strongest of these
-					feelings and just <HelpLink topic="stay-with-it">stay with it for a moment</HelpLink>, without
-					digging or forcing. Is there something it wants to tell you? Can you pause long enough to hear any
-					answers from your body, rather than your mind?
+					There's nothing to solve here. If you'd like, just notice what happens when you choose one or more
+					of these feelings and just <HelpLink topic="stay-with-it">stay with it for a moment</HelpLink>,
+					without digging or forcing. Is there something it wants to tell you? Can you pause long enough to
+					hear from your body, rather than your mind?
 				</p>
 			</div>
 

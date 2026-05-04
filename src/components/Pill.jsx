@@ -1,35 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
-import { regulationMeta } from "../data/AllFeelingsData";
 import "./Pill.css";
-
-const getRegulationStyle = (regulationType, state) => {
-	if (!regulationType) return null;
-
-	const types = Array.isArray(regulationType) ? regulationType : [regulationType];
-	const primary = types[0];
-	const primaryMeta = regulationMeta[primary];
-	if (!primaryMeta) return null;
-
-	const style = {};
-
-	// Always apply background colour
-	if (types.length === 1) {
-		style.backgroundColor = primaryMeta.colors.bg;
-	} else {
-		const bgs = types
-			.map((t) => regulationMeta[t]?.colors?.bg)
-			.filter(Boolean);
-		style.background = `linear-gradient(135deg, ${bgs.join(", ")})`;
-	}
-
-	// When selected, use red border (let CSS class handle it); otherwise use regulation border
-	if (!state) {
-		style.borderColor = primaryMeta.colors.border;
-		style.border = `1px solid ${primaryMeta.colors.border}`;
-	}
-
-	return style;
-};
 
 const Pill = ({
 	item,
@@ -37,32 +7,49 @@ const Pill = ({
 	state = "",
 	meaning = "",
 	indicator = null, // "plus" | "chevron" | null
-	regulationType = null,
-	regulationOverlay = false,
 	onClick = null,
 	onIndicatorClick = null,
 }) => {
-	const [showTooltip, setShowTooltip] = useState(false);
+	const [showTouchTooltip, setShowTouchTooltip] = useState(false);
+	const [desktopTooltip, setDesktopTooltip] = useState(null);
 	const touchTimerRef = useRef(null);
 	const wasLongPress = useRef(false);
+	const pillRef = useRef(null);
+
+	const handleMouseEnter = useCallback(() => {
+		if (!meaning) return;
+		const rect = pillRef.current?.getBoundingClientRect();
+		if (!rect) return;
+		const rawX = rect.left + rect.width / 2;
+		const x = Math.max(110, Math.min(window.innerWidth - 110, rawX));
+		setDesktopTooltip({ left: x, top: rect.top - 6 });
+	}, [meaning]);
+
+	const handleMouseLeave = useCallback(() => {
+		setDesktopTooltip(null);
+	}, []);
 
 	const handleTouchStart = useCallback(() => {
 		wasLongPress.current = false;
 		if (!meaning) return;
 		touchTimerRef.current = setTimeout(() => {
 			wasLongPress.current = true;
-			setShowTooltip(true);
+			setShowTouchTooltip(true);
 		}, 400);
 	}, [meaning]);
 
-	const handleTouchEnd = useCallback(() => {
+	const handleTouchEnd = useCallback((e) => {
 		clearTimeout(touchTimerRef.current);
-		setShowTooltip(false);
+		setShowTouchTooltip(false);
+		if (wasLongPress.current) {
+			e.preventDefault();
+			wasLongPress.current = false;
+		}
 	}, []);
 
 	const handleTouchMove = useCallback(() => {
 		clearTimeout(touchTimerRef.current);
-		setShowTooltip(false);
+		setShowTouchTooltip(false);
 	}, []);
 
 	const handleClick = useCallback(
@@ -76,23 +63,23 @@ const Pill = ({
 		[onClick]
 	);
 
-	const regStyle = regulationOverlay ? getRegulationStyle(regulationType, state) : null;
-	const className = `pill ${type} ${state} ${regStyle ? "reg-overlay" : ""}`.trim();
+	const className = `pill ${type} ${state}`.trim();
 
 	return (
 		<div
+			ref={pillRef}
 			className={className}
-			style={regStyle || undefined}
 			onClick={handleClick}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
 			onTouchStart={handleTouchStart}
 			onTouchEnd={handleTouchEnd}
-			onTouchMove={handleTouchMove}
-			{...(meaning ? { "data-tooltip": meaning } : {})}>
+			onTouchMove={handleTouchMove}>
 			{state === "double-clicked" && (type === "feeling" || type === "feelings" || type === "need" || type === "needs") && (
 				<span className="pill-strong-badge">●</span>
 			)}
 			{item}
-			{indicator === "plus" && <span className="pill-expand-hint">+</span>}
+			{indicator === "plus" && <span className="pill-expand-hint">→</span>}
 			{indicator === "chevron" && (
 				<span
 					className="pill-chevron"
@@ -113,7 +100,14 @@ const Pill = ({
 					?
 				</span>
 			)}
-			{showTooltip && meaning && <div className="pill-tooltip-touch">{meaning}</div>}
+			{showTouchTooltip && meaning && <div className="pill-tooltip-touch">{meaning}</div>}
+			{desktopTooltip && meaning && (
+				<div
+					className="pill-tooltip-desktop"
+					style={{ left: desktopTooltip.left, top: desktopTooltip.top }}>
+					{meaning}
+				</div>
+			)}
 		</div>
 	);
 };

@@ -27,7 +27,10 @@ const MakingGuesses = () => {
 
 			<div className="guesses-section">
 				<h2>{"What might they have observed?"}</h2>
-				<p>What do you think the other person saw or heard? Just the facts, from their point of view.</p>
+				<p>
+					What do you think the other person saw or heard when they were doing what they were doing, in the
+					moment you got upset? Just the facts, from their point of view.
+				</p>
 				<textarea
 					className="guesses-textarea"
 					data-field-id="making-guesses"
@@ -53,15 +56,15 @@ const MakingGuesses = () => {
 					setSelectedItems={setGuessFeelings}
 					type="feeling"
 					showListModeToggle
-					defaultCollapsed={["Feelings", "Feelings when our needs are met"]}
+					defaultCollapsed={["Feelings", "Feelings when needs met"]}
 				/>
 			</div>
 
 			<div className="guesses-section guesses-section--needs">
 				<h2>{"What might they be needing?"}</h2>
 				<p>
-					What needs of theirs might not be met in this situation? Or, alternately, what needs might they have
-					been trying to meet, in what they said or did?
+					What needs of theirs might not have been met in this situation? Alternately, what needs might they
+					have been trying to meet, in what they said or did?
 				</p>
 				<Checklist
 					data={[

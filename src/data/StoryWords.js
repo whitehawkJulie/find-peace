@@ -11,12 +11,19 @@
 // 3) Then add protest-layer words (if relevant)
 // 4) Then add body-state cues (activation/somatic) last
 // Comments group the variants; UI preserves array order.
+//
+// empathyGuesses format: Array<{ text?, feelings?, needs? }>
+// - First entry is the orienting question (text only, no pills)
+// - Subsequent entries pair question text with feeling/need pills
+// - An entry with only feelings/needs and no text = catch-all row
+// suggestedFeelings + suggestedNeeds flat arrays are kept for
+// analytics and the "replace with feelings" checkbox.
 
 export const StoryWords = {
 	ui: {
 		heading: "Story Words (optional)",
 		helpText:
-			"These words make sense — they often tell a story about what happened <em>out there</em>. And at the same time, there’s something happening <em>in here</em>, inside you, in response to that. Let’s pause and gently feel it.",
+			"These words make sense — they often tell a story about what happened <em>out there</em>. And at the same time, there's something happening <em>in here</em>, inside you, in response to that. Let's pause and gently feel it.",
 	},
 
 	groups: {
@@ -24,18 +31,6 @@ export const StoryWords = {
 		// AUTONOMY RUPTURE
 		// Theme: choice interference, control intrusion
 		// Emotional arc: protest → frustration → sometimes fear
-
-		// Shared themes:
-		// - Agency rupture
-		// - Boundary crossing
-		// - Choice interference
-		//
-		// Flavour differences:
-		// - Manipulated → deception/control blend
-		// - Coerced → force/pressure
-		// - Pressured → urgency / subtle force
-		// - Cornered → no exit
-		// - Controlled → dominance
 		// ──────────────────────────────────────────────────────────
 
 		autonomy: {
@@ -50,51 +45,34 @@ export const StoryWords = {
 					ruptureType: "autonomy",
 
 					storyHint:
-						"This word often carries a sense that influence felt hidden or indirect — like your choice wasn’t fully transparent or respected.",
+						"This word often carries a sense that influence felt hidden or indirect — like your choice wasn't fully transparent or respected.",
 
 					empathyGuesses: [
-						"That sounds unsettling… did something feel off or unclear?",
-						"Is there anger here — the kind that shows up when autonomy feels compromised?",
-						"Maybe frustration, if your influence felt blocked?",
-						"Or hurt, if trust felt shaken?",
-						"And possibly even some fear, if you didn’t feel steady in the interaction.",
-						"Let’s slow it gently… what feeling feels most alive right now?",
+						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
+						{ text: "That sounds unsettling… did something feel off or unclear?" },
+						{ text: "Is there anger here — the kind that shows up when autonomy feels compromised?", feelings: ["angry", "resentful", "indignant"], needs: ["Autonomy", "Choice", "Agency"] },
+						{ text: "Maybe frustration, if your influence felt blocked?", feelings: ["frustrated"] },
+						{ text: "Or hurt, if trust felt shaken?", feelings: ["hurt"], needs: ["Trusting"] },
+						{ text: "And possibly even some fear, if you didn't feel steady in the interaction.", feelings: ["scared"] },
+						{ text: "ADD QUESTION HERE", feelings: ["helpless"], needs: ["Authenticity", "Respect"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (aligned to canonical list)
-						"scared", // original
-						"frustrated", // original
-
-						// "powerless" removed — cognitive blend (collapse narrative rather than primary feeling)
-						"helpless", // added (embodied equivalent)
-
-						// "thwarted" removed — not in canonical feelings list; conceptually covered by frustration
-
-						// ADDED — Protest layer (manipulation often triggers boundary anger)
+						"scared",
+						"frustrated",
+						"helpless",
 						"angry",
 						"resentful",
 						"indignant",
-
-						// ADDED — Trust rupture layer
 						"hurt",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEME — autonomy rupture
-						"Autonomy", // original theme
-						"Choice", // original theme ("free choice")
-						"Agency", // maps from "empowerment"
-
-						// ORIGINAL THEME — trust rupture
-						"Trusting", // maps from "trust"
-						// "connection" removed — too broad for this rupture
-
-						// ORIGINAL THEME — dignity/integrity
-						"Authenticity", // original
-						// "equality" removed — redundant with respect dimension
-
-						// ADDED — relational dignity
+						"Autonomy",
+						"Choice",
+						"Agency",
+						"Trusting",
+						"Authenticity",
 						"Respect",
 					],
 				},
@@ -104,50 +82,33 @@ export const StoryWords = {
 					ruptureType: "autonomy",
 
 					storyHint:
-						"This word often carries the sense that your ‘no’ didn’t have room — like pressure or force limited your real choice.",
+						"This word often carries the sense that your 'no' didn't have room — like pressure or force limited your real choice.",
 
 					empathyGuesses: [
-						"That sounds scary… did it feel like there wasn’t really space for your choice?",
-						"Is there anger here, if your boundary was pushed past?",
-						"Maybe frustration, if you tried to resist and couldn’t?",
-						"Or helplessness, if protecting yourself didn’t feel possible?",
-						"Let’s pause gently… what feeling is strongest right now?",
+						{ text: "Let's pause gently… what feeling is strongest right now?" },
+						{ text: "That sounds scary… did it feel like there wasn't really space for your choice?", feelings: ["scared", "afraid"], needs: ["Choice", "Autonomy", "Freedom"] },
+						{ text: "Is there anger here, if your boundary was pushed past?", feelings: ["angry", "resentful", "indignant"], needs: ["Respect"] },
+						{ text: "Maybe frustration, if you tried to resist and couldn't?", feelings: ["frustrated"] },
+						{ text: "Or helplessness, if protecting yourself didn't feel possible?", feelings: ["helpless"] },
+						{ text: "ADD QUESTION HERE", feelings: ["tense"], needs: ["Safety (emotional)", "Space"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (aligned)
-						"frustrated", // original
-						"scared", // original
-
-						// "frightened" normalized to canonical equivalent
-						"afraid", // canonical substitute for frightened
-
-						// "thwarted" removed — not in canonical feelings list
-
-						// ADDED — protest energy (common in coercion)
+						"frustrated",
+						"scared",
+						"afraid",
 						"angry",
 						"resentful",
 						"indignant",
-
-						// ADDED — collapse layer
 						"helpless",
-
-						// ADDED — somatic signal
 						"tense",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEME — autonomy
-						"Choice", // original
-						"Autonomy", // original
-						"Freedom", // original
-
-						// "act freely / choose freely" merged into Choice/Freedom
-
-						// ADDED — safety dimension (coercion often includes threat layer)
+						"Choice",
+						"Autonomy",
+						"Freedom",
 						"Safety (emotional)",
-
-						// ADDED — relational boundary dignity
 						"Respect",
 						"Space",
 					],
@@ -159,50 +120,33 @@ export const StoryWords = {
 					ruptureType: "autonomy",
 
 					storyHint:
-						"This word often carries a sense of compression — like there wasn’t enough room, time, or choice in the situation.",
+						"This word often carries a sense of compression — like there wasn't enough room, time, or choice in the situation.",
 
 					empathyGuesses: [
-						"That sounds really uncomfortable… was it like you couldn’t slow it down?",
-						"Did it feel urgent — like you were being pushed to decide or comply before you had the space you needed?",
-						"There might be anxiety here, if it felt like something bad would happen if you didn’t go along.",
-						"And maybe irritation too — a protective ‘please back off’ energy.",
-						"Or overwhelm, if too much was coming at you at once.",
-						"Sometimes pressure comes from outside… and sometimes it’s a voice inside pushing hard. Do you sense where this one is coming from?",
-						"Let’s pause gently… what’s most alive right now: anxious, irritated, overwhelmed… or something else?",
+						{ text: "Let's pause gently… what's most alive right now?" },
+						{ text: "That sounds really uncomfortable… was it like you couldn't slow it down?" },
+						{ text: "There might be anxiety here, if it felt like something bad would happen if you didn't go along.", feelings: ["anxious", "restless"] },
+						{ text: "And maybe irritation — a protective 'please back off' energy.", feelings: ["irritated", "frustrated"], needs: ["Space", "Consideration", "Respect"] },
+						{ text: "Or overwhelm, if too much was coming at you at once.", feelings: ["overwhelmed"], needs: ["Ease", "Peace of mind"] },
+						{ text: "ADD QUESTION HERE", feelings: ["tense", "helpless"], needs: ["Clarity"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS
-						"anxious", // original
-						"overwhelmed", // original
-
-						// ADDED — somatic/activation cues commonly present with pressure
+						"anxious",
+						"overwhelmed",
 						"tense",
 						"restless",
-
-						// ADDED — protest variants (if pressure feels like boundary push)
 						"irritated",
 						"frustrated",
-
-						// ADDED — collapse variant (if pressure removes perceived options)
 						"helpless",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEME — compression relief
-						"Space", // original
-
-						// ORIGINAL THEME — cognitive steadiness
-						"Clarity", // original
-
-						// "Relaxation" is not a canonical need; mapped into:
-						"Ease", // mapped from relaxation (nervous system softening)
-						"Peace of mind", // mapped from relaxation (internal settling)
-
-						// ORIGINAL THEME — relational pacing
-						"Consideration", // original
-
-						// ADDED — dignity/boundary layer (if pressure is interpersonal)
+						"Space",
+						"Clarity",
+						"Ease",
+						"Peace of mind",
+						"Consideration",
 						"Respect",
 					],
 				},
@@ -212,52 +156,36 @@ export const StoryWords = {
 					ruptureType: "autonomy",
 
 					storyHint:
-						"This word often carries a sense of no exit — like your options suddenly narrowed and there wasn’t room to move.",
+						"This word often carries a sense of no exit — like your options suddenly narrowed and there wasn't room to move.",
 
 					empathyGuesses: [
-						"That sounds intense… was there a feeling of being trapped or pinned?",
-						"Did your body go into fear — like you needed to get out quickly?",
-						"Or did anger rise up — a surge of ‘don’t box me in’ energy?",
-						"Maybe there was a frozen feeling, like you couldn’t move at all.",
-						"Sometimes being cornered brings panic. Sometimes it brings fight. Sometimes shutdown. Which direction did your system go?",
-						"Let’s slow it gently… what’s most alive right now?",
+						{ text: "Let's slow it gently… what's most alive right now?" },
+						{ text: "That sounds intense… was there a feeling of being trapped or pinned?", feelings: ["trapped"] },
+						{ text: "Did your body go into fear — like you needed to get out quickly?", feelings: ["scared", "anxious", "tense", "restless"], needs: ["Safety (emotional)"] },
+						{ text: "Or did anger rise up — a surge of 'don't box me in' energy?", feelings: ["angry", "resentful", "indignant"], needs: ["Autonomy", "Freedom", "Choice", "Space"] },
+						{ text: "Maybe there was a frozen feeling, like you couldn't move at all.", feelings: ["helpless", "numb"] },
+						{ text: "ADD QUESTION HERE", needs: ["Ease", "Peace of mind"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS
-						"scared", // original
-						"anxious", // original
-
-						// "thwarted" removed — not in canonical feelings list
-
-						// ADDED — no-exit / confinement felt-sense (often central to “cornered”)
+						"scared",
+						"anxious",
 						"trapped",
-
-						// ADDED — somatic/activation cues (fight/flight bracing)
 						"tense",
 						"restless",
-
-						// ADDED — protest variants (fight response)
 						"angry",
 						"resentful",
 						"indignant",
-
-						// ADDED — collapse variants (freeze/shutdown)
 						"helpless",
 						"numb",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEME — restore options / exit
-						"Autonomy", // original
-						"Freedom", // original
-						"Choice", // added (options widening)
-						"Space", // added (room to move)
-
-						// ADDED — threat layer (cornered often activates threat circuitry)
+						"Autonomy",
+						"Freedom",
+						"Choice",
+						"Space",
 						"Safety (emotional)",
-
-						// ADDED — regulation
 						"Ease",
 						"Peace of mind",
 					],
@@ -267,52 +195,32 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "autonomy",
 
-					// WHY THIS ITEM EXISTS (ADDED — not in original list)
-					// - Overlaps with manipulated/coerced/pressured/cornered, but adds a distinct flavour:
-					//   - Ongoing dominance / monitoring / restriction (pattern, not just a moment)
-					//   - Chronic autonomy erosion (agency repeatedly overridden)
-					//   - Dignity injury (being treated as incapable or owned)
-					//   - Self-expression suppression (not being allowed to be oneself)
-					// - “Controlled” often names a power-imbalance dynamic more directly than “Pressured”
-					//   and more chronically than “Coerced.”
-
 					storyHint:
 						"This word often carries a sense of ongoing restriction — like someone else is steering, monitoring, or limiting your choices over time.",
 
 					empathyGuesses: [
-						"That sounds really constricting… like your space to be you was being narrowed.",
-						"Is there anger here — a protective ‘don’t run my life’ energy?",
-						"Or fear, if it felt risky to resist or say no?",
-						"Sometimes it’s also exhausting… like you have to stay on alert or manage their reactions.",
-						"And sometimes there’s a heavy, trapped feeling — like you can’t move freely.",
-						"Let’s slow it gently… what’s most alive right now?",
+						{ text: "Let's slow it gently… what's most alive right now?" },
+						{ text: "That sounds really constricting… like your space to be you was being narrowed.", needs: ["Space", "Autonomy"] },
+						{ text: "Is there anger here — a protective 'don't run my life' energy?", feelings: ["angry", "frustrated"], needs: ["Choice", "Agency", "Respect", "Equality"] },
+						{ text: "Or fear, if it felt risky to resist or say no?", feelings: ["anxious", "tense"] },
+						{ text: "And sometimes there's a heavy, trapped feeling — like you can't move freely.", feelings: ["trapped", "helpless", "hurt"] },
 					],
 
 					suggestedFeelings: [
-						// CORE protest
 						"angry",
 						"frustrated",
-
-						// constriction / no-exit
 						"trapped",
 						"helpless",
-
-						// anticipatory tension
 						"anxious",
 						"tense",
-
-						// relational sting (optional but common)
 						"hurt",
 					],
 
 					suggestedNeeds: [
-						// CORE — restore self-direction
 						"Autonomy",
 						"Choice",
 						"Agency",
 						"Space",
-
-						// RELATIONAL POWER BALANCE
 						"Respect",
 						"Equality",
 					],
@@ -324,18 +232,6 @@ export const StoryWords = {
 		// BELONGING RUPTURE
 		// Theme: exclusion from social group
 		// Emotional arc: sadness → loneliness → anxiety
-
-		// Shared themes:
-		// - Exclusion
-		// - Loss of inclusion
-		// - Social disconnection
-		// - Threat to belonging
-		//
-		// Flavour differences:
-		// - Excluded → overt exclusion from group
-		// - Rejected → direct refusal or dismissal
-		// - Left out → subtle exclusion
-		// - Unwanted → sense of not being valued
 		// ──────────────────────────────────────────────────────────
 
 		belonging: {
@@ -353,45 +249,33 @@ export const StoryWords = {
 						"This word often points to feeling outside the circle — not included in something important.",
 
 					empathyGuesses: [
-						"That sounds painful… was it like being on the outside looking in?",
-						"Did something in you soften or drop when you realised you weren’t included?",
-						"Maybe there’s sadness here.",
-						"Or anxiety — wondering what this means about your place.",
-						"Sometimes there’s also anger if it felt unfair.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds painful… was it like being on the outside looking in?" },
+						{ text: "Maybe there's sadness here — a quiet ache of not being included.", feelings: ["sad", "lonely"], needs: ["Belonging", "Community", "Connection"] },
+						{ text: "Or anxiety — wondering what this means about your place.", feelings: ["anxious", "insecure"], needs: ["Safety (emotional)"] },
+						{ text: "And possibly hurt or vulnerability, if it touched something tender.", feelings: ["hurt", "vulnerable"], needs: ["To be seen", "Acceptance", "Mutuality"] },
+						{ text: "Sometimes there's also anger if it felt unfair.", feelings: ["angry", "resentful"], needs: ["Inclusion"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized to canonical unmet list)
-						"sad", // original
-						"lonely", // original
-						"anxious", // original
-
-						// ADDED — Vulnerability layer
+						"sad",
+						"lonely",
+						"anxious",
 						"hurt",
 						"vulnerable",
-
-						// ADDED — Collapse possibility
 						"insecure",
-
-						// ADDED — Protest possibility
 						"angry",
 						"resentful",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped to canonical list)
 						"Inclusion",
 						"Belonging",
 						"Community",
 						"Connection",
-
-						// ADDED — Relational mattering layer
 						"To be seen",
 						"Acceptance",
 						"Mutuality",
-
-						// ADDED — Safety if exclusion felt threatening
 						"Safety (emotional)",
 					],
 				},
@@ -403,47 +287,37 @@ export const StoryWords = {
 					storyHint: "This word often carries the sense of being refused, dismissed, or pushed away.",
 
 					empathyGuesses: [
-						"That can really sting… was it like something in you reached out and got turned away?",
-						"Did it land as hurt?",
-						"Maybe there’s sadness — a heaviness in the chest.",
-						"Or fear, if it felt like your place wasn’t secure.",
-						"Sometimes anger shows up too, especially if it felt unfair or abrupt.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That can really sting… was it like something in you reached out and got turned away?" },
+						{ text: "Did it land as hurt?", feelings: ["hurt"], needs: ["Belonging", "Acceptance", "Closeness"] },
+						{ text: "Maybe there's sadness — a heaviness in the chest.", feelings: ["sad", "lonely"], needs: ["Connection", "To be seen"] },
+						{ text: "Or fear, if it felt like your place wasn't secure.", feelings: ["scared", "insecure"], needs: ["Trusting", "Safety (emotional)"] },
+						{ text: "Sometimes anger shows up too, especially if it felt unfair or abrupt.", feelings: ["angry", "resentful"] },
+						{ text: "ADD QUESTION HERE", feelings: ["disappointed"], needs: ["Inclusion"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized to canonical unmet list)
-						"hurt", // original
-						"scared", // original
-						"sad", // original
-						"disappointed", // original
-
-						// ADDED — Vulnerability layer
+						"hurt",
+						"scared",
+						"sad",
+						"disappointed",
 						"insecure",
 						"lonely",
-
-						// ADDED — Protest layer (if rejection felt unjust)
 						"angry",
 						"resentful",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped to canonical list)
 						"Belonging",
 						"Inclusion",
 						"Connection",
 						"Trusting",
-
-						// ADDED — Relational security layer
 						"Closeness",
 						"Acceptance",
 						"To be seen",
-
-						// ADDED — Emotional safety
 						"Safety (emotional)",
 					],
 				},
-				// next
 				{
 					item: "Left out",
 					type: "storyWord",
@@ -453,42 +327,32 @@ export const StoryWords = {
 						"This word often points to a quieter form of exclusion — noticing others included while you were not.",
 
 					empathyGuesses: [
-						"That can feel tender… was it like watching something happen without you?",
-						"Did it bring a quiet sadness?",
-						"Maybe loneliness — a sense of being separate.",
-						"Or anxiety, wondering what it means about your place.",
-						"Sometimes there’s irritation too, if it felt careless or avoidable.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That can feel tender… was it like watching something happen without you?" },
+						{ text: "Did it bring a quiet sadness?", feelings: ["sad", "lonely"], needs: ["Belonging", "Community", "Connection"] },
+						{ text: "Maybe wondering what it means about your place.", feelings: ["anxious", "hurt", "insecure"], needs: ["To be seen", "Mutuality"] },
+						{ text: "Or anxiety about where you stand.", needs: ["Safety (emotional)", "Inclusion"] },
+						{ text: "Sometimes there's irritation too, if it felt careless or avoidable.", feelings: ["annoyed", "resentful"], needs: ["Participation"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized to canonical unmet list)
-						"sad", // original
-						"lonely", // original
-						"anxious", // original
-
-						// ADDED — Vulnerability layer
+						"sad",
+						"lonely",
+						"anxious",
 						"hurt",
 						"insecure",
-
-						// ADDED — Protest layer (if exclusion felt dismissive)
 						"annoyed",
 						"resentful",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped to canonical list)
 						"Inclusion",
 						"Belonging",
 						"Community",
 						"Connection",
-
-						// ADDED — Social recognition layer
 						"To be seen",
 						"Participation",
 						"Mutuality",
-
-						// ADDED — Emotional steadiness
 						"Safety (emotional)",
 					],
 				},
@@ -500,42 +364,31 @@ export const StoryWords = {
 					storyHint: "This word often carries a sense of not being desired, valued, or welcomed.",
 
 					empathyGuesses: [
-						"That sounds deeply tender… was it like not being wanted there?",
-						"Did something in you sink or withdraw?",
-						"Maybe there’s sadness — a heavy ache.",
-						"Or anxiety, wondering whether you belong.",
-						"There can also be anger underneath, especially if it felt unjust.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds deeply tender… was it like not being desired or welcomed?" },
+						{ text: "Did something in you sink or withdraw?", feelings: ["sad", "lonely", "hurt"], needs: ["Belonging", "Connection", "Affection"] },
+						{ text: "Maybe anxiety, wondering whether you belong.", feelings: ["anxious", "insecure"], needs: ["Acceptance"] },
+						{ text: "There can also be anger underneath, especially if it felt unjust.", feelings: ["angry", "resentful", "frustrated"], needs: ["To matter", "Care"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized to canonical unmet list)
-						"sad", // original
-						"anxious", // original
-						"frustrated", // original
-
-						// ADDED — Vulnerability layer
+						"sad",
+						"anxious",
+						"frustrated",
 						"hurt",
 						"lonely",
 						"insecure",
-
-						// ADDED — Protest layer
 						"angry",
 						"resentful",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped to canonical list)
 						"Belonging",
 						"Inclusion",
 						"Care",
-
-						// ADDED — Relational warmth layer
 						"Affection",
 						"Acceptance",
 						"Connection",
-
-						// ADDED — Mattering layer
 						"To matter",
 					],
 				},
@@ -544,18 +397,7 @@ export const StoryWords = {
 
 		// ──────────────────────────────────────────────────────────
 		// RESPECT RUPTURE
-		// Shared themes:
-		// - Dignity impact
-		// - Being diminished
-		// - Social standing threatened
-		// - Boundary violation
-
 		// Emotional arc: embarrassment → hurt → anger
-		//
-		// Flavour differences:
-		// - Belittled → made small or inferior
-		// - Patronised → treated as incapable/childlike
-		// - Insulted → direct verbal attack
 		// ──────────────────────────────────────────────────────────
 
 		respect: {
@@ -573,47 +415,35 @@ export const StoryWords = {
 						"This word often carries the sense of being made small, diminished, or treated as less-than.",
 
 					empathyGuesses: [
-						"That sounds sharp… was it like something in you shrank?",
-						"Did it land as hurt — like your dignity was touched?",
-						"Maybe there’s anger too, a protective ‘that’s not okay.’",
-						"Sometimes embarrassment shows up, especially if it happened publicly.",
-						"And sometimes there’s sadness underneath, if it felt invalidating.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds sharp… was it like something in you shrank?" },
+						{ text: "Did it land as hurt — like your dignity was touched?", feelings: ["hurt"], needs: ["Dignity", "Respect"] },
+						{ text: "Maybe there's anger too, a protective 'that's not okay.'", feelings: ["angry", "resentful", "indignant"], needs: ["Equality", "Mutual Recognition", "Acknowledgement"] },
+						{ text: "Sometimes embarrassment shows up, especially if it happened publicly.", feelings: ["embarrassed", "ashamed"], needs: ["Safety (emotional)"] },
+						{ text: "And sometimes there's sadness underneath, if it felt invalidating.", feelings: ["sad", "distressed", "tense"], needs: ["To be seen", "Appreciation", "Autonomy"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"hurt", // original
-						"tense", // original (activation)
-						"distressed", // original
-
-						// ADDED — Protest layer
+						"hurt",
+						"tense",
+						"distressed",
 						"angry",
 						"resentful",
 						"indignant",
-
-						// ADDED — Social exposure layer
 						"embarrassed",
 						"ashamed",
-
-						// ADDED — Vulnerability
 						"sad",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
 						"Respect",
 						"Autonomy",
 						"To be seen",
 						"Acknowledgement",
 						"Appreciation",
-
-						// ADDED — Dignity / self-worth
 						"Dignity",
 						"Mutual Recognition",
 						"Equality",
-
-						// ADDED — Emotional steadiness
 						"Safety (emotional)",
 					],
 				},
@@ -626,45 +456,32 @@ export const StoryWords = {
 						"This word often points to a direct attack — something said or done that felt degrading or disrespectful.",
 
 					empathyGuesses: [
-						"That sounds sharp… did it land like a hit?",
-						"Was there an immediate flare of anger?",
-						"Maybe embarrassment too, especially if others were present.",
-						"Or hurt — like something tender was touched.",
-						"Sometimes shame can show up if the words got inside.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds sharp… did it land like a hit?" },
+						{ text: "Was there an immediate flare of anger?", feelings: ["angry", "furious", "outraged", "indignant", "resentful"], needs: ["Respect", "Dignity", "Equality"] },
+						{ text: "Maybe embarrassment too, especially if others were present.", feelings: ["embarrassed", "ashamed"], needs: ["Safety (emotional)"] },
+						{ text: "Or hurt — like something tender was touched.", feelings: ["hurt", "sad"], needs: ["Consideration", "Acknowledgement", "Mutual Recognition"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"embarrassed", // original
-						"angry", // original
-
-						// ADDED — Strong protest layer (very common in insults)
+						"embarrassed",
+						"angry",
 						"furious",
 						"outraged",
 						"indignant",
 						"resentful",
-
-						// ADDED — Vulnerability layer
 						"hurt",
 						"sad",
-
-						// ADDED — Social exposure layer
 						"ashamed",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
 						"Respect",
 						"Consideration",
 						"Acknowledgement",
-
-						// ADDED — Dignity layer
 						"Dignity",
 						"Equality",
 						"Mutual Recognition",
-
-						// ADDED — Emotional safety if it felt threatening
 						"Safety (emotional)",
 					],
 				},
@@ -676,20 +493,21 @@ export const StoryWords = {
 					storyHint:
 						"This word often carries a sense that something about you or your actions was judged or diminished.",
 
-					// ORIGINAL PRIMARY FEELINGS:
-					// In pain, scared, anxious, frustrated, humiliated, embarrassed
+					empathyGuesses: [
+						{ text: "What would have felt more dignifying there?" },
+						{ text: "That sounds tender… did it feel like something about you was judged or picked apart?" },
+						{ text: "Maybe embarrassment, if it felt exposing.", feelings: ["embarrassed", "humiliated"], needs: ["Respect", "Understanding"] },
+						{ text: "Or hurt, if your effort or intention wasn't understood.", feelings: ["hurt"], needs: ["To be known/understood", "Acknowledgement", "Compassion"] },
+						{ text: "And perhaps frustration or fear, if you wished for more care.", feelings: ["frustrated", "angry", "scared", "anxious"], needs: ["Recognition"] },
+					],
+
 					suggestedFeelings: [
-						// Hurt layer
-						"hurt", // normalized from "in pain"
-						"embarrassed", // original
-						"humiliated", // original
-
-						// Fear layer
-						"scared", // original
-						"anxious", // original
-
-						// Protest layer
-						"frustrated", // original
+						"hurt",
+						"embarrassed",
+						"humiliated",
+						"scared",
+						"anxious",
+						"frustrated",
 						"angry",
 					],
 
@@ -701,14 +519,6 @@ export const StoryWords = {
 						"To be known/understood",
 						"Compassion",
 					],
-
-					empathyGuesses: [
-						"That sounds tender… did it feel like something about you was judged or picked apart?",
-						"Maybe embarrassment, if it felt exposing.",
-						"Or hurt, if your effort or intention wasn’t understood.",
-						"And perhaps frustration, if you wished for more respect.",
-						"What would have felt more dignifying there?",
-					],
 				},
 				{
 					item: "Provoked",
@@ -716,32 +526,25 @@ export const StoryWords = {
 					ruptureType: "respect",
 
 					storyHint:
-						"This word often suggests you felt pushed or baited into a reaction that didn’t feel fair or respectful.",
+						"This word often suggests you felt pushed or baited into a reaction that didn't feel fair or respectful.",
 
-					// ORIGINAL PRIMARY FEELINGS:
-					// Frustrated, angry
+					empathyGuesses: [
+						{ text: "What boundary might have made it feel steadier?" },
+						{ text: "That sounds activating… did it feel like someone was pushing your buttons on purpose?" },
+						{ text: "Maybe anger, if you felt baited.", feelings: ["angry"], needs: ["Respect", "Autonomy"] },
+						{ text: "Or frustration, if the interaction didn't feel clean.", feelings: ["frustrated", "irritated"], needs: ["Consideration", "Understanding", "Space"] },
+						{ text: "Possibly defensiveness too — wanting to protect your dignity.", feelings: ["defensive", "embarrassed"] },
+					],
+
 					suggestedFeelings: [
-						// Protest layer
-						"frustrated", // original
-						"angry", // original
-
-						// Added — defensive activation
+						"frustrated",
+						"angry",
 						"defensive",
 						"irritated",
-
-						// Added — possible shame layer
 						"embarrassed",
 					],
 
 					suggestedNeeds: ["Respect", "Consideration", "Understanding", "Autonomy", "Space"],
-
-					empathyGuesses: [
-						"That sounds activating… did it feel like someone was pushing your buttons on purpose?",
-						"Maybe anger, if you felt baited.",
-						"Or frustration, if the interaction didn’t feel clean.",
-						"Possibly defensiveness too — wanting to protect your dignity.",
-						"What boundary might have made it feel steadier?",
-					],
 				},
 			],
 		},
@@ -750,17 +553,6 @@ export const StoryWords = {
 		// TRUST RUPTURE
 		// Theme: deception or reliability break
 		// Emotional arc: hurt → fear → anger
-
-		// Shared themes:
-		// - Broken agreement
-		// - Deception or dishonesty
-		// - Reliability fracture
-		// - Expectation collapse
-		//
-		// Flavour differences:
-		// - Betrayed → relational bond rupture
-		// - Tricked → deception emphasis
-		// - Cheated → fairness violation
 		// ──────────────────────────────────────────────────────────
 
 		trust: {
@@ -778,45 +570,33 @@ export const StoryWords = {
 						"This word often carries the sense that a bond or agreement was broken in a deeply personal way.",
 
 					empathyGuesses: [
-						"That sounds painful… did something important feel broken?",
-						"Was there hurt — like trust cracked open?",
-						"Maybe anger too, especially if it felt deliberate.",
-						"Sometimes there’s disappointment — an expectation collapsing.",
-						"And sometimes fear, if it shook your sense of safety.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds painful… did something important feel broken?" },
+						{ text: "Was there hurt — like trust cracked open?", feelings: ["hurt", "sad"], needs: ["Trusting", "Connection", "Mutuality"] },
+						{ text: "Maybe anger too, especially if it felt deliberate.", feelings: ["angry", "resentful", "outraged"], needs: ["Honesty", "Commitment"] },
+						{ text: "Sometimes there's disappointment — an expectation collapsing.", feelings: ["disappointed"] },
+						{ text: "And sometimes fear, if it shook your sense of safety.", feelings: ["scared", "shocked", "confused"], needs: ["Safety (emotional)", "Consistency", "Clarity"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"hurt", // original
-						"scared", // original
-						"disappointed", // original
-
-						// ADDED — Protest layer
+						"hurt",
+						"scared",
+						"disappointed",
 						"angry",
 						"resentful",
 						"outraged",
-
-						// ADDED — Shock/confusion layer
 						"shocked",
 						"confused",
-
-						// ADDED — Grief layer
 						"sad",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
 						"Trusting",
 						"Honesty",
 						"Commitment",
 						"Clarity",
-
-						// ADDED — Bond layer
 						"Connection",
 						"Mutuality",
-
-						// ADDED — Stability layer
 						"Consistency",
 						"Safety (emotional)",
 					],
@@ -827,48 +607,34 @@ export const StoryWords = {
 					ruptureType: "trust",
 
 					storyHint:
-						"This word often points to discovering that something wasn’t as it seemed — a sense of being misled.",
+						"This word often points to discovering that something wasn't as it seemed — a sense of being misled.",
 
 					empathyGuesses: [
-						"That sounds disorienting… was it like the ground shifted under you?",
-						"Did you feel embarrassed, like you’d been made a fool of?",
-						"Maybe anger too — a protective ‘that’s not okay.’",
-						"Sometimes there’s hurt if trust was assumed.",
-						"And sometimes resentment lingers if it feels intentional.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds disorienting… was it like the ground shifted under you?", feelings: ["confused", "shocked"], needs: ["Clarity"] },
+						{ text: "Did you feel embarrassed, like you'd been made a fool of?", feelings: ["embarrassed"], needs: ["Respect"] },
+						{ text: "Maybe anger too — a protective 'that's not okay.'", feelings: ["angry", "indignant"], needs: ["Integrity", "Honesty", "Trusting"] },
+						{ text: "Sometimes there's hurt if trust was assumed.", feelings: ["hurt", "sad"] },
+						{ text: "And sometimes resentment lingers if it feels intentional.", feelings: ["resentful"], needs: ["Safety (emotional)"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"embarrassed", // original
-						"resentful", // original
-
-						// ADDED — Protest layer
+						"embarrassed",
+						"resentful",
 						"angry",
 						"indignant",
-
-						// ADDED — Hurt layer
 						"hurt",
 						"sad",
-
-						// ADDED — Disorientation layer
 						"confused",
 						"shocked",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
 						"Integrity",
 						"Trusting",
 						"Honesty",
-
-						// ADDED — Cognitive steadiness
 						"Clarity",
-
-						// ADDED — Dignity / fairness layer
 						"Respect",
-
-						// ADDED — Emotional steadiness
 						"Safety (emotional)",
 					],
 				},
@@ -878,46 +644,31 @@ export const StoryWords = {
 					ruptureType: "trust",
 
 					storyHint:
-						"This word often points to feeling unfairly treated — like something you were entitled to wasn’t honoured.",
+						"This word often points to feeling unfairly treated — like something you were entitled to wasn't honoured.",
 
 					empathyGuesses: [
-						"That sounds unfair… was it like something was taken from you?",
-						"Did anger flare up — a strong sense of ‘this isn’t right’?",
-						"Maybe disappointment too, especially if you expected fairness.",
-						"There can also be hurt if trust was assumed.",
-						"And sometimes resentment lingers if it feels intentional.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds unfair… was it like something was taken from you?" },
+						{ text: "Did anger flare up — a strong sense of 'this isn't right'?", feelings: ["angry", "resentful", "outraged", "indignant"], needs: ["Equality", "Respect"] },
+						{ text: "Maybe disappointment too, especially if you expected fairness.", feelings: ["disappointed"] },
+						{ text: "There can also be hurt if trust was assumed.", feelings: ["hurt", "sad"], needs: ["Honesty", "Trusting", "Consistency"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"hurt", // original
-
-						// ADDED — Protest layer (very central here)
+						"hurt",
 						"angry",
 						"resentful",
 						"outraged",
 						"indignant",
-
-						// ADDED — Disappointment layer
 						"disappointed",
-
-						// ADDED — Vulnerability layer
 						"sad",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
 						"Honesty",
-						// "Fairness", - not a canonical need; conceptually covered by justice/equity
 						"Equality",
 						"Trusting",
-						// "Reliability", - not canonical, covered by Consistency
-
-						// ADDED — Stability layer
 						"Consistency",
-
-						// ADDED — Respect layer
 						"Respect",
 					],
 				},
@@ -926,18 +677,8 @@ export const StoryWords = {
 
 		// ──────────────────────────────────────────────────────────
 		// INVISIBILITY RUPTURE
-		// 		Theme: not seen/heard/acknowledged
+		// Theme: not seen/heard/acknowledged
 		// Emotional arc: sadness → frustration
-		// Shared themes:
-		// - Not being acknowledged
-		// - Not being seen or heard
-		// - Social erasure
-		// - Disconnection from mutual recognition
-		//
-		// Flavour differences:
-		// - Ignored → active lack of response
-		// - Unseen → not recognised or noticed
-		// - Unheard → not listened to or understood
 		// ──────────────────────────────────────────────────────────
 
 		invisibility: {
@@ -954,44 +695,34 @@ export const StoryWords = {
 					storyHint: "This word often points to reaching out and not receiving a response.",
 
 					empathyGuesses: [
-						"That sounds lonely… was it like you reached out and nothing came back?",
-						"Did it feel quiet and heavy inside?",
-						"Maybe there’s sadness here.",
-						"Or anxiety, wondering whether you matter.",
-						"Sometimes irritation shows up too, especially if it felt dismissive.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds lonely… was it like you reached out and nothing came back?", feelings: ["lonely"], needs: ["Connection", "To be heard"] },
+						{ text: "Did it feel quiet and heavy inside?", feelings: ["sad", "hurt"], needs: ["Belonging", "Acknowledgement"] },
+						{ text: "Maybe there's anxiety, wondering whether you matter.", feelings: ["anxious", "insecure", "scared"], needs: ["Mutual Recognition", "Safety (emotional)"] },
+						{ text: "Sometimes irritation shows up too, especially if it felt dismissive.", feelings: ["frustrated", "resentful", "embarrassed"], needs: ["Communication", "Inclusion"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"lonely", // original
-						"scared", // original
-						"hurt", // original
-						"sad", // original
-						"embarrassed", // original
-
-						// ADDED — Vulnerability layer
+						"lonely",
+						"scared",
+						"hurt",
+						"sad",
+						"embarrassed",
 						"insecure",
-
-						// ADDED — Protest layer (secondary)
 						"frustrated",
 						"resentful",
+						"anxious",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
 						"Connection",
 						"Belonging",
 						"Inclusion",
 						"Community",
 						"Communication",
 						"To be heard",
-
-						// ADDED — Recognition layer
 						"Acknowledgement",
 						"Mutual Recognition",
-
-						// ADDED — Emotional steadiness
 						"Safety (emotional)",
 					],
 				},
@@ -1005,42 +736,30 @@ export const StoryWords = {
 						"This word often carries the sense of not being recognised or acknowledged for who you are.",
 
 					empathyGuesses: [
-						"That sounds tender… was it like parts of you weren’t noticed?",
-						"Did something in you withdraw or soften?",
-						"Maybe there’s sadness — a quiet ache.",
-						"Or anxiety about whether you’re valued.",
-						"Sometimes frustration shows up too, especially if you tried to be clear.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds tender… was it like parts of you weren't noticed?", feelings: ["sad", "lonely", "hurt"] },
+						{ text: "Maybe there's anxiety about whether you're valued.", feelings: ["anxious", "insecure"], needs: ["To be seen", "Acknowledgement"] },
+						{ text: "Sometimes frustration shows up too, especially if you tried to be clear.", feelings: ["frustrated", "resentful"], needs: ["Appreciation", "Empathy", "Understanding"] },
+						{ text: "ADD QUESTION HERE", needs: ["Connection", "Authenticity"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"sad", // original
-						"anxious", // original
-						"frustrated", // original
-
-						// ADDED — Vulnerability layer
+						"sad",
+						"anxious",
+						"frustrated",
 						"lonely",
 						"hurt",
 						"insecure",
-
-						// ADDED — Protest layer (secondary)
 						"resentful",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
 						"Acknowledgement",
 						"Appreciation",
-						// "Visibility", // not canonical need; conceptually covered by recognition/acknowledgement
 						"Empathy",
 						"Understanding",
-
-						// Canonical adjustments:
 						"To be seen",
 						"Connection",
-
-						// ADDED — Identity layer
 						"Authenticity",
 					],
 				},
@@ -1054,41 +773,29 @@ export const StoryWords = {
 						"This word often points to speaking or expressing something and not feeling listened to or understood.",
 
 					empathyGuesses: [
-						"That can feel frustrating… was it like your words didn’t land?",
-						"Did something in you feel invisible or dismissed?",
-						"Maybe there’s sadness — wanting to be understood.",
-						"Or frustration if you tried to explain and weren’t met.",
-						"Sometimes anger shows up if it felt repeated.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That can feel frustrating… was it like your words didn't land?", feelings: ["frustrated", "angry", "resentful"], needs: ["To be heard", "Communication"] },
+						{ text: "Did something in you feel invisible or dismissed?", feelings: ["sad", "lonely", "hurt", "insecure"], needs: ["Understanding", "Empathy"] },
+						{ text: "ADD QUESTION HERE", needs: ["Consideration", "Acknowledgement", "Connection"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"sad", // original
-						"frustrated", // original
-
-						// ADDED — Vulnerability layer
+						"sad",
+						"frustrated",
 						"hurt",
 						"lonely",
 						"insecure",
-
-						// ADDED — Protest layer
 						"angry",
 						"resentful",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
 						"Understanding",
 						"Consideration",
 						"Empathy",
-
-						// ADDED — Communication layer
 						"Communication",
 						"To be heard",
 						"Acknowledgement",
-
-						// ADDED — Connection layer
 						"Connection",
 					],
 				},
@@ -1097,18 +804,8 @@ export const StoryWords = {
 
 		// ──────────────────────────────────────────────────────────
 		// JUSTICE RUPTURE
-		// 		Theme: fairness imbalance, moral positioning
+		// Theme: fairness imbalance, moral positioning
 		// Emotional arc: anger → hurt → indignation
-		// Shared themes:
-		// - Fairness violation
-		// - Rights infringement
-		// - Harm or exploitation
-		// - Power imbalance
-		//
-		// Flavour differences:
-		// - Wronged → moral unfairness
-		// - Ripped off → material or effort imbalance
-		// - Victimised → power imbalance / harm emphasis
 		// ──────────────────────────────────────────────────────────
 
 		justice: {
@@ -1125,38 +822,28 @@ export const StoryWords = {
 					storyHint: "This word often carries the sense that something unjust or unfair happened to you.",
 
 					empathyGuesses: [
-						"That sounds upsetting… did something feel morally off?",
-						"Was there anger — a strong sense of ‘that’s not right’?",
-						"Maybe hurt too, especially if trust was assumed.",
-						"Sometimes resentment lingers when fairness feels violated.",
-						"And sometimes sadness, if something important felt damaged.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds upsetting… did something feel morally off?" },
+						{ text: "Was there anger — a strong sense of 'that's not right'?", feelings: ["angry", "indignant", "outraged", "resentful"], needs: ["Respect", "Equality", "Integrity"] },
+						{ text: "Maybe hurt too, especially if trust was assumed.", feelings: ["hurt", "irritated"] },
+						{ text: "And sometimes sadness, if something important felt damaged.", feelings: ["sad"], needs: ["Trusting", "Safety (emotional)"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"hurt", // original
-						"irritated", // original
-						"resentful", // original
-
-						// ADDED — Strong protest layer
+						"hurt",
+						"irritated",
+						"resentful",
 						"angry",
 						"indignant",
 						"outraged",
-
-						// ADDED — Vulnerability layer
 						"sad",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
 						"Respect",
 						"Equality",
 						"Trusting",
 						"Safety (emotional)",
-						// "Fairness", - not a canonical need; conceptually covered by justice/equity
-
-						// ADDED — Integrity layer
 						"Integrity",
 					],
 				},
@@ -1170,37 +857,27 @@ export const StoryWords = {
 						"This word often points to feeling taken advantage of — especially regarding time, money, or effort.",
 
 					empathyGuesses: [
-						"That sounds infuriating… was it like something was taken from you?",
-						"Did anger come up quickly?",
-						"Maybe disappointment too, especially if you expected fairness.",
-						"Sometimes there’s hurt underneath if trust was assumed.",
-						"And sometimes resentment lingers if it feels intentional.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds infuriating… was it like something was taken from you?" },
+						{ text: "Did anger come up quickly?", feelings: ["angry", "resentful", "outraged", "indignant"], needs: ["Equality", "Respect"] },
+						{ text: "Maybe disappointment too, especially if you expected fairness.", feelings: ["disappointed"], needs: ["Consideration", "Acknowledgement"] },
+						{ text: "Sometimes there's hurt underneath if trust was assumed.", feelings: ["hurt", "sad"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"disappointed", // original
-						"angry", // original
-
-						// ADDED — Strong protest layer
+						"disappointed",
+						"angry",
 						"resentful",
 						"outraged",
 						"indignant",
-
-						// ADDED — Vulnerability layer
 						"hurt",
 						"sad",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
 						"Consideration",
 						"Equality",
-						// "Fairness", - not a canonical need; conceptually covered by justice/equity
 						"Acknowledgement",
-
-						// ADDED — Respect layer
 						"Respect",
 					],
 				},
@@ -1214,44 +891,30 @@ export const StoryWords = {
 						"This word often carries the sense of being harmed or targeted from a position of less power.",
 
 					empathyGuesses: [
-						"That sounds heavy… did it feel like you didn’t have power in that moment?",
-						"Was there fear, if it felt unsafe?",
-						"Maybe helplessness — like you couldn’t stop it.",
-						"Or anger, especially if it felt unjust.",
-						"Sometimes sadness follows, especially if it felt isolating.",
-						"Let’s pause gently… what feels most alive right now?",
+						{ text: "Let's pause gently… what feels most alive right now?" },
+						{ text: "That sounds heavy… did it feel like you didn't have power in that moment?" },
+						{ text: "Was there fear, if it felt unsafe?", feelings: ["scared", "anxious"], needs: ["Safety (emotional)", "Mutuality"] },
+						{ text: "Maybe helplessness — like you couldn't stop it.", feelings: ["helpless", "frightened"], needs: ["Agency", "Autonomy"] },
+						{ text: "Or anger, especially if it felt unjust.", feelings: ["angry", "resentful"], needs: ["Equality"] },
+						{ text: "Sometimes sadness follows, especially if it felt isolating.", feelings: ["sad", "hurt"] },
 					],
 
 					suggestedFeelings: [
-						// ORIGINAL SUGGESTIONS (normalized)
-						"frightened", // original (maps to scared)
-						"helpless", // original
-
-						// ADDED — Threat layer
+						"frightened",
+						"helpless",
 						"scared",
 						"anxious",
-
-						// ADDED — Protest layer
 						"angry",
 						"resentful",
-
-						// ADDED — Vulnerability layer
 						"sad",
 						"hurt",
 					],
 
 					suggestedNeeds: [
-						// ORIGINAL THEMES (mapped)
-						// "Empowerment", - replaced by Agency
 						"Mutuality",
 						"Safety (emotional)",
-
-						// ADDED — Equality layer
 						"Equality",
-
-						// ADDED — Agency restoration
-						"Agency", // maps from "empowerment"
-
+						"Agency",
 						"Autonomy",
 					],
 				},
@@ -1263,33 +926,24 @@ export const StoryWords = {
 					storyHint:
 						"This word often carries a sense that responsibility was placed on you in a way that felt unfair or inaccurate.",
 
-					// ORIGINAL PRIMARY FEELINGS:
-					// Scared, confused, bewildered, hurt
+					empathyGuesses: [
+						{ text: "What feels most alive as you sit with it now?" },
+						{ text: "That sounds unfair… did it feel like something was placed on you that didn't really belong to you?" },
+						{ text: "Maybe confusion, if the story didn't match your experience.", feelings: ["confused", "bewildered"], needs: ["Clarity", "Understanding"] },
+						{ text: "Or hurt, if your intentions weren't seen.", feelings: ["hurt", "scared"], needs: ["Respect"] },
+						{ text: "And possibly anger, if something felt unjust.", feelings: ["angry", "resentful"], needs: ["Fairness", "Justice", "Trust"] },
+					],
+
 					suggestedFeelings: [
-						// Fear layer
-						"scared", // original
-
-						// Cognitive shock layer
-						"confused", // original
-						"bewildered", // original
-
-						// Hurt layer
-						"hurt", // original
-
-						// Added — protest layer
+						"scared",
+						"confused",
+						"bewildered",
+						"hurt",
 						"angry",
 						"resentful",
 					],
 
 					suggestedNeeds: ["Fairness", "Justice", "Understanding", "Clarity", "Respect", "Trust"],
-
-					empathyGuesses: [
-						"That sounds unfair… did it feel like something was placed on you that didn’t really belong to you?",
-						"Maybe confusion, if the story didn’t match your experience.",
-						"Or hurt, if your intentions weren’t seen.",
-						"And possibly anger, if something felt unjust.",
-						"What feels most alive as you sit with it now?",
-					],
 				},
 			],
 		},
@@ -1298,17 +952,6 @@ export const StoryWords = {
 		// SAFETY RUPTURE
 		// Theme: danger, harm, violation
 		// Emotional arc: fear → shock → collapse
-
-		// Theme:
-		// - Threat activation
-		// - Harm or violation
-		// - Nervous system danger response
-		//
-		// Distinct from Autonomy rupture:
-		// Autonomy = control interference
-		// Safety = danger / harm signal
-		//
-		// Words here often activate fear first, then anger or collapse.
 		// ──────────────────────────────────────────────────────────
 
 		safety: {
@@ -1325,42 +968,30 @@ export const StoryWords = {
 					storyHint:
 						"This word often points to harm — emotional or physical — that felt unsafe or violating.",
 
-					// ORIGINAL PRIMARY FEELINGS:
-					// Frightened, confused
-					suggestedFeelings: [
-						// Fear layer (original emphasis)
-						"scared", // original (Frightened normalized)
-						"confused", // original
+					empathyGuesses: [
+						{ text: "Let's go gently… what feels most true right now?" },
+						{ text: "That sounds deeply unsafe… did something feel violating or harmful?", needs: ["Physical safety", "Safety (emotional)", "Protection"] },
+						{ text: "Is there fear here — the kind that shows up when your body didn't feel protected?", feelings: ["scared", "confused"] },
+						{ text: "Maybe shock, if it happened suddenly or didn't make sense.", feelings: ["shocked", "distressed"] },
+						{ text: "Or helplessness, if you felt you had no power to stop it.", feelings: ["helpless"], needs: ["Caring", "Support", "Respect", "Space"] },
+					],
 
-						// Added — body shock layer
+					suggestedFeelings: [
+						"scared",
+						"confused",
 						"shocked",
 						"distressed",
-
-						// Added — collapse layer
 						"helpless",
 					],
 
 					suggestedNeeds: [
-						// Core safety needs
 						"Physical safety",
 						"Safety (emotional)",
 						"Protection",
-
-						// Care restoration
 						"Caring",
 						"Support",
-
-						// Boundary restoration
 						"Respect",
 						"Space",
-					],
-
-					empathyGuesses: [
-						"That sounds deeply unsafe… did something feel violating or harmful?",
-						"Is there fear here — the kind that shows up when your body didn’t feel protected?",
-						"Maybe shock or confusion, if it happened suddenly or didn’t make sense.",
-						"Or helplessness, if you felt you had no power to stop it.",
-						"Let’s go gently… what feels most true right now?",
 					],
 				},
 
@@ -1372,17 +1003,17 @@ export const StoryWords = {
 					storyHint:
 						"This word often carries a sense of being targeted or harmed — verbally, emotionally, or physically.",
 
-					// ORIGINAL:
-					// Scared
-					suggestedFeelings: [
-						// Fear layer
-						"scared", // original
+					empathyGuesses: [
+						{ text: "Let's pause… what does your body remember about that moment?" },
+						{ text: "That sounds frightening… did it feel like you were under threat?", feelings: ["scared"], needs: ["Physical safety", "Safety (emotional)", "Protection"] },
+						{ text: "Was there a surge of anger — the kind that protects you?", feelings: ["angry", "defensive"], needs: ["Respect", "Peace (external)"] },
+						{ text: "Maybe tension in your body, like you needed to brace.", feelings: ["tense"] },
+					],
 
-						// Added — protective protest
+					suggestedFeelings: [
+						"scared",
 						"angry",
 						"defensive",
-
-						// Added — activation
 						"tense",
 					],
 
@@ -1393,13 +1024,6 @@ export const StoryWords = {
 						"Respect",
 						"Peace (external)",
 					],
-
-					empathyGuesses: [
-						"That sounds frightening… did it feel like you were under threat?",
-						"Was there a surge of anger — the kind that protects you?",
-						"Maybe tension in your body, like you needed to brace.",
-						"Let’s pause… what does your body remember about that moment?",
-					],
 				},
 
 				{
@@ -1409,30 +1033,23 @@ export const StoryWords = {
 
 					storyHint: "This word often points to repeated intrusion or unwanted pressure that felt unsafe.",
 
-					// ORIGINAL:
-					// Angry, frustrated, frightened, anxious
+					empathyGuesses: [
+						{ text: "What feels strongest right now?" },
+						{ text: "That sounds wearing and unsafe… was it persistent or hard to escape?", needs: ["Safety (emotional)", "Physical safety", "Space"] },
+						{ text: "Maybe anxiety, if it felt like it could happen again.", feelings: ["anxious", "scared"] },
+						{ text: "And anger too — a clear 'this isn't okay.'", feelings: ["angry", "frustrated"], needs: ["Respect", "Peace (external)"] },
+						{ text: "Perhaps overwhelm, if it kept coming at you.", feelings: ["overwhelmed"] },
+					],
+
 					suggestedFeelings: [
-						// Fear layer
-						"scared", // original (Frightened normalized)
-						"anxious", // original
-
-						// Protest layer
-						"angry", // original
-						"frustrated", // original
-
-						// Added — overwhelm
+						"scared",
+						"anxious",
+						"angry",
+						"frustrated",
 						"overwhelmed",
 					],
 
 					suggestedNeeds: ["Safety (emotional)", "Physical safety", "Space", "Respect", "Peace (external)"],
-
-					empathyGuesses: [
-						"That sounds wearing and unsafe… was it persistent or hard to escape?",
-						"Maybe anxiety, if it felt like it could happen again.",
-						"And anger too — a clear ‘this isn’t okay.’",
-						"Perhaps overwhelm, if it kept coming at you.",
-						"What feels strongest right now?",
-					],
 				},
 
 				{
@@ -1443,16 +1060,17 @@ export const StoryWords = {
 					storyHint:
 						"This word often signals a sense of possible harm or loss — even if nothing physical happened.",
 
-					// ORIGINAL:
-					// Scared, frightened, alarmed, agitated, anxious
-					suggestedFeelings: [
-						// Fear spectrum
-						"scared", // original
-						"anxious", // original
-						"alarmed", // original
-						"agitated", // original
+					empathyGuesses: [
+						{ text: "Let's breathe gently… what does your body say about it now?" },
+						{ text: "That sounds scary… was there a sense something bad could happen?", feelings: ["scared", "alarmed"], needs: ["Physical safety", "Safety (emotional)", "Protection"] },
+						{ text: "Maybe agitation, if your system was on high alert.", feelings: ["anxious", "agitated", "tense"], needs: ["Peace of mind", "Stability"] },
+					],
 
-						// Added — activation
+					suggestedFeelings: [
+						"scared",
+						"anxious",
+						"alarmed",
+						"agitated",
 						"tense",
 					],
 
@@ -1462,13 +1080,6 @@ export const StoryWords = {
 						"Protection",
 						"Peace of mind",
 						"Stability",
-					],
-
-					empathyGuesses: [
-						"That sounds scary… was there a sense something bad could happen?",
-						"Maybe agitation, if your system was on high alert.",
-						"Or tension, like you needed to prepare.",
-						"Let’s breathe gently… what does your body say about it now?",
 					],
 				},
 
@@ -1480,18 +1091,18 @@ export const StoryWords = {
 					storyHint:
 						"This word often carries a sense that a boundary — physical, emotional, or relational — was crossed.",
 
-					// ORIGINAL:
-					// Sad, agitated, anxiety
+					empathyGuesses: [
+						{ text: "Let's move gently here… what feels most alive?" },
+						{ text: "That sounds like something crossed a line… did it feel invasive?", needs: ["Safety (emotional)", "Physical safety", "Respect", "Space"] },
+						{ text: "Maybe agitation or anxiety, if your body felt exposed.", feelings: ["anxious", "agitated", "helpless"] },
+						{ text: "And possibly sadness, if something precious felt disrespected.", feelings: ["sad", "hurt"], needs: ["Trust", "Protection"] },
+					],
+
 					suggestedFeelings: [
-						// Fear layer
-						"anxious", // original
-						"agitated", // original
-
-						// Hurt layer
-						"sad", // original
+						"anxious",
+						"agitated",
+						"sad",
 						"hurt",
-
-						// Collapse
 						"helpless",
 					],
 
@@ -1503,33 +1114,14 @@ export const StoryWords = {
 						"Trust",
 						"Protection",
 					],
-
-					empathyGuesses: [
-						"That sounds like something crossed a line… did it feel invasive?",
-						"Maybe agitation or anxiety, if your body felt exposed.",
-						"And possibly sadness, if something precious felt disrespected.",
-						"Or helplessness, if you couldn’t stop it.",
-						"Let’s move gently here… what feels most alive?",
-					],
 				},
 			],
 		},
+
 		// ──────────────────────────────────────────────────────────
 		// CARE RUPTURE
 		// Theme: attachment injury, absence of nurture
 		// Emotional arc: panic → sadness → longing
-
-		// Theme:
-		// - Attachment injury
-		// - Lack of protection, nurture, or dependable support
-		// - Bond rupture rather than exclusion
-		//
-		// Distinct from Belonging rupture:
-		// Belonging = social exclusion
-		// Care = absence of attuned protection or nurturing
-		//
-		// Often activates attachment fear first (panic, loneliness),
-		// then sadness or collapse.
 		// ──────────────────────────────────────────────────────────
 
 		care: {
@@ -1546,21 +1138,20 @@ export const StoryWords = {
 					storyHint:
 						"This word often carries a sense of being left without protection, connection, or reassurance.",
 
-					// ORIGINAL PRIMARY FEELINGS:
-					// Terrified, hurt, bewildered, sad, frightened, lonely
+					empathyGuesses: [
+						{ text: "Let's go gently… what feels closest right now?" },
+						{ text: "That sounds incredibly vulnerable… did it feel like you were left alone when you needed someone?" },
+						{ text: "Maybe fear, if it felt unsafe to be without support.", feelings: ["scared"], needs: ["Protection", "Trusting", "Connection"] },
+						{ text: "And sadness or hurt, if something precious felt lost.", feelings: ["sad", "hurt", "lonely"], needs: ["Support", "Caring", "Nurturing", "Warmth"] },
+						{ text: "Possibly bewilderment too — a 'how did this happen?' feeling.", feelings: ["bewildered", "helpless"], needs: ["Belonging"] },
+					],
+
 					suggestedFeelings: [
-						// Fear layer
-						"scared", // original (terrified/frightened normalized)
-
-						// Sadness layer
-						"sad", // original
-						"hurt", // original
-						"lonely", // original
-
-						// Cognitive shock layer
-						"bewildered", // original
-
-						// Collapse layer
+						"scared",
+						"sad",
+						"hurt",
+						"lonely",
+						"bewildered",
 						"helpless",
 					],
 
@@ -1574,14 +1165,6 @@ export const StoryWords = {
 						"Protection",
 						"Trusting",
 					],
-
-					empathyGuesses: [
-						"That sounds incredibly vulnerable… did it feel like you were left alone when you needed someone?",
-						"Maybe fear, if it felt unsafe to be without support.",
-						"And sadness or hurt, if something precious felt lost.",
-						"Possibly loneliness too — that ache of disconnection.",
-						"Let’s go gently… what feels closest right now?",
-					],
 				},
 
 				{
@@ -1592,30 +1175,23 @@ export const StoryWords = {
 					storyHint:
 						"This word often carries a sense of being overlooked or not tended to when care was needed.",
 
-					// ORIGINAL:
-					// Lonely, scared, anxious
+					empathyGuesses: [
+						{ text: "What feels most alive in you as you think about it?" },
+						{ text: "That sounds painful… did it feel like your needs weren't being noticed?", needs: ["Care", "Consideration"] },
+						{ text: "Maybe loneliness, if you felt unseen or unattended.", feelings: ["lonely", "sad"], needs: ["Connection", "Belonging"] },
+						{ text: "Perhaps anxiety too — wondering if support would come.", feelings: ["anxious", "scared"], needs: ["Support", "Participation"] },
+						{ text: "And hurt, if something in you longed to be cared for.", feelings: ["hurt"] },
+					],
+
 					suggestedFeelings: [
-						// Fear layer
-						"scared", // original
-						"anxious", // original
-
-						// Sadness layer
-						"lonely", // original
+						"lonely",
+						"scared",
+						"anxious",
 						"sad",
-
-						// Added — quiet hurt
 						"hurt",
 					],
 
 					suggestedNeeds: ["Connection", "Belonging", "Care", "Consideration", "Support", "Participation"],
-
-					empathyGuesses: [
-						"That sounds painful… did it feel like your needs weren’t being noticed?",
-						"Maybe loneliness, if you felt unseen or unattended.",
-						"Perhaps anxiety too — wondering if support would come.",
-						"And hurt, if something in you longed to be cared for.",
-						"What feels most alive in you as you think about it?",
-					],
 				},
 
 				{
@@ -1626,29 +1202,22 @@ export const StoryWords = {
 					storyHint:
 						"This word often points to carrying something alone that felt too heavy to hold by yourself.",
 
-					// ORIGINAL:
-					// Sad, hurt
+					empathyGuesses: [
+						{ text: "What would have made it feel lighter?" },
+						{ text: "That sounds heavy… was it like you were carrying something alone?", needs: ["Support", "Cooperation"] },
+						{ text: "Maybe sadness, if you longed for someone beside you.", feelings: ["sad", "hurt"], needs: ["Understanding", "Companionship", "Care"] },
+						{ text: "Or overwhelm, if it felt like too much without help.", feelings: ["overwhelmed"] },
+						{ text: "And possibly helplessness, if relief didn't seem available.", feelings: ["helpless"] },
+					],
+
 					suggestedFeelings: [
-						// Sadness layer
-						"sad", // original
-						"hurt", // original
-
-						// Added — overwhelm
+						"sad",
+						"hurt",
 						"overwhelmed",
-
-						// Added — helpless
 						"helpless",
 					],
 
 					suggestedNeeds: ["Support", "Cooperation", "Understanding", "Companionship", "Care"],
-
-					empathyGuesses: [
-						"That sounds heavy… was it like you were carrying something alone?",
-						"Maybe sadness, if you longed for someone beside you.",
-						"Or overwhelm, if it felt like too much without help.",
-						"And possibly helplessness, if relief didn’t seem available.",
-						"What would have made it feel lighter?",
-					],
 				},
 
 				{
@@ -1658,54 +1227,31 @@ export const StoryWords = {
 
 					storyHint: "This word often holds a tender longing to feel cherished or valued at a deep level.",
 
-					// ORIGINAL:
-					// Bewildered, sad, frustrated
+					empathyGuesses: [
+						{ text: "What does your heart most wish for here?" },
+						{ text: "That feels tender… was there a longing to feel cherished or held close?", needs: ["Love", "Affection", "Warmth"] },
+						{ text: "Maybe sadness, if something in you wanted warmth.", feelings: ["sad", "hurt"] },
+						{ text: "Or confusion — wondering why connection didn't land.", feelings: ["bewildered", "frustrated"], needs: ["Connection", "Empathy"] },
+						{ text: "And possibly loneliness, if you reached and didn't feel met.", feelings: ["lonely"], needs: ["Appreciation"] },
+					],
+
 					suggestedFeelings: [
-						// Sadness layer
-						"sad", // original
-
-						// Confusion layer
-						"bewildered", // original
-
-						// Protest layer
-						"frustrated", // original
-
-						// Added — hurt
+						"sad",
+						"bewildered",
+						"frustrated",
 						"hurt",
-
-						// Added — lonely
 						"lonely",
 					],
 
 					suggestedNeeds: ["Love", "Affection", "Warmth", "Connection", "Empathy", "Appreciation"],
-
-					empathyGuesses: [
-						"That feels tender… was there a longing to feel cherished or held close?",
-						"Maybe sadness, if something in you wanted warmth.",
-						"Or confusion — wondering why connection didn’t land.",
-						"And possibly frustration, if you reached and didn’t feel met.",
-						"What does your heart most wish for here?",
-					],
 				},
 			],
 		},
+
 		// ──────────────────────────────────────────────────────────
 		// OVERLOAD / BURDEN RUPTURE
 		// Theme: capacity exceeded
 		// Emotional arc: frustration → overwhelm → exhaustion
-
-		// Theme:
-		// - Excess demand
-		// - Capacity exceeded
-		// - Nervous system strain
-		// - Unfair load or pressure
-		//
-		// Distinct from Justice rupture:
-		// Justice = fairness violation
-		// Overload = depletion + overwhelm
-		//
-		// Often activates frustration + overwhelm first,
-		// then exhaustion or shutdown.
 		// ──────────────────────────────────────────────────────────
 
 		overload: {
@@ -1720,19 +1266,20 @@ export const StoryWords = {
 					ruptureType: "overload",
 
 					storyHint:
-						"This word often carries a sense of being given responsibility or emotional weight that didn’t feel fair or manageable.",
+						"This word often carries a sense of being given responsibility or emotional weight that didn't feel fair or manageable.",
 
-					// ORIGINAL:
-					// Angry, overwhelmed
+					empathyGuesses: [
+						{ text: "What would have made it feel shared instead?" },
+						{ text: "That sounds heavy… was it like too much landed on you at once?" },
+						{ text: "Maybe anger, if it didn't feel fair.", feelings: ["angry", "frustrated"], needs: ["Consideration", "Fairness"] },
+						{ text: "And overwhelm, if your capacity felt stretched.", feelings: ["overwhelmed"], needs: ["Support", "Cooperation", "Ease"] },
+						{ text: "Possibly exhaustion too — when the load keeps growing.", feelings: ["exhausted"], needs: ["Space", "Rest/sleep"] },
+					],
+
 					suggestedFeelings: [
-						// Protest layer
-						"angry", // original
+						"angry",
 						"frustrated",
-
-						// Capacity layer
-						"overwhelmed", // original
-
-						// Collapse layer
+						"overwhelmed",
 						"exhausted",
 					],
 
@@ -1745,14 +1292,6 @@ export const StoryWords = {
 						"Ease",
 						"Rest/sleep",
 					],
-
-					empathyGuesses: [
-						"That sounds heavy… was it like too much landed on you at once?",
-						"Maybe anger, if it didn’t feel fair.",
-						"And overwhelm, if your capacity felt stretched.",
-						"Possibly exhaustion too — when the load keeps growing.",
-						"What would have made it feel shared instead?",
-					],
 				},
 
 				{
@@ -1763,28 +1302,23 @@ export const StoryWords = {
 					storyHint:
 						"This word often reflects repeated interruptions or demands that disrupt your pace or calm.",
 
-					// ORIGINAL:
-					// Irritated, distressed, angry, frustrated
-					suggestedFeelings: [
-						// Protest layer
-						"irritated", // original
-						"angry", // original
-						"frustrated", // original
+					empathyGuesses: [
+						{ text: "What would have helped you breathe more easily?" },
+						{ text: "That sounds wearing… was it like you couldn't settle or focus?", needs: ["Space", "Ease", "Peace (external)"] },
+						{ text: "Maybe irritation — a 'please stop' signal.", feelings: ["irritated", "angry"], needs: ["Autonomy"] },
+						{ text: "Or tension, if your system couldn't relax.", feelings: ["tense", "distressed"] },
+						{ text: "Perhaps frustration, if your pace wasn't respected.", feelings: ["frustrated"], needs: ["Consideration"] },
+					],
 
-						// Activation layer
-						"distressed", // original
+					suggestedFeelings: [
+						"irritated",
+						"angry",
+						"frustrated",
+						"distressed",
 						"tense",
 					],
 
 					suggestedNeeds: ["Space", "Ease", "Peace (external)", "Consideration", "Autonomy"],
-
-					empathyGuesses: [
-						"That sounds wearing… was it like you couldn’t settle or focus?",
-						"Maybe irritation — a ‘please stop’ signal.",
-						"Or tension, if your system couldn’t relax.",
-						"Perhaps frustration, if your pace wasn’t respected.",
-						"What would have helped you breathe more easily?",
-					],
 				},
 
 				{
@@ -1794,28 +1328,21 @@ export const StoryWords = {
 
 					storyHint: "This word often signals prolonged strain — more demand than rest or recovery.",
 
-					// ORIGINAL:
-					// Tired, frustrated, exhausted
+					empathyGuesses: [
+						{ text: "What would real recovery look like for you?" },
+						{ text: "That sounds draining… was it more than your system could sustain?", needs: ["Rest/sleep", "Rejuvenation", "Balance"] },
+						{ text: "Maybe exhaustion, if rest never caught up.", feelings: ["exhausted", "tired", "drained"], needs: ["Ease"] },
+						{ text: "Or frustration, if your limits weren't recognised.", feelings: ["frustrated"], needs: ["Consideration", "Support"] },
+					],
+
 					suggestedFeelings: [
-						// Capacity layer
-						"tired", // original
-						"exhausted", // original
-
-						// Protest layer
-						"frustrated", // original
-
-						// Added — depletion sadness
+						"tired",
+						"exhausted",
+						"frustrated",
 						"drained",
 					],
 
 					suggestedNeeds: ["Rest/sleep", "Rejuvenation", "Ease", "Consideration", "Support", "Balance"],
-
-					empathyGuesses: [
-						"That sounds draining… was it more than your system could sustain?",
-						"Maybe exhaustion, if rest never caught up.",
-						"Or frustration, if your limits weren’t recognised.",
-						"What would real recovery look like for you?",
-					],
 				},
 
 				{
@@ -1826,37 +1353,29 @@ export const StoryWords = {
 					storyHint:
 						"This word often carries both disrespect and overwhelm — as if your needs were pushed past.",
 
-					// ORIGINAL:
-					// Frustrated, overwhelmed
+					empathyGuesses: [
+						{ text: "What boundary would have protected you there?" },
+						{ text: "That sounds like your limits weren't honoured… did it feel like your needs were pushed aside?", needs: ["Respect", "Consideration"] },
+						{ text: "Maybe frustration or anger, if you felt overrun.", feelings: ["frustrated", "angry"], needs: ["Space", "Autonomy"] },
+						{ text: "And overwhelm, if it was too much too fast.", feelings: ["overwhelmed"] },
+						{ text: "Possibly hurt too — if something important felt disregarded.", feelings: ["hurt"], needs: ["Support"] },
+					],
+
 					suggestedFeelings: [
-						// Protest layer
-						"frustrated", // original
+						"frustrated",
 						"angry",
-
-						// Capacity layer
-						"overwhelmed", // original
-
-						// Hurt layer
+						"overwhelmed",
 						"hurt",
 					],
 
 					suggestedNeeds: ["Respect", "Consideration", "Space", "Autonomy", "Support"],
-
-					empathyGuesses: [
-						"That sounds like your limits weren’t honoured… did it feel like your needs were pushed aside?",
-						"Maybe frustration or anger, if you felt overrun.",
-						"And overwhelm, if it was too much too fast.",
-						"Possibly hurt too — if something important felt disregarded.",
-						"What boundary would have protected you there?",
-					],
 				},
 			],
 		},
 
 		// ──────────────────────────────────────────────────────────
 		// SELF-JUDGEMENT
-		// Theme: self-critical words — turned inward rather than
-		// describing what happened out there
+		// Theme: self-critical words — turned inward
 		// Emotional arc: shame → sadness → sometimes fear or despair
 		// ──────────────────────────────────────────────────────────
 
@@ -1875,12 +1394,9 @@ export const StoryWords = {
 						"This word often carries a painful story that your presence or needs don't matter — like your worth has disappeared or can't be felt right now.",
 
 					empathyGuesses: [
-						"That sounds so heavy… is there sadness here?",
-						"Maybe shame, if something in you is saying you should be different?",
-						"Or loneliness, if it feels like you don't matter right now?",
-						"Is there a longing to know your presence matters?",
-						"Maybe a need for self-acceptance, appreciation, or to matter?",
-						"Let's slow it gently… what feeling feels most alive right now?",
+						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
+						{ text: "That sounds so heavy… is there sadness here?", feelings: ["sad", "heavy"], needs: ["To matter", "Mattering to myself"] },
+						{ text: "Maybe shame or despair, if something in you is saying you should be different?", feelings: ["numb", "despairing"], needs: ["Self-acceptance", "Appreciation"] },
 					],
 
 					suggestedFeelings: ["sad", "heavy", "numb", "despairing"],
@@ -1897,12 +1413,10 @@ export const StoryWords = {
 						"This word often carries a sense that you're falling short — like something about you isn't measuring up.",
 
 					empathyGuesses: [
-						"That sounds uncomfortable… is there anxiety here?",
-						"Maybe shame, if part of you feels like you should be better?",
-						"Or discouragement, if it feels hard to meet expectations?",
-						"Is there a longing to feel capable or accepted as you are?",
-						"Maybe a need for competence, growth, or self-acceptance?",
-						"Let's slow it gently… what feeling feels most alive right now?",
+						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
+						{ text: "That sounds uncomfortable… is there anxiety here?", feelings: ["anxious"], needs: ["Competence", "Growth"] },
+						{ text: "Maybe shame, if part of you feels like you should be better?", feelings: ["ashamed"], needs: ["Self-acceptance"] },
+						{ text: "Or discouragement, if it feels hard to meet expectations?", feelings: ["discouraged"], needs: ["Support"] },
 					],
 
 					suggestedFeelings: ["anxious", "ashamed", "discouraged"],
@@ -1919,12 +1433,10 @@ export const StoryWords = {
 						"This word often carries a sense that something in you is damaged or beyond repair — like healing feels far away.",
 
 					empathyGuesses: [
-						"That sounds really painful… is there despair here?",
-						"Maybe grief, if something feels far from how you wish it could be?",
-						"Or shame, if you're judging yourself for struggling?",
-						"Is there a longing for healing or hope?",
-						"Maybe a need for acceptance, self-connection, or gentleness?",
-						"Let's slow it gently… what feeling feels most alive right now?",
+						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
+						{ text: "That sounds really painful… is there despair here?", feelings: ["despairing", "hopeless"], needs: ["Healing", "Hope"] },
+						{ text: "Maybe shame, if you're judging yourself for struggling?", feelings: ["ashamed"] },
+						{ text: "Is there a longing for healing or gentleness?", needs: ["Self-acceptance", "Self-connection"] },
 					],
 
 					suggestedFeelings: ["despairing", "ashamed", "hopeless"],
@@ -1941,12 +1453,10 @@ export const StoryWords = {
 						"This word often carries a sense that your efforts haven't led to the outcome you hoped for — and that that means something about you.",
 
 					empathyGuesses: [
-						"That sounds discouraging… is there disappointment here?",
-						"Maybe shame, if you're judging yourself for the outcome?",
-						"Or sadness, if something important didn't work out?",
-						"Is there a longing to feel effective or to make a difference?",
-						"Maybe a need for contribution, growth, or appreciation?",
-						"Let's slow it gently… what feeling feels most alive right now?",
+						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
+						{ text: "That sounds discouraging… is there disappointment here?", feelings: ["disappointed"], needs: ["Contribution", "Effectiveness"] },
+						{ text: "Maybe shame, if you're judging yourself for the outcome?", feelings: ["ashamed"] },
+						{ text: "Or discouragement, if something important didn't work out?", feelings: ["discouraged"], needs: ["Appreciation", "Growth"] },
 					],
 
 					suggestedFeelings: ["disappointed", "ashamed", "discouraged"],
@@ -1963,12 +1473,9 @@ export const StoryWords = {
 						"This word often carries a fear that love or acceptance isn't available to you — like connection might not be safe or possible.",
 
 					empathyGuesses: [
-						"That sounds really tender… is there sadness here?",
-						"Maybe fear, if connection doesn't feel secure?",
-						"Or shame, if something about you feels 'too much' or 'not enough'?",
-						"Is there a longing for love or belonging?",
-						"Maybe a need for acceptance, warmth, or connection?",
-						"Let's slow it gently… what feeling feels most alive right now?",
+						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
+						{ text: "That sounds really tender… is there sadness here?", feelings: ["sad", "lonely"], needs: ["Love", "Connection"] },
+						{ text: "Maybe fear, if connection doesn't feel secure?", feelings: ["afraid"], needs: ["Acceptance", "Belonging"] },
 					],
 
 					suggestedFeelings: ["sad", "afraid", "lonely"],
@@ -1985,12 +1492,9 @@ export const StoryWords = {
 						"This word often carries a fear that your needs, feelings, or intensity are more than others can welcome.",
 
 					empathyGuesses: [
-						"That sounds exposed… is there anxiety here?",
-						"Maybe shame, if part of you feels you should take up less space?",
-						"Or sadness, if you're longing to be welcomed as you are?",
-						"Is there a need for acceptance or belonging?",
-						"Maybe a longing to be seen without being pushed away?",
-						"Let's slow it gently… what feeling feels most alive right now?",
+						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
+						{ text: "That sounds exposed… is there anxiety here?", feelings: ["anxious"], needs: ["Acceptance", "Safety (emotional)"] },
+						{ text: "Maybe shame, if part of you feels you should take up less space?", feelings: ["ashamed"], needs: ["Belonging", "To be seen"] },
 					],
 
 					suggestedFeelings: ["anxious", "ashamed"],
@@ -2007,12 +1511,9 @@ export const StoryWords = {
 						"This word often carries self-blame around capacity — like part of you thinks you should be able to do more than you can right now.",
 
 					empathyGuesses: [
-						"That sounds harsh inside… is there discouragement here?",
-						"Maybe overwhelm, if things feel harder than they 'should'?",
-						"Or shame, if you're judging your capacity?",
-						"Is there a need for rest or support?",
-						"Maybe something in you wants understanding rather than pressure?",
-						"Let's slow it gently… what feeling feels most alive right now?",
+						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
+						{ text: "That sounds harsh inside… is there discouragement here?", feelings: ["discouraged"], needs: ["Support", "Aliveness"] },
+						{ text: "Maybe overwhelm, if things feel harder than they 'should'?", feelings: ["overwhelmed"], needs: ["Rest / sleep", "Ease"] },
 					],
 
 					suggestedFeelings: ["discouraged", "overwhelmed"],
@@ -2029,12 +1530,8 @@ export const StoryWords = {
 						"This word often carries a sense that you're not being noticed or recognised — like your presence isn't landing with others.",
 
 					empathyGuesses: [
-						"That sounds lonely… is there hurt here?",
-						"Maybe sadness, if you're not being seen?",
-						"Or longing, if you want to be recognised?",
-						"Is there a need to be seen or acknowledged?",
-						"Maybe a need for connection or to matter?",
-						"Let's slow it gently… what feeling feels most alive right now?",
+						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
+						{ text: "That sounds lonely… is there hurt here?", feelings: ["lonely", "hurt"], needs: ["To be seen", "To matter", "Connection", "Acknowledgement"] },
 					],
 
 					suggestedFeelings: ["lonely", "hurt"],
@@ -2051,12 +1548,8 @@ export const StoryWords = {
 						"This word often carries a fear that your presence isn't unique or valued — like you could easily be swapped out.",
 
 					empathyGuesses: [
-						"That sounds unsettling… is there insecurity here?",
-						"Maybe sadness, if you want to feel valued?",
-						"Or fear, if your place doesn't feel secure?",
-						"Is there a longing to know you matter?",
-						"Maybe a need for appreciation or belonging?",
-						"Let's slow it gently… what feeling feels most alive right now?",
+						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
+						{ text: "That sounds unsettling… is there insecurity here?", feelings: ["insecure", "sad"], needs: ["To matter", "Appreciation", "Contribution", "Belonging"] },
 					],
 
 					suggestedFeelings: ["insecure", "sad"],
@@ -2067,5 +1560,13 @@ export const StoryWords = {
 		},
 	},
 };
+
+export const storyWordSet = new Set(
+	Object.values(StoryWords.groups).flatMap((g) => g.items.map((i) => i.item)),
+);
+
+export const storyWordDataByName = Object.fromEntries(
+	Object.values(StoryWords.groups).flatMap((g) => g.items.map((i) => [i.item, i])),
+);
 
 export default StoryWords;

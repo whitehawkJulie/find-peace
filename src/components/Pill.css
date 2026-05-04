@@ -27,6 +27,7 @@
 	cursor: pointer;
 	transition: all 0.2s ease;
 	user-select: none;
+	-webkit-tap-highlight-color: transparent;
 	position: relative;
 	/* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.09); */
 }
@@ -50,18 +51,6 @@
 	font-weight: 600;
 }
 
-/* When regulation overlay is active, keep the regulation bg and use solid red border */
-.pill.reg-overlay.clicked {
-	background-color: #f1e3e3;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-.pill.reg-overlay.double-clicked {
-	background-color: #f1d1d1;
-	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-	font-weight: 600;
-}
-
 /* strongly unmet needs */
 .pill.double-clicked.need,
 .step-needs .pill.double-clicked {
@@ -77,14 +66,21 @@
 	box-shadow: 0 2px 6px rgba(80, 170, 80, 0.3);
 }
 
-/* Expandable hint (+) for story words */
+/* Story word pills — dashed border, light green bg */
+.pill:has(.pill-expand-hint) {
+	border-style: dashed;
+	border-color: #aaa;
+	background-color: #eef0eb;
+}
+
+/* Expandable hint (→) for story words */
 .pill-expand-hint {
 	display: inline-block;
-	margin-left: 0.2rem;
-	font-size: 0.7rem;
-	font-weight: 700;
-	color: #999;
-	vertical-align: super;
+	margin-left: 0.25rem;
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: #7a9a6e;
+	vertical-align: middle;
 	line-height: 1;
 }
 
@@ -93,13 +89,8 @@
 	display: none;
 }
 
-/* Hide the badge when regulation overlay is active — body state colours already communicate enough */
-.pill.reg-overlay .pill-strong-badge {
-	display: none;
-}
-
 .pill:hover .pill-expand-hint {
-	color: #666;
+	color: #4a7a3e;
 }
 
 /* Chevron indicator (›) for murky feelings that have been selected */
@@ -144,38 +135,6 @@
 
 /* ========== TOOLTIP STYLING ========== */
 
-/* Desktop tooltip (CSS, hover-only devices) */
-.pill[data-tooltip]::after {
-	content: attr(data-tooltip);
-	position: absolute;
-	bottom: calc(100% + 6px);
-	left: 50%;
-	transform: translateX(-50%);
-	background-color: #fff;
-	color: #555;
-	padding: 6px 10px;
-	border-radius: 6px;
-	font-size: 0.8rem;
-	max-width: 220px;
-	width: max-content;
-	white-space: pre-line;
-	text-align: center;
-	pointer-events: none;
-	opacity: 0;
-	transition: opacity 0.3s ease;
-	z-index: 999;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-	line-height: 1.35;
-}
-
-/* Only show CSS tooltip on devices with hover (mouse) */
-@media (hover: hover) {
-	.pill[data-tooltip]:hover::after {
-		opacity: 1;
-		transition-delay: 0.4s;
-	}
-}
-
 /* Mobile tooltip (React-rendered, long press) */
 .pill-tooltip-touch {
 	position: absolute;
@@ -194,5 +153,24 @@
 	pointer-events: none;
 	z-index: 1000;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	line-height: 1.35;
+}
+
+/* Desktop tooltip (React-rendered, hover — position: fixed so it never clips viewport edge) */
+.pill-tooltip-desktop {
+	position: fixed;
+	transform: translate(-50%, -100%);
+	background-color: #fff;
+	color: #555;
+	padding: 6px 10px;
+	border-radius: 6px;
+	font-size: 0.8rem;
+	max-width: 220px;
+	width: max-content;
+	white-space: pre-line;
+	text-align: center;
+	pointer-events: none;
+	z-index: 9999;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 	line-height: 1.35;
 }

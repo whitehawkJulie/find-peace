@@ -128,3 +128,33 @@
 	color: #7a9e82;
 	margin: 0.2rem 0 0.1rem;
 }
+
+/* ===== Story Word summary entries ===== */
+
+.summary-story-word {
+	margin-bottom: 1rem;
+}
+
+.summary-story-word:last-child {
+	margin-bottom: 0;
+}
+
+.summary-story-word-name {
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	margin: 0 0 0.2rem;
+}
+
+.summary-story-word p {
+	margin: 0.1rem 0;
+	font-size: 0.92rem;
+}
+
+.summary-and-also-label {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: #6a8a7e;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin: 0.6rem 0 0.2rem;
+}

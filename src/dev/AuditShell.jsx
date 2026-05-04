@@ -13,7 +13,7 @@ const PAGES = [
 	{
 		id: "feelings",
 		label: "Feelings",
-		description: "All feelings and story words with type, regulation, tier, and extras",
+		description: "All feelings and story words with type, tier, and extras",
 		emoji: "💛",
 	},
 ];

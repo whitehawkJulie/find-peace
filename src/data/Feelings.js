@@ -52,7 +52,6 @@ export const Feelings = {
 
 		Afraid: {
 			ui: { heading: "Afraid", order: 10 },
-			regulationType: "threat",
 
 			items: [
 				// ORDERING NOTE:
@@ -113,7 +112,6 @@ export const Feelings = {
 				// --- Lower-intensity embodied vigilance ---
 				{
 					item: "wary",
-					regulationType: ["threat", "cognitive"],
 					description: "cautious and alert",
 					type: "emotion",
 					feelingType: "fear",
@@ -130,7 +128,6 @@ export const Feelings = {
 				},
 				{
 					item: "worried",
-					regulationType: ["threat", "cognitive"],
 					description: "concerned about outcome",
 					type: "cognitive",
 					feelingType: "fear",
@@ -155,7 +152,6 @@ export const Feelings = {
 				// --- Story-based distrust interpretations (fear filtered through cognition) ---
 				{
 					item: "mistrustful",
-					regulationType: ["threat", "cognitive"],
 					description: "finding it hard to trust",
 					type: "cognitive",
 					feelingType: "fear",
@@ -164,7 +160,6 @@ export const Feelings = {
 				},
 				{
 					item: "suspicious",
-					regulationType: ["threat", "cognitive"],
 					description: "doubting intentions",
 					type: "cognitive",
 					feelingType: "fear",
@@ -175,7 +170,6 @@ export const Feelings = {
 		},
 		Tense: {
 			ui: { heading: "Tense", order: 20 },
-			regulationType: "activated",
 
 			items: [
 				// ORDERING NOTE:
@@ -222,7 +216,6 @@ export const Feelings = {
 				// --- Escalated overwhelm / stress activation ---
 				{
 					item: "overwhelmed",
-					regulationType: ["threat", "collapsed"],
 
 					description: "too much at once",
 					type: "activation",
@@ -245,7 +238,6 @@ export const Feelings = {
 				},
 				{
 					item: "distressed",
-					regulationType: ["threat", "contracted"],
 
 					description: "emotionally strained",
 					type: "activation",
@@ -254,7 +246,6 @@ export const Feelings = {
 				},
 				{
 					item: "distraught",
-					regulationType: ["threat", "contracted"],
 					description: "deeply upset",
 					type: "activation",
 					feelingType: "fear",
@@ -264,7 +255,6 @@ export const Feelings = {
 				// --- Irritable crossover states (tension tipping toward anger) ---
 				{
 					item: "cranky",
-					regulationType: ["activated", "collapsed"],
 					description: "irritable + tired",
 					type: "activation",
 					feelingType: "fear",
@@ -288,7 +278,6 @@ export const Feelings = {
 				},
 				{
 					item: "anxious",
-					regulationType: ["threat", "cognitive"],
 					description: "worried and uneasy",
 					type: "cognitive",
 					feelingType: "fear",
@@ -333,7 +322,6 @@ export const Feelings = {
 		},
 		Disquiet: {
 			ui: { heading: "Disquiet", order: 30 },
-			regulationType: ["threat", "activated", "cognitive"],
 			items: [
 				// ORDERING NOTE:
 				// Disquiet group ordered by:
@@ -353,14 +341,12 @@ export const Feelings = {
 				{
 					item: "uneasy",
 					description: "slightly unsettled",
-					regulationType: ["threat"],
 					type: "activation",
 					feelingType: "fear",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "uncomfortable",
-					regulationType: ["threat"],
 					description: "not at ease",
 					type: "activation",
 					feelingType: "fear",
@@ -369,7 +355,6 @@ export const Feelings = {
 				{
 					item: "troubled",
 					description: "quietly concerned",
-					regulationType: ["threat", "cognitive"],
 
 					type: "primary",
 					feelingType: "fear",
@@ -379,7 +364,6 @@ export const Feelings = {
 				// --- Activated disturbance ---
 				{
 					item: "upset",
-					regulationType: ["activated", "cognitive"],
 					description: "emotionally unsettled",
 					type: "primary",
 					feelingType: "fear",
@@ -387,7 +371,6 @@ export const Feelings = {
 				},
 				{
 					item: "perturbed",
-					regulationType: ["activated"],
 					description: "disturbed or agitated",
 					type: "activation",
 					feelingType: "fear",
@@ -395,7 +378,6 @@ export const Feelings = {
 				},
 				{
 					item: "restless",
-					regulationType: ["activated"],
 					description: "unable to settle",
 					type: "activation",
 					feelingType: "fear",
@@ -403,7 +385,6 @@ export const Feelings = {
 				},
 				{
 					item: "rattled",
-					regulationType: ["activated", "threat"],
 					description: "shaken and unsettled",
 					type: "activation",
 					feelingType: "fear",
@@ -413,7 +394,6 @@ export const Feelings = {
 				// --- Alarm / nervous system spike ---
 				{
 					item: "alarmed",
-					regulationType: ["threat", "activated"],
 					description: "suddenly afraid or concerned",
 					type: "activation",
 					feelingType: "fear",
@@ -421,7 +401,6 @@ export const Feelings = {
 				},
 				{
 					item: "startled",
-					regulationType: ["threat", "activated"],
 					description: "suddenly shocked",
 					type: "activation",
 					feelingType: "fear",
@@ -429,7 +408,6 @@ export const Feelings = {
 				},
 				{
 					item: "shocked",
-					regulationType: ["threat", "activated"],
 					description: "deeply startled",
 					type: "activation",
 					feelingType: "fear",
@@ -439,7 +417,6 @@ export const Feelings = {
 				// --- Cognitive overlay / interpretive disturbance ---
 				{
 					item: "disconcerted",
-					regulationType: ["cognitive", "threat"],
 					description: "thrown off by something unexpected",
 					type: "cognitive",
 					feelingType: "fear",
@@ -448,7 +425,6 @@ export const Feelings = {
 				},
 				{
 					item: "disturbed",
-					regulationType: ["threat", "activated"],
 					description: "emotionally unsettled by something",
 					type: "cognitive",
 					feelingType: "fear",
@@ -456,7 +432,6 @@ export const Feelings = {
 				},
 				{
 					item: "discombobulated",
-					regulationType: "cognitive",
 					description: "confused and unsettled",
 					type: "cognitive",
 					feelingType: "fear",
@@ -464,7 +439,6 @@ export const Feelings = {
 				},
 				{
 					item: "turmoil",
-					regulationType: ["activated", "threat"],
 					description: "inner chaos or disturbance",
 					type: "primary",
 					feelingType: "fear",
@@ -472,7 +446,6 @@ export const Feelings = {
 				},
 				{
 					item: "turbulent",
-					regulationType: ["activated"],
 					description: "emotionally stormy",
 					type: "primary",
 					feelingType: "fear",
@@ -482,7 +455,6 @@ export const Feelings = {
 		},
 		Annoyed: {
 			ui: { heading: "Annoyed", order: 40 },
-			regulationType: "activated",
 
 			items: [
 				// ORDERING NOTE:
@@ -573,7 +545,6 @@ export const Feelings = {
 		},
 		Angry: {
 			ui: { heading: "Angry", order: 50 },
-			regulationType: "activated",
 			items: [
 				// ORDERING NOTE:
 				// Angry group ordered by:
@@ -701,7 +672,6 @@ export const Feelings = {
 		},
 		Aversion: {
 			ui: { heading: "Aversion", order: 60 },
-			regulationType: "activated",
 
 			items: [
 				// ORDERING NOTE:
@@ -793,7 +763,6 @@ export const Feelings = {
 		},
 		Vulnerable: {
 			ui: { heading: "Vulnerable", order: 70 },
-			regulationType: "contracted",
 
 			items: [
 				// ORDERING NOTE:
@@ -886,7 +855,6 @@ export const Feelings = {
 		},
 		Embarrassed: {
 			ui: { heading: "Embarrassed", order: 80 },
-			regulationType: ["contracted", "cognitive"],
 
 			items: [
 				// ORDERING NOTE:
@@ -914,7 +882,6 @@ export const Feelings = {
 				},
 				{
 					item: "self-conscious",
-					regulationType: ["contracted", "cognitive"],
 					description: "aware of how one appears to others",
 					type: "cognitive",
 					feelingType: "shame",
@@ -940,7 +907,6 @@ export const Feelings = {
 				// --- Moral/self-evaluative layer ---
 				{
 					item: "ashamed",
-					regulationType: ["contracted", "cognitive"],
 					description: "believing something is wrong with oneself",
 					type: "cognitive",
 					feelingType: "shame",
@@ -994,7 +960,6 @@ export const Feelings = {
 				{
 					item: "guilty",
 					description: "believing one has done something wrong",
-					regulationType: ["contracted", "cognitive"],
 					type: "cognitive",
 					feelingType: "shame",
 					interpretationHint: "Often connected to thoughts like: 'I shouldn’t have done that.'",
@@ -1046,7 +1011,6 @@ export const Feelings = {
 		},
 		Sad: {
 			ui: { heading: "Sad", order: 90 },
-			regulationType: "collapsed",
 
 			items: [
 				// ORDERING NOTE:
@@ -1096,7 +1060,6 @@ export const Feelings = {
 				// --- Disappointment / loss of expectation ---
 				{
 					item: "disappointed",
-					regulationType: ["contracted", "cognitive"],
 
 					description: "sad that expectations weren’t met",
 					type: "cognitive",
@@ -1143,7 +1106,6 @@ export const Feelings = {
 
 				{
 					item: "miserable",
-					regulationType: ["collapsed", "contracted"],
 					description: "deeply unhappy",
 					type: "primary",
 					feelingType: "distress",
@@ -1158,7 +1120,6 @@ export const Feelings = {
 				},
 				{
 					item: "despair",
-					regulationType: ["collapsed", "contracted"],
 					description: "complete loss of hope",
 					type: "cognitive",
 					feelingType: "distress",
@@ -1166,7 +1127,6 @@ export const Feelings = {
 				},
 				{
 					item: "hopeless",
-					regulationType: ["collapsed", "contracted"],
 					description: "believing nothing will improve",
 					type: "cognitive",
 					feelingType: "distress",
@@ -1175,7 +1135,6 @@ export const Feelings = {
 				},
 				{
 					item: "depressed",
-					regulationType: ["collapsed", "cognitive"],
 					description: "persistent low mood",
 					type: "cognitive",
 					feelingType: "distress",
@@ -1204,7 +1163,6 @@ export const Feelings = {
 		},
 		Pain: {
 			ui: { heading: "Pain", order: 100 },
-			regulationType: "contracted",
 
 			items: [
 				// ORDERING NOTE:
@@ -1227,7 +1185,6 @@ export const Feelings = {
 				// --- Accessible hurt ---
 				{
 					item: "hurt",
-					regulationType: "contracted",
 
 					description: "emotionally wounded",
 					type: "primary",
@@ -1238,7 +1195,6 @@ export const Feelings = {
 				// --- Relational ache ---
 				{
 					item: "lonely",
-					regulationType: "contracted",
 
 					description: "feeling alone or isolated",
 					type: "primary",
@@ -1279,7 +1235,6 @@ export const Feelings = {
 				// --- Cognitive overlay (self-evaluative pain) ---
 				{
 					item: "regretful",
-					regulationType: ["contracted", "cognitive"],
 					description: "wishing something had been different",
 					type: "cognitive",
 					feelingType: "distress",
@@ -1287,7 +1242,6 @@ export const Feelings = {
 				},
 				{
 					item: "remorseful",
-					regulationType: ["contracted", "cognitive"],
 					description: "deep regret for causing harm",
 					type: "cognitive",
 					feelingType: "distress",
@@ -1297,7 +1251,6 @@ export const Feelings = {
 				// --- Intensity escalation ---
 				{
 					item: "devastated",
-					regulationType: ["collapsed", "contracted"],
 					description: "overwhelmed by grief",
 					type: "primary",
 					feelingType: "distress",
@@ -1314,7 +1267,6 @@ export const Feelings = {
 		},
 		Disconnected: {
 			ui: { heading: "Disconnected", order: 110 },
-			regulationType: "collapsed",
 
 			items: [
 				// ORDERING NOTE:
@@ -1419,7 +1371,6 @@ export const Feelings = {
 		},
 		Fatigue: {
 			ui: { heading: "Fatigue", order: 120 },
-			regulationType: "collapsed",
 
 			items: [
 				// ORDERING NOTE:
@@ -1517,7 +1468,6 @@ export const Feelings = {
 		},
 		Confused: {
 			ui: { heading: "Confused", order: 130 },
-			regulationType: ["cognitive", "activated"],
 
 			items: [
 				// ORDERING NOTE:
@@ -1623,7 +1573,6 @@ export const Feelings = {
 		},
 		Yearning: {
 			ui: { heading: "Yearning", order: 140 },
-			regulationType: "contracted",
 
 			items: [
 				// ORDERING NOTE:
@@ -1659,7 +1608,6 @@ export const Feelings = {
 				// --- Softer reflective longing ---
 				{
 					item: "wistful",
-					regulationType: ["contracted", "cognitive"],
 					description: "gentle sadness for something desired",
 					type: "primary",
 					feelingType: "distress",
@@ -1676,7 +1624,6 @@ export const Feelings = {
 				// --- Reflective comparison with the past ---
 				{
 					item: "nostalgic",
-					regulationType: ["settled", "cognitive"],
 					description: "longing for the past",
 					type: "cognitive",
 					feelingType: "distress",
@@ -1686,7 +1633,6 @@ export const Feelings = {
 				// --- Comparison overlays ---
 				{
 					item: "envious",
-					regulationType: ["activated", "cognitive"],
 					description: "wanting what someone else has",
 					type: "cognitive",
 					feelingType: "distress",
@@ -1694,7 +1640,6 @@ export const Feelings = {
 				},
 				{
 					item: "jealous",
-					regulationType: ["activated", "cognitive"],
 					description: "fear of losing something valued",
 					type: "cognitive",
 					feelingType: "distress",

@@ -207,7 +207,10 @@ const UnpackNeeds = () => {
 				The more you connect with the lived experience of a need, the more power you have to actually get it
 				met.
 			</p>
-			<p>Click on a need to explore more deeply, starting with the one that's loudest for you.</p>
+			<p>
+				Click on any of these need to explore more deeply. You might like to explore at least the one that's
+				loudest for you.
+			</p>
 			<p className="cloud-label">Your needs</p>
 			<div className="pill-grid cloud needs-selected-pills">
 				{unexploredNeeds.map((name) => (
@@ -337,6 +340,7 @@ const UnpackNeeds = () => {
 										)}
 										<textarea
 											className="unpacking-textarea"
+											data-field-id="unpack-need-core-specific"
 											rows={4}
 											value={currentData.coreSpecific || ""}
 											onChange={(e) => updateField("coreSpecific", e.target.value)}
@@ -350,6 +354,7 @@ const UnpackNeeds = () => {
 									</p>
 									<textarea
 										className="unpacking-textarea"
+										data-field-id="unpack-need-unmet-feeling"
 										rows={3}
 										value={currentData.unmetFeeling || ""}
 										onChange={(e) => updateField("unmetFeeling", e.target.value)}
@@ -366,6 +371,7 @@ const UnpackNeeds = () => {
 									</p>
 									<textarea
 										className="unpacking-textarea"
+										data-field-id="unpack-need-met-feeling"
 										rows={3}
 										value={currentData.metFeeling || ""}
 										onChange={(e) => updateField("metFeeling", e.target.value)}
@@ -379,6 +385,7 @@ const UnpackNeeds = () => {
 									</p>
 									<textarea
 										className="unpacking-textarea"
+										data-field-id="unpack-need-imagined-met"
 										rows={3}
 										value={currentData.imaginedMet || ""}
 										onChange={(e) => updateField("imaginedMet", e.target.value)}
@@ -391,6 +398,7 @@ const UnpackNeeds = () => {
 									</p>
 									<textarea
 										className="unpacking-textarea"
+										data-field-id="unpack-need-met-circumstances"
 										rows={3}
 										value={currentData.metCircumstances || ""}
 										onChange={(e) => updateField("metCircumstances", e.target.value)}
@@ -406,6 +414,7 @@ const UnpackNeeds = () => {
 										<p className="unpacking-prompt-text">{enoughQuestion}</p>
 										<textarea
 											className="unpacking-textarea"
+											data-field-id="unpack-need-enough-response"
 											rows={3}
 											value={currentData.enoughResponse || ""}
 											onChange={(e) => updateField("enoughResponse", e.target.value)}
@@ -420,6 +429,7 @@ const UnpackNeeds = () => {
 									</p>
 									<textarea
 										className="unpacking-textarea"
+										data-field-id="unpack-need-often-unmet"
 										rows={3}
 										value={currentData.oftenUnmet || ""}
 										onChange={(e) => updateField("oftenUnmet", e.target.value)}
@@ -433,6 +443,7 @@ const UnpackNeeds = () => {
 									</p>
 									<textarea
 										className="unpacking-textarea"
+										data-field-id="unpack-need-where-to-meet"
 										rows={3}
 										value={currentData.whereToMeet || ""}
 										onChange={(e) => updateField("whereToMeet", e.target.value)}

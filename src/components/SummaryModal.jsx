@@ -5,6 +5,8 @@ import { trackEvent, currentPage } from "../analytics/analytics";
 import SummaryContent from "./SummaryContent";
 import { filterByState } from "../utils/renderHelpers";
 import { feelingTypes } from "../data/FeelingTypes";
+import { feelingsMetSet } from "../data/FeelingsMet";
+import { storyWordSet } from "../data/StoryWords";
 import "./SummaryModal.css";
 
 const SummaryModal = () => {
@@ -86,7 +88,11 @@ const SummaryModal = () => {
 			observation?.refined?.trim() ||
 			[observation?.moment, observation?.actions].filter((s) => s?.trim()).join("\n");
 
-		const allFeelings = [...filterByState(feelings, "clicked"), ...filterByState(feelings, "double-clicked")];
+		const allFeelings = [...filterByState(feelings, "clicked"), ...filterByState(feelings, "double-clicked")].filter(
+			(f) => !storyWordSet.has(f),
+		);
+		const unmetFeelings = allFeelings.filter((f) => !feelingsMetSet.has(f));
+		const metFeelings = allFeelings.filter((f) => feelingsMetSet.has(f));
 		const metNeeds = filterByState(needs, "double-clicked");
 		const unmetNeeds = filterByState(needs, "clicked");
 		const exploredNeeds = Object.entries(needExplorations).filter(([, v]) => v.completed);
@@ -119,7 +125,8 @@ const SummaryModal = () => {
 			if (bodySensations.custom?.trim()) parts.push(bodySensations.custom.trim());
 			lines.push(`Body sensations: ${parts.join("; ")}`, "");
 		}
-		if (allFeelings.length > 0) lines.push(`Feelings: ${allFeelings.join(", ")}`, "");
+		if (unmetFeelings.length > 0) lines.push(`Feelings: ${unmetFeelings.join(", ")}`, "");
+		if (metFeelings.length > 0) lines.push(`And also feeling: ${metFeelings.join(", ")}`, "");
 		if (hasFeelingsExplore) {
 			lines.push("Feeling exploration:");
 			for (const [, typeData] of Object.entries(feelingTypes)) {

@@ -3,11 +3,15 @@ import { trackEvent, currentPage } from "../analytics/analytics";
 import { bodySensationGroups } from "../data/BodySensationsData";
 import AudioPlayer from "./AudioPlayer";
 import BodyScanAudio from "../assets/BodyScan.mp3";
+import { useScrollIndicator } from "../hooks/useScrollIndicator";
 import "./BodySensationsPopup.css";
+import "./popup-scroll.css";
 
 const BodySensationsPopup = ({ selected, onToggle, onCustomChange, customText, onClose }) => {
 	const selectedSet = new Set(selected);
 	const [wordsOpen, setWordsOpen] = useState(false);
+	const bodyRef = useRef(null);
+	const hasMoreBelow = useScrollIndicator(bodyRef);
 	const openAt = useRef(Date.now());
 	useEffect(() => {
 		trackEvent("ui_open", { type: "modal", name: "body-sensations", page_name: currentPage });
@@ -25,7 +29,8 @@ const BodySensationsPopup = ({ selected, onToggle, onCustomChange, customText, o
 					<button className="body-sens-close" onClick={onClose} aria-label="Close">×</button>
 				</div>
 
-				<div className="body-sens-body">
+				<div className="popup-scroll-wrapper">
+				<div className="body-sens-body" ref={bodyRef}>
 				<p>
 					<strong>Take a moment and notice what your body is doing right now.</strong>
 
@@ -111,7 +116,17 @@ const BodySensationsPopup = ({ selected, onToggle, onCustomChange, customText, o
 				<button className="body-sens-done" onClick={onClose}>
 					Done
 				</button>
-				</div>
+				</div>{/* end body-sens-body */}
+				<div className="popup-scroll-fade" aria-hidden="true" style={{ opacity: hasMoreBelow ? 1 : 0 }} />
+				<button
+					className="popup-scroll-label"
+					style={{ opacity: hasMoreBelow ? 1 : 0, pointerEvents: hasMoreBelow ? "auto" : "none" }}
+					onClick={() => bodyRef.current?.scrollBy({ top: bodyRef.current.clientHeight * 0.75, behavior: "smooth" })}
+					tabIndex={hasMoreBelow ? 0 : -1}
+					aria-label="Scroll down for more">
+					scroll for more ↓
+				</button>
+				</div>{/* end popup-scroll-wrapper */}
 			</div>
 		</div>
 	);

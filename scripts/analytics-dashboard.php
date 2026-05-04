@@ -103,6 +103,7 @@ $page_views        = [];
 $page_active_ms    = [];
 $help_opens        = [];   // name → ['count'=>n, 'pages'=>[page=>n]]
 $ui_opens          = [];   // name → ['count'=>n, 'pages'=>[page=>n]]
+$ui_times          = [];   // name → [total_ms, count]
 $section_opens     = [];
 $field_fills       = [];
 $needs_unpacked    = [];
@@ -184,6 +185,16 @@ foreach ($events as $ev) {
             }
             if ($type === 'section' && strpos($uname, 'feelings-') === 0)
                 $section_opens[$uname] = ($section_opens[$uname] ?? 0) + 1;
+            break;
+
+        case 'ui_close':
+            $uname = $ev['name'] ?? '';
+            $tms   = (int)($ev['time_open_ms'] ?? 0);
+            if ($uname && $tms > 0) {
+                if (!isset($ui_times[$uname])) $ui_times[$uname] = [0, 0];
+                $ui_times[$uname][0] += $tms;
+                $ui_times[$uname][1]++;
+            }
             break;
 
         case 'field_interaction':
@@ -284,18 +295,82 @@ arsort($all_feelings_str);
 arsort($all_needs_sel);
 arsort($all_needs_str);
 
+// ── Page order ────────────────────────────────────────────────────────────────
+$page_order = [
+    'Intro',
+    'What was the moment?',
+    "Let's get clear",
+    'What am I feeling?',
+    'Explore Feelings',
+    'What matters to me?',
+    'Explore what matters',
+    'Their View',
+    "Notice what's changed",
+    'Conversations',
+    'Review',
+];
+function page_pos(string $pg, array $order): int {
+    $p = array_search($pg, $order, true);
+    return $p !== false ? (int)$p : count($order);
+}
+
+// Overlay/help-topic → [associated page, display label]
+// '' page = global (shown after all pages)
+$overlay_map = [
+    'clarify-feelings' => ["What am I feeling?",   'Clarify feelings'],
+    'body-sensations'  => ["What am I feeling?",   'Body sensations'],
+    'first-feeling'    => ['Explore Feelings',     'Help: first feeling'],
+    'threat-mode'      => ['Explore Feelings',     'Help: threat mode'],
+    'needs'            => ['What matters to me?',  'Help: needs'],
+    'explore-need'     => ['Explore what matters', 'Explore need'],
+    'mourning'         => ['Explore what matters', 'Help: mourning'],
+    'making-guesses'   => ['Their View',           'Help: making guesses'],
+    'this-process'     => ['',                     'Help: this process'],
+    'side-menu'        => ['',                     'Side menu'],
+    'summary'          => ['',                     'Summary'],
+];
+
+// Avg time per overlay from ui_close events
+$ui_avg_time = [];
+foreach ($ui_times as $uname => [$total, $count]) {
+    if ($count > 0) $ui_avg_time[$uname] = round($total / $count / 1000, 1);
+}
+
 $avg_time = [];
 foreach ($page_active_ms as $page => [$total, $count]) {
     $avg_time[$page] = $count > 0 ? round($total / $count / 1000, 1) : 0;
 }
-arsort($avg_time);
 
 $drop_off = [];
 foreach ($sessions as $s) {
     $lp = $s['last_page'] ?? null;
     if ($lp) $drop_off[$lp] = ($drop_off[$lp] ?? 0) + 1;
 }
-arsort($drop_off);
+
+// Sort all page-keyed arrays by app order
+uksort($page_action_counts, fn($a,$b) => page_pos($a,$page_order) <=> page_pos($b,$page_order));
+uksort($drop_off,           fn($a,$b) => page_pos($a,$page_order) <=> page_pos($b,$page_order));
+uksort($avg_time,           fn($a,$b) => page_pos($a,$page_order) <=> page_pos($b,$page_order));
+
+// Build avg-time display rows: page rows + indented overlay rows under their page
+$avg_time_rows = [];
+$global_overlays_added = false;
+foreach ($page_order as $pg) {
+    $has_page = isset($avg_time[$pg]) || isset($page_action_counts[$pg]);
+    if (!$has_page) continue;
+    $avg_time_rows[] = ['type' => 'page', 'name' => $pg, 'sec' => $avg_time[$pg] ?? null];
+    foreach ($overlay_map as $oname => [$opage, $olabel]) {
+        if ($opage === $pg && isset($ui_avg_time[$oname])) {
+            $avg_time_rows[] = ['type' => 'overlay', 'name' => $oname, 'label' => $olabel, 'sec' => $ui_avg_time[$oname]];
+        }
+    }
+}
+// Global overlays after all pages
+foreach ($overlay_map as $oname => [$opage, $olabel]) {
+    if ($opage === '' && isset($ui_avg_time[$oname])) {
+        $avg_time_rows[] = ['type' => 'overlay-global', 'name' => $oname, 'label' => $olabel, 'sec' => $ui_avg_time[$oname]];
+    }
+}
 
 $bucket_order = ['none', '1–3', '4–7', '8+'];
 $f_hist = []; $n_hist = [];
@@ -303,7 +378,47 @@ foreach (['1–3', '4–7', '8+'] as $b) { $f_hist[$b] = $feelings_counts[$b] ??
 
 $section_counts = [];
 foreach (['feelings-fear','feelings-anger','feelings-distress'] as $s) $section_counts[$s] = $section_opens[$s] ?? 0;
-arsort($field_fills);
+// Order fields by their position in the app flow (prefix match for dynamic IDs)
+$field_order = [
+    'jackal-talk',
+    'observation-refined',
+    'feelings-explore-',          // UnpackFeelings dynamic prompts (prefix)
+    'clarify-feelings',
+    'body-sensations-notes',
+    'unpack-need-core-specific',
+    'unpack-need-unmet-feeling',
+    'unpack-need-met-feeling',
+    'unpack-need-imagined-met',
+    'unpack-need-met-circumstances',
+    'unpack-need-enough-response',
+    'unpack-need-often-unmet',
+    'unpack-need-where-to-meet',
+    'making-guesses',
+    'changed-before',
+    'changed-differently',
+    'request-of-self',
+    'request-of-other',
+    'simple-request',
+    'collab-step1',
+    'collab-step2',
+    'collab-step2a',
+    'collab-step3',
+    'collab-step4',
+    'collab-step5',
+    'collab-step6',
+    'collab-final-script',
+    'strategy-discovery',
+    'review-reflection',
+    'help-search',
+    'passphrase',
+];
+function field_sort_pos(string $fid, array $order): int {
+    foreach ($order as $i => $pat) {
+        if (str_starts_with($fid, $pat)) return $i;
+    }
+    return count($order);
+}
+uksort($field_fills, fn($a, $b) => field_sort_pos($a, $field_order) <=> field_sort_pos($b, $field_order));
 
 $total_sessions = count($sessions);
 
@@ -377,16 +492,62 @@ function fmt_pages(array $pages): string {
     return implode(', ', $parts);
 }
 
-// ── Overlay / help topic prep (used in cards 4a & 4b) ────────────────────────
-$known_modals = ['body-sensations', 'summary', 'clarify-feelings', 'explore-need', 'side-menu'];
-// Only topics with active:true in StandaloneHelpTopics.jsx
+// ── Overlay / help topic prep (cards 4a & 4b) — ordered by app page ──────────
+// Help topics in page order (active:true in StandaloneHelpTopics.jsx)
 $known_help_topics = [
-    'this-process','privacy','mourning','needs','stay-with-it',
-    'feedback','threat-mode','first-feeling','story-words','feelings',
-    'observation','nervous','collab-understand-them','collab-check-willingness',
+    // Intro
+    'this-process','about','privacy',
+    // What was the moment?
+    'story-words',
+    // Let's get clear
+    'observation',
+    // What am I feeling?
+    'feelings',
+    // Explore Feelings
+    'first-feeling','stay-with-it','threat-mode','nervous',
+    // What matters to me?
+    'needs',
+    // Explore what matters
+    'mourning','not-ready','finding-strategies',
+    // Their View
+    'making-guesses',
+    // Conversations
+    'collab-understand-them','collab-check-willingness',
     'collab-share-experience','collab-check-understood','collab-way-forward',
-    'making-guesses','finding-strategies','about','not-ready',
-    'page-help', // auto-generated fallback when no specific topic is set
+    // Review
+    'feedback',
+    // Meta
+    'page-help',
+];
+// Page-group labels for help topics display
+$help_topic_page = [
+    'this-process' => 'Intro', 'about' => 'Intro', 'privacy' => 'Intro',
+    'story-words' => 'What was the moment?',
+    'observation' => "Let's get clear",
+    'feelings' => 'What am I feeling?',
+    'first-feeling' => 'Explore Feelings', 'stay-with-it' => 'Explore Feelings',
+    'threat-mode' => 'Explore Feelings', 'nervous' => 'Explore Feelings',
+    'needs' => 'What matters to me?',
+    'mourning' => 'Explore what matters', 'not-ready' => 'Explore what matters',
+    'finding-strategies' => 'Explore what matters',
+    'making-guesses' => 'Their View',
+    'collab-understand-them' => 'Conversations', 'collab-check-willingness' => 'Conversations',
+    'collab-share-experience' => 'Conversations', 'collab-check-understood' => 'Conversations',
+    'collab-way-forward' => 'Conversations',
+    'feedback' => 'Review',
+    'page-help' => '',
+];
+
+// UI overlays in page order
+$known_modals = [
+    'clarify-feelings','body-sensations',  // What am I feeling?
+    'explore-need',                         // Explore what matters
+    'side-menu','summary',                  // global
+];
+$modal_page = [
+    'clarify-feelings' => 'What am I feeling?', 'body-sensations' => 'What am I feeling?',
+    'explore-need' => 'Explore what matters',
+    'side-menu' => '', 'summary' => '',
 ];
 
 $help_opens_full   = $help_opens;
@@ -402,10 +563,9 @@ foreach ($ui_opens as $uname => $udata) {
         $ui_opens_filtered[$uname] = $udata;
     }
 }
-uasort($help_opens_full,   function($a, $b) { return (isset($b['count']) ? $b['count'] : 0) - (isset($a['count']) ? $a['count'] : 0); });
-uasort($ui_opens_filtered, function($a, $b) { return (isset($b['count']) ? $b['count'] : 0) - (isset($a['count']) ? $a['count'] : 0); });
-$_hc = array_values(array_map(function($v) { return isset($v['count']) ? (int)$v['count'] : 0; }, $help_opens_full));
-$_uc = array_values(array_map(function($v) { return isset($v['count']) ? (int)$v['count'] : 0; }, $ui_opens_filtered));
+// Keep page order (already defined above); compute max for bar scaling
+$_hc = array_values(array_map(fn($v) => (int)($v['count'] ?? 0), $help_opens_full));
+$_uc = array_values(array_map(fn($v) => (int)($v['count'] ?? 0), $ui_opens_filtered));
 $help_max = max(array_merge([1], $_hc));
 $ui_max   = max(array_merge([1], $_uc));
 ?><!doctype html>
@@ -539,16 +699,28 @@ details > summary::-webkit-details-marker { display: none; }
   <?php endforeach; endif; ?>
 </div>
 
-<!-- 3. Time on page -->
+<!-- 3. Time on page + indented overlay times -->
 <div class="card">
-  <h2>⏱ Avg active time per page (seconds)</h2>
-  <?php if (!$avg_time): ?><p class="nodata">No page_exit data yet.</p><?php else:
-    $max = max($avg_time);
-    foreach ($avg_time as $page => $sec): ?>
-    <div class="bar-row">
-      <span class="bar-label" title="<?= htmlspecialchars($page) ?>"><?= htmlspecialchars($page) ?></span>
-      <div class="bar-track"><div class="bar-fill" style="width:<?= $max>0?round($sec/$max*100):0 ?>%;background:#10b981"></div></div>
-      <span class="bar-num"><?= $sec ?>s</span>
+  <h2>⏱ Avg active time per page</h2>
+  <?php if (!$avg_time_rows): ?><p class="nodata">No page_exit data yet.</p><?php else:
+    $max_t = max(array_column($avg_time_rows, 'sec') ?: [1]) ?: 1;
+    $prev_was_page = false;
+    foreach ($avg_time_rows as $row):
+      $is_overlay = $row['type'] !== 'page';
+      $is_global  = $row['type'] === 'overlay-global';
+      $sec        = $row['sec'];
+      $label      = $is_overlay ? $row['label'] : $row['name'];
+      if ($is_global && $prev_was_page):?>
+    <div style="border-top:1px solid #f3f4f6;margin:0.4rem 0 0.2rem"></div>
+    <?php endif; $prev_was_page = !$is_overlay; ?>
+    <div class="bar-row" style="<?= $is_overlay ? 'margin-left:1.25rem;opacity:0.8;' : '' ?>">
+      <span class="bar-label" title="<?= htmlspecialchars($label) ?>" style="<?= $is_overlay ? 'color:#6b7280;font-size:0.78rem;' : '' ?>">
+        <?= $is_overlay ? '└ ' : '' ?><?= htmlspecialchars($label) ?>
+      </span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:<?= $sec !== null && $max_t > 0 ? round($sec/$max_t*100) : 0 ?>%;background:<?= $is_overlay ? '#6ee7b7' : '#10b981' ?>"></div>
+      </div>
+      <span class="bar-num"><?= $sec !== null ? $sec.'s' : '–' ?></span>
     </div>
   <?php endforeach; endif; ?>
 </div>
@@ -557,8 +729,15 @@ details > summary::-webkit-details-marker { display: none; }
 <div style="display:flex;gap:1.25rem;flex-wrap:wrap;align-items:flex-start;grid-column:1/-1">
 <div class="card" style="flex:1;min-width:300px">
   <h2>❓ Help topics opened</h2>
-  <?php foreach ($help_opens_full as $topic => $data):
-    $cnt = $data['count'] ?? 0; $pages = $data['pages'] ?? []; ?>
+  <?php $prev_hpage = null;
+  foreach ($help_opens_full as $topic => $data):
+    $cnt   = $data['count'] ?? 0;
+    $pages = $data['pages'] ?? [];
+    $tpage = $help_topic_page[$topic] ?? '';
+    if ($tpage !== $prev_hpage):
+      $prev_hpage = $tpage; ?>
+  <p style="font-size:0.7rem;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.04em;margin:<?= $tpage === array_key_first((array)$help_opens_full) ? '0' : '0.6rem' ?> 0 0.2rem"><?= $tpage ? htmlspecialchars($tpage) : 'Global' ?></p>
+  <?php endif; ?>
   <div class="bar-row" style="flex-wrap:wrap;row-gap:0.1rem">
     <span class="bar-label" title="<?= htmlspecialchars($topic) ?>"
       style="<?= $cnt === 0 ? 'color:#9ca3af' : '' ?>"><?= htmlspecialchars($topic) ?></span>
@@ -570,8 +749,15 @@ details > summary::-webkit-details-marker { display: none; }
 </div>
 <div class="card" style="flex:1;min-width:300px">
   <h2>🖥 UI overlay opens</h2>
-  <?php foreach ($ui_opens_filtered as $uname => $data):
-    $cnt = $data['count'] ?? 0; $pages = $data['pages'] ?? []; ?>
+  <?php $prev_upage = null;
+  foreach ($ui_opens_filtered as $uname => $data):
+    $cnt   = $data['count'] ?? 0;
+    $pages = $data['pages'] ?? [];
+    $upage = $modal_page[$uname] ?? '';
+    if ($upage !== $prev_upage):
+      $prev_upage = $upage; ?>
+  <p style="font-size:0.7rem;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.04em;margin:<?= $upage === array_key_first((array)$ui_opens_filtered) ? '0' : '0.6rem' ?> 0 0.2rem"><?= $upage ? htmlspecialchars($upage) : 'Global' ?></p>
+  <?php endif; ?>
   <div class="bar-row" style="flex-wrap:wrap;row-gap:0.1rem">
     <span class="bar-label" title="<?= htmlspecialchars($uname) ?>"
       style="<?= $cnt === 0 ? 'color:#9ca3af' : '' ?>"><?= htmlspecialchars($uname) ?></span>
@@ -604,23 +790,40 @@ details > summary::-webkit-details-marker { display: none; }
 <div class="card">
   <h2>😔 Most-selected feelings</h2>
   <?php if (!$all_feelings_sel && !$all_feelings_str): ?><p class="nodata">No feelings data yet.</p><?php else:
-    // Merge: show combined bar with strong portion highlighted
     $all = $all_feelings_sel; foreach ($all_feelings_str as $f => $n) $all[$f] = ($all[$f] ?? 0) + $n;
-    arsort($all); $max = max($all) ?: 1; $shown = array_slice($all, 0, 20, true);
-    foreach ($shown as $f => $total):
-      $strong = $all_feelings_str[$f] ?? 0;
-      $sel    = $all_feelings_sel[$f] ?? 0; ?>
+    arsort($all); $max = max($all) ?: 1;
+    $top = array_slice($all, 0, 15, true);
+    $rest = array_slice($all, 15, null, true);
+    foreach ($top as $f => $total):
+      $strong = $all_feelings_str[$f] ?? 0; $sel = $all_feelings_sel[$f] ?? 0; ?>
     <div class="bar-row">
       <span class="bar-label" title="<?= htmlspecialchars($f) ?>"><?= htmlspecialchars($f) ?></span>
-      <div class="bar-track">
-        <div style="display:flex;height:100%">
-          <div style="width:<?= round($sel/$max*100) ?>%;background:#fbbf24;height:100%"></div>
-          <div style="width:<?= round($strong/$max*100) ?>%;background:#f59e0b;height:100%"></div>
-        </div>
-      </div>
+      <div class="bar-track"><div style="display:flex;height:100%">
+        <div style="width:<?= round($sel/$max*100) ?>%;background:#fbbf24;height:100%"></div>
+        <div style="width:<?= round($strong/$max*100) ?>%;background:#f59e0b;height:100%"></div>
+      </div></div>
       <span class="bar-num" title="<?= $strong ?> strongly felt"><?= $total ?></span>
     </div>
-  <?php endforeach; endif; ?>
+  <?php endforeach;
+  if ($rest): ?>
+  <div id="feelings-more" style="display:none">
+  <?php foreach ($rest as $f => $total):
+    $strong = $all_feelings_str[$f] ?? 0; $sel = $all_feelings_sel[$f] ?? 0; ?>
+    <div class="bar-row">
+      <span class="bar-label" title="<?= htmlspecialchars($f) ?>"><?= htmlspecialchars($f) ?></span>
+      <div class="bar-track"><div style="display:flex;height:100%">
+        <div style="width:<?= round($sel/$max*100) ?>%;background:#fbbf24;height:100%"></div>
+        <div style="width:<?= round($strong/$max*100) ?>%;background:#f59e0b;height:100%"></div>
+      </div></div>
+      <span class="bar-num" title="<?= $strong ?> strongly felt"><?= $total ?></span>
+    </div>
+  <?php endforeach; ?>
+  </div>
+  <button onclick="var d=document.getElementById('feelings-more');var show=d.style.display==='none';d.style.display=show?'block':'none';this.textContent=show?'Show less ▲':'Show all <?= count($rest) ?> more ▼'"
+    style="float:none;background:none;border:none;color:#6b7280;font-size:0.78rem;cursor:pointer;margin-top:0.4rem;padding:0">
+    Show all <?= count($rest) ?> more ▼
+  </button>
+  <?php endif; endif; ?>
   <p style="font-size:0.75rem;color:#9ca3af;margin-top:0.5rem">Darker = strongly felt (double-click)</p>
 </div>
 
@@ -629,21 +832,39 @@ details > summary::-webkit-details-marker { display: none; }
   <h2>🌱 Most-selected needs</h2>
   <?php if (!$all_needs_sel && !$all_needs_str): ?><p class="nodata">No needs data yet.</p><?php else:
     $all = $all_needs_sel; foreach ($all_needs_str as $n => $c) $all[$n] = ($all[$n] ?? 0) + $c;
-    arsort($all); $max = max($all) ?: 1; $shown = array_slice($all, 0, 20, true);
-    foreach ($shown as $n => $total):
-      $strong = $all_needs_str[$n] ?? 0;
-      $sel    = $all_needs_sel[$n] ?? 0; ?>
+    arsort($all); $max = max($all) ?: 1;
+    $top = array_slice($all, 0, 15, true);
+    $rest = array_slice($all, 15, null, true);
+    foreach ($top as $n => $total):
+      $strong = $all_needs_str[$n] ?? 0; $sel = $all_needs_sel[$n] ?? 0; ?>
     <div class="bar-row">
       <span class="bar-label" title="<?= htmlspecialchars($n) ?>"><?= htmlspecialchars($n) ?></span>
-      <div class="bar-track">
-        <div style="display:flex;height:100%">
-          <div style="width:<?= round($sel/$max*100) ?>%;background:#60a5fa;height:100%"></div>
-          <div style="width:<?= round($strong/$max*100) ?>%;background:#2563eb;height:100%"></div>
-        </div>
-      </div>
+      <div class="bar-track"><div style="display:flex;height:100%">
+        <div style="width:<?= round($sel/$max*100) ?>%;background:#60a5fa;height:100%"></div>
+        <div style="width:<?= round($strong/$max*100) ?>%;background:#2563eb;height:100%"></div>
+      </div></div>
       <span class="bar-num" title="<?= $strong ?> strongly felt"><?= $total ?></span>
     </div>
-  <?php endforeach; endif; ?>
+  <?php endforeach;
+  if ($rest): ?>
+  <div id="needs-more" style="display:none">
+  <?php foreach ($rest as $n => $total):
+    $strong = $all_needs_str[$n] ?? 0; $sel = $all_needs_sel[$n] ?? 0; ?>
+    <div class="bar-row">
+      <span class="bar-label" title="<?= htmlspecialchars($n) ?>"><?= htmlspecialchars($n) ?></span>
+      <div class="bar-track"><div style="display:flex;height:100%">
+        <div style="width:<?= round($sel/$max*100) ?>%;background:#60a5fa;height:100%"></div>
+        <div style="width:<?= round($strong/$max*100) ?>%;background:#2563eb;height:100%"></div>
+      </div></div>
+      <span class="bar-num" title="<?= $strong ?> strongly felt"><?= $total ?></span>
+    </div>
+  <?php endforeach; ?>
+  </div>
+  <button onclick="var d=document.getElementById('needs-more');var show=d.style.display==='none';d.style.display=show?'block':'none';this.textContent=show?'Show less ▲':'Show all <?= count($rest) ?> more ▼'"
+    style="float:none;background:none;border:none;color:#6b7280;font-size:0.78rem;cursor:pointer;margin-top:0.4rem;padding:0">
+    Show all <?= count($rest) ?> more ▼
+  </button>
+  <?php endif; endif; ?>
   <p style="font-size:0.75rem;color:#9ca3af;margin-top:0.5rem">Darker = strongly felt (double-click)</p>
 </div>
 
@@ -689,7 +910,6 @@ details > summary::-webkit-details-marker { display: none; }
       <th>Field</th>
       <th title="Sessions that focused this field (tracked once per session)">Interactions</th>
       <th>Filled</th>
-      <th>Rate</th>
       <th title="Average character count when filled (older sessions use bucket midpoints as an estimate)">Avg length</th>
     </tr></thead>
     <tbody>
@@ -699,7 +919,7 @@ details > summary::-webkit-details-marker { display: none; }
     ?>
       <tr>
         <td><?= htmlspecialchars($fid) ?></td>
-        <td><?= $total ?></td><td><?= $filled ?></td><td><?= pct($filled,$total) ?></td>
+        <td><?= $total ?></td><td><?= $filled ?></td>
         <td style="color:#6b7280"><?= $avg_len ?></td>
       </tr>
     <?php endforeach; ?>
@@ -848,12 +1068,22 @@ details > summary::-webkit-details-marker { display: none; }
     <table class="session-table" style="opacity:0.7;margin-top:0.5rem">
       <thead><tr>
         <th><input type="checkbox" class="sel-all-hdr" title="Select all" style="float:none"></th>
-        <th>#</th><th>Date / time</th><th>Active time</th><th>Pages</th><th></th>
+        <th>#</th><th>Date / time</th><th>Active time</th><th>Pages</th>
+        <th title="Help screens opened">Help</th>
+        <th title="UI overlay opens (modals, menus, etc.)">UI</th>
+        <th></th>
       </tr></thead>
       <tbody>
       <?php $i = 1; foreach ($passive as $sid => $sdata):
         $active_ms = $sessions[$sid]['active_ms'] ?? 0;
         if ($active_ms <= 0) $active_ms = $sdata['duration_ms'] ?? 0;
+        $help_n = 0; $ui_n = 0;
+        foreach ($sdata['events'] as $ev) {
+            if (($ev['event'] ?? '') === 'ui_open') {
+                if (($ev['type'] ?? '') === 'help') $help_n++;
+                else $ui_n++;
+            }
+        }
         $js_idx = $journey_idx_map[$sid];
       ?>
       <tr>
@@ -862,6 +1092,8 @@ details > summary::-webkit-details-marker { display: none; }
         <td><?= $sdata['start'] ? date('j M, g:ia', intval($sdata['start']/1000)) : '–' ?></td>
         <td><?= $active_ms > 0 ? fmts($active_ms) : '–' ?></td>
         <td><?= count(array_unique(array_filter(array_map(fn($e)=>$e['page_name']??'', array_filter($sdata['events'],fn($e)=>$e['event']==='page_view'))))) ?></td>
+        <td><?= $help_n ?: '–' ?></td>
+        <td><?= $ui_n   ?: '–' ?></td>
         <td style="display:flex;gap:0.4rem;justify-content:flex-end">
           <button type="button" class="view-btn" onclick="viewSession(<?= $js_idx ?>)">View journey</button>
           <button type="button" class="del-btn"
@@ -945,7 +1177,8 @@ function fmtEvent(ev) {
     case 'ui_close':   return {label: `Closed: ${ev.name||''}`,
       detail: ev.time_open_ms ? `open for ${fmtT(ev.time_open_ms)}` : ''};
     case 'field_interaction': return {label: `Field: <b>${ev.field_id||''}</b>`,
-      detail: (ev.filled ? 'filled' : 'left empty') + (ev.length_bucket ? ` · ${ev.length_bucket} chars` : '')};
+      detail: (ev.filled ? 'filled' : 'left empty') +
+        (ev.length != null ? ` · ${ev.length} chars` : (ev.length_bucket ? ` · ${ev.length_bucket} chars` : ''))};
     case 'action':
       if (ev.action_name === 'story_word_ok') {
         const parts = [];

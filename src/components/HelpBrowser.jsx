@@ -110,6 +110,7 @@ const HelpBrowser = forwardRef(({ initialTopic, directOpen, onBack, onTopicChang
 			<input
 				className="help-browser-search"
 				type="text"
+				data-field-id="help-search"
 				placeholder="Search topics…"
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}

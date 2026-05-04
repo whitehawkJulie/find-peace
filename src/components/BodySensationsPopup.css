@@ -20,6 +20,7 @@
 	background: #f9f7f4;
 	border-radius: 14px;
 	max-width: 480px;
+	max-height: calc(var(--vv-height, 100dvh) - 3rem);
 	width: 100%;
 	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 	z-index: 1101;
@@ -76,6 +77,10 @@
 	gap: 0.8rem;
 	padding: 1.1rem 1.4rem 1.4rem;
 	background: #fffdf5;
+	overflow-y: auto;
+	flex: 1;
+	min-height: 0;
+	box-sizing: border-box;
 }
 
 /* Zero out default browser margins — gap handles spacing */

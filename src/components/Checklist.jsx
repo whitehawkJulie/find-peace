@@ -29,16 +29,13 @@ const Checklist = ({
 	onInfoClick = null,
 	showListModeToggle = false,
 	defaultListMode = "short",
-	regulationOverlay = false,
-	regulationToggle = null,
 	afterGroupContent = null,
 	headerContent = null,
-	tooltipEnhancer = null,
 	defaultCollapsed = [],
 	selectionHint = null,
 }) => {
 	const [collapsedCategories, setCollapsedCategories] = useState(() =>
-		Object.fromEntries(defaultCollapsed.map((h) => [h, true]))
+		Object.fromEntries(defaultCollapsed.map((h) => [h, true])),
 	);
 	// Per-section list mode, keyed by section heading
 	const [sectionModes, setSectionModes] = useState({});
@@ -96,16 +93,13 @@ const Checklist = ({
 		return items.filter((it) => !it.ui || it.ui.tier !== "more");
 	};
 
-	const getQuickPicksFlat = (groups, sectionRegType) => {
+	const getQuickPicksFlat = (groups) => {
 		const picks = [];
 		const sorted = getSortedGroups(groups);
 		for (const [, group] of sorted) {
 			for (const item of group.items) {
 				if (item.ui?.quickPick) {
-					picks.push({
-						...item,
-						_resolvedRegType: item.regulationType || group.regulationType || sectionRegType || null,
-					});
+					picks.push(item);
 				}
 			}
 		}
@@ -124,13 +118,13 @@ const Checklist = ({
 
 	const renderPill = (itemData) => {
 		const { item } = itemData;
-		const baseTooltip = itemData.description || itemData.meaning || "";
-		const tooltip = tooltipEnhancer ? tooltipEnhancer(itemData, baseTooltip) : baseTooltip;
+		let tooltip = itemData.description || itemData.meaning || "";
 
 		// Determine indicator type
 		let indicator = null;
 		if (itemData.type === "storyWord") {
 			indicator = "plus";
+			if (!tooltip) tooltip = "Tap to unpack";
 		} else if (itemData.clarify?.type === "murky" && selectedItems[item]) {
 			indicator = "chevron";
 		}
@@ -143,12 +137,8 @@ const Checklist = ({
 				state={selectedItems[item] || ""}
 				meaning={tooltip}
 				indicator={indicator}
-				regulationType={itemData._resolvedRegType || null}
-				regulationOverlay={regulationOverlay}
 				onClick={() => handleClick(item, itemData)}
-				onIndicatorClick={
-					indicator === "chevron" ? () => onIndicatorClick?.(itemData) : undefined
-				}
+				onIndicatorClick={indicator === "chevron" ? () => onIndicatorClick?.(itemData) : undefined}
 			/>
 		);
 	};
@@ -156,23 +146,6 @@ const Checklist = ({
 	const sectionHasTiers = (groups) => {
 		return Object.values(groups).some((group) =>
 			group.items.some((it) => it.ui?.quickPick || it.ui?.tier === "more"),
-		);
-	};
-
-	const renderRegulationToggle = () => {
-		if (!regulationToggle) return null;
-		return (
-			<span className="regulation-toggle-group">
-				<button
-					className={`regulation-toggle ${regulationToggle.active ? "regulation-toggle-active" : ""}`}
-					title="Colour by body state"
-					onClick={(e) => {
-						e.stopPropagation();
-						regulationToggle.onToggle();
-					}}>
-					🧍<span className="regulation-toggle-label">Body state</span>
-				</button>
-			</span>
 		);
 	};
 
@@ -217,14 +190,25 @@ const Checklist = ({
 		);
 	};
 
-	const renderHeaderControls = (sectionHeading, groups, sectionIndex) => (
+	const renderHeaderControls = (sectionHeading, groups) => (
 		<span className="category-controls">
-			{sectionIndex === 0 && renderRegulationToggle()}
 			{renderModeIcons(sectionHeading, groups)}
 			{renderSelectedOnlyToggle(sectionHeading, groups)}
 			<span className="collapse-icon">{collapsedCategories[sectionHeading] ? "▼" : "▲"}</span>
 		</span>
 	);
+
+	// Find the globally first (section, group) with any selection — hint renders only there
+	const globalFirstSelected = selectionHint
+		? (() => {
+				for (const s of data) {
+					const sg = getSortedGroups(s.groups);
+					const found = sg.find(([, g]) => g.items.some((it) => selectedItems[it.item]));
+					if (found) return { sectionHeading: s.ui.heading, groupKey: found[0] };
+				}
+				return null;
+			})()
+		: null;
 
 	return (
 		<div className="checklist">
@@ -233,7 +217,6 @@ const Checklist = ({
 				const groups = section.groups;
 				const sortedGroups = getSortedGroups(groups);
 				const mode = getModeForSection(sectionHeading);
-				const sectionRegType = section.regulationType || null;
 				const showSelectedOnly = sectionSelectedOnly[sectionHeading] || false;
 
 				const sectionHeader = (
@@ -255,14 +238,14 @@ const Checklist = ({
 								</button>
 							)}
 						</h3>
-						{renderHeaderControls(sectionHeading, groups, index)}
+						{renderHeaderControls(sectionHeading, groups)}
 					</div>
 				);
 
 				// In quick mode, render flat pills without subcategory headings.
 				// If showSelectedOnly is active, skip this branch so the all-items selected view renders instead.
 				if (mode === "quick" && !showSelectedOnly) {
-					let quickPicks = getQuickPicksFlat(groups, sectionRegType);
+					let quickPicks = getQuickPicksFlat(groups);
 					// If no quickPick items exist, fall through to short-mode rendering below
 					if (quickPicks.length > 0) {
 						return (
@@ -285,7 +268,7 @@ const Checklist = ({
 											</button>
 										)}
 									</h3>
-									{renderHeaderControls(sectionHeading, groups, index)}
+									{renderHeaderControls(sectionHeading, groups)}
 								</div>
 
 								{!collapsedCategories[sectionHeading] && (
@@ -294,7 +277,7 @@ const Checklist = ({
 										<div className="pill-grid" style={{ padding: "1rem" }}>
 											{quickPicks.map(renderPill)}
 										</div>
-										{selectionHint && quickPicks.some((it) => selectedItems[it.item]) && selectionHint}
+										{globalFirstSelected?.sectionHeading === sectionHeading && selectionHint}
 										{afterGroupContent &&
 											quickPicks.some((it) => it.item === afterGroupContent.itemName) &&
 											afterGroupContent.node}
@@ -307,9 +290,6 @@ const Checklist = ({
 
 				// Short mode with subcategory icons — one row per subcategory, icon inline, no heading text
 				if (mode === "short" && Object.keys(subcategoryIcons).length > 0 && !showSelectedOnly) {
-					const firstSelectedGroupKey = selectionHint
-						? sortedGroups.find(([, g]) => g.items.some((it) => selectedItems[it.item]))?.[0]
-						: null;
 					return (
 						<div key={sectionHeading} className={`category category-${index % 8}`}>
 							{sectionHeader}
@@ -319,21 +299,19 @@ const Checklist = ({
 									{sortedGroups.map(([groupKey, group]) => {
 										const visibleItems = getVisibleItems(group.items, mode);
 										if (visibleItems.length === 0) return null;
-										const groupRegType = group.regulationType || sectionRegType;
-										const resolvedItems = visibleItems.map((it) => ({
-											...it,
-											_resolvedRegType: it.regulationType || groupRegType || null,
-										}));
 										return (
 											<div key={groupKey} className="subcategory subcategory--compact">
 												<div className="pill-grid pill-grid--row">
-													{subcategoryIcons[groupKey] && React.createElement(subcategoryIcons[groupKey], {
-														className: "subcategory-icon-inline",
-														"aria-hidden": true,
-													})}
-													{resolvedItems.map(renderPill)}
+													{subcategoryIcons[groupKey] &&
+														React.createElement(subcategoryIcons[groupKey], {
+															className: "subcategory-icon-inline",
+															"aria-hidden": true,
+														})}
+													{visibleItems.map(renderPill)}
 												</div>
-												{groupKey === firstSelectedGroupKey && selectionHint}
+												{globalFirstSelected?.sectionHeading === sectionHeading &&
+													groupKey === globalFirstSelected?.groupKey &&
+													selectionHint}
 											</div>
 										);
 									})}
@@ -349,13 +327,9 @@ const Checklist = ({
 				if (showSelectedOnly) {
 					const allSelected = [];
 					for (const [, group] of sortedGroups) {
-						const groupRegType = group.regulationType || sectionRegType;
 						for (const item of group.items) {
 							if (selectedItems[item.item]) {
-								allSelected.push({
-									...item,
-									_resolvedRegType: item.regulationType || groupRegType || null,
-								});
+								allSelected.push(item);
 							}
 						}
 					}
@@ -381,35 +355,32 @@ const Checklist = ({
 				}
 
 				{
-					const firstSelectedGroupKey = selectionHint
-						? sortedGroups.find(([, g]) => g.items.some((it) => selectedItems[it.item]))?.[0]
-						: null;
 					return (
 						<div key={sectionHeading} className={`category category-${index % 8}`}>
 							{sectionHeader}
 
 							{!collapsedCategories[sectionHeading] && (
 								<div className="subcategories">
-								{index === 0 && headerContent}
+									{index === 0 && headerContent}
 									{sortedGroups.map(([groupKey, group]) => {
 										const groupHeading = group.ui?.heading || groupKey;
 										const visibleItems = getVisibleItems(group.items, mode);
 										if (visibleItems.length === 0) return null;
 
-										const groupRegType = group.regulationType || sectionRegType;
-										const resolvedItems = visibleItems.map((it) => ({
-											...it,
-											_resolvedRegType: it.regulationType || groupRegType || null,
-										}));
-
 										return (
 											<div key={groupKey} className="subcategory">
 												<h4 className="subcategory-title">
-											{subcategoryIcons[groupKey] && React.createElement(subcategoryIcons[groupKey], { className: "subcategory-icon", "aria-hidden": true })}
-											{groupHeading}
-										</h4>
-												<div className="pill-grid">{resolvedItems.map(renderPill)}</div>
-												{groupKey === firstSelectedGroupKey && selectionHint}
+													{subcategoryIcons[groupKey] &&
+														React.createElement(subcategoryIcons[groupKey], {
+															className: "subcategory-icon",
+															"aria-hidden": true,
+														})}
+													{groupHeading}
+												</h4>
+												<div className="pill-grid">{visibleItems.map(renderPill)}</div>
+												{globalFirstSelected?.sectionHeading === sectionHeading &&
+													groupKey === globalFirstSelected?.groupKey &&
+													selectionHint}
 												{afterGroupContent &&
 													visibleItems.some((it) => it.item === afterGroupContent.itemName) &&
 													afterGroupContent.node}

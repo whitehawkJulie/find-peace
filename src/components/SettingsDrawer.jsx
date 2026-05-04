@@ -101,6 +101,7 @@ const PassphraseSection = () => {
 						value={phrase}
 						onChange={(e) => setPhrase(e.target.value)}
 						placeholder="Enter passphrase to unlock"
+						data-field-id="passphrase"
 						className="settings-passphrase-input"
 						required
 					/>
@@ -207,6 +208,7 @@ const PassphraseSection = () => {
 						value={phrase}
 						onChange={(e) => setPhrase(e.target.value)}
 						placeholder="Passphrase"
+						data-field-id="passphrase"
 						className="settings-passphrase-input"
 						required
 					/>
@@ -215,6 +217,7 @@ const PassphraseSection = () => {
 						value={confirm}
 						onChange={(e) => setConfirm(e.target.value)}
 						placeholder="Confirm passphrase"
+						data-field-id="passphrase"
 						className="settings-passphrase-input"
 						required
 					/>

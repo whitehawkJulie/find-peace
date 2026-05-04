@@ -271,10 +271,10 @@ const StandaloneHelpTopics = [
 						the body keeps trying to get your attention. But when you notice and acknowledge what’s there,
 						it’s as if the body says, “Message received," and the intensity can begin to settle.
 					</p>
+					<p>These are a couple of things that worked for me.</p>
 
-					<p>
-						<strong>How to stay with a feeling</strong>
-					</p>
+					<h3>How to stay with a feeling</h3>
+
 					<p>
 						A technique called{" "}
 						<a href="https://focusingresources.com/more-information-about-focusing" target="_blank">
@@ -317,6 +317,29 @@ const StandaloneHelpTopics = [
 						You don’t need to do this perfectly. Even a brief moment of noticing can help your system settle
 						and make space for something new to emerge.
 					</p>
+
+					<h3>How to do NOTHING with a feeling</h3>
+					<p>
+						I don't know how many people will relate to this, but I was taught to MANAGE feelings all the
+						time (generally to try to make them go away), and what I actually needed to learn was to STOP
+						doing that. Here's what that looked like for me:
+					</p>
+					<ul>
+						<li>
+							Just let it be there. Do absolutely nothing - not trying to focus on it, OR trying to ignore
+							it. Just be in the same space as it. This was really hard to learn!
+						</li>
+						<li>If my mind wanders away, that's fine. No need to even "bring it back".</li>
+						<li>Basically, don't try any kind of technique - just let it be there.</li>
+						<li>
+							Don't keep monitoring it! "Is it gone?!", "Has it changed yet?!" ... if those thoughts come,
+							just acknowledge them, and remember that's not the point.
+						</li>
+						<li>
+							After a while, I notice it's done, and loses its intensity. I haven't made it go away, it's
+							just finished what it was doing. Stay with it until then.
+						</li>
+					</ul>
 				</div>
 			</>
 		),
@@ -547,30 +570,21 @@ const StandaloneHelpTopics = [
 			<>
 				<h3>Catching the first feeling</h3>
 				<ul>
-					<li>Your body gives a fast, initial signal (fear, anger, distress)</li>
-					<li>We often move away from it quickly (suppress, reframe, distract)</li>
-					<li>If you miss it, you may identify the wrong need</li>
-					<li>When you catch it, things often click and move forward</li>
-				</ul>
-
-				<h3>Why people get stuck</h3>
-				<ul>
-					<li>The original feeling gets bypassed</li>
-					<li>You work with a secondary or vague feeling instead</li>
-					<li>This can lead to misaligned needs and no real relief</li>
-				</ul>
-
-				<h3>First vs later feelings</h3>
-				<ul>
-					<li>First feelings: fast, body-based, instinctive</li>
-					<li>Later feelings: shaped by the mind’s story about what happened</li>
-					<li>Both matter, but separating them brings clarity</li>
-				</ul>
-
-				<h3>Try this</h3>
-				<ul>
-					<li>Ask: “What did I feel first?"</li>
-					<li>Even a rough sense can help you get back on track</li>
+					<li>
+						When something happens, our bodies often send a fast, initial signal before the mind starts
+						making sense of things (fear, anger, distress, confusion)
+					</li>
+					<li>
+						We tend to move away from this quickly — by suppressing it, reframing it, or distracting
+						ourselves
+					</li>
+					<li>
+						When it’s missed, we often end up working with a later, more story-shaped feeling, which can be
+						more vague or mixed
+					</li>
+					<li>This can make it harder to see what really matters, and things may not quite click</li>
+					<li>When the first feeling is caught, things often feel clearer and start to move forward</li>
+					<li>It's OK if you're not sure, just skip this step</li>
 				</ul>
 			</>
 		),
@@ -773,6 +787,7 @@ const StandaloneHelpTopics = [
 						later.
 					</li>
 				</ul>
+				<p>You can leave out any feelings for now - that comes next.</p>
 			</>
 		),
 	},

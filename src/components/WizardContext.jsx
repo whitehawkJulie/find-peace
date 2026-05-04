@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useRef, useEffect } from "react";
+import React, { createContext, useContext, useState, useRef, useEffect, useMemo } from "react";
 import { encryptSession, decryptSession, isEncryptedSession } from "../utils/crypto";
 import { HelpContext } from "./HelpContext";
 
@@ -56,71 +56,72 @@ if (unmetSection?.groups) {
 	}
 }
 
-// Full list of steps
-const allSteps = [
-	{ component: Introduction, group: "intro", optional: true, color: "#5F8F82", icon: introIcon },
-	{
-		component: Observation,
-		group: "happened",
-		color: "#5F8F82",
-		icon: observationIcon,
-	},
-	{ component: ObservationClarify, group: "happened", color: "#5F8F82", icon: observationIcon },
-	{
-		component: Feelings,
-		group: "felt",
-		color: "#5F8F82",
-		icon: feelingsIcon,
-	},
-	{
-		component: UnpackFeelings,
-		group: "felt",
-		color: "#5F8F82",
-		icon: exploreFeelingsIcon,
-		optional: true,
-	},
-	{
-		component: Needs,
-		group: "mattered",
-		color: "#6E9B6A",
-		icon: needsIcon,
-	},
-	{
-		component: RefineNeeds,
-		group: "mattered",
-		color: "#6E9B6A",
-		icon: exploreNeedIcon,
-		optional: true,
-		condition: ({ needs }) =>
-			needs && Object.keys(needs).some((name) => needOfferDeepeningMap[name]),
-	},
-	{
-		component: UnpackNeeds,
-		group: "mattered",
-		color: "#6E9B6A",
-		icon: exploreNeedIcon,
-		optional: true,
-	},
-	{ component: MakingGuesses, group: "them", optional: true, color: "#6E9B6A", icon: theirViewIcon },
-	// { component: RequestFormulation, optional: true },
-	{
-		component: ExploringWhatsChanged,
-		group: "next",
-		optional: true,
-		color: "#7A9E5A",
-		icon: whatsChangedIcon,
-	},
-	{
-		component: ConversationsAndCollaboration,
-		group: "next",
-		optional: true,
-		color: "#7A9E5A",
-		icon: conversationsIcon,
-	},
-	{ component: Review, group: "next", optional: true, color: "#7A9E5A", icon: reviewIcon },
-];
-
 export const WizardProvider = ({ children }) => {
+	// Full list of steps — initialized lazily inside the component to avoid
+	// circular-dependency TDZ errors during Vite HMR (WizardContext imports step
+	// components which in turn import useWizard from WizardContext).
+	const allSteps = useMemo(() => [
+		{ component: Introduction, group: "intro", optional: true, color: "#5F8F82", icon: introIcon },
+		{
+			component: Observation,
+			group: "happened",
+			color: "#5F8F82",
+			icon: observationIcon,
+		},
+		{ component: ObservationClarify, group: "happened", color: "#5F8F82", icon: observationIcon },
+		{
+			component: Feelings,
+			group: "felt",
+			color: "#5F8F82",
+			icon: feelingsIcon,
+		},
+		{
+			component: UnpackFeelings,
+			group: "felt",
+			color: "#5F8F82",
+			icon: exploreFeelingsIcon,
+			optional: true,
+		},
+		{
+			component: Needs,
+			group: "mattered",
+			color: "#6E9B6A",
+			icon: needsIcon,
+		},
+		{
+			component: RefineNeeds,
+			group: "mattered",
+			color: "#6E9B6A",
+			icon: exploreNeedIcon,
+			optional: true,
+			condition: ({ needs }) =>
+				needs && Object.keys(needs).some((name) => needOfferDeepeningMap[name]),
+		},
+		{
+			component: UnpackNeeds,
+			group: "mattered",
+			color: "#6E9B6A",
+			icon: exploreNeedIcon,
+			optional: true,
+		},
+		{ component: MakingGuesses, group: "them", optional: true, color: "#6E9B6A", icon: theirViewIcon },
+		// { component: RequestFormulation, optional: true },
+		{
+			component: ExploringWhatsChanged,
+			group: "next",
+			optional: true,
+			color: "#7A9E5A",
+			icon: whatsChangedIcon,
+		},
+		{
+			component: ConversationsAndCollaboration,
+			group: "next",
+			optional: true,
+			color: "#7A9E5A",
+			icon: conversationsIcon,
+		},
+		{ component: Review, group: "next", optional: true, color: "#7A9E5A", icon: reviewIcon },
+	], []); // eslint-disable-line react-hooks/exhaustive-deps
 	// App-wide state
 	const [stepIndex, setStepIndex] = useState(0);
 	const [jackalTalk, setJackalTalk] = useState("");
@@ -239,6 +240,9 @@ export const WizardProvider = ({ children }) => {
 			return next;
 		});
 	};
+
+	// Session-only: tracks whether user has ever opened the feelingsMet checklist
+	const [feelingsMetShown, setFeelingsMetShown] = useState(false);
 
 	// Summary modal open state — accessible from any page via the top menu
 	const [showSummary, setShowSummary] = useState(false);
@@ -533,6 +537,8 @@ export const WizardProvider = ({ children }) => {
 		helpTopic,
 		setHelpTopic,
 		openHelpTopic,
+		feelingsMetShown,
+		setFeelingsMetShown,
 		showSummary,
 		setShowSummary,
 		showSettings,
