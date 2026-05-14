@@ -223,14 +223,14 @@ const Collaborate = () => {
 								<button
 									className="collab-resync-btn"
 									onClick={() => updateCollabScript("step2", buildStep2() || STEP_DATA.step2.scriptDefault)}>
-									↺ Re-sync from my guesses
+									↺ Regenerate from my guesses
 								</button>
 							)}
 							{stepId === "step4" && value !== buildStep4() && (
 								<button
 									className="collab-resync-btn"
 									onClick={() => updateCollabScript("step4", buildStep4())}>
-									↺ Re-sync from my feelings and needs
+									↺ Regenerate from my feelings and needs
 								</button>
 							)}
 							{stepData.helpTopicId && (
