@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { useWizard } from "../WizardContext";
 import { filterByState } from "../../utils/renderHelpers";
+import { storyWordSet } from "../../data/StoryWords";
 import HelpLink from "../HelpLink";
 
 const STEP_IDS = ["step1", "step2", "step2a", "step3", "step4", "step5", "step6"];
@@ -142,17 +143,20 @@ const Collaborate = () => {
 	useEffect(() => {
 		if (collabScript.step1 !== undefined) return;
 
-		const allFeelings = [...filterByState(feelings, "clicked"), ...filterByState(feelings, "double-clicked")];
-		const allNeeds = [...filterByState(needs, "clicked"), ...filterByState(needs, "double-clicked")];
+		const allFeelings = [
+			...filterByState(feelings, "double-clicked"),
+			...filterByState(feelings, "clicked"),
+		].filter((f) => !storyWordSet.has(f));
+		const allNeeds = [...filterByState(needs, "double-clicked"), ...filterByState(needs, "clicked")];
 		const obs = observation?.refined?.trim() || "[what happened]";
 		const feelStr = allFeelings.length ? allFeelings.join(", ").toLowerCase() : "[feeling]";
 		const needStr = allNeeds.length ? allNeeds.join(", ").toLowerCase() : "[need]";
 
 		const guessFeelingsAll = [
-			...filterByState(guessFeelings, "clicked"),
 			...filterByState(guessFeelings, "double-clicked"),
+			...filterByState(guessFeelings, "clicked"),
 		];
-		const guessNeedsAll = [...filterByState(guessNeeds, "clicked"), ...filterByState(guessNeeds, "double-clicked")];
+		const guessNeedsAll = [...filterByState(guessNeeds, "double-clicked"), ...filterByState(guessNeeds, "clicked")];
 		const guessFeelStr = guessFeelingsAll.join(", ").toLowerCase();
 		const guessNeedStr = guessNeedsAll.join(", ").toLowerCase();
 
