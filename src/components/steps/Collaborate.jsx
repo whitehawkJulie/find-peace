@@ -115,7 +115,6 @@ const Collaborate = () => {
 	const {
 		collabScript,
 		setCollabScript,
-		includeCollabInSummary,
 		setIncludeCollabInSummary,
 		guessObservation,
 		guessFeelings,
@@ -252,15 +251,6 @@ const Collaborate = () => {
 				{"Nervous about having the conversation?"}
 			</button>
 
-			<label className="collab-include-label">
-				<input
-					type="checkbox"
-					className="collab-include-checkbox"
-					checked={includeCollabInSummary}
-					onChange={(e) => setIncludeCollabInSummary(e.target.checked)}
-				/>
-				<span className="collab-include-text">Include this conversation guide in my summary</span>
-			</label>
 		</div>
 	);
 };
