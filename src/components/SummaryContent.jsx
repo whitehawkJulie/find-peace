@@ -66,7 +66,7 @@ const SummaryContent = () => {
 	const hasGuesses = guessObservation || guessFeelingsAll.length > 0 || guessNeedsAll.length > 0;
 	const hasRequests = requestOfSelf || requestOfOther || simpleRequest?.trim();
 	const hasWhatsChanged = whatsChangedResponses?.before?.trim() || whatsChangedResponses?.differently?.trim();
-	const hasCollabScript = includeCollabInSummary && collabScript?.step1 !== undefined;
+	const hasCollabScript = collabScript?.step1 !== undefined;
 
 	const hasAnyData =
 		obsText ||
