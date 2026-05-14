@@ -24,3 +24,4 @@ backups
 *.sln
 *.sw?
 _archive/
+.claude/

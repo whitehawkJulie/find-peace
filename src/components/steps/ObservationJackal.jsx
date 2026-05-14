@@ -13,23 +13,25 @@ const ObservationJackal = () => {
 	return (
 		<div className="step-observation step-container">
 			<ImportanceBanner message="Feel free to skim or skip — getting this out can help, but it's not essential." />
-			<div>
-				<p>
-					Before we try to make sense of it, feel free to just let it all out. This section isn't about being
-					fair or accurate — just letting the first wave out, expressing your raw feelings and thoughts.
-				</p>
-				<p className="obs-textarea-label">{"The uncensored version:"}</p>
-				<textarea
-					data-field-id="jackal-talk"
-					value={jackalTalk}
-					onChange={(e) => setJackalTalk(e.target.value)}
-					placeholder="How could they DO that?! That's not fair! They shouldn't be like that!"
-					rows={3}
-				/>
-				<HelpLink topic="privacy" aside>
-					Your data always stays private..
-				</HelpLink>
-			</div>
+			<p>
+				Are you trying to <HelpLink topic="think-of-situation">think of a situation you can use</HelpLink> with
+				this tool? You don’t need a huge conflict. Small, everyday moments often work best.
+			</p>
+			<p>
+				Before we try to make sense of it, feel free to just let it all out. This section isn't about being fair
+				or accurate — just letting the first wave out, expressing your raw feelings and thoughts.
+			</p>
+			<p className="obs-textarea-label">{"The uncensored version:"}</p>
+			<textarea
+				data-field-id="jackal-talk"
+				value={jackalTalk}
+				onChange={(e) => setJackalTalk(e.target.value)}
+				placeholder="How could they DO that?! That's not fair! They shouldn't be like that!"
+				rows={3}
+			/>
+			<HelpLink topic="privacy" aside>
+				Your data always stays private...
+			</HelpLink>
 		</div>
 	);
 };

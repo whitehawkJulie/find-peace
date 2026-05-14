@@ -275,6 +275,11 @@ const SummaryContent = () => {
 									<em>When it is met:</em> {exp.metFeeling}
 								</p>
 							)}
+							{exp.whenMet && (
+								<p>
+									<em>A time it was met:</em> {exp.whenMet}
+								</p>
+							)}
 							{exp.imaginedMet && (
 								<p>
 									<em>Imagined for someone else:</em> {exp.imaginedMet}

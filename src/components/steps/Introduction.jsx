@@ -64,8 +64,9 @@ const Introduction = () => {
 
 			<div className="process-preview">
 				<p className="process-intro">
-					When something happens that upsets us, we can feel helpless or hopeless. That’s OK... we’ll take
-					this step by step, and see what starts to untangle.
+					When <HelpLink topic="think-of-situation">something happens that we don't like</HelpLink>, we can
+					feel helpless or hopeless. That’s OK... we’ll take this step by step, and see what starts to
+					untangle.
 				</p>
 				<p className="process-intro">Here’s a quick preview of the steps we’ll go through.</p>
 

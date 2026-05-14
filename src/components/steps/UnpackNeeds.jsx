@@ -330,7 +330,7 @@ const UnpackNeeds = () => {
 							{resonantStatement && <p className="unpacking-resonant-statement">{resonantStatement}</p>}
 
 							<div className="unpacking-section">
-								<p className="unpacking-section-label">Connect</p>
+								<p className="unpacking-section-label">What does this mean to you?</p>
 
 								{specificQ && (
 									<div className="unpacking-prompt">
@@ -348,6 +348,8 @@ const UnpackNeeds = () => {
 									</div>
 								)}
 
+								<p className="unpacking-section-label">How it feels for you</p>
+
 								<div className="unpacking-prompt">
 									<p className="unpacking-prompt-text">
 										Notice in your body how it feels when this need isn{"’"}t met.
@@ -360,14 +362,9 @@ const UnpackNeeds = () => {
 										onChange={(e) => updateField("unmetFeeling", e.target.value)}
 									/>
 								</div>
-							</div>
-
-							<div className="unpacking-section">
-								<p className="unpacking-section-label">When it{"’"}s met</p>
-
 								<div className="unpacking-prompt">
 									<p className="unpacking-prompt-text">
-										Remember a time this need was met — even just a little. How did that feel?
+										How does it feel when this need <strong>is</strong> met?
 									</p>
 									<textarea
 										className="unpacking-textarea"
@@ -375,6 +372,24 @@ const UnpackNeeds = () => {
 										rows={3}
 										value={currentData.metFeeling || ""}
 										onChange={(e) => updateField("metFeeling", e.target.value)}
+									/>
+								</div>
+							</div>
+
+							<div className="unpacking-section">
+								<p className="unpacking-section-label">Remembering when...</p>
+
+								<div className="unpacking-prompt">
+									<p className="unpacking-prompt-text">
+										Remember a time this need was met — even just a little. What happened to meet
+										it?
+									</p>
+									<textarea
+										className="unpacking-textarea"
+										data-field-id="unpack-need-when-met"
+										rows={3}
+										value={currentData.whenMet || ""}
+										onChange={(e) => updateField("whenMet", e.target.value)}
 									/>
 								</div>
 
@@ -407,7 +422,7 @@ const UnpackNeeds = () => {
 							</div>
 
 							<div className="unpacking-section">
-								<p className="unpacking-section-label">Moving forward</p>
+								<p className="unpacking-section-label">How might you meet it?</p>
 
 								{enoughQuestion && (
 									<div className="unpacking-prompt">
