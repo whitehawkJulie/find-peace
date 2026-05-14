@@ -10,7 +10,8 @@ const ObservationClarify = () => {
 		<div className="step-observation step-container">
 			<p>
 				Now, can you identify the specific moment when something in you reacted? (If it's about a lot of
-				moments, just choose one.) That's what we're going to work with throughout this process.
+				moments, just choose one specific moment that it happened.) That's what we're going to work with
+				throughout this process.
 			</p>
 			<p>
 				At these moments, our brains tend to go into <HelpLink topic="threat-mode">threat mode</HelpLink>, and

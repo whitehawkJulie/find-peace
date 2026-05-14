@@ -655,6 +655,13 @@ export const allNeeds = [
 			"Is this about being understood in this moment, or about someone understanding you deeply over time?",
 		helpText: "Deep recognition of who I am",
 		ui: { quickPick: true },
+		offerDeepening: {
+			questions: [
+				"When you say being understood, is it more about wanting agreement — or wanting your experience to truly land with someone?",
+				"When someone really understands you, does it feel more like relief, connection, belonging, or something else?",
+			],
+			suggestions: ["Connection", "Belonging", "Safety (emotional)", "To matter"],
+		},
 	},
 	{
 		id: "to_be_trusted",
@@ -714,6 +721,15 @@ export const allNeeds = [
 			[BETWEEN_US]: "You might notice what behaviour from this person would feel kind or considerate to you.",
 			[IN_ME]: "You might explore whether there's a way to bring more gentleness toward yourself in this moment.",
 		},
+
+		offerDeepening: {
+			questions: [
+				"When you say kindness, is it more about gentleness — or about feeling safe enough to soften?",
+				"Is the longing more for warmth in how you're treated — or for reassurance that you matter?",
+			],
+			suggestions: ["Care", "Safety", "Tenderness", "To matter"],
+		},
+
 		helpText: "Gentle and benevolent care",
 	},
 

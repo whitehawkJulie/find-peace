@@ -55,6 +55,11 @@ const RefineNeeds = () => {
 				more closely for you.
 			</p>
 
+			<p>
+				The question to ask yourself for each need is: "If THAT need was met, what would that give me?", or
+				"what becomes possible when that need is met?
+			</p>
+
 			{checkNeeds.map((name) => {
 				const deepening = getNeedData(name)?.offerDeepening;
 				const questions = deepening?.questions ?? [];

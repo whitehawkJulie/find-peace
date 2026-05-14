@@ -52,6 +52,10 @@ function buildSection(familyName) {
 	};
 }
 
+export const needMeaningByLabel = Object.fromEntries(
+	allNeeds.map((n) => [n.label, n.helpText || ""])
+);
+
 export const Needs = {
 	ui: { heading: "Needs", helpText: "" },
 	sections: {

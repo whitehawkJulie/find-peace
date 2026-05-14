@@ -3,10 +3,11 @@ import { useWizard } from "../WizardContext";
 import { trackEvent, currentPage } from "../../analytics/analytics";
 import HelpLink from "../HelpLink";
 import ImportanceBanner from "../ImportanceBanner";
-import { AllFeelingsData as FeelingsData } from "../../data/AllFeelingsData";
+import { AllFeelingsData as FeelingsData, feelingDescriptionByName } from "../../data/AllFeelingsData";
 import { feelingTypes } from "../../data/FeelingTypes";
 import { storyWordSet } from "../../data/StoryWords";
 import ClarifyFeelings from "../ClarifyFeelings";
+import Pill from "../Pill";
 import "./UnpackFeelings.css";
 
 // Build a lookup: item name → full item data (only for unmet feelings with a feelingType tag)
@@ -269,9 +270,14 @@ const UnpackFeelings = () => {
 							{unmetEntries.map(([name, state]) => {
 								const isFirst = !!firstFeelings[name];
 								return (
-									<div
+									<Pill
 										key={name}
-										className={`pill feeling ${state} feeling-removable${isFirst ? " first-feeling-selected" : ""}`}
+										item={name}
+										type="feeling"
+										state={state}
+										meaning={feelingDescriptionByName[name] || ""}
+										extraClass={`feeling-removable${isFirst ? " first-feeling-selected" : ""}`}
+										firstBadge={isFirst}
 										onClick={() =>
 											setFirstFeelings((prev) => {
 												const next = { ...prev };
@@ -279,24 +285,12 @@ const UnpackFeelings = () => {
 												else next[name] = true;
 												return next;
 											})
-										}>
-										{isFirst && <span className="first-feeling-badge">①</span>}
-										{!isFirst && state === "double-clicked" && (
-											<span className="pill-strong-badge">●</span>
-										)}
-										{name}
-										<button
-											className="pill-remove-x"
-											onClick={(e) => {
-												e.stopPropagation();
-												if (skipRemoveConfirm) removeFeeling(name);
-												else setPendingRemoveFeeling(name);
-											}}
-											title={`Remove ${name}`}
-											aria-label={`Remove ${name}`}>
-											×
-										</button>
-									</div>
+										}
+										onRemove={() => {
+											if (skipRemoveConfirm) removeFeeling(name);
+											else setPendingRemoveFeeling(name);
+										}}
+									/>
 								);
 							})}
 						</div>
@@ -307,9 +301,14 @@ const UnpackFeelings = () => {
 									{metEntries.map(([name, state]) => {
 										const isFirst = !!firstFeelings[name];
 										return (
-											<div
+											<Pill
 												key={name}
-												className={`pill feeling ${state} feeling-removable${isFirst ? " first-feeling-selected" : ""}`}
+												item={name}
+												type="feeling"
+												state={state}
+												meaning={feelingDescriptionByName[name] || ""}
+												extraClass={`feeling-removable${isFirst ? " first-feeling-selected" : ""}`}
+												firstBadge={isFirst}
 												onClick={() =>
 													setFirstFeelings((prev) => {
 														const next = { ...prev };
@@ -317,24 +316,12 @@ const UnpackFeelings = () => {
 														else next[name] = true;
 														return next;
 													})
-												}>
-												{isFirst && <span className="first-feeling-badge">①</span>}
-												{!isFirst && state === "double-clicked" && (
-													<span className="pill-strong-badge">●</span>
-												)}
-												{name}
-												<button
-													className="pill-remove-x"
-													onClick={(e) => {
-														e.stopPropagation();
-														if (skipRemoveConfirm) removeFeeling(name);
-														else setPendingRemoveFeeling(name);
-													}}
-													title={`Remove ${name}`}
-													aria-label={`Remove ${name}`}>
-													×
-												</button>
-											</div>
+												}
+												onRemove={() => {
+													if (skipRemoveConfirm) removeFeeling(name);
+													else setPendingRemoveFeeling(name);
+												}}
+											/>
 										);
 									})}
 								</div>
@@ -493,16 +480,15 @@ const UnpackFeelings = () => {
 									<div className="reduce-popup-group-heading">{groupName}</div>
 									<div className="pill-grid cloud">
 										{entries.map(([name, state]) => (
-											<div key={name} className={`pill feeling ${state} feeling-removable`}>
-												{name}
-												<button
-													className="pill-remove-x"
-													onClick={() => removeFeeling(name)}
-													title={`Remove ${name}`}
-													aria-label={`Remove ${name}`}>
-													×
-												</button>
-											</div>
+											<Pill
+												key={name}
+												item={name}
+												type="feeling"
+												state={state}
+												meaning={feelingDescriptionByName[name] || ""}
+												extraClass="feeling-removable"
+												onRemove={() => removeFeeling(name)}
+											/>
 										))}
 									</div>
 								</div>

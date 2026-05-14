@@ -149,6 +149,7 @@ const StrategyDiscovery = () => {
 								item={needName}
 								type="need"
 								state={isExplored ? "double-clicked" : "clicked"}
+								meaning={getNeedMeaning(needName) || ""}
 								onClick={() => handleNeedPillClick(needName)}
 							/>
 							{isExplored ? (

@@ -44,6 +44,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "autonomy",
 
+					definition: "Feeling your choices were shaped by hidden or indirect influence",
+
 					storyHint:
 						"This word often carries a sense that influence felt hidden or indirect — like your choice wasn't fully transparent or respected.",
 
@@ -80,6 +82,8 @@ export const StoryWords = {
 					item: "Coerced",
 					type: "storyWord",
 					ruptureType: "autonomy",
+
+					definition: "Feeling your 'no' had no real room — pressure removed genuine choice",
 
 					storyHint:
 						"This word often carries the sense that your 'no' didn't have room — like pressure or force limited your real choice.",
@@ -119,6 +123,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "autonomy",
 
+					definition: "Feeling compressed by demands or urgency that left little space",
+
 					storyHint:
 						"This word often carries a sense of compression — like there wasn't enough room, time, or choice in the situation.",
 
@@ -154,6 +160,8 @@ export const StoryWords = {
 					item: "Cornered",
 					type: "storyWord",
 					ruptureType: "autonomy",
+
+					definition: "Feeling trapped with options suddenly narrowed and nowhere to go",
 
 					storyHint:
 						"This word often carries a sense of no exit — like your options suddenly narrowed and there wasn't room to move.",
@@ -194,6 +202,8 @@ export const StoryWords = {
 					item: "Controlled",
 					type: "storyWord",
 					ruptureType: "autonomy",
+
+					definition: "Feeling your choices or movements are monitored or restricted over time",
 
 					storyHint:
 						"This word often carries a sense of ongoing restriction — like someone else is steering, monitoring, or limiting your choices over time.",
@@ -245,6 +255,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "belonging",
 
+					definition: "Feeling left outside a group or situation you wanted to be part of",
+
 					storyHint:
 						"This word often points to feeling outside the circle — not included in something important.",
 
@@ -283,6 +295,8 @@ export const StoryWords = {
 					item: "Rejected",
 					type: "storyWord",
 					ruptureType: "belonging",
+
+					definition: "Feeling turned away or refused after reaching out",
 
 					storyHint: "This word often carries the sense of being refused, dismissed, or pushed away.",
 
@@ -323,6 +337,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "belonging",
 
+					definition: "Noticing others were included in something you weren't part of",
+
 					storyHint:
 						"This word often points to a quieter form of exclusion — noticing others included while you were not.",
 
@@ -360,6 +376,8 @@ export const StoryWords = {
 					item: "Unwanted",
 					type: "storyWord",
 					ruptureType: "belonging",
+
+					definition: "Feeling your presence isn't desired, valued, or welcomed",
 
 					storyHint: "This word often carries a sense of not being desired, valued, or welcomed.",
 
@@ -411,6 +429,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "belonging",
 
+					definition: "Feeling made small or treated as less important than you are",
+
 					storyHint:
 						"This word often carries the sense of being made small, diminished, or treated as less-than.",
 
@@ -452,6 +472,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "belonging",
 
+					definition: "Feeling directly targeted with words or actions meant to demean",
+
 					storyHint:
 						"This word often points to a direct attack — something said or done that felt degrading or disrespectful.",
 
@@ -490,6 +512,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "respect",
 
+					definition: "Feeling your actions or character were judged or found lacking",
+
 					storyHint:
 						"This word often carries a sense that something about you or your actions was judged or diminished.",
 
@@ -524,6 +548,8 @@ export const StoryWords = {
 					item: "Provoked",
 					type: "storyWord",
 					ruptureType: "respect",
+
+					definition: "Feeling deliberately pushed or baited into reacting",
 
 					storyHint:
 						"This word often suggests you felt pushed or baited into a reaction that didn't feel fair or respectful.",
@@ -566,6 +592,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "trust",
 
+					definition: "Feeling a deep bond or trust was broken by someone you relied on",
+
 					storyHint:
 						"This word often carries the sense that a bond or agreement was broken in a deeply personal way.",
 
@@ -606,6 +634,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "trust",
 
+					definition: "Feeling misled — led to believe something that wasn't true",
+
 					storyHint:
 						"This word often points to discovering that something wasn't as it seemed — a sense of being misled.",
 
@@ -642,6 +672,8 @@ export const StoryWords = {
 					item: "Cheated",
 					type: "storyWord",
 					ruptureType: "trust",
+
+					definition: "Feeling unfairly denied something you were entitled to",
 
 					storyHint:
 						"This word often points to feeling unfairly treated — like something you were entitled to wasn't honoured.",
@@ -692,6 +724,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "invisibility",
 
+					definition: "Feeling your presence or communication wasn't acknowledged",
+
 					storyHint: "This word often points to reaching out and not receiving a response.",
 
 					empathyGuesses: [
@@ -732,6 +766,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "invisibility",
 
+					definition: "Feeling your true self isn't noticed or recognised by others",
+
 					storyHint:
 						"This word often carries the sense of not being recognised or acknowledged for who you are.",
 
@@ -768,6 +804,8 @@ export const StoryWords = {
 					item: "Unheard",
 					type: "storyWord",
 					ruptureType: "invisibility",
+
+					definition: "Feeling your words or feelings didn't land or weren't really listened to",
 
 					storyHint:
 						"This word often points to speaking or expressing something and not feeling listened to or understood.",
@@ -819,6 +857,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "justice",
 
+					definition: "Feeling something unjust or unfair was done to you",
+
 					storyHint: "This word often carries the sense that something unjust or unfair happened to you.",
 
 					empathyGuesses: [
@@ -853,6 +893,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "justice",
 
+					definition: "Feeling taken advantage of — like you gave more than you received",
+
 					storyHint:
 						"This word often points to feeling taken advantage of — especially regarding time, money, or effort.",
 
@@ -886,6 +928,8 @@ export const StoryWords = {
 					item: "Victimised",
 					type: "storyWord",
 					ruptureType: "justice",
+
+					definition: "Feeling harmed or targeted from a position of less power",
 
 					storyHint:
 						"This word often carries the sense of being harmed or targeted from a position of less power.",
@@ -922,6 +966,8 @@ export const StoryWords = {
 					item: "Blamed",
 					type: "storyWord",
 					ruptureType: "justice",
+
+					definition: "Feeling responsibility placed on you in a way that didn't feel fair or accurate",
 
 					storyHint:
 						"This word often carries a sense that responsibility was placed on you in a way that felt unfair or inaccurate.",
@@ -965,6 +1011,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "safety",
 
+					definition: "Feeling harmed — emotionally or physically — in a way that felt unsafe or violating",
+
 					storyHint:
 						"This word often points to harm — emotional or physical — that felt unsafe or violating.",
 
@@ -1000,6 +1048,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "safety",
 
+					definition: "Feeling targeted or harmed verbally, emotionally, or physically",
+
 					storyHint:
 						"This word often carries a sense of being targeted or harmed — verbally, emotionally, or physically.",
 
@@ -1031,6 +1081,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "safety",
 
+					definition: "Feeling subjected to repeated, unwanted pressure or intrusion",
+
 					storyHint: "This word often points to repeated intrusion or unwanted pressure that felt unsafe.",
 
 					empathyGuesses: [
@@ -1056,6 +1108,8 @@ export const StoryWords = {
 					item: "Threatened",
 					type: "storyWord",
 					ruptureType: "safety",
+
+					definition: "Feeling a sense of possible harm or danger, even if nothing physical occurred",
 
 					storyHint:
 						"This word often signals a sense of possible harm or loss — even if nothing physical happened.",
@@ -1087,6 +1141,8 @@ export const StoryWords = {
 					item: "Violated",
 					type: "storyWord",
 					ruptureType: "safety",
+
+					definition: "Feeling a boundary — physical, emotional, or relational — was crossed",
 
 					storyHint:
 						"This word often carries a sense that a boundary — physical, emotional, or relational — was crossed.",
@@ -1135,6 +1191,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "care",
 
+					definition: "Feeling left without support or connection when you needed it most",
+
 					storyHint:
 						"This word often carries a sense of being left without protection, connection, or reassurance.",
 
@@ -1172,6 +1230,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "care",
 
+					definition: "Feeling your needs went unnoticed or unattended to",
+
 					storyHint:
 						"This word often carries a sense of being overlooked or not tended to when care was needed.",
 
@@ -1199,6 +1259,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "care",
 
+					definition: "Feeling alone with a burden that was too heavy to carry by yourself",
+
 					storyHint:
 						"This word often points to carrying something alone that felt too heavy to hold by yourself.",
 
@@ -1224,6 +1286,8 @@ export const StoryWords = {
 					item: "Unloved",
 					type: "storyWord",
 					ruptureType: "care",
+
+					definition: "Feeling the absence of care, affection, or warmth from those close to you",
 
 					storyHint: "This word often holds a tender longing to feel cherished or valued at a deep level.",
 
@@ -1265,6 +1329,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "overload",
 
+					definition: "Feeling given more responsibility or emotional weight than was fair or manageable",
+
 					storyHint:
 						"This word often carries a sense of being given responsibility or emotional weight that didn't feel fair or manageable.",
 
@@ -1299,6 +1365,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "overload",
 
+					definition: "Feeling repeatedly interrupted or pressured in a way that disrupts your pace or calm",
+
 					storyHint:
 						"This word often reflects repeated interruptions or demands that disrupt your pace or calm.",
 
@@ -1326,6 +1394,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "overload",
 
+					definition: "Feeling pushed beyond your capacity with too little rest or recovery",
+
 					storyHint: "This word often signals prolonged strain — more demand than rest or recovery.",
 
 					empathyGuesses: [
@@ -1349,6 +1419,8 @@ export const StoryWords = {
 					item: "Trampled",
 					type: "storyWord",
 					ruptureType: "overload",
+
+					definition: "Feeling your needs and limits were pushed past without care or regard",
 
 					storyHint:
 						"This word often carries both disrespect and overwhelm — as if your needs were pushed past.",
@@ -1390,6 +1462,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "selfJudgement",
 
+					definition: "A painful story that your presence or needs have no value right now",
+
 					storyHint:
 						"This word often carries a painful story that your presence or needs don't matter — like your worth has disappeared or can't be felt right now.",
 
@@ -1408,6 +1482,8 @@ export const StoryWords = {
 					item: "Inadequate / not good enough",
 					type: "storyWord",
 					ruptureType: "selfJudgement",
+
+					definition: "A sense that you're falling short of what's expected or needed",
 
 					storyHint:
 						"This word often carries a sense that you're falling short — like something about you isn't measuring up.",
@@ -1429,6 +1505,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "selfJudgement",
 
+					definition: "A sense that something in you is damaged or beyond repair",
+
 					storyHint:
 						"This word often carries a sense that something in you is damaged or beyond repair — like healing feels far away.",
 
@@ -1448,6 +1526,8 @@ export const StoryWords = {
 					item: "A failure",
 					type: "storyWord",
 					ruptureType: "selfJudgement",
+
+					definition: "Feeling your efforts haven't led to the outcome you hoped for",
 
 					storyHint:
 						"This word often carries a sense that your efforts haven't led to the outcome you hoped for — and that that means something about you.",
@@ -1469,6 +1549,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "selfJudgement",
 
+					definition: "Fearing that love or acceptance isn't truly available to you",
+
 					storyHint:
 						"This word often carries a fear that love or acceptance isn't available to you — like connection might not be safe or possible.",
 
@@ -1487,6 +1569,8 @@ export const StoryWords = {
 					item: "Too much",
 					type: "storyWord",
 					ruptureType: "selfJudgement",
+
+					definition: "Worrying your needs, feelings, or intensity are more than others can hold",
 
 					storyHint:
 						"This word often carries a fear that your needs, feelings, or intensity are more than others can welcome.",
@@ -1507,6 +1591,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "selfJudgement",
 
+					definition: "Judging yourself for not producing or achieving as much as you think you should",
+
 					storyHint:
 						"This word often carries self-blame around capacity — like part of you thinks you should be able to do more than you can right now.",
 
@@ -1526,6 +1612,8 @@ export const StoryWords = {
 					type: "storyWord",
 					ruptureType: "selfJudgement",
 
+					definition: "Feeling your presence isn't landing or being noticed by those around you",
+
 					storyHint:
 						"This word often carries a sense that you're not being noticed or recognised — like your presence isn't landing with others.",
 
@@ -1543,6 +1631,8 @@ export const StoryWords = {
 					item: "Replaceable",
 					type: "storyWord",
 					ruptureType: "selfJudgement",
+
+					definition: "Fearing your presence or contribution isn't unique or valued",
 
 					storyHint:
 						"This word often carries a fear that your presence isn't unique or valued — like you could easily be swapped out.",
