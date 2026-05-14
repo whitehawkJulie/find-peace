@@ -275,6 +275,12 @@
 	color: #444;
 }
 
+.collab-summary-note {
+	font-size: 0.88rem;
+	color: #888;
+	margin: 0.5rem 0 1rem;
+}
+
 .collab-resync-btn {
 	float: none;
 	align-self: flex-start;

@@ -244,33 +244,9 @@ const Collaborate = () => {
 					);
 				})}
 
-				<div className="collab-step collab-step--final">
-					<h3 className="collab-step-title">{"Say it in your own words"}</h3>
-					<p className="collab-step-desc">
-						{"Here's your whole script — edit it to make it sound more like you."}
-					</p>
-					<p className="collab-step-hint">
-						{"This is just a guide, not the exact words to use. If you speak it, let it sound natural."}
-					</p>
-					<textarea
-						className="collab-step-textarea collab-step-textarea--very-tall"
-						data-field-id="collab-final-script"
-						placeholder="Your conversation script will appear here…"
-						ref={(el) => {
-							textareaRefs.current["finalScript"] = el;
-							autoResize(el);
-						}}
-						value={collabScript.finalScript ?? ""}
-						onInput={(e) => autoResize(e.target)}
-						onChange={(e) => updateCollabScript("finalScript", e.target.value)}
-					/>
-					<button
-						className="collab-regenerate-btn"
-						onClick={() => updateCollabScript("finalScript", buildFinalScript(collabScript))}>
-						{"↺ Regenerate from fields above"}
-					</button>
-				</div>
 			</div>
+
+			<p className="collab-summary-note">Your full conversation script will appear in the Summary.</p>
 
 			<button className="expand-text-toggle" onClick={() => openHelpTopic("nervous")}>
 				{"Nervous about having the conversation?"}
