@@ -118,7 +118,7 @@ const Checklist = ({
 
 	const renderPill = (itemData) => {
 		const { item } = itemData;
-		let tooltip = itemData.description || itemData.meaning || "";
+		let tooltip = itemData.definition || itemData.description || itemData.meaning || "";
 
 		// Determine indicator type
 		let indicator = null;

@@ -9,6 +9,9 @@ const Pill = ({
 	indicator = null, // "plus" | "chevron" | null
 	onClick = null,
 	onIndicatorClick = null,
+	onRemove = null,
+	extraClass = "",
+	firstBadge = false,
 }) => {
 	const [showTouchTooltip, setShowTouchTooltip] = useState(false);
 	const [desktopTooltip, setDesktopTooltip] = useState(null);
@@ -63,7 +66,7 @@ const Pill = ({
 		[onClick]
 	);
 
-	const className = `pill ${type} ${state}`.trim();
+	const className = `pill ${type} ${state}${extraClass ? " " + extraClass : ""}`.trim();
 
 	return (
 		<div
@@ -75,7 +78,8 @@ const Pill = ({
 			onTouchStart={handleTouchStart}
 			onTouchEnd={handleTouchEnd}
 			onTouchMove={handleTouchMove}>
-			{state === "double-clicked" && (type === "feeling" || type === "feelings" || type === "need" || type === "needs") && (
+			{firstBadge && <span className="first-feeling-badge">①</span>}
+			{!firstBadge && state === "double-clicked" && (type === "feeling" || type === "feelings" || type === "need" || type === "needs") && (
 				<span className="pill-strong-badge">●</span>
 			)}
 			{item}
@@ -99,6 +103,15 @@ const Pill = ({
 					}}>
 					?
 				</span>
+			)}
+			{onRemove && (
+				<button
+					className="pill-remove-x"
+					onClick={(e) => { e.stopPropagation(); onRemove(); }}
+					title={`Remove ${item}`}
+					aria-label={`Remove ${item}`}>
+					×
+				</button>
 			)}
 			{showTouchTooltip && meaning && <div className="pill-tooltip-touch">{meaning}</div>}
 			{desktopTooltip && meaning && (

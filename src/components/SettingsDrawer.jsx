@@ -302,6 +302,22 @@ const SettingsContent = ({ onClose }) => {
 				<p className="settings-hint">Uses more colourful language throughout.</p>
 			</div>
 
+			<div className="settings-group">
+				<h4>Accessibility</h4>
+				<label className="settings-toggle">
+					<input
+						type="checkbox"
+						checked={!!settings?.dyslexiaFont}
+						onChange={(e) => {
+							updateSettings({ dyslexiaFont: e.target.checked });
+							trackEvent("action", { action_name: "settings_change", setting: "dyslexiaFont", value: e.target.checked });
+						}}
+					/>
+					Dyslexia-friendly font
+				</label>
+				<p className="settings-hint">Uses OpenDyslexic throughout the app.</p>
+			</div>
+
 			<HintsSection />
 
 			<PrivacySection />

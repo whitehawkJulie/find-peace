@@ -196,7 +196,7 @@ const NvcWizard = () => {
 			: CurrentStepComponent.title || "";
 
 	return (
-		<div className="nvc-wizard">
+		<div className={`nvc-wizard${settings?.dyslexiaFont ? " dyslexia-font" : ""}`}>
 			<Card title={title}>
 				<CurrentStepComponent />
 			</Card>

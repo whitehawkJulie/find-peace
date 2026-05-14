@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import { trackEvent, currentPage } from "../analytics/analytics";
 import Pill from "./Pill";
 import { useScrollIndicator } from "../hooks/useScrollIndicator";
+import { feelingDescriptionByName } from "../data/AllFeelingsData";
+import { needMeaningByLabel } from "../data/AllNeedsData";
 import "./ClarifyFeelings.css";
 import "./popup-scroll.css";
 
@@ -68,6 +70,7 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 						<div className="popup-scroll-wrapper">
 						<div className="clarify-popup-body" ref={bodyRef}>
 
+						{itemData.definition && <p className="clarify-definition">{itemData.definition}</p>}
 						{itemData.storyHint && <p className="clarify-reframe highlight-box">{itemData.storyHint}.</p>}
 
 						{itemData.empathyGuesses?.length > 0 && (
@@ -96,6 +99,7 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 															item={f}
 															type="feeling"
 															state={feelings[f] || ""}
+															meaning={feelingDescriptionByName[f] || ""}
 															onClick={() => {
 																trackEvent("action", { action_name: "story_word_feeling_toggle",
 																	word: itemData.item, feeling: f, selected: !isChosen(feelings, f) });
@@ -114,6 +118,7 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 															item={n}
 															type="need"
 															state={needs[n] || ""}
+															meaning={needMeaningByLabel[n] || ""}
 															onClick={() => {
 																trackEvent("action", { action_name: "story_word_need_toggle",
 																	word: itemData.item, need: n, selected: !isChosen(needs, n) });
@@ -200,6 +205,7 @@ const ClarifyFeelings = ({ itemData, feelings, needs, onToggleFeeling, onToggleN
 															? "clicked"
 															: ""
 													}
+													meaning={feelingDescriptionByName[opt] || ""}
 													onClick={() => onToggleFeeling(opt)}
 												/>
 											))}

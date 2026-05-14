@@ -8,6 +8,8 @@ import DismissibleHint from "../DismissibleHint";
 import ImportanceBanner from "../ImportanceBanner";
 import AudioPlayer from "../AudioPlayer";
 import meditationAudio from "../../assets/Beauty_of_need.mp3";
+import Pill from "../Pill";
+import { needMeaningByLabel } from "../../data/AllNeedsData";
 import "./UnpackNeeds.css";
 
 // ─────────────────────────────────────────────
@@ -214,23 +216,16 @@ const UnpackNeeds = () => {
 			<p className="cloud-label">Your needs</p>
 			<div className="pill-grid cloud needs-selected-pills">
 				{unexploredNeeds.map((name) => (
-					<div
+					<Pill
 						key={name}
-						className={`pill need ${needs[name]} need-removable`}
-						onClick={() => startExploring(name)}>
-						{needs[name] === "double-clicked" && <span className="pill-strong-badge">●</span>}
-						{name}
-						<button
-							className="pill-remove-x"
-							onClick={(e) => {
-								e.stopPropagation();
-								setPendingRemoveNeed(name);
-							}}
-							title={`Remove ${name}`}
-							aria-label={`Remove ${name}`}>
-							×
-						</button>
-					</div>
+						item={name}
+						type="need"
+						state={needs[name] || "clicked"}
+						meaning={needMeaningByLabel[name] || ""}
+						extraClass="need-removable"
+						onClick={() => startExploring(name)}
+						onRemove={() => setPendingRemoveNeed(name)}
+					/>
 				))}
 			</div>
 			{exploredNeeds.length > 0 && (
@@ -238,23 +233,16 @@ const UnpackNeeds = () => {
 					<p className="explored-label">{"Already explored:"}</p>
 					<div className="pill-grid cloud needs-selected-pills">
 						{exploredNeeds.map((name) => (
-							<div
+							<Pill
 								key={name}
-								className={`pill need ${needs[name] || "clicked"} need-removable`}
-								onClick={() => startExploring(name)}>
-								{needs[name] === "double-clicked" && <span className="pill-strong-badge">●</span>}
-								{name}
-								<button
-									className="pill-remove-x"
-									onClick={(e) => {
-										e.stopPropagation();
-										setPendingRemoveNeed(name);
-									}}
-									title={`Remove ${name}`}
-									aria-label={`Remove ${name}`}>
-									×
-								</button>
-							</div>
+								item={name}
+								type="need"
+								state={needs[name] || "clicked"}
+								meaning={needMeaningByLabel[name] || ""}
+								extraClass="need-removable"
+								onClick={() => startExploring(name)}
+								onRemove={() => setPendingRemoveNeed(name)}
+							/>
 						))}
 					</div>
 				</div>
