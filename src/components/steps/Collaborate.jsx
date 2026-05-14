@@ -219,14 +219,14 @@ const Collaborate = () => {
 								onInput={(e) => autoResize(e.target)}
 								onChange={(e) => updateCollabScript(stepId, e.target.value)}
 							/>
-							{stepId === "step2" && (
+							{stepId === "step2" && value !== (buildStep2() || STEP_DATA.step2.scriptDefault) && (
 								<button
 									className="collab-resync-btn"
 									onClick={() => updateCollabScript("step2", buildStep2() || STEP_DATA.step2.scriptDefault)}>
 									↺ Re-sync from my guesses
 								</button>
 							)}
-							{stepId === "step4" && (
+							{stepId === "step4" && value !== buildStep4() && (
 								<button
 									className="collab-resync-btn"
 									onClick={() => updateCollabScript("step4", buildStep4())}>
