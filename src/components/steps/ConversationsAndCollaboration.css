@@ -275,6 +275,28 @@
 	color: #444;
 }
 
+.collab-resync-btn {
+	float: none;
+	align-self: flex-start;
+	background: none;
+	border: 1px solid #aabba8;
+	border-radius: 6px;
+	padding: 0.3rem 0.75rem;
+	font-size: 0.82rem;
+	font-family: inherit;
+	color: #5a7a58;
+	cursor: pointer;
+	transition:
+		background 0.15s,
+		color 0.15s;
+	margin-top: 0.4rem;
+}
+
+.collab-resync-btn:hover {
+	background: #eef3ed;
+	color: #3a5a38;
+}
+
 /* ===== Include in summary checkbox ===== */
 
 .collab-include-label {

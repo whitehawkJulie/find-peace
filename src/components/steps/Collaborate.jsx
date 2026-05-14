@@ -139,10 +139,7 @@ const Collaborate = () => {
 		setIncludeCollabInSummary(true);
 	};
 
-	// Initialise step fields from context data on first visit
-	useEffect(() => {
-		if (collabScript.step1 !== undefined) return;
-
+	const buildStep4 = useCallback(() => {
 		const allFeelings = [
 			...filterByState(feelings, "double-clicked"),
 			...filterByState(feelings, "clicked"),
@@ -151,7 +148,10 @@ const Collaborate = () => {
 		const obs = observation?.refined?.trim() || "[what happened]";
 		const feelStr = allFeelings.length ? allFeelings.join(", ").toLowerCase() : "[feeling]";
 		const needStr = allNeeds.length ? allNeeds.join(", ").toLowerCase() : "[need]";
+		return `When\n${obs}\nI felt\n${feelStr}\nbecause I was needing\n${needStr}.`;
+	}, [feelings, needs, observation]);
 
+	const buildStep2 = useCallback(() => {
 		const guessFeelingsAll = [
 			...filterByState(guessFeelings, "double-clicked"),
 			...filterByState(guessFeelings, "clicked"),
@@ -159,33 +159,27 @@ const Collaborate = () => {
 		const guessNeedsAll = [...filterByState(guessNeeds, "double-clicked"), ...filterByState(guessNeeds, "clicked")];
 		const guessFeelStr = guessFeelingsAll.join(", ").toLowerCase();
 		const guessNeedStr = guessNeedsAll.join(", ").toLowerCase();
-
-		let step2 = "";
-		if (guessObservation || guessFeelStr || guessNeedStr) {
-			if (guessObservation && (guessFeelStr || guessNeedStr)) {
-				step2 = `I'm wondering what it was like for you when\n${guessObservation}\nif you might have been feeling\n${guessFeelStr || "[feeling]"}\nand wanting\n${guessNeedStr || "[need]"}.`;
-			} else if (guessObservation) {
-				step2 = `I'm wondering what it was like for you when\n${guessObservation}.`;
-			} else {
-				step2 = `I'd really like to understand how it was for you earlier, if you might have been feeling\n${guessFeelStr || "[feeling]"}\nand wanting\n${guessNeedStr || "[need]"}.`;
-			}
+		if (!guessObservation && !guessFeelStr && !guessNeedStr) return "";
+		if (guessObservation && (guessFeelStr || guessNeedStr)) {
+			return `I'm wondering what it was like for you when\n${guessObservation}\nif you might have been feeling\n${guessFeelStr || "[feeling]"}\nand wanting\n${guessNeedStr || "[need]"}.`;
 		}
+		if (guessObservation) return `I'm wondering what it was like for you when\n${guessObservation}.`;
+		return `I'd really like to understand how it was for you earlier, if you might have been feeling\n${guessFeelStr || "[feeling]"}\nand wanting\n${guessNeedStr || "[need]"}.`;
+	}, [guessFeelings, guessNeeds, guessObservation]);
+
+	// Initialise step fields from context data on first visit
+	useEffect(() => {
+		if (collabScript.step1 !== undefined) return;
 
 		const defaults = {};
-		STEP_IDS.forEach((id) => {
-			defaults[id] = STEP_DATA[id].scriptDefault;
-		});
-
+		STEP_IDS.forEach((id) => { defaults[id] = STEP_DATA[id].scriptDefault; });
+		const step2 = buildStep2();
 		const fields = {
 			...defaults,
 			step2: step2 || defaults.step2,
-			step4: `When\n${obs}\nI felt\n${feelStr}\nbecause I was needing\n${needStr}.`,
+			step4: buildStep4(),
 		};
-
-		setCollabScript({
-			...fields,
-			finalScript: buildFinalScript(fields),
-		});
+		setCollabScript({ ...fields, finalScript: buildFinalScript(fields) });
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Auto-resize all tracked textareas whenever their content changes
@@ -225,6 +219,20 @@ const Collaborate = () => {
 								onInput={(e) => autoResize(e.target)}
 								onChange={(e) => updateCollabScript(stepId, e.target.value)}
 							/>
+							{stepId === "step2" && (
+								<button
+									className="collab-resync-btn"
+									onClick={() => updateCollabScript("step2", buildStep2() || STEP_DATA.step2.scriptDefault)}>
+									↺ Re-sync from my guesses
+								</button>
+							)}
+							{stepId === "step4" && (
+								<button
+									className="collab-resync-btn"
+									onClick={() => updateCollabScript("step4", buildStep4())}>
+									↺ Re-sync from my feelings and needs
+								</button>
+							)}
 							{stepData.helpTopicId && (
 								<button
 									className="expand-text-toggle"
