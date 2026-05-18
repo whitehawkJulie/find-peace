@@ -1,5 +1,6 @@
 import React from "react";
 import { useWizard } from "../WizardContext";
+import ImportanceBanner from "../ImportanceBanner";
 import "./RequestFormulation.css";
 
 const ExploringWhatsChanged = () => {
@@ -11,7 +12,8 @@ const ExploringWhatsChanged = () => {
 
 	return (
 		<div className="step-whats-changed step-container">
-<>
+			<ImportanceBanner message="Take what's useful — this section is a gentle check-in, not essential." />
+			<>
 				<p>Let's take a moment to notice what's changed inside you, if anything.</p>
 
 				<p>

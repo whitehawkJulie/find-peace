@@ -46,7 +46,10 @@ const RefineNeeds = () => {
 
 	return (
 		<div className="refine-needs">
-<p className="refine-needs-intro">
+			<p className="refine-needs-optional">
+				Optional — if all your needs feel exactly right, skip straight to the next step.
+			</p>
+			<p className="refine-needs-intro">
 				Some of the needs you've chosen can <em>sometimes</em> be shorthand for something more specific. The
 				questions below are there to help you check whether there's something underneath that might fit even
 				more closely for you.

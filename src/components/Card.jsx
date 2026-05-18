@@ -190,9 +190,6 @@ const Card = ({ title, children, hideNav = false }) => {
 			{/* Wrapper gives the fade a reliable anchor: position:absolute inside
 			    a position:relative container that exactly matches the scrollable area */}
 			<div className="card-content-wrapper">
-				{currentStep?.optionalBadge && (
-					<div className="card-optional-badge" aria-label="This step is optional">optional</div>
-				)}
 				<div className="card-content" ref={cardContentRef}>
 					{children}
 				</div>
