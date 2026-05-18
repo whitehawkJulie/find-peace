@@ -1,0 +1,240 @@
+/* Shared styles for OnboardingWelcome, OnboardingWhenToUse, OnboardingHowTo */
+
+.step-onboarding {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+/* ── Text sections ── */
+
+.onboarding-section {
+	padding: 0 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.onboarding-lead {
+	font-size: 0.97rem;
+	line-height: 1.55;
+	color: #333;
+	margin: 0 !important;
+}
+
+.onboarding-prompt-label {
+	font-size: 0.9rem;
+	color: #555;
+	margin: 0 !important;
+}
+
+.onboarding-examples {
+	margin: 0 !important;
+	padding-left: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.onboarding-examples li {
+	font-size: 0.92rem;
+	line-height: 1.45;
+	color: #3a4a40;
+}
+
+.onboarding-tip {
+	font-size: 0.88rem;
+	color: #666;
+	margin: 0 !important;
+}
+
+/* ── Skip / footer ── */
+
+.onboarding-footer {
+	padding: 0.25rem 1.25rem 0.5rem;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.onboarding-footer--howto {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.6rem;
+}
+
+.onboarding-skip-btn {
+	background: none;
+	border: none;
+	color: #999;
+	font-size: 0.82rem;
+	padding: 0.25rem 0;
+	cursor: pointer;
+	float: none;
+	text-decoration: none;
+}
+
+.onboarding-skip-btn:hover {
+	color: #555;
+}
+
+.onboarding-dont-show {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.88rem;
+	color: #555;
+	cursor: pointer;
+}
+
+.onboarding-dont-show input[type="checkbox"] {
+	width: 1rem;
+	height: 1rem;
+	cursor: pointer;
+	flex-shrink: 0;
+}
+
+/* ── App diagram (HowTo screen) ── */
+
+.howto-diagram-wrap {
+	padding: 0 1.75rem 0 1.25rem; /* right padding clears the callout badges */
+}
+
+.howto-card {
+	border: 2px solid #b8d0c8;
+	border-radius: 10px;
+	overflow: visible;
+	background: #f5faf7;
+}
+
+.howto-card-header {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 0.65rem;
+	background: #ddeee8;
+	border-radius: 8px 8px 0 0;
+	border-bottom: 1px solid #b8d0c8;
+	position: relative;
+	overflow: visible;
+}
+
+.howto-card-title {
+	flex: 1;
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: #2e4a42;
+}
+
+.howto-menu-icon {
+	font-size: 0.95rem;
+	color: #3a5a50;
+	line-height: 1;
+}
+
+.howto-card-body {
+	padding: 0.75rem 0.65rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.howto-dummy-line {
+	height: 0.55rem;
+	background: #d0e5dc;
+	border-radius: 4px;
+}
+
+.howto-line--long   { width: 85%; }
+.howto-line--medium { width: 62%; }
+.howto-line--short  { width: 40%; }
+
+/* ── Progress row ── */
+
+.howto-progress-row {
+	position: relative;
+	overflow: visible;
+	display: flex;
+	align-items: center;
+	padding: 0.3rem 0;
+	border-top: 1px solid #b8d0c8;
+}
+
+.howto-progress-track {
+	flex: 1;
+	height: 5px;
+	background: #d0e5dc;
+}
+
+.howto-progress-fill {
+	height: 100%;
+	width: 30%;
+	background: #5f8f82;
+}
+
+/* ── Nav row ── */
+
+.howto-nav-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.35rem 0.65rem;
+	position: relative;
+	overflow: visible;
+}
+
+.howto-nav-btn {
+	font-size: 0.72rem;
+	color: #3a5a50;
+	font-weight: 500;
+}
+
+/* ── Callout badges ──
+   Each labeled section is position:relative and overflow:visible.
+   The badge hangs off the right edge at -1.4rem. */
+
+.howto-callout-badge {
+	position: absolute;
+	right: -1.55rem;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 1.25rem;
+	height: 1.25rem;
+	background: #3a5a50;
+	color: white;
+	border-radius: 50%;
+	font-size: 0.65rem;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 2;
+	flex-shrink: 0;
+}
+
+/* ── Legend ── */
+
+.howto-legend {
+	margin: 0 !important;
+	padding: 0 1.25rem 0 2.75rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	list-style: decimal;
+}
+
+.howto-legend li {
+	font-size: 0.88rem;
+	line-height: 1.45;
+	color: #3a4a40;
+}
+
+.howto-note {
+	font-size: 0.88rem;
+	color: #444;
+	background: #f0f7f4;
+	border-left: 3px solid #7ab89a;
+	padding: 0.45rem 0.65rem;
+	border-radius: 0 6px 6px 0;
+	margin: 0 1.25rem !important;
+}
