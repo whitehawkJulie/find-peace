@@ -125,8 +125,6 @@ const Checklist = ({
 		if (itemData.type === "storyWord") {
 			indicator = "plus";
 			if (!tooltip) tooltip = "Tap to unpack";
-		} else if (itemData.clarify?.type === "murky" && selectedItems[item]) {
-			indicator = "chevron";
 		}
 
 		return (

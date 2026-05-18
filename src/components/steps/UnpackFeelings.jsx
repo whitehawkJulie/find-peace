@@ -26,21 +26,18 @@ if (unmetSection?.groups) {
 const feelingsMetSet = new Set();
 const metSection = FeelingsData.sections.feelingsMet;
 if (metSection?.groups) {
-	for (const group of Object.values(metSection.groups))
-		for (const item of group.items) feelingsMetSet.add(item.item);
+	for (const group of Object.values(metSection.groups)) for (const item of group.items) feelingsMetSet.add(item.item);
 }
 
 // Build a lookup: item name → group heading (for the reduce-list popup)
 const feelingGroupLookup = {};
 if (unmetSection?.groups) {
 	for (const group of Object.values(unmetSection.groups))
-		for (const item of group.items)
-			feelingGroupLookup[item.item] = group.ui.heading;
+		for (const item of group.items) feelingGroupLookup[item.item] = group.ui.heading;
 }
 if (metSection?.groups) {
 	for (const group of Object.values(metSection.groups))
-		for (const item of group.items)
-			feelingGroupLookup[item.item] = group.ui.heading;
+		for (const item of group.items) feelingGroupLookup[item.item] = group.ui.heading;
 }
 
 const EXPLORE_TYPES = ["fear", "anger", "distress", "shame", "shutdown", "confusion"];
@@ -215,16 +212,20 @@ const UnpackFeelings = () => {
 
 	return (
 		<div className="feelings-explore">
+			<ImportanceBanner
+				heading="Optional"
+				message="The sections below help you look more closely at your feelings."
+			/>
 			{!hasSelectedFeelings && (
 				<p className="empty-state-notice">
 					No feelings selected yet — this page isn't useful until you've chosen some feelings on the previous
 					step.
 				</p>
 			)}
-
 			<p>
-				Here we're staying with what you're feeling, so that it can soften and show you more about what matters
-				to you.
+				Some feelings are direct emotions, while others are more like protective states or blended experiences.
+				This page allows you to explore them more deeply, if you'd like to - or you can just go straight to
+				looking at what needs they're pointing to.
 			</p>
 
 			<div>
@@ -341,7 +342,7 @@ const UnpackFeelings = () => {
 				)}
 				{hasSelectedFeelings && (
 					<div>
-						<h3>What came first? (optional)</h3>
+						<h3>What came first?</h3>
 
 						<p>
 							Looking at your list, can you notice any feelings that feel like they came{" "}
@@ -364,10 +365,6 @@ const UnpackFeelings = () => {
 
 			{detectedTypes.length > 0 && (
 				<div className="feelings-explore-categories">
-					<ImportanceBanner
-						heading="Optional"
-						message="Only if you want — the sections below help you look more closely at specific feelings."
-					/>
 					<h3>Go deeper</h3>
 
 					<p className="feelings-explore-categories-intro">
@@ -410,10 +407,13 @@ const UnpackFeelings = () => {
 					<div className="reduce-popup" onClick={(e) => e.stopPropagation()}>
 						<div className="reduce-popup-header">
 							<h3>Remove similar feelings</h3>
-							<button className="reduce-popup-close" onClick={() => setShowReducePopup(false)}>✕</button>
+							<button className="reduce-popup-close" onClick={() => setShowReducePopup(false)}>
+								✕
+							</button>
 						</div>
 						<p className="reduce-popup-intro">
-							Tap × to remove feelings you don't need. Words in the same group are similar — keeping the most accurate one is enough.
+							Tap × to remove feelings you don't need. Words in the same group are similar — keeping the
+							most accurate one is enough.
 						</p>
 						<div className="reduce-popup-groups">
 							{Object.entries(groupedSelectedEntries).map(([groupName, entries]) => (
@@ -436,7 +436,9 @@ const UnpackFeelings = () => {
 							))}
 						</div>
 						<div className="reduce-popup-footer">
-							<button className="reduce-popup-done" onClick={() => setShowReducePopup(false)}>Done</button>
+							<button className="reduce-popup-done" onClick={() => setShowReducePopup(false)}>
+								Done
+							</button>
 						</div>
 					</div>
 				</div>

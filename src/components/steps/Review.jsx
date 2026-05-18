@@ -13,7 +13,9 @@ const Review = () => {
 	return (
 		<div className="review">
 			<div className="review-arrival">
-				<p className="review-arrival-main">You've taken the time to slow down and listen to what was happening for you.</p>
+				<p className="review-arrival-main">
+					You've taken the time to slow down and listen to what was happening for you.
+				</p>
 				<p className="review-arrival-sub">What did you learn?</p>
 			</div>
 

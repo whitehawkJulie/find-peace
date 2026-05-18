@@ -52,31 +52,22 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
 						{ text: "That sounds unsettling… did something feel off or unclear?" },
-						{ text: "Is there anger here — the kind that shows up when autonomy feels compromised?", feelings: ["angry", "resentful", "indignant"], needs: ["Autonomy", "Choice", "Agency"] },
+						{
+							text: "Is there anger here — the kind that shows up when autonomy feels compromised?",
+							feelings: ["angry", "resentful", "indignant"],
+							needs: ["Autonomy", "Choice", "Agency", "Authenticity", "Respect"],
+						},
 						{ text: "Maybe frustration, if your influence felt blocked?", feelings: ["frustrated"] },
 						{ text: "Or hurt, if trust felt shaken?", feelings: ["hurt"], needs: ["Trusting"] },
-						{ text: "And possibly even some fear, if you didn't feel steady in the interaction.", feelings: ["scared"] },
-						{ text: "ADD QUESTION HERE", feelings: ["helpless"], needs: ["Authenticity", "Respect"] },
+						{
+							text: "And possibly even some fear, if you didn't feel steady in the interaction.",
+							feelings: ["scared", "helpless"],
+						},
 					],
 
-					suggestedFeelings: [
-						"scared",
-						"frustrated",
-						"helpless",
-						"angry",
-						"resentful",
-						"indignant",
-						"hurt",
-					],
+					suggestedFeelings: ["scared", "frustrated", "helpless", "angry", "resentful", "indignant", "hurt"],
 
-					suggestedNeeds: [
-						"Autonomy",
-						"Choice",
-						"Agency",
-						"Trusting",
-						"Authenticity",
-						"Respect",
-					],
+					suggestedNeeds: ["Autonomy", "Choice", "Agency", "Trusting", "Authenticity", "Respect"],
 				},
 				{
 					item: "Coerced",
@@ -90,11 +81,25 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feeling is strongest right now?" },
-						{ text: "That sounds scary… did it feel like there wasn't really space for your choice?", feelings: ["scared", "afraid"], needs: ["Choice", "Autonomy", "Freedom"] },
-						{ text: "Is there anger here, if your boundary was pushed past?", feelings: ["angry", "resentful", "indignant"], needs: ["Respect"] },
-						{ text: "Maybe frustration, if you tried to resist and couldn't?", feelings: ["frustrated"] },
-						{ text: "Or helplessness, if protecting yourself didn't feel possible?", feelings: ["helpless"] },
-						{ text: "ADD QUESTION HERE", feelings: ["tense"], needs: ["Safety (emotional)", "Space"] },
+						{
+							text: "That sounds scary… did it feel like there wasn't really space for your choice?",
+							feelings: ["scared", "afraid"],
+							needs: ["Choice", "Autonomy", "Freedom", "Space"],
+						},
+						{
+							text: "Is there anger here, if your boundary was pushed past?",
+							feelings: ["angry", "resentful", "indignant"],
+							needs: ["Respect"],
+						},
+						{
+							text: "Maybe frustration, if you tried to resist and couldn't?",
+							feelings: ["frustrated", "tense"],
+						},
+						{
+							text: "Or helplessness, if protecting yourself didn't feel possible?",
+							feelings: ["helpless"],
+							needs: ["Safety (emotional)"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -108,14 +113,7 @@ export const StoryWords = {
 						"tense",
 					],
 
-					suggestedNeeds: [
-						"Choice",
-						"Autonomy",
-						"Freedom",
-						"Safety (emotional)",
-						"Respect",
-						"Space",
-					],
+					suggestedNeeds: ["Choice", "Autonomy", "Freedom", "Safety (emotional)", "Respect", "Space"],
 				},
 
 				{
@@ -131,10 +129,20 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's pause gently… what's most alive right now?" },
 						{ text: "That sounds really uncomfortable… was it like you couldn't slow it down?" },
-						{ text: "There might be anxiety here, if it felt like something bad would happen if you didn't go along.", feelings: ["anxious", "restless"] },
-						{ text: "And maybe irritation — a protective 'please back off' energy.", feelings: ["irritated", "frustrated"], needs: ["Space", "Consideration", "Respect"] },
-						{ text: "Or overwhelm, if too much was coming at you at once.", feelings: ["overwhelmed"], needs: ["Ease", "Peace of mind"] },
-						{ text: "ADD QUESTION HERE", feelings: ["tense", "helpless"], needs: ["Clarity"] },
+						{
+							text: "There might be anxiety here, if it felt like something bad would happen if you didn't go along.",
+							feelings: ["anxious", "restless"],
+						},
+						{
+							text: "And maybe irritation — a protective 'back off' energy.",
+							feelings: ["irritated", "frustrated"],
+							needs: ["Space", "Consideration", "Respect"],
+						},
+						{
+							text: "Or overwhelm, if too much was coming at you at once.",
+							feelings: ["overwhelmed", "tense", "helpless"],
+							needs: ["Ease", "Peace of mind", "Clarity"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -147,14 +155,7 @@ export const StoryWords = {
 						"helpless",
 					],
 
-					suggestedNeeds: [
-						"Space",
-						"Clarity",
-						"Ease",
-						"Peace of mind",
-						"Consideration",
-						"Respect",
-					],
+					suggestedNeeds: ["Space", "Clarity", "Ease", "Peace of mind", "Consideration", "Respect"],
 				},
 				{
 					item: "Cornered",
@@ -168,11 +169,24 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what's most alive right now?" },
-						{ text: "That sounds intense… was there a feeling of being trapped or pinned?", feelings: ["trapped"] },
-						{ text: "Did your body go into fear — like you needed to get out quickly?", feelings: ["scared", "anxious", "tense", "restless"], needs: ["Safety (emotional)"] },
-						{ text: "Or did anger rise up — a surge of 'don't box me in' energy?", feelings: ["angry", "resentful", "indignant"], needs: ["Autonomy", "Freedom", "Choice", "Space"] },
-						{ text: "Maybe there was a frozen feeling, like you couldn't move at all.", feelings: ["helpless", "numb"] },
-						{ text: "ADD QUESTION HERE", needs: ["Ease", "Peace of mind"] },
+						{
+							text: "That sounds intense… was there a feeling of being trapped or pinned?",
+							feelings: ["trapped"],
+						},
+						{
+							text: "Did your body go into fear — like you needed to get out quickly?",
+							feelings: ["scared", "anxious", "tense", "restless"],
+							needs: ["Safety (emotional)"],
+						},
+						{
+							text: "Or did anger rise up — a surge of 'don't box me in' energy?",
+							feelings: ["angry", "resentful", "indignant"],
+							needs: ["Autonomy", "Freedom", "Choice", "Space"],
+						},
+						{
+							text: "Maybe there was a frozen feeling, like you couldn't move at all.",
+							feelings: ["helpless", "numb"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -210,30 +224,25 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what's most alive right now?" },
-						{ text: "That sounds really constricting… like your space to be you was being narrowed.", needs: ["Space", "Autonomy"] },
-						{ text: "Is there anger here — a protective 'don't run my life' energy?", feelings: ["angry", "frustrated"], needs: ["Choice", "Agency", "Respect", "Equality"] },
+						{
+							text: "That sounds really constricting… like your space to be you was being narrowed.",
+							needs: ["Space", "Autonomy"],
+						},
+						{
+							text: "Is there anger here — a protective 'don't run my life' energy?",
+							feelings: ["angry", "frustrated"],
+							needs: ["Choice", "Agency", "Respect", "Equality"],
+						},
 						{ text: "Or fear, if it felt risky to resist or say no?", feelings: ["anxious", "tense"] },
-						{ text: "And sometimes there's a heavy, trapped feeling — like you can't move freely.", feelings: ["trapped", "helpless", "hurt"] },
+						{
+							text: "And sometimes there's a heavy, trapped feeling — like you can't move freely.",
+							feelings: ["trapped", "helpless", "hurt"],
+						},
 					],
 
-					suggestedFeelings: [
-						"angry",
-						"frustrated",
-						"trapped",
-						"helpless",
-						"anxious",
-						"tense",
-						"hurt",
-					],
+					suggestedFeelings: ["angry", "frustrated", "trapped", "helpless", "anxious", "tense", "hurt"],
 
-					suggestedNeeds: [
-						"Autonomy",
-						"Choice",
-						"Agency",
-						"Space",
-						"Respect",
-						"Equality",
-					],
+					suggestedNeeds: ["Autonomy", "Choice", "Agency", "Space", "Respect", "Equality"],
 				},
 			],
 		},
@@ -263,10 +272,26 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
 						{ text: "That sounds painful… was it like being on the outside looking in?" },
-						{ text: "Maybe there's sadness here — a quiet ache of not being included.", feelings: ["sad", "lonely"], needs: ["Belonging", "Community", "Connection"] },
-						{ text: "Or anxiety — wondering what this means about your place.", feelings: ["anxious", "insecure"], needs: ["Safety (emotional)"] },
-						{ text: "And possibly hurt or vulnerability, if it touched something tender.", feelings: ["hurt", "vulnerable"], needs: ["To be seen", "Acceptance", "Mutuality"] },
-						{ text: "Sometimes there's also anger if it felt unfair.", feelings: ["angry", "resentful"], needs: ["Inclusion"] },
+						{
+							text: "Maybe there's sadness here — a quiet ache of not being included.",
+							feelings: ["sad", "lonely"],
+							needs: ["Belonging", "Community", "Connection"],
+						},
+						{
+							text: "Or anxiety — wondering what this means about your place.",
+							feelings: ["anxious", "insecure"],
+							needs: ["Safety (emotional)"],
+						},
+						{
+							text: "And possibly hurt or vulnerability, if it touched something tender.",
+							feelings: ["hurt", "vulnerable"],
+							needs: ["To be seen", "Acceptance", "Mutuality"],
+						},
+						{
+							text: "Sometimes there's also anger if it felt unfair.",
+							feelings: ["angry", "resentful"],
+							needs: ["Inclusion"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -302,12 +327,28 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
-						{ text: "That can really sting… was it like something in you reached out and got turned away?" },
-						{ text: "Did it land as hurt?", feelings: ["hurt"], needs: ["Belonging", "Acceptance", "Closeness"] },
-						{ text: "Maybe there's sadness — a heaviness in the chest.", feelings: ["sad", "lonely"], needs: ["Connection", "To be seen"] },
-						{ text: "Or fear, if it felt like your place wasn't secure.", feelings: ["scared", "insecure"], needs: ["Trusting", "Safety (emotional)"] },
-						{ text: "Sometimes anger shows up too, especially if it felt unfair or abrupt.", feelings: ["angry", "resentful"] },
-						{ text: "ADD QUESTION HERE", feelings: ["disappointed"], needs: ["Inclusion"] },
+						{
+							text: "That can really sting… was it like something in you reached out and got turned away?",
+						},
+						{
+							text: "Did it land as hurt?",
+							feelings: ["hurt", "disappointed"],
+							needs: ["Belonging", "Acceptance", "Closeness"],
+						},
+						{
+							text: "Maybe there's sadness — a heaviness in the chest.",
+							feelings: ["sad", "lonely"],
+							needs: ["Connection", "To be seen", "Inclusion"],
+						},
+						{
+							text: "Or fear, if it felt like your place wasn't secure.",
+							feelings: ["scared", "insecure"],
+							needs: ["Trusting", "Safety (emotional)"],
+						},
+						{
+							text: "Sometimes anger shows up too, especially if it felt unfair or abrupt.",
+							feelings: ["angry", "resentful"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -345,21 +386,25 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
 						{ text: "That can feel tender… was it like watching something happen without you?" },
-						{ text: "Did it bring a quiet sadness?", feelings: ["sad", "lonely"], needs: ["Belonging", "Community", "Connection"] },
-						{ text: "Maybe wondering what it means about your place.", feelings: ["anxious", "hurt", "insecure"], needs: ["To be seen", "Mutuality"] },
+						{
+							text: "Did it bring a quiet sadness?",
+							feelings: ["sad", "lonely"],
+							needs: ["Belonging", "Community", "Connection"],
+						},
+						{
+							text: "Maybe wondering what it means about your place.",
+							feelings: ["anxious", "hurt", "insecure"],
+							needs: ["To be seen", "Mutuality"],
+						},
 						{ text: "Or anxiety about where you stand.", needs: ["Safety (emotional)", "Inclusion"] },
-						{ text: "Sometimes there's irritation too, if it felt careless or avoidable.", feelings: ["annoyed", "resentful"], needs: ["Participation"] },
+						{
+							text: "Sometimes there's irritation too, if it felt careless or avoidable.",
+							feelings: ["annoyed", "resentful"],
+							needs: ["Participation"],
+						},
 					],
 
-					suggestedFeelings: [
-						"sad",
-						"lonely",
-						"anxious",
-						"hurt",
-						"insecure",
-						"annoyed",
-						"resentful",
-					],
+					suggestedFeelings: ["sad", "lonely", "anxious", "hurt", "insecure", "annoyed", "resentful"],
 
 					suggestedNeeds: [
 						"Inclusion",
@@ -384,9 +429,21 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
 						{ text: "That sounds deeply tender… was it like not being desired or welcomed?" },
-						{ text: "Did something in you sink or withdraw?", feelings: ["sad", "lonely", "hurt"], needs: ["Belonging", "Connection", "Affection"] },
-						{ text: "Maybe anxiety, wondering whether you belong.", feelings: ["anxious", "insecure"], needs: ["Acceptance"] },
-						{ text: "There can also be anger underneath, especially if it felt unjust.", feelings: ["angry", "resentful", "frustrated"], needs: ["To matter", "Care"] },
+						{
+							text: "Did something in you sink or withdraw?",
+							feelings: ["sad", "lonely", "hurt"],
+							needs: ["Belonging", "Connection", "Affection"],
+						},
+						{
+							text: "Maybe anxiety, wondering whether you belong.",
+							feelings: ["anxious", "insecure"],
+							needs: ["Acceptance"],
+						},
+						{
+							text: "There can also be anger underneath, especially if it felt unjust.",
+							feelings: ["angry", "resentful", "frustrated"],
+							needs: ["To matter", "Care"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -437,10 +494,26 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
 						{ text: "That sounds sharp… was it like something in you shrank?" },
-						{ text: "Did it land as hurt — like your dignity was touched?", feelings: ["hurt"], needs: ["Dignity", "Respect"] },
-						{ text: "Maybe there's anger too, a protective 'that's not okay.'", feelings: ["angry", "resentful", "indignant"], needs: ["Equality", "Mutual Recognition", "Acknowledgement"] },
-						{ text: "Sometimes embarrassment shows up, especially if it happened publicly.", feelings: ["embarrassed", "ashamed"], needs: ["Safety (emotional)"] },
-						{ text: "And sometimes there's sadness underneath, if it felt invalidating.", feelings: ["sad", "distressed", "tense"], needs: ["To be seen", "Appreciation", "Autonomy"] },
+						{
+							text: "Did it land as hurt — like your dignity was touched?",
+							feelings: ["hurt"],
+							needs: ["Dignity", "Respect"],
+						},
+						{
+							text: "Maybe there's anger too, a protective 'that's not okay.'",
+							feelings: ["angry", "resentful", "indignant"],
+							needs: ["Equality", "Mutual Recognition", "Acknowledgement"],
+						},
+						{
+							text: "Sometimes embarrassment shows up, especially if it happened publicly.",
+							feelings: ["embarrassed", "ashamed"],
+							needs: ["Safety (emotional)"],
+						},
+						{
+							text: "And sometimes there's sadness underneath, if it felt invalidating.",
+							feelings: ["sad", "distressed", "tense"],
+							needs: ["To be seen", "Appreciation", "Autonomy"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -480,9 +553,21 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
 						{ text: "That sounds sharp… did it land like a hit?" },
-						{ text: "Was there an immediate flare of anger?", feelings: ["angry", "furious", "outraged", "indignant", "resentful"], needs: ["Respect", "Dignity", "Equality"] },
-						{ text: "Maybe embarrassment too, especially if others were present.", feelings: ["embarrassed", "ashamed"], needs: ["Safety (emotional)"] },
-						{ text: "Or hurt — like something tender was touched.", feelings: ["hurt", "sad"], needs: ["Consideration", "Acknowledgement", "Mutual Recognition"] },
+						{
+							text: "Was there an immediate flare of anger?",
+							feelings: ["angry", "furious", "outraged", "indignant", "resentful"],
+							needs: ["Respect", "Dignity", "Equality"],
+						},
+						{
+							text: "Maybe embarrassment too, especially if others were present.",
+							feelings: ["embarrassed", "ashamed"],
+							needs: ["Safety (emotional)"],
+						},
+						{
+							text: "Or hurt — like something tender was touched.",
+							feelings: ["hurt", "sad"],
+							needs: ["Consideration", "Acknowledgement", "Mutual Recognition"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -519,10 +604,24 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "What would have felt more dignifying there?" },
-						{ text: "That sounds tender… did it feel like something about you was judged or picked apart?" },
-						{ text: "Maybe embarrassment, if it felt exposing.", feelings: ["embarrassed", "humiliated"], needs: ["Respect", "Understanding"] },
-						{ text: "Or hurt, if your effort or intention wasn't understood.", feelings: ["hurt"], needs: ["To be known/understood", "Acknowledgement", "Compassion"] },
-						{ text: "And perhaps frustration or fear, if you wished for more care.", feelings: ["frustrated", "angry", "scared", "anxious"], needs: ["Recognition"] },
+						{
+							text: "That sounds tender… did it feel like something about you was judged or picked apart?",
+						},
+						{
+							text: "Maybe embarrassment, if it felt exposing.",
+							feelings: ["embarrassed", "humiliated"],
+							needs: ["Respect", "Understanding"],
+						},
+						{
+							text: "Or hurt, if your effort or intention wasn't understood.",
+							feelings: ["hurt"],
+							needs: ["To be known/understood", "Acknowledgement", "Compassion"],
+						},
+						{
+							text: "And perhaps frustration or fear, if you wished for more care.",
+							feelings: ["frustrated", "angry", "scared", "anxious"],
+							needs: ["Recognition"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -556,19 +655,26 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "What boundary might have made it feel steadier?" },
-						{ text: "That sounds activating… did it feel like someone was pushing your buttons on purpose?" },
-						{ text: "Maybe anger, if you felt baited.", feelings: ["angry"], needs: ["Respect", "Autonomy"] },
-						{ text: "Or frustration, if the interaction didn't feel clean.", feelings: ["frustrated", "irritated"], needs: ["Consideration", "Understanding", "Space"] },
-						{ text: "Possibly defensiveness too — wanting to protect your dignity.", feelings: ["defensive", "embarrassed"] },
+						{
+							text: "That sounds activating… did it feel like someone was pushing your buttons on purpose?",
+						},
+						{
+							text: "Maybe anger, if you felt baited.",
+							feelings: ["angry"],
+							needs: ["Respect", "Autonomy"],
+						},
+						{
+							text: "Or frustration, if the interaction didn't feel clean.",
+							feelings: ["frustrated", "irritated"],
+							needs: ["Consideration", "Understanding", "Space"],
+						},
+						{
+							text: "Possibly defensiveness too — wanting to protect your dignity.",
+							feelings: ["defensive", "embarrassed"],
+						},
 					],
 
-					suggestedFeelings: [
-						"frustrated",
-						"angry",
-						"defensive",
-						"irritated",
-						"embarrassed",
-					],
+					suggestedFeelings: ["frustrated", "angry", "defensive", "irritated", "embarrassed"],
 
 					suggestedNeeds: ["Respect", "Consideration", "Understanding", "Autonomy", "Space"],
 				},
@@ -600,10 +706,25 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
 						{ text: "That sounds painful… did something important feel broken?" },
-						{ text: "Was there hurt — like trust cracked open?", feelings: ["hurt", "sad"], needs: ["Trusting", "Connection", "Mutuality"] },
-						{ text: "Maybe anger too, especially if it felt deliberate.", feelings: ["angry", "resentful", "outraged"], needs: ["Honesty", "Commitment"] },
-						{ text: "Sometimes there's disappointment — an expectation collapsing.", feelings: ["disappointed"] },
-						{ text: "And sometimes fear, if it shook your sense of safety.", feelings: ["scared", "shocked", "confused"], needs: ["Safety (emotional)", "Consistency", "Clarity"] },
+						{
+							text: "Was there hurt — like trust cracked open?",
+							feelings: ["hurt", "sad"],
+							needs: ["Trusting", "Connection", "Mutuality"],
+						},
+						{
+							text: "Maybe anger too, especially if it felt deliberate.",
+							feelings: ["angry", "resentful", "outraged"],
+							needs: ["Honesty", "Commitment"],
+						},
+						{
+							text: "Sometimes there's disappointment — an expectation collapsing.",
+							feelings: ["disappointed"],
+						},
+						{
+							text: "And sometimes fear, if it shook your sense of safety.",
+							feelings: ["scared", "shocked", "confused"],
+							needs: ["Safety (emotional)", "Consistency", "Clarity"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -641,11 +762,27 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
-						{ text: "That sounds disorienting… was it like the ground shifted under you?", feelings: ["confused", "shocked"], needs: ["Clarity"] },
-						{ text: "Did you feel embarrassed, like you'd been made a fool of?", feelings: ["embarrassed"], needs: ["Respect"] },
-						{ text: "Maybe anger too — a protective 'that's not okay.'", feelings: ["angry", "indignant"], needs: ["Integrity", "Honesty", "Trusting"] },
+						{
+							text: "That sounds disorienting… was it like the ground shifted under you?",
+							feelings: ["confused", "shocked"],
+							needs: ["Clarity"],
+						},
+						{
+							text: "Did you feel embarrassed, like you'd been made a fool of?",
+							feelings: ["embarrassed"],
+							needs: ["Respect"],
+						},
+						{
+							text: "Maybe anger too — a protective 'that's not okay.'",
+							feelings: ["angry", "indignant"],
+							needs: ["Integrity", "Honesty", "Trusting"],
+						},
 						{ text: "Sometimes there's hurt if trust was assumed.", feelings: ["hurt", "sad"] },
-						{ text: "And sometimes resentment lingers if it feels intentional.", feelings: ["resentful"], needs: ["Safety (emotional)"] },
+						{
+							text: "And sometimes resentment lingers if it feels intentional.",
+							feelings: ["resentful"],
+							needs: ["Safety (emotional)"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -659,14 +796,7 @@ export const StoryWords = {
 						"shocked",
 					],
 
-					suggestedNeeds: [
-						"Integrity",
-						"Trusting",
-						"Honesty",
-						"Clarity",
-						"Respect",
-						"Safety (emotional)",
-					],
+					suggestedNeeds: ["Integrity", "Trusting", "Honesty", "Clarity", "Respect", "Safety (emotional)"],
 				},
 				{
 					item: "Cheated",
@@ -681,28 +811,25 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
 						{ text: "That sounds unfair… was it like something was taken from you?" },
-						{ text: "Did anger flare up — a strong sense of 'this isn't right'?", feelings: ["angry", "resentful", "outraged", "indignant"], needs: ["Equality", "Respect"] },
-						{ text: "Maybe disappointment too, especially if you expected fairness.", feelings: ["disappointed"] },
-						{ text: "There can also be hurt if trust was assumed.", feelings: ["hurt", "sad"], needs: ["Honesty", "Trusting", "Consistency"] },
+						{
+							text: "Did anger flare up — a strong sense of 'this isn't right'?",
+							feelings: ["angry", "resentful", "outraged", "indignant"],
+							needs: ["Equality", "Respect"],
+						},
+						{
+							text: "Maybe disappointment too, especially if you expected fairness.",
+							feelings: ["disappointed"],
+						},
+						{
+							text: "There can also be hurt if trust was assumed.",
+							feelings: ["hurt", "sad"],
+							needs: ["Honesty", "Trusting", "Consistency"],
+						},
 					],
 
-					suggestedFeelings: [
-						"hurt",
-						"angry",
-						"resentful",
-						"outraged",
-						"indignant",
-						"disappointed",
-						"sad",
-					],
+					suggestedFeelings: ["hurt", "angry", "resentful", "outraged", "indignant", "disappointed", "sad"],
 
-					suggestedNeeds: [
-						"Honesty",
-						"Equality",
-						"Trusting",
-						"Consistency",
-						"Respect",
-					],
+					suggestedNeeds: ["Honesty", "Equality", "Trusting", "Consistency", "Respect"],
 				},
 			],
 		},
@@ -730,10 +857,26 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
-						{ text: "That sounds lonely… was it like you reached out and nothing came back?", feelings: ["lonely"], needs: ["Connection", "To be heard"] },
-						{ text: "Did it feel quiet and heavy inside?", feelings: ["sad", "hurt"], needs: ["Belonging", "Acknowledgement"] },
-						{ text: "Maybe there's anxiety, wondering whether you matter.", feelings: ["anxious", "insecure", "scared"], needs: ["Mutual Recognition", "Safety (emotional)"] },
-						{ text: "Sometimes irritation shows up too, especially if it felt dismissive.", feelings: ["frustrated", "resentful", "embarrassed"], needs: ["Communication", "Inclusion"] },
+						{
+							text: "That sounds lonely… was it like you reached out and nothing came back?",
+							feelings: ["lonely"],
+							needs: ["Connection", "To be heard"],
+						},
+						{
+							text: "Did it feel quiet and heavy inside?",
+							feelings: ["sad", "hurt"],
+							needs: ["Belonging", "Acknowledgement"],
+						},
+						{
+							text: "Maybe there's anxiety, wondering whether you matter.",
+							feelings: ["anxious", "insecure", "scared"],
+							needs: ["Mutual Recognition", "Safety (emotional)"],
+						},
+						{
+							text: "Sometimes irritation shows up too, especially if it felt dismissive.",
+							feelings: ["frustrated", "resentful", "embarrassed"],
+							needs: ["Communication", "Inclusion"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -773,21 +916,23 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
-						{ text: "That sounds tender… was it like parts of you weren't noticed?", feelings: ["sad", "lonely", "hurt"] },
-						{ text: "Maybe there's anxiety about whether you're valued.", feelings: ["anxious", "insecure"], needs: ["To be seen", "Acknowledgement"] },
-						{ text: "Sometimes frustration shows up too, especially if you tried to be clear.", feelings: ["frustrated", "resentful"], needs: ["Appreciation", "Empathy", "Understanding"] },
-						{ text: "ADD QUESTION HERE", needs: ["Connection", "Authenticity"] },
+						{
+							text: "That sounds tender… was it like parts of you weren't noticed?",
+							feelings: ["sad", "lonely", "hurt"],
+						},
+						{
+							text: "Maybe there's anxiety about whether you're valued.",
+							feelings: ["anxious", "insecure"],
+							needs: ["To be seen", "Acknowledgement", "Connection", "Authenticity"],
+						},
+						{
+							text: "Sometimes frustration shows up too, especially if you tried to be clear.",
+							feelings: ["frustrated", "resentful"],
+							needs: ["Appreciation", "Empathy", "Understanding"],
+						},
 					],
 
-					suggestedFeelings: [
-						"sad",
-						"anxious",
-						"frustrated",
-						"lonely",
-						"hurt",
-						"insecure",
-						"resentful",
-					],
+					suggestedFeelings: ["sad", "anxious", "frustrated", "lonely", "hurt", "insecure", "resentful"],
 
 					suggestedNeeds: [
 						"Acknowledgement",
@@ -812,20 +957,19 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
-						{ text: "That can feel frustrating… was it like your words didn't land?", feelings: ["frustrated", "angry", "resentful"], needs: ["To be heard", "Communication"] },
-						{ text: "Did something in you feel invisible or dismissed?", feelings: ["sad", "lonely", "hurt", "insecure"], needs: ["Understanding", "Empathy"] },
-						{ text: "ADD QUESTION HERE", needs: ["Consideration", "Acknowledgement", "Connection"] },
+						{
+							text: "That can feel frustrating… was it like your words didn't land?",
+							feelings: ["frustrated", "angry", "resentful"],
+							needs: ["To be heard", "Communication"],
+						},
+						{
+							text: "Did something in you feel invisible or dismissed?",
+							feelings: ["sad", "lonely", "hurt", "insecure"],
+							needs: ["Understanding", "Empathy", "Consideration", "Acknowledgement", "Connection"],
+						},
 					],
 
-					suggestedFeelings: [
-						"sad",
-						"frustrated",
-						"hurt",
-						"lonely",
-						"insecure",
-						"angry",
-						"resentful",
-					],
+					suggestedFeelings: ["sad", "frustrated", "hurt", "lonely", "insecure", "angry", "resentful"],
 
 					suggestedNeeds: [
 						"Understanding",
@@ -864,28 +1008,22 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
 						{ text: "That sounds upsetting… did something feel morally off?" },
-						{ text: "Was there anger — a strong sense of 'that's not right'?", feelings: ["angry", "indignant", "outraged", "resentful"], needs: ["Respect", "Equality", "Integrity"] },
+						{
+							text: "Was there anger — a strong sense of 'that's not right'?",
+							feelings: ["angry", "indignant", "outraged", "resentful"],
+							needs: ["Respect", "Equality", "Integrity"],
+						},
 						{ text: "Maybe hurt too, especially if trust was assumed.", feelings: ["hurt", "irritated"] },
-						{ text: "And sometimes sadness, if something important felt damaged.", feelings: ["sad"], needs: ["Trusting", "Safety (emotional)"] },
+						{
+							text: "And sometimes sadness, if something important felt damaged.",
+							feelings: ["sad"],
+							needs: ["Trusting", "Safety (emotional)"],
+						},
 					],
 
-					suggestedFeelings: [
-						"hurt",
-						"irritated",
-						"resentful",
-						"angry",
-						"indignant",
-						"outraged",
-						"sad",
-					],
+					suggestedFeelings: ["hurt", "irritated", "resentful", "angry", "indignant", "outraged", "sad"],
 
-					suggestedNeeds: [
-						"Respect",
-						"Equality",
-						"Trusting",
-						"Safety (emotional)",
-						"Integrity",
-					],
+					suggestedNeeds: ["Respect", "Equality", "Trusting", "Safety (emotional)", "Integrity"],
 				},
 
 				{
@@ -901,27 +1039,22 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
 						{ text: "That sounds infuriating… was it like something was taken from you?" },
-						{ text: "Did anger come up quickly?", feelings: ["angry", "resentful", "outraged", "indignant"], needs: ["Equality", "Respect"] },
-						{ text: "Maybe disappointment too, especially if you expected fairness.", feelings: ["disappointed"], needs: ["Consideration", "Acknowledgement"] },
+						{
+							text: "Did anger come up quickly?",
+							feelings: ["angry", "resentful", "outraged", "indignant"],
+							needs: ["Equality", "Respect"],
+						},
+						{
+							text: "Maybe disappointment too, especially if you expected fairness.",
+							feelings: ["disappointed"],
+							needs: ["Consideration", "Acknowledgement"],
+						},
 						{ text: "Sometimes there's hurt underneath if trust was assumed.", feelings: ["hurt", "sad"] },
 					],
 
-					suggestedFeelings: [
-						"disappointed",
-						"angry",
-						"resentful",
-						"outraged",
-						"indignant",
-						"hurt",
-						"sad",
-					],
+					suggestedFeelings: ["disappointed", "angry", "resentful", "outraged", "indignant", "hurt", "sad"],
 
-					suggestedNeeds: [
-						"Consideration",
-						"Equality",
-						"Acknowledgement",
-						"Respect",
-					],
+					suggestedNeeds: ["Consideration", "Equality", "Acknowledgement", "Respect"],
 				},
 
 				{
@@ -937,10 +1070,25 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "Let's pause gently… what feels most alive right now?" },
 						{ text: "That sounds heavy… did it feel like you didn't have power in that moment?" },
-						{ text: "Was there fear, if it felt unsafe?", feelings: ["scared", "anxious"], needs: ["Safety (emotional)", "Mutuality"] },
-						{ text: "Maybe helplessness — like you couldn't stop it.", feelings: ["helpless", "frightened"], needs: ["Agency", "Autonomy"] },
-						{ text: "Or anger, especially if it felt unjust.", feelings: ["angry", "resentful"], needs: ["Equality"] },
-						{ text: "Sometimes sadness follows, especially if it felt isolating.", feelings: ["sad", "hurt"] },
+						{
+							text: "Was there fear, if it felt unsafe?",
+							feelings: ["scared", "anxious"],
+							needs: ["Safety (emotional)", "Mutuality"],
+						},
+						{
+							text: "Maybe helplessness — like you couldn't stop it.",
+							feelings: ["helpless", "frightened"],
+							needs: ["Agency", "Autonomy"],
+						},
+						{
+							text: "Or anger, especially if it felt unjust.",
+							feelings: ["angry", "resentful"],
+							needs: ["Equality"],
+						},
+						{
+							text: "Sometimes sadness follows, especially if it felt isolating.",
+							feelings: ["sad", "hurt"],
+						},
 					],
 
 					suggestedFeelings: [
@@ -954,13 +1102,7 @@ export const StoryWords = {
 						"hurt",
 					],
 
-					suggestedNeeds: [
-						"Mutuality",
-						"Safety (emotional)",
-						"Equality",
-						"Agency",
-						"Autonomy",
-					],
+					suggestedNeeds: ["Mutuality", "Safety (emotional)", "Equality", "Agency", "Autonomy"],
 				},
 				{
 					item: "Blamed",
@@ -974,20 +1116,27 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "What feels most alive as you sit with it now?" },
-						{ text: "That sounds unfair… did it feel like something was placed on you that didn't really belong to you?" },
-						{ text: "Maybe confusion, if the story didn't match your experience.", feelings: ["confused", "bewildered"], needs: ["Clarity", "Understanding"] },
-						{ text: "Or hurt, if your intentions weren't seen.", feelings: ["hurt", "scared"], needs: ["Respect"] },
-						{ text: "And possibly anger, if something felt unjust.", feelings: ["angry", "resentful"], needs: ["Fairness", "Justice", "Trust"] },
+						{
+							text: "That sounds unfair… did it feel like something was placed on you that didn't really belong to you?",
+						},
+						{
+							text: "Maybe confusion, if the story didn't match your experience.",
+							feelings: ["confused", "bewildered"],
+							needs: ["Clarity", "Understanding"],
+						},
+						{
+							text: "Or hurt, if your intentions weren't seen.",
+							feelings: ["hurt", "scared"],
+							needs: ["Respect"],
+						},
+						{
+							text: "And possibly anger, if something felt unjust.",
+							feelings: ["angry", "resentful"],
+							needs: ["Fairness", "Justice", "Trust"],
+						},
 					],
 
-					suggestedFeelings: [
-						"scared",
-						"confused",
-						"bewildered",
-						"hurt",
-						"angry",
-						"resentful",
-					],
+					suggestedFeelings: ["scared", "confused", "bewildered", "hurt", "angry", "resentful"],
 
 					suggestedNeeds: ["Fairness", "Justice", "Understanding", "Clarity", "Respect", "Trust"],
 				},
@@ -1018,19 +1167,26 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's go gently… what feels most true right now?" },
-						{ text: "That sounds deeply unsafe… did something feel violating or harmful?", needs: ["Physical safety", "Safety (emotional)", "Protection"] },
-						{ text: "Is there fear here — the kind that shows up when your body didn't feel protected?", feelings: ["scared", "confused"] },
-						{ text: "Maybe shock, if it happened suddenly or didn't make sense.", feelings: ["shocked", "distressed"] },
-						{ text: "Or helplessness, if you felt you had no power to stop it.", feelings: ["helpless"], needs: ["Caring", "Support", "Respect", "Space"] },
+						{
+							text: "That sounds deeply unsafe… did something feel violating or harmful?",
+							needs: ["Physical safety", "Safety (emotional)", "Protection"],
+						},
+						{
+							text: "Is there fear here — the kind that shows up when your body didn't feel protected?",
+							feelings: ["scared", "confused"],
+						},
+						{
+							text: "Maybe shock, if it happened suddenly or didn't make sense.",
+							feelings: ["shocked", "distressed"],
+						},
+						{
+							text: "Or helplessness, if you felt you had no power to stop it.",
+							feelings: ["helpless"],
+							needs: ["Caring", "Support", "Respect", "Space"],
+						},
 					],
 
-					suggestedFeelings: [
-						"scared",
-						"confused",
-						"shocked",
-						"distressed",
-						"helpless",
-					],
+					suggestedFeelings: ["scared", "confused", "shocked", "distressed", "helpless"],
 
 					suggestedNeeds: [
 						"Physical safety",
@@ -1055,17 +1211,20 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's pause… what does your body remember about that moment?" },
-						{ text: "That sounds frightening… did it feel like you were under threat?", feelings: ["scared"], needs: ["Physical safety", "Safety (emotional)", "Protection"] },
-						{ text: "Was there a surge of anger — the kind that protects you?", feelings: ["angry", "defensive"], needs: ["Respect", "Peace (external)"] },
+						{
+							text: "That sounds frightening… did it feel like you were under threat?",
+							feelings: ["scared"],
+							needs: ["Physical safety", "Safety (emotional)", "Protection"],
+						},
+						{
+							text: "Was there a surge of anger — the kind that protects you?",
+							feelings: ["angry", "defensive"],
+							needs: ["Respect", "Peace (external)"],
+						},
 						{ text: "Maybe tension in your body, like you needed to brace.", feelings: ["tense"] },
 					],
 
-					suggestedFeelings: [
-						"scared",
-						"angry",
-						"defensive",
-						"tense",
-					],
+					suggestedFeelings: ["scared", "angry", "defensive", "tense"],
 
 					suggestedNeeds: [
 						"Physical safety",
@@ -1087,19 +1246,23 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "What feels strongest right now?" },
-						{ text: "That sounds wearing and unsafe… was it persistent or hard to escape?", needs: ["Safety (emotional)", "Physical safety", "Space"] },
-						{ text: "Maybe anxiety, if it felt like it could happen again.", feelings: ["anxious", "scared"] },
-						{ text: "And anger too — a clear 'this isn't okay.'", feelings: ["angry", "frustrated"], needs: ["Respect", "Peace (external)"] },
+						{
+							text: "That sounds wearing and unsafe… was it persistent or hard to escape?",
+							needs: ["Safety (emotional)", "Physical safety", "Space"],
+						},
+						{
+							text: "Maybe anxiety, if it felt like it could happen again.",
+							feelings: ["anxious", "scared"],
+						},
+						{
+							text: "And anger too — a clear 'this isn't okay.'",
+							feelings: ["angry", "frustrated"],
+							needs: ["Respect", "Peace (external)"],
+						},
 						{ text: "Perhaps overwhelm, if it kept coming at you.", feelings: ["overwhelmed"] },
 					],
 
-					suggestedFeelings: [
-						"scared",
-						"anxious",
-						"angry",
-						"frustrated",
-						"overwhelmed",
-					],
+					suggestedFeelings: ["scared", "anxious", "angry", "frustrated", "overwhelmed"],
 
 					suggestedNeeds: ["Safety (emotional)", "Physical safety", "Space", "Respect", "Peace (external)"],
 				},
@@ -1116,17 +1279,19 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's breathe gently… what does your body say about it now?" },
-						{ text: "That sounds scary… was there a sense something bad could happen?", feelings: ["scared", "alarmed"], needs: ["Physical safety", "Safety (emotional)", "Protection"] },
-						{ text: "Maybe agitation, if your system was on high alert.", feelings: ["anxious", "agitated", "tense"], needs: ["Peace of mind", "Stability"] },
+						{
+							text: "That sounds scary… was there a sense something bad could happen?",
+							feelings: ["scared", "alarmed"],
+							needs: ["Physical safety", "Safety (emotional)", "Protection"],
+						},
+						{
+							text: "Maybe agitation, if your system was on high alert.",
+							feelings: ["anxious", "agitated", "tense"],
+							needs: ["Peace of mind", "Stability"],
+						},
 					],
 
-					suggestedFeelings: [
-						"scared",
-						"anxious",
-						"alarmed",
-						"agitated",
-						"tense",
-					],
+					suggestedFeelings: ["scared", "anxious", "alarmed", "agitated", "tense"],
 
 					suggestedNeeds: [
 						"Physical safety",
@@ -1149,18 +1314,22 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's move gently here… what feels most alive?" },
-						{ text: "That sounds like something crossed a line… did it feel invasive?", needs: ["Safety (emotional)", "Physical safety", "Respect", "Space"] },
-						{ text: "Maybe agitation or anxiety, if your body felt exposed.", feelings: ["anxious", "agitated", "helpless"] },
-						{ text: "And possibly sadness, if something precious felt disrespected.", feelings: ["sad", "hurt"], needs: ["Trust", "Protection"] },
+						{
+							text: "That sounds like something crossed a line… did it feel invasive?",
+							needs: ["Safety (emotional)", "Physical safety", "Respect", "Space"],
+						},
+						{
+							text: "Maybe agitation or anxiety, if your body felt exposed.",
+							feelings: ["anxious", "agitated", "helpless"],
+						},
+						{
+							text: "And possibly sadness, if something precious felt disrespected.",
+							feelings: ["sad", "hurt"],
+							needs: ["Trust", "Protection"],
+						},
 					],
 
-					suggestedFeelings: [
-						"anxious",
-						"agitated",
-						"sad",
-						"hurt",
-						"helpless",
-					],
+					suggestedFeelings: ["anxious", "agitated", "sad", "hurt", "helpless"],
 
 					suggestedNeeds: [
 						"Safety (emotional)",
@@ -1198,20 +1367,27 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's go gently… what feels closest right now?" },
-						{ text: "That sounds incredibly vulnerable… did it feel like you were left alone when you needed someone?" },
-						{ text: "Maybe fear, if it felt unsafe to be without support.", feelings: ["scared"], needs: ["Protection", "Trusting", "Connection"] },
-						{ text: "And sadness or hurt, if something precious felt lost.", feelings: ["sad", "hurt", "lonely"], needs: ["Support", "Caring", "Nurturing", "Warmth"] },
-						{ text: "Possibly bewilderment too — a 'how did this happen?' feeling.", feelings: ["bewildered", "helpless"], needs: ["Belonging"] },
+						{
+							text: "That sounds incredibly vulnerable… did it feel like you were left alone when you needed someone?",
+						},
+						{
+							text: "Maybe fear, if it felt unsafe to be without support.",
+							feelings: ["scared"],
+							needs: ["Protection", "Trusting", "Connection"],
+						},
+						{
+							text: "And sadness or hurt, if something precious felt lost.",
+							feelings: ["sad", "hurt", "lonely"],
+							needs: ["Support", "Caring", "Nurturing", "Warmth"],
+						},
+						{
+							text: "Possibly bewilderment too — a 'how did this happen?' feeling.",
+							feelings: ["bewildered", "helpless"],
+							needs: ["Belonging"],
+						},
 					],
 
-					suggestedFeelings: [
-						"scared",
-						"sad",
-						"hurt",
-						"lonely",
-						"bewildered",
-						"helpless",
-					],
+					suggestedFeelings: ["scared", "sad", "hurt", "lonely", "bewildered", "helpless"],
 
 					suggestedNeeds: [
 						"Connection",
@@ -1237,19 +1413,24 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "What feels most alive in you as you think about it?" },
-						{ text: "That sounds painful… did it feel like your needs weren't being noticed?", needs: ["Care", "Consideration"] },
-						{ text: "Maybe loneliness, if you felt unseen or unattended.", feelings: ["lonely", "sad"], needs: ["Connection", "Belonging"] },
-						{ text: "Perhaps anxiety too — wondering if support would come.", feelings: ["anxious", "scared"], needs: ["Support", "Participation"] },
+						{
+							text: "That sounds painful… did it feel like your needs weren't being noticed?",
+							needs: ["Care", "Consideration"],
+						},
+						{
+							text: "Maybe loneliness, if you felt unseen or unattended.",
+							feelings: ["lonely", "sad"],
+							needs: ["Connection", "Belonging"],
+						},
+						{
+							text: "Perhaps anxiety too — wondering if support would come.",
+							feelings: ["anxious", "scared"],
+							needs: ["Support", "Participation"],
+						},
 						{ text: "And hurt, if something in you longed to be cared for.", feelings: ["hurt"] },
 					],
 
-					suggestedFeelings: [
-						"lonely",
-						"scared",
-						"anxious",
-						"sad",
-						"hurt",
-					],
+					suggestedFeelings: ["lonely", "scared", "anxious", "sad", "hurt"],
 
 					suggestedNeeds: ["Connection", "Belonging", "Care", "Consideration", "Support", "Participation"],
 				},
@@ -1266,18 +1447,20 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "What would have made it feel lighter?" },
-						{ text: "That sounds heavy… was it like you were carrying something alone?", needs: ["Support", "Cooperation"] },
-						{ text: "Maybe sadness, if you longed for someone beside you.", feelings: ["sad", "hurt"], needs: ["Understanding", "Companionship", "Care"] },
+						{
+							text: "That sounds heavy… was it like you were carrying something alone?",
+							needs: ["Support", "Cooperation"],
+						},
+						{
+							text: "Maybe sadness, if you longed for someone beside you.",
+							feelings: ["sad", "hurt"],
+							needs: ["Understanding", "Companionship", "Care"],
+						},
 						{ text: "Or overwhelm, if it felt like too much without help.", feelings: ["overwhelmed"] },
 						{ text: "And possibly helplessness, if relief didn't seem available.", feelings: ["helpless"] },
 					],
 
-					suggestedFeelings: [
-						"sad",
-						"hurt",
-						"overwhelmed",
-						"helpless",
-					],
+					suggestedFeelings: ["sad", "hurt", "overwhelmed", "helpless"],
 
 					suggestedNeeds: ["Support", "Cooperation", "Understanding", "Companionship", "Care"],
 				},
@@ -1293,19 +1476,24 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "What does your heart most wish for here?" },
-						{ text: "That feels tender… was there a longing to feel cherished or held close?", needs: ["Love", "Affection", "Warmth"] },
+						{
+							text: "That feels tender… was there a longing to feel cherished or held close?",
+							needs: ["Love", "Affection", "Warmth"],
+						},
 						{ text: "Maybe sadness, if something in you wanted warmth.", feelings: ["sad", "hurt"] },
-						{ text: "Or confusion — wondering why connection didn't land.", feelings: ["bewildered", "frustrated"], needs: ["Connection", "Empathy"] },
-						{ text: "And possibly loneliness, if you reached and didn't feel met.", feelings: ["lonely"], needs: ["Appreciation"] },
+						{
+							text: "Or confusion — wondering why connection didn't land.",
+							feelings: ["bewildered", "frustrated"],
+							needs: ["Connection", "Empathy"],
+						},
+						{
+							text: "And possibly loneliness, if you reached and didn't feel met.",
+							feelings: ["lonely"],
+							needs: ["Appreciation"],
+						},
 					],
 
-					suggestedFeelings: [
-						"sad",
-						"bewildered",
-						"frustrated",
-						"hurt",
-						"lonely",
-					],
+					suggestedFeelings: ["sad", "bewildered", "frustrated", "hurt", "lonely"],
 
 					suggestedNeeds: ["Love", "Affection", "Warmth", "Connection", "Empathy", "Appreciation"],
 				},
@@ -1337,17 +1525,24 @@ export const StoryWords = {
 					empathyGuesses: [
 						{ text: "What would have made it feel shared instead?" },
 						{ text: "That sounds heavy… was it like too much landed on you at once?" },
-						{ text: "Maybe anger, if it didn't feel fair.", feelings: ["angry", "frustrated"], needs: ["Consideration", "Fairness"] },
-						{ text: "And overwhelm, if your capacity felt stretched.", feelings: ["overwhelmed"], needs: ["Support", "Cooperation", "Ease"] },
-						{ text: "Possibly exhaustion too — when the load keeps growing.", feelings: ["exhausted"], needs: ["Space", "Rest/sleep"] },
+						{
+							text: "Maybe anger, if it didn't feel fair.",
+							feelings: ["angry", "frustrated"],
+							needs: ["Consideration", "Fairness"],
+						},
+						{
+							text: "And overwhelm, if your capacity felt stretched.",
+							feelings: ["overwhelmed"],
+							needs: ["Support", "Cooperation", "Ease"],
+						},
+						{
+							text: "Possibly exhaustion too — when the load keeps growing.",
+							feelings: ["exhausted"],
+							needs: ["Space", "Rest/sleep"],
+						},
 					],
 
-					suggestedFeelings: [
-						"angry",
-						"frustrated",
-						"overwhelmed",
-						"exhausted",
-					],
+					suggestedFeelings: ["angry", "frustrated", "overwhelmed", "exhausted"],
 
 					suggestedNeeds: [
 						"Consideration",
@@ -1372,19 +1567,24 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "What would have helped you breathe more easily?" },
-						{ text: "That sounds wearing… was it like you couldn't settle or focus?", needs: ["Space", "Ease", "Peace (external)"] },
-						{ text: "Maybe irritation — a 'please stop' signal.", feelings: ["irritated", "angry"], needs: ["Autonomy"] },
+						{
+							text: "That sounds wearing… was it like you couldn't settle or focus?",
+							needs: ["Space", "Ease", "Peace (external)"],
+						},
+						{
+							text: "Maybe irritation — a 'please stop' signal.",
+							feelings: ["irritated", "angry"],
+							needs: ["Autonomy"],
+						},
 						{ text: "Or tension, if your system couldn't relax.", feelings: ["tense", "distressed"] },
-						{ text: "Perhaps frustration, if your pace wasn't respected.", feelings: ["frustrated"], needs: ["Consideration"] },
+						{
+							text: "Perhaps frustration, if your pace wasn't respected.",
+							feelings: ["frustrated"],
+							needs: ["Consideration"],
+						},
 					],
 
-					suggestedFeelings: [
-						"irritated",
-						"angry",
-						"frustrated",
-						"distressed",
-						"tense",
-					],
+					suggestedFeelings: ["irritated", "angry", "frustrated", "distressed", "tense"],
 
 					suggestedNeeds: ["Space", "Ease", "Peace (external)", "Consideration", "Autonomy"],
 				},
@@ -1400,17 +1600,23 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "What would real recovery look like for you?" },
-						{ text: "That sounds draining… was it more than your system could sustain?", needs: ["Rest/sleep", "Rejuvenation", "Balance"] },
-						{ text: "Maybe exhaustion, if rest never caught up.", feelings: ["exhausted", "tired", "drained"], needs: ["Ease"] },
-						{ text: "Or frustration, if your limits weren't recognised.", feelings: ["frustrated"], needs: ["Consideration", "Support"] },
+						{
+							text: "That sounds draining… was it more than your system could sustain?",
+							needs: ["Rest/sleep", "Rejuvenation", "Balance"],
+						},
+						{
+							text: "Maybe exhaustion, if rest never caught up.",
+							feelings: ["exhausted", "tired", "drained"],
+							needs: ["Ease"],
+						},
+						{
+							text: "Or frustration, if your limits weren't recognised.",
+							feelings: ["frustrated"],
+							needs: ["Consideration", "Support"],
+						},
 					],
 
-					suggestedFeelings: [
-						"tired",
-						"exhausted",
-						"frustrated",
-						"drained",
-					],
+					suggestedFeelings: ["tired", "exhausted", "frustrated", "drained"],
 
 					suggestedNeeds: ["Rest/sleep", "Rejuvenation", "Ease", "Consideration", "Support", "Balance"],
 				},
@@ -1427,18 +1633,24 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "What boundary would have protected you there?" },
-						{ text: "That sounds like your limits weren't honoured… did it feel like your needs were pushed aside?", needs: ["Respect", "Consideration"] },
-						{ text: "Maybe frustration or anger, if you felt overrun.", feelings: ["frustrated", "angry"], needs: ["Space", "Autonomy"] },
+						{
+							text: "That sounds like your limits weren't honoured… did it feel like your needs were pushed aside?",
+							needs: ["Respect", "Consideration"],
+						},
+						{
+							text: "Maybe frustration or anger, if you felt overrun.",
+							feelings: ["frustrated", "angry"],
+							needs: ["Space", "Autonomy"],
+						},
 						{ text: "And overwhelm, if it was too much too fast.", feelings: ["overwhelmed"] },
-						{ text: "Possibly hurt too — if something important felt disregarded.", feelings: ["hurt"], needs: ["Support"] },
+						{
+							text: "Possibly hurt too — if something important felt disregarded.",
+							feelings: ["hurt"],
+							needs: ["Support"],
+						},
 					],
 
-					suggestedFeelings: [
-						"frustrated",
-						"angry",
-						"overwhelmed",
-						"hurt",
-					],
+					suggestedFeelings: ["frustrated", "angry", "overwhelmed", "hurt"],
 
 					suggestedNeeds: ["Respect", "Consideration", "Space", "Autonomy", "Support"],
 				},
@@ -1469,8 +1681,16 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
-						{ text: "That sounds so heavy… is there sadness here?", feelings: ["sad", "heavy"], needs: ["To matter", "Mattering to myself"] },
-						{ text: "Maybe shame or despair, if something in you is saying you should be different?", feelings: ["numb", "despairing"], needs: ["Self-acceptance", "Appreciation"] },
+						{
+							text: "That sounds so heavy… is there sadness here?",
+							feelings: ["sad", "heavy"],
+							needs: ["To matter", "Mattering to myself"],
+						},
+						{
+							text: "Maybe shame or despair, if something in you is saying you should be different?",
+							feelings: ["numb", "despairing"],
+							needs: ["Self-acceptance", "Appreciation"],
+						},
 					],
 
 					suggestedFeelings: ["sad", "heavy", "numb", "despairing"],
@@ -1490,9 +1710,21 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
-						{ text: "That sounds uncomfortable… is there anxiety here?", feelings: ["anxious"], needs: ["Competence", "Growth"] },
-						{ text: "Maybe shame, if part of you feels like you should be better?", feelings: ["ashamed"], needs: ["Self-acceptance"] },
-						{ text: "Or discouragement, if it feels hard to meet expectations?", feelings: ["discouraged"], needs: ["Support"] },
+						{
+							text: "That sounds uncomfortable… is there anxiety here?",
+							feelings: ["anxious"],
+							needs: ["Competence", "Growth"],
+						},
+						{
+							text: "Maybe shame, if part of you feels like you should be better?",
+							feelings: ["ashamed"],
+							needs: ["Self-acceptance"],
+						},
+						{
+							text: "Or discouragement, if it feels hard to meet expectations?",
+							feelings: ["discouraged"],
+							needs: ["Support"],
+						},
 					],
 
 					suggestedFeelings: ["anxious", "ashamed", "discouraged"],
@@ -1512,9 +1744,16 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
-						{ text: "That sounds really painful… is there despair here?", feelings: ["despairing", "hopeless"], needs: ["Healing", "Hope"] },
+						{
+							text: "That sounds really painful… is there despair here?",
+							feelings: ["despairing", "hopeless"],
+							needs: ["Healing", "Hope"],
+						},
 						{ text: "Maybe shame, if you're judging yourself for struggling?", feelings: ["ashamed"] },
-						{ text: "Is there a longing for healing or gentleness?", needs: ["Self-acceptance", "Self-connection"] },
+						{
+							text: "Is there a longing for healing or gentleness?",
+							needs: ["Self-acceptance", "Self-connection"],
+						},
 					],
 
 					suggestedFeelings: ["despairing", "ashamed", "hopeless"],
@@ -1534,9 +1773,17 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
-						{ text: "That sounds discouraging… is there disappointment here?", feelings: ["disappointed"], needs: ["Contribution", "Effectiveness"] },
+						{
+							text: "That sounds discouraging… is there disappointment here?",
+							feelings: ["disappointed"],
+							needs: ["Contribution", "Effectiveness"],
+						},
 						{ text: "Maybe shame, if you're judging yourself for the outcome?", feelings: ["ashamed"] },
-						{ text: "Or discouragement, if something important didn't work out?", feelings: ["discouraged"], needs: ["Appreciation", "Growth"] },
+						{
+							text: "Or discouragement, if something important didn't work out?",
+							feelings: ["discouraged"],
+							needs: ["Appreciation", "Growth"],
+						},
 					],
 
 					suggestedFeelings: ["disappointed", "ashamed", "discouraged"],
@@ -1556,8 +1803,16 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
-						{ text: "That sounds really tender… is there sadness here?", feelings: ["sad", "lonely"], needs: ["Love", "Connection"] },
-						{ text: "Maybe fear, if connection doesn't feel secure?", feelings: ["afraid"], needs: ["Acceptance", "Belonging"] },
+						{
+							text: "That sounds really tender… is there sadness here?",
+							feelings: ["sad", "lonely"],
+							needs: ["Love", "Connection"],
+						},
+						{
+							text: "Maybe fear, if connection doesn't feel secure?",
+							feelings: ["afraid"],
+							needs: ["Acceptance", "Belonging"],
+						},
 					],
 
 					suggestedFeelings: ["sad", "afraid", "lonely"],
@@ -1577,8 +1832,16 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
-						{ text: "That sounds exposed… is there anxiety here?", feelings: ["anxious"], needs: ["Acceptance", "Safety (emotional)"] },
-						{ text: "Maybe shame, if part of you feels you should take up less space?", feelings: ["ashamed"], needs: ["Belonging", "To be seen"] },
+						{
+							text: "That sounds exposed… is there anxiety here?",
+							feelings: ["anxious"],
+							needs: ["Acceptance", "Safety (emotional)"],
+						},
+						{
+							text: "Maybe shame, if part of you feels you should take up less space?",
+							feelings: ["ashamed"],
+							needs: ["Belonging", "To be seen"],
+						},
 					],
 
 					suggestedFeelings: ["anxious", "ashamed"],
@@ -1598,8 +1861,16 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
-						{ text: "That sounds harsh inside… is there discouragement here?", feelings: ["discouraged"], needs: ["Support", "Aliveness"] },
-						{ text: "Maybe overwhelm, if things feel harder than they 'should'?", feelings: ["overwhelmed"], needs: ["Rest / sleep", "Ease"] },
+						{
+							text: "That sounds harsh inside… is there discouragement here?",
+							feelings: ["discouraged"],
+							needs: ["Support", "Aliveness"],
+						},
+						{
+							text: "Maybe overwhelm, if things feel harder than they 'should'?",
+							feelings: ["overwhelmed"],
+							needs: ["Rest / sleep", "Ease"],
+						},
 					],
 
 					suggestedFeelings: ["discouraged", "overwhelmed"],
@@ -1619,7 +1890,11 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
-						{ text: "That sounds lonely… is there hurt here?", feelings: ["lonely", "hurt"], needs: ["To be seen", "To matter", "Connection", "Acknowledgement"] },
+						{
+							text: "That sounds lonely… is there hurt here?",
+							feelings: ["lonely", "hurt"],
+							needs: ["To be seen", "To matter", "Connection", "Acknowledgement"],
+						},
 					],
 
 					suggestedFeelings: ["lonely", "hurt"],
@@ -1639,7 +1914,11 @@ export const StoryWords = {
 
 					empathyGuesses: [
 						{ text: "Let's slow it gently… what feeling feels most alive right now?" },
-						{ text: "That sounds unsettling… is there insecurity here?", feelings: ["insecure", "sad"], needs: ["To matter", "Appreciation", "Contribution", "Belonging"] },
+						{
+							text: "That sounds unsettling… is there insecurity here?",
+							feelings: ["insecure", "sad"],
+							needs: ["To matter", "Appreciation", "Contribution", "Belonging"],
+						},
 					],
 
 					suggestedFeelings: ["insecure", "sad"],
@@ -1651,9 +1930,7 @@ export const StoryWords = {
 	},
 };
 
-export const storyWordSet = new Set(
-	Object.values(StoryWords.groups).flatMap((g) => g.items.map((i) => i.item)),
-);
+export const storyWordSet = new Set(Object.values(StoryWords.groups).flatMap((g) => g.items.map((i) => i.item)));
 
 export const storyWordDataByName = Object.fromEntries(
 	Object.values(StoryWords.groups).flatMap((g) => g.items.map((i) => [i.item, i])),
