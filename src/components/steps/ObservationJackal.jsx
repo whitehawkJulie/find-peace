@@ -1,6 +1,5 @@
 import React from "react";
 import { useWizard } from "../WizardContext";
-import ImportanceBanner from "../ImportanceBanner";
 import HelpLink from "../HelpLink";
 
 import "./ObservationJackal.css";
@@ -12,8 +11,7 @@ const ObservationJackal = () => {
 
 	return (
 		<div className="step-observation step-container">
-			<ImportanceBanner message="Feel free to skim or skip — getting this out can help, but it's not essential." />
-			<p>
+<p>
 				Are you trying to <HelpLink topic="think-of-situation">think of a situation you can use</HelpLink> with
 				this tool? You don’t need a huge conflict. Small, everyday moments often work best.
 			</p>
