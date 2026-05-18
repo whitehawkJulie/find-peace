@@ -9,7 +9,9 @@ const WizardContext = createContext();
 export const useWizard = () => useContext(WizardContext);
 
 // Step components
-import Introduction from "./steps/Introduction";
+import OnboardingWelcome from "./steps/OnboardingWelcome";
+import OnboardingWhenToUse from "./steps/OnboardingWhenToUse";
+import OnboardingHowTo from "./steps/OnboardingHowTo";
 import Observation from "./steps/ObservationJackal";
 import ObservationClarify from "./steps/ObservationClarify";
 import Feelings from "./steps/Feelings";
@@ -61,7 +63,9 @@ export const WizardProvider = ({ children }) => {
 	// circular-dependency TDZ errors during Vite HMR (WizardContext imports step
 	// components which in turn import useWizard from WizardContext).
 	const allSteps = useMemo(() => [
-		{ component: Introduction, group: "intro", color: "#5F8F82", icon: introIcon },
+		{ component: OnboardingWelcome, group: "intro", color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
+		{ component: OnboardingWhenToUse, group: "intro", color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
+		{ component: OnboardingHowTo, group: "intro", color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
 		{
 			component: Observation,
 			group: "happened",
@@ -276,7 +280,7 @@ export const WizardProvider = ({ children }) => {
 	const hasEncryptedSessions = savedEntries.some(isEncryptedSession);
 
 	// Build state object for step conditions
-	const state = { observation, feelings, needs, needExplorations, needReplacements, strategies };
+	const state = { observation, feelings, needs, needExplorations, needReplacements, strategies, settings };
 	const visibleSteps = allSteps.filter((step) => (step.condition ? step.condition(state) : true));
 
 	const currentStep = visibleSteps[stepIndex];
@@ -407,7 +411,8 @@ export const WizardProvider = ({ children }) => {
 		setCollabScript(session.collabScript || {});
 		setIncludeCollabInSummary(session.includeCollabInSummary ?? false);
 		setReviewReflection(session.reviewReflection || "");
-		setStepIndex(1); // Go straight to Observation (index 1 is always Observation)
+		const firstMainIdx = visibleSteps.findIndex((s) => s.group === "happened");
+		setStepIndex(firstMainIdx >= 0 ? firstMainIdx : 0);
 	};
 
 	// Start a fresh session
@@ -440,6 +445,12 @@ export const WizardProvider = ({ children }) => {
 		setCollabScript({});
 		setIncludeCollabInSummary(false);
 		setReviewReflection("");
+	};
+
+	// Jump past all intro steps to the first main step (without setting seenOnboarding)
+	const skipToMain = () => {
+		const firstMainIdx = visibleSteps.findIndex((s) => s.group !== "intro");
+		if (firstMainIdx !== -1) setStepIndex(firstMainIdx);
 	};
 
 	// Ref to .card-content scroll container (attached by Card.jsx)
@@ -560,6 +571,7 @@ export const WizardProvider = ({ children }) => {
 		resetSession,
 		deleteSession,
 		hasSessionData,
+		skipToMain,
 		visibleSteps,
 		allSteps,
 		totalSteps: allSteps.length,

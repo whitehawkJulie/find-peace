@@ -246,6 +246,32 @@ const PassphraseSection = () => {
 	);
 };
 
+// ── Intro tour reset section ───────────────────────────────────────────────
+const IntroTourSection = () => {
+	const { settings, updateSettings } = useWizard();
+	const [done, setDone] = useState(false);
+
+	if (!settings.seenOnboarding && !done) return null;
+
+	return (
+		<div className="settings-group">
+			<h4>Intro tour</h4>
+			{done ? (
+				<p className="settings-hint">The intro will show again next time you start a new session.</p>
+			) : (
+				<button
+					className="settings-reset-btn"
+					onClick={() => {
+						updateSettings({ seenOnboarding: false });
+						setDone(true);
+					}}>
+					↺ Show intro again
+				</button>
+			)}
+		</div>
+	);
+};
+
 // ── Hints reset section ────────────────────────────────────────────────────
 const HintsSection = () => {
 	const hasDismissed = Object.keys(JSON.parse(localStorage.getItem("findPeaceHints") || "{}")).length > 0;
@@ -318,6 +344,7 @@ const SettingsContent = ({ onClose }) => {
 				<p className="settings-hint">Uses OpenDyslexic throughout the app.</p>
 			</div>
 
+			<IntroTourSection />
 			<HintsSection />
 
 			<PrivacySection />
