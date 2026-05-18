@@ -1,6 +1,7 @@
 import React from "react";
 import { useWizard } from "../WizardContext";
 import HelpLink from "../HelpLink";
+import HowToPopup from "./HowToPopup";
 
 import "./ObservationJackal.css";
 
@@ -11,6 +12,7 @@ const ObservationJackal = () => {
 
 	return (
 		<div className="step-observation step-container">
+			<HowToPopup />
 			<p className="onboarding-lead">
 				Before you start, bring to mind a specific moment that's been bothering you. Something real and recent
 				works best.
