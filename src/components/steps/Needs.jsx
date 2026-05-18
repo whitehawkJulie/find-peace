@@ -44,13 +44,14 @@ const Needs = () => {
 	return (
 		<div className="step-needs">
 			<p>
-				Your feelings point to something deeper — what you were longing for in that moment. We call these
-				longings <HelpLink topic="needs">"fundamental human needs"?</HelpLink>
+				Your feelings point to something deeper — what you were longing for in that moment. These longings are
+				your <HelpLink topic="needs">fundamental human needs</HelpLink>, and every person on the planet shares
+				them.
 			</p>
 
 			{renderOrderedFeelings(feelings, firstFeelings)}
 
-			<p>What were you needing in that moment, that you weren't getting?</p>
+			<p>What were you hoping for in that moment, that you weren't getting?</p>
 
 			<Checklist
 				data={[

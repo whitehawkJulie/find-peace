@@ -11,13 +11,25 @@ const ObservationJackal = () => {
 
 	return (
 		<div className="step-observation step-container">
-<p>
-				Are you trying to <HelpLink topic="think-of-situation">think of a situation you can use</HelpLink> with
-				this tool? You don’t need a huge conflict. Small, everyday moments often work best.
+			<p className="onboarding-lead">
+				Before you start, bring to mind a specific moment that's been bothering you. Something real and recent
+				works best.
+			</p>
+			<p className="onboarding-prompt-label">You might be thinking of:</p>
+			<ul className="onboarding-examples">
+				<li>A conversation you keep replaying in your head</li>
+				<li>A moment you felt annoyed, hurt, tense, or disappointed</li>
+				<li>Something someone said or did that still has a charge</li>
+				<li>A time you felt unseen, dismissed, or misunderstood</li>
+				<li>A moment you shut down, got defensive, or thought "that's not fair"</li>
+			</ul>
+			<p className="onboarding-tip">
+				Start with something that matters, but isn't the hardest thing in your life.{" "}
+				<HelpLink topic="think-of-situation">More ideas →</HelpLink>
 			</p>
 			<p>
-				Before we try to make sense of it, feel free to just let it all out. This section isn't about being fair
-				or accurate — just letting the first wave out, expressing your raw feelings and thoughts.
+				What's the situation you'd like to work with? Describe it in your own words, like you're telling a
+				friend.
 			</p>
 			<p className="obs-textarea-label">{"The uncensored version:"}</p>
 			<textarea
