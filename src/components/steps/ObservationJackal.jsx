@@ -1,5 +1,6 @@
 import React from "react";
 import { useWizard } from "../WizardContext";
+import ImportanceBanner from "../ImportanceBanner";
 import HelpLink from "../HelpLink";
 import HowToPopup from "./HowToPopup";
 
@@ -12,6 +13,7 @@ const ObservationJackal = () => {
 
 	return (
 		<div className="step-observation step-container">
+			<ImportanceBanner message="Feel free to skim or skip — getting this out can help, but it's not essential." />
 			<HowToPopup />
 			<p className="onboarding-lead">
 				Before you start, bring to mind a specific moment that's been bothering you. Something real and recent

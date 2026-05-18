@@ -65,7 +65,6 @@ export const WizardProvider = ({ children }) => {
 		{
 			component: Observation,
 			group: "happened",
-			optionalBadge: true,
 			color: "#5F8F82",
 			icon: observationIcon,
 		},
@@ -81,7 +80,6 @@ export const WizardProvider = ({ children }) => {
 			group: "felt",
 			color: "#5F8F82",
 			icon: exploreFeelingsIcon,
-			optionalBadge: true,
 		},
 		{
 			component: Needs,
@@ -94,7 +92,6 @@ export const WizardProvider = ({ children }) => {
 			group: "mattered",
 			color: "#6E9B6A",
 			icon: exploreNeedIcon,
-			optionalBadge: true,
 			condition: ({ needs }) =>
 				needs && Object.keys(needs).some((name) => needOfferDeepeningMap[name]),
 		},
@@ -109,7 +106,6 @@ export const WizardProvider = ({ children }) => {
 		{
 			component: ExploringWhatsChanged,
 			group: "next",
-			optionalBadge: true,
 			color: "#7A9E5A",
 			icon: whatsChangedIcon,
 		},

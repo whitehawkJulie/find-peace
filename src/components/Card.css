@@ -185,23 +185,6 @@
 .card-scroll-label:hover {
 	color: #666;
 }
-
-.card-optional-badge {
-	position: absolute;
-	top: 12px;
-	right: 12px;
-	z-index: 10;
-	background: #e8922a;
-	color: white;
-	font-size: 0.7rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.07em;
-	padding: 0.28rem 0.75rem;
-	border-radius: 20px;
-	pointer-events: none;
-	user-select: none;
-}
 /* Tagline shown below the logo on the intro page only */
 .card-intro-tagline {
 	margin: 0.35rem 0 0;
