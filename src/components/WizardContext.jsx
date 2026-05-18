@@ -63,12 +63,13 @@ export const WizardProvider = ({ children }) => {
 	// circular-dependency TDZ errors during Vite HMR (WizardContext imports step
 	// components which in turn import useWizard from WizardContext).
 	const allSteps = useMemo(() => [
-		{ component: OnboardingWelcome, group: "intro", optional: true, color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
-		{ component: OnboardingWhenToUse, group: "intro", optional: true, color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
-		{ component: OnboardingHowTo, group: "intro", optional: true, color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
+		{ component: OnboardingWelcome, group: "intro", color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
+		{ component: OnboardingWhenToUse, group: "intro", color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
+		{ component: OnboardingHowTo, group: "intro", color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
 		{
 			component: Observation,
 			group: "happened",
+			optionalBadge: true,
 			color: "#5F8F82",
 			icon: observationIcon,
 		},
@@ -84,7 +85,7 @@ export const WizardProvider = ({ children }) => {
 			group: "felt",
 			color: "#5F8F82",
 			icon: exploreFeelingsIcon,
-			optional: true,
+			optionalBadge: true,
 		},
 		{
 			component: Needs,
@@ -97,7 +98,7 @@ export const WizardProvider = ({ children }) => {
 			group: "mattered",
 			color: "#6E9B6A",
 			icon: exploreNeedIcon,
-			optional: true,
+			optionalBadge: true,
 			condition: ({ needs }) =>
 				needs && Object.keys(needs).some((name) => needOfferDeepeningMap[name]),
 		},
@@ -106,25 +107,23 @@ export const WizardProvider = ({ children }) => {
 			group: "mattered",
 			color: "#6E9B6A",
 			icon: exploreNeedIcon,
-			optional: true,
 		},
-		{ component: MakingGuesses, group: "them", optional: true, color: "#6E9B6A", icon: theirViewIcon },
-		// { component: RequestFormulation, optional: true },
+		{ component: MakingGuesses, group: "them", color: "#6E9B6A", icon: theirViewIcon },
+		// { component: RequestFormulation },
 		{
 			component: ExploringWhatsChanged,
 			group: "next",
-			optional: true,
+			optionalBadge: true,
 			color: "#7A9E5A",
 			icon: whatsChangedIcon,
 		},
 		{
 			component: ConversationsAndCollaboration,
 			group: "next",
-			optional: true,
 			color: "#7A9E5A",
 			icon: conversationsIcon,
 		},
-		{ component: Review, group: "next", optional: true, color: "#7A9E5A", icon: reviewIcon },
+		{ component: Review, group: "next", color: "#7A9E5A", icon: reviewIcon },
 	], []); // eslint-disable-line react-hooks/exhaustive-deps
 	// App-wide state
 	const [stepIndex, setStepIndex] = useState(0);

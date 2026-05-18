@@ -2,7 +2,6 @@ import React, { useState, useMemo } from "react";
 import { useWizard } from "../WizardContext";
 import { trackEvent, currentPage } from "../../analytics/analytics";
 import HelpLink from "../HelpLink";
-import ImportanceBanner from "../ImportanceBanner";
 import { AllFeelingsData as FeelingsData, feelingDescriptionByName } from "../../data/AllFeelingsData";
 import { feelingTypes } from "../../data/FeelingTypes";
 import { storyWordSet } from "../../data/StoryWords";
@@ -212,11 +211,7 @@ const UnpackFeelings = () => {
 
 	return (
 		<div className="feelings-explore">
-			<ImportanceBanner
-				heading="Optional"
-				message="The sections below help you look more closely at your feelings."
-			/>
-			{!hasSelectedFeelings && (
+	{!hasSelectedFeelings && (
 				<p className="empty-state-notice">
 					No feelings selected yet — this page isn't useful until you've chosen some feelings on the previous
 					step.
