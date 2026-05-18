@@ -286,7 +286,6 @@
 
 .howto-popup-close {
 	float: none;
-	align-self: flex-end;
 	background: #3a5a50;
 	color: white;
 	border: none;
@@ -294,5 +293,150 @@
 	padding: 0.5rem 1.4rem;
 	font-size: 0.9rem;
 	cursor: pointer;
-	margin-top: 0.25rem;
+}
+
+/* ── Interactive dummy card ── */
+
+.howto-dummy-card {
+	border: 2px solid #b8d0c8;
+	border-radius: 10px;
+	overflow: hidden;
+	background: #f5faf7;
+}
+
+.howto-dummy-header {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.45rem 0.65rem;
+	background: #ddeee8;
+	border-bottom: 1px solid #b8d0c8;
+	border-radius: 8px 8px 0 0;
+}
+
+.howto-dummy-menu-btn {
+	font-size: 0.95rem;
+	color: #3a5a50;
+}
+
+.howto-dummy-page-title {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: #2e4a42;
+}
+
+.howto-dummy-body {
+	padding: 0.6rem 0.65rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.55rem;
+}
+
+.howto-dummy-hint-box {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.4rem;
+	background: #e4ede9;
+	border-radius: 5px;
+	padding: 0.35rem 0.5rem;
+	font-size: 0.73rem;
+	color: #3a4a40;
+	line-height: 1.4;
+}
+
+.howto-dummy-hint-x {
+	font-size: 0.7rem;
+	color: #5a7a70;
+	flex-shrink: 0;
+	margin-top: 0.05rem;
+}
+
+.howto-dummy-section-label {
+	font-size: 0.73rem;
+	font-weight: 600;
+	color: #3a4a40;
+	margin-bottom: 0.3rem;
+}
+
+.howto-dummy-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem;
+}
+
+.howto-dummy-pill {
+	background: #e8f0ed;
+	border: 1px solid #b8d0c8;
+	border-radius: 20px;
+	padding: 0.18rem 0.55rem;
+	font-size: 0.72rem;
+	color: #3a4a40;
+}
+
+.howto-dummy-progress-row {
+	border-top: 1px solid #b8d0c8;
+	padding: 0;
+}
+
+.howto-dummy-progress-track {
+	height: 5px;
+	background: #d0e5dc;
+}
+
+.howto-dummy-progress-fill {
+	height: 100%;
+	width: 30%;
+	background: #5f8f82;
+}
+
+/* Active highlight for each step */
+.howto-active {
+	outline: 2px solid #3a5a50;
+	outline-offset: 2px;
+	box-shadow: 0 0 0 4px rgba(58, 90, 80, 0.15);
+	border-radius: 4px;
+}
+
+/* Step description callout */
+.howto-step-desc {
+	font-size: 0.88rem;
+	color: #333;
+	background: #f0f7f4;
+	border-left: 3px solid #5f8f82;
+	padding: 0.5rem 0.7rem;
+	border-radius: 0 6px 6px 0;
+	line-height: 1.5;
+}
+
+.howto-step-title {
+	font-weight: 700;
+	color: #2e4a42;
+}
+
+/* Dots + button row */
+.howto-step-nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.howto-step-dots {
+	display: flex;
+	gap: 0.4rem;
+}
+
+.howto-step-dot {
+	float: none;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #c0d5cc;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	transition: background 0.15s;
+}
+
+.howto-step-dot--active {
+	background: #3a5a50;
 }
