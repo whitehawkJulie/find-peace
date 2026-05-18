@@ -22,6 +22,11 @@ const STEPS = [
 		body: (<>Tips appear on some pages to give extra guidance. Click <strong>✕</strong> to dismiss them — you can bring them back in Settings.</>),
 	},
 	{
+		id: "link",
+		title: "Underlined links",
+		body: "Scattered throughout the app — click one to open a help panel with more context on that topic.",
+	},
+	{
 		id: "pill",
 		title: "Words",
 		body: (<><strong>Click</strong> a word to select it. <strong>Double-click</strong> to open more detail about that feeling or need.</>),
@@ -62,6 +67,11 @@ const HowToPopup = () => {
 							<span className="howto-dummy-hint-x">✕</span>
 							<span className="howto-dummy-hint-text">As you read through, try picking the words that feel like the best match.</span>
 						</div>
+						<p className="howto-dummy-prose">
+							You might find that{" "}
+							<span className={`howto-dummy-link${active("link")}`}>naming feelings</span>
+							{" "}gives you information you didn't realise you had.
+						</p>
 						<div className="howto-dummy-section">
 							<span className="howto-dummy-section-label">Afraid</span>
 							<div className="howto-dummy-pills">
