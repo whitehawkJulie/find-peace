@@ -300,7 +300,7 @@
 .howto-dummy-card {
 	border: 2px solid #b8d0c8;
 	border-radius: 10px;
-	overflow: hidden;
+	overflow: visible;
 	background: #f5faf7;
 }
 
@@ -403,11 +403,25 @@
 	background: #5f8f82;
 }
 
-/* Active highlight for each step */
+.howto-dummy-nav-row {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.3rem 0.65rem;
+	border-top: 1px solid #b8d0c8;
+	border-radius: 0 0 8px 8px;
+}
+
+.howto-dummy-nav-btn {
+	font-size: 0.7rem;
+	color: #3a5a50;
+	font-weight: 500;
+}
+
+/* Active highlight for each step — red so it reads as annotation, not UI */
 .howto-active {
-	outline: 2px solid #3a5a50;
+	outline: 2.5px solid #cc2200;
 	outline-offset: 2px;
-	box-shadow: 0 0 0 4px rgba(58, 90, 80, 0.15);
+	box-shadow: 0 0 0 4px rgba(204, 34, 0, 0.12);
 	border-radius: 4px;
 }
 

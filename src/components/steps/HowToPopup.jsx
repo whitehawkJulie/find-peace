@@ -90,6 +90,10 @@ const HowToPopup = () => {
 							<div className="howto-dummy-progress-fill" />
 						</div>
 					</div>
+					<div className="howto-dummy-nav-row">
+						<span className="howto-dummy-nav-btn">← Prev</span>
+						<span className="howto-dummy-nav-btn">Next →</span>
+					</div>
 				</div>
 
 				<div className="howto-step-desc">
