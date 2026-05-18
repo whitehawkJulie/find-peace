@@ -28,6 +28,7 @@ const SideMenu = ({ isOpen, onClose }) => {
 		savedEntries,
 		loadedId,
 		openHelpTopic,
+		updateSettings,
 	} = useWizard();
 
 	const [subPanel, setSubPanel] = useState(null); // null | "open"
@@ -139,9 +140,9 @@ const SideMenu = ({ isOpen, onClose }) => {
 												(s) => s.component === step.component,
 											);
 											const isLocked = visIdx === -1;
+											const isLockedIntro = isLocked && step.group === "intro";
 											const isCurrent = !isLocked && visIdx === stepIndex;
-											const isPast = !isLocked && visIdx < stepIndex;
-											const isAccessible = !isLocked;
+											const isAccessible = !isLocked || isLockedIntro;
 
 											const label = step.component?.navTitle || step.component?.title || "";
 											const stateClass = isCurrent
@@ -150,12 +151,23 @@ const SideMenu = ({ isOpen, onClose }) => {
 													? "side-menu-step--past"
 													: "side-menu-step--unavailable";
 
+											const handleClick = () => {
+												if (isLockedIntro) {
+													const introIdx = allSteps.filter(s => s.group === "intro").findIndex(s => s.component === step.component);
+													updateSettings({ seenOnboarding: false });
+													setStepIndex(introIdx >= 0 ? introIdx : 0);
+													onClose();
+												} else if (isAccessible) {
+													handleStepClick(visIdx);
+												}
+											};
+
 											return (
 												<button
 													key={step.component?.navTitle ?? label}
 													className={`side-menu-step ${stateClass}`}
 													disabled={!isAccessible}
-													onClick={() => isAccessible && handleStepClick(visIdx)}
+													onClick={handleClick}
 													aria-current={isCurrent ? "page" : undefined}>
 													<span
 														className="side-menu-step-dot"
