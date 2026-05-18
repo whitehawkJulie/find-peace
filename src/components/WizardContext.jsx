@@ -10,8 +10,6 @@ export const useWizard = () => useContext(WizardContext);
 
 // Step components
 import OnboardingWelcome from "./steps/OnboardingWelcome";
-import OnboardingWhenToUse from "./steps/OnboardingWhenToUse";
-import OnboardingHowTo from "./steps/OnboardingHowTo";
 import Observation from "./steps/ObservationJackal";
 import ObservationClarify from "./steps/ObservationClarify";
 import Feelings from "./steps/Feelings";
@@ -63,9 +61,7 @@ export const WizardProvider = ({ children }) => {
 	// circular-dependency TDZ errors during Vite HMR (WizardContext imports step
 	// components which in turn import useWizard from WizardContext).
 	const allSteps = useMemo(() => [
-		{ component: OnboardingWelcome, group: "intro", color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
-		{ component: OnboardingWhenToUse, group: "intro", color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
-		{ component: OnboardingHowTo, group: "intro", color: "#5F8F82", icon: introIcon, condition: ({ settings }) => !settings.seenOnboarding },
+		{ component: OnboardingWelcome, group: "intro", color: "#5F8F82", icon: introIcon },
 		{
 			component: Observation,
 			group: "happened",
@@ -280,7 +276,7 @@ export const WizardProvider = ({ children }) => {
 	const hasEncryptedSessions = savedEntries.some(isEncryptedSession);
 
 	// Build state object for step conditions
-	const state = { observation, feelings, needs, needExplorations, needReplacements, strategies, settings };
+	const state = { observation, feelings, needs, needExplorations, needReplacements, strategies };
 	const visibleSteps = allSteps.filter((step) => (step.condition ? step.condition(state) : true));
 
 	const currentStep = visibleSteps[stepIndex];
@@ -447,12 +443,6 @@ export const WizardProvider = ({ children }) => {
 		setReviewReflection("");
 	};
 
-	// Jump past all intro steps to the first main step (without setting seenOnboarding)
-	const skipToMain = () => {
-		const firstMainIdx = visibleSteps.findIndex((s) => s.group !== "intro");
-		if (firstMainIdx !== -1) setStepIndex(firstMainIdx);
-	};
-
 	// Ref to .card-content scroll container (attached by Card.jsx)
 	const cardContentRef = useRef(null);
 
@@ -571,7 +561,6 @@ export const WizardProvider = ({ children }) => {
 		resetSession,
 		deleteSession,
 		hasSessionData,
-		skipToMain,
 		visibleSteps,
 		allSteps,
 		totalSteps: allSteps.length,

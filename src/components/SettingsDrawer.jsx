@@ -246,28 +246,6 @@ const PassphraseSection = () => {
 	);
 };
 
-// ── Intro tour reset section ───────────────────────────────────────────────
-const IntroTourSection = () => {
-	const { settings, updateSettings, setStepIndex, setShowSettings } = useWizard();
-
-	if (!settings.seenOnboarding) return null;
-
-	return (
-		<div className="settings-group">
-			<h4>Intro tour</h4>
-			<button
-				className="settings-reset-btn"
-				onClick={() => {
-					updateSettings({ seenOnboarding: false });
-					setStepIndex(0);
-					setShowSettings(false);
-				}}>
-				↺ Show intro again
-			</button>
-		</div>
-	);
-};
-
 // ── Hints reset section ────────────────────────────────────────────────────
 const HintsSection = () => {
 	const hasDismissed = Object.keys(JSON.parse(localStorage.getItem("findPeaceHints") || "{}")).length > 0;
@@ -340,7 +318,6 @@ const SettingsContent = ({ onClose }) => {
 				<p className="settings-hint">Uses OpenDyslexic throughout the app.</p>
 			</div>
 
-			<IntroTourSection />
 			<HintsSection />
 
 			<PrivacySection />
