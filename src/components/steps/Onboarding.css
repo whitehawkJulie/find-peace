@@ -351,6 +351,20 @@
 	margin-top: 0.05rem;
 }
 
+.howto-dummy-prose {
+	font-size: 0.73rem;
+	color: #3a4a40;
+	line-height: 1.4;
+	margin: 0;
+}
+
+.howto-dummy-link {
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	color: #3a7a5a;
+	cursor: default;
+}
+
 .howto-dummy-section-label {
 	font-size: 0.73rem;
 	font-weight: 600;
