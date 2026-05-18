@@ -5,14 +5,21 @@
 export const feelingTypes = {
 	fear: {
 		title: "Fear",
-		intro: "Let's get curious about what your system might be bracing for.",
+		intro: "Let’s get curious about what your system might be bracing for.",
 		skipLabel: "Skip this",
 		prompts: [
+			{
+				id: "fear_flavour",
+				type: "multiChoice",
+				question: "Which flavour fits most right now?",
+				options: ["scared", "worried", "tense", "uneasy", "overwhelmed"],
+				selectsFeeling: true,
+			},
 			{
 				id: "fear_body",
 				type: "text",
 				question:
-					"Is it anticipatory fear, because this feels like something you've been in before, that didn't turn out well?",
+					"Is it anticipatory fear, because this feels like something you’ve been in before, that didn’t turn out well?",
 			},
 			{
 				id: "fear_prediction",
@@ -20,14 +27,26 @@ export const feelingTypes = {
 				question: "If there’s a worried prediction attached, what is it saying?",
 				stem: "I’m afraid that…",
 			},
+			{
+				id: "fear_sensation",
+				type: "singleChoice",
+				question: "Where do you feel it most in your body?",
+				options: ["Chest", "Stomach", "Throat", "Jaw", "Whole body", "Not sure"],
+			},
 		],
 	},
 
 	anger: {
 		title: "Anger",
-		intro: "Anger often shows up when a boundary has been crossed, or when we're hurt, or afraid.",
+		intro: "Anger often shows up when a boundary has been crossed, or when we’re hurt, or afraid.",
 		skipLabel: "Skip this",
 		prompts: [
+			{
+				id: "anger_type",
+				type: "singleChoice",
+				question: "If you feel into it, what kind of anger does this feel like right now?",
+				options: ["Hot and urgent", "Firm and clear", "Simmering / resentful", "Protective / defensive", "Not sure"],
+			},
 			{
 				id: "anger_violation",
 				type: "text",
@@ -35,23 +54,16 @@ export const feelingTypes = {
 					"Is there a sense that a boundary has been crossed? Some kind of violation or wrongness? What’s that about?",
 			},
 			{
-				id: "anger_tears",
-				type: "text",
-				question: "Is there a sense of outrage at emotional rupture?",
-				suggestFeeling: {
-					name: "hurt",
-					prompt: 'Would you like to add "hurt" to your feeling list?',
-				},
+				id: "anger_protecting",
+				type: "multiChoice",
+				question: "If you slow it down a little… can you see what the anger might be protecting here?",
+				options: ["hurt", "scared", "overwhelmed"],
+				selectsFeeling: true,
 			},
 			{
-				id: "anger_protect",
+				id: "anger_stand",
 				type: "text",
-				question:
-					"Does the anger feel like it’s trying to protect you from harm? What are you afraid might happen, if the anger doesn’t protect you?",
-				suggestFeeling: {
-					name: "afraid",
-					prompt: 'Would you like to add "afraid" to your feeling list?',
-				},
+				question: "What are you protecting or standing up for here?",
 			},
 			{
 				id: "anger_body",
@@ -93,7 +105,7 @@ export const feelingTypes = {
 	},
 
 	confusion: {
-		title: "It sounds like there may be a lot of confusion or overwhelm here",
+		title: "Confusion / Disorientation",
 		intro: "If that resonates, smaller is usually better. Let’s find one clarity point.",
 		skipLabel: "Skip this",
 		prompts: [
@@ -116,20 +128,44 @@ export const feelingTypes = {
 	},
 
 	shame: {
-		title: "It sounds like there may be some shame here",
-		intro: "If so, shame often comes with a harsh story about belonging or worth. We can slow down and soften.",
+		title: "Shame & Guilt",
+		intro: "Shame often carries a story about belonging or worth. Guilt often carries a value we care about. Let’s go gently.",
 		skipLabel: "Skip this",
 		prompts: [
 			{
 				id: "shame_type",
 				type: "singleChoice",
-				question: "Which feels closer?",
+				question: "Which feels closer right now?",
 				options: ["I did something wrong", "There’s something wrong with me", "Both", "Not sure"],
+			},
+			{
+				id: "shame_story",
+				type: "text",
+				question: "If there’s a harsh inner sentence attached, what is it saying?",
+				stem: "The story is…",
+			},
+			{
+				id: "shame_should",
+				type: "text",
+				question: "What’s the ‘should’ voice saying?",
+				stem: "I should have…",
+			},
+			{
+				id: "shame_under",
+				type: "multiChoice",
+				question: "Under the shame or guilt, is there also something else here?",
+				options: ["regret", "scared", "hurt", "sad", "lonely", "disappointed"],
+				selectsFeeling: true,
 			},
 			{
 				id: "shame_understood",
 				type: "text",
-				question: "If you were met with kindness, what would you want understood about you?",
+				question: "If you were met with real kindness right now, what would you want understood about you?",
+			},
+			{
+				id: "shame_value",
+				type: "text",
+				question: "What value were you wanting to honour?",
 			},
 			{
 				id: "shame_next_kind",
@@ -180,10 +216,17 @@ export const feelingTypes = {
 	},
 
 	shutdown: {
-		title: "It sounds like there may be a lot of numbness or disconnection here",
-		intro: "If so, numbness can be protective. We don’t have to force feeling — just a bit more contact, if you want.",
+		title: "Shutdown / Collapse / Exhaustion",
+		intro: "This family of feelings often signals that your system is running low — on energy, hope, or emotional access. That can look like numbness, depression, or deep fatigue. We can go very gently.",
 		skipLabel: "Skip this",
 		prompts: [
+			{
+				id: "shutdown_parts",
+				type: "multiChoice",
+				question: "Which parts are present right now?",
+				options: ["sad", "hopeless", "lonely", "overwhelmed", "tired", "numb", "disconnected"],
+				selectsFeeling: true,
+			},
 			{
 				id: "shutdown_protecting",
 				type: "text",

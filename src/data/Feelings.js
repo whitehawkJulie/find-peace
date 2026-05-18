@@ -281,42 +281,8 @@ export const Feelings = {
 					description: "worried and uneasy",
 					type: "cognitive",
 					feelingType: "fear",
-					interpretationHint: "Often connected to thoughts like: 'Something bad might happen.'",
+					interpretationHint: "Often connected to thoughts like: ‘Something bad might happen.’",
 					ui: { tier: "simple" },
-					clarify: {
-						type: "murky",
-						title: "Clarify: anxious",
-
-						attunement: [
-							"Ahh… that restless edge can be hard to sit with.",
-							"Yeah… anxiety can make everything feel a bit buzzy or tight.",
-							"That keyed-up feeling makes sense. Something feels uncertain or at risk.",
-						], // choose one to display
-
-						normalization:
-							"Anxiety often mixes body sensation with a story about what might happen. Let’s gently separate those pieces.",
-
-						prompts: [
-							{
-								type: "multiChoice",
-								question: "Which flavour fits most right now?",
-								options: ["scared", "worried", "tense", "uneasy", "overwhelmed"],
-								selectsFeeling: true,
-							},
-
-							{
-								type: "text",
-								question: "If there’s a worried prediction attached, what is it saying? ",
-								stem: "I’m afraid that…",
-							},
-
-							{
-								type: "singleChoice",
-								question: "Where do you feel it most in your body? ",
-								options: ["Chest", "Stomach", "Throat", "Jaw", "Whole body", "Not sure"],
-							},
-						],
-					},
 				},
 			],
 		},
@@ -567,50 +533,6 @@ export const Feelings = {
 					type: "primary",
 					feelingType: "anger",
 					ui: { tier: "simple", quickPick: true },
-					clarify: {
-						type: "murky",
-						title: "Clarify: angry",
-
-						// Attune first — herd energy, without escalation.
-						attunement: [
-							"Ohhh. That surge makes sense. Something in you is really saying no.",
-							"Yeah… anger can come in strong when something feels threatened.",
-						], // UI to randomly select one of these attunement statements to normalize the experience.
-
-						// Normalize protective function.
-						normalization:
-							"Anger often shows up to protect something important — a boundary, a value, or something tender underneath.",
-
-						prompts: [
-							// Differentiate flavour — reduces global activation.
-							{
-								type: "singleChoice",
-								question: "If you feel into it, what kind of anger does this feel like right now?",
-								options: [
-									"Hot and urgent",
-									"Firm and clear",
-									"Simmering / resentful",
-									"Protective / defensive",
-									"Not sure",
-								],
-							},
-
-							// Structured pivot to underlying layer.
-							{
-								type: "multiChoice",
-								question:
-									"If you slow it down just a little… can you see what the anger might be protecting here?",
-								options: ["hurt", "scared", "overwhelmed"],
-								selectsFeeling: true,
-							},
-
-							// Bridge toward needs.
-							{
-								type: "text",
-								question: "What are you protecting or standing up for here? ",
-							},
-						],
-					},
 				},
 
 				// --- Protective escalation ---
@@ -910,93 +832,16 @@ export const Feelings = {
 					description: "believing something is wrong with oneself",
 					type: "cognitive",
 					feelingType: "shame",
-					interpretationHint: "Often connected to thoughts like: 'There’s something wrong with me.'",
+					interpretationHint: "Often connected to thoughts like: ‘There’s something wrong with me.’",
 					ui: { tier: "simple" },
-					clarify: {
-						type: "murky",
-						title: "Clarify: ashamed",
-
-						attunement: [
-							"Oof… shame can feel really tender.",
-							"That one can land heavy. You don’t have to face it alone here.",
-							"Yeah… shame has a way of shrinking us. Let’s go gently.",
-						], // display ONE of these, randomly
-
-						normalization:
-							"Shame often carries a story about belonging, worth, or whether we’re still okay in the eyes of others — or ourselves. \
-							And feeling shame doesn't mean you're BAD or broken. It often means you care about something deeply, and that something feels at risk.",
-
-						prompts: [
-							{
-								type: "singleChoice",
-								question: "Which feels closer right now?",
-								options: [
-									"I did something wrong",
-									"There’s something wrong with me",
-									"Both",
-									"Not sure",
-								],
-							},
-
-							{
-								type: "text",
-								question: "If there’s a harsh inner sentence attached, what is it saying? ",
-								stem: "The story is…",
-							},
-							{
-								type: "multiChoice",
-								question: "Under the shame, is there also something else present?",
-								options: ["scared", "hurt", "sad", "lonely", "disappointed", "guilty"],
-								selectsFeeling: true,
-							},
-							{
-								type: "text",
-								question:
-									"If you were met with real kindness right now, what would you want understood about you?",
-							},
-						],
-					},
 				},
 				{
 					item: "guilty",
 					description: "believing one has done something wrong",
 					type: "cognitive",
 					feelingType: "shame",
-					interpretationHint: "Often connected to thoughts like: 'I shouldn’t have done that.'",
+					interpretationHint: "Often connected to thoughts like: ‘I shouldn’t have done that.’",
 					ui: { tier: "simple", quickPick: true },
-					clarify: {
-						type: "murky",
-						title: "Clarify: guilty",
-
-						attunement: [
-							"Ah… that tight, sinking feeling.",
-							"Guilt can feel really uncomfortable — like an inner ‘should’ pressing in.",
-							"Yeah… that sense of having missed something important.",
-						],
-
-						normalization:
-							"Guilt often carries a value you care about. Let’s gently look at what’s underneath.",
-
-						prompts: [
-							{
-								type: "text",
-								question: "What’s the ‘should’ voice saying? ",
-								stem: "I should have…",
-							},
-
-							{
-								type: "multiChoice",
-								question: "Under the guilt, is there also…",
-								options: ["regret", "sad", "scared", "ashamed"],
-								selectsFeeling: true,
-							},
-
-							{
-								type: "text",
-								question: "What value were you wanting to honour?",
-							},
-						],
-					},
 				},
 
 				// --- Intensity escalation ---
@@ -1070,21 +915,21 @@ export const Feelings = {
 					item: "discouraged",
 					description: "losing hope or confidence",
 					type: "cognitive",
-					feelingType: "distress",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "disheartened",
 					description: "losing motivation",
 					type: "cognitive",
-					feelingType: "distress",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "dejected",
 					description: "low-spirited",
 					type: "primary",
-					feelingType: "distress",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 
@@ -1115,21 +960,21 @@ export const Feelings = {
 					item: "despondent",
 					description: "in low spirits from loss of hope",
 					type: "cognitive",
-					feelingType: "distress",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "despair",
 					description: "complete loss of hope",
 					type: "cognitive",
-					feelingType: "distress",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "hopeless",
 					description: "believing nothing will improve",
 					type: "cognitive",
-					feelingType: "distress",
+					feelingType: "shutdown",
 					interpretationHint: "Often connected to thoughts like: 'There’s no point.'",
 					ui: { tier: "simple" },
 				},
@@ -1137,27 +982,9 @@ export const Feelings = {
 					item: "depressed",
 					description: "persistent low mood",
 					type: "cognitive",
-					feelingType: "distress",
-					interpretationHint: "Often connected to thoughts like: 'I can’t feel anything will change.'",
+					feelingType: "shutdown",
+					interpretationHint: "Often connected to thoughts like: ‘I can’t feel anything will change.’",
 					ui: { tier: "simple" },
-					clarify: {
-						type: "murky",
-						title: "Clarify: depressed",
-
-						attunement: ["Depression is so cruel. Me too. Me too. You're not alone."],
-
-						normalization:
-							"‘Depressed’ is such a bundle of pain. What other feelings can you identify as being part of it?",
-
-						prompts: [
-							{
-								type: "multiChoice",
-								question: "Which parts are present right now?",
-								options: ["sad", "hopeless", "lonely", "overwhelmed", "tired", "numb", "disconnected"],
-								selectsFeeling: true,
-							},
-						],
-					},
 				},
 			],
 		},
@@ -1392,21 +1219,21 @@ export const Feelings = {
 					item: "tired",
 					description: "needing rest",
 					type: "activation",
-					feelingType: "tiredness",
+					feelingType: "shutdown",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "sleepy",
 					description: "ready for sleep",
 					type: "activation",
-					feelingType: "tiredness",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "weary",
 					description: "physically or emotionally tired",
 					type: "primary",
-					feelingType: "tiredness",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 
@@ -1415,28 +1242,28 @@ export const Feelings = {
 					item: "listless",
 					description: "lacking energy",
 					type: "activation",
-					feelingType: "tiredness",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "lethargic",
 					description: "sluggish and low-energy",
 					type: "activation",
-					feelingType: "tiredness",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "worn out",
 					description: "physically drained",
 					type: "primary",
-					feelingType: "tiredness",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 				{
 					item: "beat",
 					description: "extremely tired",
 					type: "primary",
-					feelingType: "tiredness",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 
@@ -1445,14 +1272,14 @@ export const Feelings = {
 					item: "exhausted",
 					description: "completely drained",
 					type: "primary",
-					feelingType: "tiredness",
+					feelingType: "shutdown",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "depleted",
 					description: "used up emotionally or physically",
 					type: "primary",
-					feelingType: "tiredness",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 
@@ -1461,7 +1288,7 @@ export const Feelings = {
 					item: "burnt out",
 					description: "long-term exhaustion and overwhelm",
 					type: "cognitive",
-					feelingType: "tiredness",
+					feelingType: "shutdown",
 					ui: { tier: "more" },
 				},
 			],
@@ -1489,14 +1316,14 @@ export const Feelings = {
 					item: "puzzled",
 					description: "not fully understanding",
 					type: "cognitive",
-					feelingType: "confused",
+					feelingType: "confusion",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "hesitant",
 					description: "unsure about moving forward",
 					type: "cognitive",
-					feelingType: "confused",
+					feelingType: "confusion",
 					ui: { tier: "more" },
 				},
 
@@ -1505,14 +1332,14 @@ export const Feelings = {
 					item: "torn",
 					description: "pulled in different directions",
 					type: "cognitive",
-					feelingType: "confused",
+					feelingType: "confusion",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "ambivalent",
 					description: "holding mixed feelings",
 					type: "cognitive",
-					feelingType: "confused",
+					feelingType: "confusion",
 					ui: { tier: "more" },
 				},
 
@@ -1521,21 +1348,21 @@ export const Feelings = {
 					item: "confused",
 					description: "unclear about what is happening",
 					type: "cognitive",
-					feelingType: "confused",
+					feelingType: "confusion",
 					ui: { tier: "simple", quickPick: true },
 				},
 				{
 					item: "perplexed",
 					description: "unable to understand something",
 					type: "cognitive",
-					feelingType: "confused",
+					feelingType: "confusion",
 					ui: { tier: "more" },
 				},
 				{
 					item: "baffled",
 					description: "deeply confused",
 					type: "cognitive",
-					feelingType: "confused",
+					feelingType: "confusion",
 					ui: { tier: "more" },
 				},
 
@@ -1544,28 +1371,28 @@ export const Feelings = {
 					item: "lost",
 					description: "without direction or clarity",
 					type: "cognitive",
-					feelingType: "confused",
+					feelingType: "confusion",
 					ui: { tier: "simple" },
 				},
 				{
 					item: "mystified",
 					description: "unable to make sense of something",
 					type: "cognitive",
-					feelingType: "confused",
+					feelingType: "confusion",
 					ui: { tier: "more" },
 				},
 				{
 					item: "dazed",
 					description: "mentally stunned or unfocused",
 					type: "activation",
-					feelingType: "confused",
+					feelingType: "confusion",
 					ui: { tier: "more" },
 				},
 				{
 					item: "bewildered",
 					description: "confused and distressed",
 					type: "cognitive",
-					feelingType: "confused",
+					feelingType: "confusion",
 					interpretationHint: "Often connected to thoughts like: 'I don’t understand what’s happening.'",
 					ui: { tier: "more" },
 				},
