@@ -3,7 +3,7 @@ import { useWizard } from "../WizardContext";
 import "./Onboarding.css";
 
 const OnboardingHowTo = () => {
-	const { settings, updateSettings, skipToMain } = useWizard();
+	const { settings, updateSettings, skipToMain, setStepIndex } = useWizard();
 
 	return (
 		<div className="step-onboarding step-container">
@@ -56,7 +56,10 @@ const OnboardingHowTo = () => {
 					<input
 						type="checkbox"
 						checked={!!settings.seenOnboarding}
-						onChange={(e) => updateSettings({ seenOnboarding: e.target.checked })}
+						onChange={(e) => {
+						updateSettings({ seenOnboarding: e.target.checked });
+						if (e.target.checked) setStepIndex(0);
+					}}
 					/>
 					Don't show this intro next time
 				</label>
