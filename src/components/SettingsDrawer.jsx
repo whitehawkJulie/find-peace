@@ -248,26 +248,22 @@ const PassphraseSection = () => {
 
 // ── Intro tour reset section ───────────────────────────────────────────────
 const IntroTourSection = () => {
-	const { settings, updateSettings } = useWizard();
-	const [done, setDone] = useState(false);
+	const { settings, updateSettings, setStepIndex, setShowSettings } = useWizard();
 
-	if (!settings.seenOnboarding && !done) return null;
+	if (!settings.seenOnboarding) return null;
 
 	return (
 		<div className="settings-group">
 			<h4>Intro tour</h4>
-			{done ? (
-				<p className="settings-hint">The intro will show again next time you start a new session.</p>
-			) : (
-				<button
-					className="settings-reset-btn"
-					onClick={() => {
-						updateSettings({ seenOnboarding: false });
-						setDone(true);
-					}}>
-					↺ Show intro again
-				</button>
-			)}
+			<button
+				className="settings-reset-btn"
+				onClick={() => {
+					updateSettings({ seenOnboarding: false });
+					setStepIndex(0);
+					setShowSettings(false);
+				}}>
+				↺ Show intro again
+			</button>
 		</div>
 	);
 };
