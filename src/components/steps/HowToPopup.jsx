@@ -62,6 +62,10 @@ const HowToPopup = () => {
 					🔗 <strong>Underlined links</strong> throughout the app open help panels with more context.
 				</p>
 
+				<p className="howto-note">
+					💬 <strong>Hints</strong> appear on some pages to give extra guidance — click <strong>✕</strong> to dismiss them.
+				</p>
+
 				<button className="howto-popup-close" onClick={close}>Got it</button>
 			</div>
 		</>
