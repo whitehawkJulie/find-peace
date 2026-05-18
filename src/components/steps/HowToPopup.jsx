@@ -36,6 +36,11 @@ const STEPS = [
 		title: "Progress bar",
 		body: "Shows where you are. Most steps are optional — skip what doesn't fit and come back anytime.",
 	},
+	{
+		id: "summary",
+		title: "📋 Summary",
+		body: "View a summary of everything you've worked through so far — available at any point, from the bottom bar.",
+	},
 ];
 
 const HowToPopup = () => {
@@ -92,6 +97,7 @@ const HowToPopup = () => {
 					</div>
 					<div className="howto-dummy-nav-row">
 						<span className="howto-dummy-nav-btn">← Prev</span>
+						<span className={`howto-dummy-summary-btn${active("summary")}`}>📋 Summary</span>
 						<span className="howto-dummy-nav-btn">Next →</span>
 					</div>
 				</div>
@@ -113,9 +119,11 @@ const HowToPopup = () => {
 							/>
 						))}
 					</div>
-					<button className="howto-popup-close" onClick={advance}>
-						{isLast ? "Got it" : "Next →"}
-					</button>
+					{isLast ? (
+						<button className="howto-popup-close" onClick={close}>Got it</button>
+					) : (
+						<button className="howto-next-tip" onClick={advance}>next tip →</button>
+					)}
 				</div>
 			</div>
 		</>
