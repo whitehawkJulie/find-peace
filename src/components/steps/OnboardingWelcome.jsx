@@ -1,8 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import HelpLink from "../HelpLink";
 import { useWizard } from "../WizardContext";
 import "./Introduction.css";
 import "./Onboarding.css";
+
+// ── First-visit "Finding your way around" popup ────────────────────────────
+
+const POPUP_ID = "howto-popup";
+
+function getHints() {
+	try { return JSON.parse(localStorage.getItem("findPeaceHints") || "{}"); } catch { return {}; }
+}
+function dismissHint(id) {
+	localStorage.setItem("findPeaceHints", JSON.stringify({ ...getHints(), [id]: true }));
+}
+
+const HowToPopup = () => {
+	const [visible, setVisible] = useState(() => !getHints()[POPUP_ID]);
+	if (!visible) return null;
+
+	const close = () => { dismissHint(POPUP_ID); setVisible(false); };
+
+	return (
+		<>
+			<div className="howto-popup-backdrop" onClick={close} />
+			<div className="howto-popup" role="dialog" aria-modal="true" aria-label="Finding your way around">
+				<h2 className="howto-popup-title">Finding your way around</h2>
+
+				<div className="howto-diagram-wrap">
+					<div className="howto-card">
+						<div className="howto-card-header">
+							<span className="howto-card-title">What just happened?</span>
+							<span className="howto-menu-icon">☰</span>
+							<span className="howto-callout-badge" aria-hidden="true">1</span>
+						</div>
+						<div className="howto-card-body">
+							<div className="howto-dummy-line howto-line--long" />
+							<div className="howto-dummy-line howto-line--medium" />
+							<div className="howto-dummy-line howto-line--short" />
+						</div>
+						<div className="howto-progress-row">
+							<div className="howto-progress-track">
+								<div className="howto-progress-fill" />
+							</div>
+							<span className="howto-callout-badge" aria-hidden="true">2</span>
+						</div>
+						<div className="howto-nav-row">
+							<span className="howto-nav-btn">← Prev</span>
+							<span className="howto-nav-btn">Next →</span>
+							<span className="howto-callout-badge" aria-hidden="true">3</span>
+						</div>
+					</div>
+				</div>
+
+				<ol className="howto-legend">
+					<li><strong>☰ Menu</strong> — access your summary, settings, and saved sessions</li>
+					<li><strong>Progress bar</strong> — most steps are optional; skip what doesn't fit, come back anytime</li>
+					<li><strong>Prev / Next</strong> — move between steps at your own pace</li>
+				</ol>
+
+				<p className="howto-note">
+					💡 On the feelings and needs screens, <strong>double-click a word</strong> to open more detail.
+				</p>
+
+				<p className="howto-note">
+					🔗 <strong>Underlined links</strong> throughout the app open help panels with more context.
+				</p>
+
+				<button className="howto-popup-close" onClick={close}>Got it</button>
+			</div>
+		</>
+	);
+};
+
+// ── Main step component ────────────────────────────────────────────────────
 
 const STEP_LINKS = [
 	{ icon: "👁", label: "What happened", sub: "just the facts", navTitle: "Let's get clear" },
@@ -13,7 +84,7 @@ const STEP_LINKS = [
 ];
 
 const OnboardingWelcome = () => {
-	const { visibleSteps, setStepIndex, skipToMain } = useWizard();
+	const { visibleSteps, setStepIndex } = useWizard();
 
 	const navigateTo = (navTitle) => {
 		const idx = visibleSteps.findIndex((s) => s.component?.navTitle === navTitle);
@@ -22,6 +93,8 @@ const OnboardingWelcome = () => {
 
 	return (
 		<div className="step-onboarding step-container">
+			<HowToPopup />
+
 			<div className="intro-scene">
 				<div className="intro-person-col" aria-hidden="true">
 					<img src="./head-and-shoulders.png" alt="" className="intro-person-img" />
@@ -82,12 +155,6 @@ const OnboardingWelcome = () => {
 						<HelpLink topic="this-process" aside>More about this process</HelpLink>
 					</p>
 				</div>
-			</div>
-
-			<div className="onboarding-footer">
-				<button className="onboarding-skip-btn" onClick={skipToMain}>
-					Skip intro →
-				</button>
 			</div>
 		</div>
 	);
