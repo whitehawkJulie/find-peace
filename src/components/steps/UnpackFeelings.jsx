@@ -6,7 +6,6 @@ import ImportanceBanner from "../ImportanceBanner";
 import { AllFeelingsData as FeelingsData, feelingDescriptionByName } from "../../data/AllFeelingsData";
 import { feelingTypes } from "../../data/FeelingTypes";
 import { storyWordSet } from "../../data/StoryWords";
-import ClarifyFeelings from "../ClarifyFeelings";
 import Pill from "../Pill";
 import "./UnpackFeelings.css";
 
@@ -44,35 +43,18 @@ if (metSection?.groups) {
 			feelingGroupLookup[item.item] = group.ui.heading;
 }
 
-// Build a lookup: murky feeling name → full item data
-const murkyFeelingLookup = {};
-for (const section of Object.values(FeelingsData.sections)) {
-	if (!section.groups) continue;
-	for (const group of Object.values(section.groups)) {
-		for (const item of group.items || []) {
-			if (item.clarify?.type === "murky") {
-				murkyFeelingLookup[item.item] = item;
-			}
-		}
-	}
-}
-
-// Only offer deeper exploration for these three types
-const EXPLORE_TYPES = ["fear", "anger", "distress"];
+const EXPLORE_TYPES = ["fear", "anger", "distress", "shame", "shutdown", "confusion"];
 
 const UnpackFeelings = () => {
 	const {
 		feelings,
 		setFeelings,
-		needs,
-		setNeeds,
 		feelingsExploreResponses,
 		setFeelingsExploreResponses,
 		firstFeelings,
 		setFirstFeelings,
 	} = useWizard();
 	const [expandedTypes, setExpandedTypes] = useState(new Set());
-	const [popupItem, setPopupItem] = useState(null);
 	const [pendingRemoveFeeling, setPendingRemoveFeeling] = useState(null);
 	const [skipRemoveConfirm, setSkipRemoveConfirm] = useState(false);
 	const [showReducePopup, setShowReducePopup] = useState(false);
@@ -107,15 +89,6 @@ const UnpackFeelings = () => {
 		};
 	}, [feelings]);
 
-	// List of selected murky feelings (for the Go Deeper sub-section)
-	const murkyFeelingNames = useMemo(
-		() =>
-			Object.entries(feelings)
-				.filter(([name, s]) => (s === "clicked" || s === "double-clicked") && name in murkyFeelingLookup && !storyWordSet.has(name))
-				.map(([name]) => name),
-		[feelings],
-	);
-
 	// Group all selected feelings by their family (for the reduce-list popup)
 	const groupedSelectedEntries = useMemo(() => {
 		const groups = {};
@@ -140,16 +113,6 @@ const UnpackFeelings = () => {
 
 	const toggleFeeling = (name) => {
 		setFeelings((prev) => {
-			const updated = { ...prev };
-			if (updated[name] === "double-clicked") delete updated[name];
-			else if (updated[name] === "clicked") updated[name] = "double-clicked";
-			else updated[name] = "clicked";
-			return updated;
-		});
-	};
-
-	const toggleNeed = (name) => {
-		setNeeds((prev) => {
 			const updated = { ...prev };
 			if (updated[name] === "double-clicked") delete updated[name];
 			else if (updated[name] === "clicked") updated[name] = "double-clicked";
@@ -211,7 +174,7 @@ const UnpackFeelings = () => {
 				</div>
 			)}
 
-			{prompt.type === "multiChoice" && (
+			{prompt.type === "multiChoice" && !prompt.selectsFeeling && (
 				<div className="feelings-explore-choices">
 					{prompt.options.map((opt) => (
 						<button
@@ -220,6 +183,19 @@ const UnpackFeelings = () => {
 								(feelingsExploreResponses[prompt.id] || []).includes(opt) ? "chosen" : ""
 							}`}
 							onClick={() => toggleMultiChoice(prompt.id, opt)}>
+							{opt}
+						</button>
+					))}
+				</div>
+			)}
+
+			{prompt.type === "multiChoice" && prompt.selectsFeeling && (
+				<div className="feelings-explore-choices">
+					{prompt.options.map((opt) => (
+						<button
+							key={opt}
+							className={`feelings-explore-choice ${feelings[opt] ? "chosen" : ""}`}
+							onClick={() => toggleFeeling(opt)}>
 							{opt}
 						</button>
 					))}
@@ -386,7 +362,7 @@ const UnpackFeelings = () => {
 				</p>
 			</div>
 
-			{(murkyFeelingNames.length > 0 || detectedTypes.length > 0) && (
+			{detectedTypes.length > 0 && (
 				<div className="feelings-explore-categories">
 					<ImportanceBanner
 						heading="Optional"
@@ -394,74 +370,39 @@ const UnpackFeelings = () => {
 					/>
 					<h3>Go deeper</h3>
 
-					{murkyFeelingNames.length > 0 && (
-						<div className="feelings-explore-murky-section">
-							<p className="feelings-explore-categories-intro">
-								Some of the feelings you chose are worth exploring further — tap one to look at what's
-								underneath.
-							</p>
-							<div className="feelings-explore-murky-list">
-								{murkyFeelingNames.map((name) => (
-									<button
-										key={name}
-										className="feelings-explore-murky-btn"
-										onClick={() => setPopupItem(murkyFeelingLookup[name])}>
-										{name} →
-									</button>
-								))}
-							</div>
-						</div>
-					)}
-
-					{detectedTypes.length > 0 && (
-						<>
-							<p className="feelings-explore-categories-intro">
-								{"You've chosen feelings in these categories. Start with the one that feels loudest."}
-							</p>
-							{detectedTypes.map((type) => {
-								const card = feelingTypes[type];
-								const isExpanded = expandedTypes.has(type);
-								return (
-									<div key={type} className="feelings-explore-category">
-										<button
-											className={`feelings-explore-category-toggle ${isExpanded ? "expanded" : ""}`}
-											onClick={() => toggleType(type)}>
-											<span className="feelings-explore-category-title">
-												{card.title}
-												{feelingsForType[type]?.length > 0 && (
-													<span className="feelings-explore-category-matches">
-														{feelingsForType[type].join(", ")}
-													</span>
-												)}
+					<p className="feelings-explore-categories-intro">
+						{"You've chosen feelings in these categories. Start with the one that feels loudest."}
+					</p>
+					{detectedTypes.map((type) => {
+						const card = feelingTypes[type];
+						const isExpanded = expandedTypes.has(type);
+						return (
+							<div key={type} className="feelings-explore-category">
+								<button
+									className={`feelings-explore-category-toggle ${isExpanded ? "expanded" : ""}`}
+									onClick={() => toggleType(type)}>
+									<span className="feelings-explore-category-title">
+										{card.title}
+										{feelingsForType[type]?.length > 0 && (
+											<span className="feelings-explore-category-matches">
+												{feelingsForType[type].join(", ")}
 											</span>
-											<span className="feelings-explore-category-chevron">
-												{isExpanded ? "▲" : "▼"}
-											</span>
-										</button>
-										{isExpanded && (
-											<div className="feelings-explore-category-content">
-												<p className="feelings-explore-intro">{card.intro}</p>
-												{card.prompts.map(renderPrompt)}
-											</div>
 										)}
+									</span>
+									<span className="feelings-explore-category-chevron">
+										{isExpanded ? "▲" : "▼"}
+									</span>
+								</button>
+								{isExpanded && (
+									<div className="feelings-explore-category-content">
+										<p className="feelings-explore-intro">{card.intro}</p>
+										{card.prompts.map(renderPrompt)}
 									</div>
-								);
-							})}
-						</>
-					)}
+								)}
+							</div>
+						);
+					})}
 				</div>
-			)}
-
-			{popupItem && (
-				<ClarifyFeelings
-					itemData={popupItem}
-					feelings={feelings}
-					needs={needs}
-					onToggleFeeling={toggleFeeling}
-					onToggleNeed={toggleNeed}
-					onKeepWord={() => setPopupItem(null)}
-					onClose={() => setPopupItem(null)}
-				/>
 			)}
 
 			{showReducePopup && (
