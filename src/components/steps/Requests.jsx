@@ -12,6 +12,7 @@ const Requests = () => {
 				Many people find that simply doing this process changes things significantly, without needing to change
 				anything externally. But sometimes it's more complicated, and you want to figure out how to move forward
 				with the other person.
+				Many people find that simply doing this process changes things significantly, without needing to
 			</p>
 			<p>
 				If this is a fairly simple situation, there may be a request you'd like to make of the other person. A

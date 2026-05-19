@@ -19,6 +19,7 @@ import UnpackNeeds from "./steps/UnpackNeeds";
 import MakingGuesses from "./steps/MakingGuesses";
 import RequestFormulation from "./steps/RequestFormulation";
 import ExploringWhatsChanged from "./steps/ExploringWhatsChanged";
+import WhereToNow from "./steps/WhereToNow";
 import Requests from "./steps/Requests";
 import Collaborate from "./steps/Collaborate";
 import Review from "./steps/Review";
@@ -110,6 +111,7 @@ export const WizardProvider = ({ children }) => {
 			color: "#7A9E5A",
 			icon: whatsChangedIcon,
 		},
+		{ component: WhereToNow, group: "next", color: "#7A9E5A", icon: conversationsIcon },
 		{ component: Requests, group: "next", color: "#7A9E5A", icon: conversationsIcon },
 		{ component: Collaborate, group: "next", color: "#7A9E5A", icon: conversationsIcon },
 		{ component: Review, group: "next", color: "#7A9E5A", icon: reviewIcon },
