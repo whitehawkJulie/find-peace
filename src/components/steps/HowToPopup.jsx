@@ -15,31 +15,43 @@ const STEPS = [
 		id: "menu",
 		title: "☰ Menu",
 		body: "Access your summary, settings, and saved sessions from anywhere in the app.",
+		bubbleTop: "2.2rem",
+		arrowTop: "1.4rem",
 	},
 	{
 		id: "hint",
 		title: "💬 Hints",
 		body: (<>Tips appear on some pages to give extra guidance. Click <strong>✕</strong> to dismiss them — you can bring them back in Settings.</>),
+		bubbleTop: "5.2rem",
+		arrowTop: "1.4rem",
 	},
 	{
 		id: "link",
 		title: "Underlined links",
 		body: "Scattered throughout the app — click one to open a help panel with more context on that topic.",
+		bubbleTop: "7.6rem",
+		arrowTop: "3.1rem",
 	},
 	{
 		id: "pill",
 		title: "Words",
-		body: (<><strong>Click</strong> a word to select it. <strong>Double-click</strong> to open more detail about that feeling or need.</>),
+		body: (<><strong>Click</strong> a word to select it. <strong>Click again</strong> to mark it as strongly felt.</>),
+		bubbleTop: "12rem",
+		arrowTop: "4rem",
 	},
 	{
 		id: "progress",
 		title: "Progress bar",
 		body: "Shows where you are. Most steps are optional — skip what doesn't fit and come back anytime.",
+		bubbleTop: "15.75rem",
+		arrowTop: "4rem",
 	},
 	{
 		id: "summary",
 		title: "📋 Summary",
-		body: "View a summary of everything you've worked through so far — available at any point, from the bottom bar.",
+		body: "View a summary of all your choices so far.",
+		bubbleTop: "19.5rem",
+		arrowTop: "1.4rem",
 	},
 ];
 
@@ -60,52 +72,61 @@ const HowToPopup = () => {
 		<>
 			<div className="howto-popup-backdrop" onClick={close} />
 			<div className="howto-popup" role="dialog" aria-modal="true" aria-label="Finding your way around">
-				<h2 className="howto-popup-title">Finding your way around</h2>
+				<button className="howto-skip-btn" onClick={close}>Skip</button>
+				<p className="howto-popup-title">Finding your way around</p>
 
-				<div className="howto-dummy-card">
-					<div className={`howto-dummy-header${active("menu")}`}>
-						<span className="howto-dummy-menu-btn">☰</span>
-						<span className="howto-dummy-page-title">What am I feeling?</span>
-					</div>
-					<div className="howto-dummy-body">
-						<div className={`howto-dummy-hint-box${active("hint")}`}>
-							<span className="howto-dummy-hint-x">✕</span>
-							<span className="howto-dummy-hint-text">As you read through, try picking the words that feel like the best match.</span>
+				<div className="howto-stage">
+					<div className="howto-dummy-card">
+						<div className="howto-dummy-header">
+							<span className={`howto-dummy-menu-btn${active("menu")}`}>☰</span>
+							<span className="howto-dummy-page-title">What am I feeling?</span>
 						</div>
-						<p className="howto-dummy-prose">
-							You might find that{" "}
-							<span className={`howto-dummy-link${active("link")}`}>naming feelings</span>
-							{" "}gives you information you didn't realise you had.
-						</p>
-						<div className="howto-dummy-section">
-							<span className="howto-dummy-section-label">Afraid</span>
-							<div className="howto-dummy-pills">
-								{["trapped", "panicked", "terrified", "frightened", "scared"].map(word => (
-									<span
-										key={word}
-										className={`howto-dummy-pill${current.id === "pill" && word === "panicked" ? " howto-active" : ""}`}>
-										{word}
-									</span>
-								))}
+						<div className="howto-dummy-body">
+							<div className="howto-dummy-hint-box">
+								<span className={`howto-dummy-hint-x${active("hint")}`}>✕</span>
+								<span className="howto-dummy-hint-text">As you read through, try picking the words that feel like the best match.</span>
+							</div>
+							<p className="howto-dummy-prose">
+								You might find that{" "}
+								<span className={`howto-dummy-link${active("link")}`}>naming feelings</span>
+								{" "}gives you information you didn't realise you had.
+							</p>
+							<div className="howto-dummy-section">
+								<span className="howto-dummy-section-label">Afraid</span>
+								<div className="howto-dummy-pills">
+									{["trapped", "panicked", "terrified", "frightened", "scared"].map(word => (
+										<span
+											key={word}
+											className={`howto-dummy-pill${current.id === "pill" && word === "panicked" ? " howto-active" : ""}`}>
+											{word}
+										</span>
+									))}
+								</div>
 							</div>
 						</div>
-					</div>
-					<div className={`howto-dummy-progress-row${active("progress")}`}>
-						<div className="howto-dummy-progress-track">
-							<div className="howto-dummy-progress-fill" />
+						<div className="howto-dummy-progress-row">
+							<div className={`howto-dummy-progress-track${active("progress")}`}>
+								<div className="howto-dummy-progress-fill" />
+							</div>
 						</div>
-					</div>
-					<div className="howto-dummy-nav-row">
-						<span className="howto-dummy-nav-btn">← Prev</span>
-						<span className={`howto-dummy-summary-btn${active("summary")}`}>📋 Summary</span>
-						<span className="howto-dummy-nav-btn">Next →</span>
+						<div className="howto-dummy-nav-row">
+							<span className="howto-dummy-nav-btn">← Prev</span>
+							<span className={`howto-dummy-summary-btn${active("summary")}`}>📋 Summary</span>
+							<span className="howto-dummy-nav-btn">Next →</span>
+						</div>
 					</div>
 				</div>
 
-				<div className="howto-step-desc">
+				<div
+					className="howto-speech-bubble"
+					style={{ top: current.bubbleTop, '--arrow-top': current.arrowTop }}
+				>
 					<strong className="howto-step-title">{current.title}</strong>
 					{" — "}
 					{current.body}
+					{!isLast && (
+						<button className="howto-next-tip" onClick={advance}>next tip →</button>
+					)}
 				</div>
 
 				<div className="howto-step-nav">
@@ -119,10 +140,8 @@ const HowToPopup = () => {
 							/>
 						))}
 					</div>
-					{isLast ? (
+					{isLast && (
 						<button className="howto-popup-close" onClick={close}>Got it</button>
-					) : (
-						<button className="howto-next-tip" onClick={advance}>next tip →</button>
 					)}
 				</div>
 			</div>
