@@ -122,6 +122,7 @@ const Collaborate = () => {
 		observation,
 		feelings,
 		needs,
+		firstFeelings,
 		openHelpTopic,
 	} = useWizard();
 
@@ -145,10 +146,19 @@ const Collaborate = () => {
 		].filter((f) => !storyWordSet.has(f));
 		const allNeeds = [...filterByState(needs, "double-clicked"), ...filterByState(needs, "clicked")];
 		const obs = observation?.refined?.trim() || "[what happened]";
-		const feelStr = allFeelings.length ? allFeelings.join(", ").toLowerCase() : "[feeling]";
+
+		let feelStr;
+		const firstOnes = allFeelings.filter((f) => firstFeelings?.[f]);
+		const restOnes = allFeelings.filter((f) => !firstFeelings?.[f]);
+		if (firstOnes.length > 0 && restOnes.length > 0) {
+			feelStr = `${firstOnes.join(", ").toLowerCase()},\nthen ${restOnes.join(", ").toLowerCase()}`;
+		} else {
+			feelStr = allFeelings.length ? allFeelings.join(", ").toLowerCase() : "[feeling]";
+		}
+
 		const needStr = allNeeds.length ? allNeeds.join(", ").toLowerCase() : "[need]";
 		return `When\n${obs}\nI felt\n${feelStr}\nbecause I was needing\n${needStr}.`;
-	}, [feelings, needs, observation]);
+	}, [feelings, needs, observation, firstFeelings]);
 
 	const buildStep2 = useCallback(() => {
 		const guessFeelingsAll = [

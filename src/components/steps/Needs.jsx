@@ -11,7 +11,12 @@ import "./Needs.css";
 const renderOrderedFeelings = (feelings, firstFeelings) => {
 	const entries = Object.entries(feelings)
 		.filter(([, s]) => s === "clicked" || s === "double-clicked")
-		.sort(([, a], [, b]) => (a === "double-clicked" ? 0 : 1) - (b === "double-clicked" ? 0 : 1));
+		.sort(([nameA, stateA], [nameB, stateB]) => {
+			const aFirst = !!firstFeelings?.[nameA];
+			const bFirst = !!firstFeelings?.[nameB];
+			if (aFirst !== bFirst) return aFirst ? -1 : 1;
+			return (stateA === "double-clicked" ? 0 : 1) - (stateB === "double-clicked" ? 0 : 1);
+		});
 
 	if (entries.length === 0) return null;
 
