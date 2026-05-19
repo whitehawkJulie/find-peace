@@ -291,6 +291,7 @@ export const WizardProvider = ({ children }) => {
 			bodyScan,
 			bodySensations,
 			feelings,
+			firstFeelings,
 			needs,
 			needExplorations,
 			needReplacements,
