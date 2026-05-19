@@ -3,7 +3,7 @@ import { useWizard } from "../WizardContext";
 import ImportanceBanner from "../ImportanceBanner";
 import "./RequestFormulation.css";
 
-const ExploringWhatsChanged = () => {
+const Reflect = () => {
 	const { whatsChangedResponses, setWhatsChangedResponses } = useWizard();
 
 	const handleChange = (key, value) => {
@@ -68,8 +68,8 @@ const ExploringWhatsChanged = () => {
 	);
 };
 
-ExploringWhatsChanged.title = "Exploring what's changed";
-ExploringWhatsChanged.titleSweary = "So... what's different now?";
-ExploringWhatsChanged.navTitle = "Notice what's changed";
+Reflect.title = "Reflect";
+Reflect.titleSweary = "So... what's different now?";
+Reflect.navTitle = "Reflect";
 
-export default ExploringWhatsChanged;
+export default Reflect;
