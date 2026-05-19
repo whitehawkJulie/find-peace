@@ -5,6 +5,7 @@ import Reflect from "./Reflect";
 import Requests from "./Requests";
 import Collaborate from "./Collaborate";
 import MeetMyNeeds from "./MeetMyNeeds";
+import Stuck from "./Stuck";
 import Introduction from "./Introduction";
 import Review from "./Review";
 import stepNavOverrides from "./stepNavOverrides";
@@ -87,7 +88,7 @@ WhereToNow.navTitle = "Where to now?";
 WhereToNow.helpContent = null;
 
 // Register branch-page nav overrides here, after WhereToNow is defined
-[Reflect, Requests, Collaborate, MeetMyNeeds].forEach((C) => {
+[Reflect, Requests, Collaborate, MeetMyNeeds, Stuck].forEach((C) => {
 	stepNavOverrides.set(C, { prevStep: WhereToNow, nextStep: Review });
 });
 

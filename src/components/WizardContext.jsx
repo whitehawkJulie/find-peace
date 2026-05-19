@@ -23,6 +23,7 @@ import Reflect from "./steps/Reflect";
 import Requests from "./steps/Requests";
 import Collaborate from "./steps/Collaborate";
 import MeetMyNeeds from "./steps/MeetMyNeeds";
+import Stuck from "./steps/Stuck";
 import Review from "./steps/Review";
 import UnpackFeelings from "./steps/UnpackFeelings";
 
@@ -111,6 +112,7 @@ export const WizardProvider = ({ children }) => {
 		{ component: Requests,    group: "next", color: "#7A9E5A", icon: conversationsIcon },
 		{ component: Collaborate, group: "next", color: "#7A9E5A", icon: conversationsIcon },
 		{ component: MeetMyNeeds, group: "next", color: "#7A9E5A", icon: conversationsIcon },
+		{ component: Stuck,       group: "next", color: "#7A9E5A", icon: conversationsIcon },
 		{ component: Review,      group: "next", color: "#7A9E5A", icon: reviewIcon },
 	], []); // eslint-disable-line react-hooks/exhaustive-deps
 	// App-wide state
