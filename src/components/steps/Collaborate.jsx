@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useCallback } from "react";
 import { useWizard } from "../WizardContext";
 import { filterByState } from "../../utils/renderHelpers";
 import { storyWordSet } from "../../data/StoryWords";
+import { feelingsMetSet } from "../../data/FeelingsMet";
 import HelpLink from "../HelpLink";
 
 const STEP_IDS = ["step1", "step2", "step2a", "step3", "step4", "step5", "step6"];
@@ -147,13 +148,25 @@ const Collaborate = () => {
 		const allNeeds = [...filterByState(needs, "double-clicked"), ...filterByState(needs, "clicked")];
 		const obs = observation?.refined?.trim() || "[what happened]";
 
+		const unmetFeelings = allFeelings.filter((f) => !feelingsMetSet.has(f));
+		const metFeelings = allFeelings.filter((f) => feelingsMetSet.has(f));
+
+		const buildUnmetStr = () => {
+			const firstOnes = unmetFeelings.filter((f) => firstFeelings?.[f]);
+			const restOnes = unmetFeelings.filter((f) => !firstFeelings?.[f]);
+			if (firstOnes.length > 0 && restOnes.length > 0) {
+				return `${firstOnes.join(", ").toLowerCase()},\nthen ${restOnes.join(", ").toLowerCase()}`;
+			}
+			return unmetFeelings.length ? unmetFeelings.join(", ").toLowerCase() : null;
+		};
+
 		let feelStr;
-		const firstOnes = allFeelings.filter((f) => firstFeelings?.[f]);
-		const restOnes = allFeelings.filter((f) => !firstFeelings?.[f]);
-		if (firstOnes.length > 0 && restOnes.length > 0) {
-			feelStr = `${firstOnes.join(", ").toLowerCase()},\nthen ${restOnes.join(", ").toLowerCase()}`;
+		const unmetStr = buildUnmetStr();
+		const metStr = metFeelings.length ? metFeelings.join(", ").toLowerCase() : null;
+		if (unmetStr && metStr) {
+			feelStr = `${unmetStr},\nand also ${metStr}`;
 		} else {
-			feelStr = allFeelings.length ? allFeelings.join(", ").toLowerCase() : "[feeling]";
+			feelStr = unmetStr || metStr || "[feeling]";
 		}
 
 		const needStr = allNeeds.length ? allNeeds.join(", ").toLowerCase() : "[need]";
