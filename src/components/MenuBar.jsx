@@ -5,14 +5,14 @@ import stepNavOverrides from "./steps/stepNavOverrides";
 import "./MenuBar.css";
 
 const MenuBar = () => {
-	const { stepIndex, setStepIndex, visibleSteps, allSteps, currentStep, resetSession, hasSessionData, setShowSummary } = useWizard();
+	const { stepIndex, setStepIndex, prevStepIdx, visibleSteps, allSteps, currentStep, resetSession, hasSessionData, setShowSummary } = useWizard();
 
 	const [confirmNew, setConfirmNew] = useState(false);
 
 	const overrides = stepNavOverrides.get(currentStep?.component);
 	const prevIdx = overrides
 		? visibleSteps.findIndex((s) => s.component === overrides.prevStep)
-		: stepIndex - 1;
+		: prevStepIdx !== null ? prevStepIdx : stepIndex - 1;
 	const nextIdx = overrides
 		? visibleSteps.findIndex((s) => s.component === overrides.nextStep)
 		: stepIndex + 1;

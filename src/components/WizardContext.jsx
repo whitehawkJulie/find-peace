@@ -116,7 +116,12 @@ export const WizardProvider = ({ children }) => {
 		{ component: Review,      group: "next", color: "#7A9E5A", icon: reviewIcon },
 	], []); // eslint-disable-line react-hooks/exhaustive-deps
 	// App-wide state
-	const [stepIndex, setStepIndex] = useState(0);
+	const [stepIndex, setStepIndexRaw] = useState(0);
+	const prevStepIdxRef = useRef(null);
+	const setStepIndex = (newIdx) => {
+		prevStepIdxRef.current = stepIndex;
+		setStepIndexRaw(newIdx);
+	};
 	const [jackalTalk, setJackalTalk] = useState("");
 	const [observation, setObservation] = useState({ moment: "", actions: "", camera: "", refined: "" });
 	const [bodyScan, setBodyScan] = useState({});
@@ -403,14 +408,16 @@ export const WizardProvider = ({ children }) => {
 		setIncludeCollabInSummary(session.includeCollabInSummary ?? false);
 		setReviewReflection(session.reviewReflection || "");
 		const firstMainIdx = visibleSteps.findIndex((s) => s.group === "happened");
-		setStepIndex(firstMainIdx >= 0 ? firstMainIdx : 0);
+		prevStepIdxRef.current = null;
+		setStepIndexRaw(firstMainIdx >= 0 ? firstMainIdx : 0);
 	};
 
 	// Start a fresh session
 	const resetSession = () => {
 		dirtyRef.current = false;
 		setLoadedId(null);
-		setStepIndex(0);
+		prevStepIdxRef.current = null;
+		setStepIndexRaw(0);
 		setJackalTalk("");
 		setObservation({ moment: "", actions: "", camera: "", refined: "" });
 		setBodyScan({});
@@ -472,6 +479,7 @@ export const WizardProvider = ({ children }) => {
 	const value = {
 		stepIndex,
 		setStepIndex,
+		prevStepIdx: prevStepIdxRef.current,
 		jackalTalk,
 		setJackalTalk,
 		observation,

@@ -12,7 +12,16 @@ const MeetMyNeeds = () => {
 
 	return (
 		<div className="step-container">
-			<p>More coming soon!</p>
+			<p>This is where we explore finding strategies to meet our needs.</p>
+			<p>People commonly get stuck here for two different reasons:</p>
+			<ul>
+				<li>
+					They are stuck on ONE particular strategy, some internal demands about HOW that need MUST be met (eg
+					my PARTNER must love me right NOW, my BOSS must understand me)
+				</li>
+				<li>It's a need that's never been predictably met for them, and they have no idea where to start.</li>
+			</ul>
+			<p>Work in progress - more coming soon.</p>
 			<p>
 				In the meantime, try going back to the Exploring Needs page, and drill down into each need that's
 				important to you.

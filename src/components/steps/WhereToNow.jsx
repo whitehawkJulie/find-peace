@@ -71,14 +71,15 @@ const WhereToNow = () => {
 				<div key={id} className="where-to-now-option guesses-section">
 					<h3 className="where-to-now-heading">{heading}</h3>
 					<p className="where-to-now-desc">{description}</p>
-					{links.map(({ text, target }) => (
-						<>
-							<button key={text} className="where-to-now-link" onClick={() => goTo(target)}>
-								{text} →
-							</button>
-							<br />
-						</>
-					))}
+					<ul className="where-to-now-links">
+						{links.map(({ text, target }) => (
+							<li key={text}>
+								<button className="where-to-now-link" onClick={() => goTo(target)}>
+									{text} →
+								</button>
+							</li>
+						))}
+					</ul>
 				</div>
 			))}
 		</div>
