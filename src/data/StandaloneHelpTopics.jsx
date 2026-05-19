@@ -657,7 +657,7 @@ const StandaloneHelpTopics = [
 		title: "Feelings",
 		content: (
 			<div>
-				<h4>Noticing what you feel</h4>
+				<h3>Noticing what you feel</h3>
 
 				<p>You might notice a lot here — strong reactions, mixed feelings, or something harder to name.</p>
 
@@ -1178,129 +1178,50 @@ const StandaloneHelpTopics = [
 		content: (
 			<>
 				<p>
-					This process can be used in a wide range of situations, from minor irritations to more significant
-					challenges, but if you're new to it, it's better to start with a simple example. Choose something
-					with enough emotional charge that it matters, but not so much that you feel overwhelmed.
+					This process can be used for anything from small irritations to bigger challenges. If you’re new to
+					it, it’s usually best to start with something emotionally real, but not overwhelming.
 				</p>
-				<p>You might be thinking of:</p>
-				<ul>
-					<li>A conversation you keep replaying in your head</li>
-					<li>A moment you felt annoyed, hurt, tense, or disappointed</li>
-					<li>Something someone said or did that still has a charge</li>
-					<li>A time you felt unseen, dismissed, or misunderstood</li>
-					<li>A moment you shut down, got defensive, or thought "that’s not fair"</li>
-				</ul>
-				<p>Start with something that matters, but isn’t the hardest thing in your life.</p>
-				<p>Good practice situations are usually:</p>
+				<p>Good situations to work with are often:</p>
 				<ul>
 					<li>specific moments</li>
-					<li>emotionally real</li>
-					<li>important enough to matter</li>
-					<li>but not the hardest thing in your life</li>
+					<li>emotionally charged enough to matter</li>
+					<li>not the hardest thing in your life</li>
 				</ul>
-				<p>Examples ... you might be thinking:</p>
+				<p>You might be thinking of:</p>
 				<ul>
-					<li>Someone interrupted you before you finished speaking</li>
-					<li>That text sounded cold, distant, or dismissive</li>
-					<li>Someone ignored your needs or pressured you</li>
-					<li>Someone said they would do something and didn’t</li>
-					<li>You were being criticized, rushed, or misunderstood</li>
+					<li>a conversation you keep replaying in your head</li>
+					<li>a moment you felt hurt, tense, annoyed, or misunderstood</li>
+					<li>something someone said or did that still has a charge</li>
+					<li>a moment you shut down, got defensive, or thought “that’s not fair”</li>
 				</ul>
 				<p>If it helps, start with:</p>
 				<blockquote>“The thing that’s bothering me is…”</blockquote>
-				{/* <p>
-					<a href="https://makinglifemorewonderful.com.au/need-more-ideas" target="_blank" rel="noopener noreferrer">
-						Need more ideas? →
-					</a>
-				</p> */}
 			</>
 		),
 		more: (
 			<>
 				<h2>More ideas...</h2>
-				<h3>Small everyday friction</h3>
-
-				<p>
-					These are often easiest to work with because they’re accessible, specific, and emotionally safer
-					than major conflicts.
-				</p>
-
-				<ul>
-					<li>Remember a time you felt mildly annoyed</li>
-					<li>Think of a moment this week when something rubbed you the wrong way</li>
-					<li>Remember a small disappointment from the last few days</li>
-					<li>Think of a moment where your mind went “Ugh”</li>
-					<li>Remember a moment where someone interrupted your flow</li>
-					<li>Think of a time you thought you weren’t being seen or understood</li>
-					<li>Remember a moment where someone’s behaviour affected you more strongly than you expected</li>
-				</ul>
-
-				<p>
-					These situations often work well because there’s enough emotional charge to matter, without becoming
-					overwhelming.
-				</p>
-
 				<h3>Body-memory prompts</h3>
-
-				<p>Sometimes it’s easier to remember a body reaction first, rather than a story or emotion.</p>
-
 				<ul>
-					<li>Remember a moment your body tightened</li>
-					<li>Think of a time your shoulders dropped or tensed</li>
-					<li>Remember a moment you sighed heavily</li>
-					<li>Think of a recent eye-roll moment</li>
-					<li>Remember when your stomach sank</li>
-					<li>Think of a moment you wanted to withdraw or leave</li>
-					<li>Remember a moment where you felt heat, pressure, or urgency</li>
+					<li>Remember a moment your body tightened.</li>
+					<li>Think of a time your shoulders dropped or tensed.</li>
+					<li>Remember a moment you sighed heavily.</li>
+					<li>Think of a recent eye-roll moment.</li>
+					<li>Remember when your stomach sank.</li>
+					<li>Think of a moment you wanted to withdraw or leave.</li>
 				</ul>
-
-				<h3>“Stuck replay” prompts</h3>
-
-				<p>
-					Often the nervous system is already holding onto the moment — even if you haven’t consciously chosen
-					it.
-				</p>
-
+				<h3>Stuck replay prompts</h3>
 				<ul>
 					<li>What conversation have you replayed recently?</li>
 					<li>Is there something you keep mentally arguing about?</li>
-					<li>What interaction still has emotional “charge” for you?</li>
+					<li>What interaction still has emotional charge for you?</li>
 					<li>Is there something you wish you’d said differently?</li>
 					<li>What are you still trying to explain to someone in your head?</li>
 				</ul>
-
-				<h3>Relationship-specific prompts</h3>
-
-				<p>Sometimes narrowing the context helps memories come more easily.</p>
-
-				<ul>
-					<li>Think of a recent family irritation</li>
-					<li>Remember a small conflict with a partner</li>
-					<li>Think of a moment with a coworker that felt awkward or frustrating</li>
-					<li>Remember a parenting moment where you lost patience</li>
-					<li>Think of a friendship moment where you felt hurt, left out, or disappointed</li>
-				</ul>
-
-				<h3>Need-frustration prompts</h3>
-
-				<p>Sometimes it’s easier to remember a moment through what you were wanting.</p>
-
-				<ul>
-					<li>Think of a moment you wanted understanding and didn’t experience it</li>
-					<li>Remember a time you wanted consideration</li>
-					<li>Think of a moment you wanted support, space, appreciation, or clarity</li>
-					<li>Remember a time something felt unfair to you</li>
-					<li>Think of a moment you wanted cooperation and experienced resistance instead</li>
-				</ul>
-
-				<h3>Protest-language prompts</h3>
-
+				<h3>Protest-thought prompts</h3>
 				<p>
 					Sometimes the easiest starting point is simply noticing the thoughts your mind keeps returning to.
 				</p>
-
-				<p>For example:</p>
-
 				<ul>
 					<li>“They never listen.”</li>
 					<li>“Why do I always have to do everything?”</li>
@@ -1308,27 +1229,10 @@ const StandaloneHelpTopics = [
 					<li>“I can’t rely on them.”</li>
 					<li>“This shouldn’t be this hard.”</li>
 				</ul>
-
 				<p>
-					You don’t need to decide whether those thoughts are “right” or “wrong.” Just notice whether one of
-					them points toward a moment that still has emotional charge.
+					You don’t need to decide whether those thoughts are right or wrong. Just notice whether one of them
+					points toward a specific moment that still has emotional charge.
 				</p>
-
-				<p>Then try slowing the moment down and looking at one specific interaction.</p>
-
-				<h3>Time anchors</h3>
-
-				<p>Memories are often easier to access when anchored to a recent time or context.</p>
-
-				<ul>
-					<li>Something from today</li>
-					<li>Yesterday</li>
-					<li>This morning</li>
-					<li>On the drive here</li>
-					<li>At work this week</li>
-					<li>The last family gathering</li>
-					<li>The last text exchange that bothered you</li>
-				</ul>
 			</>
 		),
 	},

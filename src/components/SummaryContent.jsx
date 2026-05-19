@@ -76,7 +76,8 @@ const SummaryContent = () => {
 				))}
 				{restOnes.length > 0 && (
 					<>
-						.{" "}<strong>Then:</strong>{" "}
+						<br />
+						<strong>Then:</strong>{" "}
 						{restOnes.map((f, i) => (
 							<React.Fragment key={f}>
 								{i > 0 && ", "}
@@ -161,9 +162,7 @@ const SummaryContent = () => {
 			{allFeelings.length > 0 && (
 				<div className="review-section">
 					<h3>Feelings</h3>
-					{unmetFeelings.length > 0 && (
-						<p>{renderFeelingsList(unmetFeelings)}</p>
-					)}
+					{unmetFeelings.length > 0 && <p>{renderFeelingsList(unmetFeelings)}</p>}
 					{metFeelings.length > 0 && (
 						<>
 							<p className="summary-and-also-label">And also:</p>

@@ -8,26 +8,19 @@ const ObservationClarify = () => {
 
 	return (
 		<div className="step-observation step-container">
+			<p>Let’s slow things down and focus on one specific moment when something in you reacted.</p>
+			<p>If this is about a pattern or lots of moments, just choose one example for now.</p>
 			<p>
-				Now, can you identify the specific moment when something in you reacted? (If it's about a lot of
-				moments, just choose one specific moment that it happened.) That's what we're going to work with
-				throughout this process.
+				What did the other person actually say or do — just the{" "}
+				<HelpLink topic="observation">observable facts</HelpLink>, before any meanings, interpretations, or
+				guesses about why?
 			</p>
 			<p>
-				At these moments, our brains tend to go into <HelpLink topic="threat-mode">threat mode</HelpLink>, and
-				try to figure out who to blame as fast as possible. The stories it comes up with usually feel 100% true
-				(because certainty helps us feel safe), but they can be full of assumptions and interpretations.{" "}
-				<strong>Separating what actually happened from our interpretation</strong> is the vital first step in
-				this process - even if you're sure you don't need to do it.
+				When we’re upset, our brains quickly move into <HelpLink topic="threat-mode">threat mode</HelpLink> and
+				start trying to explain what’s happening. Those explanations can feel completely true, but they often
+				include assumptions or interpretations.
 			</p>
-
-			<p>
-				What did the other person actually say or do — just the facts, before any meanings or guesses about why.
-				{"  "}
-				<HelpLink topic="observation" aside>
-					How do I do that? (Instructions)
-				</HelpLink>
-			</p>
+			<p>Separating what actually happened from the story about it helps bring more clarity and choice.</p>
 
 			<textarea
 				className="obs-main-textarea"

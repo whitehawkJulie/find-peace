@@ -39,9 +39,9 @@ const ConversationsAndCollaboration = () => {
 	return (
 		<div className="step-collab step-container">
 			<p>
-				Many people find that doing this process resolves a lot of their issues, and when it's done, it's done!
-				But sometimes it's more complicated, and you want to figure out how to move forward with the other
-				person.
+				Many people find that simply doing this process changes things significantly, without needing to change
+				anything externally. But sometimes it's more complicated, and you want to figure out how to move forward
+				with the other person.
 			</p>
 			<div className="collab-accordion">
 				{SECTIONS.map(({ id, title, subtitle, Component }) => {
