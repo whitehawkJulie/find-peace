@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useWizard } from "./WizardContext";
 import { trackEvent, currentPage, setPendingNavMethod } from "../analytics/analytics";
+import stepNavOverrides from "./steps/stepNavOverrides";
 import "./MenuBar.css";
 
 const MenuBar = () => {
@@ -8,16 +9,22 @@ const MenuBar = () => {
 
 	const [confirmNew, setConfirmNew] = useState(false);
 
-	const hasPrev = stepIndex > 0;
-	const hasNext = stepIndex < visibleSteps.length - 1;
+	const overrides = stepNavOverrides.get(currentStep?.component);
+	const prevIdx = overrides
+		? visibleSteps.findIndex((s) => s.component === overrides.prevStep)
+		: stepIndex - 1;
+	const nextIdx = overrides
+		? visibleSteps.findIndex((s) => s.component === overrides.nextStep)
+		: stepIndex + 1;
 
-	const goToPrevious = () => { if (hasPrev) { setPendingNavMethod("button"); setStepIndex(stepIndex - 1); } };
-	const goToNext    = () => { if (hasNext)  { setPendingNavMethod("button"); setStepIndex(stepIndex + 1); } };
+	const hasPrev = prevIdx >= 0;
+	const hasNext = nextIdx >= 0;
 
-	const prevStep  = hasPrev ? visibleSteps[stepIndex - 1] : null;
-	const nextStep  = hasNext ? visibleSteps[stepIndex + 1] : null;
-	const prevTitle = prevStep ? (prevStep.component?.navTitle || "") : "";
-	const nextTitle = nextStep ? (nextStep.component?.navTitle || "") : "";
+	const goToPrevious = () => { if (hasPrev) { setPendingNavMethod("button"); setStepIndex(prevIdx); } };
+	const goToNext    = () => { if (hasNext)  { setPendingNavMethod("button"); setStepIndex(nextIdx); } };
+
+	const prevTitle = hasPrev ? (visibleSteps[prevIdx]?.component?.navTitle || "") : "";
+	const nextTitle = hasNext ? (visibleSteps[nextIdx]?.component?.navTitle || "") : "";
 
 	// Base progress on allSteps so the bar doesn't jump when conditional steps appear
 	const allStepIndex = allSteps.findIndex((s) => s.component === currentStep?.component);
