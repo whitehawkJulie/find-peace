@@ -1182,13 +1182,15 @@ const StandaloneHelpTopics = [
 					challenges, but if you're new to it, it's better to start with a simple example. Choose something
 					with enough emotional charge that it matters, but not so much that you feel overwhelmed.
 				</p>
-				<p>Try remembering:</p>
+				<p>You might be thinking of:</p>
 				<ul>
-					<li>a moment you felt annoyed, hurt, tense, awkward, or disappointed</li>
-					<li>a conversation you keep replaying in your head</li>
-					<li>a moment you sighed, shut down, got defensive, or thought you weren’t being seen</li>
-					<li>something from today or this week that still has a little emotional charge</li>
+					<li>A conversation you keep replaying in your head</li>
+					<li>A moment you felt annoyed, hurt, tense, or disappointed</li>
+					<li>Something someone said or did that still has a charge</li>
+					<li>A time you felt unseen, dismissed, or misunderstood</li>
+					<li>A moment you shut down, got defensive, or thought "that’s not fair"</li>
 				</ul>
+				<p>Start with something that matters, but isn’t the hardest thing in your life.</p>
 				<p>Good practice situations are usually:</p>
 				<ul>
 					<li>specific moments</li>
