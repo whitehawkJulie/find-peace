@@ -9,20 +9,23 @@ const OPTIONS = [
 	{
 		id: "complete",
 		target: Review,
-		label: "You feel complete",
+		heading: "You feel complete",
 		description: "placeholder text",
+		linkText: "Go to final review page",
 	},
 	{
 		id: "request",
 		target: Requests,
-		label: "You would like to make a simple request of the other person",
+		heading: "You would like to make a simple request of the other person",
 		description: "placeholder text",
+		linkText: "Go to Requests page",
 	},
 	{
 		id: "collaborate",
 		target: Collaborate,
-		label: "This might need a longer conversation with the other person, to co-create a solution",
+		heading: "This might need a longer conversation with the other person, to co-create a solution",
 		description: "placeholder text",
+		linkText: "Go to Collaboration page",
 	},
 ];
 
@@ -36,11 +39,14 @@ const WhereToNow = () => {
 
 	return (
 		<div className="step-container">
-			{OPTIONS.map(({ id, target, label, description }) => (
-				<button key={id} className="where-to-now-option" onClick={() => goTo(target)}>
-					<span className="where-to-now-label">{label}</span>
-					<span className="where-to-now-desc">{description}</span>
-				</button>
+			{OPTIONS.map(({ id, target, heading, description, linkText }) => (
+				<div key={id} className="where-to-now-option">
+					<h3 className="where-to-now-heading">{heading}</h3>
+					<p className="where-to-now-desc">{description}</p>
+					<button className="where-to-now-link" onClick={() => goTo(target)}>
+						{linkText} →
+					</button>
+				</div>
 			))}
 		</div>
 	);
