@@ -9,19 +9,19 @@ const Requests = () => {
 	return (
 		<div className="step-container">
 			<p>
-				Many people find that simply doing this process changes things significantly, without needing to
-				change anything externally. But sometimes it's more complicated, and you want to figure out how to
-				move forward with the other person.
+				Many people find that simply doing this process changes things significantly, without needing to change
+				anything externally. But sometimes it's more complicated, and you want to figure out how to move forward
+				with the other person.
 			</p>
 			<p>
-				If this is a fairly simple situation, there may be a request you'd like to make of the other
-				person. A request is basically asking whether someone would be willing to take an action that might
-				help meet one or more of your needs.
+				If this is a fairly simple situation, there may be a request you'd like to make of the other person. A
+				request is basically asking whether someone would be willing to take an action that might help meet one
+				or more of your needs.
 			</p>
 			<p>
-				It helps to stay aware that no-one has to meet your needs. You're asking for willingness, not
-				demanding compliance. In fact, you usually don't want people to do something unwillingly — that
-				tends to create resentment and disconnect rather than genuine care.
+				It helps to stay aware that no-one has to meet your needs. You're asking for willingness, not demanding
+				compliance. In fact, you usually don't want people to do something unwillingly — that tends to create
+				resentment and disconnect rather than genuine care.
 			</p>
 			<p>A few things tend to make requests work better:</p>
 
@@ -59,8 +59,8 @@ const Requests = () => {
 			</ul>
 
 			<p>
-				When both people's needs are on the table, it becomes much easier to look for solutions that
-				everyone can willingly support.
+				When both people's needs are on the table, it becomes much easier to look for solutions that everyone
+				can willingly support.
 			</p>
 
 			<div className="collab-input-group">
@@ -74,11 +74,6 @@ const Requests = () => {
 					rows={3}
 				/>
 			</div>
-
-			<p style={{ marginTop: "1.25rem", fontSize: "0.9rem", color: "#666" }}>
-				Thinking about a longer conversation?{" "}
-				<HelpLink topic="whether-to-converse">Find out if it's worth having.</HelpLink>
-			</p>
 		</div>
 	);
 };

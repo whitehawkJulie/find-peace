@@ -818,6 +818,13 @@ const StandaloneHelpTopics = [
 					<p>This kind of conversation takes practice.</p>
 					<p>It's normal to forget steps, get tangled, or slip back into old patterns.</p>
 					<p>Each time you try, you're building a new way of relating.</p>
+					<p>
+						The important thing to remember is that we're trying to make sure we don't put the other person
+						into threat mode - as soon as they feel defensive, they're not going to hear anything else that
+						you say - and the whole point of the conversation is to be heard and understood. So if you
+						notice that happening, it's a sign to pause, and maybe go back to listening to them a bit more,
+						or take a break and return later.
+					</p>
 				</section>
 			</>
 		),

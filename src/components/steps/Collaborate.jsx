@@ -195,7 +195,9 @@ const Collaborate = () => {
 		if (collabScript.step1 !== undefined) return;
 
 		const defaults = {};
-		STEP_IDS.forEach((id) => { defaults[id] = STEP_DATA[id].scriptDefault; });
+		STEP_IDS.forEach((id) => {
+			defaults[id] = STEP_DATA[id].scriptDefault;
+		});
 		const step2 = buildStep2();
 		const fields = {
 			...defaults,
@@ -212,8 +214,15 @@ const Collaborate = () => {
 
 	return (
 		<div>
-			<p>If you'd like to talk this through with the other person, this can help you plan the conversation.</p>
-			<p>There's no perfect way to do this — just something honest and human.</p>
+			<p>
+				Sometimes doing this process helps us be clear that there's someting we need to address with the other
+				person. If so, this page will help you plan that conversation, step by step, using the information
+				you've unpacked by doing this process, in a way that's much more likely to be heard.
+			</p>
+			<p style={{ marginTop: "1.25rem", fontSize: "0.9rem", color: "#666" }}>
+				Not sure whether to have a longer conversation?{" "}
+				<HelpLink topic="whether-to-converse">Find out if it's worth having.</HelpLink>
+			</p>
 			<p className="collab-intro-note">
 				We've used what you entered earlier — your feelings, needs, and your guesses about their perspective —
 				to pre-fill the text boxes below. Edit them until they sound like you.
@@ -245,7 +254,9 @@ const Collaborate = () => {
 							{stepId === "step2" && value !== (buildStep2() || STEP_DATA.step2.scriptDefault) && (
 								<button
 									className="collab-resync-btn"
-									onClick={() => updateCollabScript("step2", buildStep2() || STEP_DATA.step2.scriptDefault)}>
+									onClick={() =>
+										updateCollabScript("step2", buildStep2() || STEP_DATA.step2.scriptDefault)
+									}>
 									↺ Regenerate from my guesses
 								</button>
 							)}
@@ -266,7 +277,6 @@ const Collaborate = () => {
 						</div>
 					);
 				})}
-
 			</div>
 
 			<p className="collab-summary-note">Your full conversation script will appear in the Summary.</p>
@@ -274,7 +284,6 @@ const Collaborate = () => {
 			<button className="expand-text-toggle" onClick={() => openHelpTopic("nervous")}>
 				{"Nervous about having the conversation?"}
 			</button>
-
 		</div>
 	);
 };
