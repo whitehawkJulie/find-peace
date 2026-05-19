@@ -4,6 +4,7 @@ import { filterByState } from "../../utils/renderHelpers";
 import { storyWordSet } from "../../data/StoryWords";
 import { feelingsMetSet } from "../../data/FeelingsMet";
 import HelpLink from "../HelpLink";
+import "./Collaborate.css";
 
 const STEP_IDS = ["step1", "step2", "step2a", "step3", "step4", "step5", "step6"];
 
@@ -277,5 +278,9 @@ const Collaborate = () => {
 		</div>
 	);
 };
+
+Collaborate.title = "Collaboration";
+Collaborate.navTitle = "Collaboration";
+Collaborate.helpContent = null;
 
 export default Collaborate;

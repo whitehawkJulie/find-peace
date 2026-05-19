@@ -19,7 +19,8 @@ import UnpackNeeds from "./steps/UnpackNeeds";
 import MakingGuesses from "./steps/MakingGuesses";
 import RequestFormulation from "./steps/RequestFormulation";
 import ExploringWhatsChanged from "./steps/ExploringWhatsChanged";
-import ConversationsAndCollaboration from "./steps/ConversationsAndCollaboration";
+import Requests from "./steps/Requests";
+import Collaborate from "./steps/Collaborate";
 import Review from "./steps/Review";
 import UnpackFeelings from "./steps/UnpackFeelings";
 
@@ -109,12 +110,8 @@ export const WizardProvider = ({ children }) => {
 			color: "#7A9E5A",
 			icon: whatsChangedIcon,
 		},
-		{
-			component: ConversationsAndCollaboration,
-			group: "next",
-			color: "#7A9E5A",
-			icon: conversationsIcon,
-		},
+		{ component: Requests, group: "next", color: "#7A9E5A", icon: conversationsIcon },
+		{ component: Collaborate, group: "next", color: "#7A9E5A", icon: conversationsIcon },
 		{ component: Review, group: "next", color: "#7A9E5A", icon: reviewIcon },
 	], []); // eslint-disable-line react-hooks/exhaustive-deps
 	// App-wide state
