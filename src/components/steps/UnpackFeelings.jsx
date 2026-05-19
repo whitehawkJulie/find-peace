@@ -206,9 +206,14 @@ const UnpackFeelings = () => {
 	);
 	const hasSelectedFeelings = allSelectedEntries.length > 0;
 	const selectedFeelingsCount = allSelectedEntries.length;
-	const sortByStrength = ([, a], [, b]) => (a === "double-clicked" ? 0 : 1) - (b === "double-clicked" ? 0 : 1);
-	const unmetEntries = allSelectedEntries.filter(([name]) => !feelingsMetSet.has(name)).sort(sortByStrength);
-	const metEntries = allSelectedEntries.filter(([name]) => feelingsMetSet.has(name)).sort(sortByStrength);
+	const sortByFirstThenStrength = ([nameA, stateA], [nameB, stateB]) => {
+		const aFirst = !!firstFeelings[nameA];
+		const bFirst = !!firstFeelings[nameB];
+		if (aFirst !== bFirst) return aFirst ? -1 : 1;
+		return (stateA === "double-clicked" ? 0 : 1) - (stateB === "double-clicked" ? 0 : 1);
+	};
+	const unmetEntries = allSelectedEntries.filter(([name]) => !feelingsMetSet.has(name)).sort(sortByFirstThenStrength);
+	const metEntries = allSelectedEntries.filter(([name]) => feelingsMetSet.has(name)).sort(sortByFirstThenStrength);
 
 	return (
 		<div className="feelings-explore">

@@ -41,21 +41,67 @@ const SummaryContent = () => {
 	const strongFeelings = filterByState(feelings, "double-clicked").filter((f) => !storyWordSet.has(f));
 	const normalFeelings = filterByState(feelings, "clicked").filter((f) => !storyWordSet.has(f));
 	const allFeelings = [...strongFeelings, ...normalFeelings];
+
+	const orderWithFirst = (arr) => {
+		const first = arr.filter((f) => firstFeelings?.[f]);
+		const rest = arr.filter((f) => !firstFeelings?.[f]);
+		// within each group, keep strong before normal
+		const sortStrong = (a, b) =>
+			(feelings[a] === "double-clicked" ? 0 : 1) - (feelings[b] === "double-clicked" ? 0 : 1);
+		return [...first.sort(sortStrong), ...rest];
+	};
+
+	const renderFeelingName = (name) =>
+		feelings[name] === "double-clicked" ? <strong key={name}>{name}</strong> : <span key={name}>{name}</span>;
+
+	const renderFeelingsList = (arr) => {
+		const firstOnes = arr.filter((f) => firstFeelings?.[f]);
+		const restOnes = arr.filter((f) => !firstFeelings?.[f]);
+		if (firstOnes.length === 0) {
+			return arr.map((f, i) => (
+				<React.Fragment key={f}>
+					{i > 0 && ", "}
+					{renderFeelingName(f)}
+				</React.Fragment>
+			));
+		}
+		return (
+			<>
+				<strong>First:</strong>{" "}
+				{firstOnes.map((f, i) => (
+					<React.Fragment key={f}>
+						{i > 0 && ", "}
+						{renderFeelingName(f)}
+					</React.Fragment>
+				))}
+				{restOnes.length > 0 && (
+					<>
+						.{" "}<strong>Then:</strong>{" "}
+						{restOnes.map((f, i) => (
+							<React.Fragment key={f}>
+								{i > 0 && ", "}
+								{renderFeelingName(f)}
+							</React.Fragment>
+						))}
+					</>
+				)}
+			</>
+		);
+	};
+
 	const strongUnmet = strongFeelings.filter((f) => !feelingsMetSet.has(f));
 	const normalUnmet = normalFeelings.filter((f) => !feelingsMetSet.has(f));
 	const strongMet = strongFeelings.filter((f) => feelingsMetSet.has(f));
 	const normalMet = normalFeelings.filter((f) => feelingsMetSet.has(f));
-	const unmetFeelings = [...strongUnmet, ...normalUnmet];
-	const metFeelings = [...strongMet, ...normalMet];
+	const unmetFeelings = orderWithFirst([...strongUnmet, ...normalUnmet]);
+	const metFeelings = orderWithFirst([...strongMet, ...normalMet]);
 	const selectedStoryWords = Object.keys(feelings).filter((f) => storyWordSet.has(f));
 	const metNeeds = filterByState(needs, "double-clicked");
 	const unmetNeeds = filterByState(needs, "clicked");
 	const exploredNeeds = Object.entries(needExplorations).filter(([_, v]) => v.completed);
-	const hasFeelingsExplore =
-		Object.keys(firstFeelings || {}).length > 0 ||
-		Object.values(feelingsExploreResponses).some((v) =>
-			Array.isArray(v) ? v.length > 0 : v && String(v).trim() !== "",
-		);
+	const hasFeelingsExplore = Object.values(feelingsExploreResponses).some((v) =>
+		Array.isArray(v) ? v.length > 0 : v && String(v).trim() !== "",
+	);
 	const hasBodySensations = bodySensations?.selected?.length > 0 || bodySensations?.custom?.trim();
 	const hasStrategies = Object.values(strategies).some((s) => s.length > 0);
 	const guessFeelingsAll = [
@@ -116,30 +162,12 @@ const SummaryContent = () => {
 				<div className="review-section">
 					<h3>Feelings</h3>
 					{unmetFeelings.length > 0 && (
-						<p>
-							{strongUnmet.map((f, i) => (
-								<React.Fragment key={f}>
-									{i > 0 && ", "}
-									<strong>{f}</strong>
-								</React.Fragment>
-							))}
-							{strongUnmet.length > 0 && normalUnmet.length > 0 && ", "}
-							{normalUnmet.join(", ")}
-						</p>
+						<p>{renderFeelingsList(unmetFeelings)}</p>
 					)}
 					{metFeelings.length > 0 && (
 						<>
 							<p className="summary-and-also-label">And also:</p>
-							<p>
-								{strongMet.map((f, i) => (
-									<React.Fragment key={f}>
-										{i > 0 && ", "}
-										<strong>{f}</strong>
-									</React.Fragment>
-								))}
-								{strongMet.length > 0 && normalMet.length > 0 && ", "}
-								{normalMet.join(", ")}
-							</p>
+							<p>{renderFeelingsList(metFeelings)}</p>
 						</>
 					)}
 				</div>
@@ -179,13 +207,6 @@ const SummaryContent = () => {
 			{hasFeelingsExplore && (
 				<div className="review-section">
 					<h3>Feeling exploration</h3>
-					{Object.keys(firstFeelings || {}).length > 0 && (
-						<div className="review-exploration">
-							<strong>First feelings:</strong>
-							<p>{Object.keys(firstFeelings).join(", ")}</p>
-						</div>
-					)}
-
 					{Object.entries(feelingTypes).map(([typeKey, typeData]) => {
 						const filledPrompts = typeData.prompts.filter((p) => {
 							const val = feelingsExploreResponses[p.id];
