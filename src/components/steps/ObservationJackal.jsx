@@ -17,19 +17,8 @@ const ObservationJackal = () => {
 			<HowToPopup />
 			<p className="onboarding-lead">
 				Before you start, bring to mind a specific moment that's been bothering you. Something real and recent
-				works best.
-			</p>
-			<p className="onboarding-prompt-label">You might be thinking of:</p>
-			<ul className="onboarding-examples">
-				<li>A conversation you keep replaying in your head</li>
-				<li>A moment you felt annoyed, hurt, tense, or disappointed</li>
-				<li>Something someone said or did that still has a charge</li>
-				<li>A time you felt unseen, dismissed, or misunderstood</li>
-				<li>A moment you shut down, got defensive, or thought "that's not fair"</li>
-			</ul>
-			<p className="onboarding-tip">
-				Start with something that matters, but isn't the hardest thing in your life.{" "}
-				<HelpLink topic="think-of-situation">More ideas →</HelpLink>
+				works best.{" "}
+				<HelpLink topic="think-of-situation">Need help choosing something?</HelpLink>
 			</p>
 			<p>
 				What's the situation you'd like to work with? Describe it in your own words, like you're telling a
