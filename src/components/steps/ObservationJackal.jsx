@@ -13,34 +13,34 @@ const ObservationJackal = () => {
 
 	return (
 		<div className="step-observation step-container">
-			<ImportanceBanner message="Feel free to skim or skip — getting this out can help, but it's not essential." />
+			{/* <ImportanceBanner message="Feel free to skim or skip — getting this out can help, but it's not essential." /> */}
 			<HowToPopup />
 			<p className="onboarding-lead">
 				Before you start, bring to mind a specific moment that's been bothering you. Something real and recent
-				works best.
+				usually works best.
 			</p>
 			<p className="onboarding-prompt-label">You might be thinking of:</p>
 			<ul className="onboarding-examples">
-				<li>A conversation you keep replaying in your head</li>
-				<li>A moment you felt annoyed, hurt, tense, or disappointed</li>
-				<li>Something someone said or did that still has a charge</li>
-				<li>A time you felt unseen, dismissed, or misunderstood</li>
-				<li>A moment you shut down, got defensive, or thought "that's not fair"</li>
+				<li>a conversation you keep replaying in your head</li>
+				<li>a moment you felt annoyed, hurt, tense, or disappointed</li>
+				<li>something someone said or did that still has a charge</li>
+				<li>a time you felt unseen, dismissed, or misunderstood</li>
+				<li>a moment you shut down, got defensive, or thought "that's not fair"</li>
 			</ul>
 			<p className="onboarding-tip">
-				Start with something that matters, but isn't the hardest thing in your life.{" "}
+				Start with something that matters, but isn't the hardest thing in your life right now.{" "}
 				<HelpLink topic="think-of-situation">More ideas →</HelpLink>
 			</p>
 			<p>
 				What's the situation you'd like to work with? Describe it in your own words, like you're telling a
-				friend.
+				trusted friend.
 			</p>
-			<p className="obs-textarea-label">{"The uncensored version:"}</p>
+			{/* <p className="obs-textarea-label">{"The uncensored version:"}</p> */}
 			<textarea
 				data-field-id="jackal-talk"
 				value={jackalTalk}
 				onChange={(e) => setJackalTalk(e.target.value)}
-				placeholder="How could they DO that?! That's not fair! They shouldn't be like that!"
+				// placeholder="How could they DO that?! That's not fair! They shouldn't be like that!"
 				rows={3}
 			/>
 			<HelpLink topic="privacy" aside>
