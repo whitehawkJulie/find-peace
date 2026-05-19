@@ -62,11 +62,13 @@ const WhereToNow = () => {
 	return (
 		<div className="step-container">
 			<p>
-				Now that you've been through the process, you might be wondering where to go from here. There are a few
-				common next steps, depending on how you're feeling and what you want to do.
+				You've now finished the "unpacking feelings and needs" part of the process, for both you and the other
+				person. Sometimes that's enough to bring a sense of peace and clarity, and other times it just brings up
+				more questions. There are a few common next steps, depending on how you're feeling and what you want to
+				do.
 			</p>
 			{OPTIONS.map(({ id, heading, description, links }) => (
-				<div key={id} className="where-to-now-option">
+				<div key={id} className="where-to-now-option guesses-section">
 					<h3 className="where-to-now-heading">{heading}</h3>
 					<p className="where-to-now-desc">{description}</p>
 					{links.map(({ text, target }) => (
