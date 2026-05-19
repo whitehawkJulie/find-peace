@@ -2,6 +2,8 @@ import React from "react";
 import { useWizard } from "../WizardContext";
 import "./RequestFormulation.css";
 
+// WORK IN PROGRESS - don't think this is being used right now.
+
 const RequestFormulation = () => {
 	const { requestOfSelf, setRequestOfSelf, requestOfOther, setRequestOfOther } = useWizard();
 	return (

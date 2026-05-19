@@ -826,6 +826,16 @@ const StandaloneHelpTopics = [
 						or take a break and return later.
 					</p>
 				</section>
+
+				{/* <section>
+					<p>
+						WORK IN PROGRESS: - Don't give empathy from hell - You don't have to throw yourself under the
+						bus. - Remember that the aim is to connect, rather than to fix - we try to trst that the fix
+						will find US, once enough connection is present. This includes connection with yourself. - The
+						goal in the conversation is ALWAYS to keep both of you out of threat mode. If you notice either
+						of you slipping into that, it's a sign to pause and come back to it later.
+					</p>
+				</section> */}
 			</>
 		),
 	},

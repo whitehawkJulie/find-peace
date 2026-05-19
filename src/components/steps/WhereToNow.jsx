@@ -6,7 +6,7 @@ import Requests from "./Requests";
 import Collaborate from "./Collaborate";
 import MeetMyNeeds from "./MeetMyNeeds";
 import Stuck from "./Stuck";
-import Introduction from "./Introduction";
+import OnboardingWelcome from "./OnboardingWelcome";
 import Review from "./Review";
 import stepNavOverrides from "./stepNavOverrides";
 
@@ -46,7 +46,7 @@ const OPTIONS = [
 		links: [
 			{ text: "Consider my needs", target: MeetMyNeeds },
 			{ text: "Where did I get stuck?", target: Stuck },
-			{ text: "Start again", target: Introduction },
+			{ text: "Start again", target: OnboardingWelcome },
 		],
 	},
 ];

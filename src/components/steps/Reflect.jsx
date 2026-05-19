@@ -20,15 +20,15 @@ const Reflect = () => {
 					This isn't about finding solutions yet — it's simply a chance to notice any shift, if there is one.
 				</p>
 
-				<p>
-					NOTE: If nothing has shifted for you yet, doing this process, it might be worth doing it again, and
+				{/* <p>
+					WORK IN PROGRESS: If nothing has shifted for you yet, doing this process, it might be worth doing it again, and
 					making sure to do all the optional sections. The more you can slow down and really listen to each
 					part of the process, the more it can show you. You might also find it helpful to go back through
 					your notes from each step, and see if anything new stands out to you now that you've gone through
 					the whole process. Sometimes the insights come in layers, and the first time through you might just
 					be scratching the surface of what's there. So feel free to revisit any part of the process, and take
 					your time with it.
-				</p>
+				</p> */}
 			</>
 
 			<div className="request-section changed-section changed-section--before">
