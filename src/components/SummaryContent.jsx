@@ -1,6 +1,7 @@
 import React from "react";
 import { useWizard } from "./WizardContext";
 import { filterByState } from "../utils/renderHelpers";
+import { REFLECT_FIELDS } from "./steps/MeetMyNeeds";
 import { feelingTypes } from "../data/FeelingTypes";
 import { storyWordSet, storyWordDataByName } from "../data/StoryWords";
 import { feelingsMetSet } from "../data/FeelingsMet";
@@ -33,6 +34,7 @@ const SummaryContent = () => {
 		collabScript,
 		includeCollabInSummary,
 		reviewReflection,
+		meetMyNeedsResponses,
 	} = useWizard();
 
 	const obsText =
@@ -114,6 +116,8 @@ const SummaryContent = () => {
 	const hasRequests = requestOfSelf || requestOfOther || simpleRequest?.trim();
 	const hasWhatsChanged = whatsChangedResponses?.before?.trim() || whatsChangedResponses?.differently?.trim();
 	const hasCollabScript = collabScript?.step1 !== undefined;
+	const meetMyNeedsEntries = REFLECT_FIELDS.filter(({ fieldId }) => meetMyNeedsResponses?.[fieldId]?.trim());
+	const hasMeetMyNeeds = meetMyNeedsEntries.length > 0;
 
 	const hasAnyData =
 		obsText ||
@@ -129,6 +133,7 @@ const SummaryContent = () => {
 		hasWhatsChanged ||
 		hasRequests ||
 		hasCollabScript ||
+		hasMeetMyNeeds ||
 		reviewReflection?.trim();
 
 	if (!hasAnyData) {
@@ -431,6 +436,18 @@ const SummaryContent = () => {
 					)}
 				</div>
 			)}
+			{hasMeetMyNeeds && (
+				<div className="review-section">
+					<h3>Meeting my needs</h3>
+					{meetMyNeedsEntries.map(({ fieldId, label }) => (
+						<p key={fieldId}>
+							<span className="review-label">{label}:</span>{" "}
+							<span style={{ whiteSpace: "pre-wrap" }}>{meetMyNeedsResponses[fieldId].trim()}</span>
+						</p>
+					))}
+				</div>
+			)}
+
 			{reviewReflection?.trim() && (
 				<div className="review-section">
 					<h3>Final reflection</h3>

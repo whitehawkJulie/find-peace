@@ -813,6 +813,12 @@ const StandaloneHelpTopics = [
 					<p>Even a messy, human version of this can shift things.</p>
 				</section>
 
+				{/* WORK IN PROGRESS
+				 * silent NVC
+				 * empathy from hell
+				 * authenticity over technique
+				 * people resist manipulation */}
+
 				<section>
 					<h3>This is a practice</h3>
 					<p>This kind of conversation takes practice.</p>
