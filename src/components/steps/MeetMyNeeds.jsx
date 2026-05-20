@@ -2,6 +2,7 @@ import React from "react";
 import { useWizard } from "../WizardContext";
 import UnpackNeeds from "./UnpackNeeds";
 import ReflectBox from "./ReflectBox";
+import "./MeetMyNeeds.css";
 
 const MeetMyNeeds = () => {
 	const { visibleSteps, setStepIndex } = useWizard();
@@ -32,9 +33,8 @@ const MeetMyNeeds = () => {
 				nourish the need.
 			</p>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>1. Check whether this is the deepest need</h3>
 
 				<p>Sometimes the need we first choose is real, but not the deepest layer.</p>
@@ -76,9 +76,8 @@ const MeetMyNeeds = () => {
 				/>
 			</section>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>2. Get to know the need</h3>
 
 				<p>Before trying to meet a need, it helps to actually know it.</p>
@@ -113,9 +112,8 @@ const MeetMyNeeds = () => {
 				/>
 			</section>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>3. Notice if this need feels impossible or forbidden</h3>
 
 				<p>
@@ -147,9 +145,8 @@ const MeetMyNeeds = () => {
 				/>
 			</section>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>4. Check whether you are attached to one strategy</h3>
 
 				<p>Every need can be nourished in many different ways.</p>
@@ -183,9 +180,8 @@ const MeetMyNeeds = () => {
 				/>
 			</section>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>5. Brainstorm without being realistic yet</h3>
 
 				<p>Before choosing a strategy, let your imagination open up.</p>
@@ -207,9 +203,8 @@ const MeetMyNeeds = () => {
 				/>
 			</section>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>6. Look for different places this need could be nourished</h3>
 
 				<p>Sometimes we imagine a need can only be met through one person or one situation.</p>
@@ -239,9 +234,8 @@ const MeetMyNeeds = () => {
 				/>
 			</section>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>7. Get specific</h3>
 
 				<p>
@@ -277,9 +271,8 @@ const MeetMyNeeds = () => {
 				/>
 			</section>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>8. Check for other needs</h3>
 
 				<p>Before choosing a strategy, pause and check whether it affects any other needs.</p>
@@ -304,9 +297,8 @@ const MeetMyNeeds = () => {
 				/>
 			</section>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>9. Hold other people’s needs with care</h3>
 
 				<p>If your strategy involves another person, remember that they have needs too.</p>
@@ -326,9 +318,8 @@ const MeetMyNeeds = () => {
 				<p>If you want to ask someone for something, it may help to read the Requests page before you do.</p>
 			</section>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>10. Sometimes offering the need to others helps</h3>
 
 				<p>Sometimes, offering a need to someone else helps us reconnect with it.</p>
@@ -353,9 +344,8 @@ const MeetMyNeeds = () => {
 				/>
 			</section>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>11. Choose one small experiment</h3>
 
 				<p>You do not need to solve your life perfectly right now.</p>
@@ -388,9 +378,8 @@ const MeetMyNeeds = () => {
 				<ReflectBox fieldId="small-experiment" label="My small experiment" placeholder="One small thing I will try is..." />
 			</section>
 
-			<hr />
 
-			<section>
+			<section className="meet-card">
 				<h3>12. If nothing feels possible yet</h3>
 
 				<p>If no strategy feels possible, that may not mean there are no strategies.</p>

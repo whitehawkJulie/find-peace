@@ -10,73 +10,83 @@ import OnboardingWelcome from "./OnboardingWelcome";
 import Review from "./Review";
 import stepNavOverrides from "./stepNavOverrides";
 
-const OPTIONS = [
-	{
-		id: "complete",
-		heading: "I feel complete",
-		description:
-			"Many people find that simply doing this process changes things internally, without needing to address anything about the original situation.",
-		links: [
-			{ text: "I'd like to reflect on all this", target: Reflect },
-			{ text: "I'm done!", target: Review },
-		],
-	},
-	{
-		id: "other-person",
-		heading: "I still want something to change with the other person",
-		description:
-			"Sometimes we need to figure out how to move forward with the other person, and find a better way to interact.",
-		links: [
-			{ text: "I just want to ask for something specific from them", target: Requests },
-			{ text: "I need guidance in having a conversation with them about this", target: Collaborate },
-		],
-	},
-	{
-		id: "unmet-needs",
-		heading: "I've discovered I have unmet needs that I need to address in my life in general",
-		description:
-			"Sometimes the process helps us uncover needs that we'd like to address in our life in general, but we're not sure where to start.",
-		links: [{ text: "Find ways to meet my needs", target: MeetMyNeeds }],
-	},
-
-	{
-		id: "still-unresolved",
-		heading: "Something still feels unresolved",
-		description: (
-			<>
-				<p>Sometimes this process brings relief or clarity.</p>
-				<p>Other times, you may still feel:</p>
-				<ul>
-					<li>activated</li>
-					<li>protective</li>
-					<li>certain</li>
-					<li>angry</li>
-					<li>unconvinced</li>
-					<li>hurt</li>
-					<li>not ready to let go</li>
-					<li>focused on the other person changing</li>
-				</ul>
-				<p>That does not mean you did anything wrong.</p>
-				<p>
-					It may simply mean there is still something important your system is trying to protect, understand,
-					or hold onto.
-				</p>
-			</>
-		),
-		links: [
-			{ text: "Explore what still feels unresolved", target: Stuck },
-			{ text: "Start again", target: OnboardingWelcome },
-		],
-	},
-];
+// Populated on first render rather than at module scope to avoid circular-dep
+// TDZ (step components → ReflectBox → WizardContext → WhereToNow → step components).
+let _navRegistered = false;
 
 const WhereToNow = () => {
+	if (!_navRegistered) {
+		_navRegistered = true;
+		[Reflect, Requests, Collaborate, MeetMyNeeds, Stuck].forEach((C) => {
+			stepNavOverrides.set(C, { prevStep: WhereToNow, nextStep: Review });
+		});
+	}
+
 	const { visibleSteps, setStepIndex } = useWizard();
 
 	const goTo = (TargetComponent) => {
 		const idx = visibleSteps.findIndex((s) => s.component === TargetComponent);
 		if (idx >= 0) setStepIndex(idx);
 	};
+
+	const options = [
+		{
+			id: "complete",
+			heading: "I feel complete",
+			description:
+				"Many people find that simply doing this process changes things internally, without needing to address anything about the original situation.",
+			links: [
+				{ text: "I'd like to reflect on all this", target: Reflect },
+				{ text: "I'm done!", target: Review },
+			],
+		},
+		{
+			id: "other-person",
+			heading: "I still want something to change with the other person",
+			description:
+				"Sometimes we need to figure out how to move forward with the other person, and find a better way to interact.",
+			links: [
+				{ text: "I just want to ask for something specific from them", target: Requests },
+				{ text: "I need guidance in having a conversation with them about this", target: Collaborate },
+			],
+		},
+		{
+			id: "unmet-needs",
+			heading: "I've discovered I have unmet needs that I need to address in my life in general",
+			description:
+				"Sometimes the process helps us uncover needs that we'd like to address in our life in general, but we're not sure where to start.",
+			links: [{ text: "Find ways to meet my needs", target: MeetMyNeeds }],
+		},
+		{
+			id: "still-unresolved",
+			heading: "Something still feels unresolved",
+			description: (
+				<>
+					<p>Sometimes this process brings relief or clarity.</p>
+					<p>Other times, you may still feel:</p>
+					<ul>
+						<li>activated</li>
+						<li>protective</li>
+						<li>certain</li>
+						<li>angry</li>
+						<li>unconvinced</li>
+						<li>hurt</li>
+						<li>not ready to let go</li>
+						<li>focused on the other person changing</li>
+					</ul>
+					<p>That does not mean you did anything wrong.</p>
+					<p>
+						It may simply mean there is still something important your system is trying to protect, understand,
+						or hold onto.
+					</p>
+				</>
+			),
+			links: [
+				{ text: "Explore what still feels unresolved", target: Stuck },
+				{ text: "Start again", target: OnboardingWelcome },
+			],
+		},
+	];
 
 	return (
 		<div className="step-container">
@@ -86,10 +96,10 @@ const WhereToNow = () => {
 				more questions. There are a few common next steps, depending on how you're feeling and what you want to
 				do.
 			</p>
-			{OPTIONS.map(({ id, heading, description, links }) => (
+			{options.map(({ id, heading, description, links }) => (
 				<div key={id} className="where-to-now-option guesses-section">
 					<h3 className="where-to-now-heading">{heading}</h3>
-					<p className="where-to-now-desc">{description}</p>
+					<div className="where-to-now-desc">{description}</div>
 					<ul className="where-to-now-links">
 						{links.map(({ text, target }) => (
 							<li key={text}>
@@ -108,10 +118,5 @@ const WhereToNow = () => {
 WhereToNow.title = "Where to now?";
 WhereToNow.navTitle = "Where to now?";
 WhereToNow.helpContent = null;
-
-// Register branch-page nav overrides here, after WhereToNow is defined
-[Reflect, Requests, Collaborate, MeetMyNeeds, Stuck].forEach((C) => {
-	stepNavOverrides.set(C, { prevStep: WhereToNow, nextStep: Review });
-});
 
 export default WhereToNow;
