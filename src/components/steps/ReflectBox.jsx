@@ -3,8 +3,8 @@ import { useWizard } from "../WizardContext";
 import "./Collaborate.css";
 
 const ReflectBox = ({ fieldId, label, placeholder }) => {
-	const { meetMyNeedsResponses, setMeetMyNeedsResponse } = useWizard();
-	const value = meetMyNeedsResponses?.[fieldId] ?? "";
+	const { reflectResponses, setReflectResponse } = useWizard();
+	const value = reflectResponses?.[fieldId] ?? "";
 
 	return (
 		<div className="collab-input-group">
@@ -13,7 +13,7 @@ const ReflectBox = ({ fieldId, label, placeholder }) => {
 				className="collab-textarea"
 				placeholder={placeholder}
 				value={value}
-				onChange={(e) => setMeetMyNeedsResponse(fieldId, e.target.value)}
+				onChange={(e) => setReflectResponse(fieldId, e.target.value)}
 				rows={3}
 			/>
 		</div>

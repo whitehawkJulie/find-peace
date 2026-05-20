@@ -163,10 +163,10 @@ export const WizardProvider = ({ children }) => {
 	const [includeCollabInSummary, setIncludeCollabInSummary] = useState(false);
 	const [reviewReflection, setReviewReflection] = useState("");
 
-	// Meet my needs page — ReflectBox responses, keyed by fieldId
-	const [meetMyNeedsResponses, setMeetMyNeedsResponsesRaw] = useState({});
-	const setMeetMyNeedsResponse = (fieldId, value) =>
-		setMeetMyNeedsResponsesRaw((prev) => ({ ...prev, [fieldId]: value }));
+	// ReflectBox responses shared across pages, keyed by fieldId
+	const [reflectResponses, setReflectResponsesRaw] = useState({});
+	const setReflectResponse = (fieldId, value) =>
+		setReflectResponsesRaw((prev) => ({ ...prev, [fieldId]: value }));
 
 	// True once the user has unsaved changes; cleared when saveSession() is called.
 	// Using a ref so beforeunload always reads the current value without a re-render.
@@ -194,7 +194,7 @@ export const WizardProvider = ({ children }) => {
 			whatsChangedResponses?.differently?.trim() ||
 			simpleRequest?.trim() ||
 			reviewReflection?.trim() ||
-			Object.values(meetMyNeedsResponses).some((v) => v?.trim());
+			Object.values(reflectResponses).some((v) => v?.trim());
 		if (hasData) dirtyRef.current = true;
 	}, [
 		jackalTalk,
@@ -214,7 +214,7 @@ export const WizardProvider = ({ children }) => {
 		simpleRequest,
 		wantsConversation,
 		reviewReflection,
-		meetMyNeedsResponses,
+		reflectResponses,
 	]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Help drawer open state (lifted so step components can trigger it)
@@ -318,7 +318,7 @@ export const WizardProvider = ({ children }) => {
 			collabScript,
 			includeCollabInSummary,
 			reviewReflection,
-			meetMyNeedsResponses,
+			reflectResponses,
 		};
 
 		// Build the updated entries list: overwrite existing or append new
@@ -415,7 +415,7 @@ export const WizardProvider = ({ children }) => {
 		setCollabScript(session.collabScript || {});
 		setIncludeCollabInSummary(session.includeCollabInSummary ?? false);
 		setReviewReflection(session.reviewReflection || "");
-		setMeetMyNeedsResponsesRaw(session.meetMyNeedsResponses || {});
+		setReflectResponsesRaw(session.reflectResponses || session.meetMyNeedsResponses || {});
 		const firstMainIdx = visibleSteps.findIndex((s) => s.group === "happened");
 		prevStepIdxRef.current = null;
 		setStepIndexRaw(firstMainIdx >= 0 ? firstMainIdx : 0);
@@ -452,7 +452,7 @@ export const WizardProvider = ({ children }) => {
 		setCollabScript({});
 		setIncludeCollabInSummary(false);
 		setReviewReflection("");
-		setMeetMyNeedsResponsesRaw({});
+		setReflectResponsesRaw({});
 	};
 
 	// Ref to .card-content scroll container (attached by Card.jsx)
@@ -532,8 +532,8 @@ export const WizardProvider = ({ children }) => {
 		setWhatsChangedResponses,
 		simpleRequest,
 		setSimpleRequest,
-		meetMyNeedsResponses,
-		setMeetMyNeedsResponse,
+		reflectResponses,
+		setReflectResponse,
 		wantsConversation,
 		setWantsConversation,
 		collabScript,

@@ -1,102 +1,122 @@
 import React from "react";
+import ReflectBox from "./ReflectBox";
+import "./Stuck.css";
+
 
 const Stuck = () => {
 	return (
 		<div className="step-container">
 			<h2>If nothing has shifted yet</h2>
 			<p>
-				Sometimes you get to the end of this process and still feel just as stuck, clear, angry, hurt, guarded,
-				or unsure as before.
+				Sometimes you get to the end of this process and still feel angry, hurt, guarded, certain, activated, or
+				focused on the other person changing.
 			</p>
+			<p>That does not mean you did it wrong.</p>
+			<p>Sometimes it simply means your system is still holding onto something important.</p>
 			<p>
-				That does not mean you did it wrong. It may just mean something in you is still trying to protect
-				something important.
+				You do not need to force yourself to soften, forgive, or move on. This page is simply here to help you
+				notice what may still need attention.
 			</p>
-			{/* <h3>Checks - WORK IN PROGRESS</h3>
-			<ul>
-				<li>not ready for perspective-taking - need more self-empathy or reassurance of agency!!</li>
-				<li>
-					jumping to fixing - “Are you trying to connect, or to fix? - connect, and the solutions find US.
-					Attempts to force resolution before connection often backfire. Strategies vs needs.
-				</li>
-				<li>
-					still urgent/protective - are you trying to make the other person understand or see things your way?
-					- Are you still stuck on one particular strategy for getting your needs met? Like, the other person
-					should do this particular thing?
-				</li>
-			</ul> */}
-			<div className="reflection-card">
-				<h3>What kind of stuck is this?</h3>
-				<p>
-					You do not need to change how you feel. This is just a way to notice what might still need
-					attention.
+
+			<section className="stuck-card">
+				<h3>A. Part of me still wants movement or acknowledgement</h3>
+				<p className="stuck-card-fit">
+					This may fit if part of you still wants recognition, responsiveness, accountability, understanding,
+					change, repair, or protection.
 				</p>
-			</div>
-			<div className="path-card path-a">
-				<h3>A. Something still feels urgent</h3>
-				<p>
-					This might fit if part of you still wants to push, protest, explain, defend, or make sure the other
-					person understands.
+				<p>You might notice thoughts like:</p>
+				<ul>
+					<li>"No, this really matters."</li>
+					<li>"They need to understand what they did."</li>
+					<li>"I can't move on while this is still happening."</li>
+					<li>"If I stop pushing, nothing will change."</li>
+				</ul>
+				<p>Try asking:</p>
+				<ul>
+					<li>What still feels important to protect here?</li>
+					<li>What am I afraid will happen if I stop pushing?</li>
+					<li>What do I most want recognised?</li>
+					<li>Is there a clear request hiding inside this protest?</li>
+				</ul>
+				<ReflectBox
+					fieldId="stuck-still-important"
+					label="What still feels important to protect?"
+					placeholder="What still feels important here is..."
+				/>
+			</section>
+
+			<section className="stuck-card">
+				<h3>B. Part of me feels very certain about what happened</h3>
+				<p className="stuck-card-fit">
+					This may fit if you feel clear about the issue, but not especially curious, relieved, open, or more
+					spacious.
 				</p>
+				<p>You might notice thoughts like:</p>
 				<ul>
-					<li>“No, this really matters.”</li>
-					<li>“They need to understand what they did.”</li>
-					<li>“I can’t move on while this is still happening.”</li>
-					<li>“If I stop pushing, nothing will change.”</li>
+					<li>"I know what happened."</li>
+					<li>"The issue is obvious."</li>
+					<li>"This is about respect / fairness / basic decency."</li>
+					<li>"I don't really see another way to look at it."</li>
 				</ul>
-				<div className="gentle-prompt">
-					<h4>Try asking:</h4>
-					<ul>
-						<li>What still feels important to protect here?</li>
-						<li>What am I afraid will happen if I stop pushing?</li>
-						<li>What do I most want recognised?</li>
-						<li>Is there a clear request hiding inside this protest?</li>
-					</ul>
-				</div>
-			</div>
-			<div className="path-card path-b">
-				<h3>B. Something still feels fixed or closed</h3>
-				<p>This might fit if you feel calm or clear, but not especially curious, relieved, or more spacious.</p>
+				<p>Try asking:</p>
 				<ul>
-					<li>“I know what happened.”</li>
-					<li>“The issue is obvious.”</li>
-					<li>“This is about respect / fairness / basic decency.”</li>
-					<li>“I don’t really see another way to look at it.”</li>
+					<li>What feels important about holding this view?</li>
+					<li>What does this perspective help me stay connected to?</li>
+					<li>Is there something I do not want to lose sight of?</li>
+					<li>What would I want any wider perspective to still honour?</li>
 				</ul>
-				<div className="gentle-prompt">
-					<h4>Try asking:</h4>
-					<ul>
-						<li>What feels important about holding this view?</li>
-						<li>What does this perspective help me stay connected to?</li>
-						<li>Is there something I do not want to lose sight of?</li>
-						<li>What would I want any wider perspective to still honour?</li>
-					</ul>
-				</div>
-			</div>
-			<div className="reflection-card">
-				<h3>You do not have to force anything</h3>
+				<ReflectBox
+					fieldId="stuck-perspective-connected"
+					label="What does this perspective help me stay connected to?"
+					placeholder="This view helps me remember..."
+				/>
+			</section>
+
+			<section className="stuck-card">
+				<h3>C. Part of me feels exhausted, hopeless, or done</h3>
+				<p className="stuck-card-fit">
+					This may fit if you feel flat, tired, numb, resigned, disconnected, or like nothing would help
+					anyway.
+				</p>
+				<p>You might notice thoughts like:</p>
+				<ul>
+					<li>"What's the point?"</li>
+					<li>"This is just how people are."</li>
+					<li>"Nothing ever changes."</li>
+					<li>"I don't have the energy for this."</li>
+					<li>"I'm tired of needing things."</li>
+				</ul>
+				<p>Sometimes this is not clarity. Sometimes it is protection through shutdown or hopelessness.</p>
+				<p>Try asking:</p>
+				<ul>
+					<li>What feels too painful, risky, or exhausting to keep hoping for?</li>
+					<li>What need may have been disappointed for a long time?</li>
+					<li>What would support or gentleness look like right now?</li>
+					<li>Do I need solutions right now, or simply care?</li>
+				</ul>
+				<ReflectBox
+					fieldId="stuck-care-before-action"
+					label="What might need care before action is possible?"
+					placeholder="What feels too painful, risky, or exhausting is..."
+				/>
+			</section>
+
+			<div className="stuck-closing">
+				<p>
+					<strong>You do not have to force anything.</strong>
+				</p>
 				<p>
 					Sometimes the next step is not to feel differently. It is simply to notice what still feels
 					important, and what kind of support that part of you might need.
 				</p>
-			</div>
-			<div className="button-row">
-				<button type="button" className="secondary-button">
-					Go back and review my need
-				</button>
-				<button type="button" className="secondary-button">
-					Look for a possible request
-				</button>
-				<button type="button" className="primary-button">
-					Continue
-				</button>
+				<p>If something in you is still saying "not yet," you can listen to that without making it wrong.</p>
 			</div>
 		</div>
 	);
 };
 
-Stuck.title = "Where did I get stuck?";
-Stuck.navTitle = "Where did I get stuck?";
+Stuck.title = "When something still feels unresolved";
+Stuck.navTitle = "Still unresolved";
 Stuck.helpContent = null;
 
 export default Stuck;

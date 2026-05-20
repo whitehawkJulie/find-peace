@@ -1,7 +1,7 @@
 import React from "react";
 import { useWizard } from "./WizardContext";
 import { filterByState } from "../utils/renderHelpers";
-import { REFLECT_FIELDS } from "./steps/MeetMyNeeds";
+import { MEET_MY_NEEDS_FIELDS, STUCK_FIELDS } from "../data/ReflectFields";
 import { feelingTypes } from "../data/FeelingTypes";
 import { storyWordSet, storyWordDataByName } from "../data/StoryWords";
 import { feelingsMetSet } from "../data/FeelingsMet";
@@ -34,7 +34,7 @@ const SummaryContent = () => {
 		collabScript,
 		includeCollabInSummary,
 		reviewReflection,
-		meetMyNeedsResponses,
+		reflectResponses,
 	} = useWizard();
 
 	const obsText =
@@ -116,8 +116,10 @@ const SummaryContent = () => {
 	const hasRequests = requestOfSelf || requestOfOther || simpleRequest?.trim();
 	const hasWhatsChanged = whatsChangedResponses?.before?.trim() || whatsChangedResponses?.differently?.trim();
 	const hasCollabScript = collabScript?.step1 !== undefined;
-	const meetMyNeedsEntries = REFLECT_FIELDS.filter(({ fieldId }) => meetMyNeedsResponses?.[fieldId]?.trim());
+	const meetMyNeedsEntries = MEET_MY_NEEDS_FIELDS.filter(({ fieldId }) => reflectResponses?.[fieldId]?.trim());
 	const hasMeetMyNeeds = meetMyNeedsEntries.length > 0;
+	const stuckEntries = STUCK_FIELDS.filter(({ fieldId }) => reflectResponses?.[fieldId]?.trim());
+	const hasStuck = stuckEntries.length > 0;
 
 	const hasAnyData =
 		obsText ||
@@ -134,6 +136,7 @@ const SummaryContent = () => {
 		hasRequests ||
 		hasCollabScript ||
 		hasMeetMyNeeds ||
+		hasStuck ||
 		reviewReflection?.trim();
 
 	if (!hasAnyData) {
@@ -442,7 +445,19 @@ const SummaryContent = () => {
 					{meetMyNeedsEntries.map(({ fieldId, label }) => (
 						<p key={fieldId}>
 							<span className="review-label">{label}:</span>{" "}
-							<span style={{ whiteSpace: "pre-wrap" }}>{meetMyNeedsResponses[fieldId].trim()}</span>
+							<span style={{ whiteSpace: "pre-wrap" }}>{reflectResponses[fieldId].trim()}</span>
+						</p>
+					))}
+				</div>
+			)}
+
+			{hasStuck && (
+				<div className="review-section">
+					<h3>When something still feels unresolved</h3>
+					{stuckEntries.map(({ fieldId, label }) => (
+						<p key={fieldId}>
+							<span className="review-label">{label}:</span>{" "}
+							<span style={{ whiteSpace: "pre-wrap" }}>{reflectResponses[fieldId].trim()}</span>
 						</p>
 					))}
 				</div>
