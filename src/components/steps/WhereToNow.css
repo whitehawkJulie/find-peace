@@ -18,12 +18,22 @@
 
 .where-to-now-links {
 	margin: 0.4rem 0 0;
-	padding-left: 1.2rem;
 	text-align: left;
 }
 
-.where-to-now-links li {
-	margin-bottom: 0.25rem;
+.where-to-now-link-item {
+	margin-bottom: 0.75rem;
+}
+
+.where-to-now-link-item:last-child {
+	margin-bottom: 0;
+}
+
+.where-to-now-link-desc {
+	font-size: 0.88rem;
+	color: #666;
+	margin: 0 0 0.25rem;
+	line-height: 1.5;
 }
 
 .where-to-now-link {

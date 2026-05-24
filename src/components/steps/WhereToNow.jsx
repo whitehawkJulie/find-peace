@@ -33,46 +33,50 @@ const WhereToNow = () => {
 		{
 			id: "complete",
 			heading: "I feel complete",
-			description:
-				"Many people find that simply doing this process changes things internally, without needing to address anything about the original situation.",
 			links: [
-				{ text: "I'd like to reflect on all this", target: Reflect },
-				{ text: "I'm done!", target: Review },
+				{
+					text: "I’d like to reflect on all this",
+					target: Reflect,
+					description:
+						"Many people find that simply doing this process changes things internally, without needing to address anything about the original situation.",
+				},
+				{ text: "I’m done!", target: Review },
 			],
 		},
 		{
 			id: "other-person",
 			heading: "I still want something to change with the other person",
-			description: (
-				<>
-					Sometimes a simple request is enough — especially when the issue is practical, low-stakes, or
-					unlikely to affect the other person’s needs very much. <br />
-					But when something matters deeply to both people, real resolution usually comes through a deeper
-					conversation where both people’s needs are understood and worked with together.
-				</>
-			),
 			links: [
 				{
-					text: "I know what I’m asking for",
+					text: "Make a simple request",
 					target: Requests,
+					description:
+						"Sometimes a simple request is enough — especially when the issue is practical, low-stakes, or unlikely to affect the other person’s needs very much.",
 				},
 				{
-					text: "This feels bigger and needs working through together",
+					text: "Collaborate on a solution together",
 					target: Collaborate,
+					description:
+						"But when something matters deeply to both people, real resolution usually comes through a deeper conversation where both people’s needs are understood and worked with together.",
 				},
 			],
 		},
 		{
 			id: "unmet-needs",
-			heading: "I've discovered I have unmet needs that I need to address in my life in general",
-			description:
-				"Sometimes the process helps us uncover needs that we'd like to address in our life in general, but we're not sure where to start.",
-			links: [{ text: "Find ways to meet my needs", target: MeetMyNeeds }],
+			heading: "I’ve discovered I have unmet needs that I need to address in my life in general",
+			links: [
+				{
+					text: "Find ways to meet my needs",
+					target: MeetMyNeeds,
+					description:
+						"Sometimes the process helps us uncover needs that we’d like to address in our life in general, but we’re not sure where to start.",
+				},
+			],
 		},
 		{
 			id: "still-unresolved",
 			heading: "Something still feels unresolved",
-			description: (
+			intro: (
 				<>
 					<p>Sometimes this process brings relief or clarity.</p>
 					<p>Other times, you may still feel:</p>
@@ -108,19 +112,20 @@ const WhereToNow = () => {
 				more questions. There are a few common next steps, depending on how you're feeling and what you want to
 				do.
 			</p>
-			{options.map(({ id, heading, description, links }) => (
+			{options.map(({ id, heading, intro, links }) => (
 				<div key={id} className="where-to-now-option guesses-section">
 					<h3 className="where-to-now-heading">{heading}</h3>
-					<div className="where-to-now-desc">{description}</div>
-					<ul className="where-to-now-links">
-						{links.map(({ text, target }) => (
-							<li key={text}>
+					{intro && <div className="where-to-now-desc">{intro}</div>}
+					<div className="where-to-now-links">
+						{links.map(({ text, target, description }) => (
+							<div key={text} className="where-to-now-link-item">
+								{description && <p className="where-to-now-link-desc">{description}</p>}
 								<button className="where-to-now-link" onClick={() => goTo(target)}>
 									{text} →
 								</button>
-							</li>
+							</div>
 						))}
-					</ul>
+					</div>
 				</div>
 			))}
 		</div>
