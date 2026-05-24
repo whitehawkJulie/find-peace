@@ -18,7 +18,7 @@ const MenuBar = () => {
 		: stepIndex + 1;
 
 	const hasPrev = prevIdx >= 0;
-	const hasNext = nextIdx >= 0;
+	const hasNext = nextIdx >= 0 && nextIdx < visibleSteps.length;
 
 	const goToPrevious = () => { if (hasPrev) { setPendingNavMethod("button"); setStepIndex(prevIdx); } };
 	const goToNext    = () => { if (hasNext)  { setPendingNavMethod("button"); setStepIndex(nextIdx); } };
@@ -89,17 +89,26 @@ const MenuBar = () => {
 					</button>
 				) : (
 					<div className="nav-new-session">
-						{confirmNew ? (
-							<>
-								<span className="nav-new-confirm-text">Start fresh?</span>
-								<button className="nav-new-yes" onClick={confirmAndReset}>Yes</button>
-								<button className="nav-new-cancel" onClick={() => setConfirmNew(false)}>No</button>
-							</>
-						) : (
-							<button className="nav-button nav-button--next nav-button--new" onClick={handleNewSession}>
-								<span className="nav-button-label">↺ New session</span>
-							</button>
-						)}
+						<button className="nav-button nav-button--next nav-button--new" onClick={handleNewSession}>
+							<span className="nav-button-label">↺ New session</span>
+						</button>
+					</div>
+				)}
+
+				{confirmNew && (
+					<div className="new-session-backdrop" onClick={() => setConfirmNew(false)}>
+						<div className="new-session-dialog" onClick={e => e.stopPropagation()}>
+							<p className="new-session-title">Start a new session?</p>
+							<p className="new-session-msg">This will clear everything you've entered.</p>
+							<div className="new-session-actions">
+								<button className="new-session-cancel" onClick={() => setConfirmNew(false)}>
+									Cancel
+								</button>
+								<button className="new-session-confirm" onClick={confirmAndReset}>
+									Yes, clear it
+								</button>
+							</div>
+						</div>
 					</div>
 				)}
 			</div>
