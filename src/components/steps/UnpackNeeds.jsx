@@ -210,8 +210,8 @@ const UnpackNeeds = () => {
 				met.
 			</p>
 			<p>
-				Click on any of these need to explore more deeply. You might like to explore at least the one that's
-				loudest for you.
+				Click on any of these need to explore more deeply. You might like to explore one or more that are loud
+				for you.
 			</p>
 			<p className="cloud-label">Your needs</p>
 			<div className="pill-grid cloud needs-selected-pills">

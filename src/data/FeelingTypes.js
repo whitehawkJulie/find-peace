@@ -45,7 +45,13 @@ export const feelingTypes = {
 				id: "anger_type",
 				type: "singleChoice",
 				question: "If you feel into it, what kind of anger does this feel like right now?",
-				options: ["Hot and urgent", "Firm and clear", "Simmering / resentful", "Protective / defensive", "Not sure"],
+				options: [
+					"Hot and urgent",
+					"Firm and clear",
+					"Simmering / resentful",
+					"Protective / defensive",
+					"Not sure",
+				],
 			},
 			{
 				id: "anger_violation",
@@ -241,7 +247,7 @@ export const feelingTypes = {
 			{
 				id: "shutdown_aim",
 				type: "singleChoice",
-				question: "Would you like to aim for…",
+				question: "Would you like to aim for being…",
 				options: ["A little more present", "A little more resourced", "Just naming it is enough for now"],
 			},
 		],

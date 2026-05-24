@@ -119,7 +119,10 @@ const Feelings = () => {
 
 	return (
 		<div className="step-feelings step-container">
-			<p>Now we're going to explore how you felt when that happened, or how you're still feeling about it now.</p>
+			<p>
+				Now we're going to explore how you felt when that happened, or how you're still feeling about it now. It
+				can feel surprisingly satisying to find <em>just</em> the right words for what’s going on inside you.
+			</p>
 			<p>
 				You don’t have to get this perfect. Just notice what’s there — you might find that{" "}
 				<HelpLink topic="feelings">naming feelings</HelpLink> gives you information you didn’t realise you had.
@@ -132,7 +135,7 @@ const Feelings = () => {
 					<div className="feelings-return-questions">
 						<span>What do you notice inside you?</span>
 						<span>
-							Where do you feel it in your body?{" "}
+							It might help to notice what you feel in your body.{" "}
 							<button className="feelings-body-sens-link" onClick={() => setShowBodySensations(true)}>
 								{"Not sure? →"}
 							</button>
@@ -170,7 +173,12 @@ const Feelings = () => {
 						It can be helpful to notice if there are any feelings of relief, calm, or hope in the mix too.
 						Would you like to choose some?
 					</p>
-					<button className="feelings-met-yes-btn" onClick={() => { setShowFeelingsMet(true); setFeelingsMetShown(true); }}>
+					<button
+						className="feelings-met-yes-btn"
+						onClick={() => {
+							setShowFeelingsMet(true);
+							setFeelingsMetShown(true);
+						}}>
 						Yes, show me
 					</button>
 				</div>
@@ -235,7 +243,6 @@ const Feelings = () => {
 					onClose={() => setPopupItem(null)}
 				/>
 			)}
-
 		</div>
 	);
 };
