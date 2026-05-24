@@ -53,6 +53,7 @@ const UnpackNeeds = () => {
 					metCircumstances: "",
 					oftenUnmet: "",
 					whereToMeet: "",
+					extraAnswers: {},
 					mourningViewed: false,
 					completed: false,
 				},
@@ -75,6 +76,8 @@ const UnpackNeeds = () => {
 	const directionPrompts = currentNeedData?.directionPrompts ? Object.values(currentNeedData.directionPrompts) : [];
 	const enoughQuestion = currentNeedData?.enoughQuestion ?? null;
 	const resonantStatement = currentNeedData?.resonantStatement ?? null;
+	// Extra per-need questions (questions[] in AllNeedsFlat). Answers stored by index in extraAnswers.
+	const extraQuestions = currentNeedData?.questions ?? [];
 
 	// ── Helpers ──
 	const currentData = currentExploringNeed ? needExplorations[currentExploringNeed] || {} : {};
@@ -83,6 +86,18 @@ const UnpackNeeds = () => {
 		setNeedExplorations((prev) => ({
 			...prev,
 			[currentExploringNeed]: { ...prev[currentExploringNeed], [field]: value },
+		}));
+	};
+
+	// Answers keyed by question index (e.g. { 0: "...", 1: "..." }).
+	// Index-based: if questions[] is ever reordered for a need, existing answers will misalign.
+	const updateExtraAnswer = (index, value) => {
+		setNeedExplorations((prev) => ({
+			...prev,
+			[currentExploringNeed]: {
+				...prev[currentExploringNeed],
+				extraAnswers: { ...prev[currentExploringNeed]?.extraAnswers, [index]: value },
+			},
 		}));
 	};
 
@@ -135,6 +150,7 @@ const UnpackNeeds = () => {
 					metCircumstances: "",
 					oftenUnmet: "",
 					whereToMeet: "",
+					extraAnswers: {},
 					mourningViewed: false,
 					completed: false,
 				},
@@ -339,6 +355,18 @@ const UnpackNeeds = () => {
 										/>
 									</div>
 								)}
+
+								{extraQuestions.map((q, i) => (
+									<div className="unpacking-prompt" key={i}>
+										<p className="unpacking-prompt-text">{q}</p>
+										<textarea
+											className="unpacking-textarea"
+											rows={4}
+											value={currentData.extraAnswers?.[i] || ""}
+											onChange={(e) => updateExtraAnswer(i, e.target.value)}
+										/>
+									</div>
+								))}
 
 								<p className="unpacking-section-label">How it feels for you</p>
 

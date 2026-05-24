@@ -1,6 +1,6 @@
 import React from "react";
 import { useWizard } from "./WizardContext";
-import { filterByState } from "../utils/renderHelpers";
+import { filterByState, getNeedData } from "../utils/renderHelpers";
 import { MEET_MY_NEEDS_FIELDS, STUCK_FIELDS } from "../data/ReflectFields";
 import { feelingTypes } from "../data/FeelingTypes";
 import { storyWordSet, storyWordDataByName } from "../data/StoryWords";
@@ -328,6 +328,16 @@ const SummaryContent = () => {
 									<em>Where to get it met:</em> {exp.whereToMeet}
 								</p>
 							)}
+							{exp.extraAnswers &&
+								Object.entries(exp.extraAnswers).map(([idx, answer]) => {
+									if (!answer) return null;
+									const q = getNeedData(name)?.questions?.[Number(idx)];
+									return (
+										<p key={idx}>
+											<em>{q ?? `Question ${Number(idx) + 1}:`}</em> {answer}
+										</p>
+									);
+								})}
 						</div>
 					))}
 				</div>
