@@ -43,11 +43,23 @@ const WhereToNow = () => {
 		{
 			id: "other-person",
 			heading: "I still want something to change with the other person",
-			description:
-				"Sometimes we need to figure out how to move forward with the other person, and find a better way to interact.",
+			description: (
+				<>
+					Sometimes a simple request is enough — especially when the issue is practical, low-stakes, or
+					unlikely to affect the other person’s needs very much. <br />
+					But when something matters deeply to both people, real resolution usually comes through a deeper
+					conversation where both people’s needs are understood and worked with together.
+				</>
+			),
 			links: [
-				{ text: "I just want to ask for something specific from them", target: Requests },
-				{ text: "I need guidance in having a conversation with them about this", target: Collaborate },
+				{
+					text: "I know what I’m asking for",
+					target: Requests,
+				},
+				{
+					text: "This feels bigger and needs working through together",
+					target: Collaborate,
+				},
 			],
 		},
 		{
@@ -76,8 +88,8 @@ const WhereToNow = () => {
 					</ul>
 					<p>That does not mean you did anything wrong.</p>
 					<p>
-						It may simply mean there is still something important your system is trying to protect, understand,
-						or hold onto.
+						It may simply mean there is still something important your system is trying to protect,
+						understand, or hold onto.
 					</p>
 				</>
 			),

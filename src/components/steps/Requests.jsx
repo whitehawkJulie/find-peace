@@ -11,7 +11,7 @@ const Requests = () => {
 			<p>
 				If this is a fairly simple situation, there may be a request you'd like to make of the other person. A
 				request is basically asking whether someone would be willing to take an action that might help meet one
-				or more of your needs.
+				or more of your needs, that probably won't affect their needs negatively.
 			</p>
 			<p>
 				It helps to stay aware that no-one has to meet your needs. You're asking for willingness, not demanding
