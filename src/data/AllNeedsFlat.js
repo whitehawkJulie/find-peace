@@ -990,6 +990,27 @@ export const allNeeds = [
 		helpText: "Inherent worth and self-respect",
 	},
 	{
+		id: "self_worth",
+		label: "Self-worth",
+		family: "Meaning",
+		category: "Sense of self",
+		domain: "in_me",
+		coreQuestion:
+			"Is this about experiencing your own worth, apart from proving, pleasing, achieving, or being approved of?",
+		directionPrompts: {
+			[IN_ME]: "You might explore what it feels like to be enough, without needing to prove anything.",
+			[BETWEEN_US]:
+				"You might notice whether you’re wanting others to relate to you in a way that reflects your inherent worth.",
+		},
+		questions: [
+			"⁠What does self-worth actually feel like for you?",
+			"How do you know when you’re experiencing it?",
+			"What would it feel like to be enough, without needing to prove anything?",
+		],
+
+		helpText: "A felt sense of my own value",
+	},
+	{
 		id: "growth",
 		label: "Growth",
 		family: "Meaning",

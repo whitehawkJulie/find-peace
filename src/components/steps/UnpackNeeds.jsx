@@ -324,7 +324,11 @@ const UnpackNeeds = () => {
 									<div className="unpacking-prompt">
 										<p className="unpacking-prompt-text">{specificQ}</p>
 										{directionPrompts.length > 0 && (
-											<p className="unpacking-direction-hints">{directionPrompts.join(" · ")}</p>
+											<ul className="unpacking-direction-hints">
+												{directionPrompts.map((prompt, i) => (
+													<li key={i}>{prompt}</li>
+												))}
+											</ul>
 										)}
 										<textarea
 											className="unpacking-textarea"

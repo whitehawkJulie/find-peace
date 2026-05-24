@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useWizard } from "../WizardContext";
 import { getNeedData } from "../../utils/renderHelpers";
+import stepNavOverrides from "./stepNavOverrides";
+import Needs from "./Needs";
+import UnpackNeeds from "./UnpackNeeds";
 import "./RefineNeeds.css";
 
 // ─────────────────────────────────────────────
@@ -8,7 +11,17 @@ import "./RefineNeeds.css";
 // Shows needs where offerDeepening is present (an object with questions +
 // suggestions). User can replace the original need or keep both.
 // ─────────────────────────────────────────────
+
+// Register explicit nav so Prev always goes to Needs and Next always goes to
+// UnpackNeeds — without this, prevStepIdx (set when entering via Prev from
+// UnpackNeeds) makes both buttons point at UnpackNeeds.
+let _navRegistered = false;
+
 const RefineNeeds = () => {
+	if (!_navRegistered) {
+		_navRegistered = true;
+		stepNavOverrides.set(RefineNeeds, { prevStep: Needs, nextStep: UnpackNeeds });
+	}
 	const { needs, setNeeds, needReplacements, setNeedReplacements } = useWizard();
 
 	// { original: "Respect", replacement: "Dignity" } | null
