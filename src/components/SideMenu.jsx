@@ -156,7 +156,7 @@ const SideMenu = ({ isOpen, onClose }) => {
 											return (
 												<button
 													key={step.component?.navTitle ?? label}
-													className={`side-menu-step ${stateClass}`}
+													className={`side-menu-step ${stateClass}${step.subPageOf ? " side-menu-step--sub" : ""}`}
 													disabled={!isAccessible}
 													onClick={handleClick}
 													aria-current={isCurrent ? "page" : undefined}>

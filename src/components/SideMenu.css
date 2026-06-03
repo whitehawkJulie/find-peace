@@ -206,6 +206,17 @@
 	color: #111;
 }
 
+/* Sub-pages (branch steps under WhereToNow) — indented */
+.side-menu-step--sub {
+	padding-left: 2.25rem;
+	font-size: 0.75rem;
+}
+
+.side-menu-step--sub .side-menu-step-dot {
+	width: 6px;
+	height: 6px;
+}
+
 /* Future / locked steps — greyed out */
 .side-menu-step--unavailable {
 	color: #c0bbb4;

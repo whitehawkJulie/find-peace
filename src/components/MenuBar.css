@@ -450,12 +450,13 @@
 
 .new-session-actions {
 	display: flex;
-	gap: 0.6rem;
+	flex-direction: column;
+	gap: 0.5rem;
 	margin-top: 0.5rem;
 }
 
 .new-session-cancel {
-	flex: 1;
+	width: 100%;
 	padding: 0.55rem 0.75rem;
 	border-radius: 8px;
 	border: 1.5px solid #5a9e6d;
@@ -473,13 +474,13 @@
 	background: #f0f8f2;
 }
 
-.new-session-confirm {
-	flex: 1;
-	padding: 0.55rem 0.75rem;
+.new-session-save {
+	width: 100%;
+	padding: 0.6rem 0.75rem;
 	border-radius: 8px;
 	border: none;
-	background: #e8e0d8;
-	color: #5a4a3a;
+	background: #5a9e6d;
+	color: #fff;
 	font-size: 0.9rem;
 	font-weight: 600;
 	font-family: inherit;
@@ -488,6 +489,25 @@
 	transition: background 0.13s;
 }
 
+.new-session-save:hover {
+	background: #4a8a5d;
+}
+
+.new-session-confirm {
+	width: 100%;
+	padding: 0.4rem 0.75rem;
+	border-radius: 8px;
+	border: none;
+	background: none;
+	color: #999;
+	font-size: 0.82rem;
+	font-weight: 400;
+	font-family: inherit;
+	cursor: pointer;
+	float: none;
+	transition: color 0.13s;
+}
+
 .new-session-confirm:hover {
-	background: #d9cfc5;
+	color: #c0392b;
 }

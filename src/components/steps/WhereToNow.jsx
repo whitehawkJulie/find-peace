@@ -8,20 +8,8 @@ import MeetMyNeeds from "./MeetMyNeeds";
 import Stuck from "./Stuck";
 import OnboardingWelcome from "./OnboardingWelcome";
 import Review from "./Review";
-import stepNavOverrides from "./stepNavOverrides";
-
-// Populated on first render rather than at module scope to avoid circular-dep
-// TDZ (step components → ReflectBox → WizardContext → WhereToNow → step components).
-let _navRegistered = false;
 
 const WhereToNow = () => {
-	if (!_navRegistered) {
-		_navRegistered = true;
-		[Reflect, Requests, Collaborate, MeetMyNeeds, Stuck].forEach((C) => {
-			stepNavOverrides.set(C, { prevStep: WhereToNow, nextStep: Review });
-		});
-	}
-
 	const { visibleSteps, setStepIndex } = useWizard();
 
 	const goTo = (TargetComponent) => {

@@ -1,34 +1,51 @@
 import React, { useState } from "react";
 import { useWizard } from "./WizardContext";
 import { trackEvent, currentPage, setPendingNavMethod } from "../analytics/analytics";
-import stepNavOverrides from "./steps/stepNavOverrides";
 import "./MenuBar.css";
 
 const MenuBar = () => {
-	const { stepIndex, setStepIndex, prevStepIdx, visibleSteps, allSteps, currentStep, resetSession, hasSessionData, setShowSummary } = useWizard();
+	const {
+		stepIndex,
+		setStepIndex,
+		visibleSteps,
+		allSteps,
+		currentStep,
+		resetSession,
+		hasSessionData,
+		setShowSummary,
+		saveSession,
+	} = useWizard();
 
 	const [confirmNew, setConfirmNew] = useState(false);
 
-	const overrides = stepNavOverrides.get(currentStep?.component);
-	const prevIdx = overrides
-		? visibleSteps.findIndex((s) => s.component === overrides.prevStep)
-		: prevStepIdx !== null ? prevStepIdx : stepIndex - 1;
-	const nextIdx = overrides
-		? visibleSteps.findIndex((s) => s.component === overrides.nextStep)
+	const subPageOf = currentStep?.subPageOf;
+	const prevIdx = subPageOf ? visibleSteps.findIndex((s) => s.component === subPageOf) : stepIndex - 1;
+	const nextIdx = subPageOf
+		? visibleSteps.reduce((last, s, i) => (s.subPageOf === subPageOf ? i : last), -1) + 1
 		: stepIndex + 1;
 
 	const hasPrev = prevIdx >= 0;
 	const hasNext = nextIdx >= 0 && nextIdx < visibleSteps.length;
 
-	const goToPrevious = () => { if (hasPrev) { setPendingNavMethod("button"); setStepIndex(prevIdx); } };
-	const goToNext    = () => { if (hasNext)  { setPendingNavMethod("button"); setStepIndex(nextIdx); } };
+	const goToPrevious = () => {
+		if (hasPrev) {
+			setPendingNavMethod("button");
+			setStepIndex(prevIdx);
+		}
+	};
+	const goToNext = () => {
+		if (hasNext) {
+			setPendingNavMethod("button");
+			setStepIndex(nextIdx);
+		}
+	};
 
-	const prevTitle = hasPrev ? (visibleSteps[prevIdx]?.component?.navTitle || "") : "";
-	const nextTitle = hasNext ? (visibleSteps[nextIdx]?.component?.navTitle || "") : "";
+	const prevTitle = hasPrev ? visibleSteps[prevIdx]?.component?.navTitle || "" : "";
+	const nextTitle = hasNext ? visibleSteps[nextIdx]?.component?.navTitle || "" : "";
 
 	// Base progress on allSteps so the bar doesn't jump when conditional steps appear
 	const allStepIndex = allSteps.findIndex((s) => s.component === currentStep?.component);
-	const progressPct  = allSteps.length > 1 ? (allStepIndex / (allSteps.length - 1)) * 100 : 100;
+	const progressPct = allSteps.length > 1 ? (allStepIndex / (allSteps.length - 1)) * 100 : 100;
 
 	const handleNewSession = () => {
 		if (hasSessionData()) {
@@ -41,6 +58,13 @@ const MenuBar = () => {
 
 	const confirmAndReset = () => {
 		trackEvent("action", { action_name: "new_session", page_name: currentPage });
+		resetSession();
+		setConfirmNew(false);
+	};
+
+	const saveAndReset = async () => {
+		await saveSession();
+		trackEvent("action", { action_name: "save_and_new_session", page_name: currentPage });
 		resetSession();
 		setConfirmNew(false);
 	};
@@ -72,8 +96,7 @@ const MenuBar = () => {
 					className="nav-summary-btn"
 					onClick={() => setShowSummary(true)}
 					title="View Summary"
-					aria-label="View Summary"
-				>
+					aria-label="View Summary">
 					<span className="nav-summary-icon">📋</span>
 					<span className="nav-summary-label">Summary</span>
 				</button>
@@ -97,15 +120,20 @@ const MenuBar = () => {
 
 				{confirmNew && (
 					<div className="new-session-backdrop" onClick={() => setConfirmNew(false)}>
-						<div className="new-session-dialog" onClick={e => e.stopPropagation()}>
+						<div className="new-session-dialog" onClick={(e) => e.stopPropagation()}>
 							<p className="new-session-title">Start a new session?</p>
-							<p className="new-session-msg">This will clear everything you've entered.</p>
+							<p className="new-session-msg">Would you like to save your existing selections first?</p>
 							<div className="new-session-actions">
+								{hasSessionData() && (
+									<button className="new-session-save" onClick={saveAndReset}>
+										💾 Save & start new
+									</button>
+								)}
 								<button className="new-session-cancel" onClick={() => setConfirmNew(false)}>
 									Cancel
 								</button>
 								<button className="new-session-confirm" onClick={confirmAndReset}>
-									Yes, clear it
+									Restart without saving
 								</button>
 							</div>
 						</div>

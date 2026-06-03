@@ -108,18 +108,16 @@ export const WizardProvider = ({ children }) => {
 		{ component: MakingGuesses, group: "them", color: "#6E9B6A", icon: theirViewIcon },
 		// { component: RequestFormulation },
 		{ component: WhereToNow,  group: "next", color: "#7A9E5A", icon: conversationsIcon },
-		{ component: Reflect,     group: "next", color: "#7A9E5A", icon: whatsChangedIcon },
-		{ component: Requests,    group: "next", color: "#7A9E5A", icon: conversationsIcon },
-		{ component: Collaborate, group: "next", color: "#7A9E5A", icon: conversationsIcon },
-		{ component: MeetMyNeeds, group: "next", color: "#7A9E5A", icon: conversationsIcon },
-		{ component: Stuck,       group: "next", color: "#7A9E5A", icon: conversationsIcon },
+		{ component: Reflect,     group: "next", color: "#7A9E5A", icon: whatsChangedIcon,    subPageOf: WhereToNow },
+		{ component: Requests,    group: "next", color: "#7A9E5A", icon: conversationsIcon,   subPageOf: WhereToNow },
+		{ component: Collaborate, group: "next", color: "#7A9E5A", icon: conversationsIcon,   subPageOf: WhereToNow },
+		{ component: MeetMyNeeds, group: "next", color: "#7A9E5A", icon: conversationsIcon,   subPageOf: WhereToNow },
+		{ component: Stuck,       group: "next", color: "#7A9E5A", icon: conversationsIcon,   subPageOf: WhereToNow },
 		{ component: Review,      group: "next", color: "#7A9E5A", icon: reviewIcon },
 	], []); // eslint-disable-line react-hooks/exhaustive-deps
 	// App-wide state
 	const [stepIndex, setStepIndexRaw] = useState(0);
-	const prevStepIdxRef = useRef(null);
 	const setStepIndex = (newIdx) => {
-		prevStepIdxRef.current = stepIndex;
 		setStepIndexRaw(newIdx);
 	};
 	const [jackalTalk, setJackalTalk] = useState("");
@@ -417,7 +415,6 @@ export const WizardProvider = ({ children }) => {
 		setReviewReflection(session.reviewReflection || "");
 		setReflectResponsesRaw(session.reflectResponses || session.meetMyNeedsResponses || {});
 		const firstMainIdx = visibleSteps.findIndex((s) => s.group === "happened");
-		prevStepIdxRef.current = null;
 		setStepIndexRaw(firstMainIdx >= 0 ? firstMainIdx : 0);
 	};
 
@@ -425,7 +422,6 @@ export const WizardProvider = ({ children }) => {
 	const resetSession = () => {
 		dirtyRef.current = false;
 		setLoadedId(null);
-		prevStepIdxRef.current = null;
 		setStepIndexRaw(0);
 		setJackalTalk("");
 		setObservation({ moment: "", actions: "", camera: "", refined: "" });
@@ -489,7 +485,6 @@ export const WizardProvider = ({ children }) => {
 	const value = {
 		stepIndex,
 		setStepIndex,
-		prevStepIdx: prevStepIdxRef.current,
 		jackalTalk,
 		setJackalTalk,
 		observation,
