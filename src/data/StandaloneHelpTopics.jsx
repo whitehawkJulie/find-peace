@@ -1261,14 +1261,14 @@ const StandaloneHelpTopics = [
 	},
 
 	{
-		id: "bob-mandell",
+		id: "bob-mandel",
 		active: true,
-		title: "Bob Mandell's Exercise",
+		title: "Bob Mandel's Exercise",
 		content: (
 			<>
 				<h3>Integrating something you'd like to believe</h3>
 				<p>
-					This exercise, developed by Bob Mandell in his 1984 book "Open Heart Therapy", helps you work with a
+					This exercise, developed by Bob Mandel in his 1984 book "Open Heart Therapy", helps you work with a
 					belief you'd like to hold about yourself — one that feels true but not yet fully integrated.
 				</p>
 				<h3>How to do it</h3>

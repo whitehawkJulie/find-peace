@@ -96,8 +96,8 @@ const WhereToNow = () => {
 			intro: "Sometimes, our existing beliefs get in the way of having more choice in our lives. For example, I might see myself as someone who just doesn't get a lot of love. Questioning these beliefs can be powerful, and the following two processes are the most powerful way I know to do that.",
 			helpLinks: [
 				{
-					text: "Bob Mandell's exercise",
-					topic: "bob-mandell",
+					text: "Bob Mandel's exercise",
+					topic: "bob-mandel",
 					description: "Integrate something you'd like to believe.",
 				},
 				{
@@ -122,22 +122,24 @@ const WhereToNow = () => {
 					<h3 className="where-to-now-heading">{heading}</h3>
 					{intro && <div className="where-to-now-desc">{intro}</div>}
 					<div className="where-to-now-links">
-						{links && links.map(({ text, target, description }) => (
-							<div key={text} className="where-to-now-link-item">
-								{description && <p className="where-to-now-link-desc">{description}</p>}
-								<button className="where-to-now-link" onClick={() => goTo(target)}>
-									{text} →
-								</button>
-							</div>
-						))}
-						{helpLinks && helpLinks.map(({ text, topic, description }) => (
-							<div key={text} className="where-to-now-link-item">
-								{description && <p className="where-to-now-link-desc">{description}</p>}
-								<button className="where-to-now-link" onClick={() => openHelpTopic(topic)}>
-									{text} →
-								</button>
-							</div>
-						))}
+						{links &&
+							links.map(({ text, target, description }) => (
+								<div key={text} className="where-to-now-link-item">
+									{description && <p className="where-to-now-link-desc">{description}</p>}
+									<button className="where-to-now-link" onClick={() => goTo(target)}>
+										{text} →
+									</button>
+								</div>
+							))}
+						{helpLinks &&
+							helpLinks.map(({ text, topic, description }) => (
+								<div key={text} className="where-to-now-link-item">
+									{description && <p className="where-to-now-link-desc">{description}</p>}
+									<button className="where-to-now-link" onClick={() => openHelpTopic(topic)}>
+										{text} →
+									</button>
+								</div>
+							))}
 					</div>
 				</div>
 			))}
