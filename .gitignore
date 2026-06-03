@@ -25,3 +25,4 @@ backups
 *.sw?
 _archive/
 .claude/
+.env
