@@ -26,7 +26,7 @@ const OnboardingWelcome = () => {
 		<div className="step-onboarding step-container">
 			<div className="intro-scene">
 				<div className="intro-person-col" aria-hidden="true">
-					<img src="./head-and-shoulders.png" alt="" className="intro-person-img" />
+					<img src="/images/head-and-shoulders.png" alt="" className="intro-person-img" />
 				</div>
 				<div className="intro-bubbles-col">
 					<div className="intro-bubble-row">

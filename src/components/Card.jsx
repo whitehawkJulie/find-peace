@@ -185,7 +185,7 @@ const Card = ({ title, children, hideNav = false }) => {
 						<>
 							<div className="untangle-logo-wrap">
 								<img
-									src="./untangle-trans-sm.png"
+									src="/images/untangle-trans-sm.png"
 									alt="Untangle This"
 									className="untangle-logo"
 									style={{ width: "100%" }}
