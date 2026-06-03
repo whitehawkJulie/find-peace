@@ -7,7 +7,7 @@ import { trackEvent, currentPage } from "../../analytics/analytics";
 import DismissibleHint from "../DismissibleHint";
 import ImportanceBanner from "../ImportanceBanner";
 import AudioPlayer from "../AudioPlayer";
-import meditationAudio from "../../assets/Beauty_of_need.mp3";
+const meditationAudio = "/audio/Beauty_of_need.mp3";
 import Pill from "../Pill";
 import { needMeaningByLabel } from "../../data/AllNeedsData";
 import "./UnpackNeeds.css";

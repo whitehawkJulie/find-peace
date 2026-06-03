@@ -1,5 +1,5 @@
 import AudioPlayer from "../components/AudioPlayer";
-import itsok from "../assets/itsok.mp3";
+const itsok = "/audio/itsok.mp3";
 
 // Standalone help topics — not tied to any specific step/page.
 // Each entry: { id, active, title, content (JSX) }

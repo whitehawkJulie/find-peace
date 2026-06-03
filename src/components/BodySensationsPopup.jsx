@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { trackEvent, currentPage } from "../analytics/analytics";
 import { bodySensationGroups } from "../data/BodySensationsData";
 import AudioPlayer from "./AudioPlayer";
-import BodyScanAudio from "../assets/BodyScan.mp3";
+const BodyScanAudio = "/audio/BodyScan.mp3";
 import { useScrollIndicator } from "../hooks/useScrollIndicator";
 import "./BodySensationsPopup.css";
 import "./popup-scroll.css";
