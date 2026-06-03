@@ -1260,6 +1260,116 @@ const StandaloneHelpTopics = [
 		),
 	},
 
+	{
+		id: "bob-mandell",
+		active: true,
+		title: "Bob Mandell's Exercise",
+		content: (
+			<>
+				<h3>Integrating something you'd like to believe</h3>
+				<p>
+					This exercise, developed by Bob Mandell in his 1984 book "Open Heart Therapy", helps you work with a
+					belief you'd like to hold about yourself — one that feels true but not yet fully integrated.
+				</p>
+				<h3>How to do it</h3>
+				<ol>
+					<li>
+						Grab a piece of paper, and put a line down the middle. This exercise works best by writing, not
+						a digital format.
+					</li>
+					<li>
+						<strong>Choose a belief you'd like to integrate.</strong> Something like "I am lovable", "I
+						deserve rest", or "I am enough." It should feel a little out of reach — not impossible, but not
+						fully believed yet.
+					</li>
+					<li>Write your chosen belief at the top of the left-hand column.</li>
+					<li>
+						<strong>Notice what comes up as you write it,</strong> and write that in the right-hand column.
+						It could be a thought, a feeling, a body sensation, anything. What do you notice? Resistance,
+						doubt, feeling sick, a quiet "yes but"? Just notice without judgment. If nothing comes up, you
+						can just write "nothing".
+					</li>
+					<li>
+						Now, keep repeating the process, alternating between the left and right columns. Make sure you
+						write the desired belief out in full, each time, it's really important.
+					</li>
+					<li>Keep going until the only automatic response that arises is "yes".</li>
+				</ol>
+				<p>
+					You can put this exercise down at any time, and come back to it later - just make sure the final
+					thing you write is the desired belief, and leave the right-hand column blank this time. When you're
+					ready to start again, start by writing the belief on a new line, and continue as above.
+				</p>
+				<p>
+					I've done this process where it's taken a few minutes, and others that I needed to keep coming back
+					to over several months. It's shifted things for me that I wouldn't have believed possible.
+				</p>
+			</>
+		),
+	},
+
+	{
+		id: "byron-katie",
+		active: true,
+		title: "Byron Katie's 4 Questions",
+		content: (
+			<>
+				<h3>Questioning a belief that's causing suffering</h3>
+				<p>
+					Byron Katie developed a process called "The Work" — four simple questions that help you examine
+					whether a painful thought you're holding is actually true, and what happens when you question it.
+				</p>
+				<p>
+					This is especially useful when you keep thinking about something someone did, or a story that keeps
+					repeating: "He should have listened", "She doesn't care", "I ruined it."
+				</p>
+				<h3>The four questions</h3>
+				<p>Start with a specific thought that's causing you pain. Hold it clearly in mind, then ask:</p>
+				<ol>
+					<li>
+						<strong>Is it true?</strong>
+						<br />
+						(Yes or no. If no, move to question 3.)
+					</li>
+					<li>
+						<strong>Can you absolutely know that it's true?</strong>
+						<br />
+						With 100% certainty?
+					</li>
+					<li>
+						<strong>How do you react — what happens — when you believe that thought?</strong>
+						<br />
+						What do you feel? What do you do? How do you treat yourself and others when you hold that
+						belief?
+					</li>
+					<li>
+						<strong>Who would you be without that thought?</strong>
+						<br />
+						In the same situation, with the same people — who would you be if you simply didn't have that
+						thought?
+					</li>
+				</ol>
+				<h3>The turnaround</h3>
+				<p>
+					After the four questions, find the opposite of the original thought — the "turnaround" — and look
+					for three genuine ways it might be as true or truer than the original.
+				</p>
+				<p>
+					For example: "He should listen to me" might turn around to "I should listen to me", "I should listen
+					to him", or "He shouldn't listen to me." These aren't meant to dismiss your pain — they're
+					invitations to look with fresh eyes.
+				</p>
+				<p>
+					You can learn more at{" "}
+					<a href="https://thework.com" target="_blank" rel="noopener noreferrer">
+						thework.com
+					</a>
+					.
+				</p>
+			</>
+		),
+	},
+
 	// {
 	// 	id: "empathy",
 	// 	title: "Empathy",

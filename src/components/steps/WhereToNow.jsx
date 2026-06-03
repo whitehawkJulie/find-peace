@@ -10,7 +10,7 @@ import OnboardingWelcome from "./OnboardingWelcome";
 import Review from "./Review";
 
 const WhereToNow = () => {
-	const { visibleSteps, setStepIndex } = useWizard();
+	const { visibleSteps, setStepIndex, openHelpTopic } = useWizard();
 
 	const goTo = (TargetComponent) => {
 		const idx = visibleSteps.findIndex((s) => s.component === TargetComponent);
@@ -90,6 +90,23 @@ const WhereToNow = () => {
 				{ text: "Start again", target: OnboardingWelcome },
 			],
 		},
+		{
+			id: "other-tools",
+			heading: "Perhaps I need a different process for this",
+			intro: "Sometimes, our existing beliefs get in the way of having more choice in our lives. For example, I might see myself as someone who just doesn't get a lot of love. Questioning these beliefs can be powerful, and the following two processes are the most powerful way I know to do that.",
+			helpLinks: [
+				{
+					text: "Bob Mandell's exercise",
+					topic: "bob-mandell",
+					description: "Integrate something you'd like to believe.",
+				},
+				{
+					text: "Byron Katie's 4 Questions",
+					topic: "byron-katie",
+					description: "Question a belief that's causing you suffering.",
+				},
+			],
+		},
 	];
 
 	return (
@@ -100,15 +117,23 @@ const WhereToNow = () => {
 				more questions. There are a few common next steps, depending on how you're feeling and what you want to
 				do.
 			</p>
-			{options.map(({ id, heading, intro, links }) => (
+			{options.map(({ id, heading, intro, links, helpLinks }) => (
 				<div key={id} className="where-to-now-option guesses-section">
 					<h3 className="where-to-now-heading">{heading}</h3>
 					{intro && <div className="where-to-now-desc">{intro}</div>}
 					<div className="where-to-now-links">
-						{links.map(({ text, target, description }) => (
+						{links && links.map(({ text, target, description }) => (
 							<div key={text} className="where-to-now-link-item">
 								{description && <p className="where-to-now-link-desc">{description}</p>}
 								<button className="where-to-now-link" onClick={() => goTo(target)}>
+									{text} →
+								</button>
+							</div>
+						))}
+						{helpLinks && helpLinks.map(({ text, topic, description }) => (
+							<div key={text} className="where-to-now-link-item">
+								{description && <p className="where-to-now-link-desc">{description}</p>}
+								<button className="where-to-now-link" onClick={() => openHelpTopic(topic)}>
 									{text} →
 								</button>
 							</div>
