@@ -5,8 +5,8 @@
 .importance-banner {
 	margin: -1.25rem -1.25rem 0;
 	padding: 1rem 1.25rem;
-	background: #eef5ee;
-	border-bottom: 1px solid #c5d9bc;
+	background: #f0f0f0;
+	border-bottom: 1px solid #d8d8d8;
 	display: flex;
 	align-items: center;
 	gap: 0.6rem;
@@ -16,8 +16,8 @@
 .importance-banner-tag {
 	display: inline-block;
 	padding: 0.15rem 0.55rem;
-	background: #c5d9bc;
-	color: #2e5236;
+	background: #d8d8d8;
+	color: #444;
 	font-size: 0.72rem;
 	font-weight: 700;
 	letter-spacing: 0.06em;
@@ -29,7 +29,7 @@
 
 .importance-banner-text {
 	font-size: 0.85rem;
-	color: #4a6a52;
+	color: #555;
 	font-style: italic;
 	line-height: 1.4;
 }

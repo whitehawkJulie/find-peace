@@ -7,11 +7,11 @@ import "./Onboarding.css";
 // ── Main step component ────────────────────────────────────────────────────
 
 const STEP_LINKS = [
-	{ icon: "👁", label: "What happened", sub: "just the facts", navTitle: "Let's get clear" },
-	{ icon: "💧", label: "What you felt", sub: "how it landed in you", navTitle: "What am I feeling?" },
-	{ icon: "❤️", label: "What mattered", sub: "your needs", navTitle: "What matters to me?" },
-	{ icon: "🔍", label: "What may be going on for them", sub: "widen the picture", navTitle: "Their View" },
-	{ icon: "🌱", label: "What to do next", sub: "find a way forward", navTitle: "What next?" },
+	{ icon: "👁",  label: "What happened",               sub: "just the facts",       navTitle: "Let's get clear",      color: "#a07820" },
+	{ icon: "💧", label: "What you felt",                sub: "how it landed in you", navTitle: "What am I feeling?",   color: "#9e4466" },
+	{ icon: "❤️", label: "What mattered",               sub: "your needs",            navTitle: "What matters to me?",  color: "#3a72a0" },
+	{ icon: "🔍", label: "What may be going on for them", sub: "widen the picture",   navTitle: "Their View",           color: "#6d5870" },
+	{ icon: "🌱", label: "What to do next",              sub: "find a way forward",   navTitle: "What next?",           color: "#5a8a4a" },
 ];
 
 const OnboardingWelcome = () => {
@@ -64,15 +64,15 @@ const OnboardingWelcome = () => {
 				<p className="process-intro">Here's what we'll go through together:</p>
 
 				<ul className="process-steps">
-					{STEP_LINKS.map(({ icon, label, sub, navTitle }) => (
+					{STEP_LINKS.map(({ icon, label, sub, navTitle, color }) => (
 						<li key={label}>
 							<button
 								className="intro-step-link"
 								onClick={() => navigateTo(navTitle)}
 								aria-label={`Go to ${label}`}>
-								<span className="icon">{icon}</span>
+								<span className="icon" style={{ background: `${color}22`, color }}>{icon}</span>
 								<div>
-									<strong>{label}</strong>
+									<strong style={{ color }}>{label}</strong>
 									<div className="sub">{sub}</div>
 								</div>
 							</button>

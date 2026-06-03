@@ -5,14 +5,22 @@ import SavedEntries from "./SavedEntries";
 import "./SideMenu.css";
 
 const GROUP_LABELS = {
-	intro:    "",
-	happened: "👁 What happened",
-	felt:     "💧 What you felt",
-	mattered: "❤️ What mattered",
-	them:     "🔍 What may be going on for them",
-	next:     "🌱 What to do next",
+	intro: "",
+	observation: "👁 What happened (Observation)",
+	feelings: "💧 What you felt (Feelings)",
+	needs: "❤️ What mattered (Needs)",
+	them: "🔍 What may be going on for them",
+	requests: "🌱 What to do next",
+	review: "",
 };
-const GROUPS = ["intro", "happened", "felt", "mattered", "them", "next"];
+const GROUP_COLORS = {
+	observation: "#a07820",
+	feelings:    "#9e4466",
+	needs:       "#3a72a0",
+	them:        "#6d5870", // midpoint of the gradient — purple-ish
+	requests:    "#5a8a4a",
+};
+const GROUPS = ["intro", "observation", "feelings", "needs", "them", "requests", "review"];
 
 const SideMenu = ({ isOpen, onClose }) => {
 	const {
@@ -132,8 +140,23 @@ const SideMenu = ({ isOpen, onClose }) => {
 								const groupSteps = allSteps.filter((s) => s.group === group);
 								if (groupSteps.length === 0) return null;
 								return (
-									<div key={group} className="side-menu-group">
-										{GROUP_LABELS[group] && <div className="side-menu-group-heading">{GROUP_LABELS[group]}</div>}
+									<div
+										key={group}
+										className="side-menu-group"
+										style={GROUP_COLORS[group] ? {
+											background: `${GROUP_COLORS[group]}12`,
+											borderLeft: `3px solid ${GROUP_COLORS[group]}50`,
+										} : {
+											background: 'rgba(0,0,0,0.055)',
+											borderLeft: '3px solid rgba(0,0,0,0.15)',
+										}}>
+										{GROUP_LABELS[group] && (
+											<div
+												className="side-menu-group-heading"
+												style={GROUP_COLORS[group] ? { color: GROUP_COLORS[group] } : undefined}>
+												{GROUP_LABELS[group]}
+											</div>
+										)}
 										{groupSteps.map((step) => {
 											const visIdx = visibleSteps.findIndex(
 												(s) => s.component === step.component,

@@ -4,20 +4,26 @@
    ============================================================ */
 
 :root {
-	/* ── Feelings (clear blue — distinct from the warm-neutral popup headers) ── */
-	--feelings-cloud-start: #f0f8ff;
-	--feelings-cloud-end: #cfe8ff;
-	--feelings-cloud-shadow: rgba(140, 195, 255, 0.45);
-	--feelings-pill-selected: #b8d8f8;
-	--feelings-pill-strong: #90c0f0;
+	/* ── NVC group accent colors ── */
+	--nvc-observation: #a07820;
+	--nvc-feelings: #9e4466;
+	--nvc-needs: #3a72a0;
 
-	/* ── Needs (warm leafy green — distinct from sage app chrome) ── */
-	--needs-header-bg: #ddeecb; /* unified header bg for all 4 needs sections */
-	--needs-cloud-start: #f2f9eb;
-	--needs-cloud-end: #d4ecc4;
-	--needs-cloud-shadow: rgba(140, 195, 120, 0.45);
-	--needs-pill-selected: #bcdda0;
-	--needs-pill-strong: #9dcc7a;
+	/* ── Feelings (rose/pink — NVC tradition) ── */
+	--feelings-cloud-start: #fdf0f5;
+	--feelings-cloud-end: #f0cedc;
+	--feelings-cloud-shadow: rgba(200, 110, 150, 0.35);
+	--feelings-pill-selected: #e8b0c8;
+	--feelings-pill-strong: #d490b0;
+	--feelings-header-bg: #f5dce6;
+
+	/* ── Needs (slate blue — NVC tradition) ── */
+	--needs-header-bg: #ccddf0; /* unified header bg for all 4 needs sections */
+	--needs-cloud-start: #f0f5fc;
+	--needs-cloud-end: #c8dcf2;
+	--needs-cloud-shadow: rgba(100, 160, 220, 0.35);
+	--needs-pill-selected: #a8c8e8;
+	--needs-pill-strong: #88b0d8;
 
 	/* ── Popup / overlay headers (warm neutral — no blue, no green) ── */
 	--popup-header-bg: #f0ede8;

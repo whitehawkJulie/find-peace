@@ -11,32 +11,14 @@
 	line-height: 1.5;
 }
 
-/* Feelings checklist sections: force blue across all category variants */
-.making-guesses .guesses-section--feelings .category-header {
-	background-color: #daeeff;
-}
-
-.making-guesses .guesses-section--feelings .category {
-	--body-bg: #f0f7ff;
-}
-
-/* Needs checklist sections: force green across all category variants */
-.making-guesses .guesses-section--needs .category-header {
-	background-color: var(--needs-header-bg);
-}
-
-.making-guesses .guesses-section--needs .category {
-	--body-bg: #f7faf4;
-}
-
-
+/* Observation section — gold */
 .guesses-section {
 	display: flex;
 	flex-direction: column;
 	gap: 0.6rem;
-	background: #f4f7f5;
+	background: #fdf8ee;
 	border-radius: 10px;
-	border-left: 4px solid #7ab89a;
+	border-left: 4px solid var(--nvc-observation);
 	padding: 1rem 1.1rem 1.1rem;
 	margin-top: 1.5rem;
 }
@@ -44,7 +26,49 @@
 .guesses-section h2 {
 	margin: 0;
 	font-size: 1.05rem;
-	color: #2e5c46;
+	color: var(--nvc-observation);
+}
+
+/* Feelings section — rose */
+.guesses-section--feelings {
+	background: #fdf3f6;
+	border-left-color: var(--nvc-feelings);
+}
+
+.guesses-section--feelings h2 {
+	color: var(--nvc-feelings);
+}
+
+.making-guesses .guesses-section--feelings .category-header {
+	background-color: var(--feelings-header-bg);
+}
+.making-guesses .guesses-section--feelings .category-header h3 {
+	color: var(--nvc-feelings);
+}
+
+.making-guesses .guesses-section--feelings .category {
+	--body-bg: #fdf0f5;
+}
+
+/* Needs section — blue */
+.guesses-section--needs {
+	background: #f0f5fc;
+	border-left-color: var(--nvc-needs);
+}
+
+.guesses-section--needs h2 {
+	color: var(--nvc-needs);
+}
+
+.making-guesses .guesses-section--needs .category-header {
+	background-color: var(--needs-header-bg);
+}
+.making-guesses .guesses-section--needs .category-header h3 {
+	color: var(--nvc-needs);
+}
+
+.making-guesses .guesses-section--needs .category {
+	--body-bg: #f0f5fc;
 }
 
 .guesses-textarea {

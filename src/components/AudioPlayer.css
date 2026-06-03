@@ -1,8 +1,8 @@
 /* ===== Audio Player ===== */
 
 .audio-player {
-	background: rgba(90, 158, 109, 0.08);
-	border: 1px solid rgba(90, 158, 109, 0.2);
+	background: rgba(58, 114, 160, 0.07);
+	border: 1px solid rgba(58, 114, 160, 0.2);
 	border-radius: 12px;
 	padding: 0.85rem 1rem;
 	margin: 0.75rem 0 1.25rem;
@@ -11,7 +11,7 @@
 .audio-player-title {
 	font-size: 0.9rem;
 	font-weight: 600;
-	color: #3d6b4a;
+	color: var(--nvc-needs);
 	margin: 0 0 0.2rem;
 }
 
@@ -34,7 +34,7 @@
 	width: 2.2rem;
 	height: 2.2rem;
 	border-radius: 50%;
-	background: #5a9e6d;
+	background: var(--nvc-needs);
 	border: none;
 	color: white;
 	font-size: 0.85rem;
@@ -49,7 +49,7 @@
 }
 
 .audio-player-btn:hover {
-	background: #4d8a5e;
+	background: #305e88;
 }
 
 .audio-player-btn:active {
@@ -67,13 +67,13 @@
 .audio-player-bar {
 	position: relative;
 	height: 4px;
-	background: rgba(90, 158, 109, 0.2);
+	background: rgba(58, 114, 160, 0.2);
 	border-radius: 999px;
 }
 
 .audio-player-fill {
 	height: 100%;
-	background: #5a9e6d;
+	background: var(--nvc-needs);
 	border-radius: 999px;
 	transition: width 0.1s linear;
 }
@@ -85,7 +85,7 @@
 	width: 10px;
 	height: 10px;
 	border-radius: 50%;
-	background: #5a9e6d;
+	background: var(--nvc-needs);
 	transition: left 0.1s linear;
 }
 

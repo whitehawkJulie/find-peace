@@ -190,7 +190,7 @@
 	background: #f7f5f2;
 	border: none;
 	font-size: 0.9rem;
-	color: #444;
+	color: var(--nvc-feelings);
 	cursor: pointer;
 	display: flex;
 	justify-content: space-between;

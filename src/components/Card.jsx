@@ -9,6 +9,14 @@ import { useOverlayHistory } from "../hooks/useOverlayHistory";
 import { trackEvent, setPendingNavMethod, currentPage } from "../analytics/analytics";
 import "./Card.css";
 
+const GROUP_DISPLAY = {
+	observation: "Observation",
+	feelings: "Feelings",
+	needs: "Needs",
+	them: "For Them",
+	requests: "Requests",
+};
+
 const Card = ({ title, children, hideNav = false }) => {
 	const {
 		hideMainNav,
@@ -160,6 +168,9 @@ const Card = ({ title, children, hideNav = false }) => {
 		<div className="card">
 			{/* Header sits outside the scrollable area so it stays pinned at the top */}
 			<div className="card-header" style={currentStep?.color ? { background: currentStep.color } : undefined}>
+				{currentStep?.group && currentStep.group !== "intro" && currentStep.group !== "review" && (
+					<span className="card-group-label">{GROUP_DISPLAY[currentStep.group] ?? currentStep.group}</span>
+				)}
 				<button
 					className="card-menu-btn"
 					title="Menu"

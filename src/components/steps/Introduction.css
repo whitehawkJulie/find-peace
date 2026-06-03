@@ -192,7 +192,7 @@
 	top: 8px;
 	bottom: 8px;
 	width: 2px;
-	background: #cfe5dc;
+	background: linear-gradient(to bottom, #a07820, #9e4466, #3a72a0, #6d5870, #5a8a4a);
 }
 
 .process-steps li {
@@ -210,7 +210,6 @@
 	width: 28px;
 	height: 28px;
 	border-radius: 50%;
-	background: #edf7f3;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -221,7 +220,6 @@
 
 .process-steps strong {
 	font-size: 0.9rem;
-	color: #31473fcf;
 }
 
 .sub {

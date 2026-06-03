@@ -65,59 +65,61 @@ export const WizardProvider = ({ children }) => {
 	// circular-dependency TDZ errors during Vite HMR (WizardContext imports step
 	// components which in turn import useWizard from WizardContext).
 	const allSteps = useMemo(() => [
-		{ component: OnboardingWelcome, group: "intro", color: "#5F8F82", icon: introIcon },
+		{ component: OnboardingWelcome, group: "intro",       color: "#5F8F82",                                                                        icon: introIcon },
 		{
 			component: Observation,
-			group: "happened",
-			color: "#5F8F82",
+			group: "observation",
+			color: "#a07820",
 			icon: observationIcon,
 		},
-		{ component: ObservationClarify, group: "happened", color: "#5F8F82", icon: observationIcon },
+		{ component: ObservationClarify, group: "observation", color: "#a07820", icon: observationIcon },
 		{
 			component: Feelings,
-			group: "felt",
-			color: "#5F8F82",
+			group: "feelings",
+			color: "#9e4466",
 			icon: feelingsIcon,
 		},
 		{
 			component: UnpackFeelings,
-			group: "felt",
-			color: "#5F8F82",
+			group: "feelings",
+			color: "#9e4466",
 			icon: exploreFeelingsIcon,
 		},
 		{
 			component: Needs,
-			group: "mattered",
-			color: "#6E9B6A",
+			group: "needs",
+			color: "#3a72a0",
 			icon: needsIcon,
 		},
 		{
 			component: RefineNeeds,
-			group: "mattered",
-			color: "#6E9B6A",
+			group: "needs",
+			color: "#3a72a0",
 			icon: exploreNeedIcon,
 			condition: ({ needs }) =>
 				needs && Object.keys(needs).some((name) => needOfferDeepeningMap[name]),
 		},
 		{
 			component: UnpackNeeds,
-			group: "mattered",
-			color: "#6E9B6A",
+			group: "needs",
+			color: "#3a72a0",
 			icon: exploreNeedIcon,
 		},
-		{ component: MakingGuesses, group: "them", color: "#6E9B6A", icon: theirViewIcon },
+		{ component: MakingGuesses, group: "them",        color: "linear-gradient(135deg, #a07820 0%, #9e4466 50%, #3a72a0 100%)", icon: theirViewIcon },
 		// { component: RequestFormulation },
-		{ component: WhereToNow,  group: "next", color: "#7A9E5A", icon: conversationsIcon },
-		{ component: Reflect,     group: "next", color: "#7A9E5A", icon: whatsChangedIcon,    subPageOf: WhereToNow },
-		{ component: Requests,    group: "next", color: "#7A9E5A", icon: conversationsIcon,   subPageOf: WhereToNow },
-		{ component: Collaborate, group: "next", color: "#7A9E5A", icon: conversationsIcon,   subPageOf: WhereToNow },
-		{ component: MeetMyNeeds, group: "next", color: "#7A9E5A", icon: conversationsIcon,   subPageOf: WhereToNow },
-		{ component: Stuck,       group: "next", color: "#7A9E5A", icon: conversationsIcon,   subPageOf: WhereToNow },
-		{ component: Review,      group: "next", color: "#7A9E5A", icon: reviewIcon },
+		{ component: WhereToNow,  group: "requests", color: "#5a8a4a", icon: conversationsIcon },
+		{ component: Reflect,     group: "requests", color: "#5a8a4a", icon: whatsChangedIcon,    subPageOf: WhereToNow },
+		{ component: Requests,    group: "requests", color: "#5a8a4a", icon: conversationsIcon,   subPageOf: WhereToNow },
+		{ component: Collaborate, group: "requests", color: "#5a8a4a", icon: conversationsIcon,   subPageOf: WhereToNow },
+		{ component: MeetMyNeeds, group: "requests", color: "#5a8a4a", icon: conversationsIcon,   subPageOf: WhereToNow },
+		{ component: Stuck,       group: "requests", color: "#5a8a4a", icon: conversationsIcon,   subPageOf: WhereToNow },
+		{ component: Review,      group: "review",   color: "#5F8F82", icon: reviewIcon },
 	], []); // eslint-disable-line react-hooks/exhaustive-deps
 	// App-wide state
 	const [stepIndex, setStepIndexRaw] = useState(0);
+	const [prevStepIndex, setPrevStepIndex] = useState(null);
 	const setStepIndex = (newIdx) => {
+		setPrevStepIndex((prev) => (prev !== newIdx ? stepIndex : prev));
 		setStepIndexRaw(newIdx);
 	};
 	const [jackalTalk, setJackalTalk] = useState("");
@@ -414,7 +416,7 @@ export const WizardProvider = ({ children }) => {
 		setIncludeCollabInSummary(session.includeCollabInSummary ?? false);
 		setReviewReflection(session.reviewReflection || "");
 		setReflectResponsesRaw(session.reflectResponses || session.meetMyNeedsResponses || {});
-		const firstMainIdx = visibleSteps.findIndex((s) => s.group === "happened");
+		const firstMainIdx = visibleSteps.findIndex((s) => s.group === "observation");
 		setStepIndexRaw(firstMainIdx >= 0 ? firstMainIdx : 0);
 	};
 
@@ -484,6 +486,7 @@ export const WizardProvider = ({ children }) => {
 
 	const value = {
 		stepIndex,
+		prevStepIndex,
 		setStepIndex,
 		jackalTalk,
 		setJackalTalk,

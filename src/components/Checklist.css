@@ -27,10 +27,22 @@
 .step-needs .category-header {
 	background-color: var(--needs-header-bg);
 }
+.step-needs .category-header h3 {
+	color: var(--nvc-needs);
+}
+.step-needs .category {
+	--body-bg: #f0f5fc;
+}
 
-/* Feelings sections use the feelings blue for section headers */
+/* Feelings sections use the NVC rose for section headers */
 .step-feelings .category-header {
-	background-color: #daeeff;
+	background-color: var(--feelings-header-bg);
+}
+.step-feelings .category-header h3 {
+	color: var(--nvc-feelings);
+}
+.step-feelings .category {
+	--body-bg: #fdf0f5;
 }
 
 /* ========== CheckList STYLING ========== */

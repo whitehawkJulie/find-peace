@@ -6,6 +6,7 @@ import "./MenuBar.css";
 const MenuBar = () => {
 	const {
 		stepIndex,
+		prevStepIndex,
 		setStepIndex,
 		visibleSteps,
 		allSteps,
@@ -19,10 +20,39 @@ const MenuBar = () => {
 	const [confirmNew, setConfirmNew] = useState(false);
 
 	const subPageOf = currentStep?.subPageOf;
-	const prevIdx = subPageOf ? visibleSteps.findIndex((s) => s.component === subPageOf) : stepIndex - 1;
-	const nextIdx = subPageOf
-		? visibleSteps.reduce((last, s, i) => (s.subPageOf === subPageOf ? i : last), -1) + 1
-		: stepIndex + 1;
+
+	// Index of the last sub-page for a given parent component
+	const lastSubPageIdx = (parentComponent) =>
+		visibleSteps.reduce((last, s, i) => (s.subPageOf === parentComponent ? i : last), -1);
+
+	// Does this step have sub-pages?
+	const isParent = visibleSteps.some((s) => s.subPageOf === currentStep?.component);
+
+	// Is the current step immediately after a group of sub-pages?
+	const prevStepEntry = stepIndex > 0 ? visibleSteps[stepIndex - 1] : null;
+	const isAfterSubPages = prevStepEntry?.subPageOf != null;
+
+	let prevIdx, nextIdx;
+	if (subPageOf) {
+		// On a sub-page: Prev → parent, Next → step after last sub-page
+		prevIdx = visibleSteps.findIndex((s) => s.component === subPageOf);
+		nextIdx = lastSubPageIdx(subPageOf) + 1;
+	} else if (isParent) {
+		// On a parent (WhereToNow): Next skips sub-pages and goes to Review
+		prevIdx = stepIndex - 1;
+		nextIdx = lastSubPageIdx(currentStep.component) + 1;
+	} else if (isAfterSubPages) {
+		// On Review (step right after sub-pages): Prev → last sub-page visited, or parent
+		const parentComponent = prevStepEntry.subPageOf;
+		const parentIdx = visibleSteps.findIndex((s) => s.component === parentComponent);
+		const subPageVisited =
+			prevStepIndex !== null && visibleSteps[prevStepIndex]?.subPageOf === parentComponent;
+		prevIdx = subPageVisited ? prevStepIndex : parentIdx;
+		nextIdx = stepIndex + 1;
+	} else {
+		prevIdx = stepIndex - 1;
+		nextIdx = stepIndex + 1;
+	}
 
 	const hasPrev = prevIdx >= 0;
 	const hasNext = nextIdx >= 0 && nextIdx < visibleSteps.length;

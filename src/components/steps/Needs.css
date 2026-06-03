@@ -30,10 +30,9 @@
 	opacity: 0.85;
 }
 
-/* Override checklist category body backgrounds — keep all 4 needs sections green-tinted,
-   not the varying blue/amber/purple that category-0/1/2/3 would otherwise apply */
+/* Override checklist category body backgrounds to match NVC blue scheme */
 .step-needs .category {
-	--body-bg: #f7faf4;
+	--body-bg: #f0f5fc;
 }
 
 

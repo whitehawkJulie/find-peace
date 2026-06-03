@@ -6,15 +6,15 @@
 	display: flex;
 	align-items: flex-start;
 	gap: 0.75rem;
-	background: #eef5ee;
-	border-left: 3px solid #7ab88a;
+	background: #f2f2f2;
+	border-left: 3px solid #c0c0c0;
 	border-radius: 8px;
 	padding: 0.75rem 1rem;
 }
 
 .feelings-return-arrow {
 	font-size: 1.3rem;
-	color: #5a9e6d;
+	color: #999;
 	line-height: 1.2;
 	flex-shrink: 0;
 	margin-top: 0.05rem;
@@ -51,15 +51,15 @@
 .feelings-met-prompt {
 	margin-top: 1rem;
 	padding: 0.75rem 1rem;
-	background: #f0f5f2;
-	border-left: 3px solid #a8c4b8;
+	background: #f2f2f2;
+	border-left: 3px solid #c0c0c0;
 	border-radius: 4px;
 }
 
 .feelings-met-prompt p {
 	margin: 0 0 0.75rem;
 	font-size: 0.9rem;
-	color: #4a6a5e;
+	color: #555;
 }
 
 .feelings-met-yes-btn {
