@@ -19,6 +19,8 @@ lftp -c "
   mirror --reverse --delete --verbose --ignore-time \
     --exclude .DS_Store \
     ./dist/ $FTP_REMOTE/;
+  put ./dist/index.html -o $FTP_REMOTE/index.html;
+  put ./dist/.htaccess -o $FTP_REMOTE/.htaccess;
   bye
 "
 
