@@ -1,0 +1,161 @@
+.gh-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.45);
+	z-index: 500;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+}
+
+.gh-panel {
+	background: #f0f5f0;
+	width: 100%;
+	max-width: 580px;
+	max-height: 88dvh;
+	border-radius: 16px 16px 0 0;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.gh-header {
+	background: #e2ede2;
+	padding: 1rem 1.25rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-shrink: 0;
+}
+
+.gh-header h2 {
+	margin: 0;
+	font-size: 1.1rem;
+	color: #2d4a2d;
+}
+
+.gh-close {
+	background: none;
+	border: none;
+	font-size: 1.4rem;
+	color: #4a6a4a;
+	cursor: pointer;
+	float: none;
+	line-height: 1;
+	padding: 0 0.25rem;
+}
+
+.gh-body {
+	flex: 1;
+	overflow-y: auto;
+	padding: 1rem 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.gh-empty {
+	color: #6a8a6a;
+	font-style: italic;
+	text-align: center;
+	margin-top: 2rem;
+}
+
+/* ── Entry card ── */
+
+.gh-entry {
+	background: white;
+	border-radius: 10px;
+	padding: 0.9rem 1rem;
+	border: 1px solid #d0e0d0;
+}
+
+.gh-entry-date {
+	font-size: 0.75rem;
+	color: #7a9a7a;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	margin-bottom: 0.5rem;
+}
+
+.gh-entry-obs {
+	margin: 0 0 0.5rem;
+	color: #2d3a2d;
+	font-size: 0.95rem;
+	line-height: 1.5;
+}
+
+.gh-entry-row {
+	font-size: 0.88rem;
+	color: #3a5a3a;
+	margin-bottom: 0.25rem;
+	line-height: 1.4;
+}
+
+.gh-entry-label {
+	font-weight: 600;
+	color: #5a7a5a;
+}
+
+.gh-entry-values {
+	color: #2d4a2d;
+}
+
+.gh-entry-reflection {
+	margin: 0.5rem 0 0;
+	font-style: italic;
+	color: #5a6a5a;
+	font-size: 0.9rem;
+}
+
+.gh-entry-footer {
+	margin-top: 0.75rem;
+	padding-top: 0.6rem;
+	border-top: 1px solid #e8ede8;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.gh-btn-delete {
+	background: none;
+	border: none;
+	font-size: 0.8rem;
+	color: #aaa;
+	cursor: pointer;
+	float: none;
+	padding: 0;
+}
+
+.gh-btn-delete:hover {
+	color: #c05050;
+}
+
+.gh-delete-confirm-text {
+	font-size: 0.82rem;
+	color: #c05050;
+	flex: 1;
+}
+
+.gh-btn-delete-confirm {
+	background: #c05050;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 0.25rem 0.6rem;
+	font-size: 0.8rem;
+	cursor: pointer;
+	float: none;
+}
+
+.gh-btn-cancel {
+	background: #e8ede8;
+	color: #3a5a3a;
+	border: none;
+	border-radius: 5px;
+	padding: 0.25rem 0.6rem;
+	font-size: 0.8rem;
+	cursor: pointer;
+	float: none;
+}

@@ -40,11 +40,19 @@
 	flex: 1;
 }
 
-.g-card-brand {
-	color: rgba(255, 255, 255, 0.85);
-	font-size: 0.8rem;
-	font-weight: 500;
-	white-space: nowrap;
+.g-card-history-btn {
+	background: none;
+	border: none;
+	font-size: 1.2rem;
+	cursor: pointer;
+	float: none;
+	padding: 0.1rem 0.25rem;
+	opacity: 0.85;
+	line-height: 1;
+}
+
+.g-card-history-btn:hover {
+	opacity: 1;
 }
 
 .g-card-content {

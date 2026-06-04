@@ -13,6 +13,8 @@ import GratitudeNeeds from "./steps/GratitudeNeeds";
 import GratitudeExpress from "./steps/GratitudeExpress";
 import GratitudeReview from "./steps/GratitudeReview";
 
+const STORAGE_KEY = "gratitudeSessions";
+
 export const GratitudeProvider = ({ children }) => {
 	const allSteps = useMemo(() => [
 		{ component: GratitudeWelcome,     group: "intro",       color: "#7a9a5a" },
@@ -25,7 +27,7 @@ export const GratitudeProvider = ({ children }) => {
 
 	const visibleSteps = allSteps; // no conditional steps
 
-	// ── State ──────────────────────────────────────────────────────
+	// ── Session state ──────────────────────────────────────────────
 	const [stepIndex, setStepIndexRaw] = useState(0);
 	const [prevStepIndex, setPrevStepIndex] = useState(null);
 
@@ -41,8 +43,40 @@ export const GratitudeProvider = ({ children }) => {
 	const [reviewReflection, setReviewReflection] = useState("");
 
 	const [showSummary, setShowSummary] = useState(false);
+	const [showHistory, setShowHistory] = useState(false);
 
-	// Help drawer
+	// ── Saved entries ──────────────────────────────────────────────
+	const [savedEntries, setSavedEntries] = useState(() => {
+		try {
+			const saved = localStorage.getItem(STORAGE_KEY);
+			return saved ? JSON.parse(saved) : [];
+		} catch {
+			return [];
+		}
+	});
+
+	const saveEntry = () => {
+		const entry = {
+			id: Date.now(),
+			date: new Date().toISOString(),
+			observation,
+			feelings,
+			needs,
+			reviewReflection,
+		};
+		const updated = [entry, ...savedEntries]; // newest first
+		setSavedEntries(updated);
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+		return entry;
+	};
+
+	const deleteEntry = (id) => {
+		const updated = savedEntries.filter((e) => e.id !== id);
+		setSavedEntries(updated);
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+	};
+
+	// ── Help drawer ────────────────────────────────────────────────
 	const [helpDrawerOpen, setHelpDrawerOpen] = useState(false);
 	const [helpDrawerOverride, setHelpDrawerOverride] = useState(null);
 	const [helpTopic, setHelpTopic] = useState(null);
@@ -51,10 +85,9 @@ export const GratitudeProvider = ({ children }) => {
 		setHelpDrawerOpen(true);
 	};
 
-	// Dirty tracking (warn before unload)
+	// ── Settings ───────────────────────────────────────────────────
 	const dirtyRef = useRef(false);
 
-	// Settings — share the same localStorage key so tone etc. carry over
 	const [settings] = useState(() => {
 		try {
 			const saved = localStorage.getItem("findPeaceSettings");
@@ -64,9 +97,7 @@ export const GratitudeProvider = ({ children }) => {
 		}
 	});
 
-	// Ref to card-content scroll container
 	const cardContentRef = useRef(null);
-
 	const currentStep = visibleSteps[stepIndex];
 
 	const resetSession = () => {
@@ -95,6 +126,11 @@ export const GratitudeProvider = ({ children }) => {
 		setReviewReflection,
 		showSummary,
 		setShowSummary,
+		showHistory,
+		setShowHistory,
+		savedEntries,
+		saveEntry,
+		deleteEntry,
 		helpDrawerOpen,
 		setHelpDrawerOpen,
 		helpDrawerOverride,

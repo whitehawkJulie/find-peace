@@ -89,6 +89,11 @@
 	float: none;
 }
 
+.g-summary-save {
+	background: #3a5a6a;
+	color: white;
+}
+
 .g-summary-copy {
 	background: #3a6a3a;
 	color: white;

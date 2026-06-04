@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useGratitude } from "./GratitudeContext";
 import GratitudeMenuBar from "./GratitudeMenuBar";
 import GratitudeSummaryModal from "./GratitudeSummaryModal";
+import GratitudeHistory from "./GratitudeHistory";
 import "./GratitudeCard.css";
 
 const GratitudeCard = ({ title, children }) => {
-	const { cardContentRef, currentStep, showSummary } = useGratitude();
+	const { cardContentRef, currentStep, showSummary, showHistory, setShowHistory } = useGratitude();
 
 	const color = currentStep?.color || "#7a9a5a";
 
@@ -18,7 +19,13 @@ const GratitudeCard = ({ title, children }) => {
 		<div className="g-card" style={{ "--step-color": color }}>
 			<div className="g-card-header">
 				<h1 className="g-card-title">{title}</h1>
-				<div className="g-card-brand">🌿 Gratitude</div>
+				<button
+					className="g-card-history-btn"
+					onClick={() => setShowHistory(true)}
+					aria-label="Past entries"
+					title="Past entries">
+					📖
+				</button>
 			</div>
 
 			<div className="g-card-content" ref={cardContentRef}>
@@ -27,6 +34,7 @@ const GratitudeCard = ({ title, children }) => {
 
 			<GratitudeMenuBar />
 			{showSummary && <GratitudeSummaryModal />}
+			{showHistory && <GratitudeHistory />}
 		</div>
 	);
 };

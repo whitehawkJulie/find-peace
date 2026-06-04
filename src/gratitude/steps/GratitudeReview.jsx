@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGratitude } from "../GratitudeContext";
 import "./GratitudeStep.css";
 
 const GratitudeReview = () => {
-	const { reviewReflection, setReviewReflection, setShowSummary } = useGratitude();
+	const { reviewReflection, setReviewReflection, setShowSummary, saveEntry } = useGratitude();
+	const [saved, setSaved] = useState(false);
+
+	const handleSave = () => {
+		saveEntry();
+		setSaved(true);
+		setTimeout(() => setSaved(false), 2500);
+	};
 
 	return (
 		<div className="g-step g-review">
@@ -23,9 +30,14 @@ const GratitudeReview = () => {
 				placeholder="Optional reflection…"
 			/>
 
-			<button className="g-view-summary-btn" onClick={() => setShowSummary(true)}>
-				📋 View summary
-			</button>
+			<div className="g-review-actions">
+				<button className="g-view-summary-btn" onClick={() => setShowSummary(true)}>
+					📋 View summary
+				</button>
+				<button className="g-save-btn" onClick={handleSave}>
+					{saved ? "✓ Saved!" : "💾 Save"}
+				</button>
+			</div>
 		</div>
 	);
 };

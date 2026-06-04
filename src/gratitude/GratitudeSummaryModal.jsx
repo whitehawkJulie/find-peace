@@ -6,6 +6,7 @@ import "./GratitudeSummaryModal.css";
 const GratitudeSummaryModal = () => {
 	const {
 		setShowSummary,
+		saveEntry,
 		observation,
 		feelings,
 		needs,
@@ -13,6 +14,13 @@ const GratitudeSummaryModal = () => {
 	} = useGratitude();
 
 	const [copied, setCopied] = useState(false);
+	const [saved, setSaved] = useState(false);
+
+	const handleSave = () => {
+		saveEntry();
+		setSaved(true);
+		setTimeout(() => setSaved(false), 2500);
+	};
 
 	const allFeelings = [
 		...filterByState(feelings, "double-clicked"),
@@ -98,6 +106,10 @@ const GratitudeSummaryModal = () => {
 				</div>
 
 				<div className="g-summary-footer">
+					<button className="g-summary-btn g-summary-save" onClick={handleSave}>
+						<span className="g-summary-btn-label">{saved ? "✓ Saved!" : "💾 Save"}</span>
+						<span className="g-summary-btn-sub">to this device</span>
+					</button>
 					<button className="g-summary-btn g-summary-copy" onClick={handleCopy}>
 						<span className="g-summary-btn-label">{copied ? "✓ Copied!" : "📋 Copy"}</span>
 						<span className="g-summary-btn-sub">as plain text</span>
