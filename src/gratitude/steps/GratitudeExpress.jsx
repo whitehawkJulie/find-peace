@@ -6,14 +6,8 @@ import "./GratitudeStep.css";
 const GratitudeExpress = () => {
 	const { observation, feelings, needs } = useGratitude();
 
-	const allFeelings = [
-		...filterByState(feelings, "double-clicked"),
-		...filterByState(feelings, "clicked"),
-	];
-	const allNeeds = [
-		...filterByState(needs, "double-clicked"),
-		...filterByState(needs, "clicked"),
-	];
+	const allFeelings = [...filterByState(feelings, "double-clicked"), ...filterByState(feelings, "clicked")];
+	const allNeeds = [...filterByState(needs, "double-clicked"), ...filterByState(needs, "clicked")];
 
 	const feelingsText = allFeelings.join(", ");
 	const needsText = allNeeds.join(", ");
@@ -21,21 +15,24 @@ const GratitudeExpress = () => {
 	return (
 		<div className="g-step">
 			<p>
-				Here's everything you've reflected on. If you'd like to express this gratitude to someone,
-				you can use these three pieces as the building blocks of what you say.
+				If your gratitude is in relation to the actions of another person, it can be really lovely to express
+				this gratitude to them, using these three pieces as the building blocks of what you say.
 			</p>
 
 			<div className="g-express-guide">
-				<p>
-					A simple structure that works well:
-				</p>
+				<p>A simple structure that works well:</p>
 				<blockquote className="g-express-template">
-					"When <em>[observation]</em>, I felt <em>[feelings]</em> because it met my need
-					for <em>[needs]</em>."
+					"When <em>[observation]</em>, I felt <em>[feelings]</em> because it met my need for <em>[needs]</em>
+					."
 				</blockquote>
 				<p className="g-hint">
-					You don't have to say it exactly like that — this is just a starting point.
-					Use your own words, and share as much or as little as feels right.
+					You don't have to say it exactly like that — this is just a starting point. Use your own words, and
+					share as much or as little as feels right.
+				</p>
+				<p>
+					For example, it might look something like "Hey, remember the other day when you looked after my kids
+					while I was sick? When you did that, I felt so cared for and relieved and it totally met my need for
+					support and rest. Thank you!"
 				</p>
 			</div>
 
