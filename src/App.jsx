@@ -1,6 +1,9 @@
 import React, { useEffect, lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 import NvcWizard from "./components/NvcWizard";
 import { WizardProvider } from "./components/WizardContext";
+import { GratitudeProvider } from "./gratitude/GratitudeContext";
+import GratitudeWizard from "./gratitude/GratitudeWizard";
 import "./App.css";
 import "./styles/dyslexia-font.css";
 
@@ -15,10 +18,26 @@ const App = () => {
 				<AuditShell />
 			</Suspense>
 		);
+
 	return (
-		<WizardProvider>
-			<NvcWizard />
-		</WizardProvider>
+		<Routes>
+			<Route
+				path="/gratitude"
+				element={
+					<GratitudeProvider>
+						<GratitudeWizard />
+					</GratitudeProvider>
+				}
+			/>
+			<Route
+				path="*"
+				element={
+					<WizardProvider>
+						<NvcWizard />
+					</WizardProvider>
+				}
+			/>
+		</Routes>
 	);
 };
 

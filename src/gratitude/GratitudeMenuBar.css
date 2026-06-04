@@ -1,0 +1,74 @@
+.g-menu-bar {
+	flex-shrink: 0;
+	background: white;
+	border-top: 1px solid #e8eaed;
+}
+
+.g-progress-bar {
+	height: 3px;
+	background: #e8eaed;
+}
+
+.g-progress-fill {
+	height: 100%;
+	background: var(--step-color, #7a9a5a);
+	transition: width 0.3s ease, background 0.3s ease;
+}
+
+.g-menu-bar-row {
+	display: flex;
+	align-items: stretch;
+	min-height: 52px;
+}
+
+.g-nav-btn {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.5rem 1rem;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 0.95rem;
+	color: #3a5270;
+	float: none;
+}
+
+.g-nav-btn:disabled {
+	opacity: 0.3;
+	cursor: default;
+}
+
+.g-nav-prev {
+	justify-content: flex-start;
+	border-right: 1px solid #e8eaed;
+}
+
+.g-nav-next {
+	justify-content: flex-end;
+}
+
+.g-nav-arrow {
+	font-size: 1.1rem;
+	flex-shrink: 0;
+}
+
+.g-nav-sub {
+	font-size: 0.75rem;
+	color: #778899;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 10ch;
+}
+
+.g-nav-new {
+	justify-content: center;
+	font-size: 0.85rem;
+	color: #778899;
+}
+
+.g-nav-new--confirm {
+	color: #c05050;
+}
