@@ -11,7 +11,7 @@ const GratitudeNeeds = () => {
 	const selectedFeelings = filterByState(feelings, "clicked").concat(filterByState(feelings, "double-clicked"));
 
 	return (
-		<div className="g-step g-step--checklist">
+		<div className="g-step g-step--checklist step-needs">
 			{selectedFeelings.length > 0 && (
 				<div className="g-feelings-recap">
 					<span className="g-feelings-recap-label">You felt: </span>

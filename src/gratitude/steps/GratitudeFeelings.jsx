@@ -8,7 +8,7 @@ const GratitudeFeelings = () => {
 	const { feelings, setFeelings } = useGratitude();
 
 	return (
-		<div className="g-step g-step--checklist">
+		<div className="g-step g-step--checklist step-feelings">
 			<p>
 				When that happened, how did you feel? These are the feelings that arise when our needs are
 				being met — the warm, alive, expansive ones.
