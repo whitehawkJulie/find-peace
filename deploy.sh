@@ -21,7 +21,7 @@ echo "🚀 Deploying to $FTP_HOST..."
 lftp -c "
   set ftp:ssl-allow no;
   open ftp://$FTP_USER:$FTP_PASS@$FTP_HOST;
-  mirror --reverse --delete --verbose --ignore-time \
+  mirror --reverse --verbose --ignore-time \
     --exclude .DS_Store \
     ./dist/ $FTP_REMOTE/;
   put ./dist/index.html -o $FTP_REMOTE/index.html;
