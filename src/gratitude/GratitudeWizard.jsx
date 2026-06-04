@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGratitude } from "./GratitudeContext";
 import GratitudeCard from "./GratitudeCard";
 
 const GratitudeWizard = () => {
 	const { visibleSteps, stepIndex, settings } = useGratitude();
+
+	useEffect(() => {
+		document.title = "Gratitude";
+		return () => { document.title = "UntangleThis"; };
+	}, []);
 
 	if (!visibleSteps || visibleSteps.length === 0) return null;
 
