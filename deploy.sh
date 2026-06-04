@@ -9,7 +9,7 @@ fi
 export $(grep -v '^#' .env | xargs)
 
 echo "🔨 Building..."
-rm -rf dist/assets
+rm -rf dist
 npm run build
 
 echo "🚀 Deploying to $FTP_HOST..."
