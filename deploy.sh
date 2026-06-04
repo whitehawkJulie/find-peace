@@ -12,6 +12,11 @@ echo "🔨 Building..."
 rm -rf dist
 npm run build
 
+# Create real subdirectory routes so the server finds actual files
+# without needing .htaccess rewrite rules
+mkdir -p dist/gratitude
+cp dist/index.html dist/gratitude/index.html
+
 echo "🚀 Deploying to $FTP_HOST..."
 lftp -c "
   set ftp:ssl-allow no;
