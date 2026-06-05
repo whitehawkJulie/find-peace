@@ -26,10 +26,11 @@ lftp -c "
     ./dist/ $FTP_REMOTE/;
   put ./dist/index.html -o $FTP_REMOTE/index.html;
   put ./dist/gratitude/index.html -o $FTP_REMOTE/gratitude/index.html;
-  put ./scripts/analytics.php -o $FTP_REMOTE/scripts/analytics.php;
-  put ./scripts/analytics-dashboard.php -o $FTP_REMOTE/scripts/analytics-dashboard.php;
-  put ./scripts/log-selections.php -o $FTP_REMOTE/scripts/log-selections.php;
-  put ./scripts/visit.php -o $FTP_REMOTE/scripts/visit.php;
+  mirror --reverse --verbose --ignore-time \
+    --exclude .DS_Store \
+    --exclude analytics.jsonl \
+    --exclude validate-nvc-data.mjs \
+    ./scripts/ $FTP_REMOTE/scripts/;
   bye
 "
 
