@@ -95,6 +95,24 @@
 	padding: 0 0.25rem;
 }
 
+.gh-import-btn {
+	background: none;
+	border: 1px solid #8aba8a;
+	border-radius: 5px;
+	padding: 0.2rem 0.6rem;
+	font-size: 0.8rem;
+	color: #3a6a3a;
+	cursor: pointer;
+	float: none;
+	font-family: inherit;
+	margin-right: auto;
+	transition: background 0.15s;
+}
+
+.gh-import-btn:hover {
+	background: #d8eed8;
+}
+
 .gh-back {
 	background: none;
 	border: none;

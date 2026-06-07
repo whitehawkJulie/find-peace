@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useGratitude } from "./GratitudeContext";
 import { filterByState } from "../utils/renderHelpers";
+import GratitudeImport from "./GratitudeImport";
 import "./GratitudeHistory.css";
 
 const formatDate = (isoString) => {
@@ -123,6 +124,7 @@ const NeedDetailPanel = ({ need, entries, onClose, onDelete }) => {
 const GratitudeHistory = () => {
 	const { setShowHistory, savedEntries, deleteEntry } = useGratitude();
 	const [selectedNeed, setSelectedNeed] = useState(null);
+	const [showImport, setShowImport] = useState(false);
 
 	const allNeeds = collectAllNeeds(savedEntries);
 
@@ -141,6 +143,7 @@ const GratitudeHistory = () => {
 			<div className="gh-panel">
 				<div className="gh-header">
 					<h2>Past entries</h2>
+					<button className="gh-import-btn" onClick={() => setShowImport(true)}>Import</button>
 					<button className="gh-close" onClick={() => setShowHistory(false)} aria-label="Close">×</button>
 				</div>
 
@@ -184,6 +187,9 @@ const GratitudeHistory = () => {
 					onDelete={deleteEntry}
 				/>
 			)}
+
+			{/* Import panel slides in on top */}
+			{showImport && <GratitudeImport onClose={() => setShowImport(false)} />}
 		</>
 	);
 };

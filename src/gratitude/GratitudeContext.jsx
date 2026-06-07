@@ -129,6 +129,7 @@ export const GratitudeProvider = ({ children }) => {
 		showHistory,
 		setShowHistory,
 		savedEntries,
+		setSavedEntries,
 		saveEntry,
 		deleteEntry,
 		helpDrawerOpen,
