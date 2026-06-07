@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { useWizard } from "../WizardContext";
 import { useOverlayHistory } from "../../hooks/useOverlayHistory";
 import { getNeedData } from "../../utils/renderHelpers";
@@ -10,7 +10,30 @@ import AudioPlayer from "../AudioPlayer";
 const meditationAudio = "/audio/Beauty_of_need.mp3";
 import Pill from "../Pill";
 import { needMeaningByLabel } from "../../data/AllNeedsData";
+import SlideDrawer from "../SlideDrawer";
 import "./UnpackNeeds.css";
+
+const needStates = (obj) => [
+	...Object.entries(obj || {}).filter(([, v]) => v === "double-clicked").map(([k]) => k),
+	...Object.entries(obj || {}).filter(([, v]) => v === "clicked").map(([k]) => k),
+];
+
+const getGratitudeEntriesForNeed = (needName) => {
+	try {
+		const raw = localStorage.getItem("gratitudeSessions");
+		if (!raw) return [];
+		const entries = JSON.parse(raw);
+		const lower = needName.toLowerCase();
+		return entries.filter((e) => needStates(e.needs).some((n) => n.toLowerCase() === lower));
+	} catch {
+		return [];
+	}
+};
+
+const formatEntryDate = (iso) =>
+	new Date(iso).toLocaleDateString(undefined, {
+		weekday: "short", day: "numeric", month: "short", year: "numeric",
+	});
 
 // ─────────────────────────────────────────────
 // UnpackNeeds — Page B: ConnectToNeed
@@ -34,6 +57,13 @@ const UnpackNeeds = () => {
 
 	// Pending removal confirmation
 	const [pendingRemoveNeed, setPendingRemoveNeed] = useState(null);
+
+	// Gratitude entries for current need
+	const [showGratitudePanel, setShowGratitudePanel] = useState(false);
+	const gratitudeEntries = useMemo(
+		() => (currentExploringNeed ? getGratitudeEntriesForNeed(currentExploringNeed) : []),
+		[currentExploringNeed],
+	);
 
 	const { feelings, observation } = useWizard();
 	const hasStarted = Object.keys(feelings).length > 0 || Object.keys(needs).length > 0 || observation?.moment?.trim();
@@ -399,6 +429,20 @@ const UnpackNeeds = () => {
 							<div className="unpacking-section">
 								<p className="unpacking-section-label">Remembering when...</p>
 
+								{gratitudeEntries.length > 0 && (
+									<div className="unpacking-gratitude-callout">
+										<p className="unpacking-gratitude-callout-text">
+											✨ You have {gratitudeEntries.length === 1 ? "a gratitude entry" : `${gratitudeEntries.length} gratitude entries`} where this need was met.
+										</p>
+										<button
+											className="unpacking-gratitude-btn"
+											onClick={() => setShowGratitudePanel(true)}
+										>
+											See {gratitudeEntries.length === 1 ? "it" : "them"} →
+										</button>
+									</div>
+								)}
+
 								<div className="unpacking-prompt">
 									<p className="unpacking-prompt-text">
 										Remember a time this need was met — even just a little. What happened to meet
@@ -515,6 +559,42 @@ const UnpackNeeds = () => {
 					</div>
 				</div>
 			)}
+
+			{/* Gratitude entries slide panel */}
+			<SlideDrawer
+				isOpen={showGratitudePanel}
+				onClose={() => setShowGratitudePanel(false)}
+				title={`"${currentExploringNeed}" in your gratitude`}
+			>
+				{gratitudeEntries.map((entry) => (
+					<div key={entry.id} className="unpacking-gratitude-entry">
+						<div className="unpacking-gratitude-entry-date">{formatEntryDate(entry.date)}</div>
+						{entry.observation?.trim() && (
+							<p className="unpacking-gratitude-entry-obs">{entry.observation.trim()}</p>
+						)}
+						{needStates(entry.feelings).length > 0 && (
+							<div className="unpacking-gratitude-entry-row">
+								<span className="unpacking-gratitude-entry-label">Felt: </span>
+								{needStates(entry.feelings).join(", ")}
+							</div>
+						)}
+						{needStates(entry.needs).length > 0 && (
+							<div className="unpacking-gratitude-entry-row">
+								<span className="unpacking-gratitude-entry-label">Needs met: </span>
+								{needStates(entry.needs).map((n, i) => (
+									<span key={n}>
+										{i > 0 && ", "}
+										<span className={n === currentExploringNeed ? "unpacking-gratitude-need-hl" : ""}>{n}</span>
+									</span>
+								))}
+							</div>
+						)}
+						{entry.reviewReflection?.trim() && (
+							<p className="unpacking-gratitude-entry-reflection">"{entry.reviewReflection.trim()}"</p>
+						)}
+					</div>
+				))}
+			</SlideDrawer>
 		</div>
 	);
 };

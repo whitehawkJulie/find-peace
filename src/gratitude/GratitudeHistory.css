@@ -1,36 +1,86 @@
+/* ── Backdrop ── */
+
 .gh-backdrop {
 	position: fixed;
 	inset: 0;
-	background: rgba(0, 0, 0, 0.45);
+	background: rgba(0, 0, 0, 0.3);
 	z-index: 500;
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
 }
 
+/* ── Main history panel (slides in from right) ── */
+
 .gh-panel {
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 340px;
+	max-width: 100vw;
 	background: #f0f5f0;
-	width: 100%;
-	max-width: 580px;
-	max-height: 88dvh;
-	border-radius: 16px 16px 0 0;
+	border-left: 2px solid #c8dcc8;
+	box-shadow: -4px 0 16px rgba(0, 0, 0, 0.18);
+	z-index: 501;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
 }
+
+@media (min-width: 600px) {
+	.gh-panel { width: 420px; }
+}
+
+@media (min-width: 900px) {
+	.gh-panel { width: 500px; }
+}
+
+/* ── Detail panel (slides in on top from right) ── */
+
+.gh-detail-panel {
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 340px;
+	max-width: 100vw;
+	background: #f0f5f0;
+	border-left: 2px solid #c8dcc8;
+	box-shadow: -6px 0 20px rgba(0, 0, 0, 0.22);
+	z-index: 502;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	transform: translateX(100%);
+	transition: transform 0.28s ease-in-out;
+}
+
+.gh-detail-panel--open {
+	transform: translateX(0);
+}
+
+@media (min-width: 600px) {
+	.gh-detail-panel { width: 420px; }
+}
+
+@media (min-width: 900px) {
+	.gh-detail-panel { width: 500px; }
+}
+
+/* ── Shared header ── */
 
 .gh-header {
 	background: #e2ede2;
 	padding: 1rem 1.25rem;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	gap: 0.5rem;
 	flex-shrink: 0;
+	border-bottom: 1px solid #c8dcc8;
 }
 
 .gh-header h2 {
 	margin: 0;
-	font-size: 1.1rem;
+	flex: 1;
+	font-size: 1.05rem;
 	color: #2d4a2d;
 }
 
@@ -44,6 +94,27 @@
 	line-height: 1;
 	padding: 0 0.25rem;
 }
+
+.gh-back {
+	background: none;
+	border: none;
+	font-size: 1.6rem;
+	color: #4a6a4a;
+	cursor: pointer;
+	float: none;
+	line-height: 1;
+	padding: 0 0.25rem 0 0;
+}
+
+.gh-detail-subtitle {
+	font-size: 0.82rem;
+	color: #6a8a6a;
+	padding: 0.5rem 1.25rem 0;
+	margin: 0;
+	flex-shrink: 0;
+}
+
+/* ── Body ── */
 
 .gh-body {
 	flex: 1;
@@ -59,6 +130,59 @@
 	font-style: italic;
 	text-align: center;
 	margin-top: 2rem;
+}
+
+/* ── Needs cloud ── */
+
+.gh-needs-cloud {
+	background: white;
+	border: 1px solid #d0e0d0;
+	border-radius: 10px;
+	padding: 0.85rem 1rem;
+}
+
+.gh-needs-cloud-label {
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #7a9a7a;
+	margin: 0 0 0.6rem;
+}
+
+.gh-needs-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+
+.gh-need-pill {
+	background: #eaf2ea;
+	border: 1px solid #b8d4b8;
+	border-radius: 20px;
+	padding: 0.3rem 0.75rem;
+	font-size: 0.85rem;
+	color: #2d5a2d;
+	cursor: pointer;
+	float: none;
+	font-family: inherit;
+	transition: background 0.15s, border-color 0.15s;
+}
+
+.gh-need-pill:hover {
+	background: #d0e8d0;
+	border-color: #8aba8a;
+}
+
+.gh-need-pill--all {
+	background: #3a6a3a;
+	border-color: #2d5a2d;
+	color: white;
+	font-weight: 600;
+}
+
+.gh-need-pill--all:hover {
+	background: #2d5a2d;
 }
 
 /* ── Entry card ── */
@@ -100,6 +224,14 @@
 
 .gh-entry-values {
 	color: #2d4a2d;
+}
+
+.gh-need-highlight {
+	font-weight: 700;
+	color: #2d5a2d;
+	background: #d8f0d8;
+	border-radius: 3px;
+	padding: 0 2px;
 }
 
 .gh-entry-reflection {

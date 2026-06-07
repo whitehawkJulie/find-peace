@@ -286,3 +286,96 @@
 	font-style: italic;
 	margin: 0 0 0.5rem;
 }
+
+/* ── Gratitude callout ── */
+
+.unpacking-gratitude-callout {
+	background: #f0f5f0;
+	border: 1px solid #b8d4b8;
+	border-radius: 8px;
+	padding: 0.7rem 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+}
+
+.unpacking-gratitude-callout-text {
+	margin: 0;
+	font-size: 0.88rem;
+	color: #2d5a2d;
+	line-height: 1.4;
+	flex: 1;
+}
+
+.unpacking-gratitude-btn {
+	background: #3a6a3a;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	padding: 0.35rem 0.85rem;
+	font-size: 0.85rem;
+	cursor: pointer;
+	float: none;
+	font-family: inherit;
+	white-space: nowrap;
+	flex-shrink: 0;
+	transition: background 0.15s;
+}
+
+.unpacking-gratitude-btn:hover {
+	background: #2d5a2d;
+}
+
+/* ── Gratitude entries in slide drawer ── */
+
+.unpacking-gratitude-entry {
+	background: white;
+	border: 1px solid #d8e8d8;
+	border-radius: 8px;
+	padding: 0.85rem 1rem;
+	margin-bottom: 0.85rem;
+}
+
+.unpacking-gratitude-entry-date {
+	font-size: 0.72rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #7a9a7a;
+	margin-bottom: 0.45rem;
+}
+
+.unpacking-gratitude-entry-obs {
+	margin: 0 0 0.45rem;
+	font-size: 0.92rem;
+	color: #2d3a2d;
+	line-height: 1.5;
+}
+
+.unpacking-gratitude-entry-row {
+	font-size: 0.85rem;
+	color: #3a5a3a;
+	margin-bottom: 0.2rem;
+	line-height: 1.4;
+}
+
+.unpacking-gratitude-entry-label {
+	font-weight: 600;
+	color: #5a7a5a;
+}
+
+.unpacking-gratitude-need-hl {
+	font-weight: 700;
+	color: #2d5a2d;
+	background: #d8f0d8;
+	border-radius: 3px;
+	padding: 0 2px;
+}
+
+.unpacking-gratitude-entry-reflection {
+	margin: 0.4rem 0 0;
+	font-style: italic;
+	color: #5a6a5a;
+	font-size: 0.88rem;
+}

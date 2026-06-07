@@ -11,7 +11,17 @@ const formatDate = (isoString) => {
 	});
 };
 
-const EntryCard = ({ entry, onDelete }) => {
+// Collect all unique needs across entries, sorted alphabetically
+const collectAllNeeds = (entries) => {
+	const needSet = new Set();
+	entries.forEach((entry) => {
+		[...filterByState(entry.needs, "double-clicked"), ...filterByState(entry.needs, "clicked")]
+			.forEach((n) => needSet.add(n));
+	});
+	return [...needSet].sort();
+};
+
+const EntryCard = ({ entry, onDelete, highlightNeed }) => {
 	const [confirmDelete, setConfirmDelete] = useState(false);
 
 	const allFeelings = [
@@ -41,7 +51,14 @@ const EntryCard = ({ entry, onDelete }) => {
 			{allNeeds.length > 0 && (
 				<div className="gh-entry-row">
 					<span className="gh-entry-label">Needs met: </span>
-					<span className="gh-entry-values">{allNeeds.join(", ")}</span>
+					<span className="gh-entry-values">
+						{allNeeds.map((n, i) => (
+							<span key={n}>
+								{i > 0 && ", "}
+								<span className={n === highlightNeed ? "gh-need-highlight" : ""}>{n}</span>
+							</span>
+						))}
+					</span>
 				</div>
 			)}
 
@@ -64,12 +81,64 @@ const EntryCard = ({ entry, onDelete }) => {
 	);
 };
 
-const GratitudeHistory = () => {
-	const { setShowHistory, savedEntries, deleteEntry } = useGratitude();
+// The detail panel — slides in on top from the right
+const NeedDetailPanel = ({ need, entries, onClose, onDelete }) => {
+	const filtered = need === "All"
+		? entries
+		: entries.filter((e) =>
+			filterByState(e.needs, "double-clicked").includes(need) ||
+			filterByState(e.needs, "clicked").includes(need)
+		);
 
 	return (
-		<div className="gh-backdrop" onClick={() => setShowHistory(false)}>
-			<div className="gh-panel" onClick={(e) => e.stopPropagation()}>
+		<div className={`gh-detail-panel gh-detail-panel--open`}>
+			<div className="gh-header">
+				<button className="gh-back" onClick={onClose} aria-label="Back">‹</button>
+				<h2>{need === "All" ? "All entries" : `"${need}"`}</h2>
+				<button className="gh-close" onClick={onClose} aria-label="Close">×</button>
+			</div>
+
+			{need !== "All" && (
+				<p className="gh-detail-subtitle">Entries where this need was met</p>
+			)}
+
+			<div className="gh-body">
+				{filtered.length === 0 ? (
+					<p className="gh-empty">No entries found.</p>
+				) : (
+					filtered.map((entry) => (
+						<EntryCard
+							key={entry.id}
+							entry={entry}
+							onDelete={onDelete}
+							highlightNeed={need !== "All" ? need : null}
+						/>
+					))
+				)}
+			</div>
+		</div>
+	);
+};
+
+const GratitudeHistory = () => {
+	const { setShowHistory, savedEntries, deleteEntry } = useGratitude();
+	const [selectedNeed, setSelectedNeed] = useState(null);
+
+	const allNeeds = collectAllNeeds(savedEntries);
+
+	const handleSelectNeed = (need) => {
+		setSelectedNeed(need);
+	};
+
+	const handleCloseDetail = () => {
+		setSelectedNeed(null);
+	};
+
+	return (
+		<>
+			<div className="gh-backdrop" onClick={() => setShowHistory(false)} />
+
+			<div className="gh-panel">
 				<div className="gh-header">
 					<h2>Past entries</h2>
 					<button className="gh-close" onClick={() => setShowHistory(false)} aria-label="Close">×</button>
@@ -79,13 +148,43 @@ const GratitudeHistory = () => {
 					{savedEntries.length === 0 ? (
 						<p className="gh-empty">No saved entries yet. Save your first one from the Done page or summary.</p>
 					) : (
-						savedEntries.map((entry) => (
-							<EntryCard key={entry.id} entry={entry} onDelete={deleteEntry} />
-						))
+						<>
+							{/* Needs cloud */}
+							<div className="gh-needs-cloud">
+								<p className="gh-needs-cloud-label">Explore by need</p>
+								<div className="gh-needs-pills">
+									<button
+										className="gh-need-pill gh-need-pill--all"
+										onClick={() => handleSelectNeed("All")}
+									>
+										All
+									</button>
+									{allNeeds.map((need) => (
+										<button
+											key={need}
+											className="gh-need-pill"
+											onClick={() => handleSelectNeed(need)}
+										>
+											{need}
+										</button>
+									))}
+								</div>
+							</div>
+						</>
 					)}
 				</div>
 			</div>
-		</div>
+
+			{/* Detail panel slides in on top */}
+			{selectedNeed && (
+				<NeedDetailPanel
+					need={selectedNeed}
+					entries={savedEntries}
+					onClose={handleCloseDetail}
+					onDelete={deleteEntry}
+				/>
+			)}
+		</>
 	);
 };
 
