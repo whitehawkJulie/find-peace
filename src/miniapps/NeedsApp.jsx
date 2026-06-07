@@ -36,19 +36,21 @@ const NeedsApp = () => {
 			</div>
 
 			<div className="mini-body">
-				<Checklist
-					data={[
-						Needs.sections.connection,
-						Needs.sections.meaning,
-						Needs.sections.freedom,
-						Needs.sections.subsistence,
-					]}
-					selectedItems={selected}
-					setSelectedItems={setSelected}
-					type="needs"
-					showListModeToggle={true}
-					defaultListMode="full"
-				/>
+				<div className="step-needs">
+					<Checklist
+						data={[
+							Needs.sections.connection,
+							Needs.sections.meaning,
+							Needs.sections.freedom,
+							Needs.sections.subsistence,
+						]}
+						selectedItems={selected}
+						setSelectedItems={setSelected}
+						type="needs"
+						showListModeToggle={true}
+						defaultListMode="full"
+					/>
+				</div>
 			</div>
 		</div>
 	);
