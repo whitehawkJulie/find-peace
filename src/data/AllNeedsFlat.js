@@ -6,8 +6,8 @@
  * Schema per need:
  *   id                   – snake_case identifier
  *   label                – display string (must match NEEDS constants exactly)
- *   family               – top-level category: "Subsistence" | "Connection" | "Meaning" | "Freedom"
- *   category             – group heading (e.g. "Affection", "To matter")
+ *   family               – top-level category: "Subsistence" | "connection" | "Meaning" | "Freedom"
+ *   category             – group heading (e.g. "Affection", "to matter")
  *   domain               – "physiological" | "relational" | "existential" | "system" | "social_moral" | "agency"
  *   offerDeepening       – (optional) object: { questions, suggestions } — present on 21 needs where a deeper/more specific need might be underneath; drives the RefineNeeds (FindDeeperNeeds) page
  *   enoughQuestion       – (optional) "What would be enough X for you to feel Y?" — shown in ConnectToNeed popup with a textarea (system + agency needs)
@@ -165,7 +165,7 @@ export const allNeeds = [
 				"Is the order you're wanting mainly about the outside world — or about your nervous system feeling less scrambled?",
 				"Is this about function (things working smoothly) — or about feeling steady enough to cope?",
 			],
-			suggestions: ["Safety (emotional)", "Peace of mind", "Ease"],
+			suggestions: ["safety (emotional)", "peace of mind", "ease"],
 		},
 		enoughQuestion: "What would be enough structure here for you to feel more settled?",
 		coreQuestion:
@@ -189,7 +189,7 @@ export const allNeeds = [
 				"When you think about peace, is it the absence of noise or conflict — or something you're longing to feel inside?",
 				"If the outside became quiet, would you feel settled — or is there something inside that's still restless?",
 			],
-			suggestions: ["Peace of mind", "Rest / sleep", "Safety (emotional)", "Harmony"],
+			suggestions: ["peace of mind", "rest / sleep", "safety (emotional)", "harmony"],
 		},
 		enoughQuestion: "What would be enough calm around you for this to feel more manageable?",
 		coreQuestion:
@@ -219,7 +219,7 @@ export const allNeeds = [
 				"What feels at risk right now — something practical, or something more tender than that?",
 				"Is it protection from something happening — or protection from feeling alone with what's happening?",
 			],
-			suggestions: ["Safety (emotional)", "Physical Safety", "Support", "Care"],
+			suggestions: ["safety (emotional)", "physical safety", "support", "care"],
 		},
 		enoughQuestion: "What would be enough protection for you to feel supported here?",
 		coreQuestion: "What are you wanting protection from — a person, a situation, or your own feelings?",
@@ -254,7 +254,7 @@ export const allNeeds = [
 				"When you say stability, is it more about things around you staying steady — or about you feeling steady inside?",
 				"Is this about wanting things to stay steady — or about having something solid to lean on when things shift?",
 			],
-			suggestions: ["Safety (emotional)", "Peace of mind", "Rest / sleep", "Support"],
+			suggestions: ["safety (emotional)", "peace of mind", "rest / sleep", "support"],
 		},
 		enoughQuestion: "What would be enough steadiness here for you to feel more grounded?",
 		coreQuestion:
@@ -294,7 +294,7 @@ export const allNeeds = [
 	{
 		id: "affection",
 		label: "affection",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -305,7 +305,7 @@ export const allNeeds = [
 	{
 		id: "appreciation",
 		label: "appreciation",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "social_moral",
 		offerDeepening: {
@@ -313,7 +313,7 @@ export const allNeeds = [
 				"Is it more that you want your effort noticed — or that you want to know it made a difference?",
 				"When appreciation is absent, what hurts most: feeling unseen, or feeling like what you did didn't matter?",
 			],
-			suggestions: ["To be seen", "To matter", "Contribution", "Warmth"],
+			suggestions: ["to be seen", "to matter", "contribution", "warmth"],
 		},
 		resonantStatement: "Are you longing for your contribution to be seen and valued?",
 		coreQuestion:
@@ -328,7 +328,7 @@ export const allNeeds = [
 	{
 		id: "attention",
 		label: "attention",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -339,7 +339,7 @@ export const allNeeds = [
 	{
 		id: "closeness",
 		label: "closeness",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion: "Is this about physical closeness, emotional closeness, or both?",
@@ -349,7 +349,7 @@ export const allNeeds = [
 	{
 		id: "connection",
 		label: "connection",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -360,7 +360,7 @@ export const allNeeds = [
 	{
 		id: "companionship",
 		label: "companionship",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion: "Is this about having someone to do things with, or about not feeling alone in your experience?",
@@ -370,7 +370,7 @@ export const allNeeds = [
 	{
 		id: "harmony",
 		label: "harmony",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -385,7 +385,7 @@ export const allNeeds = [
 	{
 		id: "intimacy",
 		label: "intimacy",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -395,7 +395,7 @@ export const allNeeds = [
 	{
 		id: "love",
 		label: "love",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -412,7 +412,7 @@ export const allNeeds = [
 	{
 		id: "nurturing",
 		label: "nurturing",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion: "Are you wanting to be nurtured by someone, or noticing a need to nurture yourself?",
@@ -425,7 +425,7 @@ export const allNeeds = [
 	{
 		id: "sexual_expression",
 		label: "sexual expression",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -436,7 +436,7 @@ export const allNeeds = [
 	{
 		id: "support",
 		label: "support",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -454,7 +454,7 @@ export const allNeeds = [
 	{
 		id: "tenderness",
 		label: "tenderness",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -465,7 +465,7 @@ export const allNeeds = [
 	{
 		id: "having_my_back",
 		label: "having my back",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -475,7 +475,7 @@ export const allNeeds = [
 	{
 		id: "warmth",
 		label: "warmth",
-		family: "Connection",
+		family: "connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -489,8 +489,8 @@ export const allNeeds = [
 	{
 		id: "to_matter",
 		label: "to matter",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "social_moral",
 		coreQuestion: "Who do you most want to matter to right now — someone else, or yourself?",
 		directionPrompts: {
@@ -503,8 +503,8 @@ export const allNeeds = [
 	{
 		id: "acceptance",
 		label: "acceptance",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "social_moral",
 		coreQuestion:
 			"What part of you is wanting acceptance right now — is it about a decision you made, something you feel, or simply who you are?",
@@ -519,8 +519,8 @@ export const allNeeds = [
 	{
 		id: "care",
 		label: "care",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "relational",
 		coreQuestion:
 			"What would care look like in this situation — someone checking in, offering help, or simply noticing that you're struggling?",
@@ -530,8 +530,8 @@ export const allNeeds = [
 	{
 		id: "compassion",
 		label: "compassion",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "relational",
 		coreQuestion:
 			"Are you wanting compassion from someone else, or noticing you need more compassion toward yourself?",
@@ -546,15 +546,15 @@ export const allNeeds = [
 	{
 		id: "consideration",
 		label: "consideration",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "social_moral",
 		offerDeepening: {
 			questions: [
 				"When you say consideration, is it about being thought of — or about knowing your wellbeing matters to someone?",
 				"Is the feeling when it's absent more like invisibility — or more like not being cared for?",
 			],
-			suggestions: ["Care", "To matter", "Mutuality"],
+			suggestions: ["care", "to matter", "mutuality"],
 		},
 		resonantStatement: "Is there something in you wanting your needs to be taken into account?",
 		coreQuestion:
@@ -564,8 +564,8 @@ export const allNeeds = [
 	{
 		id: "empathy",
 		label: "empathy",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about someone understanding what it's like for you, or about them feeling emotionally with you?",
@@ -575,15 +575,15 @@ export const allNeeds = [
 	{
 		id: "respect",
 		label: "respect",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "social_moral",
 		offerDeepening: {
 			questions: [
 				"Is the lack of respect more like being dismissed — or like being diminished?",
 				"Is this about dignity in how you're treated — or about having your voice carry weight?",
 			],
-			suggestions: ["To be seen", "To be heard", "To matter", "Safety (emotional)"],
+			suggestions: ["to be seen", "to be heard", "to matter", "safety (emotional)"],
 		},
 		resonantStatement: "Are you longing to be treated in ways that reflect your worth?",
 		coreQuestion:
@@ -598,15 +598,15 @@ export const allNeeds = [
 	{
 		id: "acknowledgement",
 		label: "acknowledgement",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "social_moral",
 		offerDeepening: {
 			questions: [
 				"Is this about the facts being recognised (what happened) — or about your experience being received?",
 				"What would acknowledgement give you: a sense that your experience was recognised, or that you're not alone with it?",
 			],
-			suggestions: ["To be seen", "To be heard", "To matter", "Understanding"],
+			suggestions: ["to be seen", "to be heard", "to matter", "understanding"],
 		},
 		resonantStatement: "Is there something in you wanting your experience to be recognised and received?",
 		coreQuestion:
@@ -621,8 +621,8 @@ export const allNeeds = [
 	{
 		id: "to_be_heard",
 		label: "to be heard",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about someone listening all the way through, or about knowing your words are actually landing and influencing what happens next?",
@@ -632,8 +632,8 @@ export const allNeeds = [
 	{
 		id: "to_be_seen",
 		label: "to be seen",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about being noticed and recognised, or about someone really understanding what it's like to be you right now?",
@@ -648,8 +648,8 @@ export const allNeeds = [
 	{
 		id: "to_be_known_understood",
 		label: "to be known & understood",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about being understood in this moment, or about someone understanding you deeply over time?",
@@ -660,14 +660,14 @@ export const allNeeds = [
 				"When you say being understood, is it more about wanting agreement — or wanting your experience to truly land with someone?",
 				"When someone really understands you, does it feel more like relief, connection, belonging, or something else?",
 			],
-			suggestions: ["Connection", "Belonging", "Safety (emotional)", "To matter"],
+			suggestions: ["connection", "belonging", "safety (emotional)", "to matter"],
 		},
 	},
 	{
 		id: "to_be_trusted",
 		label: "to be trusted",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about someone believing in your honesty or capability, or about feeling able to trust yourself?",
@@ -680,8 +680,8 @@ export const allNeeds = [
 	{
 		id: "understanding_others",
 		label: "understanding others",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about understanding a specific person, or about a more general wish to connect through understanding?",
@@ -695,8 +695,8 @@ export const allNeeds = [
 	{
 		id: "mutual_recognition",
 		label: "mutual recognition",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "social_moral",
 		coreQuestion:
 			"Is this about both of you seeing each other clearly, or about the absence of that — feeling invisible while the other person isn't really looking?",
@@ -712,8 +712,8 @@ export const allNeeds = [
 	{
 		id: "kindness",
 		label: "kindness",
-		family: "Connection",
-		category: "To matter",
+		family: "connection",
+		category: "to matter",
 		domain: "relational",
 		coreQuestion:
 			"What would kindness look like right now — a gentle word, a thoughtful action, or simply the absence of harshness?",
@@ -726,7 +726,7 @@ export const allNeeds = [
 				"When you say kindness, is it more about gentleness — or about feeling safe enough to soften?",
 				"Is the longing more for warmth in how you're treated — or for reassurance that you matter?",
 			],
-			suggestions: ["Care", "Safety", "Tenderness", "To matter"],
+			suggestions: ["care", "safety (emotional)", "tenderness", "to matter"],
 		},
 		helpText: "Gentle and benevolent care",
 	},
@@ -737,7 +737,7 @@ export const allNeeds = [
 	{
 		id: "community",
 		label: "community",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "relational",
 		coreQuestion:
@@ -748,7 +748,7 @@ export const allNeeds = [
 	{
 		id: "belonging",
 		label: "belonging",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "relational",
 		coreQuestion: "Where do you most want to belong right now — a group, a place, or with a particular person?",
@@ -762,7 +762,7 @@ export const allNeeds = [
 	{
 		id: "reliability",
 		label: "reliability",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "system",
 		offerDeepening: {
@@ -770,7 +770,7 @@ export const allNeeds = [
 				"Is this about things working consistently — or about being able to trust that someone has your back?",
 				"When reliability is missing, what suffers most: your ability to plan, or your sense of being cared for?",
 			],
-			suggestions: ["Trusting", "Support", "Peace of mind", "Partnership"],
+			suggestions: ["trusting", "support", "peace of mind", "partnership"],
 		},
 		enoughQuestion: "What would be enough reliability for you to feel you can count on this?",
 		coreQuestion:
@@ -786,7 +786,7 @@ export const allNeeds = [
 	{
 		id: "communication",
 		label: "communication",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "system",
 		offerDeepening: {
@@ -794,7 +794,7 @@ export const allNeeds = [
 				"When you say communication, is it about information being shared — or about something in you being received?",
 				"What would better communication give you: more understanding, more connection, or something else?",
 			],
-			suggestions: ["To be heard", "To be known & understood", "Connection"],
+			suggestions: ["to be heard", "to be known & understood", "connection"],
 		},
 		enoughQuestion: "What would be enough shared understanding here for things to move forward?",
 		coreQuestion: "Is this about expressing yourself clearly, being heard, or wanting more open dialogue?",
@@ -803,7 +803,7 @@ export const allNeeds = [
 	{
 		id: "cooperation",
 		label: "cooperation",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "system",
 		offerDeepening: {
@@ -811,7 +811,7 @@ export const allNeeds = [
 				"Is this about tasks being shared — or about feeling like you're genuinely in it together with someone?",
 				"When cooperation is missing, what feels most absent: practical help, or a sense of partnership?",
 			],
-			suggestions: ["Partnership", "Mutuality", "Support", "Contribution"],
+			suggestions: ["partnership", "mutuality", "support", "contribution"],
 		},
 		enoughQuestion: "What would be enough working together for this to feel workable?",
 		coreQuestion:
@@ -821,7 +821,7 @@ export const allNeeds = [
 	{
 		id: "equality",
 		label: "equality",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "social_moral",
 		coreQuestion:
@@ -836,7 +836,7 @@ export const allNeeds = [
 	{
 		id: "inclusion",
 		label: "inclusion",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "social_moral",
 		coreQuestion:
@@ -850,7 +850,7 @@ export const allNeeds = [
 	{
 		id: "mutuality",
 		label: "mutuality",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "relational",
 		coreQuestion:
@@ -861,7 +861,7 @@ export const allNeeds = [
 	{
 		id: "participation",
 		label: "participation",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "social_moral",
 		offerDeepening: {
@@ -869,7 +869,7 @@ export const allNeeds = [
 				"Is this about being included (having a place) — or about feeling like your presence makes a difference?",
 				"When you're left out, what hurts most: not being included, or not being wanted?",
 			],
-			suggestions: ["Inclusion", "Belonging", "Contribution", "To matter"],
+			suggestions: ["inclusion", "belonging", "contribution", "to matter"],
 		},
 		resonantStatement: "Are you wanting a place in what's happening?",
 		coreQuestion:
@@ -884,7 +884,7 @@ export const allNeeds = [
 	{
 		id: "partnership",
 		label: "partnership",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "relational",
 		coreQuestion:
@@ -894,7 +894,7 @@ export const allNeeds = [
 	{
 		id: "self_expression",
 		label: "self-expression",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "social_moral",
 		offerDeepening: {
@@ -902,7 +902,7 @@ export const allNeeds = [
 				"Is this about being understood by others — or about letting something out that's been held in?",
 				"Is there something alive in you that isn't being given space to emerge?",
 			],
-			suggestions: ["Authenticity", "To be known & understood", "Creativity", "Aliveness"],
+			suggestions: ["authenticity", "to be known & understood", "creativity", "aliveness"],
 		},
 		resonantStatement: "Is there something in you wanting to express what's true for you?",
 		coreQuestion:
@@ -916,7 +916,7 @@ export const allNeeds = [
 	{
 		id: "sharing",
 		label: "sharing",
-		family: "Connection",
+		family: "connection",
 		category: "Community",
 		domain: "relational",
 		coreQuestion: "Is this about sharing experiences together, sharing resources, or sharing what's in your heart?",
@@ -949,7 +949,7 @@ export const allNeeds = [
 				"Is this about wanting to do things well — or about wanting your actions to matter?",
 				"When competence feels lacking, is it mostly the practical gap — or does it touch something tender around worth?",
 			],
-			suggestions: ["Contribution", "Growth", "Self-acceptance", "Mattering to myself"],
+			suggestions: ["contribution", "growth", "self-acceptance", "mattering to myself"],
 		},
 		coreQuestion:
 			"Is this about wanting to feel capable, or about having the conditions and support to act capably?",
@@ -1054,7 +1054,7 @@ export const allNeeds = [
 				"Is honesty important here mainly so you can orient clearly — or because something feels hidden or unsafe?",
 				"Is there a longing for things to feel real and congruent, not just for facts to be correct?",
 			],
-			suggestions: ["Trusting", "Safety (emotional)", "Authenticity", "Integrity"],
+			suggestions: ["trusting", "safety (emotional)", "authenticity", "integrity"],
 		},
 		resonantStatement: "Are you wanting truth to be shared in a way you can relate to?",
 		coreQuestion:
@@ -1155,7 +1155,7 @@ export const allNeeds = [
 		id: "understanding",
 		label: "understanding",
 		family: "Meaning",
-		category: "Understanding",
+		category: "understanding",
 		domain: "existential",
 		coreQuestion: "What are you wanting to understand — yourself, another person, or why something happened?",
 		directionPrompts: {
@@ -1170,7 +1170,7 @@ export const allNeeds = [
 		id: "awareness",
 		label: "awareness",
 		family: "Meaning",
-		category: "Understanding",
+		category: "understanding",
 		domain: "existential",
 		coreQuestion:
 			"Is this about being more aware of your own inner experience, or more aware of life as it unfolds around you?",
@@ -1185,7 +1185,7 @@ export const allNeeds = [
 		id: "clarity",
 		label: "clarity",
 		family: "Meaning",
-		category: "Understanding",
+		category: "understanding",
 		domain: "system",
 		coreQuestion:
 			"What feels unclear right now — the situation, someone's intentions, or your own feelings about it?",
@@ -1200,7 +1200,7 @@ export const allNeeds = [
 		id: "discovery",
 		label: "discovery",
 		family: "Meaning",
-		category: "Understanding",
+		category: "understanding",
 		domain: "existential",
 		coreQuestion:
 			"Is this about learning something new, or uncovering something that was already there but hidden?",
@@ -1214,7 +1214,7 @@ export const allNeeds = [
 		id: "learning",
 		label: "learning",
 		family: "Meaning",
-		category: "Understanding",
+		category: "understanding",
 		domain: "existential",
 		coreQuestion:
 			"What are you wanting to learn — a skill, something about yourself, or a better understanding of someone or something?",
@@ -1228,7 +1228,7 @@ export const allNeeds = [
 		id: "making_sense_of_life",
 		label: "making sense of life",
 		family: "Meaning",
-		category: "Understanding",
+		category: "understanding",
 		domain: "existential",
 		coreQuestion:
 			"Is there something specific that doesn't make sense right now, or a wider feeling of confusion about where life is heading?",
@@ -1243,7 +1243,7 @@ export const allNeeds = [
 		id: "stimulation",
 		label: "stimulation",
 		family: "Meaning",
-		category: "Understanding",
+		category: "understanding",
 		domain: "existential",
 		coreQuestion:
 			"Is this about boredom, or about wanting something that engages your mind and brings more aliveness?",
@@ -1345,7 +1345,7 @@ export const allNeeds = [
 				"Is this about what you achieve — or about knowing your actions made a difference?",
 				"When effectiveness feels absent, is it mostly frustration — or something closer to helplessness?",
 			],
-			suggestions: ["Contribution", "Growth", "Support", "Peace of mind"],
+			suggestions: ["contribution", "growth", "support", "peace of mind"],
 		},
 		enoughQuestion: "What would be enough impact here for you to feel you're making a difference?",
 		coreQuestion:
@@ -1575,7 +1575,7 @@ export const allNeeds = [
 				"Is the freedom you're wanting more about no longer being constrained — or about being able to live as yourself?",
 				"What would freedom make possible: more choices, or more aliveness?",
 			],
-			suggestions: ["Aliveness", "Authenticity", "Self-expression"],
+			suggestions: ["aliveness", "authenticity", "self-expression"],
 		},
 		enoughQuestion: "What would be enough freedom here for you to feel you have some room to choose?",
 		coreQuestion:
@@ -1601,7 +1601,7 @@ export const allNeeds = [
 				"Is this about having the right to choose — or about being able to act from your own truth?",
 				"When autonomy is missing, does it feel like control — or like losing yourself?",
 			],
-			suggestions: ["Authenticity", "Self-connection", "Integrity", "Mattering to myself"],
+			suggestions: ["authenticity", "self-connection", "integrity", "mattering to myself"],
 		},
 		enoughQuestion: "What would be enough autonomy for you to move in a way that feels right to you?",
 		coreQuestion:
@@ -1655,7 +1655,7 @@ export const allNeeds = [
 				"Is this about not being dependent practically — or about not being vulnerable to others' choices?",
 				"Is there a part of you that wants to be sure you'll be OK, whatever happens?",
 			],
-			suggestions: ["Safety (emotional)", "Self-connection", "Mattering to myself", "Integrity"],
+			suggestions: ["safety (emotional)", "self-connection", "mattering to myself", "integrity"],
 		},
 		enoughQuestion: "What would be enough independence here for you to feel OK standing on your own?",
 		coreQuestion:
@@ -1689,7 +1689,7 @@ export const allNeeds = [
 				"Is this about taking ownership of your part — or about not over-carrying others' parts?",
 				"Is there a tendency to blame yourself here that might also want some gentleness?",
 			],
-			suggestions: ["Integrity", "Self-connection", "Mattering to myself", "Peace of mind"],
+			suggestions: ["integrity", "self-connection", "mattering to myself", "peace of mind"],
 		},
 		enoughQuestion: "What would be enough ownership for you to feel aligned with your part in this?",
 		coreQuestion:
@@ -1723,7 +1723,7 @@ export const allNeeds = [
 				"Is this about doing things unplanned — or about being able to respond to what's alive in the moment?",
 				"Is the spontaneity you're longing for more about lightness and play — or about vitality?",
 			],
-			suggestions: ["Play", "Aliveness", "Creativity", "Flow"],
+			suggestions: ["play", "aliveness", "creativity", "flow"],
 		},
 		enoughQuestion: "What would be enough openness here for things to feel a bit more natural or alive?",
 		coreQuestion:
