@@ -4,14 +4,7 @@ import { filterByState } from "../utils/renderHelpers";
 import "./GratitudeSummaryModal.css";
 
 const GratitudeSummaryModal = () => {
-	const {
-		setShowSummary,
-		saveEntry,
-		observation,
-		feelings,
-		needs,
-		reviewReflection,
-	} = useGratitude();
+	const { setShowSummary, saveEntry, observation, feelings, needs, reviewReflection } = useGratitude();
 
 	const [copied, setCopied] = useState(false);
 	const [saved, setSaved] = useState(false);
@@ -22,10 +15,7 @@ const GratitudeSummaryModal = () => {
 		setTimeout(() => setSaved(false), 2500);
 	};
 
-	const allFeelings = [
-		...filterByState(feelings, "double-clicked"),
-		...filterByState(feelings, "clicked"),
-	];
+	const allFeelings = [...filterByState(feelings, "double-clicked"), ...filterByState(feelings, "clicked")];
 	const strongNeeds = filterByState(needs, "double-clicked");
 	const normalNeeds = filterByState(needs, "clicked");
 	const allNeeds = [...strongNeeds, ...normalNeeds];
@@ -37,7 +27,7 @@ const GratitudeSummaryModal = () => {
 		heading("What I'm grateful for");
 		if (observation?.trim()) lines.push(observation.trim(), "");
 
-		heading("How it felt");
+		heading("How I felt");
 		if (allFeelings.length > 0) lines.push(allFeelings.join(", "), "");
 
 		heading("Needs that were met");
@@ -72,7 +62,9 @@ const GratitudeSummaryModal = () => {
 			<div className="g-summary-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
 				<div className="g-summary-header">
 					<h2>Your gratitude</h2>
-					<button className="g-summary-close" onClick={() => setShowSummary(false)} aria-label="Close">×</button>
+					<button className="g-summary-close" onClick={() => setShowSummary(false)} aria-label="Close">
+						×
+					</button>
 				</div>
 
 				<div className="g-summary-body">
@@ -85,7 +77,9 @@ const GratitudeSummaryModal = () => {
 
 					{allFeelings.length > 0 && (
 						<section className="g-summary-section">
-							<h3>How it felt</h3>
+							<h3>
+								How <Img:z></Img:z> felt
+							</h3>
 							<p>{interleave(allFeelings, renderFeelingName)}</p>
 						</section>
 					)}

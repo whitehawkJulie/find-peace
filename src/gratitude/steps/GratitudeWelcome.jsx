@@ -11,8 +11,8 @@ const GratitudeWelcome = () => {
 
 			<p className="g-welcome-lead">
 				Behind every moment of gratitude is something precious that mattered to us. When we slow down and notice
-				what happened, how it felt, and what need was met, gratitude can shift from a polite idea into something
-				we genuinely feel.
+				what happened, how we felt, and what needs were met, gratitude can shift from a polite idea into
+				something we genuinely feel and savour.
 			</p>
 			<p>
 				It also offers a beautiful way to let someone know not just what they did, but what it meant to us, if
@@ -26,7 +26,7 @@ const GratitudeWelcome = () => {
 					<strong>Observation</strong> — what happened that you're grateful for?
 				</li>
 				<li>
-					<strong>Feelings</strong> — how did it feel?
+					<strong>Feelings</strong> — how did you feel?
 				</li>
 				<li>
 					<strong>Needs</strong> — what deep need was met?
