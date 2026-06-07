@@ -6,19 +6,12 @@ import "./GratitudeImport.css";
 
 // ── Build lookup sets (lowercase for case-insensitive matching) ──
 
-const VALID_NEEDS = new Set(allNeeds.map((n) => n.label.toLowerCase()));
-const VALID_FEELINGS = new Set(
-	Object.values(FeelingsMet.groups).flatMap((g) => g.items.map((i) => i.item.toLowerCase()))
-);
-
-// Return the canonical-cased label for a need, or null
 const canonicalNeed = (raw) => {
 	const lower = raw.toLowerCase();
 	const match = allNeeds.find((n) => n.label.toLowerCase() === lower);
 	return match ? match.label : null;
 };
 
-// Return the canonical-cased feeling item, or null
 const canonicalFeeling = (raw) => {
 	const lower = raw.toLowerCase();
 	for (const group of Object.values(FeelingsMet.groups)) {
@@ -28,63 +21,53 @@ const canonicalFeeling = (raw) => {
 	return null;
 };
 
-const parseLine = (line) =>
-	line
-		.split(",")
-		.map((s) => s.trim())
-		.filter(Boolean);
+const parseCSV = (text) =>
+	text.split(",").map((s) => s.trim()).filter(Boolean);
 
-const parseImport = (text) => {
-	const lines = text.split("\n").map((l) => l.trim());
-	const [obsLine = "", feelingsLine = "", needsLine = ""] = lines;
-
-	const rawFeelings = parseLine(feelingsLine);
-	const rawNeeds = parseLine(needsLine);
-
-	const matchedFeelings = [];
-	const unknownFeelings = [];
-	rawFeelings.forEach((f) => {
+const validateFeelings = (raw) => {
+	const matched = [], unknown = [];
+	parseCSV(raw).forEach((f) => {
 		const c = canonicalFeeling(f);
-		if (c) matchedFeelings.push(c);
-		else unknownFeelings.push(f);
+		if (c) matched.push(c); else unknown.push(f);
 	});
+	return { matched, unknown };
+};
 
-	const matchedNeeds = [];
-	const unknownNeeds = [];
-	rawNeeds.forEach((n) => {
+const validateNeeds = (raw) => {
+	const matched = [], unknown = [];
+	parseCSV(raw).forEach((n) => {
 		const c = canonicalNeed(n);
-		if (c) matchedNeeds.push(c);
-		else unknownNeeds.push(n);
+		if (c) matched.push(c); else unknown.push(n);
 	});
-
-	return { observation: obsLine, matchedFeelings, unknownFeelings, matchedNeeds, unknownNeeds };
+	return { matched, unknown };
 };
 
 // ── Component ──
 
 const GratitudeImport = ({ onClose }) => {
 	const { savedEntries, setSavedEntries } = useGratitude();
-	const [text, setText] = useState("");
+	const [observation, setObservation] = useState("");
+	const [feelingsText, setFeelingsText] = useState("");
+	const [needsText, setNeedsText] = useState("");
 	const [imported, setImported] = useState(false);
 
-	const parsed = useMemo(() => (text.trim() ? parseImport(text) : null), [text]);
+	const feelings = useMemo(() => validateFeelings(feelingsText), [feelingsText]);
+	const needs = useMemo(() => validateNeeds(needsText), [needsText]);
 
-	const hasContent = parsed && (parsed.observation || parsed.matchedFeelings.length > 0 || parsed.matchedNeeds.length > 0);
-	const hasWarnings = parsed && (parsed.unknownFeelings.length > 0 || parsed.unknownNeeds.length > 0);
+	const hasContent = observation.trim() || feelings.matched.length > 0 || needs.matched.length > 0;
+	const hasWarnings = feelings.unknown.length > 0 || needs.unknown.length > 0;
 
 	const handleImport = () => {
-		if (!parsed) return;
-
 		const feelingsObj = {};
-		parsed.matchedFeelings.forEach((f) => { feelingsObj[f] = "clicked"; });
+		feelings.matched.forEach((f) => { feelingsObj[f] = "clicked"; });
 
 		const needsObj = {};
-		parsed.matchedNeeds.forEach((n) => { needsObj[n] = "clicked"; });
+		needs.matched.forEach((n) => { needsObj[n] = "clicked"; });
 
 		const entry = {
 			id: Date.now(),
 			date: new Date().toISOString(),
-			observation: parsed.observation,
+			observation: observation.trim(),
 			feelings: feelingsObj,
 			needs: needsObj,
 			reviewReflection: "",
@@ -94,6 +77,13 @@ const GratitudeImport = ({ onClose }) => {
 		setSavedEntries(updated);
 		localStorage.setItem("gratitudeSessions", JSON.stringify(updated));
 		setImported(true);
+	};
+
+	const handleImportAnother = () => {
+		setObservation("");
+		setFeelingsText("");
+		setNeedsText("");
+		setImported(false);
 	};
 
 	return (
@@ -108,78 +98,60 @@ const GratitudeImport = ({ onClose }) => {
 					<div className="gi-success">
 						<p className="gi-success-icon">✓</p>
 						<p className="gi-success-text">Entry imported!</p>
-						<button className="gi-btn-primary" onClick={() => { setText(""); setImported(false); }}>
-							Import another
-						</button>
-						<button className="gi-btn-secondary" onClick={onClose}>
-							Done
-						</button>
+						<button className="gi-btn-primary" onClick={handleImportAnother}>Import another</button>
+						<button className="gi-btn-secondary" onClick={onClose}>Done</button>
 					</div>
 				) : (
 					<>
-						<p className="gi-instructions">
-							Paste your entry below — one piece per line:
-						</p>
-						<ol className="gi-format">
-							<li><strong>Observation</strong> — what happened</li>
-							<li><strong>Feelings</strong> — comma-separated</li>
-							<li><strong>Needs</strong> — comma-separated</li>
-						</ol>
+						<div className="gi-field">
+							<label className="gi-label">What happened</label>
+							<textarea
+								className="gi-textarea"
+								rows={3}
+								placeholder="Describe what you're grateful for…"
+								value={observation}
+								onChange={(e) => setObservation(e.target.value)}
+							/>
+						</div>
 
-						<textarea
-							className="gi-textarea"
-							rows={6}
-							placeholder={"My friend surprised me with a home-cooked meal.\ngrateful, touched, warm\ncare, belonging, support"}
-							value={text}
-							onChange={(e) => setText(e.target.value)}
-						/>
+						<div className="gi-field">
+							<label className="gi-label">Feelings <span className="gi-label-hint">comma-separated</span></label>
+							<textarea
+								className="gi-textarea"
+								rows={2}
+								placeholder="e.g. grateful, touched, warm"
+								value={feelingsText}
+								onChange={(e) => setFeelingsText(e.target.value)}
+							/>
+							{feelings.matched.length > 0 && (
+								<p className="gi-matched">✓ {feelings.matched.join(", ")}</p>
+							)}
+							{feelings.unknown.length > 0 && (
+								<p className="gi-warning">⚠ Not recognised, will be skipped: <strong>{feelings.unknown.join(", ")}</strong></p>
+							)}
+						</div>
 
-						{parsed && hasContent && (
-							<div className="gi-preview">
-								<p className="gi-preview-label">Preview</p>
+						<div className="gi-field">
+							<label className="gi-label">Needs met <span className="gi-label-hint">comma-separated</span></label>
+							<textarea
+								className="gi-textarea"
+								rows={2}
+								placeholder="e.g. care, belonging, support"
+								value={needsText}
+								onChange={(e) => setNeedsText(e.target.value)}
+							/>
+							{needs.matched.length > 0 && (
+								<p className="gi-matched">✓ {needs.matched.join(", ")}</p>
+							)}
+							{needs.unknown.length > 0 && (
+								<p className="gi-warning">⚠ Not recognised, will be skipped: <strong>{needs.unknown.join(", ")}</strong></p>
+							)}
+						</div>
 
-								{parsed.observation && (
-									<div className="gi-preview-row">
-										<span className="gi-preview-key">What happened: </span>
-										<span>{parsed.observation}</span>
-									</div>
-								)}
-
-								{parsed.matchedFeelings.length > 0 && (
-									<div className="gi-preview-row">
-										<span className="gi-preview-key">Feelings: </span>
-										<span>{parsed.matchedFeelings.join(", ")}</span>
-									</div>
-								)}
-
-								{parsed.matchedNeeds.length > 0 && (
-									<div className="gi-preview-row">
-										<span className="gi-preview-key">Needs: </span>
-										<span>{parsed.matchedNeeds.join(", ")}</span>
-									</div>
-								)}
-
-								{hasWarnings && (
-									<div className="gi-warnings">
-										{parsed.unknownFeelings.length > 0 && (
-											<p className="gi-warning">
-												⚠ These feelings weren't recognised and will be skipped:{" "}
-												<strong>{parsed.unknownFeelings.join(", ")}</strong>
-											</p>
-										)}
-										{parsed.unknownNeeds.length > 0 && (
-											<p className="gi-warning">
-												⚠ These needs weren't recognised and will be skipped:{" "}
-												<strong>{parsed.unknownNeeds.join(", ")}</strong>
-											</p>
-										)}
-									</div>
-								)}
-
-								<button className="gi-btn-primary" onClick={handleImport}>
-									{hasWarnings ? "Import anyway" : "Import entry"}
-								</button>
-							</div>
+						{hasContent && (
+							<button className="gi-btn-primary" onClick={handleImport}>
+								{hasWarnings ? "Import anyway" : "Import entry"}
+							</button>
 						)}
 					</>
 				)}
