@@ -29,7 +29,7 @@ export function exportAllData() {
 	localStorage.setItem(BACKUP_TS_KEY, new Date().toISOString());
 }
 
-export function importAllData(file) {
+function parseBackupFile(file) {
 	return new Promise((resolve, reject) => {
 		const reader = new FileReader();
 		reader.onload = (e) => {
@@ -39,10 +39,7 @@ export function importAllData(file) {
 					reject(new Error("This doesn't look like a find-peace backup file."));
 					return;
 				}
-				DATA_KEYS.forEach((k) => {
-					if (k in data) localStorage.setItem(k, JSON.stringify(data[k]));
-				});
-				resolve();
+				resolve(data);
 			} catch {
 				reject(new Error("Couldn't read the file — is it a valid backup?"));
 			}
@@ -50,6 +47,33 @@ export function importAllData(file) {
 		reader.onerror = () => reject(new Error("File read failed."));
 		reader.readAsText(file);
 	});
+}
+
+// Overwrite: replace all keys from backup.
+export async function importAllData(file) {
+	const data = await parseBackupFile(file);
+	DATA_KEYS.forEach((k) => {
+		if (k in data) localStorage.setItem(k, JSON.stringify(data[k]));
+	});
+}
+
+// Merge: add sessions from backup that don't already exist locally (by id).
+// Settings are left untouched.
+export async function mergeAllData(file) {
+	const data = await parseBackupFile(file);
+	const SESSION_KEYS = ["findPeaceSessions", "gratitudeSessions"];
+	SESSION_KEYS.forEach((k) => {
+		if (!(k in data)) return;
+		const incoming = Array.isArray(data[k]) ? data[k] : [];
+		const existing = readKey(k);
+		const current = Array.isArray(existing) ? existing : [];
+		const existingIds = new Set(current.map((s) => s.id));
+		const toAdd = incoming.filter((s) => !existingIds.has(s.id));
+		if (toAdd.length > 0) {
+			localStorage.setItem(k, JSON.stringify([...current, ...toAdd]));
+		}
+	});
+	return; // settings intentionally not touched
 }
 
 // Returns days since last backup, or null if never backed up.

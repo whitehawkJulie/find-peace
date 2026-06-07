@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useWizard } from "./WizardContext";
 import { setPendingNavMethod } from "../analytics/analytics";
 import SavedEntries from "./SavedEntries";
-import { exportAllData, importAllData, daysSinceBackup } from "../utils/backupData";
+import { exportAllData, importAllData, mergeAllData, daysSinceBackup } from "../utils/backupData";
 import "./SideMenu.css";
 
 const GROUP_LABELS = {
@@ -43,7 +43,8 @@ const SideMenu = ({ isOpen, onClose }) => {
 	const [savedFeedback, setSavedFeedback] = useState(false);
 	const [confirmNew, setConfirmNew] = useState(false);
 	const [backupAge, setBackupAge] = useState(() => daysSinceBackup());
-	const [restoreState, setRestoreState] = useState(null); // null | "confirm" | "done" | "error"
+	const [restoreState, setRestoreState] = useState(null); // null | "confirm" | "choose" | "done" | "error"
+	const [restoreFile, setRestoreFile] = useState(null);
 	const [restoreError, setRestoreError] = useState("");
 	const restoreInputRef = useRef(null);
 	const feedbackTimer = useRef(null);
@@ -68,12 +69,19 @@ const SideMenu = ({ isOpen, onClose }) => {
 		setBackupAge(0);
 	};
 
-	const handleRestoreFileChosen = async (e) => {
+	const handleRestoreFileChosen = (e) => {
 		const file = e.target.files[0];
 		if (!file) return;
 		e.target.value = "";
+		setRestoreFile(file);
+		setRestoreState("choose");
+	};
+
+	const handleRestoreAction = async (action) => {
 		try {
-			await importAllData(file);
+			if (action === "overwrite") await importAllData(restoreFile);
+			else await mergeAllData(restoreFile);
+			setRestoreFile(null);
 			setRestoreState("done");
 		} catch (err) {
 			setRestoreError(err.message);
@@ -179,10 +187,10 @@ const SideMenu = ({ isOpen, onClose }) => {
 							</div>
 						)}
 
-						{/* Restore confirm / result */}
+						{/* Restore flow */}
 						{restoreState === "confirm" && (
 							<div className="side-menu-backup-notice side-menu-backup-notice--warn">
-								<strong>Restore from file?</strong> This will overwrite all current data.{" "}
+								<strong>Restore from file.</strong> Choose a backup file, then decide what to do with it.{" "}
 								<button
 									className="button-styled-as-link"
 									onClick={() => restoreInputRef.current?.click()}>
@@ -196,9 +204,33 @@ const SideMenu = ({ isOpen, onClose }) => {
 								</button>
 							</div>
 						)}
+						{restoreState === "choose" && (
+							<div className="side-menu-backup-notice side-menu-backup-notice--warn">
+								<strong>{restoreFile?.name}</strong>
+								<div className="side-menu-restore-choices">
+									<button
+										className="side-menu-restore-choice"
+										onClick={() => handleRestoreAction("merge")}>
+										<span className="side-menu-restore-choice-title">Add to existing</span>
+										<span className="side-menu-restore-choice-desc">Brings in sessions from the file that aren't already here. Nothing is deleted.</span>
+									</button>
+									<button
+										className="side-menu-restore-choice side-menu-restore-choice--danger"
+										onClick={() => handleRestoreAction("overwrite")}>
+										<span className="side-menu-restore-choice-title">Replace everything</span>
+										<span className="side-menu-restore-choice-desc">Overwrites all current data with the backup. Can't be undone.</span>
+									</button>
+									<button
+										className="button-styled-as-link"
+										onClick={() => { setRestoreFile(null); setRestoreState(null); }}>
+										Cancel
+									</button>
+								</div>
+							</div>
+						)}
 						{restoreState === "done" && (
 							<div className="side-menu-backup-notice side-menu-backup-notice--ok">
-								Restored. Reload the page to see your data.{" "}
+								Done. Reload to see your data.{" "}
 								<button
 									className="button-styled-as-link"
 									onClick={() => window.location.reload()}>
