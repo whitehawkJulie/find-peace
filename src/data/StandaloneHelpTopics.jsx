@@ -1370,6 +1370,60 @@ const StandaloneHelpTopics = [
 		),
 	},
 
+	{
+		id: "requests",
+		title: "How to make a clear request",
+		content: (
+			<>
+				<p>
+					It helps to stay aware that no-one has to meet your needs. You're asking for willingness, not
+					demanding compliance. In fact, you usually don't want people to do something unwillingly — that
+					tends to create resentment and disconnect rather than genuine care.
+				</p>
+				<p>A few things tend to make requests work better:</p>
+
+				<ul>
+					<li>
+						<strong>{"Be clear and specific."}</strong>{" "}
+						{
+							'A request needs to describe something the other person could actually do or say. "Be nicer to me" isn\'t very clear, because the other person has no idea what that would look like for you.'
+						}
+					</li>
+					<li>
+						<strong>{"Describe the action you're asking for."}</strong>{" "}
+						{
+							'"Would you be willing to ask me how my day was when I get home, for the next week?" is specific and doable.'
+						}
+					</li>
+					<li>
+						<strong>{"Keep it doable."}</strong>{" "}
+						{
+							"Requests work best when they are concrete and realistic. Specific actions and timeframes make it easier for the other person to respond honestly."
+						}
+					</li>
+					<li>
+						<strong>{'Be willing to hear "no".'}</strong>{" "}
+						{
+							"A request only stays a request if the other person can freely say no. If they say no, it doesn't mean your needs don't matter — it usually means they have needs of their own that are also important."
+						}
+					</li>
+					<li>
+						<strong>{'Listen for the "yes" to their own needs.'}</strong>{" "}
+						{
+							"When someone says no, they are often protecting something important to them — perhaps their time, energy, safety, or priorities. Hearing that can open the door to finding another strategy that might work for both of you."
+						}
+					</li>
+				</ul>
+
+				<p>
+					When both people's needs are on the table, it becomes much easier to look for solutions that
+					everyone can willingly support.
+				</p>
+			</>
+		),
+		more: <></>,
+	},
+
 	// {
 	// 	id: "empathy",
 	// 	title: "Empathy",
@@ -1402,5 +1456,11 @@ const StandaloneHelpTopics = [
 			</>
 		),
 	},
+	// {
+	// 	id: "empathy",
+	// 	title: "Empathy",
+	// 	content: <></>,
+	// 	more: <></>,
+	// },
 ];
 export default StandaloneHelpTopics;

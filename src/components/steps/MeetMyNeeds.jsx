@@ -1,11 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { useWizard } from "../WizardContext";
 import UnpackNeeds from "./UnpackNeeds";
 import ReflectBox from "./ReflectBox";
+import Pill from "../Pill";
 import "./MeetMyNeeds.css";
+import HelpLink from "../HelpLink";
 
 const MeetMyNeeds = () => {
-	const { visibleSteps, setStepIndex } = useWizard();
+	const { visibleSteps, setStepIndex, needs } = useWizard();
+	const [focusNeed, setFocusNeed] = useState(null);
+
+	const selectedNeeds = Object.entries(needs).filter(
+		([, state]) => state === "clicked" || state === "double-clicked",
+	);
+
+	const handleNeedClick = (name) => {
+		setFocusNeed((prev) => (prev === name ? null : name));
+	};
+
+	const N = ({ cap, longing, bare }) => {
+		const name = focusNeed ? (
+			<strong>
+				<em>{focusNeed}</em>
+			</strong>
+		) : null;
+		if (longing) {
+			if (!focusNeed) return "for this need";
+			return focusNeed.startsWith("to ") ? name : <>for {name}</>;
+		}
+		if (bare) return name ?? "this need";
+		if (!focusNeed) return cap ? "This need" : "this need";
+		const prefix = focusNeed.startsWith("to ")
+			? cap
+				? "The need "
+				: "the need "
+			: cap
+				? "The need for "
+				: "the need for ";
+		return (
+			<>
+				{prefix}
+				{name}
+			</>
+		);
+	};
 
 	const goTo = (TargetComponent) => {
 		const idx = visibleSteps.findIndex((s) => s.component === TargetComponent);
@@ -16,23 +54,39 @@ const MeetMyNeeds = () => {
 		<div className="step-container">
 			<h2>Finding strategies for an unmet need</h2>
 
+			{selectedNeeds.length > 0 && (
+				<div>
+					<p className="cloud-label">Choose one of your needs to focus on for now</p>
+					<div className="pill-grid cloud needs-selected-pills">
+						{selectedNeeds.map(([name, state]) => (
+							<Pill
+								key={name}
+								item={name}
+								type="need"
+								state={focusNeed === name ? "double-clicked" : ""}
+								onClick={() => handleNeedClick(name)}
+							/>
+						))}
+					</div>
+				</div>
+			)}
+
 			<p>Some needs are easy to name, but surprisingly hard to meet.</p>
 
 			<p>That doesn’t mean you’re doing it wrong. It usually means something is tangled around the need.</p>
 
 			<ul>
-				<li>Maybe you’re not quite at the deepest need yet.</li>
 				<li>Maybe the need feels forbidden, selfish, or impossible.</li>
 				<li>Maybe you can only imagine one person meeting it, in one particular way.</li>
 				<li>Maybe you’re grieving how long it has been unmet.</li>
 				<li>Maybe your nervous system is so overwhelmed that it can’t access creativity yet.</li>
+				<li>Maybe this need is actually a strategy for meeting an even deeper need.</li>
 			</ul>
 
 			<p>
 				This page is here to help you slowly untangle those knots, so you can find small, realistic ways to
 				nourish the need.
 			</p>
-
 
 			<section className="meet-card">
 				<h3>1. Check whether this is the deepest need</h3>
@@ -47,7 +101,9 @@ const MeetMyNeeds = () => {
 
 				<p>One way to check is to imagine saying:</p>
 
-				<blockquote>Every cell in my body is longing for this need.</blockquote>
+				<blockquote>
+					Every cell in my body is longing <N longing />.
+				</blockquote>
 
 				<p>
 					If that brings softness, ache, grief, tenderness, or even tears, you may be close to something
@@ -63,7 +119,9 @@ const MeetMyNeeds = () => {
 				<p>Try asking:</p>
 
 				<ul>
-					<li>If this need were met, what would that give me?</li>
+					<li>
+						If <N /> were met, what would that give me?
+					</li>
 					<li>And if I had that, what would become possible?</li>
 					<li>What would soften in me?</li>
 					<li>What would finally be able to relax?</li>
@@ -75,7 +133,6 @@ const MeetMyNeeds = () => {
 					placeholder="If this need were met, I might finally feel..."
 				/>
 			</section>
-
 
 			<section className="meet-card">
 				<h3>2. Get to know the need</h3>
@@ -96,25 +153,42 @@ const MeetMyNeeds = () => {
 				<p>You might explore:</p>
 
 				<ul>
-					<li>When has this need been unmet in my life?</li>
+					<li>
+						When has <N /> been unmet in my life?
+					</li>
 					<li>How did I feel when it was missing?</li>
-					<li>When has this need ever been met, even a little?</li>
+					<li>
+						When has <N /> ever been met, even a little?
+					</li>
 					<li>How did I feel when it was present?</li>
 					<li>What behaviours, environments, or relationships helped nourish it?</li>
 				</ul>
 
-				<ReflectBox fieldId="unmet-when" label="When has this need been unmet?" placeholder="A time this need was missing was..." />
+				<ReflectBox
+					fieldId="unmet-when"
+					label={
+						<>
+							When has <N /> been unmet?
+						</>
+					}
+					placeholder="A time this need was missing was..."
+				/>
 
 				<ReflectBox
 					fieldId="met-when"
-					label="When has this need been met, even a little?"
+					label={
+						<>
+							When has <N /> been met, even a little?
+						</>
+					}
 					placeholder="A time I experienced even a small amount of this need was..."
 				/>
 			</section>
 
-
 			<section className="meet-card">
-				<h3>3. Notice if this need feels impossible or forbidden</h3>
+				<h3>
+					3. Notice if <N /> feels impossible or forbidden
+				</h3>
 
 				<p>
 					Some needs have been unmet for so long that they start to feel dangerous, shameful, or impossible.
@@ -136,15 +210,20 @@ const MeetMyNeeds = () => {
 
 				<p>Before looking for strategies, it may help to simply acknowledge:</p>
 
-				<blockquote>This need matters. And it has hurt that it has not been met.</blockquote>
+				<blockquote>
+					<N cap /> matters. And it has hurt that it has not been met.
+				</blockquote>
 
 				<ReflectBox
 					fieldId="forbidden-stories"
-					label="What stories or fears are wrapped around this need?"
+					label={
+						<>
+							What stories or fears are wrapped around <N />?
+						</>
+					}
 					placeholder="A story I have about this need is..."
 				/>
 			</section>
-
 
 			<section className="meet-card">
 				<h3>4. Check whether you are attached to one strategy</h3>
@@ -166,11 +245,17 @@ const MeetMyNeeds = () => {
 				<p>Try asking:</p>
 
 				<ul>
-					<li>Am I asking for the need, or am I attached to one strategy?</li>
-					<li>Who do I believe must meet this need?</li>
+					<li>
+						Am I asking for <N bare />, or am I attached to one specific strategy?
+					</li>
+					<li>
+						Who do I believe must meet <N />?
+					</li>
 					<li>When do I believe it must happen?</li>
 					<li>How do I believe it must look?</li>
-					<li>What might become possible if this need could be nourished in more than one way?</li>
+					<li>
+						What might become possible if <N /> could be nourished in more than one way?
+					</li>
 				</ul>
 
 				<ReflectBox
@@ -179,7 +264,6 @@ const MeetMyNeeds = () => {
 					placeholder="The way I most want this need to be met is..."
 				/>
 			</section>
-
 
 			<section className="meet-card">
 				<h3>5. Brainstorm without being realistic yet</h3>
@@ -202,7 +286,6 @@ const MeetMyNeeds = () => {
 					placeholder="Ways this need could possibly be nourished include..."
 				/>
 			</section>
-
 
 			<section className="meet-card">
 				<h3>6. Look for different places this need could be nourished</h3>
@@ -229,11 +312,14 @@ const MeetMyNeeds = () => {
 
 				<ReflectBox
 					fieldId="where-nourished"
-					label="Where could this need be nourished?"
+					label={
+						<>
+							Where could <N /> be nourished?
+						</>
+					}
 					placeholder="This need might be nourished through..."
 				/>
 			</section>
-
 
 			<section className="meet-card">
 				<h3>7. Get specific</h3>
@@ -243,7 +329,9 @@ const MeetMyNeeds = () => {
 					very different things in real life.
 				</p>
 
-				<p>If you were asking someone to help meet this need, what would you actually ask them to do?</p>
+				<p>
+					If you were asking someone to help meet <N />, what would you actually ask them to do?
+				</p>
 
 				<p>Not just:</p>
 
@@ -266,11 +354,14 @@ const MeetMyNeeds = () => {
 
 				<ReflectBox
 					fieldId="specific-action"
-					label="What specific action might help meet this need?"
+					label={
+						<>
+							What specific action might help meet <N />?
+						</>
+					}
 					placeholder="A specific thing I could ask for or try is..."
 				/>
 			</section>
-
 
 			<section className="meet-card">
 				<h3>8. Check for other needs</h3>
@@ -297,7 +388,6 @@ const MeetMyNeeds = () => {
 				/>
 			</section>
 
-
 			<section className="meet-card">
 				<h3>9. Hold other people’s needs with care</h3>
 
@@ -315,9 +405,11 @@ const MeetMyNeeds = () => {
 					care.
 				</p>
 
-				<p>If you want to ask someone for something, it may help to read the Requests page before you do.</p>
+				<p>
+					If you want to ask someone for something, it may help to read about making{" "}
+					<HelpLink topic="requests">clear requests</HelpLink> before you do.
+				</p>
 			</section>
-
 
 			<section className="meet-card">
 				<h3>10. Sometimes offering the need to others helps</h3>
@@ -339,11 +431,14 @@ const MeetMyNeeds = () => {
 
 				<ReflectBox
 					fieldId="offer-need"
-					label="Could I offer this need somewhere, in a way that feels alive rather than self-abandoning?"
+					label={
+						<>
+							Could I offer <N /> somewhere, in a way that feels alive rather than self-abandoning?
+						</>
+					}
 					placeholder="One way I might offer this quality is..."
 				/>
 			</section>
-
 
 			<section className="meet-card">
 				<h3>11. Choose one small experiment</h3>
@@ -361,7 +456,9 @@ const MeetMyNeeds = () => {
 
 				<p>You are simply asking:</p>
 
-				<blockquote>What might nourish this need a little?</blockquote>
+				<blockquote>
+					What might nourish <N /> a little?
+				</blockquote>
 
 				<p>Choose one small thing to try in the next few days.</p>
 
@@ -375,9 +472,12 @@ const MeetMyNeeds = () => {
 					<li>What did I learn?</li>
 				</ul>
 
-				<ReflectBox fieldId="small-experiment" label="My small experiment" placeholder="One small thing I will try is..." />
+				<ReflectBox
+					fieldId="small-experiment"
+					label="My small experiment"
+					placeholder="One small thing I will try is..."
+				/>
 			</section>
-
 
 			<section className="meet-card">
 				<h3>12. If nothing feels possible yet</h3>
