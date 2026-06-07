@@ -294,7 +294,7 @@ export const allNeeds = [
 	{
 		id: "affection",
 		label: "affection",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -305,7 +305,7 @@ export const allNeeds = [
 	{
 		id: "appreciation",
 		label: "appreciation",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "social_moral",
 		offerDeepening: {
@@ -328,7 +328,7 @@ export const allNeeds = [
 	{
 		id: "attention",
 		label: "attention",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -339,7 +339,7 @@ export const allNeeds = [
 	{
 		id: "closeness",
 		label: "closeness",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion: "Is this about physical closeness, emotional closeness, or both?",
@@ -349,7 +349,7 @@ export const allNeeds = [
 	{
 		id: "connection",
 		label: "connection",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -360,7 +360,7 @@ export const allNeeds = [
 	{
 		id: "companionship",
 		label: "companionship",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion: "Is this about having someone to do things with, or about not feeling alone in your experience?",
@@ -370,7 +370,7 @@ export const allNeeds = [
 	{
 		id: "harmony",
 		label: "harmony",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -385,7 +385,7 @@ export const allNeeds = [
 	{
 		id: "intimacy",
 		label: "intimacy",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -395,7 +395,7 @@ export const allNeeds = [
 	{
 		id: "love",
 		label: "love",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -412,7 +412,7 @@ export const allNeeds = [
 	{
 		id: "nurturing",
 		label: "nurturing",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion: "Are you wanting to be nurtured by someone, or noticing a need to nurture yourself?",
@@ -425,7 +425,7 @@ export const allNeeds = [
 	{
 		id: "sexual_expression",
 		label: "sexual expression",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -436,7 +436,7 @@ export const allNeeds = [
 	{
 		id: "support",
 		label: "support",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -454,7 +454,7 @@ export const allNeeds = [
 	{
 		id: "tenderness",
 		label: "tenderness",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -465,7 +465,7 @@ export const allNeeds = [
 	{
 		id: "having_my_back",
 		label: "having my back",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -475,7 +475,7 @@ export const allNeeds = [
 	{
 		id: "warmth",
 		label: "warmth",
-		family: "connection",
+		family: "Connection",
 		category: "Affection",
 		domain: "relational",
 		coreQuestion:
@@ -489,7 +489,7 @@ export const allNeeds = [
 	{
 		id: "to_matter",
 		label: "to matter",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "social_moral",
 		coreQuestion: "Who do you most want to matter to right now — someone else, or yourself?",
@@ -503,7 +503,7 @@ export const allNeeds = [
 	{
 		id: "acceptance",
 		label: "acceptance",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "social_moral",
 		coreQuestion:
@@ -519,7 +519,7 @@ export const allNeeds = [
 	{
 		id: "care",
 		label: "care",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "relational",
 		coreQuestion:
@@ -530,7 +530,7 @@ export const allNeeds = [
 	{
 		id: "compassion",
 		label: "compassion",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "relational",
 		coreQuestion:
@@ -546,7 +546,7 @@ export const allNeeds = [
 	{
 		id: "consideration",
 		label: "consideration",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "social_moral",
 		offerDeepening: {
@@ -564,7 +564,7 @@ export const allNeeds = [
 	{
 		id: "empathy",
 		label: "empathy",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "relational",
 		coreQuestion:
@@ -575,7 +575,7 @@ export const allNeeds = [
 	{
 		id: "respect",
 		label: "respect",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "social_moral",
 		offerDeepening: {
@@ -598,7 +598,7 @@ export const allNeeds = [
 	{
 		id: "acknowledgement",
 		label: "acknowledgement",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "social_moral",
 		offerDeepening: {
@@ -621,7 +621,7 @@ export const allNeeds = [
 	{
 		id: "to_be_heard",
 		label: "to be heard",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "relational",
 		coreQuestion:
@@ -632,7 +632,7 @@ export const allNeeds = [
 	{
 		id: "to_be_seen",
 		label: "to be seen",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "relational",
 		coreQuestion:
@@ -648,7 +648,7 @@ export const allNeeds = [
 	{
 		id: "to_be_known_understood",
 		label: "to be known & understood",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "relational",
 		coreQuestion:
@@ -666,7 +666,7 @@ export const allNeeds = [
 	{
 		id: "to_be_trusted",
 		label: "to be trusted",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "relational",
 		coreQuestion:
@@ -680,7 +680,7 @@ export const allNeeds = [
 	{
 		id: "understanding_others",
 		label: "understanding others",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "relational",
 		coreQuestion:
@@ -695,7 +695,7 @@ export const allNeeds = [
 	{
 		id: "mutual_recognition",
 		label: "mutual recognition",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "social_moral",
 		coreQuestion:
@@ -712,7 +712,7 @@ export const allNeeds = [
 	{
 		id: "kindness",
 		label: "kindness",
-		family: "connection",
+		family: "Connection",
 		category: "to matter",
 		domain: "relational",
 		coreQuestion:
@@ -737,7 +737,7 @@ export const allNeeds = [
 	{
 		id: "community",
 		label: "community",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "relational",
 		coreQuestion:
@@ -748,7 +748,7 @@ export const allNeeds = [
 	{
 		id: "belonging",
 		label: "belonging",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "relational",
 		coreQuestion: "Where do you most want to belong right now — a group, a place, or with a particular person?",
@@ -762,7 +762,7 @@ export const allNeeds = [
 	{
 		id: "reliability",
 		label: "reliability",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "system",
 		offerDeepening: {
@@ -786,7 +786,7 @@ export const allNeeds = [
 	{
 		id: "communication",
 		label: "communication",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "system",
 		offerDeepening: {
@@ -803,7 +803,7 @@ export const allNeeds = [
 	{
 		id: "cooperation",
 		label: "cooperation",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "system",
 		offerDeepening: {
@@ -821,7 +821,7 @@ export const allNeeds = [
 	{
 		id: "equality",
 		label: "equality",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "social_moral",
 		coreQuestion:
@@ -836,7 +836,7 @@ export const allNeeds = [
 	{
 		id: "inclusion",
 		label: "inclusion",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "social_moral",
 		coreQuestion:
@@ -850,7 +850,7 @@ export const allNeeds = [
 	{
 		id: "mutuality",
 		label: "mutuality",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "relational",
 		coreQuestion:
@@ -861,7 +861,7 @@ export const allNeeds = [
 	{
 		id: "participation",
 		label: "participation",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "social_moral",
 		offerDeepening: {
@@ -884,7 +884,7 @@ export const allNeeds = [
 	{
 		id: "partnership",
 		label: "partnership",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "relational",
 		coreQuestion:
@@ -894,7 +894,7 @@ export const allNeeds = [
 	{
 		id: "self_expression",
 		label: "self-expression",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "social_moral",
 		offerDeepening: {
@@ -916,7 +916,7 @@ export const allNeeds = [
 	{
 		id: "sharing",
 		label: "sharing",
-		family: "connection",
+		family: "Connection",
 		category: "Community",
 		domain: "relational",
 		coreQuestion: "Is this about sharing experiences together, sharing resources, or sharing what's in your heart?",
