@@ -30,7 +30,7 @@ export default function SavedEntries({ onSessionLoaded }) {
 		<div className="saved-entries">
 			{savedEntries
 				.slice()
-				.reverse()
+				.sort((a, b) => b.id - a.id)
 				.map((entry) => {
 					const date = new Date(entry.date).toLocaleDateString("en-AU", {
 						day: "numeric",
