@@ -490,7 +490,7 @@ export const allNeeds = [
 		id: "to_matter",
 		label: "to matter",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "social_moral",
 		coreQuestion: "Who do you most want to matter to right now — someone else, or yourself?",
 		directionPrompts: {
@@ -504,7 +504,7 @@ export const allNeeds = [
 		id: "acceptance",
 		label: "acceptance",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "social_moral",
 		coreQuestion:
 			"What part of you is wanting acceptance right now — is it about a decision you made, something you feel, or simply who you are?",
@@ -520,7 +520,7 @@ export const allNeeds = [
 		id: "care",
 		label: "care",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "relational",
 		coreQuestion:
 			"What would care look like in this situation — someone checking in, offering help, or simply noticing that you're struggling?",
@@ -531,7 +531,7 @@ export const allNeeds = [
 		id: "compassion",
 		label: "compassion",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "relational",
 		coreQuestion:
 			"Are you wanting compassion from someone else, or noticing you need more compassion toward yourself?",
@@ -547,7 +547,7 @@ export const allNeeds = [
 		id: "consideration",
 		label: "consideration",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "social_moral",
 		offerDeepening: {
 			questions: [
@@ -565,7 +565,7 @@ export const allNeeds = [
 		id: "empathy",
 		label: "empathy",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about someone understanding what it's like for you, or about them feeling emotionally with you?",
@@ -576,7 +576,7 @@ export const allNeeds = [
 		id: "respect",
 		label: "respect",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "social_moral",
 		offerDeepening: {
 			questions: [
@@ -599,7 +599,7 @@ export const allNeeds = [
 		id: "acknowledgement",
 		label: "acknowledgement",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "social_moral",
 		offerDeepening: {
 			questions: [
@@ -622,7 +622,7 @@ export const allNeeds = [
 		id: "to_be_heard",
 		label: "to be heard",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about someone listening all the way through, or about knowing your words are actually landing and influencing what happens next?",
@@ -633,7 +633,7 @@ export const allNeeds = [
 		id: "to_be_seen",
 		label: "to be seen",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about being noticed and recognised, or about someone really understanding what it's like to be you right now?",
@@ -649,7 +649,7 @@ export const allNeeds = [
 		id: "to_be_known_understood",
 		label: "to be known & understood",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about being understood in this moment, or about someone understanding you deeply over time?",
@@ -667,7 +667,7 @@ export const allNeeds = [
 		id: "to_be_trusted",
 		label: "to be trusted",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about someone believing in your honesty or capability, or about feeling able to trust yourself?",
@@ -681,7 +681,7 @@ export const allNeeds = [
 		id: "understanding_others",
 		label: "understanding others",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "relational",
 		coreQuestion:
 			"Is this about understanding a specific person, or about a more general wish to connect through understanding?",
@@ -696,7 +696,7 @@ export const allNeeds = [
 		id: "mutual_recognition",
 		label: "mutual recognition",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "social_moral",
 		coreQuestion:
 			"Is this about both of you seeing each other clearly, or about the absence of that — feeling invisible while the other person isn't really looking?",
@@ -713,7 +713,7 @@ export const allNeeds = [
 		id: "kindness",
 		label: "kindness",
 		family: "Connection",
-		category: "to matter",
+		category: "To matter",
 		domain: "relational",
 		coreQuestion:
 			"What would kindness look like right now — a gentle word, a thoughtful action, or simply the absence of harshness?",
