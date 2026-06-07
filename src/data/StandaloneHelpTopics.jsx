@@ -1269,7 +1269,7 @@ const StandaloneHelpTopics = [
 				<h3>Integrating something you'd like to believe</h3>
 				<p>
 					This exercise, developed by Bob Mandel in his 1984 book "Open Heart Therapy", helps you work with a
-					belief you'd like to hold about yourself — one that feels true but not yet fully integrated.
+					belief you'd like to hold about yourself.
 				</p>
 				<h3>How to do it</h3>
 				<ol>
@@ -1361,7 +1361,10 @@ const StandaloneHelpTopics = [
 				</p>
 				<p>
 					You can learn more at{" "}
-					<a href="https://thework.com" target="_blank" rel="noopener noreferrer">
+					<a
+						href="https://thework.com/instruction-the-work-byron-katie/"
+						target="_blank"
+						rel="noopener noreferrer">
 						thework.com
 					</a>
 					.

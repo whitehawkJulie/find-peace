@@ -73,9 +73,19 @@ const MenuBar = () => {
 	const prevTitle = hasPrev ? visibleSteps[prevIdx]?.component?.navTitle || "" : "";
 	const nextTitle = hasNext ? visibleSteps[nextIdx]?.component?.navTitle || "" : "";
 
-	// Base progress on allSteps so the bar doesn't jump when conditional steps appear
-	const allStepIndex = allSteps.findIndex((s) => s.component === currentStep?.component);
-	const progressPct = allSteps.length > 1 ? (allStepIndex / (allSteps.length - 1)) * 100 : 100;
+	// Progress bar: deduplicate subpages — treat WhereToNow + all its subpages as one step
+	const progressSteps = allSteps.filter((s) => !s.subPageOf);
+	const effectiveComponent = subPageOf || currentStep?.component;
+	const progressIdx = progressSteps.findIndex((s) => s.component === effectiveComponent);
+
+	const [hoveredSegment, setHoveredSegment] = useState(null);
+	const handleProgressClick = (step) => {
+		const idx = visibleSteps.findIndex((s) => s.component === step.component);
+		if (idx >= 0) {
+			setPendingNavMethod("button");
+			setStepIndex(idx);
+		}
+	};
 
 	const handleNewSession = () => {
 		if (hasSessionData()) {
@@ -102,13 +112,23 @@ const MenuBar = () => {
 	return (
 		<div className="menu-bar">
 			<div className="menu-bar-progress">
-				<div
-					className="menu-bar-progress-fill"
-					style={{
-						width: `${progressPct}%`,
-						background: currentStep?.color || "var(--color-green)",
-					}}
-				/>
+				{progressSteps.map((step, i) => (
+					<div
+						key={i}
+						className={`progress-segment${i <= progressIdx ? " progress-segment--filled" : ""}`}
+						style={{
+							width: `${100 / progressSteps.length}%`,
+							...(i <= progressIdx ? { background: step.color || "var(--color-green)" } : {}),
+						}}
+						onClick={() => handleProgressClick(step)}
+						onMouseEnter={() => setHoveredSegment(i)}
+						onMouseLeave={() => setHoveredSegment(null)}
+					>
+						{hoveredSegment === i && (
+							<div className="progress-tooltip">{step.component.navTitle}</div>
+						)}
+					</div>
+				))}
 			</div>
 
 			<div className="menu-bar-controls">
