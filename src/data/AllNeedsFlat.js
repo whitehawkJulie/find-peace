@@ -37,7 +37,7 @@ export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	{
 		id: "air",
-		label: "Air",
+		label: "air",
 		family: "Subsistence",
 		category: "Physical sustenance",
 		domain: "physiological",
@@ -47,7 +47,7 @@ export const allNeeds = [
 	},
 	{
 		id: "food",
-		label: "Food",
+		label: "food",
 		family: "Subsistence",
 		category: "Physical sustenance",
 		domain: "physiological",
@@ -57,7 +57,7 @@ export const allNeeds = [
 	},
 	{
 		id: "health",
-		label: "Health",
+		label: "health",
 		family: "Subsistence",
 		category: "Physical sustenance",
 		domain: "physiological",
@@ -73,7 +73,7 @@ export const allNeeds = [
 	},
 	{
 		id: "movement",
-		label: "Movement",
+		label: "movement",
 		family: "Subsistence",
 		category: "Physical sustenance",
 		domain: "physiological",
@@ -89,7 +89,7 @@ export const allNeeds = [
 	},
 	{
 		id: "physical_safety",
-		label: "Physical Safety",
+		label: "physical safety",
 		family: "Subsistence",
 		category: "Physical sustenance",
 		domain: "physiological",
@@ -100,7 +100,7 @@ export const allNeeds = [
 	},
 	{
 		id: "rest_sleep",
-		label: "Rest / sleep",
+		label: "rest / sleep",
 		family: "Subsistence",
 		category: "Physical sustenance",
 		domain: "physiological",
@@ -116,7 +116,7 @@ export const allNeeds = [
 	},
 	{
 		id: "shelter",
-		label: "Shelter",
+		label: "shelter",
 		family: "Subsistence",
 		category: "Physical sustenance",
 		domain: "physiological",
@@ -126,7 +126,7 @@ export const allNeeds = [
 	},
 	{
 		id: "touch",
-		label: "Touch",
+		label: "touch",
 		family: "Subsistence",
 		category: "Physical sustenance",
 		domain: "physiological",
@@ -142,7 +142,7 @@ export const allNeeds = [
 	},
 	{
 		id: "water",
-		label: "Water",
+		label: "water",
 		family: "Subsistence",
 		category: "Physical sustenance",
 		domain: "physiological",
@@ -156,7 +156,7 @@ export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	{
 		id: "order_structure",
-		label: "Order/Structure",
+		label: "order/structure",
 		family: "Subsistence",
 		category: "Security",
 		domain: "system",
@@ -180,7 +180,7 @@ export const allNeeds = [
 	},
 	{
 		id: "peace_external",
-		label: "Peace (external)",
+		label: "peace (external)",
 		family: "Subsistence",
 		category: "Security",
 		domain: "system",
@@ -199,7 +199,7 @@ export const allNeeds = [
 	},
 	{
 		id: "peace_of_mind",
-		label: "Peace of mind",
+		label: "peace of mind",
 		family: "Subsistence",
 		category: "Security",
 		domain: "existential",
@@ -210,7 +210,7 @@ export const allNeeds = [
 	},
 	{
 		id: "protection",
-		label: "Protection",
+		label: "protection",
 		family: "Subsistence",
 		category: "Security",
 		domain: "system",
@@ -228,7 +228,7 @@ export const allNeeds = [
 	},
 	{
 		id: "safety_emotional",
-		label: "Safety (emotional)",
+		label: "safety (emotional)",
 		family: "Subsistence",
 		category: "Security",
 		domain: "relational",
@@ -245,7 +245,7 @@ export const allNeeds = [
 	},
 	{
 		id: "stability",
-		label: "Stability",
+		label: "stability",
 		family: "Subsistence",
 		category: "Security",
 		domain: "system",
@@ -271,7 +271,7 @@ export const allNeeds = [
 	},
 	{
 		id: "trusting",
-		label: "Trusting",
+		label: "trusting",
 		family: "Subsistence",
 		category: "Security",
 		domain: "relational",
@@ -293,7 +293,7 @@ export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	{
 		id: "affection",
-		label: "Affection",
+		label: "affection",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -304,7 +304,7 @@ export const allNeeds = [
 	},
 	{
 		id: "appreciation",
-		label: "Appreciation",
+		label: "appreciation",
 		family: "Connection",
 		category: "Affection",
 		domain: "social_moral",
@@ -327,7 +327,7 @@ export const allNeeds = [
 	},
 	{
 		id: "attention",
-		label: "Attention",
+		label: "attention",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -338,7 +338,7 @@ export const allNeeds = [
 	},
 	{
 		id: "closeness",
-		label: "Closeness",
+		label: "closeness",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -348,7 +348,7 @@ export const allNeeds = [
 	},
 	{
 		id: "connection",
-		label: "Connection",
+		label: "connection",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -359,7 +359,7 @@ export const allNeeds = [
 	},
 	{
 		id: "companionship",
-		label: "Companionship",
+		label: "companionship",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -369,7 +369,7 @@ export const allNeeds = [
 	},
 	{
 		id: "harmony",
-		label: "Harmony",
+		label: "harmony",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -384,7 +384,7 @@ export const allNeeds = [
 	},
 	{
 		id: "intimacy",
-		label: "Intimacy",
+		label: "intimacy",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -394,7 +394,7 @@ export const allNeeds = [
 	},
 	{
 		id: "love",
-		label: "Love",
+		label: "love",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -411,7 +411,7 @@ export const allNeeds = [
 	},
 	{
 		id: "nurturing",
-		label: "Nurturing",
+		label: "nurturing",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -424,7 +424,7 @@ export const allNeeds = [
 	},
 	{
 		id: "sexual_expression",
-		label: "Sexual expression",
+		label: "sexual expression",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -435,7 +435,7 @@ export const allNeeds = [
 	},
 	{
 		id: "support",
-		label: "Support",
+		label: "support",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -453,7 +453,7 @@ export const allNeeds = [
 	},
 	{
 		id: "tenderness",
-		label: "Tenderness",
+		label: "tenderness",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -464,7 +464,7 @@ export const allNeeds = [
 	},
 	{
 		id: "having_my_back",
-		label: "Having my back",
+		label: "having my back",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -474,7 +474,7 @@ export const allNeeds = [
 	},
 	{
 		id: "warmth",
-		label: "Warmth",
+		label: "warmth",
 		family: "Connection",
 		category: "Affection",
 		domain: "relational",
@@ -488,7 +488,7 @@ export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	{
 		id: "to_matter",
-		label: "To matter",
+		label: "to matter",
 		family: "Connection",
 		category: "To matter",
 		domain: "social_moral",
@@ -502,7 +502,7 @@ export const allNeeds = [
 	},
 	{
 		id: "acceptance",
-		label: "Acceptance",
+		label: "acceptance",
 		family: "Connection",
 		category: "To matter",
 		domain: "social_moral",
@@ -518,7 +518,7 @@ export const allNeeds = [
 	},
 	{
 		id: "care",
-		label: "Care",
+		label: "care",
 		family: "Connection",
 		category: "To matter",
 		domain: "relational",
@@ -529,7 +529,7 @@ export const allNeeds = [
 	},
 	{
 		id: "compassion",
-		label: "Compassion",
+		label: "compassion",
 		family: "Connection",
 		category: "To matter",
 		domain: "relational",
@@ -545,7 +545,7 @@ export const allNeeds = [
 	},
 	{
 		id: "consideration",
-		label: "Consideration",
+		label: "consideration",
 		family: "Connection",
 		category: "To matter",
 		domain: "social_moral",
@@ -563,7 +563,7 @@ export const allNeeds = [
 	},
 	{
 		id: "empathy",
-		label: "Empathy",
+		label: "empathy",
 		family: "Connection",
 		category: "To matter",
 		domain: "relational",
@@ -574,7 +574,7 @@ export const allNeeds = [
 	},
 	{
 		id: "respect",
-		label: "Respect",
+		label: "respect",
 		family: "Connection",
 		category: "To matter",
 		domain: "social_moral",
@@ -597,7 +597,7 @@ export const allNeeds = [
 	},
 	{
 		id: "acknowledgement",
-		label: "Acknowledgement",
+		label: "acknowledgement",
 		family: "Connection",
 		category: "To matter",
 		domain: "social_moral",
@@ -620,7 +620,7 @@ export const allNeeds = [
 	},
 	{
 		id: "to_be_heard",
-		label: "To be heard",
+		label: "to be heard",
 		family: "Connection",
 		category: "To matter",
 		domain: "relational",
@@ -631,7 +631,7 @@ export const allNeeds = [
 	},
 	{
 		id: "to_be_seen",
-		label: "To be seen",
+		label: "to be seen",
 		family: "Connection",
 		category: "To matter",
 		domain: "relational",
@@ -647,7 +647,7 @@ export const allNeeds = [
 	},
 	{
 		id: "to_be_known_understood",
-		label: "To be known & understood",
+		label: "to be known & understood",
 		family: "Connection",
 		category: "To matter",
 		domain: "relational",
@@ -665,7 +665,7 @@ export const allNeeds = [
 	},
 	{
 		id: "to_be_trusted",
-		label: "To be trusted",
+		label: "to be trusted",
 		family: "Connection",
 		category: "To matter",
 		domain: "relational",
@@ -679,7 +679,7 @@ export const allNeeds = [
 	},
 	{
 		id: "understanding_others",
-		label: "Understanding others",
+		label: "understanding others",
 		family: "Connection",
 		category: "To matter",
 		domain: "relational",
@@ -694,7 +694,7 @@ export const allNeeds = [
 	},
 	{
 		id: "mutual_recognition",
-		label: "Mutual Recognition",
+		label: "mutual recognition",
 		family: "Connection",
 		category: "To matter",
 		domain: "social_moral",
@@ -711,7 +711,7 @@ export const allNeeds = [
 	},
 	{
 		id: "kindness",
-		label: "Kindness",
+		label: "kindness",
 		family: "Connection",
 		category: "To matter",
 		domain: "relational",
@@ -736,7 +736,7 @@ export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	{
 		id: "community",
-		label: "Community",
+		label: "community",
 		family: "Connection",
 		category: "Community",
 		domain: "relational",
@@ -747,7 +747,7 @@ export const allNeeds = [
 	},
 	{
 		id: "belonging",
-		label: "Belonging",
+		label: "belonging",
 		family: "Connection",
 		category: "Community",
 		domain: "relational",
@@ -761,7 +761,7 @@ export const allNeeds = [
 	},
 	{
 		id: "reliability",
-		label: "Reliability",
+		label: "reliability",
 		family: "Connection",
 		category: "Community",
 		domain: "system",
@@ -785,7 +785,7 @@ export const allNeeds = [
 	},
 	{
 		id: "communication",
-		label: "Communication",
+		label: "communication",
 		family: "Connection",
 		category: "Community",
 		domain: "system",
@@ -802,7 +802,7 @@ export const allNeeds = [
 	},
 	{
 		id: "cooperation",
-		label: "Cooperation",
+		label: "cooperation",
 		family: "Connection",
 		category: "Community",
 		domain: "system",
@@ -820,7 +820,7 @@ export const allNeeds = [
 	},
 	{
 		id: "equality",
-		label: "Equality",
+		label: "equality",
 		family: "Connection",
 		category: "Community",
 		domain: "social_moral",
@@ -835,7 +835,7 @@ export const allNeeds = [
 	},
 	{
 		id: "inclusion",
-		label: "Inclusion",
+		label: "inclusion",
 		family: "Connection",
 		category: "Community",
 		domain: "social_moral",
@@ -849,7 +849,7 @@ export const allNeeds = [
 	},
 	{
 		id: "mutuality",
-		label: "Mutuality",
+		label: "mutuality",
 		family: "Connection",
 		category: "Community",
 		domain: "relational",
@@ -860,7 +860,7 @@ export const allNeeds = [
 	},
 	{
 		id: "participation",
-		label: "Participation",
+		label: "participation",
 		family: "Connection",
 		category: "Community",
 		domain: "social_moral",
@@ -883,7 +883,7 @@ export const allNeeds = [
 	},
 	{
 		id: "partnership",
-		label: "Partnership",
+		label: "partnership",
 		family: "Connection",
 		category: "Community",
 		domain: "relational",
@@ -893,7 +893,7 @@ export const allNeeds = [
 	},
 	{
 		id: "self_expression",
-		label: "Self-expression",
+		label: "self-expression",
 		family: "Connection",
 		category: "Community",
 		domain: "social_moral",
@@ -915,7 +915,7 @@ export const allNeeds = [
 	},
 	{
 		id: "sharing",
-		label: "Sharing",
+		label: "sharing",
 		family: "Connection",
 		category: "Community",
 		domain: "relational",
@@ -929,7 +929,7 @@ export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	{
 		id: "authenticity",
-		label: "Authenticity",
+		label: "authenticity",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "existential",
@@ -940,7 +940,7 @@ export const allNeeds = [
 	},
 	{
 		id: "competence",
-		label: "Competence",
+		label: "competence",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "social_moral",
@@ -962,7 +962,7 @@ export const allNeeds = [
 	},
 	{
 		id: "creativity",
-		label: "Creativity",
+		label: "creativity",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "existential",
@@ -977,7 +977,7 @@ export const allNeeds = [
 	},
 	{
 		id: "dignity",
-		label: "Dignity",
+		label: "dignity",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "social_moral",
@@ -991,7 +991,7 @@ export const allNeeds = [
 	},
 	{
 		id: "self_worth",
-		label: "Self-worth",
+		label: "self-worth",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "in_me",
@@ -1012,7 +1012,7 @@ export const allNeeds = [
 	},
 	{
 		id: "growth",
-		label: "Growth",
+		label: "growth",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "existential",
@@ -1028,7 +1028,7 @@ export const allNeeds = [
 	},
 	{
 		id: "healing",
-		label: "Healing",
+		label: "healing",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "existential",
@@ -1045,7 +1045,7 @@ export const allNeeds = [
 	},
 	{
 		id: "honesty",
-		label: "Honesty",
+		label: "honesty",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "social_moral",
@@ -1068,7 +1068,7 @@ export const allNeeds = [
 	},
 	{
 		id: "integrity",
-		label: "Integrity",
+		label: "integrity",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "existential",
@@ -1078,7 +1078,7 @@ export const allNeeds = [
 	},
 	{
 		id: "self_acceptance",
-		label: "Self-acceptance",
+		label: "self-acceptance",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "existential",
@@ -1088,7 +1088,7 @@ export const allNeeds = [
 	},
 	{
 		id: "self_care",
-		label: "Self-care",
+		label: "self-care",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "existential",
@@ -1102,7 +1102,7 @@ export const allNeeds = [
 	},
 	{
 		id: "self_connection",
-		label: "Self-connection",
+		label: "self-connection",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "existential",
@@ -1113,7 +1113,7 @@ export const allNeeds = [
 	},
 	{
 		id: "self_knowledge",
-		label: "Self-knowledge",
+		label: "self-knowledge",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "existential",
@@ -1124,7 +1124,7 @@ export const allNeeds = [
 	},
 	{
 		id: "self_realization",
-		label: "Self-realization",
+		label: "self-realization",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "existential",
@@ -1139,7 +1139,7 @@ export const allNeeds = [
 	},
 	{
 		id: "mattering_to_myself",
-		label: "Mattering to myself",
+		label: "mattering to myself",
 		family: "Meaning",
 		category: "Sense of self",
 		domain: "existential",
@@ -1153,7 +1153,7 @@ export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	{
 		id: "understanding",
-		label: "Understanding",
+		label: "understanding",
 		family: "Meaning",
 		category: "Understanding",
 		domain: "existential",
@@ -1168,7 +1168,7 @@ export const allNeeds = [
 	},
 	{
 		id: "awareness",
-		label: "Awareness",
+		label: "awareness",
 		family: "Meaning",
 		category: "Understanding",
 		domain: "existential",
@@ -1183,7 +1183,7 @@ export const allNeeds = [
 	},
 	{
 		id: "clarity",
-		label: "Clarity",
+		label: "clarity",
 		family: "Meaning",
 		category: "Understanding",
 		domain: "system",
@@ -1198,7 +1198,7 @@ export const allNeeds = [
 	},
 	{
 		id: "discovery",
-		label: "Discovery",
+		label: "discovery",
 		family: "Meaning",
 		category: "Understanding",
 		domain: "existential",
@@ -1212,7 +1212,7 @@ export const allNeeds = [
 	},
 	{
 		id: "learning",
-		label: "Learning",
+		label: "learning",
 		family: "Meaning",
 		category: "Understanding",
 		domain: "existential",
@@ -1226,7 +1226,7 @@ export const allNeeds = [
 	},
 	{
 		id: "making_sense_of_life",
-		label: "Making sense of life",
+		label: "making sense of life",
 		family: "Meaning",
 		category: "Understanding",
 		domain: "existential",
@@ -1241,7 +1241,7 @@ export const allNeeds = [
 	},
 	{
 		id: "stimulation",
-		label: "Stimulation",
+		label: "stimulation",
 		family: "Meaning",
 		category: "Understanding",
 		domain: "existential",
@@ -1260,7 +1260,7 @@ export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	{
 		id: "meaning",
-		label: "Meaning",
+		label: "meaning",
 		family: "Meaning",
 		category: "Meaning",
 		domain: "existential",
@@ -1274,7 +1274,7 @@ export const allNeeds = [
 	},
 	{
 		id: "challenge",
-		label: "Challenge",
+		label: "challenge",
 		family: "Meaning",
 		category: "Meaning",
 		domain: "existential",
@@ -1290,7 +1290,7 @@ export const allNeeds = [
 	},
 	{
 		id: "aliveness",
-		label: "Aliveness",
+		label: "aliveness",
 		family: "Meaning",
 		category: "Meaning",
 		domain: "existential",
@@ -1305,7 +1305,7 @@ export const allNeeds = [
 	},
 	{
 		id: "consciousness",
-		label: "Consciousness",
+		label: "consciousness",
 		family: "Meaning",
 		category: "Meaning",
 		domain: "existential",
@@ -1320,7 +1320,7 @@ export const allNeeds = [
 	},
 	{
 		id: "contribution",
-		label: "Contribution",
+		label: "contribution",
 		family: "Meaning",
 		category: "Meaning",
 		domain: "existential",
@@ -1336,7 +1336,7 @@ export const allNeeds = [
 	},
 	{
 		id: "effectiveness",
-		label: "Effectiveness",
+		label: "effectiveness",
 		family: "Meaning",
 		category: "Meaning",
 		domain: "agency",
@@ -1359,7 +1359,7 @@ export const allNeeds = [
 	},
 	{
 		id: "exploration",
-		label: "Exploration",
+		label: "exploration",
 		family: "Meaning",
 		category: "Meaning",
 		domain: "existential",
@@ -1374,7 +1374,7 @@ export const allNeeds = [
 	},
 	{
 		id: "integration",
-		label: "Integration",
+		label: "integration",
 		family: "Meaning",
 		category: "Meaning",
 		domain: "existential",
@@ -1389,7 +1389,7 @@ export const allNeeds = [
 	},
 	{
 		id: "purpose",
-		label: "Purpose",
+		label: "purpose",
 		family: "Meaning",
 		category: "Meaning",
 		domain: "existential",
@@ -1408,7 +1408,7 @@ export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	{
 		id: "beauty",
-		label: "Beauty",
+		label: "beauty",
 		family: "Meaning",
 		category: "Transcendence",
 		domain: "existential",
@@ -1424,7 +1424,7 @@ export const allNeeds = [
 	},
 	{
 		id: "celebration_of_life",
-		label: "Celebration of life",
+		label: "celebration of life",
 		family: "Meaning",
 		category: "Transcendence",
 		domain: "existential",
@@ -1440,7 +1440,7 @@ export const allNeeds = [
 	},
 	{
 		id: "communion",
-		label: "Communion",
+		label: "communion",
 		family: "Meaning",
 		category: "Transcendence",
 		domain: "existential",
@@ -1457,7 +1457,7 @@ export const allNeeds = [
 	},
 	{
 		id: "faith",
-		label: "Faith",
+		label: "faith",
 		family: "Meaning",
 		category: "Transcendence",
 		domain: "existential",
@@ -1472,7 +1472,7 @@ export const allNeeds = [
 	},
 	{
 		id: "flow",
-		label: "Flow",
+		label: "flow",
 		family: "Meaning",
 		category: "Transcendence",
 		domain: "existential",
@@ -1488,7 +1488,7 @@ export const allNeeds = [
 	},
 	{
 		id: "hope",
-		label: "Hope",
+		label: "hope",
 		family: "Meaning",
 		category: "Transcendence",
 		domain: "existential",
@@ -1503,7 +1503,7 @@ export const allNeeds = [
 	},
 	{
 		id: "inspiration",
-		label: "Inspiration",
+		label: "inspiration",
 		family: "Meaning",
 		category: "Transcendence",
 		domain: "existential",
@@ -1517,7 +1517,7 @@ export const allNeeds = [
 	},
 	{
 		id: "mourning",
-		label: "Mourning",
+		label: "mourning",
 		family: "Meaning",
 		category: "Transcendence",
 		domain: "existential",
@@ -1533,7 +1533,7 @@ export const allNeeds = [
 	},
 	{
 		id: "peace_internal",
-		label: "Peace (internal)",
+		label: "peace (internal)",
 		family: "Meaning",
 		category: "Transcendence",
 		domain: "existential",
@@ -1548,7 +1548,7 @@ export const allNeeds = [
 	},
 	{
 		id: "presence",
-		label: "Presence",
+		label: "presence",
 		family: "Meaning",
 		category: "Transcendence",
 		domain: "existential",
@@ -1566,7 +1566,7 @@ export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	{
 		id: "freedom",
-		label: "Freedom",
+		label: "freedom",
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		domain: "agency",
@@ -1592,7 +1592,7 @@ export const allNeeds = [
 	},
 	{
 		id: "autonomy",
-		label: "Autonomy",
+		label: "autonomy",
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		domain: "agency",
@@ -1615,7 +1615,7 @@ export const allNeeds = [
 	},
 	{
 		id: "choice",
-		label: "Choice",
+		label: "choice",
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		domain: "agency",
@@ -1631,7 +1631,7 @@ export const allNeeds = [
 	},
 	{
 		id: "ease",
-		label: "Ease",
+		label: "ease",
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		domain: "agency",
@@ -1646,7 +1646,7 @@ export const allNeeds = [
 	},
 	{
 		id: "independence",
-		label: "Independence",
+		label: "independence",
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		domain: "agency",
@@ -1669,7 +1669,7 @@ export const allNeeds = [
 	},
 	{
 		id: "agency",
-		label: "Agency",
+		label: "agency",
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		domain: "agency",
@@ -1680,7 +1680,7 @@ export const allNeeds = [
 	},
 	{
 		id: "self_responsibility",
-		label: "Self-responsibility",
+		label: "self-responsibility",
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		domain: "agency",
@@ -1699,7 +1699,7 @@ export const allNeeds = [
 	},
 	{
 		id: "space",
-		label: "Space",
+		label: "space",
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		domain: "agency",
@@ -1714,7 +1714,7 @@ export const allNeeds = [
 	},
 	{
 		id: "spontaneity",
-		label: "Spontaneity",
+		label: "spontaneity",
 		family: "Freedom",
 		category: "Autonomy & Agency",
 		domain: "agency",
@@ -1741,7 +1741,7 @@ export const allNeeds = [
 	// ═══════════════════════════════════════════════════════════
 	{
 		id: "humour",
-		label: "Humour",
+		label: "humour",
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		domain: "existential",
@@ -1756,7 +1756,7 @@ export const allNeeds = [
 	},
 	{
 		id: "joy",
-		label: "Joy",
+		label: "joy",
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		domain: "existential",
@@ -1774,7 +1774,7 @@ export const allNeeds = [
 	},
 	{
 		id: "play",
-		label: "Play",
+		label: "play",
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		domain: "existential",
@@ -1790,7 +1790,7 @@ export const allNeeds = [
 	},
 	{
 		id: "pleasure",
-		label: "Pleasure",
+		label: "pleasure",
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		domain: "existential",
@@ -1806,7 +1806,7 @@ export const allNeeds = [
 	},
 	{
 		id: "rejuvenation",
-		label: "Rejuvenation",
+		label: "rejuvenation",
 		family: "Freedom",
 		category: "Leisure & Relaxation",
 		domain: "existential",

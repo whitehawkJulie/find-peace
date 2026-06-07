@@ -1,27 +1,27 @@
 import React from "react";
 import allNeeds from "../data/AllNeedsFlat";
 
-// Build a flat lookup at module scope: needLabel → need object
+// Build a flat lookup at module scope: lowercase needLabel → need object
 const needLookup = {};
 for (const need of allNeeds) {
-	needLookup[need.label] = need;
+	needLookup[need.label.toLowerCase()] = need;
 }
 
 // Look up which top-level family a need belongs to (e.g. "Love" → "Connection")
 export const getNeedCategory = (needName) => {
-	const entry = needLookup[needName];
+	const entry = needLookup[needName?.toLowerCase()];
 	return entry ? entry.family : null;
 };
 
 // Look up the short description of a need (e.g. "Love" → "Unconditional acceptance and care")
 export const getNeedMeaning = (needName) => {
-	const entry = needLookup[needName];
+	const entry = needLookup[needName?.toLowerCase()];
 	return entry ? entry.helpText : null;
 };
 
 // Look up the full flat data object for a need
 export const getNeedData = (needName) => {
-	return needLookup[needName] ?? null;
+	return needLookup[needName?.toLowerCase()] ?? null;
 };
 
 // Utility functions to extract selected items by type

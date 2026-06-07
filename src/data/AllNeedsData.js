@@ -52,9 +52,12 @@ function buildSection(familyName) {
 	};
 }
 
-export const needMeaningByLabel = Object.fromEntries(
-	allNeeds.map((n) => [n.label, n.helpText || ""])
+const _needMeaningRaw = Object.fromEntries(
+	allNeeds.map((n) => [n.label.toLowerCase(), n.helpText || ""])
 );
+export const needMeaningByLabel = new Proxy(_needMeaningRaw, {
+	get: (target, key) => (typeof key === "string" ? target[key.toLowerCase()] ?? "" : undefined),
+});
 
 export const Needs = {
 	ui: { heading: "Needs", helpText: "" },

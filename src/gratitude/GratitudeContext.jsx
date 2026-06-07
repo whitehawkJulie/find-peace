@@ -15,6 +15,9 @@ import GratitudeReview from "./steps/GratitudeReview";
 
 const STORAGE_KEY = "gratitudeSessions";
 
+const normalizeNeedKeys = (obj) =>
+	Object.fromEntries(Object.entries(obj || {}).map(([k, v]) => [k.toLowerCase(), v]));
+
 export const GratitudeProvider = ({ children }) => {
 	const allSteps = useMemo(() => [
 		{ component: GratitudeWelcome,     group: "intro",       color: "#7a9a5a" },
@@ -49,7 +52,9 @@ export const GratitudeProvider = ({ children }) => {
 	const [savedEntries, setSavedEntries] = useState(() => {
 		try {
 			const saved = localStorage.getItem(STORAGE_KEY);
-			return saved ? JSON.parse(saved) : [];
+			if (!saved) return [];
+			const entries = JSON.parse(saved);
+			return entries.map((e) => ({ ...e, needs: normalizeNeedKeys(e.needs) }));
 		} catch {
 			return [];
 		}

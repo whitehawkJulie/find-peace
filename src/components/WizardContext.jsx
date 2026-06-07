@@ -2,6 +2,10 @@ import React, { createContext, useContext, useState, useRef, useEffect, useMemo 
 import { encryptSession, decryptSession, isEncryptedSession } from "../utils/crypto";
 import { HelpContext } from "./HelpContext";
 
+// Normalize need keys to lowercase for backward compat with old Title Case entries
+const normalizeNeedKeys = (obj) =>
+	Object.fromEntries(Object.entries(obj || {}).map(([k, v]) => [k.toLowerCase(), v]));
+
 // Create context
 const WizardContext = createContext();
 
@@ -393,9 +397,13 @@ export const WizardProvider = ({ children }) => {
 		setBodyScan(session.bodyScan || {});
 		setBodySensations(session.bodySensations || { selected: [], custom: "" });
 		setFeelings(session.feelings || {});
-		setNeeds(session.needs || {});
-		setNeedExplorations(session.needExplorations || {});
-		setNeedReplacements(session.needReplacements || {});
+		setNeeds(normalizeNeedKeys(session.needs));
+		setNeedExplorations(
+			Object.fromEntries(
+				Object.entries(session.needExplorations || {}).map(([k, v]) => [k.toLowerCase(), v])
+			)
+		);
+		setNeedReplacements(normalizeNeedKeys(session.needReplacements));
 		setCurrentExploringNeed(null);
 		setExplorationStep(0);
 		setStrategies(session.strategies || {});
