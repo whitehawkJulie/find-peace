@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useWizard } from "./WizardContext";
 import { setPendingNavMethod } from "../analytics/analytics";
 import SavedEntries from "./SavedEntries";
+import { exportAllData, importAllData, daysSinceBackup } from "../utils/backupData";
 import "./SideMenu.css";
 
 const GROUP_LABELS = {
@@ -41,6 +42,10 @@ const SideMenu = ({ isOpen, onClose }) => {
 	const [subPanel, setSubPanel] = useState(null); // null | "open"
 	const [savedFeedback, setSavedFeedback] = useState(false);
 	const [confirmNew, setConfirmNew] = useState(false);
+	const [backupAge, setBackupAge] = useState(() => daysSinceBackup());
+	const [restoreState, setRestoreState] = useState(null); // null | "confirm" | "done" | "error"
+	const [restoreError, setRestoreError] = useState("");
+	const restoreInputRef = useRef(null);
 	const feedbackTimer = useRef(null);
 
 	// Reset sub-panel when menu closes
@@ -57,6 +62,26 @@ const SideMenu = ({ isOpen, onClose }) => {
 		clearTimeout(feedbackTimer.current);
 		feedbackTimer.current = setTimeout(() => setSavedFeedback(false), 2000);
 	};
+
+	const handleBackup = () => {
+		exportAllData();
+		setBackupAge(0);
+	};
+
+	const handleRestoreFileChosen = async (e) => {
+		const file = e.target.files[0];
+		if (!file) return;
+		e.target.value = "";
+		try {
+			await importAllData(file);
+			setRestoreState("done");
+		} catch (err) {
+			setRestoreError(err.message);
+			setRestoreState("error");
+		}
+	};
+
+	const backupOverdue = backupAge === null || backupAge >= 7;
 
 	const handleStepClick = (visIdx) => {
 		setPendingNavMethod("menu");
@@ -129,7 +154,73 @@ const SideMenu = ({ isOpen, onClose }) => {
 								}}>
 								📋 Summary
 							</button>
+							<button className="side-menu-action" onClick={handleBackup}>
+								⬇ Backup
+							</button>
+							<button
+								className="side-menu-action"
+								onClick={() => setRestoreState("confirm")}>
+								⬆ Restore
+							</button>
 						</div>
+
+						{/* Backup overdue reminder */}
+						{backupOverdue && restoreState === null && (
+							<div className="side-menu-backup-notice">
+								{backupAge === null
+									? "You haven't backed up yet."
+									: `Last backup ${backupAge} day${backupAge === 1 ? "" : "s"} ago.`}{" "}
+								<button className="button-styled-as-link" onClick={handleBackup}>
+									Back up now
+								</button>
+							</div>
+						)}
+
+						{/* Restore confirm / result */}
+						{restoreState === "confirm" && (
+							<div className="side-menu-backup-notice side-menu-backup-notice--warn">
+								<strong>Restore from file?</strong> This will overwrite all current data.{" "}
+								<button
+									className="button-styled-as-link"
+									onClick={() => restoreInputRef.current?.click()}>
+									Choose file
+								</button>{" "}
+								·{" "}
+								<button
+									className="button-styled-as-link"
+									onClick={() => setRestoreState(null)}>
+									Cancel
+								</button>
+							</div>
+						)}
+						{restoreState === "done" && (
+							<div className="side-menu-backup-notice side-menu-backup-notice--ok">
+								Restored. Reload the page to see your data.{" "}
+								<button
+									className="button-styled-as-link"
+									onClick={() => window.location.reload()}>
+									Reload now
+								</button>
+							</div>
+						)}
+						{restoreState === "error" && (
+							<div className="side-menu-backup-notice side-menu-backup-notice--warn">
+								{restoreError}{" "}
+								<button
+									className="button-styled-as-link"
+									onClick={() => setRestoreState(null)}>
+									Dismiss
+								</button>
+							</div>
+						)}
+
+						<input
+							ref={restoreInputRef}
+							type="file"
+							accept=".json,application/json"
+							style={{ display: "none" }}
+							onChange={handleRestoreFileChosen}
+						/>
 
 						<div className="side-menu-divider" />
 
