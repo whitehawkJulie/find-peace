@@ -4,6 +4,8 @@ import NvcWizard from "./components/NvcWizard";
 import { WizardProvider } from "./components/WizardContext";
 import { GratitudeProvider } from "./gratitude/GratitudeContext";
 import GratitudeWizard from "./gratitude/GratitudeWizard";
+import FeelingsApp from "./miniapps/FeelingsApp";
+import NeedsApp from "./miniapps/NeedsApp";
 import "./App.css";
 import "./styles/dyslexia-font.css";
 
@@ -21,6 +23,8 @@ const App = () => {
 
 	return (
 		<Routes>
+			<Route path="/feelings" element={<FeelingsApp />} />
+			<Route path="/needs" element={<NeedsApp />} />
 			<Route
 				path="/gratitude"
 				element={

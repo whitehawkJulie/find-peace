@@ -1,0 +1,51 @@
+.mini-app {
+	display: flex;
+	flex-direction: column;
+	min-height: 100dvh;
+	max-width: 680px;
+	margin: 0 auto;
+	font-family: inherit;
+}
+
+.mini-header {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	background: white;
+	border-bottom: 1px solid #e0e0e0;
+	padding: 0.75rem 1.25rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.mini-title {
+	margin: 0;
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: #333;
+}
+
+.mini-copy-btn {
+	background: #3a6a8a;
+	color: white;
+	border: none;
+	border-radius: 7px;
+	padding: 0.4rem 1rem;
+	font-size: 0.88rem;
+	font-family: inherit;
+	cursor: pointer;
+	float: none;
+	white-space: nowrap;
+	transition: background 0.15s;
+}
+
+.mini-copy-btn:hover {
+	background: #2d5a7a;
+}
+
+.mini-body {
+	flex: 1;
+	padding: 1rem 0.5rem;
+}
