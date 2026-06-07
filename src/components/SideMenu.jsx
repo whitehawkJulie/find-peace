@@ -81,7 +81,10 @@ const SideMenu = ({ isOpen, onClose }) => {
 		}
 	};
 
-	const backupOverdue = backupAge === null || backupAge >= 7;
+	const hasLocalData = ["findPeaceSessions", "gratitudeSessions"].some(
+		(k) => localStorage.getItem(k) !== null,
+	);
+	const backupOverdue = hasLocalData && (backupAge === null || backupAge >= 7);
 
 	const handleStepClick = (visIdx) => {
 		setPendingNavMethod("menu");
