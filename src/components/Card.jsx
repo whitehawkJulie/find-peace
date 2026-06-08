@@ -31,9 +31,10 @@ const Card = ({ title, children, hideNav = false }) => {
 		stepIndex,
 		setStepIndex,
 		visibleSteps,
+		hasMoreBelow,
+		setHasMoreBelow,
 	} = useWizard();
 	const isIntro = stepIndex === 0;
-	const [hasMoreBelow, setHasMoreBelow] = useState(false);
 	const [sideMenuOpen, setSideMenuOpen] = useState(false);
 
 	const helpOpenAt = useRef(null);
@@ -205,14 +206,6 @@ const Card = ({ title, children, hideNav = false }) => {
 					{children}
 				</div>
 				<div className="card-scroll-fade" aria-hidden="true" style={{ opacity: hasMoreBelow ? 1 : 0 }} />
-				<button
-					className="card-scroll-label"
-					style={{ opacity: hasMoreBelow ? 1 : 0, pointerEvents: hasMoreBelow ? "auto" : "none" }}
-					onClick={() => cardContentRef.current?.scrollBy({ top: cardContentRef.current.clientHeight * 0.85, behavior: "smooth" })}
-					tabIndex={hasMoreBelow ? 0 : -1}
-					aria-label="Scroll down for more">
-					scroll for more ↓
-				</button>
 			</div>
 
 			<SlideDrawer

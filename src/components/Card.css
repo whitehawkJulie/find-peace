@@ -150,7 +150,7 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 	/* Bottom padding = fade height so content can scroll fully clear of the gradient */
-	padding: 1.25rem 1.25rem 5rem 1.25rem;
+	padding: 1.25rem 1.25rem 2.5rem 1.25rem;
 }
 
 /* Reset browser default margins for p/h2/h3 inside the card.
@@ -164,39 +164,18 @@
 
 /* ── Scroll indicator fade ──
    Absolutely positioned inside .card-content-wrapper, always anchored
-   to the bottom of the visible scroll area regardless of content height. */
+   to the bottom of the visible scroll area regardless of content height.
+   Label has moved to MenuBar (above the progress bar) to avoid overlapping nav. */
 .card-scroll-fade {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	height: 72px;
-	background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.95));
+	height: 40px;
+	background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.9));
 	pointer-events: none;
 	transition: opacity 0.25s ease;
 	z-index: 2;
-}
-
-.card-scroll-label {
-	position: absolute;
-	bottom: 10px;
-	left: 0;
-	right: 0;
-	text-align: center;
-	font-size: 0.72rem;
-	color: #999;
-	background: none;
-	border: none;
-	padding: 4px 0;
-	float: none;
-	transition: opacity 0.25s ease, color 0.15s ease;
-	z-index: 3;
-	letter-spacing: 0.04em;
-	cursor: pointer;
-}
-
-.card-scroll-label:hover {
-	color: #666;
 }
 /* Tagline shown below the logo on the intro page only */
 .card-intro-tagline {

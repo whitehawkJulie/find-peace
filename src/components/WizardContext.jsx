@@ -253,6 +253,9 @@ export const WizardProvider = ({ children }) => {
 	// Session-only: tracks whether user has ever opened the feelingsMet checklist
 	const [feelingsMetShown, setFeelingsMetShown] = useState(false);
 
+	// Whether the current card has content below the visible fold — shared with MenuBar
+	const [hasMoreBelow, setHasMoreBelow] = useState(false);
+
 	// Summary modal open state — accessible from any page via the top menu
 	const [showSummary, setShowSummary] = useState(false);
 
@@ -560,6 +563,8 @@ export const WizardProvider = ({ children }) => {
 		openHelpTopic,
 		feelingsMetShown,
 		setFeelingsMetShown,
+		hasMoreBelow,
+		setHasMoreBelow,
 		showSummary,
 		setShowSummary,
 		showSettings,

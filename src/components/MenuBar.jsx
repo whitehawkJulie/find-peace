@@ -15,6 +15,8 @@ const MenuBar = () => {
 		hasSessionData,
 		setShowSummary,
 		saveSession,
+		hasMoreBelow,
+		cardContentRef,
 	} = useWizard();
 
 	const [confirmNew, setConfirmNew] = useState(false);
@@ -111,6 +113,14 @@ const MenuBar = () => {
 
 	return (
 		<div className="menu-bar">
+			{hasMoreBelow && (
+				<button
+					className="menu-bar-scroll-hint"
+					onClick={() => cardContentRef.current?.scrollBy({ top: cardContentRef.current.clientHeight * 0.85, behavior: "smooth" })}
+					aria-label="Scroll down for more">
+					scroll for more ↓
+				</button>
+			)}
 			<div className="menu-bar-progress">
 				{progressSteps.map((step, i) => (
 					<div
